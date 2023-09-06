@@ -74,8 +74,10 @@ const Login = () => {
     <div>
       <div
         style={{
-          background: "linear-gradient(to bottom, #0074e4, #00a1e9)", // Background color
-          minHeight: "100vh", // Minimum height to cover the viewport
+          //
+          background:
+            "linear-gradient(to bottom, #000000, #000000 50%, #0074e4 50%, #0074e4)",
+          minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -111,10 +113,10 @@ const Login = () => {
             <div
               className="title"
               style={{
-                fontSize: "24px",
+                fontSize: "30px",
                 fontWeight: "bold",
                 textAlign: "center",
-                marginTop: "15px",
+                marginTop: "5px",
                 fontStyle: "inherit",
               }}
             >
@@ -134,7 +136,7 @@ const Login = () => {
               ThinkZone is a social enterprise that works towards improving the
               learning outcomes of children from under-resourced communities.
             </div>
-            <div className="fields" style={{ marginTop: "20px" }}>
+            <div className="fields" style={{ marginTop: "35px" }}>
               <div
                 className="username"
                 style={{
@@ -150,7 +152,7 @@ const Login = () => {
                   style={{
                     border: "1px solid #ccc",
                     borderRadius: "5px",
-                    width: "95%",
+                    width: "90%",
                     padding: "10px",
                   }}
                 />
@@ -169,12 +171,12 @@ const Login = () => {
                   style={{
                     border: "1px solid #ccc",
                     borderRadius: "5px",
-                    width: "85%",
+                    width: "90%",
                     padding: "10px",
                   }}
                 />
 
-                <button
+                {/* <button
                   type="button"
                   className="eye-button"
                   onClick={toggleShowPassword}
@@ -184,6 +186,31 @@ const Login = () => {
                     fontSize: "10px",
                     // marginTop: "40px",
                     color: "#000", // Customize the color as needed
+                  }}
+                >
+                  {showPassword ? (
+                    <span className="material-icons">
+                      <VisibilityRoundedIcon />
+                    </span>
+                  ) : (
+                    <span className="material-icons">
+                      <VisibilityOffRoundedIcon />
+                    </span>
+                  )}
+                </button> */}
+                <button
+                  type="button"
+                  className="eye-button"
+                  onClick={toggleShowPassword}
+                  style={{
+                    border: "0px",
+                    backgroundColor: "transparent",
+                    fontSize: "16px", // Increase the font size for better visibility
+                    color: showPassword ? "#0074e4" : "#ccc", // Change color when password is shown or hidden
+                    marginLeft: "-30px", // Adjust the margin to position it better
+                    cursor: "pointer",
+                    position: "relative", // Add position property for better control
+                    zIndex: 1, // Add z-index to make it appear on top of the input field
                   }}
                 >
                   {showPassword ? (
@@ -211,7 +238,7 @@ const Login = () => {
                 cursor: "pointer",
                 fontWeight: "bold",
                 fontSize: "16px",
-                width: "100%",
+                width: "95%",
               }}
             >
               Login

@@ -38,8 +38,7 @@ function Root() {
           <Route path="/home/TrainingDetails" element={<TrainingDetails />} />
           <Route path="/home/NsdcStatus" element={<NsdcStatus />} />
           {/* <Route path="/home/Schools" element={<Schools />} /> */}
-          {/* <></> */}
-          {/* <></> */}
+
           <Route path="/home/Anganbadi" element={<Anganbadi />} />
           <Route path="/home/PgeStudents" element={<PgeStudents />} />
           <Route path="/home/EceStudents" element={<EceStudents />} />

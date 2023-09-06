@@ -4,7 +4,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import "./Dashboard.css";
 import Card from "../components/Card";
 import Links from "../components/Links";
-import Api from "../api/Api";
+import Api from "../environment/Api";
 import Select1 from "../components/Select1";
 const Femalefellows = "http://localhost:3000/home/fellows";
 const Dashboard = () => {

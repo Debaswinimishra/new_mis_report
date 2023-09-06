@@ -29,7 +29,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Profile from "./components/Profile";
 // import Profile from "./components/Profile";
 import FeedbackIcon from "@mui/icons-material/Feedback";
-
+import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 const drawerWidth = 240;
 
 function Home(props) {
@@ -50,11 +50,17 @@ function Home(props) {
       link: "/home/dashboard",
       icon: <DashboardIcon color="secondary" />,
     },
-    // {
-    //   text: "Fellows",
-    //   link: "/home/fellows",
-    //   icon: <PeopleAltIcon color="primary" />,
-    // },
+
+    {
+      text: "Fellows",
+      link: "/home/fellows",
+      icon: <PeopleAltIcon color="primary" />,
+    },
+    {
+      text: "ComunityEducator",
+      link: "/home/comunityEducator",
+      icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
+    },
     // {
     //   text: "TimeSpend Details",
     //   link: "/home/TimeSpendDetails",
@@ -201,7 +207,11 @@ function Home(props) {
             variant="h6"
             noWrap
             component="div"
-            sx={{ textTransform: "uppercase" }}
+            sx={{
+              textTransform: "uppercase",
+              width: "250px",
+              alignSelf: "center",
+            }}
           >
             {pathname.split("/")[2]}
           </Typography>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
+import { getAuthenticateUser } from "../AllApi/Login";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,20 +24,33 @@ const Login = () => {
       loginType: "password",
     };
 
+    // try {
+    //   const res = await axios.post(
+    //     "https://thinkzone.in.net/thinkzone/authenticateuser",
+    //     body,
+    //     config
+    //   );
+    //   if (res.data.status === "success") {
+    //     localStorage.setItem("login", true);
+    //     navigate("/home/dashboard");
+    //   } else {
+    //     alert("Login Failed");
+    //   }
+    // } catch (error) {
+    //   alert("Login Failed");
+    // }
     try {
-      const res = await axios.post(
-        "https://thinkzone.in.net/thinkzone/authenticateuser",
-        body,
-        config
-      );
-      if (res.data.status === "success") {
+      const response = await getAuthenticateUser(body, config);
+      console.log("response--->", response.data, response.status);
+      if (response.data.status === "success") {
         localStorage.setItem("login", true);
         navigate("/home/dashboard");
       } else {
-        alert("Login Failed");
+        alert("Please Enter Valid ID and Password");
       }
-    } catch (error) {
-      alert("Login Failed");
+      // setManagerArr(response.data.resData);
+    } catch (err) {
+      console.log("err--->", err.response.status);
     }
   };
 

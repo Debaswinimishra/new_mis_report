@@ -27,3 +27,29 @@
   color: #524e4e;
   border-color: #878787;
 }
+
+/* Default styles for all device sizes */
+.profile-container {
+  margin-left: auto;
+}
+
+/* Media query for small devices (e.g., mobile phones) */
+@media (max-width: 767px) {
+  .profile-container {
+    margin: 0; /* Remove margin on small devices */
+  }
+}
+
+/* Media query for medium devices (e.g., tablets) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .profile-container {
+    margin-left: auto; /* Reset margin for medium devices */
+  }
+}
+
+/* Media query for large devices (e.g., desktops) */
+@media (min-width: 1024px) {
+  .profile-container {
+    margin-left: auto; /* Reset margin for large devices */
+  }
+}

@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import image from "../Assets/R.png";
 const logout = "http://localhost:3000";
 
 export default function Profile() {
@@ -61,7 +62,8 @@ export default function Profile() {
               }}
             >
               <img
-                src="https://th.bing.com/th/id/R.7ab7ffd6535f7df24a1bba57977927a3?rik=7Iy8ftpgY%2fBUPw&riu=http%3a%2f%2fwww.alterbeat.com%2fuploads%2f7%2f0%2f6%2f4%2f70641135%2fthinkzone-logo_7_orig.png&ehk=S3PCOXxbWQ9GVYIn55aFmdrJDVFcZZrfentJTCNZsXg%3d&risl=&pid=ImgRaw&r=0"
+                // src="https://th.bing.com/th/id/R.7ab7ffd6535f7df24a1bba57977927a3?rik=7Iy8ftpgY%2fBUPw&riu=http%3a%2f%2fwww.alterbeat.com%2fuploads%2f7%2f0%2f6%2f4%2f70641135%2fthinkzone-logo_7_orig.png&ehk=S3PCOXxbWQ9GVYIn55aFmdrJDVFcZZrfentJTCNZsXg%3d&risl=&pid=ImgRaw&r=0"
+                src={image}
                 width="35"
                 height="35"
               />

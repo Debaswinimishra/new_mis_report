@@ -57,8 +57,8 @@ function Home(props) {
       icon: <PeopleAltIcon color="primary" />,
     },
     {
-      text: "ComunityEducator",
-      link: "/home/comunityEducator",
+      text: "Community Educator",
+      link: "/home/ComunityEducator",
       icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
     },
     // {
@@ -132,9 +132,10 @@ function Home(props) {
       <Toolbar>
         <h1
           style={{
+            marginLeft: "-10px",
             letterSpacing: "2px",
-            fontSize: "1.8rem",
-            fontWeight: "bold",
+            fontSize: "1.9rem",
+            // fontWeight: "bold",
             color: "transparent",
             textAlign: "center",
             WebkitBackgroundClip: "text",
@@ -202,21 +203,20 @@ function Home(props) {
           >
             <MenuIcon />
           </IconButton>
-
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              textTransform: "uppercase",
-              width: "250px",
-              alignSelf: "center",
-            }}
-          >
-            {pathname.split("/")[2]}
-          </Typography>
-
-          <Profile />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Typography
+              style={{
+                fontFamily: "Calibri",
+                textTransform: "uppercase",
+                fontSize: "23px",
+              }}
+            >
+              {pathname.split("/")[2]}
+            </Typography>
+          </div>
+          <div style={{ marginLeft: "auto" }}>
+            <Profile />
+          </div>
         </Toolbar>
       </AppBar>
 

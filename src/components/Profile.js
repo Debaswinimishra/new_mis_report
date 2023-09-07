@@ -14,7 +14,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 const logout = "http://localhost:3000";
 
-export default function Profile () {
+export default function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
@@ -26,7 +26,7 @@ export default function Profile () {
   };
 
   const handleNavigate = () => {
-     {
+    {
       localStorage.removeItem("login");
     }
     navigate("/");
@@ -38,8 +38,7 @@ export default function Profile () {
           display: "flex",
           alignItems: "center",
           textAlign: "center",
-          marginLeft: 125,
-        
+          marginLeft: "800px",
         }}
       >
         {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
@@ -55,7 +54,7 @@ export default function Profile () {
           >
             <Avatar
               sx={{
-                width: 42,
+                width: "42px",
                 height: 42,
                 color: "#fff",
                 background: "#fff",
@@ -79,7 +78,7 @@ export default function Profile () {
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: "visible",
+            overflow: "hidden",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
             "& .MuiAvatar-root": {

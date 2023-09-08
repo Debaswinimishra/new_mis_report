@@ -22,6 +22,7 @@ import Login from "../pages/Login";
 // import PromotedStudent from "../pages/PromotedStudent";
 import ComunityEducator from "../pages/ComunityEducator";
 import NewTraining from "../pages/NewTraining";
+import CommonMonthlyQuiz from "../pages/CommonMonthlyQuiz";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
@@ -49,6 +50,10 @@ function Root() {
           <Route path="/home/Feedback" element={<Feedback />} />
           <Route path="/home/ComunityEducator" element={<ComunityEducator />} />
           <Route path="/home/NewTraining" element={<NewTraining />} />
+          <Route
+            path="/home/CommonMonthlyQuiz"
+            element={<CommonMonthlyQuiz />}
+          />
         </Route>
       </Route>
       <Route path="/" element={<Login />} />

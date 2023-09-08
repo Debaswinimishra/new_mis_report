@@ -41,7 +41,7 @@ const ComunityEducator = () => {
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   useEffect(() => {

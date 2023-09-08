@@ -116,7 +116,7 @@ function Home(props) {
     {
       text: "Log out",
       link: "/",
-      icon: <LogoutIcon color="secondary" />,
+      icon: <LogoutIcon color="primary" />,
     },
   ];
 

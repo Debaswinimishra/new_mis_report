@@ -62,11 +62,11 @@ const Fields = ({
           <TableBody>
             {data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row,index) => (
+              .map((row, index) => (
                 <StyledTableRow key={index}>
                   {columns.map((column, columnIndex) => (
                     <StyledTableCell key={columnIndex}>
-                      {getCellValue(row, column,index)}
+                      {getCellValue(row, column, index)}
                     </StyledTableCell>
                   ))}
                 </StyledTableRow>

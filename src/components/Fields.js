@@ -60,17 +60,18 @@ const Fields = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row,index) => (
-                <StyledTableRow key={index}>
-                  {columns.map((column, columnIndex) => (
-                    <StyledTableCell key={columnIndex}>
-                      {getCellValue(row, column,index)}
-                    </StyledTableCell>
-                  ))}
-                </StyledTableRow>
-              ))}
+            {Array.isArray(data) && // Check if data is an array
+              data
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => (
+                  <StyledTableRow key={index}>
+                    {columns.map((column, columnIndex) => (
+                      <StyledTableCell key={columnIndex}>
+                        {getCellValue(row, column, index)}
+                      </StyledTableCell>
+                    ))}
+                  </StyledTableRow>
+                ))}
           </TableBody>
         </Table>
         <TablePagination

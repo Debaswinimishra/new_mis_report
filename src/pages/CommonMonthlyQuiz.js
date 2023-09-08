@@ -269,7 +269,7 @@ const ComunityEducator = () => {
   const fileName = "common monthly quiz";
 
   const xlData = data.map((x) => {
-    const { userid, username, ...exceptBoth } = x;
+    const { ...exceptBoth } = x;
     return exceptBoth;
   });
   return (

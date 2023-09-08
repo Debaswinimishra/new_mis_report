@@ -30,6 +30,7 @@ import Profile from "./components/Profile";
 import Swal from "sweetalert2";
 // import Profile from "./components/Profile";
 import FeedbackIcon from "@mui/icons-material/Feedback";
+import QuizIcon from "@mui/icons-material/Quiz";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 const drawerWidth = 240;
 
@@ -61,6 +62,11 @@ function Home(props) {
       text: "Community Educator",
       link: "/home/ComunityEducator",
       icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
+    },
+    {
+      text: "CommonMonthlyQuiz",
+      link: "/home/commonmonthlyquiz",
+      icon: <QuizIcon sx={{ color: "rgb(63,94,251)" }} />,
     },
     // {
     //   text: "TimeSpend Details",

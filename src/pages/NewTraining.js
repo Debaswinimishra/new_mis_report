@@ -38,6 +38,53 @@ const reportTypeArr = [
   { id: 3, value: "topic", label: "Topic" },
 ];
 
+const moduleColumn = [
+  "Serial No",
+  "Manager Name",
+  "Passcode",
+  "User Id",
+  "User Name",
+  "Contact No",
+  "Module Name",
+  "Module Completion Status",
+  "Module Secured Marks",
+  "Module Total Marks",
+  "Module Certificate",
+];
+const subModuleColumn = [
+  "Serial No",
+  "Manager Name",
+  "Passcode",
+  "User Id",
+  "User Name",
+  "Contact No",
+  "Submodule Name",
+  "Submodule Completion Status",
+  "Submodule Secured Marks",
+  "Submodule Total Marks",
+];
+const TopicColumn = [
+  "Serial No",
+  "Manager Name",
+  "Passcode",
+  "User Id",
+  "User Name",
+  "Contact No",
+  "Topic Name",
+  "Quiz 1 Status",
+  "Quiz 1 Secured Mark",
+  "Quiz 1 Total Mark",
+  "Content Status",
+  "Assignment Status",
+  "Quiz 2 status",
+  "Quiz 2 Secured Mark",
+  "Quiz 2 Total Mark",
+  "Topic Status",
+  "Topic Secured Mark",
+  "Topic Total Mark",
+  "Time spent Status",
+];
+
 const NewTraining = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
@@ -129,12 +176,6 @@ const NewTraining = () => {
       return alert("Please select some filters to proceed");
     }
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     const body = {
       year: selectedYear,
       managerid: managerName,
@@ -176,53 +217,6 @@ const NewTraining = () => {
     setRowsPerPage(event.target.value);
     setPage(0);
   };
-
-  const moduleColumn = [
-    "Serial No",
-    "Manager Name",
-    "Passcode",
-    "User Id",
-    "User Name",
-    "Contact No",
-    "Module Name",
-    "Module Completion Status",
-    "Module Secured Marks",
-    "Module Total Marks",
-    "Module Certificate",
-  ];
-  const subModuleColumn = [
-    "Serial No",
-    "Manager Name",
-    "Passcode",
-    "User Id",
-    "User Name",
-    "Contact No",
-    "Submodule Name",
-    "Submodule Completion Status",
-    "Submodule Secured Marks",
-    "Submodule Total Marks",
-  ];
-  const TopicColumn = [
-    "Serial No",
-    "Manager Name",
-    "Passcode",
-    "User Id",
-    "User Name",
-    "Contact No",
-    "Topic Name",
-    "Quiz 1 Status",
-    "Quiz 1 Secured Mark",
-    "Quiz 1 Total Mark",
-    "Content Status",
-    "Assignment Status",
-    "Quiz 2 status",
-    "Quiz 2 Secured Mark",
-    "Quiz 2 Total Mark",
-    "Topic Status",
-    "Topic Secured Mark",
-    "Topic Total Mark",
-    "Time spent Status",
-  ];
 
   const getCellValueModule = (row, column, index) => {
     switch (column) {
@@ -327,10 +321,39 @@ const NewTraining = () => {
 
   const fileName = "fellow";
 
-  //   const xlData = data.map((x) => {
-  //     const { userid, username, ...exceptBoth } = x;
-  //     return exceptBoth;
-  //   });
+  // Conditionally map moduleData, subModuleData, and topicData
+  const xlModuleData = Array.isArray(moduleData)
+    ? moduleData.map((x) => {
+        if (x.moduleData) {
+          const { userid, username, ...exceptBoth } = x.moduleData;
+          return exceptBoth;
+        }
+        // Handle cases where moduleData doesn't exist (e.g., return an empty object)
+        return {};
+      })
+    : [];
+
+  const xlSubModuleData = Array.isArray(subModuleData)
+    ? subModuleData.map((x) => {
+        if (x.subModuleData) {
+          const { userid, username, ...exceptBoth } = x.subModuleData;
+          return exceptBoth;
+        }
+        // Handle cases where subModuleData doesn't exist (e.g., return an empty object)
+        return {};
+      })
+    : [];
+
+  const xlTopicData = Array.isArray(topicData)
+    ? topicData.map((x) => {
+        if (x.topicData) {
+          const { userid, username, ...exceptBoth } = x.topicData;
+          return exceptBoth;
+        }
+        // Handle cases where topicData doesn't exist (e.g., return an empty object)
+        return {};
+      })
+    : [];
   return (
     <>
       <Box>
@@ -387,11 +410,6 @@ const NewTraining = () => {
                 currencies={trainingTypeArray}
                 handleChange={handleTrainingTypeChange}
               />
-              {/* <Text
-                name="Select Report-type"
-                currencies={reportTypeArr}
-                handleChange={handleReportTypeChange}
-              /> */}
 
               <Stack spacing={2} direction="row">
                 <Button
@@ -409,8 +427,8 @@ const NewTraining = () => {
             onChange={handleChange}
             aria-label="wrapped label tabs example"
           >
-            {/* <Tab value="one" label="Module" wrapped /> */}
-            {/* <Tab value="two" label="Submodule" /> */}
+            <Tab value="one" label="Module" wrapped />
+            <Tab value="two" label="Submodule" />
             <Tab value="three" label="Topic" />
           </Tabs>
           {/* Display data */}
@@ -418,7 +436,7 @@ const NewTraining = () => {
             {/* Display data based on the selected tab */}
             {loaded && (
               <>
-                {/* {value === "one" ? (
+                {value === "one" ? (
                   <Fields
                     data={moduleData}
                     totalDataLength={totalDataLength}
@@ -426,7 +444,7 @@ const NewTraining = () => {
                     rowsPerPage={rowsPerPage}
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    // xlData={xlData}
+                    xlData={xlModuleData}
                     fileName={fileName}
                     columns={moduleColumn}
                     getCellValue={getCellValueModule}
@@ -441,12 +459,12 @@ const NewTraining = () => {
                     rowsPerPage={rowsPerPage}
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    // xlData={xlData}
+                    xlData={xlSubModuleData}
                     fileName={fileName}
                     columns={subModuleColumn}
                     getCellValue={getCellValueSubModule}
                   />
-                ) : null} */}
+                ) : null}
 
                 {value === "three" ? (
                   <Fields
@@ -456,7 +474,7 @@ const NewTraining = () => {
                     rowsPerPage={rowsPerPage}
                     handleChangePage={handleChangePage}
                     handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    // xlData={xlData}
+                    xlData={xlTopicData}
                     fileName={fileName}
                     columns={TopicColumn}
                     getCellValue={getCellValueTopic}

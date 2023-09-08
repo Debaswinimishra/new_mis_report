@@ -11,7 +11,7 @@ const Text = ({ name, currencies, handleChange }) => {
       // value={name}
       onChange={(e) => handleChange(e)}
     >
-      {currencies.map((option) => (
+      {currencies?.map((option) => (
         <MenuItem key={option.id} value={option.value}>
           {option.label}
         </MenuItem>

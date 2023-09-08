@@ -25,11 +25,14 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
 const managerTypeSet = [
-  { value: "none", label: "none" },
-  { value: "MANAGER", label: "MANAGER" },
+  // { value: "none", label: "none" },
+  { value: "MANAGER", label: "Manager" },
   { value: "Crc", label: "CRC" },
   { value: "Aww", label: "Supervisor" },
 ];
+
+const noneValue = [{ value: "none", label: "None" }];
+
 const ComunityEducator = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
@@ -56,7 +59,7 @@ const ComunityEducator = () => {
   const [value, setValue] = React.useState("one");
   const [selectedFilter, setSelectedFilter] = useState("topic"); // Default to "topic"
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   useEffect(() => {
@@ -87,17 +90,34 @@ const ComunityEducator = () => {
   });
   const handleYearChange = (selectedYear) => {
     setSelectedYear(selectedYear);
+    setManagerName("");
+    setPasscode("");
+    setTopicName("");
+    setQuestionName("");
+
+    // setManagerArr([]);
+    // setManagerName("");
   };
-  const handleManagerChange = (event) => {
-    setManagerName(event.target.value);
-    // console.log("managername---------->", managerName);
-  };
+
   const handleManagerTypeChange = (event) => {
     setManagerType(event.target.value);
+    setManagerName("");
+    setPasscode("");
+    setTopicName("");
+    setQuestionName("");
+  };
+
+  const handleManagerChange = (event) => {
+    setManagerName(event.target.value);
+    setPasscode("");
+    setTopicName("");
+    setQuestionName("");
   };
 
   const handlePasscodeChange = async (event) => {
     setPasscode(event.target.value);
+    setTopicName("");
+    setQuestionName("");
 
     try {
       const response = await getAllTopic();
@@ -307,47 +327,95 @@ const ComunityEducator = () => {
                   selectedYear={selectedYear}
                   onChange={handleYearChange}
                 />
-                <Text
-                  name="Select manager-type"
-                  currencies={managerTypeSet}
-                  handleChange={handleManagerTypeChange}
-                />
+                {selectedYear ? (
+                  <Text
+                    name="Select manager-type"
+                    currencies={managerTypeSet}
+                    handleChange={handleManagerTypeChange}
+                  />
+                ) : (
+                  <Text
+                    name="Select manager-type"
+                    currencies={noneValue}
+                    handleChange={handleManagerTypeChange}
+                  />
+                )}
 
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select manager"
-                  defaultValue="none"
-                  value={managerName}
-                  onChange={(e) => handleManagerChange(e)}
-                >
-                  {managerArr.map((option, index) => (
-                    <MenuItem key={index + 1} value={option.managerid}>
-                      {option.managername}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                {selectedYear ? (
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Select manager"
+                    defaultValue="none"
+                    value={managerName}
+                    onChange={(e) => handleManagerChange(e)}
+                  >
+                    {managerArr.map((option, index) => (
+                      <MenuItem key={index + 1} value={option.managerid}>
+                        {option.managername}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                ) : (
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Select manager"
+                    defaultValue="none"
+                    value=""
+                    onChange={(e) => handleManagerChange(e)}
+                  >
+                    <MenuItem value="None">None</MenuItem>
+                  </TextField>
+                )}
 
-                <ReusableTextField
-                  label="Select passcode"
-                  value={passcode}
-                  options={passcodeArray}
-                  onChange={handlePasscodeChange}
-                />
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select Topic"
-                  defaultValue="none"
-                  value={topicName}
-                  onChange={handleTopicChange}
-                >
-                  {topicArr.map((option, index) => (
-                    <MenuItem key={option.topicId} value={option.topicId}>
-                      {option.topicName}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                {selectedYear && managerType ? (
+                  <ReusableTextField
+                    label="Select passcode"
+                    value={passcode}
+                    options={passcodeArray}
+                    onChange={handlePasscodeChange}
+                  />
+                ) : (
+                  <ReusableTextField
+                    label="Select passcode"
+                    defaultValue="none"
+                    value=""
+                    options={passcodeArray}
+                    onChange={handlePasscodeChange}
+                  />
+                )}
+
+                {selectedYear && managerType && managerName ? (
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Select Topic"
+                    defaultValue="none"
+                    value={topicName}
+                    onChange={handleTopicChange}
+                  >
+                    {topicArr.map((option, index) => (
+                      <MenuItem key={option.topicId} value={option.topicId}>
+                        {option.topicName}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                ) : (
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Select Topic"
+                    defaultValue="none"
+                    value=""
+                    onChange={handleTopicChange}
+                  >
+                    <MenuItem value="None">None</MenuItem>
+                  </TextField>
+                )}
+
+                {/* ... Further code ... */}
+
                 {/* <TextField
                   id="outlined-select-currency"
                   select
@@ -423,47 +491,93 @@ const ComunityEducator = () => {
                   selectedYear={selectedYear}
                   onChange={handleYearChange}
                 />
-                <Text
-                  name="Select manager-type"
-                  currencies={managerTypeSet}
-                  handleChange={handleManagerTypeChange}
-                />
+                {selectedYear ? (
+                  <Text
+                    name="Select manager-type"
+                    currencies={managerTypeSet}
+                    handleChange={handleManagerTypeChange}
+                  />
+                ) : (
+                  <Text
+                    name="Select manager-type"
+                    currencies={noneValue}
+                    handleChange={handleManagerTypeChange}
+                  />
+                )}
 
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select manager"
-                  defaultValue="none"
-                  value={managerName}
-                  onChange={(e) => handleManagerChange(e)}
-                >
-                  {managerArr.map((option, index) => (
-                    <MenuItem key={index + 1} value={option.managerid}>
-                      {option.managername}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                {selectedYear ? (
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Select manager"
+                    defaultValue="none"
+                    value={managerName}
+                    onChange={(e) => handleManagerChange(e)}
+                  >
+                    {managerArr.map((option, index) => (
+                      <MenuItem key={index + 1} value={option.managerid}>
+                        {option.managername}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                ) : (
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Select manager"
+                    defaultValue="none"
+                    value=""
+                    onChange={(e) => handleManagerChange(e)}
+                  >
+                    <MenuItem value="None">None</MenuItem>
+                  </TextField>
+                )}
 
-                <ReusableTextField
-                  label="Select passcode"
-                  value={passcode}
-                  options={passcodeArray}
-                  onChange={handlePasscodeChange}
-                />
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select Topic"
-                  defaultValue="none"
-                  value={topicName}
-                  onChange={handleTopicChange}
-                >
-                  {topicArr.map((option, index) => (
-                    <MenuItem key={option.topicId} value={option.topicId}>
-                      {option.topicName}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                {selectedYear && managerType ? (
+                  <ReusableTextField
+                    label="Select passcode"
+                    value={passcode}
+                    options={passcodeArray}
+                    onChange={handlePasscodeChange}
+                  />
+                ) : (
+                  <ReusableTextField
+                    label="Select passcode"
+                    defaultValue="none"
+                    value=""
+                    options={passcodeArray}
+                    onChange={handlePasscodeChange}
+                  />
+                )}
+
+                {selectedYear && managerType && managerName ? (
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Select Topic"
+                    defaultValue="none"
+                    value={topicName}
+                    onChange={handleTopicChange}
+                  >
+                    {topicArr.map((option, index) => (
+                      <MenuItem key={option.topicId} value={option.topicId}>
+                        {option.topicName}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                ) : (
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    label="Select Topic"
+                    defaultValue="none"
+                    value=""
+                    onChange={handleTopicChange}
+                  >
+                    <MenuItem value="None">None</MenuItem>
+                  </TextField>
+                )}
+
                 <TextField
                   id="outlined-select-currency"
                   select

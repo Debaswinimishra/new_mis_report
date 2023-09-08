@@ -266,7 +266,7 @@ const ComunityEducator = () => {
     }
   };
 
-  const fileName = "fellow";
+  const fileName = "common monthly quiz";
 
   const xlData = data.map((x) => {
     const { userid, username, ...exceptBoth } = x;

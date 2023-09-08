@@ -80,6 +80,7 @@ const TopicColumn = [
   "Quiz 2 Secured Mark",
   "Quiz 2 Total Mark",
   "Topic Status",
+  "Topic Percentage",
   "Topic Secured Mark",
   "Topic Total Mark",
   "Time spent Status",
@@ -304,15 +305,15 @@ const NewTraining = () => {
         return row.quiz2SecuredMarks;
       case "Quiz 2 Total Mark":
         return row.quiz2TotalMarks;
-      case "Topic Complete":
-        return row.topicIsComplete;
+      case "Topic Status":
+        return row.topicIsComplete ? "Complete" : "Incomplete";
       case "Topic Percentage":
         return row.topicPercentage;
       case "Topic Secured Mark":
         return row.topicSecuredMarks;
       case "Topic Total Mark":
         return row.topicTotalMarks;
-      case "Time spent Status":
+      // case "Time spent Status":
       // return row.usertype;
       default:
         return "";
@@ -324,8 +325,8 @@ const NewTraining = () => {
   // Conditionally map moduleData, subModuleData, and topicData
   const xlModuleData = Array.isArray(moduleData)
     ? moduleData.map((x) => {
-        if (x.moduleData) {
-          const { userid, username, ...exceptBoth } = x.moduleData;
+        if (x) {
+          const { ...exceptBoth } = x;
           return exceptBoth;
         }
         // Handle cases where moduleData doesn't exist (e.g., return an empty object)
@@ -335,8 +336,8 @@ const NewTraining = () => {
 
   const xlSubModuleData = Array.isArray(subModuleData)
     ? subModuleData.map((x) => {
-        if (x.subModuleData) {
-          const { userid, username, ...exceptBoth } = x.subModuleData;
+        if (x) {
+          const { ...exceptBoth } = x;
           return exceptBoth;
         }
         // Handle cases where subModuleData doesn't exist (e.g., return an empty object)
@@ -346,8 +347,9 @@ const NewTraining = () => {
 
   const xlTopicData = Array.isArray(topicData)
     ? topicData.map((x) => {
-        if (x.topicData) {
-          const { userid, username, ...exceptBoth } = x.topicData;
+        console.log("xlTopicData", x);
+        if (x) {
+          const { ...exceptBoth } = x;
           return exceptBoth;
         }
         // Handle cases where topicData doesn't exist (e.g., return an empty object)
@@ -422,67 +424,77 @@ const NewTraining = () => {
               </Stack>
             </div>
           </div>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="wrapped label tabs example"
-          >
-            <Tab value="one" label="Module" wrapped />
-            <Tab value="two" label="Submodule" />
-            <Tab value="three" label="Topic" />
-          </Tabs>
-          {/* Display data */}
-          <>
-            {/* Display data based on the selected tab */}
-            {loaded && (
+          {
+            // moduleData.length > 0 &&
+            // subModuleData.length > 0 &&
+            topicData.length > 0 ? (
               <>
-                {value === "one" ? (
-                  <Fields
-                    data={moduleData}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlModuleData}
-                    fileName={fileName}
-                    columns={moduleColumn}
-                    getCellValue={getCellValueModule}
-                  />
-                ) : null}
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="wrapped label tabs example"
+                >
+                  <Tab value="one" label="Module" wrapped />
+                  <Tab value="two" label="Submodule" wrapped />
+                  <Tab value="three" label="Topic" wrapped />
+                </Tabs>
+                {/* Display data */}
+                <>
+                  {/* Display data based on the selected tab */}
+                  {loaded && (
+                    <>
+                      {value === "one" ? (
+                        <Fields
+                          data={moduleData}
+                          totalDataLength={totalDataLength}
+                          page={page}
+                          rowsPerPage={rowsPerPage}
+                          handleChangePage={handleChangePage}
+                          handleChangeRowsPerPage={handleChangeRowsPerPage}
+                          xlData={xlModuleData}
+                          fileName={fileName}
+                          columns={moduleColumn}
+                          getCellValue={getCellValueModule}
+                        />
+                      ) : null}
 
-                {value === "two" ? (
-                  <Fields
-                    data={subModuleData}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlSubModuleData}
-                    fileName={fileName}
-                    columns={subModuleColumn}
-                    getCellValue={getCellValueSubModule}
-                  />
-                ) : null}
+                      {value === "two" ? (
+                        <Fields
+                          data={subModuleData}
+                          totalDataLength={totalDataLength}
+                          page={page}
+                          rowsPerPage={rowsPerPage}
+                          handleChangePage={handleChangePage}
+                          handleChangeRowsPerPage={handleChangeRowsPerPage}
+                          xlData={xlSubModuleData}
+                          fileName={fileName}
+                          columns={subModuleColumn}
+                          getCellValue={getCellValueSubModule}
+                        />
+                      ) : null}
 
-                {value === "three" ? (
-                  <Fields
-                    data={topicData}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlTopicData}
-                    fileName={fileName}
-                    columns={TopicColumn}
-                    getCellValue={getCellValueTopic}
-                  />
-                ) : null}
+                      {value === "three" ? (
+                        <Fields
+                          data={Array.isArray(topicData) ? topicData : []}
+                          totalDataLength={totalDataLength}
+                          page={page}
+                          rowsPerPage={rowsPerPage}
+                          handleChangePage={handleChangePage}
+                          handleChangeRowsPerPage={handleChangeRowsPerPage}
+                          xlData={xlTopicData}
+                          fileName={fileName}
+                          columns={TopicColumn}
+                          getCellValue={getCellValueTopic}
+                        />
+                      ) : null}
+                    </>
+                  )}
+                </>
               </>
-            )}
-          </>
+            ) : (
+              <Logo />
+            )
+          }
           <Links />
         </>
       </Box>

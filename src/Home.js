@@ -53,11 +53,11 @@ function Home(props) {
       icon: <DashboardIcon color="secondary" />,
     },
 
-    {
-      text: "Fellows",
-      link: "/home/fellows",
-      icon: <PeopleAltIcon color="primary" />,
-    },
+    // {
+    //   text: "Fellows",
+    //   link: "/home/fellows",
+    //   icon: <PeopleAltIcon color="primary" />,
+    // },
     {
       text: "Community Educator",
       link: "/home/ComunityEducator",

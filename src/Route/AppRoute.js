@@ -22,7 +22,7 @@ import Login from "../pages/Login";
 // import PromotedStudent from "../pages/PromotedStudent";
 import ComunityEducator from "../pages/ComunityEducator";
 import NewTraining from "../pages/NewTraining";
-import CommonMonthlyQuiz from "../pages/CommonMonthlyQuiz";
+import CommonMonthlyQuiz from "../pages/CommonMonthlyQuiz/CommonMonthlyQuiz";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
@@ -36,7 +36,7 @@ function Root() {
       <Route element={<PrivateRoute />}>
         <Route path="/home" element={<Home />}>
           <Route path="/home/dashboard" element={<Dashboard />} />
-          <Route path="/home/fellows" element={<Fellows />} />
+          {/* <Route path="/home/fellows" element={<Fellows />} /> */}
           <Route path="/home/TimeSpendDetails" element={<TimeSpendDetails />} />
           <Route path="/home/TrainingDetails" element={<TrainingDetails />} />
           <Route path="/home/NsdcStatus" element={<NsdcStatus />} />

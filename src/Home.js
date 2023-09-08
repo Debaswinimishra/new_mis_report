@@ -73,11 +73,11 @@ function Home(props) {
     //   link: "/home/TimeSpendDetails",
     //   icon: <AccessTimeIcon color="success" />,
     // },
-    // {
-    //   text: "Training Details",
-    //   link: "/home/TrainingDetails",
-    //   icon: <AcUnitIcon color="secondary" />,
-    // },
+    {
+      text: "Training Details",
+      link: "/home/NewTraining",
+      icon: <AcUnitIcon color="secondary" />,
+    },
     // {
     //   text: "NSDC Status",
     //   link: "/home/NsdcStatus",

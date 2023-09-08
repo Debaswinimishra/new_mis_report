@@ -27,6 +27,7 @@ import AccessibilityIcon from "@mui/icons-material/Accessibility";
 import { pink, yellow } from "@mui/material/colors";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Profile from "./components/Profile";
+import Swal from "sweetalert2";
 // import Profile from "./components/Profile";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
@@ -122,9 +123,20 @@ function Home(props) {
   const handleNavigate = (link) => {
     setActiveLink(link.split("/")[2]);
     if (link === "/") {
-      localStorage.removeItem("login");
+      Swal.fire({
+        title: "Do you exit ?",
+        showCancelButton: true,
+        confirmButtonText: "Exit",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.removeItem("login");
+          navigate("/");
+        }
+      });
+    } else {
+      navigate(link);
     }
-    navigate(link);
   };
 
   const drawer = (

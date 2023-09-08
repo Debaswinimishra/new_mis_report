@@ -13,6 +13,9 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import image from "../Assets/R.png";
+import swal from "sweetalert";
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 const logout = "http://localhost:3000";
 
 export default function Profile() {
@@ -27,10 +30,17 @@ export default function Profile() {
   };
 
   const handleNavigate = () => {
-    {
-      localStorage.removeItem("login");
-    }
-    navigate("/");
+    Swal.fire({
+      title: "Do you exit ?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Exit",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("login");
+      } else if (result.isDenied) {
+      }
+    });
   };
   return (
     <React.Fragment>
@@ -108,10 +118,10 @@ export default function Profile() {
       >
         {/* <MenuItem onClick={handleClose}>
           <Avatar /> Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
           <Avatar /> My account
-        </MenuItem>
+          </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
@@ -121,7 +131,7 @@ export default function Profile() {
         </MenuItem> */}
         {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <Settings fontSize="small" />
+          <Settings fontSize="small" />
           </ListItemIcon>
           Settings
         </MenuItem> */}

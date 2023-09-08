@@ -147,12 +147,11 @@ function Home(props) {
             marginLeft: "-10px",
             letterSpacing: "2px",
             fontSize: "1.9rem",
-            // fontWeight: "bold",
             color: "transparent",
             textAlign: "center",
             WebkitBackgroundClip: "text",
             backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
-            fontFamily: "'Nuosu SIL', serif",
+            fontFamily: "Serif,HP Simplified Hans",
           }}
         >
           THINKZONE

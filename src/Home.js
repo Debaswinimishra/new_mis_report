@@ -124,7 +124,7 @@ function Home(props) {
     setActiveLink(link.split("/")[2]);
     if (link === "/") {
       Swal.fire({
-        title: "Do you exit ?",
+        title: "Do you want to exit ?",
         showCancelButton: true,
         confirmButtonText: "Exit",
         icon: "warning",

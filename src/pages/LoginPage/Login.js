@@ -44,7 +44,7 @@ const Login = () => {
       console.log("response--->", response.data, response.status);
       if (response.data.status === "success") {
         localStorage.setItem("login", true);
-        navigate("/home/dashboard");
+        navigate("/demopage");
       } else {
         alert("Please Enter Valid ID and Password");
       }
@@ -80,7 +80,7 @@ const Login = () => {
   useEffect(() => {
     const isLoggedin = localStorage.getItem("login");
     if (isLoggedin === "true") {
-      navigate("/home/dashboard");
+      navigate("/demopage");
     }
   }, []);
 

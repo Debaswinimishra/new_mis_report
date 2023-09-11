@@ -105,6 +105,8 @@ const NewTraining = () => {
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
 
+  const subYear = selectedYear?.substring(2);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
 
@@ -140,10 +142,17 @@ const NewTraining = () => {
 
   let passcodeArray = [];
 
-  managerArr?.filter((element) => {
-    if (element.managerid === managerName) {
-      // console.log("x--->", managerName, element);
-      passcodeArray = element.passcodes;
+  managerArr?.forEach((element) => {
+    if (element?.managerid === managerName) {
+      passcodeArray = element?.passcodes?.filter((ele) => {
+        // console.log("passcodeArray", ele);
+        const passcodeYear = ele.slice(-2); // Get the last two characters of the passcode
+        if (subYear === passcodeYear) {
+          return true; // Return true if the year matches
+        }
+        return false; // Return false if the year doesn't match
+      });
+      console.log(passcodeArray, "passcodeArray");
     }
   });
   const handleYearChange = (selectedYear) => {

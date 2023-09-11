@@ -105,7 +105,8 @@ const NewTraining = () => {
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
 
-  const subYear = selectedYear;
+  const subYear = selectedYear?.substring(2);
+  // console.log("subYear---------------", subYear);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -151,19 +152,23 @@ const NewTraining = () => {
   managerArr?.forEach((element) => {
     if (element?.managerid === managerName) {
       passcodeArray = element?.passcodes?.filter((ele) => {
-        if (subYear == ele?.passcode?.slice(passcode.length - 2)) {
-          return true;
+        // console.log("passcodeArray", ele);
+        const passcodeYear = ele.slice(-2); // Get the last two characters of the passcode
+        if (subYear === passcodeYear) {
+          return true; // Return true if the year matches
         }
+        return false; // Return false if the year doesn't match
       });
       console.log(passcodeArray, "passcodeArray");
     }
   });
+
   const handleYearChange = (selectedYear) => {
     setSelectedYear(selectedYear);
   };
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);
-    // console.log("managername---------->", managerName);
+    console.log("managername---------->", managerName);
   };
   const handleManagerTypeChange = (event) => {
     setManagerType(event.target.value);

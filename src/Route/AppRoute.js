@@ -18,7 +18,7 @@ import EceStudents from "../pages/EceStudents";
 import Fln from "../pages/Fln";
 import PromotedStudent from "../pages/PromotedStudent";
 import Feedback from "../pages/Feedback";
-import Login from "../pages/Login";
+import Login from "../pages/LoginPage/Login";
 // import PromotedStudent from "../pages/PromotedStudent";
 import ComunityEducator from "../pages/ComunityEducator";
 import NewTraining from "../pages/NewTraining";

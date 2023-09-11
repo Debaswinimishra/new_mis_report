@@ -105,6 +105,8 @@ const NewTraining = () => {
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
 
+  const subYear = selectedYear;
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
 
@@ -140,10 +142,20 @@ const NewTraining = () => {
 
   let passcodeArray = [];
 
-  managerArr?.filter((element) => {
-    if (element.managerid === managerName) {
-      // console.log("x--->", managerName, element);
-      passcodeArray = element.passcodes;
+  // managerArr?.filter((element) => {
+  //   if (element.managerid === managerName) {
+  //     // console.log("x--->", managerName, element);
+  //     passcodeArray = element.passcodes;
+  //   }
+  // });
+  managerArr?.forEach((element) => {
+    if (element?.managerid === managerName) {
+      passcodeArray = element?.passcodes?.filter((ele) => {
+        if (subYear == ele?.passcode?.slice(passcode.length - 2)) {
+          return true;
+        }
+      });
+      console.log(passcodeArray, "passcodeArray");
     }
   });
   const handleYearChange = (selectedYear) => {
@@ -394,11 +406,13 @@ const NewTraining = () => {
                 value={managerName}
                 onChange={(e) => handleManagerChange(e)}
               >
-                {managerArr.map((option, index) => (
-                  <MenuItem key={index + 1} value={option.managerid}>
-                    {option.managername}
-                  </MenuItem>
-                ))}
+                {managerArr && managerArr.length > 0
+                  ? managerArr.map((option, index) => (
+                      <MenuItem key={index + 1} value={option.managerid}>
+                        {option.managername}
+                      </MenuItem>
+                    ))
+                  : null}
               </TextField>
 
               <ReusableTextField

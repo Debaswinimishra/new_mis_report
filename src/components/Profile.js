@@ -1,53 +1,47 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
+import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-const logout = "http://localhost:3000";
+import image from "../Assets/R.png";
+import Swal from "sweetalert2";
+import { useMediaQuery } from "@mui/material";
 
-export default function Profile () {
+export default function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const navigate = useNavigate();
   const open = Boolean(anchorEl);
+  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleNavigate = () => {
-     {
-      localStorage.removeItem("login");
-    }
-    navigate("/");
+    Swal.fire({
+      title: "Do you want to log out?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Logout",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("login");
+      }
+    });
   };
+
   return (
-    <React.Fragment>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          textAlign: "center",
-          marginLeft: 125,
-        
-        }}
-      >
-        {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-        <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
+    <>
+      <div style={{ display: "flex", alignItems: "center" }}>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
-            size="small"
+            size={isSmallScreen ? "small" : "medium"}
             sx={{ ml: 2 }}
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
@@ -55,21 +49,22 @@ export default function Profile () {
           >
             <Avatar
               sx={{
-                width: 42,
-                height: 42,
-                color: "#fff",
-                background: "#fff",
+                width: isSmallScreen ? 32 : 42,
+                height: isSmallScreen ? 32 : 42,
+                backgroundColor: "#fff",
               }}
             >
               <img
-                src="https://th.bing.com/th/id/R.7ab7ffd6535f7df24a1bba57977927a3?rik=7Iy8ftpgY%2fBUPw&riu=http%3a%2f%2fwww.alterbeat.com%2fuploads%2f7%2f0%2f6%2f4%2f70641135%2fthinkzone-logo_7_orig.png&ehk=S3PCOXxbWQ9GVYIn55aFmdrJDVFcZZrfentJTCNZsXg%3d&risl=&pid=ImgRaw&r=0"
-                width="35"
-                height="35"
+                src={image}
+                width={isSmallScreen ? 25 : 35}
+                height={isSmallScreen ? 25 : 35}
+                alt="Profile"
               />
             </Avatar>
           </IconButton>
         </Tooltip>
-      </Box>
+      </div>
+
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -79,7 +74,7 @@ export default function Profile () {
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: "visible",
+            overflow: "hidden",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
             "& .MuiAvatar-root": {
@@ -105,32 +100,11 @@ export default function Profile () {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {/* <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem> */}
-        {/* <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem> */}
         <MenuItem onClick={handleNavigate}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          <h4>Logout</h4>
+          <Logout fontSize="small" />
+          <span style={{ marginLeft: "8px" }}>Logout</span>
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </>
   );
 }

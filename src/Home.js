@@ -27,6 +27,7 @@ import AccessibilityIcon from "@mui/icons-material/Accessibility";
 import { pink, yellow } from "@mui/material/colors";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Profile from "./components/Profile";
+import Swal from "sweetalert2";
 // import Profile from "./components/Profile";
 import FeedbackIcon from "@mui/icons-material/Feedback";
 import QuizIcon from "@mui/icons-material/Quiz";
@@ -52,14 +53,14 @@ function Home(props) {
       icon: <DashboardIcon color="secondary" />,
     },
 
+    // {
+    //   text: "Fellows",
+    //   link: "/home/fellows",
+    //   icon: <PeopleAltIcon color="primary" />,
+    // },
     {
-      text: "Fellows",
-      link: "/home/fellows",
-      icon: <PeopleAltIcon color="primary" />,
-    },
-    {
-      text: "ComunityEducator",
-      link: "/home/comunityEducator",
+      text: "Community Educator",
+      link: "/home/ComunityEducator",
       icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
     },
     {
@@ -121,16 +122,27 @@ function Home(props) {
     {
       text: "Log out",
       link: "/",
-      icon: <LogoutIcon color="secondary" />,
+      icon: <LogoutIcon color="primary" />,
     },
   ];
 
   const handleNavigate = (link) => {
     setActiveLink(link.split("/")[2]);
     if (link === "/") {
-      localStorage.removeItem("login");
+      Swal.fire({
+        title: "Do you want to exit ?",
+        showCancelButton: true,
+        confirmButtonText: "Exit",
+        icon: "warning",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.removeItem("login");
+          navigate("/");
+        }
+      });
+    } else {
+      navigate(link);
     }
-    navigate(link);
   };
 
   const drawer = (
@@ -138,14 +150,14 @@ function Home(props) {
       <Toolbar>
         <h1
           style={{
+            marginLeft: "-10px",
             letterSpacing: "2px",
-            fontSize: "1.8rem",
-            fontWeight: "bold",
+            fontSize: "1.9rem",
             color: "transparent",
             textAlign: "center",
             WebkitBackgroundClip: "text",
             backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
-            fontFamily: "'Nuosu SIL', serif",
+            fontFamily: "Serif,HP Simplified Hans",
           }}
         >
           THINKZONE
@@ -208,21 +220,20 @@ function Home(props) {
           >
             <MenuIcon />
           </IconButton>
-
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              textTransform: "uppercase",
-              width: "250px",
-              alignSelf: "center",
-            }}
-          >
-            {pathname.split("/")[2]}
-          </Typography>
-
-          <Profile />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Typography
+              style={{
+                fontFamily: "Calibri",
+                textTransform: "uppercase",
+                fontSize: "23px",
+              }}
+            >
+              {pathname.split("/")[2]}
+            </Typography>
+          </div>
+          <div style={{ marginLeft: "auto" }}>
+            <Profile />
+          </div>
         </Toolbar>
       </AppBar>
 

@@ -89,14 +89,16 @@ const Login = () => {
       <div
         style={{
           //
-          background:
-            "linear-gradient(to bottom, #000000, #000000 50%, #0074e4 50%, #0074e4)",
+          background: "linear-gradient(to bottom, #0074e4, #00a1e9)",
           minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
+        {/* <div>
+          <h1 style={{ color: "white", marginBottom: "580px" }}>MIS Report</h1>
+        </div> */}
         <div
           className="login-div"
           style={{
@@ -140,7 +142,7 @@ const Login = () => {
               // className="sub-title"
               style={{
                 marginTop: "15px",
-                fontSize: "18px",
+                fontSize: "17px",
                 fontWeight: "bold",
                 textAlign: "center",
                 fontStyle: "normal",
@@ -166,7 +168,7 @@ const Login = () => {
                   style={{
                     border: "1px solid #ccc",
                     borderRadius: "5px",
-                    width: "90%",
+                    width: "100%",
                     padding: "10px",
                   }}
                 />
@@ -185,7 +187,7 @@ const Login = () => {
                   style={{
                     border: "1px solid #ccc",
                     borderRadius: "5px",
-                    width: "90%",
+                    width: "100%",
                     padding: "10px",
                   }}
                 />
@@ -217,14 +219,16 @@ const Login = () => {
                   className="eye-button"
                   onClick={toggleShowPassword}
                   style={{
+                    marginTop: "-40px",
                     border: "0px",
                     backgroundColor: "transparent",
                     fontSize: "16px", // Increase the font size for better visibility
                     color: showPassword ? "#0074e4" : "#ccc", // Change color when password is shown or hidden
-                    marginLeft: "-30px", // Adjust the margin to position it better
+                    // marginLeft: "-10px", // Adjust the margin to position it better
                     cursor: "pointer",
                     position: "relative", // Add position property for better control
                     zIndex: 1, // Add z-index to make it appear on top of the input field
+                    marginRight: "-13px",
                   }}
                 >
                   {showPassword ? (
@@ -232,16 +236,17 @@ const Login = () => {
                       <VisibilityRoundedIcon />
                     </span>
                   ) : (
-                    <span className="material-icons">
+                    <span className="material-icons" style={{}}>
                       <VisibilityOffRoundedIcon />
                     </span>
                   )}
                 </button>
               </div>
             </div>
+
             <button
               type="submit"
-              className="signin-button"
+              // className="signin-button"
               style={{
                 background: "linear-gradient(to bottom, #0074e4, #00a1e9)",
                 color: "#fff",
@@ -252,7 +257,10 @@ const Login = () => {
                 cursor: "pointer",
                 fontWeight: "bold",
                 fontSize: "16px",
-                width: "95%",
+                width: "101%",
+                alignSelf: "center",
+                // marginLeft: "20px",
+                marginRight: "-2px",
               }}
             >
               Login

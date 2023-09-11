@@ -448,16 +448,16 @@ const NewTraining = () => {
                   onChange={handleChange}
                   aria-label="wrapped label tabs example"
                 >
-                  <Tab value="one" label="Module" wrapped />
-                  <Tab value="two" label="Submodule" wrapped />
-                  <Tab value="three" label="Topic" wrapped />
+                  {/* <Tab value="one" label="Module" wrapped />
+                  <Tab value="two" label="Submodule" wrapped /> */}
+                  <Tab value="one" label="Topic" wrapped />
                 </Tabs>
                 {/* Display data */}
                 <>
                   {/* Display data based on the selected tab */}
                   {loaded && (
                     <>
-                      {value === "one" ? (
+                      {/* {value === "one" ? (
                         <Fields
                           data={moduleData}
                           totalDataLength={totalDataLength}
@@ -470,7 +470,7 @@ const NewTraining = () => {
                           columns={moduleColumn}
                           getCellValue={getCellValueModule}
                         />
-                      ) : null}
+                      ) : null} */}
 
                       {value === "two" ? (
                         <Fields
@@ -487,7 +487,7 @@ const NewTraining = () => {
                         />
                       ) : null}
 
-                      {value === "three" ? (
+                      {value === "one" ? (
                         <Fields
                           data={Array.isArray(topicData) ? topicData : []}
                           totalDataLength={totalDataLength}
@@ -506,7 +506,7 @@ const NewTraining = () => {
                 </>
               </>
             ) : (
-              <Logo />
+              ""
             )
           }
           <Links />

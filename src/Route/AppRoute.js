@@ -21,7 +21,7 @@ import Feedback from "../pages/Feedback";
 import Login from "../pages/LoginPage/Login";
 // import PromotedStudent from "../pages/PromotedStudent";
 import ComunityEducator from "../pages/ComunityEducator";
-import NewTraining from "../pages/NewTraining";
+import NewTraining from "../pages/TrainingModule/NewTraining";
 import CommonMonthlyQuiz from "../pages/CommonMonthlyQuiz/CommonMonthlyQuiz";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);

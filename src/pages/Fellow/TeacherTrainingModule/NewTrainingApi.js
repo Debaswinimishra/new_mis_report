@@ -1,4 +1,4 @@
-import Api from "../../environment/Api";
+import Api from "../../../environment/Api";
 
 export const getAllTeacherTrainingDetails = async (data) =>
   await Api.get(

@@ -54,8 +54,8 @@ function NavigationHeader() {
         </Typography>
         <nav>
           <Link to="/">Home</Link>
-          <Link to="/anganwadi">Anganwadi</Link>
           <Link to="/fellow">Fellow</Link>
+          <Link to="/anganwadi">Anganwadi</Link>
           <Link to="/school">School</Link>
         </nav>
         <Popover

@@ -7,11 +7,10 @@ import FellowRoot from "../pages/Fellow";
 const RouteFellow = () => {
   return (
     <Routes>
-      <Route path="/fellow" element={<FellowRoot />}>
-        <Route path="" element={<FellowDashboard />} />
-        <Route path="/fellowdetails" element={<FellowDetails />} />
-        {/* <Route path="/trainingmodule" element={<NewTraining />} /> */}
-      </Route>
+      <Route path="/dashboard" element={<FellowDashboard />} />
+      <Route path="/trainingmodule" element={<NewTraining />} />
+      <Route path="/fellowdetails" element={<FellowDetails />} />
+      <Route path="/fellow" element={<FellowRoot />} />
     </Routes>
   );
 };

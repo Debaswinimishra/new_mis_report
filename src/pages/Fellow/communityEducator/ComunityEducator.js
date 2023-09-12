@@ -17,6 +17,7 @@ import { getAllCommunityEducatiorFilter } from "../../../AllApi/mangerPasscodeAp
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { Link } from "react-router-dom";
 
 const managerTypeSet = [
   { value: "none", label: "none" },
@@ -193,110 +194,129 @@ const ComunityEducator = () => {
     return exceptBoth;
   });
   return (
-    <>
-      <div style={{ margin: "10px" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="wrapped label tabs example"
-        >
-          <Tab value="one" label="Overall - Community Educators" wrapped />
-          <Tab value="two" label="Community Educators - Active" />
-        </Tabs>
+    <div className="container">
+      <div className="left-div">
+        <div>
+          <Link to="/dashboard">Dashboard</Link>
+        </div>
+        <div>
+          <Link to="/fellowdetails">Fellow Details</Link>
+        </div>
+        <div>
+          <Link to="/trainingmodule">Training Module</Link>
+        </div>
+        <div>
+          <Link to="/communityeducator">Community Educators</Link>
+        </div>
       </div>
-      <Box>
-        {/* Filter section */}
-        {value === "one" ? (
-          <>
-            <div
-              style={{
-                boxShadow:
-                  "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
-              }}
+      <div className="right-div">
+        <>
+          <div style={{ margin: "10px" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="wrapped label tabs example"
             >
-              <div
-                style={{
-                  marginTop: "20px",
-                  padding: "30px 20px",
-                  display: "grid",
-                  gap: "20px",
-
-                  gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
-                }}
-              >
-                <Select1
-                  selectedYear={selectedYear}
-                  onChange={handleYearChange}
-                />
-                <Text
-                  name="Select manager-type"
-                  currencies={managerTypeSet}
-                  handleChange={handleManagerTypeChange}
-                />
-
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select manager"
-                  defaultValue="none"
-                  value={managerName}
-                  onChange={(e) => handleManagerChange(e)}
-                >
-                  {managerArr.map((option, index) => (
-                    <MenuItem key={index + 1} value={option.managerid}>
-                      {option.managername}
-                    </MenuItem>
-                  ))}
-                </TextField>
-
-                <ReusableTextField
-                  label="Select passcode"
-                  value={passcode}
-                  options={passcodeArray}
-                  onChange={handlePasscodeChange}
-                />
-
-                <Stack spacing={2} direction="row">
-                  <Button
-                    variant="contained"
-                    onClick={sortteacher}
-                    style={{ width: 250, height: 40, marginTop: 5 }}
-                  >
-                    Filter
-                  </Button>
-                </Stack>
-              </div>
-            </div>
-
-            {/* Display data */}
-            {loaded && (
+              <Tab value="one" label="Overall - Community Educators" wrapped />
+              <Tab value="two" label="Community Educators - Active" />
+            </Tabs>
+          </div>
+          <Box>
+            {/* Filter section */}
+            {value === "one" ? (
               <>
-                {data && data.length > 0 ? (
-                  <Fields
-                    data={data}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlData}
-                    fileName={fileName}
-                    columns={columns}
-                    getCellValue={getCellValue}
-                  />
-                ) : (
-                  <Logo />
-                )}
-              </>
-            )}
+                <div
+                  style={{
+                    boxShadow:
+                      "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
+                  }}
+                >
+                  <div
+                    style={{
+                      marginTop: "20px",
+                      padding: "30px 20px",
+                      display: "grid",
+                      gap: "20px",
 
-            <Links />
-          </>
-        ) : (
-          <h1>hiii</h1>
-        )}
-      </Box>
-    </>
+                      gridTemplateColumns:
+                        "repeat(auto-fill, minmax(230px, 1fr))",
+                    }}
+                  >
+                    <Select1
+                      selectedYear={selectedYear}
+                      onChange={handleYearChange}
+                    />
+                    <Text
+                      name="Select manager-type"
+                      currencies={managerTypeSet}
+                      handleChange={handleManagerTypeChange}
+                    />
+
+                    <TextField
+                      id="outlined-select-currency"
+                      select
+                      label="Select manager"
+                      defaultValue="none"
+                      value={managerName}
+                      onChange={(e) => handleManagerChange(e)}
+                    >
+                      {managerArr.map((option, index) => (
+                        <MenuItem key={index + 1} value={option.managerid}>
+                          {option.managername}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+
+                    <ReusableTextField
+                      label="Select passcode"
+                      value={passcode}
+                      options={passcodeArray}
+                      onChange={handlePasscodeChange}
+                    />
+
+                    <Stack spacing={2} direction="row">
+                      <Button
+                        variant="contained"
+                        onClick={sortteacher}
+                        style={{ width: 250, height: 40, marginTop: 5 }}
+                      >
+                        Filter
+                      </Button>
+                    </Stack>
+                  </div>
+                </div>
+
+                {/* Display data */}
+                {loaded && (
+                  <>
+                    {data && data.length > 0 ? (
+                      <Fields
+                        data={data}
+                        totalDataLength={totalDataLength}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        handleChangePage={handleChangePage}
+                        handleChangeRowsPerPage={handleChangeRowsPerPage}
+                        xlData={xlData}
+                        fileName={fileName}
+                        columns={columns}
+                        getCellValue={getCellValue}
+                      />
+                    ) : (
+                      <Logo />
+                    )}
+                  </>
+                )}
+
+                <Links />
+              </>
+            ) : (
+              <h1>hiii</h1>
+            )}
+          </Box>
+        </>
+      </div>
+    </div>
   );
 };
 

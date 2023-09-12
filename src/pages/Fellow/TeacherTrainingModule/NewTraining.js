@@ -370,6 +370,9 @@ const NewTraining = () => {
           <div>
             <Link to="/trainingmodule">Training Module</Link>
           </div>
+          <div>
+            <Link to="/communityeducator">Community Educators</Link>
+          </div>
         </div>
         <div className="right-div">
           <Box>

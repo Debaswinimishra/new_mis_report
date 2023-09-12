@@ -6,7 +6,13 @@ function NavigationFellow() {
       <div className="container">
         <div className="left-div">
           <div>
-            <Link to="">Module1</Link>
+            <Link to="">Dashboard</Link>
+          </div>
+          <div>
+            <Link to="fellowdetails">Fellow Details</Link>
+          </div>
+          <div>
+            <Link to="trainingmodule">Training Module</Link>
           </div>
         </div>
         <div className="right-div">

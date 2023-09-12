@@ -13,7 +13,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import ReusableTextField from "../../../components/ReusableTextField";
-import { getAllCommunityEducatiorFilter } from "../../AllApi/ComunityEducator";
+import { getAllCommunityEducatiorFilter } from "../../../AllApi/mangerPasscodeApi";
 import { getAllTeacherTrainingDetails } from "./NewTrainingApi";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";

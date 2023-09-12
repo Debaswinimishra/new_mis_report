@@ -47,21 +47,19 @@ function FellowRoute(props) {
   const listItem = [
     {
       text: "Dashboard",
-      link: "/home/fellows/dashboard",
+      link: "/dashboard", // Updated path
       icon: <DashboardIcon color="secondary" />,
     },
-
     {
       text: "Fellows",
-      link: "/home/fellows/fellows",
+      link: "/fellows", // Updated path
       icon: <PeopleAltIcon color="primary" />,
     },
     {
-      text: "ComunityEducator",
-      link: "/home/fellows/ComunityEducator",
+      text: "CommunityEducator",
+      link: "/communityeducator", // Updated path
       icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
     },
-
     {
       text: "Log out",
       link: "/",

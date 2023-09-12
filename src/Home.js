@@ -53,11 +53,11 @@ function Home(props) {
       icon: <DashboardIcon color="secondary" />,
     },
 
-    // {
-    //   text: "Fellows",
-    //   link: "/home/fellows",
-    //   icon: <PeopleAltIcon color="primary" />,
-    // },
+    {
+      text: "Fellows",
+      link: "/home/fellows",
+      icon: <PeopleAltIcon color="primary" />,
+    },
     {
       text: "Community Educator",
       link: "/home/ComunityEducator",
@@ -73,11 +73,11 @@ function Home(props) {
     //   link: "/home/TimeSpendDetails",
     //   icon: <AccessTimeIcon color="success" />,
     // },
-    {
-      text: "Training Details",
-      link: "/home/NewTraining",
-      icon: <AcUnitIcon color="secondary" />,
-    },
+    // {
+    //   text: "Training Details",
+    //   link: "/home/TrainingDetails",
+    //   icon: <AcUnitIcon color="secondary" />,
+    // },
     // {
     //   text: "NSDC Status",
     //   link: "/home/NsdcStatus",
@@ -179,9 +179,9 @@ function Home(props) {
               onClick={() => handleNavigate(element.link)}
               style={{
                 background:
-                  activeLink === element.link.split("/")[2]
-                    ? "rgba(0, 0, 0, 0.1)"
-                    : "white",
+                  // activeLink === element.link.split("/")[2]
+                  //   ? "rgba(0, 0, 0, 0.1)"
+                  "white",
                 textDecoration: "none",
               }}
             >

@@ -12,7 +12,7 @@ const DemoPage = () => {
     navigate("/home/school"); // Navigate to the SchoolRoutes
   };
   const navigateToAnganwadi = () => {
-    navigate("/home/anganwadi"); // Navigate to the SchoolRoutes
+    navigate("/home/anganwadi"); 
   };
 
   return (

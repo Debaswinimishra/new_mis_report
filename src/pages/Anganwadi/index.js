@@ -1,8 +1,7 @@
 import React from "react";
-import NavigationAnganwadi from "../../Navigation/NavigationAnganwadi";
-// import NavigationAnganwadi from "../../Components/Navigation/NavigationAnganwadi";
+import NavigationAnganwadi from "../../Components/Navigation/NavigationAnganwadi";
 
-const AnganwadiRoot = () => {
+const AnaganwadiRoot = () => {
   return (
     <>
       <NavigationAnganwadi />
@@ -10,4 +9,4 @@ const AnganwadiRoot = () => {
   );
 };
 
-export default AnganwadiRoot;
+export default AnaganwadiRoot;

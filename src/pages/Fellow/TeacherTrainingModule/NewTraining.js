@@ -477,7 +477,7 @@ const NewTraining = () => {
                       ) : null} */}
 
                           {value === "two" ? (
-                            <Fields
+                            <Fields //
                               data={subModuleData}
                               totalDataLength={totalDataLength}
                               page={page}

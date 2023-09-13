@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -18,6 +18,8 @@ function NavigationHeader() {
     setAnchorEl(event.currentTarget);
   };
 
+  const navigate = useNavigate();
+
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
@@ -34,7 +36,6 @@ function NavigationHeader() {
         navigate("/");
       }
     });
-    handleClose();
   };
 
   return (

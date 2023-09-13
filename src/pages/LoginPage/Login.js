@@ -50,7 +50,7 @@ const Login = () => {
       }
       // setManagerArr(response.data.resData);
     } catch (err) {
-      console.log("err--->", err.response.status);
+      console.log("err--->", err?.response?.status);
     }
   };
 
@@ -88,7 +88,6 @@ const Login = () => {
     <div>
       <div
         style={{
-          //
           background: "linear-gradient(to bottom, #0074e4, #00a1e9)",
           minHeight: "100vh",
           display: "flex",

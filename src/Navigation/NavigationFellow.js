@@ -4,6 +4,7 @@ import FellowDashboard from "../pages/Fellow/FellowDashboard/FellowDashboard";
 import FellowDetails from "../pages/Fellow/FellowDetailsPage/FellowDetails";
 import NewTraining from "../pages/Fellow/TeacherTrainingModule/NewTraining";
 import ComunityEducator from "../pages/Fellow/communityEducator/ComunityEducator";
+import Login from "../pages/LoginPage/Login";
 
 function NavigationFellow() {
   return (
@@ -29,6 +30,7 @@ function NavigationFellow() {
             <Route path="fellowdetails" element={<FellowDetails />} />
             <Route path="trainingmodule" element={<NewTraining />} />
             <Route path="communityeducator" element={<ComunityEducator />} />
+            {/* <Route path="/" element={<Login />} /> */}
           </Routes>
         </div>
       </div>

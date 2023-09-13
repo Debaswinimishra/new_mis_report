@@ -392,7 +392,7 @@ nav a {
 
 .container {
   display: flex;
-  width: 100%;
+  /* width: 100%; */
 }
 
 /* Left div with 30% width and left padding */
@@ -415,7 +415,7 @@ nav a {
 .right-div {
   /* box-sizing: border-box;
   border: 1px solid #ccc; */
-  height: 900px;
+  height: 600px;
 }
 /* .headerTypography {
     flexGrow: 1;

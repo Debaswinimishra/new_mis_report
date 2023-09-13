@@ -4,8 +4,8 @@ import axios from "axios";
 //   baseURL: "https://thinkzone.in.net/thinkzone/", //New Tests
 //   // baseURL: 'https://thinkzone.co/thinkzone/', // Production New
 // });
-const baseURL = "https://thinkzone.in.net/thinkzone";
-// const baseURL = "https://thinkzone.co/thinkzone";
+// const baseURL = "https://thinkzone.in.net/thinkzone";
+const baseURL = "https://thinkzone.co/thinkzone";
 
 export const Version = {
   version: "1.3.7",

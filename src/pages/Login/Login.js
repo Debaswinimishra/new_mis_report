@@ -3,7 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
-import { getAuthenticateUser } from "../../AllApi/LoginApi";
+// import { getAuthenticateUser } from "../../AllApi/LoginApi";
+import { getAuthenticateUser } from "../../Pages/Login/LoginApi";
 
 const Login = () => {
   const navigate = useNavigate();

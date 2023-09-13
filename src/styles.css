@@ -1,0 +1,50 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+/* App.css */
+
+/* Style the navigation links */
+nav {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  margin: 5px;
+}
+
+/* Style the active link */
+.active {
+  background-color: #ff5733;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+/* Left div with 30% width and left padding */
+.left-div {
+  width: 30%;
+  padding-left: 10px;
+}
+
+/* Right div with 60% width and left padding */
+.right-div {
+  width: 60%;
+  padding-left: 10px;
+}
+
+/* Just some styling for demonstration purposes */
+.container,
+.left-div,
+.right-div {
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  height: 100px;
+}

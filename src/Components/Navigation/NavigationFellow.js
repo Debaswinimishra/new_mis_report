@@ -37,20 +37,35 @@ function NavigationFellow(props) {
 
   const listItem = [
     {
-      text: "Module 4",
+      text: "Dashboard",
       link: "module4",
       icon: <DashboardIcon color="secondary" />,
     },
 
+    // {
+    //   text: "Module 5",
+    //   link: "module5",
+    //   icon: <PeopleAltIcon color="primary" />,
+    // },
+    // {
+    //   text: "Module 6",
+    //   link: "module6",
+    //   icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
+    // },
     {
-      text: "Module 5",
-      link: "module5",
+      text: "Common Monthly Quiz",
+      link: "commonmonthlyquiz",
+      icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
+    },
+    {
+      text: "Community Educator",
+      link: "communityeducator",
       icon: <PeopleAltIcon color="primary" />,
     },
     {
-      text: "Module 6",
-      link: "module6",
-      icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
+      text: "Training Module",
+      link: "newtraining",
+      icon: <CastForEducationIcon color="secondary" />,
     },
 
     {

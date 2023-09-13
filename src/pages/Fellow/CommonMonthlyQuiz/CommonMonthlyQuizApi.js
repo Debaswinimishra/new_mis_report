@@ -1,4 +1,5 @@
-import Api from "../../environment/Api";
+// import Api from "../../Environment/Api";
+import Api from "../../../Environment/Api";
 
 export const getAllTopic = async () =>
   await Api.get(`getMasterTtlQuizTopics/fellow/teacher/od`);

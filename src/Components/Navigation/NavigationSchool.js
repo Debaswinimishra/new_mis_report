@@ -19,6 +19,7 @@ import Typography from "@mui/material/Typography";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Button from "@mui/material/Button";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 const drawerWidth = 240;
 
@@ -68,6 +69,10 @@ function NavigationSchool(props) {
     navigate(link);
   };
 
+  const hangeNavOnchange = (link) => {
+    navigate("/home");
+  };
+
   const drawer = (
     <div>
       <Toolbar>
@@ -82,6 +87,7 @@ function NavigationSchool(props) {
             backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
             fontFamily: "'Nuosu SIL', serif",
           }}
+          onClick={hangeNavOnchange}
         >
           THINKZONE
         </h1>
@@ -156,8 +162,6 @@ function NavigationSchool(props) {
           >
             {pathname.split("/")[2]}
           </Typography>
-
-          {/* <Profile /> */}
         </Toolbar>
       </AppBar>
 

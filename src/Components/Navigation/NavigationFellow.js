@@ -7,6 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -71,7 +72,7 @@ function NavigationFellow(props) {
     {
       text: "Log out",
       link: "/",
-      icon: <LogoutIcon color="secondary" />,
+      icon: <LogoutIcon sx={{ color: "red" }} />,
     },
   ];
 
@@ -81,6 +82,9 @@ function NavigationFellow(props) {
       localStorage.removeItem("login");
     }
     navigate(link);
+  };
+  const hangeNavOnchange = (link) => {
+    navigate("/home");
   };
 
   const drawer = (
@@ -97,6 +101,7 @@ function NavigationFellow(props) {
             backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
             fontFamily: "'Nuosu SIL', serif",
           }}
+          onClick={hangeNavOnchange}
         >
           THINKZONE
         </h1>
@@ -117,9 +122,9 @@ function NavigationFellow(props) {
               onClick={() => handleNavigate(element.link)}
               style={{
                 background:
-                  activeLink === element.link.split("/")[3]
-                    ? "rgba(0, 0, 0, 0.1)"
-                    : "white",
+                  // activeLink === element.link.split("/")[3]
+                  //   ? "rgba(0, 0, 0, 0.1)"
+                  "white",
                 textDecoration: "none",
               }}
             >
@@ -158,21 +163,28 @@ function NavigationFellow(props) {
           >
             <MenuIcon />
           </IconButton>
+          <div style={{ justifyContent: "space-evenly", display: "flex" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                textTransform: "uppercase",
+                width: "250px",
+                alignSelf: "center",
+              }}
+            >
+              {pathname.split("/")[2]}
+            </Typography>
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              textTransform: "uppercase",
-              width: "250px",
-              alignSelf: "center",
-            }}
-          >
-            {pathname.split("/")[2]}
-          </Typography>
-
-          {/* <Profile /> */}
+            {/* <Button
+              variant="contained"
+              onClick={hangeNavOnchange}
+              style={{ marginLeft: "850px" }}
+            >
+              Home
+            </Button> */}
+          </div>
         </Toolbar>
       </AppBar>
 

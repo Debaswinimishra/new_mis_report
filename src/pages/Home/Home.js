@@ -131,7 +131,6 @@ function Home() {
             }}
             onClick={() => {
               navigate("/fellow");
-              // gnre
             }}
           >
             <PeopleIcon

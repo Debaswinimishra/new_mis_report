@@ -21,12 +21,12 @@ const RouteFellow = () => {
       <Routes>
         <Route path="/fellow" element={<FellowRoot />}>
           <Route index element={<Module4 />} />
-          <Route path="module4" element={<Module4 />} />
+          <Route path="dashboard" element={<Module4 />} />
           <Route path="module5" element={<Module5 />} />
           <Route path="module6" element={<Module6 />} />
           <Route path="commonmonthlyquiz" element={<CommonMonthlyQuiz />} />
           <Route path="communityeducator" element={<CommunityEducator />} />
-          <Route path="newtraining" element={<NewTraining />} />
+          <Route path="trainingmodule" element={<NewTraining />} />
         </Route>
       </Routes>
     );

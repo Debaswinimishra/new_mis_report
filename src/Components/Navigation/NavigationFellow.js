@@ -39,7 +39,7 @@ function NavigationFellow(props) {
   const listItem = [
     {
       text: "Dashboard",
-      link: "module4",
+      link: "dashboard",
       icon: <DashboardIcon color="secondary" />,
     },
 
@@ -65,7 +65,7 @@ function NavigationFellow(props) {
     },
     {
       text: "Training Module",
-      link: "newtraining",
+      link: "trainingmodule",
       icon: <CastForEducationIcon color="secondary" />,
     },
 

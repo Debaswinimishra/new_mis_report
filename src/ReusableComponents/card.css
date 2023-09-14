@@ -1,0 +1,42 @@
+.wraper {
+  
+    background: #fff;
+   
+    height: 100px;
+    border-radius: 7px;
+    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15) !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    
+  }
+  
+  h4 {
+    color: #1d3053;
+    flex-wrap: wrap;
+    font-family: 'Nuosu SIL', serif;
+  font-family: 'Poppins', sans-serif;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    color: #393d84;
+    font-family: 'Nuosu SIL', serif;
+  font-family: 'Poppins', sans-serif;
+  }
+  
+  .icon__cnt {
+    background: green;
+    padding: 10px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: centers;
+  }
+  .icon {
+    font-size: 1.6rem;
+    color: #fff;
+  }

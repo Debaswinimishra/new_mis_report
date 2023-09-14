@@ -8,11 +8,19 @@ import Logout from "@mui/icons-material/Logout";
 import image from "../Assets/R.png";
 import Swal from "sweetalert2";
 import { useMediaQuery } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useNavigate } from "react-router-dom";
 
-export default function Profile() {
+const Profile = () => {
+  // Create a theme
+  const theme = createTheme();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const isSmallScreen = useMediaQuery((theme) => theme?.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Pass theme here
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,12 +39,15 @@ export default function Profile() {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem("login");
+        navigate("/");
       }
     });
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      {" "}
+      {/* Wrap your component with ThemeProvider */}
       <div style={{ display: "flex", alignItems: "center" }}>
         <Tooltip title="Account settings">
           <IconButton
@@ -47,25 +58,13 @@ export default function Profile() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar
-              sx={{
-                width: isSmallScreen ? 32 : 42,
-                height: isSmallScreen ? 32 : 42,
-                backgroundColor: "#fff",
-              }}
-            >
-              <img
-                src={image}
-                width={isSmallScreen ? 25 : 35}
-                height={isSmallScreen ? 25 : 35}
-                alt="Profile"
-              />
-            </Avatar>
+            <div onClick={handleNavigate}>
+              <LogoutIcon />
+            </div>
           </IconButton>
         </Tooltip>
       </div>
-
-      <Menu
+      {/* <Menu
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
@@ -104,7 +103,9 @@ export default function Profile() {
           <Logout fontSize="small" />
           <span style={{ marginLeft: "8px" }}>Logout</span>
         </MenuItem>
-      </Menu>
-    </>
+      </Menu> */}
+    </ThemeProvider>
   );
-}
+};
+
+export default Profile;

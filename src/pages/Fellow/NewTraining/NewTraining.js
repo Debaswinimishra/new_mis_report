@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import * as React from "react";
-import Text from "../../components/Text";
-import Select1 from "../../components/Select1";
-import Fields from "../../components/Fields";
-import Logo from "../../components/Logo";
-import Links from "../../components/Links";
-import Number from "../../components/Number";
+import Text from "../../../ReusableComponents/Text";
+import Select1 from "../../../ReusableComponents/Select1";
+import Fields from "../../../ReusableComponents/Fields";
+import Logo from "../../../ReusableComponents/Logo";
+import Links from "../../../ReusableComponents/Links";
+import Number from "../../../ReusableComponents/Number";
 import moment from "moment/moment";
-import Api from "../../environment/Api";
+import Api from "../../../environment/Api";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import ReusableTextField from "../../components/ReusableTextField";
-import { getAllCommunityEducatiorFilter } from "../../AllApi/ComunityEducator";
+import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
+import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/CommunityEducatorApi";
+// import { getAllCommunityEducatiorFilter } from "../../AllApi/ComunityEducator";
 import { getAllTeacherTrainingDetails } from "./NewTrainingApi";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -359,109 +360,92 @@ const NewTraining = () => {
     : [];
   return (
     <>
-      <div className="container">
-        <div className="left-div">
-          <div>
-            <Link to="/dashboard">Dashboard</Link>
-          </div>
-          <div>
-            <Link to="/fellowdetails">Fellow Details</Link>
-          </div>
-          <div>
-            <Link to="/trainingmodule">Training Module</Link>
-          </div>
-          <div>
-            <Link to="/communityeducator">Community Educators</Link>
-          </div>
-        </div>
-        <div className="right-div">
-          <Box>
-            {/* Filter section */}
-            <>
-              <div
-                style={{
-                  boxShadow:
-                    "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
-                }}
+      <Box>
+        {/* Filter section */}
+        <>
+          <div
+            style={{
+              boxShadow:
+                "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
+            }}
+          >
+            <div
+              style={{
+                marginTop: "20px",
+                padding: "30px 20px",
+                display: "grid",
+                gap: "20px",
+                gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
+              }}
+            >
+              <Select1
+                selectedYear={selectedYear}
+                onChange={handleYearChange}
+              />
+              <Text
+                name="Select manager-type"
+                currencies={managerTypeArr}
+                handleChange={handleManagerTypeChange}
+              />
+
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Select manager"
+                defaultValue="none"
+                value={managerName}
+                onChange={(e) => handleManagerChange(e)}
               >
-                <div
-                  style={{
-                    marginTop: "20px",
-                    padding: "30px 20px",
-                    display: "grid",
-                    gap: "20px",
-                    gridTemplateColumns:
-                      "repeat(auto-fill, minmax(230px, 1fr))",
-                  }}
+                {managerArr.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.managerid}>
+                    {option.managername}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+              <ReusableTextField
+                label="Select passcode"
+                value={passcode}
+                options={passcodeArray}
+                onChange={handlePasscodeChange}
+              />
+              <Text
+                name="Select Training-type"
+                currencies={trainingTypeArray}
+                handleChange={handleTrainingTypeChange}
+              />
+
+              <Stack spacing={2} direction="row">
+                <Button
+                  variant="contained"
+                  onClick={onfilter}
+                  style={{ width: 250, height: 40, marginTop: 5 }}
                 >
-                  <Select1
-                    selectedYear={selectedYear}
-                    onChange={handleYearChange}
-                  />
-                  <Text
-                    name="Select manager-type"
-                    currencies={managerTypeArr}
-                    handleChange={handleManagerTypeChange}
-                  />
-
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Select manager"
-                    defaultValue="none"
-                    value={managerName}
-                    onChange={(e) => handleManagerChange(e)}
-                  >
-                    {managerArr.map((option, index) => (
-                      <MenuItem key={index + 1} value={option.managerid}>
-                        {option.managername}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-
-                  <ReusableTextField
-                    label="Select passcode"
-                    value={passcode}
-                    options={passcodeArray}
-                    onChange={handlePasscodeChange}
-                  />
-                  <Text
-                    name="Select Training-type"
-                    currencies={trainingTypeArray}
-                    handleChange={handleTrainingTypeChange}
-                  />
-
-                  <Stack spacing={2} direction="row">
-                    <Button
-                      variant="contained"
-                      onClick={onfilter}
-                      style={{ width: 250, height: 40, marginTop: 5 }}
-                    >
-                      Filter
-                    </Button>
-                  </Stack>
-                </div>
-              </div>
-              {
-                // moduleData.length > 0 &&
-                // subModuleData.length > 0 &&
-                topicData.length > 0 ? (
-                  <>
-                    <Tabs
-                      value={value}
-                      onChange={handleChange}
-                      aria-label="wrapped label tabs example"
-                    >
-                      {/* <Tab value="one" label="Module" wrapped />
+                  Filter
+                </Button>
+              </Stack>
+            </div>
+          </div>
+          {
+            // moduleData.length > 0 &&
+            // subModuleData.length > 0 &&
+            topicData.length > 0 ? (
+              <>
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="wrapped label tabs example"
+                >
+                  {/* <Tab value="one" label="Module" wrapped />
                   <Tab value="two" label="Submodule" wrapped /> */}
-                      <Tab value="one" label="Topic" wrapped />
-                    </Tabs>
-                    {/* Display data */}
+                  <Tab value="one" label="Topic" wrapped />
+                </Tabs>
+                {/* Display data */}
+                <>
+                  {/* Display data based on the selected tab */}
+                  {loaded && (
                     <>
-                      {/* Display data based on the selected tab */}
-                      {loaded && (
-                        <>
-                          {/* {value === "one" ? (
+                      {/* {value === "one" ? (
                         <Fields
                           data={moduleData}
                           totalDataLength={totalDataLength}
@@ -476,48 +460,46 @@ const NewTraining = () => {
                         />
                       ) : null} */}
 
-                          {value === "two" ? (
-                            <Fields //
-                              data={subModuleData}
-                              totalDataLength={totalDataLength}
-                              page={page}
-                              rowsPerPage={rowsPerPage}
-                              handleChangePage={handleChangePage}
-                              handleChangeRowsPerPage={handleChangeRowsPerPage}
-                              xlData={xlSubModuleData}
-                              fileName={fileName}
-                              columns={subModuleColumn}
-                              getCellValue={getCellValueSubModule}
-                            />
-                          ) : null}
+                      {value === "two" ? (
+                        <Fields //
+                          data={subModuleData}
+                          totalDataLength={totalDataLength}
+                          page={page}
+                          rowsPerPage={rowsPerPage}
+                          handleChangePage={handleChangePage}
+                          handleChangeRowsPerPage={handleChangeRowsPerPage}
+                          xlData={xlSubModuleData}
+                          fileName={fileName}
+                          columns={subModuleColumn}
+                          getCellValue={getCellValueSubModule}
+                        />
+                      ) : null}
 
-                          {value === "one" ? (
-                            <Fields
-                              data={Array.isArray(topicData) ? topicData : []}
-                              totalDataLength={totalDataLength}
-                              page={page}
-                              rowsPerPage={rowsPerPage}
-                              handleChangePage={handleChangePage}
-                              handleChangeRowsPerPage={handleChangeRowsPerPage}
-                              xlData={xlTopicData}
-                              fileName={fileName}
-                              columns={TopicColumn}
-                              getCellValue={getCellValueTopic}
-                            />
-                          ) : null}
-                        </>
-                      )}
+                      {value === "one" ? (
+                        <Fields
+                          data={Array.isArray(topicData) ? topicData : []}
+                          totalDataLength={totalDataLength}
+                          page={page}
+                          rowsPerPage={rowsPerPage}
+                          handleChangePage={handleChangePage}
+                          handleChangeRowsPerPage={handleChangeRowsPerPage}
+                          xlData={xlTopicData}
+                          fileName={fileName}
+                          columns={TopicColumn}
+                          getCellValue={getCellValueTopic}
+                        />
+                      ) : null}
                     </>
-                  </>
-                ) : (
-                  ""
-                )
-              }
-              <Links />
-            </>
-          </Box>
-        </div>
-      </div>
+                  )}
+                </>
+              </>
+            ) : (
+              ""
+            )
+          }
+          <Links />
+        </>
+      </Box>
     </>
   );
 };

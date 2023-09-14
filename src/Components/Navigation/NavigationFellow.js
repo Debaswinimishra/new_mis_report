@@ -20,7 +20,12 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import LogoutIcon from "@mui/icons-material/Logout";
+import Swal from "sweetalert2";
+import { Avatar, colors, createTheme } from "@mui/material";
 const drawerWidth = 240;
+import image from "../../Assets/R.png";
+import Profile from "../../ReusableComponents/Profile";
+import { useTheme } from "styled-components";
 
 function NavigationFellow(props) {
   const { pathname } = useLocation();
@@ -35,22 +40,39 @@ function NavigationFellow(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const theme = createTheme();
+
   const listItem = [
     {
-      text: "Module 4",
+      text: "Dashboard",
       link: "module4",
       icon: <DashboardIcon color="secondary" />,
     },
 
+    // {
+    //   text: "Module 5",
+    //   link: "module5",
+    //   icon: <PeopleAltIcon color="primary" />,
+    // },
+    // {
+    //   text: "Module 6",
+    //   link: "module6",
+    //   icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
+    // },
     {
-      text: "Module 5",
-      link: "module5",
+      text: "Common Monthly Quiz",
+      link: "commonmonthlyquiz",
+      icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
+    },
+    {
+      text: "Community Educator",
+      link: "communityeducator",
       icon: <PeopleAltIcon color="primary" />,
     },
     {
-      text: "Module 6",
-      link: "module6",
-      icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
+      text: "Training Module",
+      link: "newtraining",
+      icon: <CastForEducationIcon color="secondary" />,
     },
 
     {
@@ -63,9 +85,22 @@ function NavigationFellow(props) {
   const handleNavigate = (link) => {
     setActiveLink(link.split("/")[2]);
     if (link === "/") {
-      localStorage.removeItem("login");
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do you want to log out?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Yes",
+      }).then((isConfirmed) => {
+        if (isConfirmed) {
+          localStorage.removeItem("login");
+          navigate("/");
+        }
+      });
+    } else {
+      navigate(link);
     }
-    navigate(link);
   };
 
   const drawer = (
@@ -90,27 +125,22 @@ function NavigationFellow(props) {
       <Divider />
       <List>
         {listItem.map((element, index) => (
-          <Link
-            to={element.link}
-            style={{
-              textDecoration: "none",
-            }}
-          >
+          <Link to={element.link}>
             <ListItem
               key={element.text}
               disablePadding
               onClick={() => handleNavigate(element.link)}
-              style={{
-                background:
-                  activeLink === element.link.split("/")[3]
-                    ? "rgba(0, 0, 0, 0.1)"
-                    : "white",
-                textDecoration: "none",
+              sx={{
+                color: "grey",
+                "&:hover": {
+                  color: "black",
+                  fontSize: 17,
+                },
               }}
             >
               <ListItemButton>
                 <ListItemIcon>{element.icon}</ListItemIcon>
-                <ListItemText primary={element.text} sx={{ color: "gray" }} />
+                <ListItemText primary={element.text} />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -131,6 +161,7 @@ function NavigationFellow(props) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          padding: "7px",
         }}
       >
         <Toolbar>
@@ -150,8 +181,9 @@ function NavigationFellow(props) {
             component="div"
             sx={{
               textTransform: "uppercase",
-              width: "250px",
-              alignSelf: "center",
+              width: "300px",
+              alignSelf: "flex-start",
+              // marginLeft: "-400px",
             }}
           >
             {pathname.split("/")[2]}

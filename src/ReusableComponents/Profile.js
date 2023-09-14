@@ -12,7 +12,7 @@ import { useMediaQuery } from "@mui/material";
 export default function Profile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery((theme) => theme?.breakpoints.down("sm"));
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

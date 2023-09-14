@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AnganwadiRoot from "../Pages/Anganwadi";
-import Module1 from "../Pages/Anganwadi/Module1/Module1";
-import Module2 from "../Pages/Anganwadi/Module2/Module2";
-import Module3 from "../Pages/Anganwadi/Module3/Module3";
+import Dashboard from "../Pages/Anganwadi/Dashboard/Dashboard";
+// import Module2 from "../Pages/Anganwadi/Module2/Module2";
+// import Module3 from "../Pages/Anganwadi/Module3/Module3";
 import PrivateRoute from "./PrivateRoute";
 const RouteAnganwadi = () => {
   const navigate = useNavigate();
@@ -17,10 +17,10 @@ const RouteAnganwadi = () => {
         element={<PrivateRoute element={<AnganwadiRoot />} />}
       >
         {/* <Route path="/anganwadi" element={<AnganwadiRoot />}> */}
-        <Route index element={<Module1 />} />
-        <Route path="module1" element={<Module1 />} />
-        <Route path="module2" element={<Module2 />} />
-        <Route path="module3" element={<Module3 />} />
+        <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        {/* <Route path="module2" element={<Module2 />} />
+        <Route path="module3" element={<Module3 />} /> */}
       </Route>
     </Routes>
   );

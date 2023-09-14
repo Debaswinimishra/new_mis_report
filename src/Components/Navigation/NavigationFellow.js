@@ -1,4 +1,5 @@
-import * as React from "react";
+// import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
@@ -19,6 +20,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import Avatar from "@mui/material/Avatar";
+import MenuItem from "@mui/material/MenuItem";
+import Popover from "@mui/material/Popover";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import LogoutIcon from "@mui/icons-material/Logout";
 const drawerWidth = 240;
@@ -35,7 +39,13 @@ function NavigationFellow(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const listItem = [
     {
       text: "Dashboard",
@@ -83,8 +93,14 @@ function NavigationFellow(props) {
     }
     navigate(link);
   };
-  const hangeNavOnchange = (link) => {
+  const handleNavOnchange = (link) => {
     navigate("/home");
+  };
+  const handleAnganwadiOnchange = (link) => {
+    navigate("/anganwadi/dashboard");
+  };
+  const handleSchoolOnchange = (link) => {
+    navigate("/school/dashboard");
   };
 
   const drawer = (
@@ -101,7 +117,7 @@ function NavigationFellow(props) {
             backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
             fontFamily: "'Nuosu SIL', serif",
           }}
-          onClick={hangeNavOnchange}
+          onClick={handleNavOnchange}
         >
           THINKZONE
         </h1>
@@ -180,10 +196,43 @@ function NavigationFellow(props) {
             {/* <Button
               variant="contained"
               onClick={hangeNavOnchange}
-              style={{ marginLeft: "850px" }}
+              style={{ marginLeft: "800px" }}
             >
-              Home
+              Change Usertype
             </Button> */}
+            <Button
+              onClick={handleMenuClick}
+              sx={{
+                position: "fixed",
+                right: "10px",
+                backgroundColor: "#royalblue",
+                color: "white",
+              }}
+            >
+              Change Usertype
+            </Button>
+            <Popover
+              open={Boolean(anchorEl)}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <MenuItem onClick={handleSchoolOnchange}>
+                {/* <Logout fontSize="small" /> */}
+                <span style={{ marginLeft: "8px" }}>School</span>
+              </MenuItem>
+              <MenuItem onClick={handleAnganwadiOnchange}>
+                {/* <Logout fontSize="small" /> */}
+                <span style={{ marginLeft: "8px" }}>Anganwadi</span>
+              </MenuItem>
+            </Popover>
           </div>
         </Toolbar>
       </AppBar>

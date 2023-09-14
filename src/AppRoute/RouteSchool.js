@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import SchoolRoot from "../Pages/School";
-import Module7 from "../Pages/School/Module7/Module7";
-import Module8 from "../Pages/School/Module8/Module8";
-import Module9 from "../Pages/School/Module9/Module9";
+import Dashboard from "../Pages/School/Dashboard/Dashboard";
+// import Module8 from "../Pages/School/Module8/Module8";
+// import Module9 from "../Pages/School/Module9/Module9";
 import PrivateRoute from "./PrivateRoute";
 const RouteSchool = () => {
   const navigate = useNavigate();
@@ -17,10 +17,10 @@ const RouteSchool = () => {
         element={<PrivateRoute element={<SchoolRoot />} />}
       >
         {/* <Route path="/school" element={<SchoolRoot />}> */}
-        <Route index element={<Module7 />} />
-        <Route path="module7" element={<Module7 />} />
-        <Route path="module8" element={<Module8 />} />
-        <Route path="module9" element={<Module9 />} />
+        <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        {/* <Route path="module8" element={<Module8 />} />
+        <Route path="module9" element={<Module9 />} /> */}
       </Route>
     </Routes>
   );

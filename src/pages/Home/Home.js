@@ -130,7 +130,7 @@ function Home() {
               justifyContent: "center", // Center content vertically
             }}
             onClick={() => {
-              navigate("/fellow");
+              navigate("/fellow/dashboard");
             }}
           >
             <PeopleIcon
@@ -155,7 +155,7 @@ function Home() {
               justifyContent: "center", // Center content vertically
             }}
             onClick={() => {
-              navigate("/school");
+              navigate("/school/dashboard");
             }}
           >
             <SchoolIcon
@@ -180,7 +180,7 @@ function Home() {
               justifyContent: "center", // Center content vertically
             }}
             onClick={() => {
-              navigate("/anganwadi");
+              navigate("/anganwadi/dashboard");
             }}
           >
             <QuizIcon

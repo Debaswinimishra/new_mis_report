@@ -7,20 +7,20 @@
 /* Style the navigation links */
 nav {
   background-color: #333;
-  color: #fff;
+  /* color: #fff; */
   padding: 10px;
 }
 
 nav a {
   text-decoration: none;
-  color: #fff;
+  /* color: #fff; */
   margin: 5px;
 }
 
 /* Style the active link */
 .active {
   background-color: #ff5733;
-  color: #fff;
+  /* color: #fff; */
 }
 
 .container {

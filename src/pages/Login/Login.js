@@ -5,6 +5,7 @@ import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 // import { getAuthenticateUser } from "../../AllApi/LoginApi";
 import { getAuthenticateUser } from "../../Pages/Login/LoginApi";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,7 +48,12 @@ const Login = () => {
       console.log("response--->", response.data, response.status);
       if (response.data.status === "success") {
         localStorage.setItem("login", true);
-        // navigate("/home/dashboard");
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          showConfirmButton: false,
+          timer: 1000, // Close the alert after 1.5 seconds
+        });
         navigate("/home");
       } else {
         alert("Please Enter Valid ID and Password");
@@ -94,7 +100,7 @@ const Login = () => {
         style={{
           //
           background:
-            "linear-gradient(to bottom, #000000, #000000 0%, #0074e4 90%, #0074e4)",
+            "linear-gradient(to bottom, #000000, #000000 0%, #0074e4 100%, #0074e4)",
           minHeight: "100vh",
           display: "flex",
           justifyContent: "center",

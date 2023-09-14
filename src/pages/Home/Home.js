@@ -1,71 +1,9 @@
-// import React from "react";
-// import { useNavigate } from "react-router-dom";
-
-// const Home = () => {
-//   const navigate = useNavigate();
-
-//   return (
-//     <>
-//       <div style={styles.CenterContainer}>
-//         <div
-//           style={{ ...styles.CenteredDiv, backgroundColor: "#3498db" }}
-//           onClick={() => {
-//             navigate("/fellow");
-//           }}
-//         >
-//           Fellow
-//         </div>
-//         <div
-//           style={{ ...styles.CenteredDiv, backgroundColor: "#e74c3c" }}
-//           onClick={() => {
-//             navigate("/anganwadi");
-//           }}
-//         >
-//           Anganwadi
-//         </div>
-//         <div
-//           style={{ ...styles.CenteredDiv, backgroundColor: "#27ae60" }}
-//           onClick={() => {
-//             navigate("/school");
-//           }}
-//         >
-//           School
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Home;
-
-// export const styles = {
-//   CenterContainer: {
-//     display: "flex",
-//     flexDirection: "column",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     height: "100vh",
-//   },
-//   CenteredDiv: {
-//     width: "200px",
-//     height: "60px",
-//     backgroundColor: "#3498db",
-//     color: "#fff",
-//     textAlign: "center",
-//     lineHeight: "60px",
-//     margin: "10px",
-//     borderRadius: "5px",
-//     cursor: "pointer",
-//     transition: "background-color 0.3s ease-in-out",
-//   },
-// };
-
 import React, { useState } from "react";
 import PeopleIcon from "@mui/icons-material/People";
 import QuizIcon from "@mui/icons-material/Quiz";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Popover from "@mui/material/Popover";
@@ -73,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
 import Logout from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
+
 import SchoolIcon from "@mui/icons-material/School";
 
 function Home() {
@@ -108,106 +47,141 @@ function Home() {
       <Box
         sx={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          height: "calc(100vh - 56px)",
-          marginTop: "56px",
+          minHeight: "100vh",
+          background:
+            "linear-gradient(to bottom, #000000, #000000 0%, #0074e4 100%, #0074e4)",
+          padding: "16px",
         }}
       >
-        <Card
-          sx={{
-            width: "250px",
-            height: "200px",
-            textAlign: "center",
-            margin: "10px",
-            borderRadius: "10px",
-            cursor: "pointer",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            background: "linear-gradient(to bottom, #ff6b6b, #f0a881)",
-            justifyContent: "center", // Center content vertically
-          }}
-          onClick={() => {
-            navigate("/fellow/dashboard");
+        <h1
+          style={{
+            color: "#FFF",
+            marginTop: "50px",
+            marginBottom: "20px",
+            fontSize: "24px",
           }}
         >
-          <PeopleIcon
-            sx={{
-              fontSize: 48,
-            }}
-          />
-          <span style={{ fontSize: "20px" }}>Fellow</span>
-        </Card>
-        <Card
-          sx={{
-            width: "250px",
-            height: "200px",
-            textAlign: "center",
-            margin: "10px",
-            borderRadius: "10px",
-            cursor: "pointer",
+          Choose Your Dashboard
+        </h1>
+
+        <div
+          style={{
             display: "flex",
-            background: "linear-gradient(to bottom, #ff6b6b, #f0a881)",
-            flexDirection: "column",
+            justifyContent: "center",
             alignItems: "center",
-            justifyContent: "center", // Center content vertically
-          }}
-          onClick={() => {
-            navigate("/school/dashboard");
+            flexWrap: "wrap",
           }}
         >
-          <SchoolIcon
+          <Card
             sx={{
-              fontSize: 48,
+              width: "250px",
+              height: "200px",
+              textAlign: "center",
+              margin: "10px",
+              borderRadius: "10px",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              backgroundColor: "#FFF",
+              justifyContent: "center",
+              transition: "transform 0.2s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.05)",
+              },
             }}
-          />
-          <span style={{ fontSize: "20px" }}>School</span>
-        </Card>
-        <Card
-          sx={{
-            width: "250px",
-            height: "200px",
-            textAlign: "center",
-            margin: "10px",
-            borderRadius: "10px",
-            cursor: "pointer",
-            display: "flex",
-            background: "linear-gradient(to bottom, #ff6b6b, #f0a881)",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center", // Center content vertically
-          }}
-          onClick={() => {
-            navigate("/anganwadi/dashboard");
-          }}
-        >
-          <QuizIcon
+            onClick={() => {
+              navigate("/fellow/dashboard");
+            }}
+          >
+            <PeopleIcon
+              sx={{
+                fontSize: 48,
+              }}
+            />
+            <span style={{ fontSize: "20px" }}>Fellow</span>
+          </Card>
+          <Card
             sx={{
-              fontSize: 48,
+              width: "250px",
+              height: "200px",
+              textAlign: "center",
+              margin: "10px",
+              borderRadius: "10px",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              backgroundColor: "#FFF",
+              justifyContent: "center",
+              transition: "transform 0.2s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.05)",
+              },
             }}
-          />
-          <span style={{ fontSize: "20px" }}>Anganwadi</span>
-        </Card>
+            onClick={() => {
+              navigate("/school/dashboard");
+            }}
+          >
+            <SchoolIcon
+              sx={{
+                fontSize: 48,
+              }}
+            />
+            <span style={{ fontSize: "20px" }}>School</span>
+          </Card>
+          <Card
+            sx={{
+              width: "250px",
+              height: "200px",
+              textAlign: "center",
+              margin: "10px",
+              borderRadius: "10px",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              backgroundColor: "#FFF",
+              justifyContent: "center",
+              transition: "transform 0.2s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.05)",
+              },
+            }}
+            onClick={() => {
+              navigate("/anganwadi/dashboard");
+            }}
+          >
+            <QuizIcon
+              sx={{
+                fontSize: 48,
+              }}
+            />
+            <span style={{ fontSize: "20px" }}>Anganwadi</span>
+          </Card>
+        </div>
       </Box>
 
       <IconButton
-        // color="inherit"
-        // aria-label="menu"
-        // aria-controls="menu-appbar"
-        // aria-haspopup="true"
         onClick={handleMenuClick}
         sx={{
-          position: "fixed",
-          top: "10px",
-          right: "10px",
-          backgroundColor: "#FFF",
-          // borderRadius: "10%",
+          position: "absolute",
+          top: "2px",
+          right: "0px",
+          // backgroundColor: "#FFF",
         }}
       >
         <Avatar
           alt="Logo"
           src="https://thinkzone.in/wp-content/uploads/2022/06/Instagram-1-1-1-1-2.png"
+          sx={{
+            height: "50px",
+            width: "50px",
+            backgroundColor: "#FFF",
+          }}
         />
       </IconButton>
       <Popover
@@ -224,7 +198,6 @@ function Home() {
         }}
       >
         <MenuItem onClick={handleLogout}>
-          {" "}
           <Logout fontSize="small" />
           <span style={{ marginLeft: "8px" }}>Logout</span>
         </MenuItem>

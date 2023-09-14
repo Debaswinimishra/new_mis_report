@@ -7,7 +7,7 @@ function RouteHome() {
   const isLoggedin = localStorage.getItem("login");
   console.log("isLoggedinhome--->", isLoggedin);
   return (
-    <div>
+    <>
       <Routes>
         {/* {isLoggedin === true ? ( */}
         <Route path="/home" element={<Home />} />
@@ -16,7 +16,7 @@ function RouteHome() {
         {/* )} */}
         {/* {!isLoggedin && <Navigate to="/" />} */}
       </Routes>
-    </div>
+    </>
   );
 }
 

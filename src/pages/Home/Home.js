@@ -105,132 +105,130 @@ function Home() {
 
   return (
     <>
-      <div>
-        <Box
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "calc(100vh - 56px)",
+          marginTop: "56px",
+        }}
+      >
+        <Card
           sx={{
+            width: "250px",
+            height: "200px",
+            textAlign: "center",
+            margin: "10px",
+            borderRadius: "10px",
+            cursor: "pointer",
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
             alignItems: "center",
-            height: "calc(100vh - 56px)",
-            marginTop: "56px",
+            background: "linear-gradient(to bottom, #ff6b6b, #f0a881)",
+            justifyContent: "center", // Center content vertically
+          }}
+          onClick={() => {
+            navigate("/fellow/dashboard");
           }}
         >
-          <Card
+          <PeopleIcon
             sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              background: "linear-gradient(to bottom, #ff6b6b, #f0a881)",
-              justifyContent: "center", // Center content vertically
+              fontSize: 48,
             }}
-            onClick={() => {
-              navigate("/fellow/dashboard");
-            }}
-          >
-            <PeopleIcon
-              sx={{
-                fontSize: 48,
-              }}
-            />
-            <span style={{ fontSize: "20px" }}>Fellow</span>
-          </Card>
-          <Card
-            sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              background: "linear-gradient(to bottom, #ff6b6b, #f0a881)",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center", // Center content vertically
-            }}
-            onClick={() => {
-              navigate("/school/dashboard");
-            }}
-          >
-            <SchoolIcon
-              sx={{
-                fontSize: 48,
-              }}
-            />
-            <span style={{ fontSize: "20px" }}>School</span>
-          </Card>
-          <Card
-            sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              background: "linear-gradient(to bottom, #ff6b6b, #f0a881)",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center", // Center content vertically
-            }}
-            onClick={() => {
-              navigate("/anganwadi/dashboard");
-            }}
-          >
-            <QuizIcon
-              sx={{
-                fontSize: 48,
-              }}
-            />
-            <span style={{ fontSize: "20px" }}>Anganwadi</span>
-          </Card>
-        </Box>
-
-        <IconButton
-          // color="inherit"
-          // aria-label="menu"
-          // aria-controls="menu-appbar"
-          // aria-haspopup="true"
-          onClick={handleMenuClick}
-          sx={{
-            position: "fixed",
-            top: "10px",
-            right: "10px",
-            backgroundColor: "#FFF",
-            // borderRadius: "10%",
-          }}
-        >
-          <Avatar
-            alt="Logo"
-            src="https://thinkzone.in/wp-content/uploads/2022/06/Instagram-1-1-1-1-2.png"
           />
-        </IconButton>
-        <Popover
-          open={Boolean(anchorEl)}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
+          <span style={{ fontSize: "20px" }}>Fellow</span>
+        </Card>
+        <Card
+          sx={{
+            width: "250px",
+            height: "200px",
+            textAlign: "center",
+            margin: "10px",
+            borderRadius: "10px",
+            cursor: "pointer",
+            display: "flex",
+            background: "linear-gradient(to bottom, #ff6b6b, #f0a881)",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center", // Center content vertically
           }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
+          onClick={() => {
+            navigate("/school/dashboard");
           }}
         >
-          <MenuItem onClick={handleLogout}>
-            {" "}
-            <Logout fontSize="small" />
-            <span style={{ marginLeft: "8px" }}>Logout</span>
-          </MenuItem>
-        </Popover>
-      </div>
+          <SchoolIcon
+            sx={{
+              fontSize: 48,
+            }}
+          />
+          <span style={{ fontSize: "20px" }}>School</span>
+        </Card>
+        <Card
+          sx={{
+            width: "250px",
+            height: "200px",
+            textAlign: "center",
+            margin: "10px",
+            borderRadius: "10px",
+            cursor: "pointer",
+            display: "flex",
+            background: "linear-gradient(to bottom, #ff6b6b, #f0a881)",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center", // Center content vertically
+          }}
+          onClick={() => {
+            navigate("/anganwadi/dashboard");
+          }}
+        >
+          <QuizIcon
+            sx={{
+              fontSize: 48,
+            }}
+          />
+          <span style={{ fontSize: "20px" }}>Anganwadi</span>
+        </Card>
+      </Box>
+
+      <IconButton
+        // color="inherit"
+        // aria-label="menu"
+        // aria-controls="menu-appbar"
+        // aria-haspopup="true"
+        onClick={handleMenuClick}
+        sx={{
+          position: "fixed",
+          top: "10px",
+          right: "10px",
+          backgroundColor: "#FFF",
+          // borderRadius: "10%",
+        }}
+      >
+        <Avatar
+          alt="Logo"
+          src="https://thinkzone.in/wp-content/uploads/2022/06/Instagram-1-1-1-1-2.png"
+        />
+      </IconButton>
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <MenuItem onClick={handleLogout}>
+          {" "}
+          <Logout fontSize="small" />
+          <span style={{ marginLeft: "8px" }}>Logout</span>
+        </MenuItem>
+      </Popover>
     </>
   );
 }

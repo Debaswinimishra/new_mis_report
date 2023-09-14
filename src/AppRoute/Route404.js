@@ -4,11 +4,11 @@ import PageNotFound from "../Pages/Home/PageNotFound";
 
 function Route404() {
   return (
-    <div>
+    <>
       <Routes>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
-    </div>
+    </>
   );
 }
 

@@ -94,7 +94,7 @@ const Login = () => {
         style={{
           //
           background:
-            "linear-gradient(to bottom, #000000, #000000 50%, #0074e4 50%, #0074e4)",
+            "linear-gradient(to bottom, #000000, #000000 0%, #0074e4 90%, #0074e4)",
           minHeight: "100vh",
           display: "flex",
           justifyContent: "center",

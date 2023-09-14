@@ -6,13 +6,13 @@ import Route404 from "./Route404";
 
 function RouteRoot() {
   return (
-    <div>
+    <>
       <RouteHome />
       <RouteAnganwadi />
       <RouteFellow />
       <RouteSchool />
       {/* <Route404 /> */}
-    </div>
+    </>
   );
 }
 

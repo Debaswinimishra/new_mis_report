@@ -11,6 +11,7 @@ const ReusableTextField = ({ label, value, options, onChange }) => {
       value={value}
       onChange={onChange}
     >
+      <MenuItem>None</MenuItem>
       {options.map((option, index) => (
         <MenuItem key={index + 1} value={option}>
           {option}

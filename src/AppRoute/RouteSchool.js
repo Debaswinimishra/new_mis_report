@@ -8,7 +8,7 @@ import Module9 from "../pages/School/Module9/Module9";
 const RouteSchool = () => {
   const navigate = useNavigate();
   const isLoggedin = localStorage.getItem("login");
-  console.log("isLoggedinfellow--->", isLoggedin);
+  //console.log("isLoggedinfellow--->", isLoggedin);
   if (isLoggedin === "true") {
     return (
       <Routes>

@@ -8,7 +8,7 @@ import Module3 from "../pages/Anganwadi/Module3/Module3";
 const RouteAnganwadi = () => {
   const navigate = useNavigate();
   const isLoggedin = localStorage.getItem("login");
-  console.log("isLoggedinfellow--->", isLoggedin);
+  //console.log("isLoggedinfellow--->", isLoggedin);
   if (isLoggedin === "true") {
     return (
       <Routes>

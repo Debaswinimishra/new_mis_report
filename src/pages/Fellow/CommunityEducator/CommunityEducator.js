@@ -38,7 +38,7 @@ const ComunityEducator = () => {
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
   const [managerName, setManagerName] = useState("");
-  // console.log("managerName--->", managerName);
+  // //console.log("managerName--->", managerName);
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
@@ -57,10 +57,10 @@ const ComunityEducator = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        console.log("response--->", response.data, response.status);
+        //console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {
-        console.log("err--->", err.response.status);
+        //console.log("err--->", err.response.status);
       }
     };
 
@@ -71,7 +71,7 @@ const ComunityEducator = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
-      // console.log("x--->", managerName, element);
+      // //console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
@@ -80,7 +80,7 @@ const ComunityEducator = () => {
   };
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);
-    // console.log("managername---------->", managerName);
+    // //console.log("managername---------->", managerName);
   };
   const handleManagerTypeChange = (event) => {
     setManagerType(event.target.value);

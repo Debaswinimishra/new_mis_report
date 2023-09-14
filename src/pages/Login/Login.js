@@ -24,7 +24,7 @@ const Login = () => {
       loginType: "password",
     };
 
-    console.log("body-->", body);
+    //console.log("body-->", body);
 
     // try {
     //   const res = await axios.post(
@@ -43,7 +43,7 @@ const Login = () => {
     // }
     try {
       const response = await getAuthenticateUser(body, config);
-      console.log("response--->", response.data, response.status);
+      //console.log("response--->", response.data, response.status);
       if (response.data.status === "success") {
         localStorage.setItem("login", true);
         // navigate("/home/dashboard");
@@ -53,7 +53,7 @@ const Login = () => {
       }
       // setManagerArr(response.data.resData);
     } catch (err) {
-      console.log("err--->", err?.response?.status);
+      //console.log("err--->", err?.response?.status);
     }
   };
 

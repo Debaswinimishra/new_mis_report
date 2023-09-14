@@ -8,9 +8,10 @@ const Text = ({ name, currencies, handleChange }) => {
       id="outlined-select-currency"
       select
       label={name}
-      // value={name}
       onChange={(e) => handleChange(e)}
     >
+      <MenuItem>None</MenuItem>
+
       {currencies?.map((option) => (
         <MenuItem key={option.id} value={option.value}>
           {option.label}

@@ -44,20 +44,20 @@ const noneValue = [{ value: "none", label: "None" }];
 const ComunityEducator = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
-  console.log("managerArr===>", managerArr);
+  //console.log("managerArr===>", managerArr);
   const [topicArr, setTopicArr] = useState([]);
-  console.log("topicArr===>", topicArr);
+  //console.log("topicArr===>", topicArr);
   const [questionArr, setQuestionArr] = useState([]);
-  console.log("questionArr--->", questionArr);
+  //console.log("questionArr--->", questionArr);
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
   const [managerName, setManagerName] = useState("");
   const [topicName, setTopicName] = useState("");
-  console.log("topicname", topicName);
+  //console.log("topicname", topicName);
   const [questionName, setQuestionName] = useState("");
-  console.log("questionName==", questionName);
+  //console.log("questionName==", questionName);
   const [topicId, setTopicId] = useState("");
-  console.log("topicId--->", topicId);
+  //console.log("topicId--->", topicId);
   const [questionId, setQuestionId] = useState("");
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
@@ -78,10 +78,10 @@ const ComunityEducator = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        console.log("response--->", response.data, response.status);
+        //console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {
-        console.log("err--->", err.response.status);
+        //console.log("err--->", err.response.status);
       }
     };
 
@@ -92,7 +92,7 @@ const ComunityEducator = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
-      // console.log("x--->", managerName, element);
+      // //console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
@@ -102,6 +102,7 @@ const ComunityEducator = () => {
     setPasscode("");
     setTopicName("");
     setQuestionName("");
+    setData([]);
 
     // setManagerArr([]);
     // setManagerName("");
@@ -113,6 +114,7 @@ const ComunityEducator = () => {
     setPasscode("");
     setTopicName("");
     setQuestionName("");
+    setData([]);
   };
 
   const handleManagerChange = (event) => {
@@ -120,19 +122,21 @@ const ComunityEducator = () => {
     setPasscode("");
     setTopicName("");
     setQuestionName("");
+    setData([]);
   };
 
   const handlePasscodeChange = async (event) => {
     setPasscode(event.target.value);
     setTopicName("");
     setQuestionName("");
+    setData([]);
 
     try {
       const response = await getAllTopic();
-      // console.log("response--->", response.data, response.status);
+      // //console.log("response--->", response.data, response.status);
       setTopicArr(response.data);
     } catch (err) {
-      console.log("err--->", err.response);
+      //console.log("err--->", err.response);
     }
   };
 
@@ -142,7 +146,7 @@ const ComunityEducator = () => {
     if (selectedTopicName) {
       Api.get(`getTtlQuizQuestions/${selectedTopicName}`)
         .then((response) => {
-          console.log(response, "response===>");
+          //console.log(response, "response===>");
           setQuestionArr(response.data);
         })
         .catch((error) => {
@@ -153,7 +157,7 @@ const ComunityEducator = () => {
 
   const handleQuestionChange = (event) => {
     setQuestionName(event.target.value);
-    console.log("setQuestionName", setQuestionName);
+    //console.log("setQuestionName", setQuestionName);
   };
 
   const topicFilter = async () => {
@@ -184,7 +188,7 @@ const ComunityEducator = () => {
   };
 
   const questionFilter = async () => {
-    console.log("questionFilter==", questionName);
+    //console.log("questionFilter==", questionName);
     if (selectedYear === "" || managerName === "" || passcode === "") {
       return alert("Please select some filters to proceed");
     }
@@ -300,6 +304,10 @@ const ComunityEducator = () => {
     const { ...exceptBoth } = x;
     return exceptBoth;
   });
+
+  //console.log("Loaded ?? ------------------------------>", loaded);
+  //console.log("data getting------------------>", data);
+
   return (
     <>
       <div style={{ margin: "10px" }}></div>
@@ -452,26 +460,20 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {loaded && (
-              <>
-                {data && data.length > 0 ? (
-                  <Fields
-                    data={data}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlData}
-                    fileName={fileName}
-                    columns={columns}
-                    getCellValue={getCellValue}
-                  />
-                ) : (
-                  <Logo />
-                )}
-              </>
-            )}
+            {selectedYear && managerName && passcode && topicName ? (
+              <Fields
+                data={data}
+                totalDataLength={totalDataLength}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                handleChangePage={handleChangePage}
+                handleChangeRowsPerPage={handleChangeRowsPerPage}
+                xlData={xlData}
+                fileName={fileName}
+                columns={columns}
+                getCellValue={getCellValue}
+              />
+            ) : null}
             <Links />
           </>
         </Box>
@@ -614,26 +616,35 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {loaded && (
-              <>
-                {data && data.length > 0 ? (
-                  <Fields
-                    data={data}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlData}
-                    fileName={fileName}
-                    columns={columns1}
-                    getCellValue={getCellValue1}
-                  />
-                ) : (
-                  <Logo />
-                )}
-              </>
-            )}
+            {selectedYear &&
+            managerType &&
+            managerName &&
+            topicName &&
+            passcode &&
+            questionName &&
+            loaded ? (
+              <Fields
+                data={data}
+                totalDataLength={totalDataLength}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                handleChangePage={handleChangePage}
+                handleChangeRowsPerPage={handleChangeRowsPerPage}
+                xlData={xlData}
+                fileName={fileName}
+                columns={columns1}
+                getCellValue={getCellValue1}
+              />
+            ) : selectedYear &&
+              managerType &&
+              managerName &&
+              topicName &&
+              passcode &&
+              questionName &&
+              loaded &&
+              !data ? (
+              <Logo />
+            ) : null}
             <Links />
           </>
         </Box>

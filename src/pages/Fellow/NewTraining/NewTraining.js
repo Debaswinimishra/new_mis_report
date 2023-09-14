@@ -22,19 +22,16 @@ import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
 const managerTypeArr = [
-  { id: 0, value: "none", label: "none" },
   { id: 1, value: "MANAGER", label: "MANAGER" },
   { id: 2, value: "Crc", label: "CRC" },
   { id: 3, value: "Aww", label: "Supervisor" },
 ];
 const trainingTypeArray = [
-  { id: 0, value: "none", label: "none" },
   { id: 1, value: "training1", label: "21st" },
   { id: 2, value: "training2", label: "Tech" },
   { id: 3, value: "training3", label: "Pedagogy" },
 ];
 const reportTypeArr = [
-  { id: 0, value: "none", label: "none" },
   { id: 1, value: "module", label: "Module" },
   { id: 2, value: "subModle", label: "Submodule" },
   { id: 3, value: "topic", label: "Topic" },
@@ -88,6 +85,8 @@ const TopicColumn = [
   "Time spent Status",
 ];
 
+const noneValue = [{ value: "none", label: "None" }];
+
 const NewTraining = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
@@ -97,7 +96,7 @@ const NewTraining = () => {
   const [trainingType, setTrainingType] = useState("");
   const [reportType, setReportType] = useState("topicWise");
 
-  // console.log("managerName--->", managerName);
+  // //console.log("managerName--->", managerName);
   const [moduleData, setModuleData] = useState([]);
   const [subModuleData, setSubModuleData] = useState([]);
   const [topicData, setTopicData] = useState([]);
@@ -106,6 +105,8 @@ const NewTraining = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
+
+  //console.log("trainingType-------------->", trainingType);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -116,13 +117,13 @@ const NewTraining = () => {
         setReportType("modulewise");
         break;
       case "two":
-        setReportType("submodleWise"); // Update with the correct spelling
+        setReportType("submodleWise");
         break;
       case "three":
         setReportType("topicWise");
         break;
       default:
-        setReportType("topicWise"); // Default value, change as needed
+        setReportType("topicWise");
         break;
     }
   };
@@ -131,11 +132,9 @@ const NewTraining = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        console.log("response--->", response.data, response.status);
+        //console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
-      } catch (err) {
-        // console.log("err--->", err.response.status);
-      }
+      } catch (err) {}
     };
     fetchData();
   }, []);
@@ -144,30 +143,41 @@ const NewTraining = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
-      // console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
+
   const handleYearChange = (selectedYear) => {
     setSelectedYear(selectedYear);
+    setManagerName("");
+    setManagerType("");
+    setPasscode("");
+    setTrainingType("");
   };
+
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);
-    // console.log("managername---------->", managerName);
+    setManagerType("");
+    setPasscode("");
+    setTrainingType("");
   };
+
   const handleManagerTypeChange = (event) => {
     setManagerType(event.target.value);
+    setPasscode("");
+    setTrainingType("");
   };
 
   const handlePasscodeChange = (event) => {
     setPasscode(event.target.value);
+    setTrainingType("");
   };
   const handleTrainingTypeChange = (event) => {
-    setTrainingType(event.target.value);
+    if (event.target.value) {
+      setTrainingType(event.target.value);
+    }
   };
-  const handleReportTypeChange = (event) => {
-    // setReportType(topic);
-  };
+  const handleReportTypeChange = (event) => {};
 
   const onfilter = async () => {
     if (
@@ -184,11 +194,10 @@ const NewTraining = () => {
       managerid: managerName,
       passcode: passcode,
       trainingType: trainingType,
-      reportType: reportType, // Use the current reportType state variable
+      reportType: reportType,
     };
     setLoaded(false);
     try {
-      // Fetch data for Module, Submodule, and Topic
       const moduleResponse = await getAllTeacherTrainingDetails({
         ...body,
         reportType: "moduleWise",
@@ -202,7 +211,6 @@ const NewTraining = () => {
         reportType: "topicWise",
       });
 
-      // Update state variables with the fetched data
       setModuleData(moduleResponse.data);
       setSubModuleData(subModuleResponse.data);
       setTopicData(topicResponse.data);
@@ -237,14 +245,6 @@ const NewTraining = () => {
         return row.contactnumber;
       case "Module Name":
         return row.moduleName;
-      //   case "Module Completion Status":
-      // return row.contactnumber;
-      //   case "Module Secured Marks":
-      // return row.usertype;
-      //   case "Module Total Marks":
-      // return row.usertype;
-      //   case "Module Certificate":
-      // return row.usertype;
       default:
         return "";
     }
@@ -265,12 +265,6 @@ const NewTraining = () => {
         return row.contactnumber;
       case "Submodule Name":
         return row.submoduleName;
-      //   case "Submodule Completion Status":
-      // return row.contactnumber;
-      //   case "Submodule Secured Marks":
-      // return row.usertype;
-      //   case "Submodule Total Marks":
-      // return row.usertype;
       default:
         return "";
     }
@@ -315,8 +309,6 @@ const NewTraining = () => {
         return row.topicSecuredMarks;
       case "Topic Total Mark":
         return row.topicTotalMarks;
-      // case "Time spent Status":
-      // return row.usertype;
       default:
         return "";
     }
@@ -324,14 +316,13 @@ const NewTraining = () => {
 
   const fileName = "fellow";
 
-  // Conditionally map moduleData, subModuleData, and topicData
   const xlModuleData = Array.isArray(moduleData)
     ? moduleData.map((x) => {
         if (x) {
           const { ...exceptBoth } = x;
           return exceptBoth;
         }
-        // Handle cases where moduleData doesn't exist (e.g., return an empty object)
+
         return {};
       })
     : [];
@@ -342,22 +333,25 @@ const NewTraining = () => {
           const { ...exceptBoth } = x;
           return exceptBoth;
         }
-        // Handle cases where subModuleData doesn't exist (e.g., return an empty object)
+
         return {};
       })
     : [];
 
   const xlTopicData = Array.isArray(topicData)
     ? topicData.map((x) => {
-        console.log("xlTopicData", x);
+        //console.log("xlTopicData", x);
         if (x) {
           const { ...exceptBoth } = x;
           return exceptBoth;
         }
-        // Handle cases where topicData doesn't exist (e.g., return an empty object)
         return {};
       })
     : [];
+
+  //console.log("passxodeArray---------------->", passcodeArray);
+  //console.log("Trainingtype------------------>", trainingType);
+
   return (
     <>
       <Box>
@@ -382,38 +376,78 @@ const NewTraining = () => {
                 selectedYear={selectedYear}
                 onChange={handleYearChange}
               />
-              <Text
-                name="Select manager-type"
-                currencies={managerTypeArr}
-                handleChange={handleManagerTypeChange}
-              />
+              {selectedYear ? (
+                <Text
+                  name="Select manager-type"
+                  currencies={managerTypeArr}
+                  handleChange={handleManagerTypeChange}
+                />
+              ) : (
+                <Text
+                  name="Select manager-type"
+                  currencies={[]}
+                  // handleChange={handleManagerTypeChange}
+                />
+              )}
 
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Select manager"
-                defaultValue="none"
-                value={managerName}
-                onChange={(e) => handleManagerChange(e)}
-              >
-                {managerArr.map((option, index) => (
-                  <MenuItem key={index + 1} value={option.managerid}>
-                    {option.managername}
-                  </MenuItem>
-                ))}
-              </TextField>
+              {selectedYear ? (
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager"
+                  defaultValue="none"
+                  value={managerName}
+                  onChange={(e) => handleManagerChange(e)}
+                >
+                  {managerArr.map((option, index) => (
+                    <MenuItem key={index + 1} value={option.managerid}>
+                      {option.managername}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              ) : (
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager"
+                  defaultValue="none"
+                  value=""
+                  onChange={(e) => handleManagerChange(e)}
+                >
+                  <MenuItem value="None">None</MenuItem>
+                </TextField>
+              )}
 
-              <ReusableTextField
-                label="Select passcode"
-                value={passcode}
-                options={passcodeArray}
-                onChange={handlePasscodeChange}
-              />
-              <Text
-                name="Select Training-type"
-                currencies={trainingTypeArray}
-                handleChange={handleTrainingTypeChange}
-              />
+              {selectedYear && managerType ? (
+                <ReusableTextField
+                  label="Select passcode"
+                  value={passcode}
+                  options={passcodeArray}
+                  onChange={handlePasscodeChange}
+                />
+              ) : (
+                <ReusableTextField
+                  label="Select passcode"
+                  defaultValue="none"
+                  value={passcode}
+                  options={passcodeArray}
+                  onChange={handlePasscodeChange}
+                />
+              )}
+
+              {passcode && selectedYear && managerName ? (
+                <Text
+                  name="Select Training type"
+                  currencies={trainingTypeArray}
+                  handleChange={handleTrainingTypeChange}
+                />
+              ) : (
+                <Text
+                  name="Select Training type"
+                  currencies={[]}
+                  handleChange={handleTrainingTypeChange} //
+                />
+              )}
 
               <Stack spacing={2} direction="row">
                 <Button
@@ -460,7 +494,7 @@ const NewTraining = () => {
                         />
                       ) : null} */}
 
-                      {value === "two" ? (
+                      {value === "two" ? ( //
                         <Fields //
                           data={subModuleData}
                           totalDataLength={totalDataLength}

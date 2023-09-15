@@ -65,24 +65,18 @@ const ComunityEducator = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
-  const [selectedFilter, setSelectedFilter] = useState("topic"); // Default to "topic"
+  const [selectedFilter, setSelectedFilter] = useState("topic");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   useEffect(() => {
-    // Api.get(`getManagerIdsWidPasscode`).then((response) => {
-    //   setManagerArr(response.data.resData);
-    // });
-
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
         //console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
-      } catch (err) {
-        //console.log("err--->", err.response.status);
-      }
+      } catch (err) {}
     };
 
     fetchData();
@@ -92,7 +86,6 @@ const ComunityEducator = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
-      // //console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
@@ -103,9 +96,6 @@ const ComunityEducator = () => {
     setTopicName("");
     setQuestionName("");
     setData([]);
-
-    // setManagerArr([]);
-    // setManagerName("");
   };
 
   const handleManagerTypeChange = (event) => {
@@ -130,14 +120,10 @@ const ComunityEducator = () => {
     setTopicName("");
     setQuestionName("");
     setData([]);
-
     try {
       const response = await getAllTopic();
-      // //console.log("response--->", response.data, response.status);
       setTopicArr(response.data);
-    } catch (err) {
-      //console.log("err--->", err.response);
-    }
+    } catch (err) {}
   };
 
   const handleTopicChange = (event) => {
@@ -146,7 +132,6 @@ const ComunityEducator = () => {
     if (selectedTopicName) {
       Api.get(`getTtlQuizQuestions/${selectedTopicName}`)
         .then((response) => {
-          //console.log(response, "response===>");
           setQuestionArr(response.data);
         })
         .catch((error) => {
@@ -157,7 +142,6 @@ const ComunityEducator = () => {
 
   const handleQuestionChange = (event) => {
     setQuestionName(event.target.value);
-    //console.log("setQuestionName", setQuestionName);
   };
 
   const topicFilter = async () => {
@@ -166,7 +150,6 @@ const ComunityEducator = () => {
     }
 
     if (topicName) {
-      // User has selected a topic, call the question API
       try {
         const topicResponse = await getAllTopicDetails({
           year: selectedYear,
@@ -305,16 +288,18 @@ const ComunityEducator = () => {
     return exceptBoth;
   });
 
-  //console.log("Loaded ?? ------------------------------>", loaded);
-  //console.log("data getting------------------>", data);
-
   return (
     <>
-      <div style={{ margin: "10px" }}></div>
+      <div style={{ margin: "20px" }}></div>
       <Tabs
         value={value}
         onChange={handleChange}
-        aria-label="wrapped label tabs example"
+        style={{
+          display: "flex",
+          overflow: "hidden",
+          justifyContent: "space-evenly",
+          "@media (max-width: 750px)": {},
+        }}
       >
         <Tab value="one" label="Topicwise Answer" />
         <Tab value="two" label="Questionwise Answer" />

@@ -188,20 +188,27 @@ function NavigationFellow(props) {
               component="div"
               sx={{
                 textTransform: "uppercase",
-                width: "250px",
-                alignSelf: "center",
+                width: "100%",
+                // alignSelf: "center",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                "@media (max-width: 750px)": {
+                  fontSize: "16px",
+                  marginTop: "6px",
+                },
+                "@media (max-width: 650px)": {
+                  fontSize: "16px",
+                  marginTop: "7px",
+                },
+                "@media (max-width: 600px)": {
+                  display: "none",
+                },
               }}
             >
               {pathname.split("/")[2]}
             </Typography>
 
-            {/* <Button
-              variant="contained"
-              onClick={hangeNavOnchange}
-              style={{ marginLeft: "800px" }}
-            >
-              Change Usertype
-            </Button> */}
             <Button
               onClick={handleMenuClick}
               sx={{
@@ -209,6 +216,18 @@ function NavigationFellow(props) {
                 right: "10px",
                 backgroundColor: "#royalblue",
                 color: "white",
+                overflow: "hidden",
+                "@media (max-width: 750px)": {
+                  fontSize: "12px",
+                  marginTop: "6px",
+                },
+                "@media (max-width: 650px)": {
+                  fontSize: "13px",
+                  marginTop: "6px",
+                },
+                "@media (max-width: 630px)": {
+                  display: "none",
+                },
               }}
             >
               Change Usertype

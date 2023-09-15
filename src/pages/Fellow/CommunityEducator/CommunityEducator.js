@@ -7,15 +7,12 @@ import Logo from "../../../ReusableComponents/Logo";
 import Links from "../../../ReusableComponents/Links";
 import Number from "../../../ReusableComponents/Number";
 import moment from "moment/moment";
-// import Api from "../environment/Api";
-// import Api from "../../Environment/Api";
 import Api from "../../../environment/Api";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
-// import { getAllCommunityEducatiorFilter } from "../AllApi/ComunityEducator";
 import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/CommunityEducatorApi";
 
 import Tabs from "@mui/material/Tabs";
@@ -24,7 +21,6 @@ import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
 const managerTypeSet = [
-  { value: "none", label: "none" },
   { value: "MANAGER", label: "MANAGER" },
   { value: "Crc", label: "CRC" },
   { value: "Aww", label: "Supervisor" },
@@ -35,7 +31,6 @@ const ComunityEducator = () => {
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
   const [managerName, setManagerName] = useState("");
-  // //console.log("managerName--->", managerName);
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
@@ -47,18 +42,11 @@ const ComunityEducator = () => {
     setValue(newValue);
   };
   useEffect(() => {
-    // Api.get(`getManagerIdsWidPasscode`).then((response) => {
-    //   setManagerArr(response.data.resData);
-    // });
-
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        //console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
-      } catch (err) {
-        //console.log("err--->", err.response.status);
-      }
+      } catch (err) {}
     };
 
     fetchData();
@@ -68,7 +56,6 @@ const ComunityEducator = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
-      // //console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
@@ -77,7 +64,6 @@ const ComunityEducator = () => {
   };
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);
-    // //console.log("managername---------->", managerName);
   };
   const handleManagerTypeChange = (event) => {
     setManagerType(event.target.value);
@@ -196,7 +182,7 @@ const ComunityEducator = () => {
   });
   return (
     <>
-      <div style={{ margin: "10px" }}>
+      <div style={{ margin: "30px" }}>
         <Tabs
           value={value}
           onChange={handleChange}

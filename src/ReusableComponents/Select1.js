@@ -1,12 +1,11 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import MenuItem from "@mui/material/MenuItem"; // Correct import path
+import MenuItem from "@mui/material/MenuItem"; 
 
 const Select1 = ({ selectedYear, onChange }) => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, index) => currentYear - index);
   const handleYearChange = (event) => {
-    // const selectedYear = parseInt(event.target.value);
     const selectedYear = event.target.value.toString();
     onChange(selectedYear);
   };

@@ -14,7 +14,6 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
 import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/CommunityEducatorApi";
-// import { getAllCommunityEducatiorFilter } from "../../AllApi/ComunityEducator";
 import { getAllTeacherTrainingDetails } from "./NewTrainingApi";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -22,7 +21,7 @@ import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
 const managerTypeArr = [
-  { id: 1, value: "MANAGER", label: "MANAGER" },
+  { id: 1, value: "MANAGER", label: "Manager" },
   { id: 2, value: "Crc", label: "CRC" },
   { id: 3, value: "Aww", label: "Supervisor" },
 ];
@@ -96,7 +95,6 @@ const NewTraining = () => {
   const [trainingType, setTrainingType] = useState("");
   const [reportType, setReportType] = useState("topicWise");
 
-  // //console.log("managerName--->", managerName);
   const [moduleData, setModuleData] = useState([]);
   const [subModuleData, setSubModuleData] = useState([]);
   const [topicData, setTopicData] = useState([]);
@@ -106,12 +104,9 @@ const NewTraining = () => {
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
 
-  //console.log("trainingType-------------->", trainingType);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
 
-    // Set reportType based on the selected tab
     switch (newValue) {
       case "one":
         setReportType("modulewise");
@@ -369,6 +364,7 @@ const NewTraining = () => {
                 display: "grid",
                 gap: "20px",
                 gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
+                overflow: "hidden",
               }}
             >
               <Select1
@@ -382,11 +378,7 @@ const NewTraining = () => {
                   handleChange={handleManagerTypeChange}
                 />
               ) : (
-                <Text
-                  name="Select manager-type"
-                  currencies={[]}
-                  // handleChange={handleManagerTypeChange}
-                />
+                <Text name="Select manager-type" currencies={[]} />
               )}
 
               {selectedYear ? (
@@ -444,7 +436,7 @@ const NewTraining = () => {
                 <Text
                   name="Select Training type"
                   currencies={[]}
-                  handleChange={handleTrainingTypeChange} //
+                  handleChange={handleTrainingTypeChange}
                 />
               )}
 

@@ -9,7 +9,6 @@ function NavigationRoot() {
         <Link to="anganwadi">Anaganwadi</Link>
         <Link to="school">School</Link> */}
       {/* </nav> */}
-      ""
     </>
   );
 }

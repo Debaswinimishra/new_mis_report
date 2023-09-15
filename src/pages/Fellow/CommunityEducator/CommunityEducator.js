@@ -89,7 +89,7 @@ const ComunityEducator = () => {
 
   const sortteacher = async () => {
     if (selectedYear === "" || managerName === "" || passcode === "") {
-      return alert("Please select some filters to preceed");
+      return alert("Please select some filters to proceed");
     }
 
     const config = {

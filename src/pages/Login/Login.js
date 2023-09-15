@@ -3,7 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
-import { getAuthenticateUser } from "./LoginApi";
+// import { getAuthenticateUser } from "../../AllApi/LoginApi";
+import { getAuthenticateUser } from "../../pages/Login/LoginApi";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -46,7 +48,12 @@ const Login = () => {
       //console.log("response--->", response.data, response.status);
       if (response.data.status === "success") {
         localStorage.setItem("login", true);
-        // navigate("/home/dashboard");
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          showConfirmButton: false,
+          timer: 1000, // Close the alert after 1.5 seconds
+        });
         navigate("/home");
       } else {
         alert("Please Enter Valid ID and Password");
@@ -93,7 +100,7 @@ const Login = () => {
         style={{
           //
           background:
-            "linear-gradient(to bottom, #000000, #000000 50%, #0074e4 50%, #0074e4)",
+            "linear-gradient(to bottom, #000000, #000000 0%, #0074e4 100%, #0074e4)",
           minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
@@ -220,14 +227,16 @@ const Login = () => {
                   className="eye-button"
                   onClick={toggleShowPassword}
                   style={{
+                    marginTop: "-40px",
                     border: "0px",
                     backgroundColor: "transparent",
                     fontSize: "16px", // Increase the font size for better visibility
                     color: showPassword ? "#0074e4" : "#ccc", // Change color when password is shown or hidden
-                    marginLeft: "-30px", // Adjust the margin to position it better
+                    // marginLeft: "-10px", // Adjust the margin to position it better
                     cursor: "pointer",
                     position: "relative", // Add position property for better control
                     zIndex: 1, // Add z-index to make it appear on top of the input field
+                    // marginRight: "-9px",
                   }}
                 >
                   {showPassword ? (
@@ -255,7 +264,7 @@ const Login = () => {
                 cursor: "pointer",
                 fontWeight: "bold",
                 fontSize: "16px",
-                width: "95%",
+                width: "92%",
               }}
             >
               Login

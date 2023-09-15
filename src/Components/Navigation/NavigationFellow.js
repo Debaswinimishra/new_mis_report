@@ -1,4 +1,5 @@
-import * as React from "react";
+// import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
@@ -7,6 +8,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -18,6 +20,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import MenuItem from "@mui/material/MenuItem";
+import Popover from "@mui/material/Popover";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
@@ -42,10 +46,17 @@ function NavigationFellow(props) {
 
   const theme = createTheme();
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const listItem = [
     {
       text: "Dashboard",
-      link: "module4",
+      link: "dashboard",
       icon: <DashboardIcon color="secondary" />,
     },
     {
@@ -60,14 +71,14 @@ function NavigationFellow(props) {
     },
     {
       text: "Training Module",
-      link: "newtraining",
+      link: "trainingmodule",
       icon: <CastForEducationIcon color="secondary" />,
     },
 
     {
       text: "Log out",
       link: "/",
-      icon: <LogoutIcon color="secondary" />,
+      icon: <LogoutIcon sx={{ color: "red" }} />,
     },
   ];
 
@@ -88,6 +99,15 @@ function NavigationFellow(props) {
       });
     }
   };
+  const handleNavOnchange = (link) => {
+    navigate("/home");
+  };
+  const handleAnganwadiOnchange = (link) => {
+    navigate("/anganwadi/dashboard");
+  };
+  const handleSchoolOnchange = (link) => {
+    navigate("/school/dashboard");
+  };
 
   const drawer = (
     <div>
@@ -103,6 +123,7 @@ function NavigationFellow(props) {
             backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
             fontFamily: "'Nuosu SIL', serif",
           }}
+          onClick={handleNavOnchange}
         >
           THINKZONE
         </h1>
@@ -160,22 +181,61 @@ function NavigationFellow(props) {
           >
             <MenuIcon />
           </IconButton>
+          <div style={{ justifyContent: "space-evenly", display: "flex" }}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                textTransform: "uppercase",
+                width: "250px",
+                alignSelf: "center",
+              }}
+            >
+              {pathname.split("/")[2]}
+            </Typography>
 
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              textTransform: "uppercase",
-              width: "300px",
-              alignSelf: "flex-start",
-              // marginLeft: "-400px",
-            }}
-          >
-            {pathname.split("/")[2]}
-          </Typography>
-
-          {/* <Profile /> */}
+            {/* <Button
+              variant="contained"
+              onClick={hangeNavOnchange}
+              style={{ marginLeft: "800px" }}
+            >
+              Change Usertype
+            </Button> */}
+            <Button
+              onClick={handleMenuClick}
+              sx={{
+                position: "fixed",
+                right: "10px",
+                backgroundColor: "#royalblue",
+                color: "white",
+              }}
+            >
+              Change Usertype
+            </Button>
+            <Popover
+              open={Boolean(anchorEl)}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <MenuItem onClick={handleSchoolOnchange}>
+                {/* <Logout fontSize="small" /> */}
+                <span style={{ marginLeft: "8px" }}>School</span>
+              </MenuItem>
+              <MenuItem onClick={handleAnganwadiOnchange}>
+                {/* <Logout fontSize="small" /> */}
+                <span style={{ marginLeft: "8px" }}>Anganwadi</span>
+              </MenuItem>
+            </Popover>
+          </div>
         </Toolbar>
       </AppBar>
 

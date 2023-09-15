@@ -75,7 +75,7 @@ function Home(props) {
     // },
     {
       text: "Training Details",
-      link: "/home/NewTraining",
+      link: "/home/trainingmodule",
       icon: <AcUnitIcon color="secondary" />,
     },
     // {

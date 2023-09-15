@@ -6,13 +6,19 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 
 function RouteHome() {
+  const isLoggedin = localStorage.getItem("login");
+  console.log("isLoggedinhome--->", isLoggedin);
   return (
-    <div>
+    <>
       <Routes>
+        {/* {isLoggedin === true ? ( */}
         <Route path="/home" element={<Home />} />
+        {/* ) : ( */}
         <Route path="/" element={<Login />} />
+        {/* )} */}
+        {/* {!isLoggedin && <Navigate to="/" />} */}
       </Routes>
-    </div>
+    </>
   );
 }
 

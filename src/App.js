@@ -22,7 +22,7 @@ import "./styles.css";
 export default function App() {
   return (
     <div className="App">
-      <NavigationRoot />
+      {/* <NavigationRoot /> */}
       <AppRoute />
     </div>
   );

@@ -56,7 +56,7 @@ function Home() {
           padding: "16px",
         }}
       >
-        <h1
+        {/* <h1
           style={{
             color: "#FFF",
             marginTop: "50px",
@@ -65,7 +65,7 @@ function Home() {
           }}
         >
           Choose Your Dashboard
-        </h1>
+        </h1> */}
 
         <div
           style={{

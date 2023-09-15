@@ -48,17 +48,6 @@ function NavigationFellow(props) {
       link: "module4",
       icon: <DashboardIcon color="secondary" />,
     },
-
-    // {
-    //   text: "Module 5",
-    //   link: "module5",
-    //   icon: <PeopleAltIcon color="primary" />,
-    // },
-    // {
-    //   text: "Module 6",
-    //   link: "module6",
-    //   icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
-    // },
     {
       text: "Common Monthly Quiz",
       link: "commonmonthlyquiz",
@@ -83,7 +72,6 @@ function NavigationFellow(props) {
   ];
 
   const handleNavigate = (link) => {
-    setActiveLink(link.split("/")[2]);
     if (link === "/") {
       Swal.fire({
         title: "Are you sure?",
@@ -92,14 +80,12 @@ function NavigationFellow(props) {
         showCancelButton: true,
         confirmButtonColor: "#d33",
         confirmButtonText: "Yes",
-      }).then((isConfirmed) => {
-        if (isConfirmed) {
+      }).then((result) => {
+        if (result.isConfirmed) {
           localStorage.removeItem("login");
           navigate("/");
         }
       });
-    } else {
-      navigate(link);
     }
   };
 

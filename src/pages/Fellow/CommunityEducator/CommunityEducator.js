@@ -28,9 +28,6 @@ const managerTypeSet = [
   { value: "MANAGER", label: "MANAGER" },
   { value: "Crc", label: "CRC" },
   { value: "Aww", label: "Supervisor" },
-  // {id:1, value:"manager"},
-  // {id:2, value:"supervisor"},
-  // {id:2, value:"supervisor"},
 ];
 const ComunityEducator = () => {
   const [selectedYear, setSelectedYear] = useState("");

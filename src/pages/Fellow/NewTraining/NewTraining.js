@@ -333,7 +333,6 @@ const NewTraining = () => {
           const { ...exceptBoth } = x;
           return exceptBoth;
         }
-
         return {};
       })
     : [];

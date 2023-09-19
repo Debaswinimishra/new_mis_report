@@ -18,6 +18,8 @@ import {
   getAllCommunityEducatiorFilter,
   getAllDistricts,
   getDistrictsWiseBlocks,
+  getCommunityEducator1,
+  getCommunityEducator2,
 } from "./CommunityEducatorApi";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -54,6 +56,8 @@ const ComunityEducator = () => {
   const [loaded, setLoaded] = useState(false);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   console.log("selectedTabIndex--->", selectedTabIndex);
+  const [tab1FilterData, setTab1FilterData] = useState([]);
+  const [tab2FilterData, setTab2FilterData] = useState([]);
 
   const tabContents = [
     <div key={0}>First Tab</div>,
@@ -64,29 +68,37 @@ const ComunityEducator = () => {
     setSelectedTabIndex(newValue);
   };
 
-  // const fetchDataForTab = async (tabIndex) => {
-  //   // Your data fetching logic here based on the tab index
-  //   if (tabIndex === 0) {
-  //     try {
-  //       const response = await getAllCommunityEducatiorFilter();
-  //       setManagerArr(response.data.resData);
-  //     } catch (err) {
-  //       console.log("err--->", err.response.status);
-  //     }
-  //   } else if (tabIndex === 1) {
-  //     try {
-  //       const response2 = await getAllDistricts();
-  //       console.log("response--->", response2.data);
-  //       setDistricts(response2.data);
-  //     } catch (err) {
-  //       console.log("err--->", err.response.status);
-  //     }
-  //   }
-  // };
+  const fetchDataForTab = async (selectedTabIndex) => {
+    // Your data fetching logic here based on the tab index
+    if (selectedTabIndex === 0) {
+      setManagerNameTab2([]);
+      setPasscodeTab2([]);
+      setSelectedYearTab2([]);
+      try {
+        const response = await getAllCommunityEducatiorFilter();
+        setManagerArr(response.data.resData);
+      } catch (err) {
+        console.log("err--->", err.response.status);
+      }
+    } else if (selectedTabIndex === 1) {
+      setManagerName([]);
+      setSelectedYear([]);
+      setPasscode([]);
+      try {
+        const response1 = await getAllCommunityEducatiorFilter();
+        setManagerArr(response1.data.resData);
+        const response2 = await getAllDistricts();
+        console.log("response--->", response1.data);
+        setDistricts(response2.data);
+      } catch (err) {
+        console.log("err--->", err.response.status);
+      }
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchDataForTab(tabValue);
-  // }, [tabValue]);
+  useEffect(() => {
+    fetchDataForTab(selectedTabIndex);
+  }, [selectedTabIndex]);
 
   // useEffect(() => {
   //   // Api.get(`getManagerIdsWidPasscode`).then((response) => {
@@ -113,7 +125,10 @@ const ComunityEducator = () => {
   let passcodeArray = [];
 
   managerArr?.filter((element) => {
-    if (element.managerid === managerName) {
+    if (
+      element.managerid === managerName ||
+      element.managerid === managerNameTab2
+    ) {
       // console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
@@ -271,6 +286,42 @@ const ComunityEducator = () => {
     setBlockName(e.target.value);
   };
 
+  const handleCommunityEducatorTab1 = async () => {
+    setLoaded(true);
+    if (selectedYear === "" || managerName === "" || passcode === "") {
+      return alert("Please select some filters to preceed");
+    } else {
+      setLoaded(false);
+      const response = await getCommunityEducator1(
+        selectedYear,
+        managerName,
+        passcode
+      );
+      console.log("community--->", response.data);
+      setTab1FilterData(response.data);
+    }
+  };
+
+  const handleCommunityEducatorTab2 = async () => {
+    if (
+      selectedYearTab2 === "" ||
+      managerNameTab2 === "" ||
+      passcodeTab2 === ""
+    ) {
+      return alert("Please select some filters to preceed");
+    } else {
+      const response = await getCommunityEducator1(
+        selectedYearTab2,
+        managerNameTab2,
+        passcodeTab2,
+        districtName,
+        blockName
+      );
+      console.log("community2--->", response.data);
+      setTab2FilterData(response.data);
+    }
+  };
+
   return (
     <>
       <div style={{ margin: "10px" }}>
@@ -336,7 +387,7 @@ const ComunityEducator = () => {
                 <Stack spacing={2} direction="row">
                   <Button
                     variant="contained"
-                    onClick={sortteacher}
+                    onClick={handleCommunityEducatorTab1}
                     style={{ width: 250, height: 40, marginTop: 5 }}
                   >
                     Filter
@@ -403,7 +454,7 @@ const ComunityEducator = () => {
                   select
                   label="Select manager"
                   defaultValue="none"
-                  value={managerName}
+                  value={managerNameTab2}
                   onChange={(e) => handleManagerChangeTab2(e)}
                 >
                   {managerArr.map((option, index) => (
@@ -456,7 +507,7 @@ const ComunityEducator = () => {
                 <Stack spacing={2} direction="row">
                   <Button
                     variant="contained"
-                    onClick={sortteacher}
+                    onClick={handleCommunityEducatorTab2}
                     style={{ width: 250, height: 40, marginTop: 5 }}
                   >
                     Filter

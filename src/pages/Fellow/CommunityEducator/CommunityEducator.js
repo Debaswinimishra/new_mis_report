@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import Text from "../../../ReusableComponents/Text";
 import Select1 from "../../../ReusableComponents/Select1";
+import PeopleIcon from "@mui/icons-material/People";
 import Fields from "../../../ReusableComponents/Fields";
 import Logo from "../../../ReusableComponents/Logo";
 import Links from "../../../ReusableComponents/Links";
 import Number from "../../../ReusableComponents/Number";
+import Card from "../../../ReusableComponents/Card";
 import moment from "moment/moment";
 import Api from "../../../Environment/Api";
 import Button from "@mui/material/Button";
@@ -56,8 +64,9 @@ const ComunityEducator = () => {
   const [loaded, setLoaded] = useState(false);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   console.log("selectedTabIndex--->", selectedTabIndex);
-  const [tab1FilterData, setTab1FilterData] = useState([]);
-  const [tab2FilterData, setTab2FilterData] = useState([]);
+  const [tab1FilterData, setTab1FilterData] = useState({});
+  console.log("tab1FilterData--->", tab1FilterData);
+  const [tab2FilterData, setTab2FilterData] = useState({});
 
   const tabContents = [
     <div key={0}>First Tab</div>,
@@ -74,6 +83,7 @@ const ComunityEducator = () => {
       setManagerNameTab2([]);
       setPasscodeTab2([]);
       setSelectedYearTab2([]);
+      setTab2FilterData({});
       try {
         const response = await getAllCommunityEducatiorFilter();
         setManagerArr(response.data.resData);
@@ -84,6 +94,7 @@ const ComunityEducator = () => {
       setManagerName([]);
       setSelectedYear([]);
       setPasscode([]);
+      setTab1FilterData({});
       try {
         const response1 = await getAllCommunityEducatiorFilter();
         setManagerArr(response1.data.resData);
@@ -395,28 +406,69 @@ const ComunityEducator = () => {
                 </Stack>
               </div>
             </div>
+            {/* {loaded && ( */}
+            <>
+              {tab1FilterData ? (
+                <div style={{ padding: "30px 20px", width: "100%" }}>
+                  <div>
+                    <Card
+                      name="Total Users"
+                      number={tab1FilterData.totalStudentsCount || 0}
+                      Icon={PeopleIcon}
+                    />
 
-            {loaded && (
-              <>
-                {data && data.length > 0 ? (
-                  <Fields
-                    data={data}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlData}
-                    fileName={fileName}
-                    columns={columns}
-                    getCellValue={getCellValue}
-                  />
-                ) : (
-                  <Logo />
-                )}
-              </>
-            )}
+                    <Card
+                      name="Active Users"
+                      number={tab1FilterData.activeUsersCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
 
+                    <Card
+                      name="Average Timespent"
+                      number={tab1FilterData.averageTimeSpent || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+                    <Card
+                      name="ECE Students"
+                      number={tab1FilterData.eceStudentsCount || 0}
+                      Icon={PeopleIcon}
+                    />
+
+                    <Card
+                      name="Female Students"
+                      number={tab1FilterData.femaleStudentsCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+
+                    <Card
+                      name="Female Users"
+                      number={tab1FilterData.femaleUsersCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+                    <Card
+                      name="PGE Students"
+                      number={tab1FilterData.pgeStudentsCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+
+                    <Card
+                      name="Total Student"
+                      number={tab1FilterData.totalStudentsCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <Logo />
+              )}
+            </>
+            {/* // )} */}
             <Links />
           </>
         )}
@@ -515,6 +567,67 @@ const ComunityEducator = () => {
                 </Stack>
               </div>
             </div>
+            <>
+              {tab2FilterData ? (
+                <div style={{ padding: "30px 20px", width: "100%" }}>
+                  <div>
+                    {/* <Card
+                      name="Total Users"
+                      number={tab2FilterData.totalStudentsCount || 0}
+                      Icon={PeopleIcon}
+                    /> */}
+
+                    <Card
+                      name="Active Users"
+                      number={tab2FilterData.activeUsersCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+                    {/* 
+                    <Card
+                      name="Average Timespent"
+                      number={tab2FilterData.averageTimeSpent || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+                    <Card
+                      name="ECE Students"
+                      number={tab2FilterData.eceStudentsCount || 0}
+                      Icon={PeopleIcon}
+                    />
+
+                    <Card
+                      name="Female Students"
+                      number={tab2FilterData.femaleStudentsCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+
+                    <Card
+                      name="Female Users"
+                      number={tab2FilterData.femaleUsersCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+                    <Card
+                      name="PGE Students"
+                      number={tab2FilterData.pgeStudentsCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    />
+
+                    <Card
+                      name="Total Student"
+                      number={tab2FilterData.totalStudentsCount || 0}
+                      Icon={PeopleIcon}
+                      style={{ backgroundColor: "red" }}
+                    /> */}
+                  </div>
+                </div>
+              ) : (
+                <Logo />
+              )}
+            </>
           </>
         )}
       </div>

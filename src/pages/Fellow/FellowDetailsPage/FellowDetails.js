@@ -47,9 +47,9 @@ const FellowDetails = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
-      //console.log("x--->", managerName, element);
+      ////console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
-      //console.log("passcodeArray--->", passcodeArray);
+      ////console.log("passcodeArray--->", passcodeArray);
     }
   });
 

@@ -7,7 +7,7 @@ import PrivateRoute from "./PrivateRoute";
 const RouteSchool = () => {
   const navigate = useNavigate();
   const isLoggedin = localStorage.getItem("login");
-  console.log("isLoggedinfellow--->", isLoggedin);
+  //console.log("isLoggedinfellow--->", isLoggedin);
   // if (isLoggedin === "true") {
   return (
     <Routes>

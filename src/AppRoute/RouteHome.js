@@ -7,7 +7,7 @@ import Login from "../pages/Login/Login";
 
 function RouteHome() {
   const isLoggedin = localStorage.getItem("login");
-  console.log("isLoggedinhome--->", isLoggedin);
+  //console.log("isLoggedinhome--->", isLoggedin);
   return (
     <>
       <Routes>

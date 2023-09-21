@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [selectYear, setSelectYear] = useState("2023");
   const [totalUsersCount, setTotalUsersCount] = useState({});
   const [femaleCount, setFemaleCount] = useState({});
-  // console.log("femaleCount---->", femaleCount);
+  // //console.log("femaleCount---->", femaleCount);
   const [fellowsCount, setFellowsCount] = useState({});
   const [fellowshipCompleted, setFellowshipCompleted] = useState({});
   const [dropout, setDropout] = useState({});
@@ -45,7 +45,7 @@ const Dashboard = () => {
         SettotalTime(response.data.resData);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
   const handleApi = () => {

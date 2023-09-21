@@ -14,7 +14,7 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
 import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/CommunityEducatorApi";
-import { getAllTeacherTrainingDetails } from "./NewTrainingApi";
+import { getAllTeacherTrainingDetails } from "./NewTrainingApi"; //
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -102,9 +102,9 @@ const NewTraining = () => {
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
-  const [value, setValue] = React.useState("one");
+  const [value, setValue] = React.useState("three");
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (newValue) => {
     setValue(newValue);
 
     switch (newValue) {
@@ -127,7 +127,6 @@ const NewTraining = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        //console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {}
     };
@@ -149,16 +148,16 @@ const NewTraining = () => {
     setPasscode("");
     setTrainingType("");
   };
-
-  const handleManagerChange = (event) => {
-    setManagerName(event.target.value);
-    setManagerType("");
+  const handleManagerTypeChange = (event) => {
+    setManagerType(event.target.value);
+    setManagerName("");
     setPasscode("");
     setTrainingType("");
   };
 
-  const handleManagerTypeChange = (event) => {
-    setManagerType(event.target.value);
+  const handleManagerChange = (event) => {
+    setManagerName(event.target.value);
+    setManagerType("");
     setPasscode("");
     setTrainingType("");
   };
@@ -181,7 +180,7 @@ const NewTraining = () => {
       passcode === "" ||
       trainingType === ""
     ) {
-      return alert("Please select some filters to proceed");
+      return alert("Please select all the filters to proceed");
     }
 
     const body = {
@@ -334,7 +333,7 @@ const NewTraining = () => {
 
   const xlTopicData = Array.isArray(topicData)
     ? topicData.map((x) => {
-        //console.log("xlTopicData", x);
+        ////console.log("xlTopicData", x);
         if (x) {
           const { ...exceptBoth } = x;
           return exceptBoth;
@@ -343,8 +342,14 @@ const NewTraining = () => {
       })
     : [];
 
-  //console.log("passxodeArray---------------->", passcodeArray);
-  //console.log("Trainingtype------------------>", trainingType);
+  //console.log("value-------------->", value);
+  //console.log("selectedYear-------------->", selectedYear);
+  //console.log("managerType-------------->", managerType);
+  //console.log("managerName-------------->", managerName);
+  //console.log("passcode-------------->", passcode);
+  //console.log("trainingType-------------->", trainingType);
+  //console.log("topicData------------------>", topicData);
+  //console.log("trainingType--------------->", trainingType);
 
   return (
     <>
@@ -359,6 +364,7 @@ const NewTraining = () => {
           >
             <div
               style={{
+                width: "100%",
                 marginTop: "20px",
                 padding: "30px 20px",
                 display: "grid",
@@ -451,77 +457,7 @@ const NewTraining = () => {
               </Stack>
             </div>
           </div>
-          {
-            // moduleData.length > 0 &&
-            // subModuleData.length > 0 &&
-            topicData.length > 0 ? (
-              <>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="wrapped label tabs example"
-                >
-                  {/* <Tab value="one" label="Module" wrapped />
-                  <Tab value="two" label="Submodule" wrapped /> */}
-                  <Tab value="one" label="Topic" wrapped />
-                </Tabs>
-                {/* Display data */}
-                <>
-                  {/* Display data based on the selected tab */}
-                  {loaded && (
-                    <>
-                      {/* {value === "one" ? (
-                        <Fields
-                          data={moduleData}
-                          totalDataLength={totalDataLength}
-                          page={page}
-                          rowsPerPage={rowsPerPage}
-                          handleChangePage={handleChangePage}
-                          handleChangeRowsPerPage={handleChangeRowsPerPage}
-                          xlData={xlModuleData}
-                          fileName={fileName}
-                          columns={moduleColumn}
-                          getCellValue={getCellValueModule}
-                        />
-                      ) : null} */}
 
-                      {value === "two" ? ( //
-                        <Fields //
-                          data={subModuleData}
-                          totalDataLength={totalDataLength}
-                          page={page}
-                          rowsPerPage={rowsPerPage}
-                          handleChangePage={handleChangePage}
-                          handleChangeRowsPerPage={handleChangeRowsPerPage}
-                          xlData={xlSubModuleData}
-                          fileName={fileName}
-                          columns={subModuleColumn}
-                          getCellValue={getCellValueSubModule}
-                        />
-                      ) : null}
-
-                      {value === "one" ? (
-                        <Fields
-                          data={Array.isArray(topicData) ? topicData : []}
-                          totalDataLength={totalDataLength}
-                          page={page}
-                          rowsPerPage={rowsPerPage}
-                          handleChangePage={handleChangePage}
-                          handleChangeRowsPerPage={handleChangeRowsPerPage}
-                          xlData={xlTopicData}
-                          fileName={fileName}
-                          columns={TopicColumn}
-                          getCellValue={getCellValueTopic}
-                        />
-                      ) : null}
-                    </>
-                  )}
-                </>
-              </>
-            ) : (
-              ""
-            )
-          }
           <Links />
         </>
       </Box>

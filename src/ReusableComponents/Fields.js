@@ -37,8 +37,8 @@ const Fields = ({
   handleChangeRowsPerPage,
   xlData,
   fileName,
-  columns, // Array of column names to render
-  getCellValue, // Function to extract cell values from data
+  columns,
+  getCellValue,
 }) => {
   return (
     <div style={{ padding: "30px 20px", width: "100%" }}>

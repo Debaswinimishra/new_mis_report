@@ -44,20 +44,20 @@ const noneValue = [{ value: "none", label: "None" }];
 const ComunityEducator = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
-  //console.log("managerArr===>", managerArr);
+  ////console.log("managerArr===>", managerArr);
   const [topicArr, setTopicArr] = useState([]);
-  //console.log("topicArr===>", topicArr);
+  ////console.log("topicArr===>", topicArr);
   const [questionArr, setQuestionArr] = useState([]);
-  //console.log("questionArr--->", questionArr);
+  ////console.log("questionArr--->", questionArr);
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
   const [managerName, setManagerName] = useState("");
   const [topicName, setTopicName] = useState("");
-  //console.log("topicname", topicName);
+  ////console.log("topicname", topicName);
   const [questionName, setQuestionName] = useState("");
-  //console.log("questionName==", questionName);
+  ////console.log("questionName==", questionName);
   const [topicId, setTopicId] = useState("");
-  //console.log("topicId--->", topicId);
+  ////console.log("topicId--->", topicId);
   const [questionId, setQuestionId] = useState("");
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
@@ -74,7 +74,7 @@ const ComunityEducator = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        //console.log("response--->", response.data, response.status);
+        ////console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {}
     };
@@ -171,7 +171,7 @@ const ComunityEducator = () => {
   };
 
   const questionFilter = async () => {
-    //console.log("questionFilter==", questionName);
+    ////console.log("questionFilter==", questionName);
     if (selectedYear === "" || managerName === "" || passcode === "") {
       return alert("Please select some filters to proceed");
     }

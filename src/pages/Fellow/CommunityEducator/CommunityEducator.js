@@ -4,6 +4,7 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
+import loader from "../../../Assets/R.gif";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Text from "../../../ReusableComponents/Text";
@@ -15,7 +16,7 @@ import Links from "../../../ReusableComponents/Links";
 import Number from "../../../ReusableComponents/Number";
 import Card from "../../../ReusableComponents/Card";
 import moment from "moment/moment";
-import Api from "../../../Environment/Api";
+import Api from "../../../environment/Api";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -34,7 +35,7 @@ import Box from "@mui/material/Box";
 
 const managerTypeSet = [
   { value: "none", label: "none" },
-  { value: "MANAGER", label: "MANAGER" },
+  { value: "manager", label: "MANAGER" },
   { value: "Crc", label: "CRC" },
   { value: "Aww", label: "Supervisor" },
   // {id:1, value:"manager"},
@@ -47,6 +48,7 @@ const ComunityEducator = () => {
   const [selectedYearTab2, setSelectedYearTab2] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   const [managerType, setManagerType] = useState("");
+  console.log("managerType--->", managerType);
   const [managerTypeTab2, setManagerTypeTab2] = useState("");
   const [passcode, setPasscode] = useState("");
   const [passcodeTab2, setPasscodeTab2] = useState("");
@@ -68,11 +70,6 @@ const ComunityEducator = () => {
   console.log("tab1FilterData--->", tab1FilterData);
   const [tab2FilterData, setTab2FilterData] = useState({});
 
-  const tabContents = [
-    <div key={0}>First Tab</div>,
-    <div key={1}>Second Tab</div>,
-  ];
-
   const handleTabChange = (event, newValue) => {
     setSelectedTabIndex(newValue);
   };
@@ -80,8 +77,10 @@ const ComunityEducator = () => {
   const fetchDataForTab = async (selectedTabIndex) => {
     // Your data fetching logic here based on the tab index
     if (selectedTabIndex === 0) {
-      setManagerNameTab2([]);
-      setPasscodeTab2([]);
+      setManagerNameTab2("");
+      setPasscodeTab2("");
+      setBlockName("");
+      setDistrictName("");
       setSelectedYearTab2([]);
       setTab2FilterData({});
       try {
@@ -91,9 +90,9 @@ const ComunityEducator = () => {
         console.log("err--->", err.response.status);
       }
     } else if (selectedTabIndex === 1) {
-      setManagerName([]);
-      setSelectedYear([]);
-      setPasscode([]);
+      setManagerName("");
+      setSelectedYear("");
+      setPasscode("");
       setTab1FilterData({});
       try {
         const response1 = await getAllCommunityEducatiorFilter();
@@ -162,7 +161,7 @@ const ComunityEducator = () => {
     setManagerType(event.target.value);
   };
   const handleManagerTypeChangeTab2 = (event) => {
-    setManagerType(event.target.value);
+    setManagerTypeTab2(event.target.value);
   };
 
   const handlePasscodeChange = (event) => {
@@ -172,114 +171,6 @@ const ComunityEducator = () => {
   const handlePasscodeChangeTab2 = (event) => {
     setPasscodeTab2(event.target.value);
   };
-
-  const sortteacher = async () => {
-    if (selectedYear === "" || managerName === "" || passcode === "") {
-      return alert("Please select some filters to preceed");
-    }
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const body = {
-      year: selectedYear,
-      passcode: passcode,
-      managerid: managerName,
-      managerType: managerType,
-    };
-    setLoaded(false);
-    try {
-      const res = await Api.post(`sortteacher`, body, config);
-      if (res.status === 200) {
-        setData(res.data);
-        setTotalDataLength(res.data.length);
-        setLoaded(true);
-      }
-    } catch (error) {
-      setLoaded(true);
-    }
-  };
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(event.target.value);
-    setPage(0);
-  };
-
-  const columns = [
-    "Serial No",
-    "Total Educators Trained",
-    "Total Students Impacted",
-    "Total Primary-grade Students Impacted",
-    "Total Pre-Primary-grade Students Impacted",
-    "Reg-Date",
-    "Status",
-    "Contact Number",
-    "GuardianNAme",
-    "D.O.B",
-    "AADHAR NUMBER",
-    "FELLOW QUALIFICATION",
-    "GENDER",
-    "NO oF STUDENT",
-    "TEACHER BASELINE STATUS	",
-    "TEACHER BASELINE MARK	",
-    "TEACHER ENDLINE STATUS	",
-    "TEACHER ENDLINE MARK",
-  ];
-
-  const getCellValue = (row, column, index) => {
-    switch (column) {
-      case "Serial No":
-        return index + 1;
-      case "Total Educators Trained":
-        return row.managername;
-      case "Total Students Impacted":
-        return row.username;
-      case "Total Primary-grade Students Impacted":
-        return row.userid;
-      case "Total Pre-Primary-grade Students Impacted":
-        return row.usertype;
-      case "Reg-Date":
-        return moment(row.createdon).format(" DD MM YYYY");
-      case "Status":
-        return row.status;
-      case "Contact Number":
-        return row.contactnumber;
-      case "GuardianNAme":
-        return row.usertype;
-      case "D.O.B":
-        return row.usertype;
-      case "AADHAR NUMBER":
-        return row.usertype;
-      case "FELLOW QUALIFICATION":
-        return row.usertype;
-      case "GENDER":
-        return row.gender;
-      case "NO oF STUDENT":
-        return row.students;
-      case "TEACHER BASELINE STATUS":
-        return row.userid;
-      case "TEACHER BASELINE MARK":
-        return row.userid;
-      case "TEACHER ENDLINE STATUS":
-        return row.userid;
-      case "TEACHER ENDLINE MARK":
-        return row.userid;
-      default:
-        return "";
-    }
-  };
-
-  const fileName = "fellow";
-
-  const xlData = data.map((x) => {
-    const { userid, username, ...exceptBoth } = x;
-    return exceptBoth;
-  });
 
   const handleDistrictChange = async (e) => {
     const selectedValue = e.target.value;
@@ -302,18 +193,21 @@ const ComunityEducator = () => {
     if (selectedYear === "" || managerName === "" || passcode === "") {
       return alert("Please select some filters to preceed");
     } else {
-      setLoaded(false);
       const response = await getCommunityEducator1(
         selectedYear,
         managerName,
         passcode
       );
-      console.log("community--->", response.data);
-      setTab1FilterData(response.data);
+      console.log("community--->", response.data, response.status);
+      if (response.status === 200) {
+        setLoaded(false);
+        setTab1FilterData(response.data);
+      }
     }
   };
 
   const handleCommunityEducatorTab2 = async () => {
+    setLoaded(true);
     if (
       selectedYearTab2 === "" ||
       managerNameTab2 === "" ||
@@ -329,7 +223,10 @@ const ComunityEducator = () => {
         blockName
       );
       console.log("community2--->", response.data);
-      setTab2FilterData(response.data);
+      if (response.status === 200) {
+        setLoaded(false);
+        setTab2FilterData(response.data);
+      }
     }
   };
 
@@ -342,8 +239,8 @@ const ComunityEducator = () => {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Tab 1" />
-          <Tab label="Tab 2" />
+          <Tab label="Overall - Community Educators" wrapped />
+          <Tab label="Community Educators - Active" />
         </Tabs>
 
         {selectedTabIndex === 0 && (
@@ -382,11 +279,20 @@ const ComunityEducator = () => {
                   value={managerName}
                   onChange={(e) => handleManagerChange(e)}
                 >
+                  {managerType === "manager"
+                    ? managerArr.map((option, index) => (
+                        <MenuItem key={index + 1} value={option.managerid}>
+                          {option.managername}
+                        </MenuItem>
+                      ))
+                    : null}
+
+                  {/* 
                   {managerArr.map((option, index) => (
                     <MenuItem key={index + 1} value={option.managerid}>
-                      {option.managername}
+                      {managerType === "manager" ? option.managername : null}
                     </MenuItem>
-                  ))}
+                  ))} */}
                 </TextField>
                 <ReusableTextField
                   label="Select passcode"
@@ -407,67 +313,78 @@ const ComunityEducator = () => {
               </div>
             </div>
             {/* {loaded && ( */}
-            <>
-              {tab1FilterData ? (
-                <div style={{ padding: "30px 20px", width: "100%" }}>
-                  <div>
-                    <Card
-                      name="Total Users"
-                      number={tab1FilterData.totalStudentsCount || 0}
-                      Icon={PeopleIcon}
-                    />
+            {loaded ? (
+              <img src={loader} />
+            ) : (
+              <>
+                {tab1FilterData && Object.keys(tab1FilterData).length > 0 ? (
+                  <div
+                    style={{
+                      padding: "30px 20px",
+                      width: "100%",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <div className="container">
+                      <Card
+                        name="Total Users"
+                        number={tab1FilterData.totalStudentsCount || 0}
+                        Icon={PeopleIcon}
+                      />
 
-                    <Card
-                      name="Active Users"
-                      number={tab1FilterData.activeUsersCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
+                      <Card
+                        name="Active Users"
+                        number={tab1FilterData.activeUsersCount || 0}
+                        Icon={PeopleIcon}
+                        style={{ backgroundColor: "red" }}
+                      />
 
-                    <Card
-                      name="Average Timespent"
-                      number={tab1FilterData.averageTimeSpent || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-                    <Card
-                      name="ECE Students"
-                      number={tab1FilterData.eceStudentsCount || 0}
-                      Icon={PeopleIcon}
-                    />
+                      <Card
+                        name="Average Timespent"
+                        number={tab1FilterData.averageTimeSpent || 0}
+                        Icon={PeopleIcon}
+                        style={{ backgroundColor: "red" }}
+                      />
+                      <Card
+                        name="ECE Students"
+                        number={tab1FilterData.eceStudentsCount || 0}
+                        Icon={PeopleIcon}
+                      />
 
-                    <Card
-                      name="Female Students"
-                      number={tab1FilterData.femaleStudentsCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
+                      <Card
+                        name="Female Students"
+                        number={tab1FilterData.femaleStudentsCount || 0}
+                        Icon={PeopleIcon}
+                        style={{ backgroundColor: "red" }}
+                      />
 
-                    <Card
-                      name="Female Users"
-                      number={tab1FilterData.femaleUsersCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-                    <Card
-                      name="PGE Students"
-                      number={tab1FilterData.pgeStudentsCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
+                      <Card
+                        name="Female Users"
+                        number={tab1FilterData.femaleUsersCount || 0}
+                        Icon={PeopleIcon}
+                        style={{ backgroundColor: "red" }}
+                      />
+                      <Card
+                        name="PGE Students"
+                        number={tab1FilterData.pgeStudentsCount || 0}
+                        Icon={PeopleIcon}
+                        style={{ backgroundColor: "red" }}
+                      />
 
-                    <Card
-                      name="Total Student"
-                      number={tab1FilterData.totalStudentsCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
+                      <Card
+                        name="Total Student"
+                        number={tab1FilterData.totalStudentsCount || 0}
+                        Icon={PeopleIcon}
+                        style={{ backgroundColor: "red" }}
+                      />
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <Logo />
-              )}
-            </>
+                ) : (
+                  <Logo />
+                )}
+              </>
+            )}
+
             {/* // )} */}
             <Links />
           </>
@@ -509,11 +426,13 @@ const ComunityEducator = () => {
                   value={managerNameTab2}
                   onChange={(e) => handleManagerChangeTab2(e)}
                 >
-                  {managerArr.map((option, index) => (
-                    <MenuItem key={index + 1} value={option.managerid}>
-                      {option.managername}
-                    </MenuItem>
-                  ))}
+                  {managerTypeTab2 === "manager"
+                    ? managerArr.map((option, index) => (
+                        <MenuItem key={index + 1} value={option.managerid}>
+                          {option.managername}
+                        </MenuItem>
+                      ))
+                    : null}
                 </TextField>
 
                 <ReusableTextField
@@ -567,23 +486,27 @@ const ComunityEducator = () => {
                 </Stack>
               </div>
             </div>
-            <>
-              {tab2FilterData ? (
-                <div style={{ padding: "30px 20px", width: "100%" }}>
-                  <div>
-                    {/* <Card
+
+            {loaded ? (
+              <img src={loader} />
+            ) : (
+              <>
+                {tab2FilterData && Object.keys(tab2FilterData).length > 0 ? (
+                  <div style={{ padding: "30px 20px", width: "100%" }}>
+                    <div>
+                      {/* <Card
                       name="Total Users"
                       number={tab2FilterData.totalStudentsCount || 0}
                       Icon={PeopleIcon}
                     /> */}
 
-                    <Card
-                      name="Active Users"
-                      number={tab2FilterData.activeUsersCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-                    {/* 
+                      <Card
+                        name="Active Users"
+                        number={tab2FilterData.activeUsersCount || 0}
+                        Icon={PeopleIcon}
+                        style={{ backgroundColor: "red" }}
+                      />
+                      {/* 
                     <Card
                       name="Average Timespent"
                       number={tab2FilterData.averageTimeSpent || 0}
@@ -622,12 +545,13 @@ const ComunityEducator = () => {
                       Icon={PeopleIcon}
                       style={{ backgroundColor: "red" }}
                     /> */}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <Logo />
-              )}
-            </>
+                ) : (
+                  <Logo />
+                )}
+              </>
+            )}
           </>
         )}
       </div>

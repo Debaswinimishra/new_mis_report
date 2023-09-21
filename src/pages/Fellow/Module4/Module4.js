@@ -23,7 +23,7 @@ import Number from "../../../ReusableComponents/Number";
 import Card from "../../../ReusableComponents/Card";
 // import Links from "../components/Links";
 // import Api from "../environment/Api";
-import Api from "../../../Environment/Api";
+import Api from "../../../environment/Api";
 // import Select1 from "../components/Select1";
 const Femalefellows = "http://localhost:3000/home/fellows";
 const Dashboard = () => {

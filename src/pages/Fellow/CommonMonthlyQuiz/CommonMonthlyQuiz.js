@@ -307,7 +307,10 @@ const ComunityEducator = () => {
       case "Question":
         return row.question;
       case "Answer":
-        return row.answer;
+       // return row.answer ? row.answer: row.correct
+        return row.correct ===  true ? "True":
+        // : row.correct === false?"False":
+         row.answer?row.answer:"check condition"
       default:
         return "";
     }

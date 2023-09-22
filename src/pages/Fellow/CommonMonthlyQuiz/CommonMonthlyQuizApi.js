@@ -14,3 +14,8 @@ export const getTtlQuizReportUserWise = async (params) =>
   await Api.get(
     `getTtlQuizReportUserWise/${params.year}/${params.managerid}/${params.passcode}/${params.topicid}/${params.questionId}`
   );
+
+  export const getTtlQuizQuestions = async (params) =>
+  await Api.get(
+    `getTtlQuizQuestions/${params.topicid}`
+  );

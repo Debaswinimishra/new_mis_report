@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 // import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import PeopleIcon from "@mui/icons-material/People";
 import "./Dashboard.css";
+import loader from "../../../Assets/R.gif";
 import Text from "../../../ReusableComponents/Text";
 import Select1 from "../../../ReusableComponents/Select1";
 import Fields from "../../../ReusableComponents/Fields";
@@ -42,6 +43,7 @@ const Dashboard = () => {
   const [avgGradUser, setAvgGradUser] = useState({});
   const [avgEndline, setAvgEndline] = useState({});
   const [totalTime, SettotalTime] = useState({});
+  const [loaded, setLoaded] = useState(false);
 
   const [user, setUser] = useState({});
   console.log("user--->", user);
@@ -49,6 +51,7 @@ const Dashboard = () => {
   const handleCallAPI = async () => {
     try {
       const response = await Api.get(`getDashboardCounts`);
+     
       if (response.data.status === "success") {
         setTotalUsersCount(response.data.resData);
         setFemaleCount(response.data.resData);
@@ -67,8 +70,10 @@ const Dashboard = () => {
     }
   };
   const handleApi = () => {
+    setLoaded(true);
     Api.get(`getDashboardCounts`).then((res) => {
       setUser(res.data);
+      setLoaded(false);
       // Output the user data to the console
     } );
   };
@@ -91,6 +96,9 @@ const Dashboard = () => {
     <>
       <div className="content">
       </div>
+      {loaded ? (
+              <img src={loader} />
+            ) : (
       <div className="container">
         <Card
           name="Total Educatorss"
@@ -165,6 +173,7 @@ const Dashboard = () => {
           style={{ backgroundColor: "red" }}
         />
       </div>
+      )}
       <Links />
     </>
   );

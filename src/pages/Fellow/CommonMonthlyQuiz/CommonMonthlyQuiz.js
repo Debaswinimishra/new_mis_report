@@ -26,6 +26,7 @@ import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/C
 import {
   getAllTopic,
   getAllTopicDetails,
+  getTtlQuizQuestions,
   getTtlQuizReportUserWise,
 } from "../../Fellow/CommonMonthlyQuiz/CommonMonthlyQuizApi";
 
@@ -137,18 +138,35 @@ const ComunityEducator = () => {
     }
   };
 
-  const handleTopicChange = (event) => {
+  // const handleTopicChange = (event) => {
+  //   const selectedTopicName = event.target.value;
+  //   setTopicName(selectedTopicName);
+  //   if (selectedTopicName) {
+  //     Api.get(`getTtlQuizQuestions/${selectedTopicName}`)
+  //       .then((response) => {
+  //         console.log(response, "response===>");
+  //         setQuestionArr(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching quiz questions:", error);
+  //       });
+  //   }
+  // };
+
+  const handleTopicChange = async (event) => {
     const selectedTopicName = event.target.value;
     setTopicName(selectedTopicName);
+    
     if (selectedTopicName) {
-      Api.get(`getTtlQuizQuestions/${selectedTopicName}`)
-        .then((response) => {
-          console.log(response, "response===>");
-          setQuestionArr(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching quiz questions:", error);
+      try {
+        const response = await getTtlQuizQuestions({
+          topicid: selectedTopicName,
         });
+        console.log(response, "response===>");
+        setQuestionArr(response.data);
+      } catch (error) {
+        console.error("Error fetching quiz questions:", error);
+      }
     }
   };
 

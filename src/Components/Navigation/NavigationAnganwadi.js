@@ -16,6 +16,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Popover from "@mui/material/Popover";
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -187,7 +189,7 @@ function NavigationAnganwadi(props) {
               color: "white",
             }}
           >
-            Anganwadi <ArrowDownwardIcon />
+            Anganwadi <ExpandCircleDownIcon />
           </Button>
           <Popover
             open={Boolean(anchorEl)}

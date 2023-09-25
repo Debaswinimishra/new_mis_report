@@ -24,6 +24,8 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Button from "@mui/material/Button";
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 const drawerWidth = 240;
 
@@ -188,7 +190,7 @@ function NavigationSchool(props) {
               color: "white",
             }}
           >
-            School <ArrowDownwardIcon />
+            School <ExpandCircleDownIcon />
           </Button>
           <Popover
             open={Boolean(anchorEl)}

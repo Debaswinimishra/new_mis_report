@@ -233,7 +233,7 @@ const ComunityEducator = () => {
   return (
     <>
       <div style={{ margin: "10px" }}>
-        <Tabs
+        {/* <Tabs
           value={selectedTabIndex}
           onChange={handleTabChange}
           indicatorColor="primary"
@@ -241,9 +241,9 @@ const ComunityEducator = () => {
         >
           <Tab label="Overall - Community Educators" wrapped />
           <Tab label="Community Educators - Active" />
-        </Tabs>
+        </Tabs> */}
 
-        {selectedTabIndex === 0 && (
+        {/* {selectedTabIndex === 0 && ( */}
           <>
             <div
               style={{
@@ -388,9 +388,9 @@ const ComunityEducator = () => {
             {/* // )} */}
             <Links />
           </>
-        )}
+        {/* )} */}
 
-        {selectedTabIndex === 1 && (
+        {/* {selectedTabIndex === 1 && ( */}
           <>
             <div
               style={{
@@ -553,7 +553,7 @@ const ComunityEducator = () => {
               </>
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </>
   );

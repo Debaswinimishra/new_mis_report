@@ -25,8 +25,8 @@ import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/C
 // } from "./CommonMonthlyQuizApi";
 import {
   getAllTopic,
-  getAllTopicDetails,
   getTtlQuizQuestions,
+  getAllTopicDetails,
   getTtlQuizReportUserWise,
 } from "../../Fellow/CommonMonthlyQuiz/CommonMonthlyQuizApi";
 

@@ -22,6 +22,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Popover from "@mui/material/Popover";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -209,7 +210,7 @@ function NavigationFellow(props) {
                 color: "white",
               }}
             >
-              Change Usertype
+              Fellow <ArrowDownwardIcon />
             </Button>
             <Popover
               open={Boolean(anchorEl)}

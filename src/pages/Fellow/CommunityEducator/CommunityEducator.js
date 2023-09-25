@@ -91,9 +91,9 @@ const ComunityEducator = () => {
         console.log("err--->", err.response.status);
       }
     } else if (selectedTabIndex === 1) {
-      setManagerName([]);
-      setSelectedYear([]);
-      setPasscode([]);
+      setManagerName("");
+      setSelectedYear("");
+      setPasscode("");
       setTab1FilterData({});
       try {
         const response1 = await getAllCommunityEducatiorFilter();
@@ -146,9 +146,13 @@ const ComunityEducator = () => {
   });
   const handleYearChange = (selectedYear) => {
     setSelectedYear(selectedYear);
+    setManagerName("");
+    setPasscode("");
   };
   const handleYearChangeTab2 = (selectedYearTab2) => {
     setSelectedYearTab2(selectedYearTab2);
+    setManagerNameTab2("");
+    setPasscodeTab2("");
   };
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);

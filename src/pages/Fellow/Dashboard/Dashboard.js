@@ -22,7 +22,6 @@ import Logo from "../../../ReusableComponents/Logo";
 import Links from "../../../ReusableComponents/Links";
 import Number from "../../../ReusableComponents/Number";
 import Card from "../../../ReusableComponents/Card";
-import loader from "../../../Assets/R.gif";
 // import Links from "../components/Links";
 // import Api from "../environment/Api";
 // import Api from "../../..Environment/Api";
@@ -50,10 +49,9 @@ const Dashboard = () => {
   console.log("user--->", user);
 
   const handleCallAPI = async () => {
-    setLoading(true);
     try {
       const response = await Api.get(`getDashboardCounts`);
-
+     
       if (response.data.status === "success") {
         setTotalUsersCount(response.data.resData);
         setFemaleCount(response.data.resData);
@@ -67,7 +65,6 @@ const Dashboard = () => {
         setAvgEndline(response.data.resData);
         SettotalTime(response.data.resData);
       }
-      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -78,8 +75,7 @@ const Dashboard = () => {
       setUser(res.data);
       setLoaded(false);
       // Output the user data to the console
-      setLoading(false);
-    });
+    } );
   };
   useEffect(() => {
     handleApi();
@@ -98,113 +94,85 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="content"></div>
+      <div className="content">
+      </div>
       {loaded ? (
-        <img src={loader} />
-      ) : (
-        <div className="container">
+              <img src={loader} />
+            ) : (
+      <div className="container">
+        <Card
+          name="Total Educatorss"
+           number={user.totalUsersCount || "NA" }
+          Icon={PeopleIcon}
+        />
+        <a
+          style={{ textDecoration: "none" }}
+          href={Femalefellows}
+          target="femailfellowship"
+        >
           <Card
-            name="Total Educatorss"
-            number={user.totalUsersCount || "NA"}
+            name="Female Educators"
+            number={user.femaleUsersCount || "NA"}
             Icon={PeopleIcon}
+            style={{ backgroundColor: "orange" }}
           />
-          <a
-            style={{ textDecoration: "none" }}
-            href={Femalefellows}
-            target="femailfellowship"
-          >
-            <Card
-              name="Total Educatorss"
-              number={user.totalUsersCount || "NA"}
-              Icon={PeopleIcon}
-            />
-            <a
-              style={{ textDecoration: "none" }}
-              href={Femalefellows}
-              target="femailfellowship"
-            >
-              <Card
-                name="Female Educators"
-                number={user.femaleUsersCount || "NA"}
-                Icon={PeopleIcon}
-                style={{ backgroundColor: "orange" }}
-              />
-            </a>
+        </a>
 
-            <a
-              style={{ textDecoration: "none" }}
-              href={Femalefellows}
-              target="female"
-            >
-              <Card
-                name="Active Educators"
-                number={user.activeUsersCount || "NA"}
-                Icon={PeopleIcon}
-                style={{ backgroundColor: "teal" }}
-              />
-            </a>
-            <a
-              style={{ textDecoration: "none" }}
-              href={Femalefellows}
-              target="Active fellows"
-            >
-              <Card
-                name="Monthly Timespent"
-                number={user.averageTimeSpent || "NA"}
-                Icon={PeopleIcon}
-                style={{ backgroundColor: "green" }}
-              />
-            </a>
-            <a
-              style={{ textDecoration: "none" }}
-              href={Femalefellows}
-              target="fellowdropout"
-            >
-              <Card
-                name="Total Student"
-                number={user.totalStudentsCount || "NA"}
-                Icon={PeopleIcon}
-                style={{ backgroundColor: "blue" }}
-              />
-            </a>
-            <Card
-              name="Total Female Student"
-              number={user.femaleStudentsCount || "NA"}
-              Icon={PeopleIcon}
-              style={{ backgroundColor: "red" }}
-            />
-            <Card
-              name="Total PGE Student"
-              number={user.pgeStudentsCount || "NA"}
-              Icon={PeopleIcon}
-              style={{ backgroundColor: "red" }}
-            />
-            <Card
-              name="Total ECE Student"
-              number={user.eceStudentsCount || "NA"}
-              Icon={PeopleIcon}
-              style={{ backgroundColor: "red" }}
-            />
-          </a>
+        <a
+          style={{ textDecoration: "none" }}
+          href={Femalefellows}
+          target="female"
+        >
           <Card
-            name="Total Female Student"
-            number={user.femaleStudentsCount || "NA"}
+            name="Active Educators"
+            number={user.activeUsersCount || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "red" }}
+            style={{ backgroundColor: "teal" }}
           />
+        </a>
+        <a
+          style={{ textDecoration: "none" }}
+          href={Femalefellows}
+          target="Active fellows"
+        >
           <Card
-            name="Total PGE Student"
-            number={user.pgeStudentsCount || "NA"}
+            name="Monthly Timespent"
+            number={user.averageTimeSpent || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "red" }}
+            style={{ backgroundColor: "green" }}
           />
+        </a>
+        <a
+          style={{ textDecoration: "none" }}
+          href={Femalefellows}
+          target="fellowdropout"
+        >
           <Card
-            name="Total ECE Student"
-            number={user.eceStudentsCount || "NA"}
+            name="Total Student"
+            number={user.totalStudentsCount || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "red" }}
+            style={{ backgroundColor: "blue" }}
           />
-        </div>
+        </a>
+        <Card
+          name="Total Female Student"
+          number={user.femaleStudentsCount || "NA"}
+          Icon={PeopleIcon}
+          style={{ backgroundColor: "red" }}
+        />
+        <Card
+          name="Total PGE Student"
+          number={user.pgeStudentsCount || "NA"}
+          Icon={PeopleIcon}
+          style={{ backgroundColor: "red" }}
+        />
+         <Card
+          name="Total ECE Student"
+          number={user.eceStudentsCount || "NA"}
+          Icon={PeopleIcon}
+          style={{ backgroundColor: "red" }}
+        />
+      </div>
       )}
       <Links />
     </>

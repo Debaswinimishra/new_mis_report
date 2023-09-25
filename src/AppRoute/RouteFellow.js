@@ -4,11 +4,12 @@ import FellowRoot from "../Pages/Fellow";
 import Dashboard from "../Pages/Fellow/Dashboard/Dashboard";
 
 import CommonMonthlyQuiz from "../Pages/Fellow/CommonMonthlyQuiz/CommonMonthlyQuiz";
-// import ComunityEducator from "../Pages/Fellow/ComunityEducator/ComunityEducator";
 import CommunityEducator from "../Pages/Fellow/CommunityEducator/CommunityEducator";
 import NewTraining from "../Pages/Fellow/NewTraining/NewTraining";
 import StudentProgressReport from "../Pages/Fellow/StudentProgressReport/StudentProgressReport";
 import PrivateRoute from "./PrivateRoute";
+import Dashboard from "../Pages/Fellow/Dashboard/Dashboard";
+
 // import * from "../AppRoute/Route404";
 // import FelloRoutes from "../Pages/Fellow/FelloRoutes";
 

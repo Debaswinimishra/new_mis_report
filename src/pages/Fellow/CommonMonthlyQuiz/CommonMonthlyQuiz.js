@@ -25,6 +25,7 @@ import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/C
 // } from "./CommonMonthlyQuizApi";
 import {
   getAllTopic,
+  getTtlQuizQuestions,
   getAllTopicDetails,
   getTtlQuizReportUserWise,
 } from "../../Fellow/CommonMonthlyQuiz/CommonMonthlyQuizApi";
@@ -137,18 +138,35 @@ const ComunityEducator = () => {
     }
   };
 
-  const handleTopicChange = (event) => {
+  // const handleTopicChange = (event) => {
+  //   const selectedTopicName = event.target.value;
+  //   setTopicName(selectedTopicName);
+  //   if (selectedTopicName) {
+  //     Api.get(`getTtlQuizQuestions/${selectedTopicName}`)
+  //       .then((response) => {
+  //         console.log(response, "response===>");
+  //         setQuestionArr(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching quiz questions:", error);
+  //       });
+  //   }
+  // };
+
+  const handleTopicChange = async (event) => {
     const selectedTopicName = event.target.value;
     setTopicName(selectedTopicName);
+    
     if (selectedTopicName) {
-      Api.get(`getTtlQuizQuestions/${selectedTopicName}`)
-        .then((response) => {
-          console.log(response, "response===>");
-          setQuestionArr(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching quiz questions:", error);
+      try {
+        const response = await getTtlQuizQuestions({
+          topicid: selectedTopicName,
         });
+        console.log(response, "response===>");
+        setQuestionArr(response.data);
+      } catch (error) {
+        console.error("Error fetching quiz questions:", error);
+      }
     }
   };
 
@@ -289,7 +307,10 @@ const ComunityEducator = () => {
       case "Question":
         return row.question;
       case "Answer":
-        return row.answer;
+       // return row.answer ? row.answer: row.correct
+        return row.correct ===  true ? "True":
+        // : row.correct === false?"False":
+         row.answer?row.answer:"check condition"
       default:
         return "";
     }

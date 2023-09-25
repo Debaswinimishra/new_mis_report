@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import FellowRoot from "../Pages/Fellow";
+import Dashboard from "../Pages/Fellow/Dashboard/Dashboard";
+
 import CommonMonthlyQuiz from "../Pages/Fellow/CommonMonthlyQuiz/CommonMonthlyQuiz";
 import CommunityEducator from "../Pages/Fellow/CommunityEducator/CommunityEducator";
 import NewTraining from "../Pages/Fellow/NewTraining/NewTraining";

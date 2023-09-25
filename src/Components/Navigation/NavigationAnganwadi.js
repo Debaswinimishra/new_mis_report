@@ -23,6 +23,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 const drawerWidth = 240;
 
@@ -186,7 +187,7 @@ function NavigationAnganwadi(props) {
               color: "white",
             }}
           >
-            Change Usertype
+            Anganwadi <ArrowDownwardIcon />
           </Button>
           <Popover
             open={Boolean(anchorEl)}

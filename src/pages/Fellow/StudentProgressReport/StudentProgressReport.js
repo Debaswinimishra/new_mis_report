@@ -29,7 +29,7 @@ import {
   getDistrictsWiseBlocks,
   getCommunityEducator1,
   getCommunityEducator2,
-} from "./CommunityEducatorApi";
+} from "./StudentProgressReportApi";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
@@ -145,13 +145,9 @@ const ComunityEducator = () => {
   });
   const handleYearChange = (selectedYear) => {
     setSelectedYear(selectedYear);
-    setManagerName("");
-    setPasscode("");
   };
   const handleYearChangeTab2 = (selectedYearTab2) => {
     setSelectedYearTab2(selectedYearTab2);
-    setManagerNameTab2("");
-    setPasscodeTab2("");
   };
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);
@@ -237,7 +233,7 @@ const ComunityEducator = () => {
   return (
     <>
       <div style={{ margin: "10px" }}>
-        <Tabs
+        {/* <Tabs
           value={selectedTabIndex}
           onChange={handleTabChange}
           indicatorColor="primary"
@@ -245,9 +241,9 @@ const ComunityEducator = () => {
         >
           <Tab label="Overall - Community Educators" wrapped />
           <Tab label="Community Educators - Active" />
-        </Tabs>
+        </Tabs> */}
 
-        {selectedTabIndex === 0 && (
+        {/* {selectedTabIndex === 0 && ( */}
           <>
             <div
               style={{
@@ -392,9 +388,9 @@ const ComunityEducator = () => {
             {/* // )} */}
             <Links />
           </>
-        )}
+        {/* )} */}
 
-        {selectedTabIndex === 1 && (
+        {/* {selectedTabIndex === 1 && ( */}
           <>
             <div
               style={{
@@ -557,7 +553,7 @@ const ComunityEducator = () => {
               </>
             )}
           </>
-        )}
+        {/* )} */}
       </div>
     </>
   );

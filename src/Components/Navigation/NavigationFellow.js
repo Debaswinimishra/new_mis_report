@@ -21,6 +21,7 @@ import Typography from "@mui/material/Typography";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Avatar from "@mui/material/Avatar";
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
 import MenuItem from "@mui/material/MenuItem";
 import Popover from "@mui/material/Popover";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
@@ -76,6 +77,11 @@ function NavigationFellow(props) {
     {
       text: "Training Module",
       link: "trainingmodule",
+      icon: <CastForEducationIcon color="secondary" />,
+    },
+    {
+      text: "Student Progress Report",
+      link: "studentprogressreport",
       icon: <CastForEducationIcon color="secondary" />,
     },
 
@@ -209,7 +215,7 @@ function NavigationFellow(props) {
                 color: "white",
               }}
             >
-              Change Usertype
+              Fellow <ExpandCircleDownIcon />
             </Button>
             <Popover
               open={Boolean(anchorEl)}

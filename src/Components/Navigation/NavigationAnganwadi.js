@@ -16,6 +16,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Popover from "@mui/material/Popover";
+import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -23,6 +25,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 const drawerWidth = 240;
 
@@ -186,7 +189,7 @@ function NavigationAnganwadi(props) {
               color: "white",
             }}
           >
-            Change Usertype
+            Anganwadi <ExpandCircleDownIcon />
           </Button>
           <Popover
             open={Boolean(anchorEl)}

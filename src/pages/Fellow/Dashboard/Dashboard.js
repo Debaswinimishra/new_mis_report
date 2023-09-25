@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 // import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import PeopleIcon from "@mui/icons-material/People";
 import "./Dashboard.css";
+import loader from "../../../Assets/R.gif";
 import Text from "../../../ReusableComponents/Text";
 import Select1 from "../../../ReusableComponents/Select1";
 import Fields from "../../../ReusableComponents/Fields";
@@ -23,6 +24,7 @@ import Number from "../../../ReusableComponents/Number";
 import Card from "../../../ReusableComponents/Card";
 // import Links from "../components/Links";
 // import Api from "../environment/Api";
+// import Api from "../../..Environment/Api";
 import Api from "../../../Environment/Api";
 // import Select1 from "../components/Select1";
 const Femalefellows = "http://localhost:3000/home/fellows";
@@ -41,12 +43,15 @@ const Dashboard = () => {
   const [avgGradUser, setAvgGradUser] = useState({});
   const [avgEndline, setAvgEndline] = useState({});
   const [totalTime, SettotalTime] = useState({});
+  const [loaded, setLoaded] = useState(false);
 
   const [user, setUser] = useState({});
+  console.log("user--->", user);
 
   const handleCallAPI = async () => {
     try {
-      const response = await Api.get(`getDashboardCounts/${year}`);
+      const response = await Api.get(`getDashboardCounts`);
+     
       if (response.data.status === "success") {
         setTotalUsersCount(response.data.resData);
         setFemaleCount(response.data.resData);
@@ -65,14 +70,16 @@ const Dashboard = () => {
     }
   };
   const handleApi = () => {
-    Api.get(`getstudentdetails/${selectYear}`).then((res) => {
+    setLoaded(true);
+    Api.get(`getDashboardCounts`).then((res) => {
       setUser(res.data);
+      setLoaded(false);
       // Output the user data to the console
-    });
+    } );
   };
   useEffect(() => {
     handleApi();
-  }, [selectYear]);
+  }, []);
 
   const handleSelectChange = (year) => {
     setYear(year);
@@ -88,25 +95,14 @@ const Dashboard = () => {
   return (
     <>
       <div className="content">
-        {/* <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            fontFamily: "'Nuosu SIL', serif",
-          }}
-        >
-          <h2>Fellow Performance</h2>
-        </div> */}
-
-        {/* <div style={{ width: 220, marginTop: 15 }}>
-          <Select1 selectedYear={year} onChange={handleSelectChange} />
-        </div> */}
       </div>
+      {loaded ? (
+              <img src={loader} />
+            ) : (
       <div className="container">
         <Card
-          name="Active Users"
-          number={totalUsersCount.activeUsersCount || 0}
+          name="Total Educatorss"
+           number={user.totalUsersCount || "NA" }
           Icon={PeopleIcon}
         />
         <a
@@ -115,8 +111,8 @@ const Dashboard = () => {
           target="femailfellowship"
         >
           <Card
-            name="Female fellows"
-            number={femaleCount.femaleUsersCount || 0}
+            name="Female Educators"
+            number={user.femaleUsersCount || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "orange" }}
           />
@@ -128,8 +124,8 @@ const Dashboard = () => {
           target="female"
         >
           <Card
-            name="Total Users"
-            number={fellowshipCompleted.totalUsersCount || 0}
+            name="Active Educators"
+            number={user.activeUsersCount || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "teal" }}
           />
@@ -140,8 +136,8 @@ const Dashboard = () => {
           target="Active fellows"
         >
           <Card
-            name="Inactive fellows"
-            number={fellowsCount.inactiveUsersCount || 0}
+            name="Monthly Timespent"
+            number={user.averageTimeSpent || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "green" }}
           />
@@ -152,104 +148,32 @@ const Dashboard = () => {
           target="fellowdropout"
         >
           <Card
-            name="Dropout Users"
-            number={dropout.dropoutUsersCount || 0}
+            name="Total Student"
+            number={user.totalStudentsCount || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "blue" }}
           />
         </a>
-        {/* <Card
-          name="Avrage score"
-          number={avrage.avgBaselineMarks || 0}
-          Icon={PeopleIcon}
-          style={{ backgroundColor: "teal" }}
-        /> */}
-        {/* <Card
-          name="Endline user"
-          number={endlineUser.endlineUsersCount || 0}
+        <Card
+          name="Total Female Student"
+          number={user.femaleStudentsCount || "NA"}
           Icon={PeopleIcon}
           style={{ backgroundColor: "red" }}
         />
         <Card
-          name="Endline score"
-          number={avgEndline.avgEndlineMarks || 0}
+          name="Total PGE Student"
+          number={user.pgeStudentsCount || "NA"}
           Icon={PeopleIcon}
-        /> */}
-        {/* <Card
-          name="NSDC certified"
-          number={nsdcCertified.nsdcCertifiedUsersCount || 0}
-          Icon={PeopleIcon}
-          style={{ backgroundColor: "yellow" }}
-        /> */}
-        <Card
-          name="Timespent"
-          number={avgGradUser.totalTimeSpent || 0}
+          style={{ backgroundColor: "red" }}
+        />
+         <Card
+          name="Total ECE Student"
+          number={user.eceStudentsCount || "NA"}
           Icon={PeopleIcon}
           style={{ backgroundColor: "red" }}
         />
       </div>
-      {/* <div className="content">
-        <div>
-          <h2>Student Performance</h2>
-        </div>
-        <div style={{ width: 220 }}>
-          <Select1
-            selectedYear={selectYear}
-            onChange={handleSelectYearChange}
-          />
-        </div>
-      </div> */}
-      {/* <>
-        <div className="container">
-          <Card
-            name="Total Students"
-            number={user.allpgestudents}
-            Icon={PeopleIcon}
-            style={{ backgroundColor: "teal" }}
-          />
-          <Card
-            name="Total Girls Students"
-            number={user.totalfemalestudents || 0}
-            Icon={PeopleIcon}
-            style={{ backgroundColor: "purple" }}
-          />
-          <Card
-            name="Total Primary Students"
-            number={user.totalactivestudents || 0}
-            Icon={PeopleIcon}
-            style={{ backgroundColor: "orange" }}
-          />
-          <Card
-            name="Pre-Primary Students"
-            number={user.totaldropoutstudents || 0}
-            Icon={PeopleIcon}
-          />
-          <Card
-            name="Appeared Baceline"
-            number={user.totalnoofstudents || 0}
-            Icon={PeopleIcon}
-            style={{ backgroundColor: "red" }}
-          />
-          <Card
-            name="Appeared Endline"
-            number={user.totalecestudents || 0}
-            Icon={PeopleIcon}
-            style={{ backgroundColor: "blue" }}
-          />
-          <Card
-            name="Schools"
-            number={user.totalgraduatedstudents || 0}
-            Icon={PeopleIcon}
-            style={{ backgroundColor: "red" }}
-          />
-          <Card
-            name="Schools"
-            number={user.studentsCompletedFlnBaseline || 0}
-            Icon={PeopleIcon}
-            style={{ backgroundColor: "yellow" }}
-          />
-        </div>
-      </> */}
+      )}
       <Links />
     </>
   );

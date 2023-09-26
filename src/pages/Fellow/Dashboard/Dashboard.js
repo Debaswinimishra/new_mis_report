@@ -48,7 +48,7 @@ const Dashboard = () => {
         setDropout(response.data.resData);
         setAvrage(response.data.resData);
         setEndlineUser(response.data.resData);
-        setNsdcCertified(response.data.resData);
+        // setNsdcCertified(response.data.resData);
         setAvgGradUser(response.data.resData);
         setAvgEndline(response.data.resData);
         SettotalTime(response.data.resData);

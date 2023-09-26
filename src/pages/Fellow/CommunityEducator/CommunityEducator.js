@@ -280,10 +280,18 @@ const ComunityEducator = () => {
 
   const fileName = "community Educator";
 
-  const xlData = data.map((x) => {
-    const { ...exceptBoth } = x;
-    return exceptBoth;
-  });
+  const xlData =
+    tab1FilterData ||
+    tab2FilterData?.map((x) => {
+      const { ...exceptBoth } = x;
+      return exceptBoth;
+    });
+  const xlDatas =
+    tab2FilterData ||
+    tab1FilterData?.map((x) => {
+      const { ...exceptBoth } = x;
+      return exceptBoth;
+    });
 
   return (
     <>
@@ -607,8 +615,8 @@ const ComunityEducator = () => {
                         rowsPerPage={rowsPerPage}
                         handleChangePage={handleChangePage}
                         handleChangeRowsPerPage={handleChangeRowsPerPage}
-                        xlData={xlData}
                         fileName={fileName}
+                        xlData={xlDatas}
                         columns={columns1}
                         getCellValue={getCellValue1}
                       />

@@ -1,24 +1,27 @@
+// import Api from "../../Environment/Api";
 import Api from "../../../Environment/Api";
+// import Api from "../../../environment/Api";
 
-export const getAllCommunityEducatiorFilter = async () =>
-  await Api.get(`getManagerIdsWidPasscode`);
 
-export const getAllDistricts = async () =>
-  await Api.get(`getdistrictsofstate/20`);
+  // topic
+export const getAllTopic = async () =>
+  await Api.get(`getMasterTtlQuizTopics/fellow/teacher/od`);
 
-export const getDistrictsWiseBlocks = async (blockId) =>
-  await Api.get(`getblocksofdistricts/20/${blockId}`);
-
-export const getCommunityEducator1 = async (year, managerid, passcode) =>
-  await Api.get(`getDashboardCounts/${year}/${managerid}/${passcode}`);
-
-export const getCommunityEducator2 = async (year, managerid, passcode) =>
+  //question
+export const getTtlQuizQuestions = async (params) =>
   await Api.get(
-    `getDashboardCounts/${year}/${managerid}/${passcode}/${districtid}/${blockid}`
+    `getTtlQuizQuestions/${params.topicid}`
   );
 
-// useEffect(() => {
-//   Api.get(`getManagerIdsWidPasscode`).then((response) => {
-//     setManagerArr(response.data.resData);
-//   });
-// }, []);
+  // data
+export const getAllTopicDetails = async (params) =>
+  await Api.get(
+    `getTtlQuizReportUserWise/${params.year}/${params.managerid}/${params.passcode}/${params.topicid}`
+  );
+
+export const getTtlQuizReportUserWise = async (params) =>
+  await Api.get(
+    `getTtlQuizReportUserWise/${params.year}/${params.managerid}/${params.passcode}/${params.topicid}/${params.questionId}`
+  );
+
+

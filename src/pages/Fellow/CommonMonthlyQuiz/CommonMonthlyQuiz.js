@@ -542,7 +542,6 @@ const ComunityEducator = () => {
                   padding: "30px 20px",
                   display: "grid",
                   gap: "20px",
-
                   gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
                 }}
               >

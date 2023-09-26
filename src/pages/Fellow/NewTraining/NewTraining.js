@@ -33,12 +33,6 @@ const trainingTypeArray = [
   { id: 2, value: "training2", label: "Tech" },
   { id: 3, value: "training3", label: "Pedagogy" },
 ];
-const reportTypeArr = [
-  { id: 0, value: "none", label: "none" },
-  { id: 1, value: "module", label: "Module" },
-  { id: 2, value: "subModle", label: "Submodule" },
-  { id: 3, value: "topic", label: "Topic" },
-];
 
 const moduleColumn = [
   "Serial No",
@@ -97,7 +91,6 @@ const NewTraining = () => {
   const [trainingType, setTrainingType] = useState("");
   const [reportType, setReportType] = useState("topicWise");
 
-  // console.log("managerName--->", managerName);
   const [moduleData, setModuleData] = useState([]);
   const [subModuleData, setSubModuleData] = useState([]);
   const [topicData, setTopicData] = useState([]);
@@ -106,6 +99,7 @@ const NewTraining = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
+  const [showFieldsData, setShowFieldsData] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -131,7 +125,7 @@ const NewTraining = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        console.log("response--->", response.data, response.status);
+        // console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {
         // console.log("err--->", err.response.status);
@@ -149,24 +143,33 @@ const NewTraining = () => {
     }
   });
   const handleYearChange = (selectedYear) => {
+    resetFilters();
+    setManagerType("");
+    setTrainingType("");
     setSelectedYear(selectedYear);
+    setShowFieldsData(false);
   };
   const handleManagerChange = (event) => {
+    setPasscode("");
+    setTrainingType("");
     setManagerName(event.target.value);
-    // console.log("managername---------->", managerName);
+    setShowFieldsData(false);
   };
   const handleManagerTypeChange = (event) => {
+    setManagerName("");
+    setPasscode("");
+    setTrainingType("");
     setManagerType(event.target.value);
+    setShowFieldsData(false);
   };
 
   const handlePasscodeChange = (event) => {
+    setTrainingType("");
     setPasscode(event.target.value);
+    setShowFieldsData(false);
   };
   const handleTrainingTypeChange = (event) => {
     setTrainingType(event.target.value);
-  };
-  const handleReportTypeChange = (event) => {
-    // setReportType(topic);
   };
 
   const onfilter = async () => {
@@ -207,6 +210,7 @@ const NewTraining = () => {
       setSubModuleData(subModuleResponse.data);
       setTopicData(topicResponse.data);
 
+      setShowFieldsData(true);
       setLoaded(true);
     } catch (error) {
       setLoaded(true);
@@ -237,14 +241,14 @@ const NewTraining = () => {
         return row.contactnumber;
       case "Module Name":
         return row.moduleName;
-      //   case "Module Completion Status":
-      // return row.contactnumber;
-      //   case "Module Secured Marks":
-      // return row.usertype;
-      //   case "Module Total Marks":
-      // return row.usertype;
-      //   case "Module Certificate":
-      // return row.usertype;
+      case "Module Completion Status":
+        return row.moduleIsComplete ? "Complete" : "Incomplete";
+      case "Module Secured Marks":
+        return row.moduleSecuredMarks;
+      case "Module Total Marks":
+        return row.moduleTotalMarks;
+      case "Module Certificate":
+        return row.moduleCertificate ? moduleCertificate : "Not Available";
       default:
         return "";
     }
@@ -265,12 +269,12 @@ const NewTraining = () => {
         return row.contactnumber;
       case "Submodule Name":
         return row.submoduleName;
-      //   case "Submodule Completion Status":
-      // return row.contactnumber;
-      //   case "Submodule Secured Marks":
-      // return row.usertype;
-      //   case "Submodule Total Marks":
-      // return row.usertype;
+      case "Submodule Completion Status":
+        return row.submoduleIsComplete ? "Complete" : "Incomplete";
+      case "Submodule Secured Marks":
+        return row.submoduleSecuredMarks;
+      case "Submodule Total Marks":
+        return row.submoduleTotalMarks;
       default:
         return "";
     }
@@ -315,21 +319,29 @@ const NewTraining = () => {
         return row.topicSecuredMarks;
       case "Topic Total Mark":
         return row.topicTotalMarks;
-      // case "Time spent Status":
-      // return row.usertype;
       default:
         return "";
     }
   };
 
-  const fileName = "fellow";
+  const moduleExcel = "moduleWiseTraining";
+  const submoduleExcel = "subModuleWiseTraining";
+  const topicExcel = "TopicWiseTraining";
 
   // Conditionally map moduleData, subModuleData, and topicData
   const xlModuleData = Array.isArray(moduleData)
     ? moduleData.map((x) => {
         if (x) {
-          const { ...exceptBoth } = x;
-          return exceptBoth;
+          const { moduleIsComplete, ...rest } = x;
+          // Map moduleIsComplete to "Complete" or "Incomplete"
+          const moduleCompletionStatus = moduleIsComplete
+            ? "Complete"
+            : "Incomplete";
+
+          return {
+            ...rest,
+            moduleCompletionStatus, // Replace moduleIsComplete with its mapped value
+          };
         }
         // Handle cases where moduleData doesn't exist (e.g., return an empty object)
         return {};
@@ -339,8 +351,16 @@ const NewTraining = () => {
   const xlSubModuleData = Array.isArray(subModuleData)
     ? subModuleData.map((x) => {
         if (x) {
-          const { ...exceptBoth } = x;
-          return exceptBoth;
+          const { submoduleIsComplete, ...rest } = x;
+          // Map submoduleIsComplete to "Complete" or "Incomplete"
+          const submoduleCompletionStatus = submoduleIsComplete
+            ? "Complete"
+            : "Incomplete";
+
+          return {
+            ...rest,
+            submoduleCompletionStatus, // Replace submoduleIsComplete with its mapped value
+          };
         }
         // Handle cases where subModuleData doesn't exist (e.g., return an empty object)
         return {};
@@ -349,15 +369,32 @@ const NewTraining = () => {
 
   const xlTopicData = Array.isArray(topicData)
     ? topicData.map((x) => {
-        console.log("xlTopicData", x);
+        // console.log("xlTopicData", x);
         if (x) {
-          const { ...exceptBoth } = x;
-          return exceptBoth;
+          const { topicIsComplete, ...rest } = x;
+          // Map topicIsComplete to "Complete" or "Incomplete"
+          const topicCompletionStatus = topicIsComplete
+            ? "Complete"
+            : "Incomplete";
+
+          return {
+            ...rest,
+            topicCompletionStatus, // Replace topicIsComplete with its mapped value
+          };
         }
         // Handle cases where topicData doesn't exist (e.g., return an empty object)
         return {};
       })
     : [];
+
+  const resetFilters = () => {
+    setSelectedYear("");
+    setManagerName("");
+    setManagerType("");
+    setPasscode("");
+    setTrainingType("");
+  };
+
   return (
     <>
       <Box>
@@ -375,6 +412,7 @@ const NewTraining = () => {
                 padding: "30px 20px",
                 display: "grid",
                 gap: "20px",
+
                 gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
               }}
             >
@@ -382,11 +420,22 @@ const NewTraining = () => {
                 selectedYear={selectedYear}
                 onChange={handleYearChange}
               />
-              <Text
-                name="Select manager-type"
-                currencies={managerTypeArr}
-                handleChange={handleManagerTypeChange}
-              />
+
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Select manager-type"
+                value={managerType}
+                onChange={(e) => handleManagerTypeChange(e)}
+              >
+                {selectedYear && selectedYear != ""
+                  ? managerTypeArr?.map((option) => (
+                      <MenuItem key={option.id} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))
+                  : null}
+              </TextField>
 
               <TextField
                 id="outlined-select-currency"
@@ -396,11 +445,13 @@ const NewTraining = () => {
                 value={managerName}
                 onChange={(e) => handleManagerChange(e)}
               >
-                {managerArr.map((option, index) => (
-                  <MenuItem key={index + 1} value={option.managerid}>
-                    {option.managername}
-                  </MenuItem>
-                ))}
+                {selectedYear && selectedYear != ""
+                  ? managerArr.map((option, index) => (
+                      <MenuItem key={index + 1} value={option.managerid}>
+                        {option.managername}
+                      </MenuItem>
+                    ))
+                  : null}
               </TextField>
 
               <ReusableTextField
@@ -409,43 +460,54 @@ const NewTraining = () => {
                 options={passcodeArray}
                 onChange={handlePasscodeChange}
               />
-              <Text
-                name="Select Training-type"
-                currencies={trainingTypeArray}
-                handleChange={handleTrainingTypeChange}
-              />
+              <TextField
+                id="outlined-select-currency"
+                select
+                label="Select Training-type"
+                value={trainingType}
+                onChange={(e) => handleTrainingTypeChange(e)}
+              >
+                {selectedYear && selectedYear != ""
+                  ? trainingTypeArray?.map((option) => (
+                      <MenuItem key={option.id} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))
+                  : null}
+              </TextField>
 
               <Stack spacing={2} direction="row">
                 <Button
                   variant="contained"
                   onClick={onfilter}
-                  style={{ width: 250, height: 40, marginTop: 5 }}
+                  style={{ width: "100%", height: "auto", marginTop: "10px" }}
                 >
                   Filter
                 </Button>
               </Stack>
             </div>
           </div>
-          {
-            // moduleData.length > 0 &&
-            // subModuleData.length > 0 &&
-            topicData.length > 0 ? (
-              <>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="wrapped label tabs example"
-                >
-                  {/* <Tab value="one" label="Module" wrapped />
-                  <Tab value="two" label="Submodule" wrapped /> */}
-                  <Tab value="one" label="Topic" wrapped />
-                </Tabs>
-                {/* Display data */}
+          {moduleData?.length > 0 ||
+          subModuleData?.length > 0 ||
+          topicData?.length > 0 ? (
+            <>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="wrapped label tabs example"
+              >
+                <Tab value="one" label="Module" wrapped />
+                <Tab value="two" label="Submodule" wrapped />
+                <Tab value="three" label="Topic" wrapped />
+              </Tabs>
+              {/* Display data */}
+
+              {/* Display data based on the selected tab */}
+              {showFieldsData && (
                 <>
-                  {/* Display data based on the selected tab */}
                   {loaded && (
                     <>
-                      {/* {value === "one" ? (
+                      {value === "one" && moduleData.length > 0 ? (
                         <Fields
                           data={moduleData}
                           totalDataLength={totalDataLength}
@@ -454,13 +516,15 @@ const NewTraining = () => {
                           handleChangePage={handleChangePage}
                           handleChangeRowsPerPage={handleChangeRowsPerPage}
                           xlData={xlModuleData}
-                          fileName={fileName}
+                          fileName={moduleExcel}
                           columns={moduleColumn}
                           getCellValue={getCellValueModule}
                         />
-                      ) : null} */}
+                      ) : (
+                        <Logo />
+                      )}
 
-                      {value === "two" ? (
+                      {value === "two" && subModuleData.length > 0 ? (
                         <Fields
                           data={subModuleData}
                           totalDataLength={totalDataLength}
@@ -469,13 +533,15 @@ const NewTraining = () => {
                           handleChangePage={handleChangePage}
                           handleChangeRowsPerPage={handleChangeRowsPerPage}
                           xlData={xlSubModuleData}
-                          fileName={fileName}
+                          fileName={submoduleExcel}
                           columns={subModuleColumn}
                           getCellValue={getCellValueSubModule}
                         />
-                      ) : null}
+                      ) : (
+                        <Logo />
+                      )}
 
-                      {value === "one" ? (
+                      {value === "three" && topicData.length > 0 ? (
                         <Fields
                           data={Array.isArray(topicData) ? topicData : []}
                           totalDataLength={totalDataLength}
@@ -484,19 +550,22 @@ const NewTraining = () => {
                           handleChangePage={handleChangePage}
                           handleChangeRowsPerPage={handleChangeRowsPerPage}
                           xlData={xlTopicData}
-                          fileName={fileName}
+                          fileName={topicExcel}
                           columns={TopicColumn}
                           getCellValue={getCellValueTopic}
                         />
-                      ) : null}
+                      ) : (
+                        <Logo />
+                      )}
                     </>
                   )}
                 </>
-              </>
-            ) : (
-              ""
-            )
-          }
+              )}
+            </>
+          ) : (
+            // <Logo />
+            ""
+          )}
           <Links />
         </>
       </Box>

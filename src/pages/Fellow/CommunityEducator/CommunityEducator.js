@@ -281,17 +281,29 @@ const ComunityEducator = () => {
   const fileName = "community Educator";
 
   const xlData =
-    tab1FilterData ||
-    tab2FilterData?.map((x) => {
-      const { ...exceptBoth } = x;
-      return exceptBoth;
-    });
+    tab1FilterData.length > 0
+      ? tab1FilterData?.map((x) => {
+          const { ...exceptBoth } = x;
+          return exceptBoth;
+        })
+      : null;
   const xlDatas =
-    tab2FilterData ||
-    tab1FilterData?.map((x) => {
-      const { ...exceptBoth } = x;
-      return exceptBoth;
-    });
+    tab2FilterData.length > 0
+      ? tab2FilterData?.map((x) => {
+          const {
+            eceStudentsCount,
+            averageTimeSpent,
+            femaleStudentsCount,
+            femaleUsersCount,
+            pgeStudentsCount,
+            totalStudentsCount,
+            totalUsersCount,
+
+            ...exceptBoth
+          } = x;
+          return exceptBoth;
+        })
+      : null;
 
   return (
     <>

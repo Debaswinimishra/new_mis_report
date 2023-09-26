@@ -222,24 +222,8 @@ const NewTraining = () => {
   };
 
   const [openModal, setOpenModal] = useState(false);
-
-  const openCertificate = () => {
-    setOpenModal(true);
-  };
-
-  const closeCertificate = () => {
-    setOpenModal(false);
-  };
-
-  const handleDownload = () => {
-    // Code to trigger PDF download
-    // Replace "your-pdf-file.pdf" with your PDF file URL or path
-    const pdfUrl = "your-pdf-file.pdf";
-    const a = document.createElement("a");
-    a.href = pdfUrl;
-    a.download = "downloaded-pdf.pdf";
-    a.click();
-  };
+  const [moduleCertificateValue, setModuleCertificateValue] = useState("");
+  const [imageData, setImageData] = useState(null);
 
   const getCellValueModule = (row, column, index) => {
     switch (column) {
@@ -264,6 +248,10 @@ const NewTraining = () => {
       case "Module Total Marks":
         return row.moduleTotalMarks;
       case "Module Certificate":
+        if (row.moduleCertificate) {
+          setModuleCertificateValue(row.moduleCertificate);
+        }
+
         return row.moduleCertificate ? (
           <Button onClick={openCertificate}>Certificate</Button>
         ) : (
@@ -273,6 +261,36 @@ const NewTraining = () => {
         return "";
     }
   };
+
+  //------------------Certificate Download----------------------------------
+
+  const openCertificate = () => {
+    setOpenModal(true);
+  };
+
+  const closeCertificate = () => {
+    setOpenModal(false);
+  };
+  const handleDownload = () => {
+    fetch(moduleCertificateValue)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = "certificate.jpg";
+        a.click();
+
+        window.URL.revokeObjectURL(blobUrl);
+      })
+      .catch((error) => {
+        console.error("Error downloading image:", error);
+      });
+  };
+
+  //------------------------------------------------------------------------
+
   const getCellValueSubModule = (row, column, index) => {
     switch (column) {
       case "Serial No":
@@ -414,6 +432,11 @@ const NewTraining = () => {
 
   console.log("moduledata-------------->", moduleData);
   console.log("openModal-------------->", openModal);
+  console.log(
+    "moduleCertificateValue----------------->",
+    moduleCertificateValue
+  );
+  console.log("imageData------------------->", imageData);
 
   return (
     <>
@@ -434,26 +457,32 @@ const NewTraining = () => {
             >
               <Box sx={style}>
                 <br />
-                <FormControl sx={{ m: 1, minWidth: 300 }} size="small">
+                <FormControl sx={{ m: 1, minWidth: 400 }} size="small">
                   <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={3} style={{ marginTop: 12 }}>
                       <img
-                        src="https://shared002.s3.us-east-2.amazonaws.com/Certificate-1695719783777.jpg"
-                        alt="image"
-                        style={{ height: "200px", width: "200px" }}
+                        src={moduleCertificateValue}
+                        alt="Certificate"
+                        style={{ height: "390px", width: "370px" }}
                       />
                     </Grid>
                   </Box>
                 </FormControl>
+
+                <Button
+                  variant="contained"
+                  style={{ marginLeft: 12 }}
+                  onClick={handleDownload}
+                >
+                  Download
+                </Button>
+
                 <Button
                   variant="outlined"
                   style={{ marginLeft: 12 }}
                   onClick={closeCertificate}
                 >
                   Close
-                </Button>
-                <Button variant="contained" onClick={handleDownload}>
-                  Download
                 </Button>
               </Box>
             </Modal>
@@ -601,7 +630,7 @@ const NewTraining = () => {
                           rowsPerPage={rowsPerPage}
                           handleChangePage={handleChangePage}
                           handleChangeRowsPerPage={handleChangeRowsPerPage}
-                          xlData={xlTopicData}
+                          xlData={xlTopicData} //
                           fileName={topicExcel}
                           columns={TopicColumn}
                           getCellValue={getCellValueTopic}

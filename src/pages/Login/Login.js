@@ -28,21 +28,6 @@ const Login = () => {
 
     console.log("body-->", body);
 
-    // try {
-    //   const res = await axios.post(
-    //     "https://thinkzone.in.net/thinkzone/authenticateuser",
-    //     body,
-    //     config
-    //   );
-    //   if (res.data.status === "success") {
-    //     localStorage.setItem("login", true);
-    //     navigate("/home/dashboard");
-    //   } else {
-    //     alert("Login Failed");
-    //   }
-    // } catch (error) {
-    //   alert("Login Failed");
-    // }
     try {
       const response = await getAuthenticateUser(body, config);
       console.log("response--->", response.data, response.status);
@@ -54,13 +39,15 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1000, // Close the alert after 1.5 seconds
         });
+        // alert("Login Successful");
         navigate("/home");
       } else {
         alert("Please Enter Valid ID and Password");
       }
       // setManagerArr(response.data.resData);
     } catch (err) {
-      console.log("err--->", err.response.status);
+      console.log("err--->", err.response);
+      alert("Please Enter Valid ID and Password");
     }
   };
 

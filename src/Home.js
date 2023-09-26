@@ -52,12 +52,11 @@ function Home(props) {
       link: "/home/dashboard",
       icon: <DashboardIcon color="secondary" />,
     },
-
-    // {
-    //   text: "Fellows",
-    //   link: "/home/fellows",
-    //   icon: <PeopleAltIcon color="primary" />,
-    // },
+    {
+      text: "Fellows",
+      link: "/home/fellowdetails",
+      icon: <PeopleAltIcon color="primary" sx={{ color: "rgb(63,94,251)" }} />,
+    },
     {
       text: "Community Educator",
       link: "/home/ComunityEducator",

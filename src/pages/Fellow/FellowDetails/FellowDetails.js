@@ -14,14 +14,10 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
-import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/CommunityEducatorApi";
+import { getAllCommunityEducatiorFilter } from "../CommunityEducator/CommunityEducatorApi";
+import { getAllTeacherTrainingDetails } from "../NewTraining/NewTrainingApi";
+// import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/CommunityEducatorApi";
 // import { getAllCommunityEducatiorFilter } from "../../AllApi/ComunityEducator";
-import { getAllTeacherTrainingDetails } from "./NewTrainingApi";
-import {
-  getAllCommunityEducatiorFilter,
-  getAllDistricts,
-  getDistrictsWiseBlocks,
-} from "../CommunityEducator/CommunityEducatorApi";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -46,6 +42,7 @@ const moduleColumn = [
 
 const FellowDetails = () => {
   const [selectedYear, setSelectedYear] = useState("");
+  const [managerArr, setManagerArr] = useState([]);
   const [managerName, setManagerName] = useState([]);
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
@@ -101,9 +98,7 @@ const FellowDetails = () => {
     }
   });
   const handleYearChange = (selectedYear) => {
-    resetFilters();
     setManagerType("");
-    setTrainingType("");
     setSelectedYear(selectedYear);
     setShowFieldsData(false);
   };
@@ -189,7 +184,7 @@ const FellowDetails = () => {
     setManagerName("");
     setManagerType("");
     setPasscode("");
-    setTrainingType("");
+    // setTrainingType("");
   };
 
   return (
@@ -293,7 +288,7 @@ const FellowDetails = () => {
               <Stack spacing={2} direction="row">
                 <Button
                   variant="contained"
-                  onClick={onfilter}
+                  // onClick={onfilter}
                   style={{ width: "100%", height: "auto", marginTop: "10px" }}
                 >
                   Filter

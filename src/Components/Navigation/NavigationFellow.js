@@ -21,7 +21,7 @@ import Typography from "@mui/material/Typography";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Avatar from "@mui/material/Avatar";
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import MenuItem from "@mui/material/MenuItem";
 import Popover from "@mui/material/Popover";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
@@ -53,12 +53,11 @@ function NavigationFellow(props) {
       link: "dashboard",
       icon: <DashboardIcon color="secondary" />,
     },
-
-    // {
-    //   text: "Module 5",
-    //   link: "module5",
-    //   icon: <PeopleAltIcon color="primary" />,
-    // },
+    {
+      text: "Fellows",
+      link: "fellowdetails",
+      icon: <PeopleAltIcon color="primary" />,
+    },
     // {
     //   text: "Module 6",
     //   link: "module6",

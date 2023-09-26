@@ -34,11 +34,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
-const managerTypeSet = [
-  // { value: "none", label: "none" },
-  { value: "MANAGER", label: "Manager" },
-  { value: "Crc", label: "CRC" },
-  { value: "Aww", label: "Supervisor" },
+const managerTypeArr = [
+  { id: 0, value: "none", label: "none" },
+  { id: 1, value: "MANAGER", label: "MANAGER" },
+  { id: 2, value: "Crc", label: "CRC" },
+  { id: 3, value: "Aww", label: "Supervisor" },
 ];
 
 const noneValue = [{ value: "none", label: "None" }];
@@ -62,12 +62,14 @@ const ComunityEducator = () => {
   // console.log("topicId--->", topicId);
   const [questionId, setQuestionId] = useState("");
   const [data, setData] = useState([]);
+  console.log("data===========================>", data);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
   const [selectedFilter, setSelectedFilter] = useState(false); // Default to "topic"
+  console.log("selectedFilter===>", selectedFilter);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -122,11 +124,12 @@ const ComunityEducator = () => {
     }
   });
   const handleYearChange = (selectedYear) => {
-    setSelectedYear(selectedYear);
+    setManagerType("");
     setManagerName("");
     setPasscode("");
     setTopicName("");
     setQuestionName("");
+    setSelectedYear(selectedYear);
 
     // setManagerArr([]);
     // setManagerName("");
@@ -158,6 +161,7 @@ const ComunityEducator = () => {
       setTopicArr(response.data);
     } catch (err) {
       console.log("err--->", err.response);
+   
     }
   };
 
@@ -189,6 +193,7 @@ const ComunityEducator = () => {
         setQuestionArr(response.data);
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
+        
       }
     }
   };
@@ -220,6 +225,7 @@ const ComunityEducator = () => {
         }
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
+        alert("No data found");
       }
     } else {
       alert("Please select some filters to proceed");
@@ -385,7 +391,7 @@ const ComunityEducator = () => {
                   selectedYear={selectedYear}
                   onChange={handleYearChange}
                 />
-                {selectedYear ? (
+                {/* {selectedYear ? (
                   <Text
                     name="Select manager-type"
                     currencies={managerTypeSet}
@@ -397,7 +403,22 @@ const ComunityEducator = () => {
                     currencies={noneValue}
                     handleChange={handleManagerTypeChange}
                   />
-                )}
+                )} */}
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager-type"
+                  value={managerType}
+                  onChange={(e) => handleManagerTypeChange(e)}
+                >
+                  {selectedYear && selectedYear != ""
+                    ? managerTypeArr?.map((option) => (
+                        <MenuItem key={option.id} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))
+                    : null}
+                </TextField>
 
                 {selectedYear ? (
                   <TextField
@@ -504,7 +525,7 @@ const ComunityEducator = () => {
             {/* Display data */}
             {selectedFilter && loaded && value === "one" && (
               <>
-                {data && data.length > 0 ? (
+                {data && Object.keys(data).length > 0 ? (
                   <Fields
                     data={data}
                     totalDataLength={totalDataLength}
@@ -518,7 +539,7 @@ const ComunityEducator = () => {
                     getCellValue={getCellValue}
                   />
                 ) : (
-                  <Logo />
+                  "No Data Available"
                 )}
               </>
             )}
@@ -542,7 +563,6 @@ const ComunityEducator = () => {
                   padding: "30px 20px",
                   display: "grid",
                   gap: "20px",
-
                   gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
                 }}
               >
@@ -550,7 +570,7 @@ const ComunityEducator = () => {
                   selectedYear={selectedYear}
                   onChange={handleYearChange}
                 />
-                {selectedYear ? (
+                {/* {selectedYear ? (
                   <Text
                     name="Select manager-type"
                     currencies={managerTypeSet}
@@ -562,7 +582,22 @@ const ComunityEducator = () => {
                     currencies={noneValue}
                     handleChange={handleManagerTypeChange}
                   />
-                )}
+                )} */}
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager-type"
+                  value={managerType}
+                  onChange={(e) => handleManagerTypeChange(e)}
+                >
+                  {selectedYear && selectedYear != ""
+                    ? managerTypeArr?.map((option) => (
+                        <MenuItem key={option.id} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))
+                    : null}
+                </TextField>
 
                 {selectedYear ? (
                   <TextField

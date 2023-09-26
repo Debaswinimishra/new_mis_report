@@ -46,20 +46,20 @@ const noneValue = [{ value: "none", label: "None" }];
 const ComunityEducator = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
-  console.log("managerArr===>", managerArr);
+  // console.log("managerArr===>", managerArr);
   const [topicArr, setTopicArr] = useState([]);
-  console.log("topicArr===>", topicArr);
+  // console.log("topicArr===>", topicArr);
   const [questionArr, setQuestionArr] = useState([]);
-  console.log("questionArr--->", questionArr);
+  // console.log("questionArr--->", questionArr);
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
   const [managerName, setManagerName] = useState("");
   const [topicName, setTopicName] = useState("");
-  console.log("topicname", topicName);
+  // console.log("topicname", topicName);
   const [questionName, setQuestionName] = useState("");
-  console.log("questionName==", questionName);
+  // console.log("questionName==", questionName);
   const [topicId, setTopicId] = useState("");
-  console.log("topicId--->", topicId);
+  // console.log("topicId--->", topicId);
   const [questionId, setQuestionId] = useState("");
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
@@ -67,11 +67,34 @@ const ComunityEducator = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
-  const [selectedFilter, setSelectedFilter] = useState("topic"); // Default to "topic"
+  const [selectedFilter, setSelectedFilter] = useState(false); // Default to "topic"
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    if (newValue === "one") {
+      setSelectedYear("");
+      setManagerType("");
+      setManagerName("");
+      setPasscode("");
+      setTopicName("");
+      setQuestionName("");
+      setTopicArr([]);
+      setQuestionArr([]);
+      // Reset other states for "Topicwise Answer" tab...
+    } else if (newValue === "two") {
+      setSelectedYear("");
+      setManagerType("");
+      setManagerName("");
+      setPasscode("");
+      setTopicName("");
+      setQuestionName("");
+      setQuestionArr([]);
+      // Reset other states for "Questionwise Answer" tab...
+    }
+    // Reset filterClicked when changing tabs
+    else setFilterClicked(false);
   };
+
   useEffect(() => {
     // Api.get(`getManagerIdsWidPasscode`).then((response) => {
     //   setManagerArr(response.data.resData);
@@ -156,7 +179,7 @@ const ComunityEducator = () => {
   const handleTopicChange = async (event) => {
     const selectedTopicName = event.target.value;
     setTopicName(selectedTopicName);
-    
+
     if (selectedTopicName) {
       try {
         const response = await getTtlQuizQuestions({
@@ -193,6 +216,7 @@ const ComunityEducator = () => {
           setData(topicResponse.data);
           setTotalDataLength(topicResponse.data.length);
           setLoaded(true);
+          setSelectedFilter(true);
         }
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
@@ -222,6 +246,7 @@ const ComunityEducator = () => {
           setData(questionResponse.data);
           setTotalDataLength(questionResponse.data.length);
           setLoaded(true);
+          setSelectedFilter(true);
         }
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
@@ -307,10 +332,13 @@ const ComunityEducator = () => {
       case "Question":
         return row.question;
       case "Answer":
-       // return row.answer ? row.answer: row.correct
-        return row.correct ===  true ? "True":
-        // : row.correct === false?"False":
-         row.answer?row.answer:"check condition"
+        // return row.answer ? row.answer: row.correct
+        return row.correct === true
+          ? "True"
+          : // : row.correct === false?"False":
+          row.answer
+          ? row.answer
+          : "check condition";
       default:
         return "";
     }
@@ -333,7 +361,7 @@ const ComunityEducator = () => {
         <Tab value="one" label="Topicwise Answer" />
         <Tab value="two" label="Questionwise Answer" />
       </Tabs>
-      {value === "one" ? (
+      {value === "one" && (
         <Box>
           {/* Filter section */}
           <>
@@ -474,7 +502,7 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {loaded && (
+            {selectedFilter && loaded && value === "one" && (
               <>
                 {data && data.length > 0 ? (
                   <Fields
@@ -497,7 +525,8 @@ const ComunityEducator = () => {
             <Links />
           </>
         </Box>
-      ) : (
+      )}
+      {value === "two" && (
         <Box>
           {/* Filter section */}
           <>
@@ -513,7 +542,6 @@ const ComunityEducator = () => {
                   padding: "30px 20px",
                   display: "grid",
                   gap: "20px",
-
                   gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
                 }}
               >
@@ -636,7 +664,7 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {loaded && (
+            {selectedFilter && loaded && value === "two" && (
               <>
                 {data && data.length > 0 ? (
                   <Fields

@@ -62,14 +62,15 @@ const ComunityEducator = () => {
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
+
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   console.log("selectedTabIndex--->", selectedTabIndex);
-  const [tab1FilterData, setTab1FilterData] = useState({});
+  const [tab1FilterData, setTab1FilterData] = useState([]);
   console.log("tab1FilterData--->", tab1FilterData);
-  const [tab2FilterData, setTab2FilterData] = useState({});
-
+  const [tab2FilterData, setTab2FilterData] = useState([]);
+  console.log("tab2FilterData--->", tab2FilterData);
   const handleTabChange = (event, newValue) => {
     setSelectedTabIndex(newValue);
   };
@@ -235,6 +236,60 @@ const ComunityEducator = () => {
       }
     }
   };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(event.target.value);
+    setPage(0);
+  };
+
+  const columns = [
+    "Serial No",
+    "Total Educators Trained",
+    "Total Students Impacted",
+    "Total Primary-grade Students Impacted",
+    "Total Pre-Primary-grade Students Impacted",
+  ];
+
+  const getCellValue = (row, column, index) => {
+    switch (column) {
+      case "Serial No":
+        return index + 1;
+      case "Total Educators Trained":
+        return row.totalUsersCount;
+      case "Total Students Impacted":
+        return row.totalStudentsCount;
+      case "Total Primary-grade Students Impacted":
+        return row.pgeStudentsCount;
+      case "Total Pre-Primary-grade Students Impacted":
+        return row.eceStudentsCount;
+      default:
+        return "";
+    }
+  };
+
+  const columns1 = ["Serial No", "Total Active Educator"];
+
+  const getCellValue1 = (row, column, index) => {
+    console.log("2---->", row);
+    switch (column) {
+      case "Serial No":
+        return index + 1;
+      case "Total Active Educator":
+        return row.activeUsersCount;
+
+      default:
+        return "";
+    }
+  };
+
+  const fileName = "community Educator";
+
+  const xlData = data.map((x) => {
+    const { ...exceptBoth } = x;
+    return exceptBoth;
+  });
 
   return (
     <>
@@ -271,11 +326,34 @@ const ComunityEducator = () => {
                   selectedYear={selectedYear}
                   onChange={handleYearChange}
                 />
-                <Text
+
+                {/* <Text
                   name="Select manager-type"
                   currencies={managerTypeSet}
                   handleChange={handleManagerTypeChange}
-                />
+                /> */}
+
+                {/* <ReusableTextField
+                  label="Select Manager Type"
+                  value={managerType}
+                  options={managerTypeSet}
+                  onChange={handleManagerTypeChange}
+                /> */}
+
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager Type"
+                  defaultValue="none"
+                  value={managerType}
+                  onChange={(e) => handleManagerTypeChange(e)}
+                >
+                  {managerTypeSet.map((option, index) => (
+                    <MenuItem key={index + 1} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
 
                 <TextField
                   id="outlined-select-currency"
@@ -300,6 +378,7 @@ const ComunityEducator = () => {
                     </MenuItem>
                   ))} */}
                 </TextField>
+
                 <ReusableTextField
                   label="Select passcode"
                   value={passcode}
@@ -323,7 +402,7 @@ const ComunityEducator = () => {
               <img src={loader} />
             ) : (
               <>
-                {tab1FilterData && Object.keys(tab1FilterData).length > 0 ? (
+                {tab1FilterData && tab1FilterData.length > 0 ? (
                   <div
                     style={{
                       padding: "30px 20px",
@@ -331,7 +410,19 @@ const ComunityEducator = () => {
                       flexWrap: "wrap",
                     }}
                   >
-                    <div className="container">
+                    <Fields
+                      data={tab1FilterData}
+                      totalDataLength={totalDataLength}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      handleChangePage={handleChangePage}
+                      handleChangeRowsPerPage={handleChangeRowsPerPage}
+                      xlData={xlData}
+                      fileName={fileName}
+                      columns={columns}
+                      getCellValue={getCellValue}
+                    />
+                    {/* <div className="container">
                       <Card
                         name="Total Users"
                         number={tab1FilterData.totalStudentsCount || 0}
@@ -383,7 +474,7 @@ const ComunityEducator = () => {
                         Icon={PeopleIcon}
                         style={{ backgroundColor: "red" }}
                       />
-                    </div>
+                    </div> */}
                   </div>
                 ) : (
                   <Logo />
@@ -418,11 +509,26 @@ const ComunityEducator = () => {
                   selectedYear={selectedYearTab2}
                   onChange={handleYearChangeTab2}
                 />
-                <Text
+                {/* <Text
                   name="Select manager-type"
                   currencies={managerTypeSet}
                   handleChange={handleManagerTypeChangeTab2}
-                />
+                /> */}
+
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager Type"
+                  defaultValue="none"
+                  value={managerTypeTab2}
+                  onChange={(e) => handleManagerTypeChangeTab2(e)}
+                >
+                  {managerTypeSet.map((option, index) => (
+                    <MenuItem key={index + 1} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
 
                 <TextField
                   id="outlined-select-currency"
@@ -497,21 +603,34 @@ const ComunityEducator = () => {
               <img src={loader} />
             ) : (
               <>
-                {tab2FilterData && Object.keys(tab2FilterData).length > 0 ? (
+                {tab2FilterData && tab2FilterData.length > 0 ? (
                   <div style={{ padding: "30px 20px", width: "100%" }}>
                     <div>
+                      <Fields
+                        data={tab2FilterData}
+                        totalDataLength={totalDataLength}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        handleChangePage={handleChangePage}
+                        handleChangeRowsPerPage={handleChangeRowsPerPage}
+                        xlData={xlData}
+                        fileName={fileName}
+                        columns={columns1}
+                        getCellValue={getCellValue1}
+                      />
+
                       {/* <Card
                       name="Total Users"
                       number={tab2FilterData.totalStudentsCount || 0}
                       Icon={PeopleIcon}
                     /> */}
 
-                      <Card
+                      {/* <Card
                         name="Active Users"
                         number={tab2FilterData.activeUsersCount || 0}
                         Icon={PeopleIcon}
                         style={{ backgroundColor: "red" }}
-                      />
+                      /> */}
                       {/* 
                     <Card
                       name="Average Timespent"

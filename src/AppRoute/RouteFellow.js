@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import FellowRoot from "../pages/Fellow";
-import Module4 from "../pages/Fellow/Module4/Module4";
+import Dashboard from "../pages/Fellow/Dashboard/Dashboard";
 
 import CommonMonthlyQuiz from "../pages/Fellow/CommonMonthlyQuiz/CommonMonthlyQuiz";
 // import ComunityEducator from "../Pages/Fellow/ComunityEducator/ComunityEducator";
 import CommunityEducator from "../pages/Fellow/CommunityEducator/CommunityEducator";
 import NewTraining from "../pages/Fellow/NewTraining/NewTraining";
+import StudentProgressReport from "../pages/Fellow/StudentProgressReport/StudentProgressReport";
 import PrivateRoute from "./PrivateRoute";
 // import * from "../AppRoute/Route404";
 // import FelloRoutes from "../Pages/Fellow/FelloRoutes";
@@ -22,12 +23,14 @@ const RouteFellow = () => {
         path="/fellow/*"
         element={<PrivateRoute element={<FellowRoot />} />}
       >
-        <Route index element={<Module4 />} />
-        <Route path="dashboard" element={<Module4 />} />
+        <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
 
         <Route path="commonmonthlyquiz" element={<CommonMonthlyQuiz />} />
         <Route path="communityeducator" element={<CommunityEducator />} />
         <Route path="trainingmodule" element={<NewTraining />} />
+        <Route path="studentprogressreport" element={<StudentProgressReport />} />
+
       </Route>
     </Routes>
   );

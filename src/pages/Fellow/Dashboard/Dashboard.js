@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PeopleIcon from "@mui/icons-material/People";
 import "./Dashboard.css";
+import loader from "../../../Assets/R.gif";
 import Text from "../../../ReusableComponents/Text";
 import Select1 from "../../../ReusableComponents/Select1";
 import Fields from "../../../ReusableComponents/Fields";
@@ -25,6 +26,7 @@ const Dashboard = () => {
   const [avgGradUser, setAvgGradUser] = useState({});
   const [avgEndline, setAvgEndline] = useState({});
   const [totalTime, SettotalTime] = useState({});
+  const [loaded, setLoaded] = useState(false);
 
   const [user, setUser] = useState({});
   console.log("user--->", user);
@@ -32,6 +34,7 @@ const Dashboard = () => {
   const handleCallAPI = async () => {
     try {
       const response = await Api.get(`getDashboardCounts`);
+
       if (response.data.status === "success") {
         setTotalUsersCount(response.data.resData);
         setFemaleCount(response.data.resData);
@@ -50,10 +53,12 @@ const Dashboard = () => {
     }
   };
   const handleApi = () => {
+    setLoaded(true);
     Api.get(`getDashboardCounts`).then((res) => {
       setUser(res.data);
+      setLoaded(false);
       // Output the user data to the console
-    } );
+    });
   };
   useEffect(() => {
     handleApi();
@@ -72,82 +77,85 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="content">
-      </div>
-      <div className="container">
-        <Card
-          name="Total Educatorss"
-           number={user.totalUsersCount || "NA" }
-          Icon={PeopleIcon}
-        />
-        <a
-          style={{ textDecoration: "none" }}
-          href={Femalefellows}
-          target="femailfellowship"
-        >
+      <div className="content"></div>
+      {loaded ? (
+        <img src={loader} />
+      ) : (
+        <div className="container">
           <Card
-            name="Female Educators"
-            number={user.femaleUsersCount || "NA"}
+            name="Total Educatorss"
+            number={user.totalUsersCount || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "orange" }}
           />
-        </a>
+          <a
+            style={{ textDecoration: "none" }}
+            href={Femalefellows}
+            target="femailfellowship"
+          >
+            <Card
+              name="Female Educators"
+              number={user.femaleUsersCount || "NA"}
+              Icon={PeopleIcon}
+              style={{ backgroundColor: "orange" }}
+            />
+          </a>
 
-        <a
-          style={{ textDecoration: "none" }}
-          href={Femalefellows}
-          target="female"
-        >
+          <a
+            style={{ textDecoration: "none" }}
+            href={Femalefellows}
+            target="female"
+          >
+            <Card
+              name="Active Educators"
+              number={user.activeUsersCount || "NA"}
+              Icon={PeopleIcon}
+              style={{ backgroundColor: "teal" }}
+            />
+          </a>
+          <a
+            style={{ textDecoration: "none" }}
+            href={Femalefellows}
+            target="Active fellows"
+          >
+            <Card
+              name="Monthly Timespent"
+              number={user.averageTimeSpent || "NA"}
+              Icon={PeopleIcon}
+              style={{ backgroundColor: "green" }}
+            />
+          </a>
+          <a
+            style={{ textDecoration: "none" }}
+            href={Femalefellows}
+            target="fellowdropout"
+          >
+            <Card
+              name="Total Student"
+              number={user.totalStudentsCount || "NA"}
+              Icon={PeopleIcon}
+              style={{ backgroundColor: "blue" }}
+            />
+          </a>
           <Card
-            name="Active Educators"
-            number={user.activeUsersCount || "NA"}
+            name="Total Female Student"
+            number={user.femaleStudentsCount || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "teal" }}
+            style={{ backgroundColor: "red" }}
           />
-        </a>
-        <a
-          style={{ textDecoration: "none" }}
-          href={Femalefellows}
-          target="Active fellows"
-        >
           <Card
-            name="Monthly Timespent"
-            number={user.averageTimeSpent || "NA"}
+            name="Total PGE Student"
+            number={user.pgeStudentsCount || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "green" }}
+            style={{ backgroundColor: "red" }}
           />
-        </a>
-        <a
-          style={{ textDecoration: "none" }}
-          href={Femalefellows}
-          target="fellowdropout"
-        >
           <Card
-            name="Total Student"
-            number={user.totalStudentsCount || "NA"}
+            name="Total ECE Student"
+            number={user.eceStudentsCount || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "blue" }}
+            style={{ backgroundColor: "red" }}
           />
-        </a>
-        <Card
-          name="Total Female Student"
-          number={user.femaleStudentsCount || "NA"}
-          Icon={PeopleIcon}
-          style={{ backgroundColor: "red" }}
-        />
-        <Card
-          name="Total PGE Student"
-          number={user.pgeStudentsCount || "NA"}
-          Icon={PeopleIcon}
-          style={{ backgroundColor: "red" }}
-        />
-         <Card
-          name="Total ECE Student"
-          number={user.eceStudentsCount || "NA"}
-          Icon={PeopleIcon}
-          style={{ backgroundColor: "red" }}
-        />
-      </div>
+        </div>
+      )}
       <Links />
     </>
   );

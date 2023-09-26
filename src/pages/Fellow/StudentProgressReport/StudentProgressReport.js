@@ -8,9 +8,6 @@ import Logo from "../../../ReusableComponents/Logo";
 import Links from "../../../ReusableComponents/Links";
 import Number from "../../../ReusableComponents/Number";
 import moment from "moment/moment";
-// import Api from "../../environment/Api";
-// import Api from "../../../Environment/Api";
-import Api from "../../../environment/Api";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -28,11 +25,12 @@ import {
   getTtlQuizQuestions,
   getAllTopicDetails,
   getTtlQuizReportUserWise,
-} from "../../Fellow/CommonMonthlyQuiz/CommonMonthlyQuizApi";
+} from "../../Fellow/StudentProgressReport/StudentProgressReportApi";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Api from "../../../environment/Api";
 
 const managerTypeSet = [
   // { value: "none", label: "none" },
@@ -43,7 +41,7 @@ const managerTypeSet = [
 
 const noneValue = [{ value: "none", label: "None" }];
 
-const ComunityEducator = () => {
+const StudentProgressReport = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   // console.log("managerArr===>", managerArr);
@@ -96,12 +94,18 @@ const ComunityEducator = () => {
   };
 
   useEffect(() => {
+    // Api.get(`getManagerIdsWidPasscode`).then((response) => {
+    //   setManagerArr(response.data.resData);
+    // });
+
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        ////console.log("response--->", response.data, response.status);
+        console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
-      } catch (err) {}
+      } catch (err) {
+        console.log("err--->", err.response.status);
+      }
     };
 
     fetchData();
@@ -111,6 +115,7 @@ const ComunityEducator = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
+      // console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
@@ -120,7 +125,9 @@ const ComunityEducator = () => {
     setPasscode("");
     setTopicName("");
     setQuestionName("");
-    setData([]);
+
+    // setManagerArr([]);
+    // setManagerName("");
   };
 
   const handleManagerTypeChange = (event) => {
@@ -129,7 +136,6 @@ const ComunityEducator = () => {
     setPasscode("");
     setTopicName("");
     setQuestionName("");
-    setData([]);
   };
 
   const handleManagerChange = (event) => {
@@ -137,18 +143,20 @@ const ComunityEducator = () => {
     setPasscode("");
     setTopicName("");
     setQuestionName("");
-    setData([]);
   };
 
   const handlePasscodeChange = async (event) => {
     setPasscode(event.target.value);
     setTopicName("");
     setQuestionName("");
-    setData([]);
+
     try {
       const response = await getAllTopic();
+      // console.log("response--->", response.data, response.status);
       setTopicArr(response.data);
-    } catch (err) {}
+    } catch (err) {
+      console.log("err--->", err.response);
+    }
   };
 
   // const handleTopicChange = (event) => {
@@ -185,6 +193,7 @@ const ComunityEducator = () => {
 
   const handleQuestionChange = (event) => {
     setQuestionName(event.target.value);
+    console.log("setQuestionName", setQuestionName);
   };
 
   const topicFilter = async () => {
@@ -193,6 +202,7 @@ const ComunityEducator = () => {
     }
 
     if (topicName) {
+      // User has selected a topic, call the question API
       try {
         const topicResponse = await getAllTopicDetails({
           year: selectedYear,
@@ -215,7 +225,7 @@ const ComunityEducator = () => {
   };
 
   const questionFilter = async () => {
-    ////console.log("questionFilter==", questionName);
+    console.log("questionFilter==", questionName);
     if (selectedYear === "" || managerName === "" || passcode === "") {
       return alert("Please select some filters to proceed");
     }
@@ -338,24 +348,18 @@ const ComunityEducator = () => {
     const { ...exceptBoth } = x;
     return exceptBoth;
   });
-
   return (
     <>
-      <div style={{ margin: "20px" }}></div>
-      <Tabs
+      <div style={{ margin: "10px" }}></div>
+      {/* <Tabs
         value={value}
         onChange={handleChange}
-        style={{
-          display: "flex",
-          overflow: "hidden",
-          justifyContent: "space-evenly",
-          "@media (max-width: 750px)": {},
-        }}
+        aria-label="wrapped label tabs example"
       >
         <Tab value="one" label="Topicwise Answer" />
         <Tab value="two" label="Questionwise Answer" />
       </Tabs>
-      {value === "one" && (
+      {value === "one" && ( */}
         <Box>
           {/* Filter section */}
           <>
@@ -519,171 +523,12 @@ const ComunityEducator = () => {
             <Links />
           </>
         </Box>
-      )}
-      {value === "two" && (
-        <Box>
-          {/* Filter section */}
-          <>
-            <div
-              style={{
-                boxShadow:
-                  "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
-              }}
-            >
-              <div
-                style={{
-                  marginTop: "20px",
-                  padding: "30px 20px",
-                  display: "grid",
-                  gap: "20px",
-                  gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
-                }}
-              >
-                <Select1
-                  selectedYear={selectedYear}
-                  onChange={handleYearChange}
-                />
-                {selectedYear ? (
-                  <Text
-                    name="Select manager-type"
-                    currencies={managerTypeSet}
-                    handleChange={handleManagerTypeChange}
-                  />
-                ) : (
-                  <Text
-                    name="Select manager-type"
-                    currencies={noneValue}
-                    handleChange={handleManagerTypeChange}
-                  />
-                )}
-
-                {selectedYear ? (
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Select manager"
-                    defaultValue="none"
-                    value={managerName}
-                    onChange={(e) => handleManagerChange(e)}
-                  >
-                    {managerArr.map((option, index) => (
-                      <MenuItem key={index + 1} value={option.managerid}>
-                        {option.managername}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                ) : (
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Select manager"
-                    defaultValue="none"
-                    value=""
-                    onChange={(e) => handleManagerChange(e)}
-                  >
-                    <MenuItem value="None">None</MenuItem>
-                  </TextField>
-                )}
-
-                {selectedYear && managerType ? (
-                  <ReusableTextField
-                    label="Select passcode"
-                    value={passcode}
-                    options={passcodeArray}
-                    onChange={handlePasscodeChange}
-                  />
-                ) : (
-                  <ReusableTextField
-                    label="Select passcode"
-                    defaultValue="none"
-                    value=""
-                    options={passcodeArray}
-                    onChange={handlePasscodeChange}
-                  />
-                )}
-
-                {selectedYear && managerType && managerName ? (
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Select Topic"
-                    defaultValue="none"
-                    value={topicName}
-                    onChange={handleTopicChange}
-                  >
-                    {topicArr.map((option, index) => (
-                      <MenuItem key={option.topicId} value={option.topicId}>
-                        {option.topicName}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                ) : (
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Select Topic"
-                    defaultValue="none"
-                    value=""
-                    onChange={handleTopicChange}
-                  >
-                    <MenuItem value="None">None</MenuItem>
-                  </TextField>
-                )}
-
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select Question"
-                  defaultValue="none"
-                  value={questionName}
-                  onChange={handleQuestionChange}
-                >
-                  {questionArr?.map((option, index) => (
-                    <MenuItem key={option.question} value={option.questionId}>
-                      {option.question}
-                    </MenuItem>
-                  ))}
-                </TextField>
-
-                <Stack spacing={2} direction="row">
-                  <Button
-                    variant="contained"
-                    onClick={questionFilter}
-                    style={{ width: 250, height: 40, marginTop: 5 }}
-                  >
-                    Filter
-                  </Button>
-                </Stack>
-              </div>
-            </div>
-
-            {/* Display data */}
-            {selectedFilter && loaded && value === "two" && (
-              <>
-                {data && data.length > 0 ? (
-                  <Fields
-                    data={data}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlData}
-                    fileName={fileName}
-                    columns={columns1}
-                    getCellValue={getCellValue1}
-                  />
-                ) : (
-                  <Logo />
-                )}
-              </>
-            )}
-            <Links />
-          </>
-        </Box>
-      )}
+      {/* )} */}
+      {/* {value === "two" && ( */}
+    
+      {/* )} */}
     </>
   );
 };
 
-export default ComunityEducator;
+export default StudentProgressReport;

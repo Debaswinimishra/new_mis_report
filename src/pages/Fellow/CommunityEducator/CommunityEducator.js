@@ -50,6 +50,7 @@ const ComunityEducator = () => {
   const [managerType, setManagerType] = useState("");
   console.log("managerType--->", managerType);
   const [managerTypeTab2, setManagerTypeTab2] = useState("");
+  console.log("managerTypeTab2--->", managerTypeTab2);
   const [passcode, setPasscode] = useState("");
   const [passcodeTab2, setPasscodeTab2] = useState("");
   const [managerName, setManagerName] = useState("");
@@ -83,7 +84,8 @@ const ComunityEducator = () => {
       setBlockName("");
       setDistrictName("");
       setSelectedYearTab2([]);
-      setTab2FilterData({});
+      setTab2FilterData([]);
+      setManagerTypeTab2("");
       try {
         const response = await getAllCommunityEducatiorFilter();
         setManagerArr(response.data.resData);
@@ -94,7 +96,8 @@ const ComunityEducator = () => {
       setManagerName("");
       setSelectedYear("");
       setPasscode("");
-      setTab1FilterData({});
+      setTab1FilterData([]);
+      setManagerType("");
       try {
         const response1 = await getAllCommunityEducatiorFilter();
         setManagerArr(response1.data.resData);
@@ -283,7 +286,14 @@ const ComunityEducator = () => {
   const xlData =
     tab1FilterData.length > 0
       ? tab1FilterData?.map((x) => {
-          const { ...exceptBoth } = x;
+          const {
+            averageTimeSpent,
+            femaleStudentsCount,
+            femaleUsersCount,
+            activeUsersCount,
+
+            ...exceptBoth
+          } = x;
           return exceptBoth;
         })
       : null;

@@ -34,11 +34,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
-const managerTypeSet = [
-  // { value: "none", label: "none" },
-  { value: "MANAGER", label: "Manager" },
-  { value: "Crc", label: "CRC" },
-  { value: "Aww", label: "Supervisor" },
+const managerTypeArr = [
+  { id: 0, value: "none", label: "none" },
+  { id: 1, value: "MANAGER", label: "MANAGER" },
+  { id: 2, value: "Crc", label: "CRC" },
+  { id: 3, value: "Aww", label: "Supervisor" },
 ];
 
 const noneValue = [{ value: "none", label: "None" }];
@@ -122,11 +122,12 @@ const ComunityEducator = () => {
     }
   });
   const handleYearChange = (selectedYear) => {
-    setSelectedYear(selectedYear);
+    setManagerType("");
     setManagerName("");
     setPasscode("");
     setTopicName("");
     setQuestionName("");
+    setSelectedYear(selectedYear);
 
     // setManagerArr([]);
     // setManagerName("");
@@ -385,7 +386,7 @@ const ComunityEducator = () => {
                   selectedYear={selectedYear}
                   onChange={handleYearChange}
                 />
-                {selectedYear ? (
+                {/* {selectedYear ? (
                   <Text
                     name="Select manager-type"
                     currencies={managerTypeSet}
@@ -397,7 +398,22 @@ const ComunityEducator = () => {
                     currencies={noneValue}
                     handleChange={handleManagerTypeChange}
                   />
-                )}
+                )} */}
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager-type"
+                  value={managerType}
+                  onChange={(e) => handleManagerTypeChange(e)}
+                >
+                  {selectedYear && selectedYear != ""
+                    ? managerTypeArr?.map((option) => (
+                        <MenuItem key={option.id} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))
+                    : null}
+                </TextField>
 
                 {selectedYear ? (
                   <TextField
@@ -549,7 +565,7 @@ const ComunityEducator = () => {
                   selectedYear={selectedYear}
                   onChange={handleYearChange}
                 />
-                {selectedYear ? (
+                {/* {selectedYear ? (
                   <Text
                     name="Select manager-type"
                     currencies={managerTypeSet}
@@ -561,7 +577,22 @@ const ComunityEducator = () => {
                     currencies={noneValue}
                     handleChange={handleManagerTypeChange}
                   />
-                )}
+                )} */}
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager-type"
+                  value={managerType}
+                  onChange={(e) => handleManagerTypeChange(e)}
+                >
+                  {selectedYear && selectedYear != ""
+                    ? managerTypeArr?.map((option) => (
+                        <MenuItem key={option.id} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))
+                    : null}
+                </TextField>
 
                 {selectedYear ? (
                   <TextField

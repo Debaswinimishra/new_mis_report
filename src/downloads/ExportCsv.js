@@ -37,10 +37,7 @@ export const ExportCSV = ({ csvData, fileName }) => {
           borderColor: "#5e72e4",
           color: "#fff",
           margin: "10px",
-          display: "flex",
-        
-          
-          
+          display: "flex",     
         }}
       >
         Download Report

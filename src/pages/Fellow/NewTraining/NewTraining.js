@@ -19,6 +19,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+// import Modal from "@mui/material/Modal";
+import { FormControl, Modal, Grid, Image } from "@mui/material";
 
 const managerTypeArr = [
   { id: 1, value: "MANAGER", label: "Manager" },
@@ -219,6 +221,26 @@ const NewTraining = () => {
     setPage(0);
   };
 
+  const [openModal, setOpenModal] = useState(false);
+
+  const openCertificate = () => {
+    setOpenModal(true);
+  };
+
+  const closeCertificate = () => {
+    setOpenModal(false);
+  };
+
+  const handleDownload = () => {
+    // Code to trigger PDF download
+    // Replace "your-pdf-file.pdf" with your PDF file URL or path
+    const pdfUrl = "your-pdf-file.pdf";
+    const a = document.createElement("a");
+    a.href = pdfUrl;
+    a.download = "downloaded-pdf.pdf";
+    a.click();
+  };
+
   const getCellValueModule = (row, column, index) => {
     switch (column) {
       case "Serial No":
@@ -242,7 +264,11 @@ const NewTraining = () => {
       case "Module Total Marks":
         return row.moduleTotalMarks;
       case "Module Certificate":
-        return row.moduleCertificate ? moduleCertificate : "Not Available";
+        return row.moduleCertificate ? (
+          <Button onClick={openCertificate}>Certificate</Button>
+        ) : (
+          "Not generated"
+        );
       default:
         return "";
     }
@@ -371,7 +397,7 @@ const NewTraining = () => {
 
           return {
             ...rest,
-            topicCompletionStatus, // Replace topicIsComplete with its mapped value
+            topicCompletionStatus,
           };
         }
         return {};
@@ -386,6 +412,9 @@ const NewTraining = () => {
     setTrainingType("");
   };
 
+  console.log("moduledata-------------->", moduleData);
+  console.log("openModal-------------->", openModal);
+
   return (
     <>
       <Box>
@@ -397,6 +426,37 @@ const NewTraining = () => {
                 "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
             }}
           >
+            <Modal
+              open={openModal}
+              onClose={closeCertificate}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <br />
+                <FormControl sx={{ m: 1, minWidth: 300 }} size="small">
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Grid container spacing={3} style={{ marginTop: 12 }}>
+                      <img
+                        src="https://shared002.s3.us-east-2.amazonaws.com/Certificate-1695719783777.jpg"
+                        alt="image"
+                        style={{ height: "200px", width: "200px" }}
+                      />
+                    </Grid>
+                  </Box>
+                </FormControl>
+                <Button
+                  variant="outlined"
+                  style={{ marginLeft: 12 }}
+                  onClick={closeCertificate}
+                >
+                  Close
+                </Button>
+                <Button variant="contained" onClick={handleDownload}>
+                  Download
+                </Button>
+              </Box>
+            </Modal>
             <div
               style={{
                 width: "100%",
@@ -429,7 +489,6 @@ const NewTraining = () => {
                     ))
                   : null}
               </TextField>
-
               <TextField
                 id="outlined-select-currency"
                 select
@@ -502,7 +561,7 @@ const NewTraining = () => {
                     <>
                       {value === "one" && moduleData.length > 0 ? (
                         <Fields
-                          data={moduleData}
+                          data={moduleData} //
                           totalDataLength={totalDataLength}
                           page={page}
                           rowsPerPage={rowsPerPage}
@@ -536,7 +595,7 @@ const NewTraining = () => {
 
                       {value === "three" && topicData.length > 0 ? (
                         <Fields
-                          data={Array.isArray(topicData) ? topicData : []}
+                          data={Array.isArray(topicData) ? topicData : []} //
                           totalDataLength={totalDataLength}
                           page={page}
                           rowsPerPage={rowsPerPage}
@@ -567,3 +626,15 @@ const NewTraining = () => {
 };
 
 export default NewTraining;
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  // border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};

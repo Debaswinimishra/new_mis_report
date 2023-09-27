@@ -80,7 +80,7 @@ const TopicColumn = [
   "Topic Percentage",
   "Topic Secured Mark",
   "Topic Total Mark",
-  "Time spent Status",
+  // "Time spent Status",
 ];
 
 const NewTraining = () => {
@@ -95,11 +95,11 @@ const NewTraining = () => {
   const [moduleData, setModuleData] = useState([]);
   const [subModuleData, setSubModuleData] = useState([]);
   const [topicData, setTopicData] = useState([]);
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
-  const [value, setValue] = React.useState("one");
+  const [value, setValue] = useState("one");
   const [showFieldsData, setShowFieldsData] = useState(false);
 
   const handleChange = (event, newValue) => {

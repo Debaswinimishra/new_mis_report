@@ -1,26 +1,49 @@
-import { useEffect, useState } from "react";
-import * as React from "react";
-import Text from "../../../ReusableComponents/Text";
+import React, { useEffect, useState } from "react";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import TablePagination from "@mui/material/TablePagination";
+import loader from "../../../Assets/R.gif";
+import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
-import Fields from "../../../ReusableComponents/Fields";
-import Logo from "../../../ReusableComponents/Logo";
-import Links from "../../../ReusableComponents/Links";
-import Number from "../../../ReusableComponents/Number";
-import moment from "moment/moment";
-// import Api from "../../environment/Api";
-import Api from "../../../Environment/Api";
+import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
+import {
+  getAllCommunityEducatiorFilter,
+  getAllDistricts,
+  getDistrictsWiseBlocks,
+} from "../CommunityEducator/CommunityEducatorApi";
+import { FellowDetailsForManager } from "./FellowDetailsApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
-import { getAllCommunityEducatiorFilter } from "../CommunityEducator/CommunityEducatorApi";
-import { getAllTeacherTrainingDetails } from "../NewTraining/NewTrainingApi";
-// import { getAllCommunityEducatiorFilter } from "../../Fellow/CommunityEducator/CommunityEducatorApi";
-// import { getAllCommunityEducatiorFilter } from "../../AllApi/ComunityEducator";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Logo from "../../../ReusableComponents/Logo";
+import Links from "../../../ReusableComponents/Links";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#5e72e4",
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 const managerTypeArr = [
   { value: "none", label: "none" },
@@ -47,43 +70,22 @@ const FellowDetails = () => {
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
   const [districts, setDistricts] = useState([]);
+  const [page, setPage] = useState(0);
   const [districtName, setDistrictName] = useState("");
   const [allBlocks, setAllBlocks] = useState([]);
   const [blockName, setBlockName] = useState("");
-
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [filteredData, setFilteredData] = useState([]);
+  const [totalDataLength, setTotalDataLength] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
-  const [value, setValue] = React.useState("one");
-  const [showFieldsData, setShowFieldsData] = useState(false);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-
-    // Set reportType based on the selected tab
-    switch (newValue) {
-      case "one":
-        setReportType("modulewise");
-        break;
-      case "two":
-        setReportType("submodleWise"); // Update with the correct spelling
-        break;
-      case "three":
-        setReportType("topicWise");
-        break;
-      default:
-        setReportType("topicWise"); // Default value, change as needed
-        break;
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        // console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {
-        // console.log("err--->", err.response.status);
+        console.log("err--->", err.response.status);
       }
     };
     fetchData();
@@ -93,41 +95,66 @@ const FellowDetails = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
-      // console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
+
   const handleYearChange = (selectedYear) => {
     setManagerType("");
+    setManagerName("");
+    setPasscode("");
+    setDistrictName("");
+    setBlockName("");
     setSelectedYear(selectedYear);
-    setShowFieldsData(false);
+    // setShowFieldsData(false);
   };
+
   const handleManagerTypeChange = (event) => {
     setManagerName("");
     setPasscode("");
+    setDistrictName("");
+    setBlockName("");
     setManagerType(event.target.value);
-    setShowFieldsData(false);
-  };
-  const handleManagerChange = (event) => {
-    setPasscode("");
-    setManagerName(event.target.value);
-    setShowFieldsData(false);
+    // setShowFieldsData(false);
   };
 
-  const handlePasscodeChange = (event) => {
-    setPasscode(event.target.value);
-    setShowFieldsData(false);
+  const handleManagerChange = (event) => {
+    setPasscode("");
+    setDistrictName("");
+    setBlockName("");
+    setManagerName(event.target.value);
+    // setShowFieldsData(false);
   };
-  //   const handleDistrictChange = async (e) => {
-  //     const selectedValue = e.target.value;
-  //     // const selectedDistrictName = e.currentTarget.getAttribute("data-name");
-  //     setDistrictName(e.target.value);
-  //     console.log("Selected value:", e);
-  //     // console.log("Selected district name:", selectedDistrictName);
-  //     const response = await getDistrictsWiseBlocks(e.target.value);
-  //     console.log("block response---->", response.data);
-  //     setAllBlocks(response.data);
-  //   };
+
+  const handlePasscodeChange = async (event) => {
+    setDistrictName("");
+    setBlockName("");
+    setPasscode(event.target.value);
+    try {
+      setLoaded(true);
+      const response2 = await getAllDistricts();
+      console.log("response--->", response2.data);
+      setDistricts(response2.data);
+      setLoaded(false);
+    } catch (error) {
+      setLoaded(false);
+      console.error("Error--->", error);
+    }
+
+    // setShowFieldsData(false);
+  };
+
+  const handleDistrictChange = async (e) => {
+    setBlockName("");
+    const selectedValue = e.target.value;
+    setDistrictName(e.target.value);
+    console.log("Selected value:", e);
+    setLoaded(true);
+    const response = await getDistrictsWiseBlocks(e.target.value);
+    console.log("block response---->", response.data);
+    setAllBlocks(response.data);
+    setLoaded(false);
+  };
 
   const handleBlockChange = (e) => {
     console.log("block--->", e.target.value);
@@ -137,12 +164,32 @@ const FellowDetails = () => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(event.target.value);
     setPage(0);
   };
 
-  const getCellValueModule = (row, column, index) => {
+  const fetchFilteredData = async () => {
+    try {
+      setLoaded(true);
+      const filterCriteria = {
+        year: selectedYear,
+        managerid: managerName,
+      };
+
+      const data = await FellowDetailsForManager(filterCriteria);
+
+      setFilteredData(data);
+      setTotalDataLength(data.length);
+      setLoaded(false);
+    } catch (error) {
+      console.error("Error--->", error);
+      setLoaded(false);
+    }
+  };
+
+  const getCellValue = (row, column, index) => {
     switch (column) {
       case "Serial No":
         return index + 1;
@@ -151,115 +198,98 @@ const FellowDetails = () => {
       case "User Id":
         return row.userid;
       case "No of Students":
-        return row.noOfStudent;
+        return row.studentsCount;
       case "Gender":
         return row.gender;
       case "Contact Number":
-        return row.ContactNumber;
+        return row.contactnumber;
       case "Status(Active/Inactive)":
-        return row.Status;
+        return row.status;
       case "Aadhaar Number":
-        return row.AadhaarNumber;
+        return row.aadhaar;
       default:
         return "";
     }
   };
 
-  //   const fileName = "fellow";
+  const fileName = "FellowDetails";
 
-  //   // Conditionally map moduleData, subModuleData, and topicData
-  //   const xlModuleData = Array.isArray(moduleData)
-  //     ? moduleData.map((x) => {
-  //         if (x) {
-  //           const { ...exceptBoth } = x;
-  //           return exceptBoth;
-  //         }
-  //         // Handle cases where moduleData doesn't exist (e.g., return an empty object)
-  //         return {};
-  //       })
-  //     : [];
-
-  const resetFilters = () => {
-    setSelectedYear("");
-    setManagerName("");
-    setManagerType("");
-    setPasscode("");
-    // setTrainingType("");
-  };
+  const xlData = filteredData.map((x) => {
+    const { ...exceptBoth } = x;
+    return exceptBoth;
+  });
 
   return (
-    <>
-      <Box>
-        {/* Filter section */}
-        <>
-          <div
-            style={{
-              boxShadow:
-                "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
-            }}
+    <Box>
+      <div
+        style={{
+          boxShadow:
+            "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
+        }}
+      >
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "30px 20px",
+            display: "grid",
+            gap: "20px",
+            gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
+          }}
+        >
+          <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select manager-type"
+            value={managerType}
+            onChange={(e) => handleManagerTypeChange(e)}
           >
-            <div
-              style={{
-                marginTop: "20px",
-                padding: "30px 20px",
-                display: "grid",
-                gap: "20px",
+            {selectedYear && selectedYear != ""
+              ? managerTypeArr?.map((option) => (
+                  <MenuItem key={option.id} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))
+              : null}
+          </TextField>
 
-                gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
-              }}
-            >
-              <Select1
-                selectedYear={selectedYear}
-                onChange={handleYearChange}
-              />
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Select manager-type"
-                value={managerType}
-                onChange={(e) => handleManagerTypeChange(e)}
-              >
-                {selectedYear && selectedYear != ""
-                  ? managerTypeArr?.map((option) => (
-                      <MenuItem key={option.id} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))
-                  : null}
-              </TextField>
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select manager"
+            defaultValue="none"
+            value={managerName}
+            onChange={(e) => handleManagerChange(e)}
+          >
+            {selectedYear && selectedYear != ""
+              ? managerArr.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.managerid}>
+                    {option.managername}
+                  </MenuItem>
+                ))
+              : null}
+          </TextField>
 
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Select manager"
-                defaultValue="none"
-                value={managerName}
-                onChange={(e) => handleManagerChange(e)}
-              >
-                {selectedYear && selectedYear != ""
-                  ? managerArr.map((option, index) => (
-                      <MenuItem key={index + 1} value={option.managerid}>
-                        {option.managername}
-                      </MenuItem>
-                    ))
-                  : null}
-              </TextField>
+          <ReusableTextField
+            label="Select passcode"
+            value={passcode}
+            options={passcodeArray}
+            onChange={(e) => handlePasscodeChange(e)}
+          />
 
-              <ReusableTextField
-                label="Select passcode"
-                value={passcode}
-                options={passcodeArray}
-                onChange={handlePasscodeChange}
-              />
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Select districts"
-                defaultValue="none"
-                value={districtName}
-                onChange={(e) => handleDistrictChange(e)}
-              >
-                {districts?.map((option, index) => (
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select districts"
+            defaultValue="none"
+            value={districtName}
+            onChange={(e) => handleDistrictChange(e)}
+          >
+            {passcode &&
+            passcode.length > 0 &&
+            districts.length > 0 &&
+            Array.isArray(districts)
+              ? districts.map((option, index) => (
                   <MenuItem
                     key={index + 1}
                     value={option._id}
@@ -267,65 +297,99 @@ const FellowDetails = () => {
                   >
                     {option.districtname}
                   </MenuItem>
-                ))}
-              </TextField>
+                ))
+              : null}
+          </TextField>
 
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Select Blocks"
-                defaultValue="none"
-                value={blockName}
-                onChange={(e) => handleBlockChange(e)}
-              >
-                {allBlocks.map((option, index) => (
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select Blocks"
+            defaultValue="none"
+            value={blockName}
+            onChange={(e) => handleBlockChange(e)}
+          >
+            {districtName &&
+            districtName > 0 &&
+            allBlocks.length > 0 &&
+            Array.isArray(allBlocks)
+              ? allBlocks?.map((option, index) => (
                   <MenuItem key={index + 1} value={option._id}>
                     {option.blockname}
                   </MenuItem>
-                ))}
-              </TextField>
+                ))
+              : null}
+          </TextField>
 
-              <Stack spacing={2} direction="row">
-                <Button
-                  variant="contained"
-                  // onClick={onfilter}
-                  style={{ width: "100%", height: "auto", marginTop: "10px" }}
-                >
-                  Filter
-                </Button>
-              </Stack>
-            </div>
-          </div>
-          {/* {topicData.length > 0 ? (
-            <>
-              {showFieldsData && (
-                <>
-                  {loaded && (
-                    <>
-                      <Fields
-                        data={moduleData}
-                        totalDataLength={totalDataLength}
-                        page={page}
-                        rowsPerPage={rowsPerPage}
-                        handleChangePage={handleChangePage}
-                        handleChangeRowsPerPage={handleChangeRowsPerPage}
-                        xlData={xlModuleData}
-                        fileName={fileName}
-                        columns={moduleColumn}
-                        getCellValue={getCellValueModule}
-                      />
-                    </>
-                  )}
-                </>
-              )}
-            </>
+          <Stack spacing={2} direction="row">
+            <Button
+              variant="contained"
+              onClick={fetchFilteredData}
+              style={{ width: "100%", height: "auto", marginTop: "10px" }}
+            >
+              Filter
+            </Button>
+          </Stack>
+        </div>
+      </div>
+      {loaded ? (
+        <img src={loader} />
+      ) : (
+        <>
+          {filteredData && filteredData?.length > 0 ? (
+            <TableContainer
+              component={Paper}
+              sx={{
+                marginTop: 3,
+                width: "100%",
+                borderRadius: "6px",
+                maxHeight: "800px",
+              }}
+            >
+              <Table aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    {moduleColumn.map((column) => (
+                      <StyledTableCell key={column}>{column}</StyledTableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {Array.isArray(filteredData) &&
+                    filteredData
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row, index) => (
+                        <StyledTableRow key={index}>
+                          {moduleColumn.map((column, columnIndex) => (
+                            <StyledTableCell key={columnIndex}>
+                              {getCellValue(row, column, index)}
+                            </StyledTableCell>
+                          ))}
+                        </StyledTableRow>
+                      ))}
+                </TableBody>
+              </Table>
+              <TablePagination
+                component="div"
+                count={totalDataLength}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+              <Download csvData={xlData} fileName={fileName} />
+            </TableContainer>
           ) : (
-            <Logo />
-          )} */}
-          <Links />
+            // <Logo />
+            ""
+          )}
         </>
-      </Box>
-    </>
+      )}
+      <Links />
+    </Box>
   );
 };
 

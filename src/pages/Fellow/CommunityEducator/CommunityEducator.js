@@ -152,12 +152,15 @@ const ComunityEducator = () => {
     setManagerName("");
     setManagerType("");
     setPasscode("");
+    setTab1FilterData([]);
   };
+
   const handleYearChangeTab2 = (selectedYearTab2) => {
     setSelectedYearTab2(selectedYearTab2);
     setManagerNameTab2("");
     setManagerTypeTab2("");
     setPasscodeTab2("");
+    setTab2FilterData([]);
   };
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);

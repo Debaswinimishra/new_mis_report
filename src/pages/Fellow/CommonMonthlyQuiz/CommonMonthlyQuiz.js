@@ -34,11 +34,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
-const managerTypeSet = [
-  // { value: "none", label: "none" },
-  { value: "MANAGER", label: "Manager" },
-  { value: "Crc", label: "CRC" },
-  { value: "Aww", label: "Supervisor" },
+const managerTypeArr = [
+  { id: 0, value: "none", label: "none" },
+  { id: 1, value: "MANAGER", label: "MANAGER" },
+  { id: 2, value: "Crc", label: "CRC" },
+  { id: 3, value: "Aww", label: "Supervisor" },
 ];
 
 const noneValue = [{ value: "none", label: "None" }];
@@ -62,12 +62,14 @@ const ComunityEducator = () => {
   // console.log("topicId--->", topicId);
   const [questionId, setQuestionId] = useState("");
   const [data, setData] = useState([]);
+  console.log("data===========================>", data);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
   const [selectedFilter, setSelectedFilter] = useState(false); // Default to "topic"
+  console.log("selectedFilter===>", selectedFilter);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -115,12 +117,15 @@ const ComunityEducator = () => {
     }
   });
   const handleYearChange = (selectedYear) => {
-    setSelectedYear(selectedYear);
+    setManagerType("");
     setManagerName("");
     setPasscode("");
     setTopicName("");
     setQuestionName("");
-    setData([]);
+    setSelectedYear(selectedYear);
+
+    // setManagerArr([]);
+    // setManagerName("");
   };
 
   const handleManagerTypeChange = (event) => {
@@ -148,7 +153,9 @@ const ComunityEducator = () => {
     try {
       const response = await getAllTopic();
       setTopicArr(response.data);
-    } catch (err) {}
+    } catch (err) {
+      console.log("err--->", err.response);
+    }
   };
 
   // const handleTopicChange = (event) => {
@@ -208,6 +215,7 @@ const ComunityEducator = () => {
         }
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
+        alert("No data found");
       }
     } else {
       alert("Please select some filters to proceed");
@@ -379,7 +387,7 @@ const ComunityEducator = () => {
                   selectedYear={selectedYear}
                   onChange={handleYearChange}
                 />
-                {selectedYear ? (
+                {/* {selectedYear ? (
                   <Text
                     name="Select manager-type"
                     currencies={managerTypeSet}
@@ -391,7 +399,22 @@ const ComunityEducator = () => {
                     currencies={noneValue}
                     handleChange={handleManagerTypeChange}
                   />
-                )}
+                )} */}
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager-type"
+                  value={managerType}
+                  onChange={(e) => handleManagerTypeChange(e)}
+                >
+                  {selectedYear && selectedYear != ""
+                    ? managerTypeArr?.map((option) => (
+                        <MenuItem key={option.id} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))
+                    : null}
+                </TextField>
 
                 {selectedYear ? (
                   <TextField
@@ -466,23 +489,6 @@ const ComunityEducator = () => {
                   </TextField>
                 )}
 
-                {/* ... Further code ... */}
-
-                {/* <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select Question"
-                  defaultValue="none"
-                  value={questionName}
-                  onChange={handleQuestionChange}
-                >
-                  {questionArr?.map((option, index) => (
-                    <MenuItem key={option.question} value={option.questionId}>
-                      {option.question}
-                    </MenuItem>
-                  ))}
-                </TextField> */}
-
                 <Stack spacing={2} direction="row">
                   <Button
                     variant="contained"
@@ -496,26 +502,31 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {selectedFilter && loaded && value === "one" && (
-              <>
-                {data && data.length > 0 ? (
-                  <Fields
-                    data={data}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlData}
-                    fileName={fileName}
-                    columns={columns}
-                    getCellValue={getCellValue}
-                  />
-                ) : (
-                  <Logo />
-                )}
-              </>
-            )}
+            {selectedYear &&
+              managerName &&
+              topicName &&
+              selectedFilter &&
+              loaded &&
+              value === "one" && (
+                <>
+                  {data && Object.keys(data).length > 0 ? (
+                    <Fields
+                      data={data}
+                      totalDataLength={totalDataLength}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      handleChangePage={handleChangePage}
+                      handleChangeRowsPerPage={handleChangeRowsPerPage}
+                      xlData={xlData}
+                      fileName={fileName}
+                      columns={columns}
+                      getCellValue={getCellValue}
+                    />
+                  ) : (
+                    "No Data Available"
+                  )}
+                </>
+              )}
             <Links />
           </>
         </Box>
@@ -543,7 +554,7 @@ const ComunityEducator = () => {
                   selectedYear={selectedYear}
                   onChange={handleYearChange}
                 />
-                {selectedYear ? (
+                {/* {selectedYear ? (
                   <Text
                     name="Select manager-type"
                     currencies={managerTypeSet}
@@ -555,7 +566,22 @@ const ComunityEducator = () => {
                     currencies={noneValue}
                     handleChange={handleManagerTypeChange}
                   />
-                )}
+                )} */}
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager-type"
+                  value={managerType}
+                  onChange={(e) => handleManagerTypeChange(e)}
+                >
+                  {selectedYear && selectedYear != ""
+                    ? managerTypeArr?.map((option) => (
+                        <MenuItem key={option.id} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))
+                    : null}
+                </TextField>
 
                 {selectedYear ? (
                   <TextField

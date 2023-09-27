@@ -5,6 +5,7 @@ import Select1 from "../../../ReusableComponents/Select1";
 import Fields from "../../../ReusableComponents/Fields";
 import Logo from "../../../ReusableComponents/Logo";
 import Links from "../../../ReusableComponents/Links";
+import loader from "../../../Assets/R.gif";
 import Number from "../../../ReusableComponents/Number";
 import moment from "moment/moment";
 import Api from "../../../environment/Api";
@@ -187,8 +188,9 @@ const NewTraining = () => {
       trainingType: trainingType,
       reportType: reportType,
     };
-    setLoaded(false);
     try {
+      setLoaded(true);
+      // Fetch data for Module, Submodule, and Topic
       const moduleResponse = await getAllTeacherTrainingDetails({
         ...body,
         reportType: "moduleWise",
@@ -202,14 +204,48 @@ const NewTraining = () => {
         reportType: "topicWise",
       });
 
-      setModuleData(moduleResponse.data);
-      setSubModuleData(subModuleResponse.data);
-      setTopicData(topicResponse.data);
+      // Check the status code of the responses and handle accordingly
+      if (
+        moduleResponse.status === 204 ||
+        subModuleResponse.status === 204 ||
+        topicResponse.status === 204
+      ) {
+        // Status code 204 indicates success with no content, handle it as needed
+        alert("No data found");
+        // You can show a message to indicate that no data was found
+      } else if (
+        moduleResponse.status === 200 &&
+        subModuleResponse.status === 200 &&
+        topicResponse.status === 200
+      ) {
+        // Update state variables with the fetched data
+        console.log("mod", moduleResponse);
+        console.log("sub", subModuleResponse);
+        console.log("top", topicResponse);
+        setModuleData(moduleResponse.data);
+        setSubModuleData(subModuleResponse.data);
+        setTopicData(topicResponse.data);
 
-      setShowFieldsData(true);
-      setLoaded(true);
+        setShowFieldsData(true);
+        setLoaded(false);
+      } else {
+        // Handle error or show appropriate messages based on status codes
+        if (moduleResponse.status === 400) {
+          alert("Bad request when fetching module data");
+          // Handle 400 Bad Request for moduleResponse, e.g., show an error message
+        }
+        if (subModuleResponse.status === 400) {
+          alert("Bad request when fetching sub-module data");
+          // Handle 400 Bad Request for subModuleResponse, e.g., show an error message
+        }
+        if (topicResponse.status === 400) {
+          alert("Bad request when fetching topic data");
+          // Handle 400 Bad Request for topicResponse, e.g., show an error message
+        }
+      }
+      setLoaded(false);
     } catch (error) {
-      setLoaded(true);
+      setLoaded(false);
     }
   };
 
@@ -568,8 +604,8 @@ const NewTraining = () => {
               </Stack>
             </div>
           </div>
-          {moduleData?.length > 0 ||
-          subModuleData?.length > 0 ||
+          {moduleData?.length > 0 &&
+          subModuleData?.length > 0 &&
           topicData?.length > 0 ? (
             <>
               <Tabs
@@ -584,67 +620,64 @@ const NewTraining = () => {
               {/* Display data */}
 
               {/* Display data based on the selected tab */}
-              {showFieldsData && (
+              {loaded ? (
+                <img src={loader} />
+              ) : (
                 <>
-                  {loaded && (
-                    <>
-                      {value === "one" && moduleData.length > 0 ? (
-                        <Fields
-                          data={moduleData} //
-                          totalDataLength={totalDataLength}
-                          page={page}
-                          rowsPerPage={rowsPerPage}
-                          handleChangePage={handleChangePage}
-                          handleChangeRowsPerPage={handleChangeRowsPerPage}
-                          xlData={xlModuleData}
-                          fileName={moduleExcel}
-                          columns={moduleColumn}
-                          getCellValue={getCellValueModule}
-                        />
-                      ) : (
-                        <Logo />
-                      )}
+                  {value === "one" && moduleData?.length > 0 ? (
+                    <Fields
+                      data={moduleData}
+                      totalDataLength={totalDataLength}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      handleChangePage={handleChangePage}
+                      handleChangeRowsPerPage={handleChangeRowsPerPage}
+                      xlData={xlModuleData}
+                      fileName={moduleExcel}
+                      columns={moduleColumn}
+                      getCellValue={getCellValueModule}
+                    />
+                  ) : moduleData?.length === 0 ? (
+                    <Logo />
+                  ) : null}
 
-                      {value === "two" && subModuleData.length > 0 ? (
-                        <Fields
-                          data={subModuleData}
-                          totalDataLength={totalDataLength}
-                          page={page}
-                          rowsPerPage={rowsPerPage}
-                          handleChangePage={handleChangePage}
-                          handleChangeRowsPerPage={handleChangeRowsPerPage}
-                          xlData={xlSubModuleData}
-                          fileName={submoduleExcel}
-                          columns={subModuleColumn}
-                          getCellValue={getCellValueSubModule}
-                        />
-                      ) : (
-                        <Logo />
-                      )}
+                  {value === "two" && subModuleData?.length > 0 ? (
+                    <Fields
+                      data={subModuleData}
+                      totalDataLength={totalDataLength}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      handleChangePage={handleChangePage}
+                      handleChangeRowsPerPage={handleChangeRowsPerPage}
+                      xlData={xlSubModuleData}
+                      fileName={submoduleExcel}
+                      columns={subModuleColumn}
+                      getCellValue={getCellValueSubModule}
+                    />
+                  ) : subModuleData?.length === 0 ? (
+                    <Logo />
+                  ) : null}
 
-                      {value === "three" && topicData.length > 0 ? (
-                        <Fields
-                          data={Array.isArray(topicData) ? topicData : []} //
-                          totalDataLength={totalDataLength}
-                          page={page}
-                          rowsPerPage={rowsPerPage}
-                          handleChangePage={handleChangePage}
-                          handleChangeRowsPerPage={handleChangeRowsPerPage}
-                          xlData={xlTopicData} //
-                          fileName={topicExcel}
-                          columns={TopicColumn}
-                          getCellValue={getCellValueTopic}
-                        />
-                      ) : (
-                        <Logo />
-                      )}
-                    </>
-                  )}
+                  {value === "three" && topicData?.length > 0 ? (
+                    <Fields
+                      data={Array.isArray(topicData) ? topicData : []}
+                      totalDataLength={totalDataLength}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      handleChangePage={handleChangePage}
+                      handleChangeRowsPerPage={handleChangeRowsPerPage}
+                      xlData={xlTopicData}
+                      fileName={topicExcel}
+                      columns={TopicColumn}
+                      getCellValue={getCellValueTopic}
+                    />
+                  ) : topicData?.length === 0 ? (
+                    <Logo />
+                  ) : null}
                 </>
               )}
             </>
           ) : (
-            // <Logo />
             ""
           )}
           <Links />

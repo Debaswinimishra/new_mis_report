@@ -9,6 +9,8 @@ import CommunityEducator from "../pages/Fellow/CommunityEducator/CommunityEducat
 import NewTraining from "../pages/Fellow/NewTraining/NewTraining";
 import StudentProgressReport from "../pages/Fellow/StudentProgressReport/StudentProgressReport";
 import PrivateRoute from "./PrivateRoute";
+import FellowDetails from "../pages/Fellow/FellowDetails/FellowDetails";
+
 // import * from "../AppRoute/Route404";
 // import FelloRoutes from "../Pages/Fellow/FelloRoutes";
 
@@ -29,8 +31,11 @@ const RouteFellow = () => {
         <Route path="commonmonthlyquiz" element={<CommonMonthlyQuiz />} />
         <Route path="communityeducator" element={<CommunityEducator />} />
         <Route path="trainingmodule" element={<NewTraining />} />
-        <Route path="studentprogressreport" element={<StudentProgressReport />} />
-
+        <Route
+          path="studentprogressreport"
+          element={<StudentProgressReport />}
+        />
+        <Route path="fellowdetails" element={<FellowDetails />} />
       </Route>
     </Routes>
   );

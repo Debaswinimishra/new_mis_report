@@ -36,6 +36,7 @@ const Fields = ({
   handleChangePage,
   handleChangeRowsPerPage,
   xlData,
+  pagination,
   fileName,
   columns,
   getCellValue,
@@ -74,14 +75,17 @@ const Fields = ({
                 ))}
           </TableBody>
         </Table>
-        <TablePagination
-          component="div"
-          count={totalDataLength}
-          page={page}
-          onPageChange={handleChangePage}
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        {pagination && (
+          <TablePagination
+            component="div"
+            count={totalDataLength}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
+
         <Download csvData={xlData} fileName={fileName} />
       </TableContainer>
     </div>

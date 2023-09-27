@@ -43,7 +43,7 @@ const Dashboard = () => {
         setDropout(response.data.resData);
         setAvrage(response.data.resData);
         setEndlineUser(response.data.resData);
-        setNsdcCertified(response.data.resData);
+        // setNsdcCertified(response.data.resData);
         setAvgGradUser(response.data.resData);
         setAvgEndline(response.data.resData);
         SettotalTime(response.data.resData);
@@ -89,7 +89,7 @@ const Dashboard = () => {
           />
           <a
             style={{ textDecoration: "none" }}
-            href={Femalefellows}
+            // href={Femalefellows}
             target="femailfellowship"
           >
             <Card
@@ -102,7 +102,7 @@ const Dashboard = () => {
 
           <a
             style={{ textDecoration: "none" }}
-            href={Femalefellows}
+            // href={Femalefellows}
             target="female"
           >
             <Card
@@ -114,7 +114,7 @@ const Dashboard = () => {
           </a>
           <a
             style={{ textDecoration: "none" }}
-            href={Femalefellows}
+            // href={Femalefellows}
             target="Active fellows"
           >
             <Card
@@ -126,7 +126,7 @@ const Dashboard = () => {
           </a>
           <a
             style={{ textDecoration: "none" }}
-            href={Femalefellows}
+            // href={Femalefellows}
             target="fellowdropout"
           >
             <Card

@@ -33,7 +33,7 @@ const Dashboard = () => {
   const [totalTime, SettotalTime] = useState({});
   const [loaded, setLoaded] = useState(false);
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState([]);
   console.log("user--->", user);
 
   const handleCallAPI = async () => {
@@ -89,17 +89,17 @@ const Dashboard = () => {
         <div className="container">
           <Card
             name="Total Educatorss"
-            number={user.totalUsersCount || "NA"}
+            number={user[0]?.totalUsersCount || "NA"}
             Icon={PeopleIcon}
           />
           <a
             style={{ textDecoration: "none" }}
-            href={Femalefellows}
+            // href={Femalefellows}
             target="femailfellowship"
           >
             <Card
               name="Female Educators"
-              number={user.femaleUsersCount || "NA"}
+              number={user[0]?.femaleUsersCount || "NA"}
               Icon={PeopleIcon}
               style={{ backgroundColor: "orange" }}
             />
@@ -107,55 +107,55 @@ const Dashboard = () => {
 
           <a
             style={{ textDecoration: "none" }}
-            href={Femalefellows}
+            // href={Femalefellows}
             target="female"
           >
             <Card
               name="Active Educators"
-              number={user.activeUsersCount || "NA"}
+              number={user[0]?.activeUsersCount || "NA"}
               Icon={PeopleIcon}
               style={{ backgroundColor: "teal" }}
             />
           </a>
           <a
             style={{ textDecoration: "none" }}
-            href={Femalefellows}
+            // href={Femalefellows}
             target="Active fellows"
           >
             <Card
               name="Monthly Timespent"
-              number={user.averageTimeSpent || "NA"}
+              number={user[0]?.averageTimeSpent || "NA"}
               Icon={PeopleIcon}
               style={{ backgroundColor: "green" }}
             />
           </a>
           <a
             style={{ textDecoration: "none" }}
-            href={Femalefellows}
+            // href={Femalefellows}
             target="fellowdropout"
           >
             <Card
               name="Total Student"
-              number={user.totalStudentsCount || "NA"}
+              number={user[0]?.totalStudentsCount || "NA"}
               Icon={PeopleIcon}
               style={{ backgroundColor: "blue" }}
             />
           </a>
           <Card
             name="Total Female Student"
-            number={user.femaleStudentsCount || "NA"}
+            number={user[0]?.femaleStudentsCount || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "red" }}
           />
           <Card
             name="Total PGE Student"
-            number={user.pgeStudentsCount || "NA"}
+            number={user[0]?.pgeStudentsCount || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "red" }}
           />
           <Card
             name="Total ECE Student"
-            number={user.eceStudentsCount || "NA"}
+            number={user[0]?.eceStudentsCount || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "red" }}
           />

@@ -62,12 +62,14 @@ const ComunityEducator = () => {
   // console.log("topicId--->", topicId);
   const [questionId, setQuestionId] = useState("");
   const [data, setData] = useState([]);
+  console.log("data===========================>", data);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
   const [selectedFilter, setSelectedFilter] = useState(false); // Default to "topic"
+  console.log("selectedFilter===>", selectedFilter);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -159,6 +161,7 @@ const ComunityEducator = () => {
       setTopicArr(response.data);
     } catch (err) {
       console.log("err--->", err.response);
+   
     }
   };
 
@@ -190,6 +193,7 @@ const ComunityEducator = () => {
         setQuestionArr(response.data);
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
+        
       }
     }
   };
@@ -221,6 +225,7 @@ const ComunityEducator = () => {
         }
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
+        alert("No data found");
       }
     } else {
       alert("Please select some filters to proceed");
@@ -518,9 +523,9 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {selectedFilter && loaded && value === "one" && (
+            { selectedYear && managerName && topicName &&     selectedFilter && loaded && value === "one" && (
               <>
-                {data && data.length > 0 ? (
+                {data && Object.keys(data).length > 0 ? (
                   <Fields
                     data={data}
                     totalDataLength={totalDataLength}
@@ -534,7 +539,7 @@ const ComunityEducator = () => {
                     getCellValue={getCellValue}
                   />
                 ) : (
-                  <Logo />
+                  "No Data Available"
                 )}
               </>
             )}
@@ -695,7 +700,7 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {selectedFilter && loaded && value === "two" && (
+            {selectedYear && managerName && topicName && questionName && selectedFilter && loaded && value === "two" && (
               <>
                 {data && data.length > 0 ? (
                   <Fields

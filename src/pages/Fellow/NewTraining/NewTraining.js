@@ -282,7 +282,7 @@ const NewTraining = () => {
       case "Module Total Marks":
         return row.moduleTotalMarks;
       case "Module Certificate":
-        return row.moduleCertificate ? moduleCertificate : "Not Generate";
+        return row.moduleCertificate ? row.moduleCertificate : "Not Generate";
       default:
         return "";
     }

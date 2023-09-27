@@ -171,6 +171,15 @@ const FellowDetails = () => {
   };
 
   const fetchFilteredData = async () => {
+    if (
+      selectedYear === "" ||
+      managerName === "" ||
+      passcode === "" ||
+      districtName === "" ||
+      blockName === ""
+    ) {
+      return alert("Please select All filters to proceed");
+    }
     try {
       setLoaded(true);
       const filterCriteria = {

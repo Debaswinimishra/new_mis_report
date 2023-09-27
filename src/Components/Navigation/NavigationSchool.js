@@ -22,9 +22,9 @@ import Typography from "@mui/material/Typography";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import Button from "@mui/material/Button";
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 const drawerWidth = 240;
@@ -70,7 +70,7 @@ function NavigationSchool(props) {
     {
       text: "Log out",
       link: "/",
-      icon: <LogoutIcon color="secondary" />,
+      icon: <LogoutIcon color="red" />,
     },
   ];
 

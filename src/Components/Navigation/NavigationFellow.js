@@ -1,4 +1,3 @@
-// import * as React from "react";
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -9,7 +8,6 @@ import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -20,12 +18,17 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import Avatar from "@mui/material/Avatar";
 import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 import MenuItem from "@mui/material/MenuItem";
 import Popover from "@mui/material/Popover";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 import LogoutIcon from "@mui/icons-material/Logout";
+import CategoryIcon from "@mui/icons-material/Category";
+import InsightsIcon from "@mui/icons-material/Insights";
+import GroupsIcon from "@mui/icons-material/Groups";
+import Avatar from "@mui/material/Avatar";
+import QuizIcon from "@mui/icons-material/Quiz";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
 const drawerWidth = 240;
 
 function NavigationFellow(props) {
@@ -56,38 +59,32 @@ function NavigationFellow(props) {
     {
       text: "Fellows",
       link: "fellowdetails",
-      icon: <PeopleAltIcon color="primary" />,
+      icon: <PeopleAltIcon sx={{ color: "rgb(63,94,251)" }} />,
     },
-    // {
-    //   text: "Module 6",
-    //   link: "module6",
-    //   icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
-    // },
     {
       text: "Common Monthly Quiz",
       link: "commonmonthlyquiz",
-      icon: <CastForEducationIcon sx={{ color: "rgb(63,94,251)" }} />,
+      icon: <CastForEducationIcon sx={{ color: "rgb(0,128,0)" }} />,
     },
     {
       text: "Community Educator",
       link: "communityeducator",
-      icon: <PeopleAltIcon color="primary" />,
+      icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
     },
     {
       text: "Training Module",
       link: "trainingmodule",
-      icon: <CastForEducationIcon color="secondary" />,
+      icon: <CategoryIcon sx={{ color: "rgb(75,0,130)" }} />,
     },
     {
       text: "Student Progress Report",
       link: "studentprogressreport",
-      icon: <CastForEducationIcon color="secondary" />,
+      icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
     },
-
     {
       text: "Log out",
       link: "/",
-      icon: <LogoutIcon sx={{ color: "red" }} />,
+      icon: <LogoutIcon sx={{ color: "rgb(255,0,0)" }} />,
     },
   ];
 

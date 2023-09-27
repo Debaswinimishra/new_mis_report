@@ -217,6 +217,10 @@ const ComunityEducator = () => {
           passcode: passcode,
           topicid: topicName,
         });
+        if (topicResponse.status === 204)
+        {
+          alert("No data found");
+        } else
         if (topicResponse.status === 200) {
           setData(topicResponse.data);
           setTotalDataLength(topicResponse.data.length);
@@ -228,7 +232,10 @@ const ComunityEducator = () => {
         alert("No data found");
       }
     } else {
+      if (topicResponse.status === 400) {
       alert("Please select some filters to proceed");
+
+      }
     }
   };
 
@@ -248,6 +255,10 @@ const ComunityEducator = () => {
           topicid: topicName,
           questionId: questionName,
         });
+        if (questionResponse.status === 204)
+        {
+          alert("No data found");
+        } else
         if (questionResponse.status === 200) {
           setData(questionResponse.data);
           setTotalDataLength(questionResponse.data.length);
@@ -258,7 +269,10 @@ const ComunityEducator = () => {
         console.error("Error fetching quiz questions:", error);
       }
     } else {
-      alert("Please select some filters to proceed");
+      // if (questionResponse.status === 400) {
+        alert("Please select some filters to proceed");
+  
+        // }
     }
   };
 

@@ -523,7 +523,7 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {selectedFilter && loaded && value === "one" && (
+            { selectedYear && managerName && topicName &&     selectedFilter && loaded && value === "one" && (
               <>
                 {data && Object.keys(data).length > 0 ? (
                   <Fields
@@ -700,7 +700,7 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {selectedFilter && loaded && value === "two" && (
+            {selectedYear && managerName && topicName && questionName && selectedFilter && loaded && value === "two" && (
               <>
                 {data && data.length > 0 ? (
                   <Fields

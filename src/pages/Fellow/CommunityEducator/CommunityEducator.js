@@ -452,61 +452,8 @@ const ComunityEducator = () => {
                       columns={columns}
                       getCellValue={getCellValue}
                     />
-                    {/* <div className="container">
-                      <Card
-                        name="Total Users"
-                        number={tab1FilterData.totalStudentsCount || 0}
-                        Icon={PeopleIcon}
-                      />
-
-                      <Card
-                        name="Active Users"
-                        number={tab1FilterData.activeUsersCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-
-                      <Card
-                        name="Average Timespent"
-                        number={tab1FilterData.averageTimeSpent || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-                      <Card
-                        name="ECE Students"
-                        number={tab1FilterData.eceStudentsCount || 0}
-                        Icon={PeopleIcon}
-                      />
-
-                      <Card
-                        name="Female Students"
-                        number={tab1FilterData.femaleStudentsCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-
-                      <Card
-                        name="Female Users"
-                        number={tab1FilterData.femaleUsersCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-                      <Card
-                        name="PGE Students"
-                        number={tab1FilterData.pgeStudentsCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-
-                      <Card
-                        name="Total Student"
-                        number={tab1FilterData.totalStudentsCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-                    </div> */}
                   </div>
-                ) : (
+                ) : !selectedYear && !managerName && !passcode ? null : (
                   <Logo />
                 )}
               </>
@@ -648,61 +595,11 @@ const ComunityEducator = () => {
                         columns={columns1}
                         getCellValue={getCellValue1}
                       />
-
-                      {/* <Card
-                      name="Total Users"
-                      number={tab2FilterData.totalStudentsCount || 0}
-                      Icon={PeopleIcon}
-                    /> */}
-
-                      {/* <Card
-                        name="Active Users"
-                        number={tab2FilterData.activeUsersCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      /> */}
-                      {/* 
-                    <Card
-                      name="Average Timespent"
-                      number={tab2FilterData.averageTimeSpent || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-                    <Card
-                      name="ECE Students"
-                      number={tab2FilterData.eceStudentsCount || 0}
-                      Icon={PeopleIcon}
-                    />
-
-                    <Card
-                      name="Female Students"
-                      number={tab2FilterData.femaleStudentsCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-
-                    <Card
-                      name="Female Users"
-                      number={tab2FilterData.femaleUsersCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-                    <Card
-                      name="PGE Students"
-                      number={tab2FilterData.pgeStudentsCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-
-                    <Card
-                      name="Total Student"
-                      number={tab2FilterData.totalStudentsCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    /> */}
                     </div>
                   </div>
-                ) : (
+                ) : !selectedYearTab2 &&
+                  !managerNameTab2 &&
+                  !passcodeTab2 ? null : (
                   <Logo />
                 )}
               </>

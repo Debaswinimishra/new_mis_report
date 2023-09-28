@@ -49,13 +49,13 @@ const ComunityEducator = () => {
   const [selectedYearTab2, setSelectedYearTab2] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   const [managerType, setManagerType] = useState("");
-  console.log("managerType--->", managerType);
+  //console.log("managerType--->", managerType);
   const [managerTypeTab2, setManagerTypeTab2] = useState("");
-  console.log("managerTypeTab2--->", managerTypeTab2);
+  //console.log("managerTypeTab2--->", managerTypeTab2);
   const [passcode, setPasscode] = useState("");
   const [passcodeTab2, setPasscodeTab2] = useState("");
   const [managerName, setManagerName] = useState("");
-  // console.log("managerName--->", managerName);
+  // //console.log("managerName--->", managerName);
   const [managerNameTab2, setManagerNameTab2] = useState("");
   const [districts, setDistricts] = useState([]);
   const [districtName, setDistrictName] = useState("");
@@ -68,11 +68,11 @@ const ComunityEducator = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
-  console.log("selectedTabIndex--->", selectedTabIndex);
+  //console.log("selectedTabIndex--->", selectedTabIndex);
   const [tab1FilterData, setTab1FilterData] = useState([]);
-  console.log("tab1FilterData--->", tab1FilterData);
+  //console.log("tab1FilterData--->", tab1FilterData);
   const [tab2FilterData, setTab2FilterData] = useState([]);
-  console.log("tab2FilterData--->", tab2FilterData);
+  //console.log("tab2FilterData--->", tab2FilterData);
   const handleTabChange = (event, newValue) => {
     setSelectedTabIndex(newValue);
   };
@@ -91,7 +91,7 @@ const ComunityEducator = () => {
         const response = await getAllCommunityEducatiorFilter();
         setManagerArr(response.data.resData);
       } catch (err) {
-        console.log("err--->", err.response.status);
+        //console.log("err--->", err.response.status);
       }
     } else if (selectedTabIndex === 1) {
       setManagerName("");
@@ -103,10 +103,10 @@ const ComunityEducator = () => {
         const response1 = await getAllCommunityEducatiorFilter();
         setManagerArr(response1.data.resData);
         const response2 = await getAllDistricts();
-        console.log("response--->", response1.data);
+        //console.log("response--->", response1.data);
         setDistricts(response2.data);
       } catch (err) {
-        console.log("err--->", err.response.status);
+        //console.log("err--->", err.response.status);
       }
     }
   };
@@ -123,14 +123,14 @@ const ComunityEducator = () => {
   //   const fetchData = async () => {
   //     try {
   //       const response = await getAllCommunityEducatiorFilter();
-  //       // console.log("response--->", response.data, response.status);
+  //       // //console.log("response--->", response.data, response.status);
   //       setManagerArr(response.data.resData);
 
   //       const response2 = await getAllDistricts();
-  //       console.log("response--->", response2.data);
+  //       //console.log("response--->", response2.data);
   //       setDistricts(response2.data);
   //     } catch (err) {
-  //       console.log("err--->", err.response.status);
+  //       //console.log("err--->", err.response.status);
   //     }
   //   };
 
@@ -144,7 +144,7 @@ const ComunityEducator = () => {
       element.managerid === managerName ||
       element.managerid === managerNameTab2
     ) {
-      // console.log("x--->", managerName, element);
+      // //console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
@@ -159,7 +159,7 @@ const ComunityEducator = () => {
   };
   const handleManagerChangeTab2 = (event) => {
     setManagerNameTab2(event.target.value);
-    // console.log("managername---------->", managerName);
+    // //console.log("managername---------->", managerName);
   };
   const handleManagerTypeChange = (event) => {
     setManagerType(event.target.value);
@@ -180,15 +180,15 @@ const ComunityEducator = () => {
     const selectedValue = e.target.value;
     // const selectedDistrictName = e.currentTarget.getAttribute("data-name");
     setDistrictName(e.target.value);
-    console.log("Selected value:", e);
-    // console.log("Selected district name:", selectedDistrictName);
+    //console.log("Selected value:", e);
+    // //console.log("Selected district name:", selectedDistrictName);
     const response = await getDistrictsWiseBlocks(e.target.value);
-    console.log("block response---->", response.data);
+    //console.log("block response---->", response.data);
     setAllBlocks(response.data);
   };
 
   const handleBlockChange = (e) => {
-    console.log("block--->", e.target.value);
+    //console.log("block--->", e.target.value);
     setBlockName(e.target.value);
   };
 
@@ -202,7 +202,7 @@ const ComunityEducator = () => {
         managerName,
         passcode
       );
-      console.log("community--->", response.data, response.status);
+      //console.log("community--->", response.data, response.status);
       if (response.status === 200) {
         setLoaded(false);
         setTab1FilterData(response.data);
@@ -226,7 +226,7 @@ const ComunityEducator = () => {
         districtName,
         blockName
       );
-      console.log("community2--->", response.data);
+      //console.log("community2--->", response.data);
       if (response.status === 200) {
         setLoaded(false);
         setTab2FilterData(response.data);
@@ -269,7 +269,7 @@ const ComunityEducator = () => {
   const columns1 = ["Serial No", "Total Active Educator"];
 
   const getCellValue1 = (row, column, index) => {
-    console.log("2---->", row);
+    //console.log("2---->", row);
     switch (column) {
       case "Serial No":
         return index + 1;

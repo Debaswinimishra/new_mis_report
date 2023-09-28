@@ -26,11 +26,11 @@ const Login = () => {
       loginType: "password",
     };
 
-    ////console.log("body-->", body);
+    //////console.log("body-->", body);
 
     try {
       const response = await getAuthenticateUser(body, config);
-      ////console.log("response--->", response.data, response.status);
+      //////console.log("response--->", response.data, response.status);
       if (response.data.status === "success") {
         localStorage.setItem("login", true);
         Swal.fire({
@@ -46,7 +46,7 @@ const Login = () => {
       }
       // setManagerArr(response.data.resData);
     } catch (err) {
-      console.log("err--->", err.response);
+      //console.log("err--->", err.response);
       alert("Please Enter Valid ID and Password");
     }
   };

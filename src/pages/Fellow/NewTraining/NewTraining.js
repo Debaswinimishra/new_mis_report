@@ -126,7 +126,7 @@ const NewTraining = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        // console.log("response--->", response.data, response.status);
+        // //console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {}
     };
@@ -219,9 +219,9 @@ const NewTraining = () => {
         topicResponse.status === 200
       ) {
         // Update state variables with the fetched data
-        console.log("mod", moduleResponse);
-        console.log("sub", subModuleResponse);
-        console.log("top", topicResponse);
+        //console.log("mod", moduleResponse);
+        //console.log("sub", subModuleResponse);
+        //console.log("top", topicResponse);
         setModuleData(moduleResponse.data);
         setSubModuleData(subModuleResponse.data);
         setTopicData(topicResponse.data);
@@ -432,7 +432,7 @@ const NewTraining = () => {
 
           return {
             ...rest,
-            submoduleCompletionStatus, // Replace submoduleIsComplete with its mapped value
+            submoduleCompletionStatus,
           };
         }
         return {};
@@ -441,7 +441,7 @@ const NewTraining = () => {
 
   const xlTopicData = Array.isArray(topicData)
     ? topicData.map((x) => {
-        // console.log("xlTopicData", x);
+        // //console.log("xlTopicData", x);
         if (x) {
           const { topicIsComplete, ...rest } = x;
           // Map topicIsComplete to "Complete" or "Incomplete"
@@ -466,13 +466,13 @@ const NewTraining = () => {
     setTrainingType("");
   };
 
-  console.log("moduledata-------------->", moduleData);
-  console.log("openModal-------------->", openModal);
-  console.log(
-    "moduleCertificateValue----------------->",
-    moduleCertificateValue
-  );
-  console.log("imageData------------------->", imageData);
+  //console.log("moduledata-------------->", moduleData);
+  //console.log("openModal-------------->", openModal);
+  //console.log(
+  //   "moduleCertificateValue----------------->",
+  //   moduleCertificateValue
+  // );
+  //console.log("imageData------------------->", imageData);
 
   return (
     <>

@@ -46,30 +46,30 @@ const noneValue = [{ value: "none", label: "None" }];
 const ComunityEducator = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
-  // console.log("managerArr===>", managerArr);
+  // //console.log("managerArr===>", managerArr);
   const [topicArr, setTopicArr] = useState([]);
-  // console.log("topicArr===>", topicArr);
+  // //console.log("topicArr===>", topicArr);
   const [questionArr, setQuestionArr] = useState([]);
-  // console.log("questionArr--->", questionArr);
+  // //console.log("questionArr--->", questionArr);
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
   const [managerName, setManagerName] = useState("");
   const [topicName, setTopicName] = useState("");
-  // console.log("topicname", topicName);
+  // //console.log("topicname", topicName);
   const [questionName, setQuestionName] = useState("");
-  // console.log("questionName==", questionName);
+  // //console.log("questionName==", questionName);
   const [topicId, setTopicId] = useState("");
-  // console.log("topicId--->", topicId);
+  // //console.log("topicId--->", topicId);
   const [questionId, setQuestionId] = useState("");
   const [data, setData] = useState([]);
-  console.log("data===========================>", data);
+  //console.log("data===========================>", data);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loaded, setLoaded] = useState(false);
   const [value, setValue] = React.useState("one");
   const [selectedFilter, setSelectedFilter] = useState(false); // Default to "topic"
-  console.log("selectedFilter===>", selectedFilter);
+  //console.log("selectedFilter===>", selectedFilter);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -101,7 +101,7 @@ const ComunityEducator = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        ////console.log("response--->", response.data, response.status);
+        //////console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {}
     };
@@ -154,7 +154,7 @@ const ComunityEducator = () => {
       const response = await getAllTopic();
       setTopicArr(response.data);
     } catch (err) {
-      console.log("err--->", err.response);
+      //console.log("err--->", err.response);
     }
   };
 
@@ -164,7 +164,7 @@ const ComunityEducator = () => {
   //   if (selectedTopicName) {
   //     Api.get(`getTtlQuizQuestions/${selectedTopicName}`)
   //       .then((response) => {
-  //         console.log(response, "response===>");
+  //         //console.log(response, "response===>");
   //         setQuestionArr(response.data);
   //       })
   //       .catch((error) => {
@@ -182,7 +182,7 @@ const ComunityEducator = () => {
         const response = await getTtlQuizQuestions({
           topicid: selectedTopicName,
         });
-        console.log(response, "response===>");
+        //console.log(response, "response===>");
         setQuestionArr(response.data);
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
@@ -223,7 +223,7 @@ const ComunityEducator = () => {
   };
 
   const questionFilter = async () => {
-    ////console.log("questionFilter==", questionName);
+    //////console.log("questionFilter==", questionName);
     if (selectedYear === "" || managerName === "" || passcode === "") {
       return alert("Please select some filters to proceed");
     }

@@ -78,10 +78,10 @@ const FellowDetails = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        // console.log("response--->", response.data, response.status);
+        // //console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {
-        // console.log("err--->", err.response.status);
+        // //console.log("err--->", err.response.status);
       }
     };
     fetchData();
@@ -91,7 +91,7 @@ const FellowDetails = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
-      // console.log("x--->", managerName, element);
+      // //console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
@@ -120,15 +120,15 @@ const FellowDetails = () => {
   //     const selectedValue = e.target.value;
   //     // const selectedDistrictName = e.currentTarget.getAttribute("data-name");
   //     setDistrictName(e.target.value);
-  //     console.log("Selected value:", e);
-  //     // console.log("Selected district name:", selectedDistrictName);
+  //     //console.log("Selected value:", e);
+  //     // //console.log("Selected district name:", selectedDistrictName);
   //     const response = await getDistrictsWiseBlocks(e.target.value);
-  //     console.log("block response---->", response.data);
+  //     //console.log("block response---->", response.data);
   //     setAllBlocks(response.data);
   //   };
 
   const handleBlockChange = (e) => {
-    console.log("block--->", e.target.value);
+    //console.log("block--->", e.target.value);
     setBlockName(e.target.value);
   };
 

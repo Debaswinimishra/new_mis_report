@@ -44,20 +44,20 @@ const noneValue = [{ value: "none", label: "None" }];
 const StudentProgressReport = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
-  // console.log("managerArr===>", managerArr);
+  // //console.log("managerArr===>", managerArr);
   const [topicArr, setTopicArr] = useState([]);
-  // console.log("topicArr===>", topicArr);
+  // //console.log("topicArr===>", topicArr);
   const [questionArr, setQuestionArr] = useState([]);
-  // console.log("questionArr--->", questionArr);
+  // //console.log("questionArr--->", questionArr);
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
   const [managerName, setManagerName] = useState("");
   const [topicName, setTopicName] = useState("");
-  // console.log("topicname", topicName);
+  // //console.log("topicname", topicName);
   const [questionName, setQuestionName] = useState("");
-  // console.log("questionName==", questionName);
+  // //console.log("questionName==", questionName);
   const [topicId, setTopicId] = useState("");
-  // console.log("topicId--->", topicId);
+  // //console.log("topicId--->", topicId);
   const [questionId, setQuestionId] = useState("");
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
@@ -101,10 +101,10 @@ const StudentProgressReport = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter();
-        console.log("response--->", response.data, response.status);
+        //console.log("response--->", response.data, response.status);
         setManagerArr(response.data.resData);
       } catch (err) {
-        console.log("err--->", err.response.status);
+        //console.log("err--->", err.response.status);
       }
     };
 
@@ -115,7 +115,7 @@ const StudentProgressReport = () => {
 
   managerArr?.filter((element) => {
     if (element.managerid === managerName) {
-      // console.log("x--->", managerName, element);
+      // //console.log("x--->", managerName, element);
       passcodeArray = element.passcodes;
     }
   });
@@ -152,10 +152,10 @@ const StudentProgressReport = () => {
 
     try {
       const response = await getAllTopic();
-      // console.log("response--->", response.data, response.status);
+      // //console.log("response--->", response.data, response.status);
       setTopicArr(response.data);
     } catch (err) {
-      console.log("err--->", err.response);
+      //console.log("err--->", err.response);
     }
   };
 
@@ -165,7 +165,7 @@ const StudentProgressReport = () => {
   //   if (selectedTopicName) {
   //     Api.get(`getTtlQuizQuestions/${selectedTopicName}`)
   //       .then((response) => {
-  //         console.log(response, "response===>");
+  //         //console.log(response, "response===>");
   //         setQuestionArr(response.data);
   //       })
   //       .catch((error) => {
@@ -183,7 +183,7 @@ const StudentProgressReport = () => {
         const response = await getTtlQuizQuestions({
           topicid: selectedTopicName,
         });
-        console.log(response, "response===>");
+        //console.log(response, "response===>");
         setQuestionArr(response.data);
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
@@ -193,7 +193,7 @@ const StudentProgressReport = () => {
 
   const handleQuestionChange = (event) => {
     setQuestionName(event.target.value);
-    console.log("setQuestionName", setQuestionName);
+    //console.log("setQuestionName", setQuestionName);
   };
 
   const topicFilter = async () => {
@@ -225,7 +225,7 @@ const StudentProgressReport = () => {
   };
 
   const questionFilter = async () => {
-    console.log("questionFilter==", questionName);
+    //console.log("questionFilter==", questionName);
     if (selectedYear === "" || managerName === "" || passcode === "") {
       return alert("Please select some filters to proceed");
     }
@@ -360,119 +360,119 @@ const StudentProgressReport = () => {
         <Tab value="two" label="Questionwise Answer" />
       </Tabs>
       {value === "one" && ( */}
-        <Box>
-          {/* Filter section */}
-          <>
+      <Box>
+        {/* Filter section */}
+        <>
+          <div
+            style={{
+              boxShadow:
+                "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
+            }}
+          >
             <div
               style={{
-                boxShadow:
-                  "rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px",
+                marginTop: "20px",
+                padding: "30px 20px",
+                display: "grid",
+                gap: "20px",
+
+                gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
               }}
             >
-              <div
-                style={{
-                  marginTop: "20px",
-                  padding: "30px 20px",
-                  display: "grid",
-                  gap: "20px",
-
-                  gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
-                }}
-              >
-                <Select1
-                  selectedYear={selectedYear}
-                  onChange={handleYearChange}
+              <Select1
+                selectedYear={selectedYear}
+                onChange={handleYearChange}
+              />
+              {selectedYear ? (
+                <Text
+                  name="Select manager-type"
+                  currencies={managerTypeSet}
+                  handleChange={handleManagerTypeChange}
                 />
-                {selectedYear ? (
-                  <Text
-                    name="Select manager-type"
-                    currencies={managerTypeSet}
-                    handleChange={handleManagerTypeChange}
-                  />
-                ) : (
-                  <Text
-                    name="Select manager-type"
-                    currencies={noneValue}
-                    handleChange={handleManagerTypeChange}
-                  />
-                )}
+              ) : (
+                <Text
+                  name="Select manager-type"
+                  currencies={noneValue}
+                  handleChange={handleManagerTypeChange}
+                />
+              )}
 
-                {selectedYear ? (
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Select manager"
-                    defaultValue="none"
-                    value={managerName}
-                    onChange={(e) => handleManagerChange(e)}
-                  >
-                    {managerArr.map((option, index) => (
-                      <MenuItem key={index + 1} value={option.managerid}>
-                        {option.managername}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                ) : (
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Select manager"
-                    defaultValue="none"
-                    value=""
-                    onChange={(e) => handleManagerChange(e)}
-                  >
-                    <MenuItem value="None">None</MenuItem>
-                  </TextField>
-                )}
+              {selectedYear ? (
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager"
+                  defaultValue="none"
+                  value={managerName}
+                  onChange={(e) => handleManagerChange(e)}
+                >
+                  {managerArr.map((option, index) => (
+                    <MenuItem key={index + 1} value={option.managerid}>
+                      {option.managername}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              ) : (
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select manager"
+                  defaultValue="none"
+                  value=""
+                  onChange={(e) => handleManagerChange(e)}
+                >
+                  <MenuItem value="None">None</MenuItem>
+                </TextField>
+              )}
 
-                {selectedYear && managerType ? (
-                  <ReusableTextField
-                    label="Select passcode"
-                    value={passcode}
-                    options={passcodeArray}
-                    onChange={handlePasscodeChange}
-                  />
-                ) : (
-                  <ReusableTextField
-                    label="Select passcode"
-                    defaultValue="none"
-                    value=""
-                    options={passcodeArray}
-                    onChange={handlePasscodeChange}
-                  />
-                )}
+              {selectedYear && managerType ? (
+                <ReusableTextField
+                  label="Select passcode"
+                  value={passcode}
+                  options={passcodeArray}
+                  onChange={handlePasscodeChange}
+                />
+              ) : (
+                <ReusableTextField
+                  label="Select passcode"
+                  defaultValue="none"
+                  value=""
+                  options={passcodeArray}
+                  onChange={handlePasscodeChange}
+                />
+              )}
 
-                {selectedYear && managerType && managerName ? (
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Select Topic"
-                    defaultValue="none"
-                    value={topicName}
-                    onChange={handleTopicChange}
-                  >
-                    {topicArr.map((option, index) => (
-                      <MenuItem key={option.topicId} value={option.topicId}>
-                        {option.topicName}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                ) : (
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    label="Select Topic"
-                    defaultValue="none"
-                    value=""
-                    onChange={handleTopicChange}
-                  >
-                    <MenuItem value="None">None</MenuItem>
-                  </TextField>
-                )}
+              {selectedYear && managerType && managerName ? (
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select Topic"
+                  defaultValue="none"
+                  value={topicName}
+                  onChange={handleTopicChange}
+                >
+                  {topicArr.map((option, index) => (
+                    <MenuItem key={option.topicId} value={option.topicId}>
+                      {option.topicName}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              ) : (
+                <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select Topic"
+                  defaultValue="none"
+                  value=""
+                  onChange={handleTopicChange}
+                >
+                  <MenuItem value="None">None</MenuItem>
+                </TextField>
+              )}
 
-                {/* ... Further code ... */}
+              {/* ... Further code ... */}
 
-                {/* <TextField
+              {/* <TextField
                   id="outlined-select-currency"
                   select
                   label="Select Question"
@@ -487,45 +487,45 @@ const StudentProgressReport = () => {
                   ))}
                 </TextField> */}
 
-                <Stack spacing={2} direction="row">
-                  <Button
-                    variant="contained"
-                    onClick={topicFilter}
-                    style={{ width: 250, height: 40, marginTop: 5 }}
-                  >
-                    Filter
-                  </Button>
-                </Stack>
-              </div>
+              <Stack spacing={2} direction="row">
+                <Button
+                  variant="contained"
+                  onClick={topicFilter}
+                  style={{ width: 250, height: 40, marginTop: 5 }}
+                >
+                  Filter
+                </Button>
+              </Stack>
             </div>
+          </div>
 
-            {/* Display data */}
-            {selectedFilter && loaded && value === "one" && (
-              <>
-                {data && data.length > 0 ? (
-                  <Fields
-                    data={data}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlData}
-                    fileName={fileName}
-                    columns={columns}
-                    getCellValue={getCellValue}
-                  />
-                ) : (
-                  <Logo />
-                )}
-              </>
-            )}
-            <Links />
-          </>
-        </Box>
+          {/* Display data */}
+          {selectedFilter && loaded && value === "one" && (
+            <>
+              {data && data.length > 0 ? (
+                <Fields
+                  data={data}
+                  totalDataLength={totalDataLength}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  handleChangePage={handleChangePage}
+                  handleChangeRowsPerPage={handleChangeRowsPerPage}
+                  xlData={xlData}
+                  fileName={fileName}
+                  columns={columns}
+                  getCellValue={getCellValue}
+                />
+              ) : (
+                <Logo />
+              )}
+            </>
+          )}
+          <Links />
+        </>
+      </Box>
       {/* )} */}
       {/* {value === "two" && ( */}
-    
+
       {/* )} */}
     </>
   );

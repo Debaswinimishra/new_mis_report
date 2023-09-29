@@ -185,6 +185,9 @@ const FellowDetails = () => {
       const filterCriteria = {
         year: selectedYear,
         managerid: managerName,
+        passcode: passcode,
+        districtName: districtName,
+        blockName: blockName,
       };
 
       const data = await FellowDetailsForManager(filterCriteria);

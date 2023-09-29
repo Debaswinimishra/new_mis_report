@@ -12,7 +12,13 @@ export const getDistrictsWiseBlocks = async (blockId) =>
 export const getCommunityEducator1 = async (year, managerid, passcode) =>
   await Api.get(`getDashboardCounts/${year}/${managerid}/${passcode}`);
 
-export const getCommunityEducator2 = async (year, managerid, passcode) =>
+export const getCommunityEducator2 = async (
+  year,
+  managerid,
+  passcode,
+  districtid,
+  blockid
+) =>
   await Api.get(
     `getDashboardCounts/${year}/${managerid}/${passcode}/${districtid}/${blockid}`
   );

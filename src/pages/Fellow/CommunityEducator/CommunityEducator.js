@@ -57,9 +57,12 @@ const ComunityEducator = () => {
   // console.log("managerName--->", managerName);
   const [managerNameTab2, setManagerNameTab2] = useState("");
   const [districts, setDistricts] = useState([]);
-  const [districtName, setDistrictName] = useState("");
+  const [districtName, setDistrictName] = useState(11);
   const [allBlocks, setAllBlocks] = useState([]);
-  const [blockName, setBlockName] = useState("");
+  const [blockName, setBlockName] = useState(25);
+  console.log("====================================blockName", blockName);
+  console.log();
+  console.log("====================================districtName", districtName);
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
@@ -72,6 +75,10 @@ const ComunityEducator = () => {
   console.log("tab1FilterData--->", tab1FilterData);
   const [tab2FilterData, setTab2FilterData] = useState([]);
   console.log("tab2FilterData--->", tab2FilterData);
+
+  const [isFilterButtonClicked, setIsFilterButtonClicked] = useState(false);
+  const [isDataAvailable, setIsDataAvailable] = useState(false);
+
   const handleTabChange = (event, newValue) => {
     setSelectedTabIndex(newValue);
   };
@@ -153,14 +160,18 @@ const ComunityEducator = () => {
     setManagerType("");
     setPasscode("");
     setTab1FilterData([]);
+    setIsFilterButtonClicked(false);
+    setIsDataAvailable(false);
+    setLoaded(false);
   };
-
   const handleYearChangeTab2 = (selectedYearTab2) => {
     setSelectedYearTab2(selectedYearTab2);
     setManagerNameTab2("");
     setManagerTypeTab2("");
     setPasscodeTab2("");
     setTab2FilterData([]);
+    setIsFilterButtonClicked(false);
+    setIsDataAvailable(false);
   };
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);
@@ -204,7 +215,9 @@ const ComunityEducator = () => {
   const handleCommunityEducatorTab1 = async () => {
     setLoaded(true);
     if (selectedYear === "" || managerName === "" || passcode === "") {
-      return alert("Please select some filters to preceed");
+      // return
+      alert("Please select some filters to preceed");
+      setLoaded(false);
     } else {
       const response = await getCommunityEducator1(
         selectedYear,
@@ -215,6 +228,8 @@ const ComunityEducator = () => {
       if (response.status === 200) {
         setLoaded(false);
         setTab1FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
       }
     }
   };
@@ -226,9 +241,11 @@ const ComunityEducator = () => {
       managerNameTab2 === "" ||
       passcodeTab2 === ""
     ) {
-      return alert("Please select some filters to preceed");
+      // return
+      alert("Please select some filters to preceed");
+      setLoaded(false);
     } else {
-      const response = await getCommunityEducator1(
+      const response = await getCommunityEducator2(
         selectedYearTab2,
         managerNameTab2,
         passcodeTab2,
@@ -239,6 +256,8 @@ const ComunityEducator = () => {
       if (response.status === 200) {
         setLoaded(false);
         setTab2FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
       }
     }
   };
@@ -431,90 +450,35 @@ const ComunityEducator = () => {
               </div>
             </div>
             {/* {loaded && ( */}
+
             {loaded ? (
               <img src={loader} />
+            ) : !isFilterButtonClicked ? null : !isDataAvailable ? (
+              <Logo />
             ) : (
-              <>
-                {tab1FilterData && tab1FilterData.length > 0 ? (
-                  <div
-                    style={{
-                      padding: "30px 20px",
-                      width: "100%",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <Fields
-                      data={tab1FilterData}
-                      totalDataLength={totalDataLength}
-                      page={page}
-                      rowsPerPage={rowsPerPage}
-                      handleChangePage={handleChangePage}
-                      handleChangeRowsPerPage={handleChangeRowsPerPage}
-                      xlData={xlData}
-                      fileName={fileName}
-                      columns={columns}
-                      getCellValue={getCellValue}
-                    />
-                    {/* <div className="container">
-                      <Card
-                        name="Total Users"
-                        number={tab1FilterData.totalStudentsCount || 0}
-                        Icon={PeopleIcon}
-                      />
-
-                      <Card
-                        name="Active Users"
-                        number={tab1FilterData.activeUsersCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-
-                      <Card
-                        name="Average Timespent"
-                        number={tab1FilterData.averageTimeSpent || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-                      <Card
-                        name="ECE Students"
-                        number={tab1FilterData.eceStudentsCount || 0}
-                        Icon={PeopleIcon}
-                      />
-
-                      <Card
-                        name="Female Students"
-                        number={tab1FilterData.femaleStudentsCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-
-                      <Card
-                        name="Female Users"
-                        number={tab1FilterData.femaleUsersCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-                      <Card
-                        name="PGE Students"
-                        number={tab1FilterData.pgeStudentsCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-
-                      <Card
-                        name="Total Student"
-                        number={tab1FilterData.totalStudentsCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      />
-                    </div> */}
-                  </div>
-                ) : (
-                  <Logo />
-                )}
-              </>
+              <div
+                style={{
+                  padding: "30px 20px",
+                  width: "100%",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Fields
+                  data={tab1FilterData}
+                  totalDataLength={totalDataLength}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  handleChangePage={handleChangePage}
+                  handleChangeRowsPerPage={handleChangeRowsPerPage}
+                  xlData={xlData}
+                  fileName={fileName}
+                  columns={columns}
+                  getCellValue={getCellValue}
+                />
+              </div>
             )}
 
+            {}
             {/* // )} */}
             <Links />
           </>
@@ -636,7 +600,7 @@ const ComunityEducator = () => {
               <img src={loader} />
             ) : (
               <>
-                {tab2FilterData && tab2FilterData.length > 0 ? (
+                {isFilterButtonClicked && tab2FilterData.length > 0 ? (
                   <div style={{ padding: "30px 20px", width: "100%" }}>
                     <div>
                       <Fields
@@ -651,63 +615,9 @@ const ComunityEducator = () => {
                         columns={columns1}
                         getCellValue={getCellValue1}
                       />
-
-                      {/* <Card
-                      name="Total Users"
-                      number={tab2FilterData.totalStudentsCount || 0}
-                      Icon={PeopleIcon}
-                    /> */}
-
-                      {/* <Card
-                        name="Active Users"
-                        number={tab2FilterData.activeUsersCount || 0}
-                        Icon={PeopleIcon}
-                        style={{ backgroundColor: "red" }}
-                      /> */}
-                      {/* 
-                    <Card
-                      name="Average Timespent"
-                      number={tab2FilterData.averageTimeSpent || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-                    <Card
-                      name="ECE Students"
-                      number={tab2FilterData.eceStudentsCount || 0}
-                      Icon={PeopleIcon}
-                    />
-
-                    <Card
-                      name="Female Students"
-                      number={tab2FilterData.femaleStudentsCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-
-                    <Card
-                      name="Female Users"
-                      number={tab2FilterData.femaleUsersCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-                    <Card
-                      name="PGE Students"
-                      number={tab2FilterData.pgeStudentsCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    />
-
-                    <Card
-                      name="Total Student"
-                      number={tab2FilterData.totalStudentsCount || 0}
-                      Icon={PeopleIcon}
-                      style={{ backgroundColor: "red" }}
-                    /> */}
                     </div>
                   </div>
-                ) : (
-                  <Logo />
-                )}
+                ) : null}
               </>
             )}
           </>

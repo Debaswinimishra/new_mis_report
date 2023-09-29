@@ -88,7 +88,7 @@ const Dashboard = () => {
       ) : (
         <div className="container">
           <Card
-            name="Total Educatorss"
+            name="Total Educators"
             number={user[0]?.totalUsersCount || "NA"}
             Icon={PeopleIcon}
           />

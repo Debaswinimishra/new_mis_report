@@ -57,9 +57,12 @@ const ComunityEducator = () => {
   // console.log("managerName--->", managerName);
   const [managerNameTab2, setManagerNameTab2] = useState("");
   const [districts, setDistricts] = useState([]);
-  const [districtName, setDistrictName] = useState("");
+  const [districtName, setDistrictName] = useState(11);
   const [allBlocks, setAllBlocks] = useState([]);
-  const [blockName, setBlockName] = useState("");
+  const [blockName, setBlockName] = useState(25);
+  console.log("====================================blockName", blockName);
+  console.log();
+  console.log("====================================districtName", districtName);
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
@@ -166,6 +169,8 @@ const ComunityEducator = () => {
     setManagerNameTab2("");
     setManagerTypeTab2("");
     setPasscodeTab2("");
+    setDistrictName("");
+    setBlockName("");
     setTab2FilterData([]);
     setIsFilterButtonClicked(false);
     setIsDataAvailable(false);
@@ -236,13 +241,16 @@ const ComunityEducator = () => {
     if (
       selectedYearTab2 === "" ||
       managerNameTab2 === "" ||
-      passcodeTab2 === ""
+      passcodeTab2 === "" ||
+      districtName === "" ||
+      blockName === "" 
+
     ) {
       // return
       alert("Please select some filters to preceed");
       setLoaded(false);
     } else {
-      const response = await getCommunityEducator1(
+      const response = await getCommunityEducator2(
         selectedYearTab2,
         managerNameTab2,
         passcodeTab2,

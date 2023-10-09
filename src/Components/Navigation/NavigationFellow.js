@@ -206,7 +206,7 @@ function NavigationFellow(props) {
                 color: "white",
               }}
             >
-              Fellow <ExpandCircleDownIcon />
+              Educators <ExpandCircleDownIcon />
             </Button>
             <Popover
               open={Boolean(anchorEl)}

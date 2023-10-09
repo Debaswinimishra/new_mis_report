@@ -102,7 +102,7 @@ function Home() {
                 fontSize: 48,
               }}
             />
-            <span style={{ fontSize: "20px" }}>Fellow</span>
+            <span style={{ fontSize: "20px" }}>Educators</span>
           </Card>
           <Card
             sx={{

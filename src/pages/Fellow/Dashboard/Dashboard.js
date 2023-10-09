@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import PeopleIcon from "@mui/icons-material/People";
+import Box from "@mui/material/Box";
 import "./Dashboard.css";
 import loader from "../../../Assets/R.gif";
 import Text from "../../../ReusableComponents/Text";
@@ -161,7 +162,9 @@ const Dashboard = () => {
           />
         </div>
       )}
-      <Links />
+      {/* <Box position="fixed" bottom={0} left={0}>
+        <Links />
+      </Box> */}
     </>
   );
 };

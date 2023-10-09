@@ -400,7 +400,6 @@ const FellowDetails = () => {
           )}
         </>
       )}
-      <Links />
     </Box>
   );
 };

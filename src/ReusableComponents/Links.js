@@ -8,13 +8,11 @@ const Links = () => {
   return (
     <footer
       style={{
+        backgroundColor: "#fff",
         position: "fixed",
         bottom: 0,
-        left: 0,
-        width: "100%",
-        // backgroundColor: "#333", // Change the background color as needed
-        padding: "20px",
-        textAlign: "center",
+        left: 210,
+        right: 0,
       }}
     >
       <div
@@ -22,14 +20,28 @@ const Links = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-between",
+          alignItems: "center", // Center vertically within the footer
+          maxWidth: "1200px", // Adjust this value as needed for responsiveness
+          margin: "0 auto", // Center horizontally within the viewport
         }}
       >
-         <a href={link1} target="none" style={{ textDecoration: "none", color: "#fff" }}>
+        <a
+          href={link1}
+          target="_blank" // Use "_blank" to open links in a new tab
+          rel="noopener noreferrer" // Add security attribute when using target="_blank"
+          style={{ textDecoration: "none", color: "#fff" }}
+        >
           <h4>2023 @Thinkzone</h4>
         </a>
         <div style={{ display: "flex" }}>
-      
-          <a href={link2} style={{ textDecoration: "none", marginRight: 50, color: "#fff" }}>
+          <a
+            href={link2}
+            style={{
+              textDecoration: "none",
+              marginRight: "20px",
+              color: "#fff",
+            }}
+          >
             <h4>About us</h4>
           </a>
           <a href={link3} style={{ textDecoration: "none", color: "#fff" }}>

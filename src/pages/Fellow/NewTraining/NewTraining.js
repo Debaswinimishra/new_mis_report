@@ -597,7 +597,9 @@ const NewTraining = () => {
           ) : (
             ""
           )}
-          <Links />
+          {/* <Box position="fixed" bottom={0} left={0}>
+            <Links />
+          </Box> */}
         </>
       </Box>
     </>

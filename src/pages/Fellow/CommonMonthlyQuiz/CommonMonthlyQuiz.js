@@ -161,7 +161,6 @@ const ComunityEducator = () => {
       setTopicArr(response.data);
     } catch (err) {
       console.log("err--->", err.response);
-   
     }
   };
 
@@ -193,7 +192,6 @@ const ComunityEducator = () => {
         setQuestionArr(response.data);
       } catch (error) {
         console.error("Error fetching quiz questions:", error);
-        
       }
     }
   };
@@ -217,11 +215,9 @@ const ComunityEducator = () => {
           passcode: passcode,
           topicid: topicName,
         });
-        if (topicResponse.status === 204)
-        {
+        if (topicResponse.status === 204) {
           alert("No data found");
-        } else
-        if (topicResponse.status === 200) {
+        } else if (topicResponse.status === 200) {
           setData(topicResponse.data);
           setTotalDataLength(topicResponse.data.length);
           setLoaded(true);
@@ -233,8 +229,7 @@ const ComunityEducator = () => {
       }
     } else {
       if (topicResponse.status === 400) {
-      alert("Please select some filters to proceed");
-
+        alert("Please select some filters to proceed");
       }
     }
   };
@@ -255,11 +250,9 @@ const ComunityEducator = () => {
           topicid: topicName,
           questionId: questionName,
         });
-        if (questionResponse.status === 204)
-        {
+        if (questionResponse.status === 204) {
           alert("No data found");
-        } else
-        if (questionResponse.status === 200) {
+        } else if (questionResponse.status === 200) {
           setData(questionResponse.data);
           setTotalDataLength(questionResponse.data.length);
           setLoaded(true);
@@ -270,9 +263,9 @@ const ComunityEducator = () => {
       }
     } else {
       // if (questionResponse.status === 400) {
-        alert("Please select some filters to proceed");
-  
-        // }
+      alert("Please select some filters to proceed");
+
+      // }
     }
   };
 
@@ -537,26 +530,31 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            { selectedYear && managerName && topicName &&     selectedFilter && loaded && value === "one" && (
-              <>
-                {data && Object.keys(data).length > 0 ? (
-                  <Fields
-                    data={data}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlData}
-                    fileName={fileName}
-                    columns={columns}
-                    getCellValue={getCellValue}
-                  />
-                ) : (
-                  "No Data Available"
-                )}
-              </>
-            )}
+            {selectedYear &&
+              managerName &&
+              topicName &&
+              selectedFilter &&
+              loaded &&
+              value === "one" && (
+                <>
+                  {data && Object.keys(data).length > 0 ? (
+                    <Fields
+                      data={data}
+                      totalDataLength={totalDataLength}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      handleChangePage={handleChangePage}
+                      handleChangeRowsPerPage={handleChangeRowsPerPage}
+                      xlData={xlData}
+                      fileName={fileName}
+                      columns={columns}
+                      getCellValue={getCellValue}
+                    />
+                  ) : (
+                    "No Data Available"
+                  )}
+                </>
+              )}
             <Links />
           </>
         </Box>
@@ -714,27 +712,32 @@ const ComunityEducator = () => {
             </div>
 
             {/* Display data */}
-            {selectedYear && managerName && topicName && questionName && selectedFilter && loaded && value === "two" && (
-              <>
-                {data && data.length > 0 ? (
-                  <Fields
-                    data={data}
-                    totalDataLength={totalDataLength}
-                    page={page}
-                    rowsPerPage={rowsPerPage}
-                    handleChangePage={handleChangePage}
-                    handleChangeRowsPerPage={handleChangeRowsPerPage}
-                    xlData={xlData}
-                    fileName={fileName}
-                    columns={columns1}
-                    getCellValue={getCellValue1}
-                  />
-                ) : (
-                  <Logo />
-                )}
-              </>
-            )}
-            <Links />
+            {selectedYear &&
+              managerName &&
+              topicName &&
+              questionName &&
+              selectedFilter &&
+              loaded &&
+              value === "two" && (
+                <>
+                  {data && data.length > 0 ? (
+                    <Fields
+                      data={data}
+                      totalDataLength={totalDataLength}
+                      page={page}
+                      rowsPerPage={rowsPerPage}
+                      handleChangePage={handleChangePage}
+                      handleChangeRowsPerPage={handleChangeRowsPerPage}
+                      xlData={xlData}
+                      fileName={fileName}
+                      columns={columns1}
+                      getCellValue={getCellValue1}
+                    />
+                  ) : (
+                    <Logo />
+                  )}
+                </>
+              )}
           </>
         </Box>
       )}

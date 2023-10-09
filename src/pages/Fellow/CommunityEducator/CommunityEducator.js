@@ -243,8 +243,7 @@ const ComunityEducator = () => {
       managerNameTab2 === "" ||
       passcodeTab2 === "" ||
       districtName === "" ||
-      blockName === "" 
-
+      blockName === ""
     ) {
       // return
       alert("Please select some filters to preceed");
@@ -484,8 +483,6 @@ const ComunityEducator = () => {
             )}
 
             {}
-            {/* // )} */}
-            <Links />
           </>
         )}
 

@@ -26,6 +26,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import CategoryIcon from "@mui/icons-material/Category";
 import InsightsIcon from "@mui/icons-material/Insights";
 import GroupsIcon from "@mui/icons-material/Groups";
+import Links from "../../ReusableComponents/Links";
 import Avatar from "@mui/material/Avatar";
 import QuizIcon from "@mui/icons-material/Quiz";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
@@ -270,11 +271,16 @@ function NavigationFellow(props) {
       </Box>
       <Box
         sx={{
-          marginTop: "50px",
+          marginTop: "50px", // Adjust the marginTop as needed
+          marginBottom: "60px", // Add marginBottom to create space for the fixed Links component
           width: "100%",
+          flex: "1", // Allow the Outlet to take remaining height
         }}
       >
         <Outlet />
+      </Box>
+      <Box position="fixed" bottom={0} left={0}>
+        <Links />
       </Box>
     </Box>
   );

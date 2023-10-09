@@ -419,7 +419,6 @@ const StudentProgressReport = () => {
               )}
             </>
           )}
-          <Links />
         </>
       </Box>
       {/* )} */}

@@ -17,7 +17,7 @@ import {
   getAllDistricts,
   getDistrictsWiseBlocks,
 } from "../CommunityEducator/CommunityEducatorApi";
-import { FellowDetailsForManager } from "./FellowDetailsApi";
+import { FellowDetailsForManager } from "./EducatorsDetailsApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";

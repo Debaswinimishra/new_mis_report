@@ -57,8 +57,8 @@ function NavigationFellow(props) {
       icon: <DashboardIcon color="secondary" />,
     },
     {
-      text: "Fellows",
-      link: "fellowdetails",
+      text: "Educators Details",
+      link: "educatordetails",
       icon: <PeopleAltIcon sx={{ color: "rgb(63,94,251)" }} />,
     },
     {

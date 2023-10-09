@@ -43,7 +43,7 @@ const managerTypeArr = [
 
 const noneValue = [{ value: "none", label: "None" }];
 
-const ComunityEducator = () => {
+const CommonMonthlyQuiz = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   // console.log("managerArr===>", managerArr);
@@ -742,4 +742,4 @@ const ComunityEducator = () => {
   );
 };
 
-export default ComunityEducator;
+export default CommonMonthlyQuiz;

@@ -195,13 +195,7 @@ function NavigationFellow(props) {
               {pathname.split("/")[2]}
             </Typography>
 
-            {/* <Button
-              variant="contained"
-              onClick={hangeNavOnchange}
-              style={{ marginLeft: "800px" }}
-            >
-              Change Usertype
-            </Button> */}
+ 
             <Button
               onClick={handleMenuClick}
               sx={{
@@ -227,11 +221,9 @@ function NavigationFellow(props) {
               }}
             >
               <MenuItem onClick={handleSchoolOnchange}>
-                {/* <Logout fontSize="small" /> */}
                 <span style={{ marginLeft: "8px" }}>School</span>
               </MenuItem>
               <MenuItem onClick={handleAnganwadiOnchange}>
-                {/* <Logout fontSize="small" /> */}
                 <span style={{ marginLeft: "8px" }}>Anganwadi</span>
               </MenuItem>
             </Popover>

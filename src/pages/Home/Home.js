@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
 import Logout from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
-
+import GiteIcon from '@mui/icons-material/Gite';
 import SchoolIcon from "@mui/icons-material/School";
 
 function Home() {
@@ -102,7 +102,7 @@ function Home() {
                 fontSize: 48,
               }}
             />
-            <span style={{ fontSize: "20px" }}>Fellow</span>
+            <span style={{ fontSize: "20px" }}>Educators</span>
           </Card>
           <Card
             sx={{
@@ -155,7 +155,7 @@ function Home() {
               navigate("/anganwadi/dashboard");
             }}
           >
-            <QuizIcon
+            <GiteIcon
               sx={{
                 fontSize: 48,
               }}

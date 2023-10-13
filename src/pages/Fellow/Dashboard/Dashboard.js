@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import PeopleIcon from "@mui/icons-material/People";
+import Box from "@mui/material/Box";
 import "./Dashboard.css";
 import loader from "../../../Assets/R.gif";
 import Text from "../../../ReusableComponents/Text";
@@ -38,9 +39,9 @@ const Dashboard = () => {
 
   const handleCallAPI = async () => {
     try {
-      const response = await Api.get(`getDashboardCounts`);
+      const response = await Api.post(`getDashboardCounts`);
 
-      if (response.data.status === "success") {
+      if (response.data.status === 200) {
         setTotalUsersCount(response.data.resData);
         setFemaleCount(response.data.resData);
         setFellowsCount(response.data.resData);
@@ -59,7 +60,7 @@ const Dashboard = () => {
   };
   const handleApi = () => {
     setLoaded(true);
-    Api.get(`getDashboardCounts`).then((res) => {
+    Api.post(`getDashboardCounts`).then((res) => {
       setUser(res.data);
       setLoaded(false);
       // Output the user data to the console
@@ -88,7 +89,7 @@ const Dashboard = () => {
       ) : (
         <div className="container">
           <Card
-            name="Total Educatorss"
+            name="Total Educators"
             number={user[0]?.totalUsersCount || "NA"}
             Icon={PeopleIcon}
           />
@@ -161,7 +162,9 @@ const Dashboard = () => {
           />
         </div>
       )}
-      <Links />
+      {/* <Box position="fixed" bottom={0} left={0}>
+        <Links />
+      </Box> */}
     </>
   );
 };

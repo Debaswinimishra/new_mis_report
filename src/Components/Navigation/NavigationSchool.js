@@ -207,7 +207,7 @@ function NavigationSchool(props) {
           >
             <MenuItem onClick={handleFellowOnchange}>
               {/* <Logout fontSize="small" /> */}
-              <span style={{ marginLeft: "8px" }}>Fellow</span>
+              <span style={{ marginLeft: "8px" }}>Educators</span>
             </MenuItem>
             <MenuItem onClick={handleAnganwadiOnchange}>
               {/* <Logout fontSize="small" /> */}

@@ -17,7 +17,7 @@ import {
   getAllDistricts,
   getDistrictsWiseBlocks,
 } from "../CommunityEducator/CommunityEducatorApi";
-import { FellowDetailsForManager } from "./FellowDetailsApi";
+import { FellowDetailsForManager } from "./EducatorsDetailsApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -185,6 +185,9 @@ const FellowDetails = () => {
       const filterCriteria = {
         year: selectedYear,
         managerid: managerName,
+        passcode: passcode,
+        districtName: districtName,
+        blockName: blockName,
       };
 
       const data = await FellowDetailsForManager(filterCriteria);
@@ -397,7 +400,6 @@ const FellowDetails = () => {
           )}
         </>
       )}
-      <Links />
     </Box>
   );
 };

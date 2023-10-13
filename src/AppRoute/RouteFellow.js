@@ -9,7 +9,7 @@ import CommunityEducator from "../Pages/Fellow/CommunityEducator/CommunityEducat
 import NewTraining from "../Pages/Fellow/NewTraining/NewTraining";
 import StudentProgressReport from "../Pages/Fellow/StudentProgressReport/StudentProgressReport";
 import PrivateRoute from "./PrivateRoute";
-import FellowDetails from "../Pages/Fellow/FellowDetails/FellowDetails";
+import EducatorsDetails from "../Pages/Fellow/EducatorsDetails/EducatorsDetails";
 
 // import * from "../AppRoute/Route404";
 // import FelloRoutes from "../Pages/Fellow/FelloRoutes";
@@ -35,7 +35,7 @@ const RouteFellow = () => {
           path="studentprogressreport"
           element={<StudentProgressReport />}
         />
-        <Route path="fellowdetails" element={<FellowDetails />} />
+        <Route path="educatordetails" element={<EducatorsDetails />} />
       </Route>
     </Routes>
   );

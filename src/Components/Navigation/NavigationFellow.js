@@ -26,6 +26,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import CategoryIcon from "@mui/icons-material/Category";
 import InsightsIcon from "@mui/icons-material/Insights";
 import GroupsIcon from "@mui/icons-material/Groups";
+import Links from "../../ReusableComponents/Links";
 import Avatar from "@mui/material/Avatar";
 import QuizIcon from "@mui/icons-material/Quiz";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
@@ -57,8 +58,8 @@ function NavigationFellow(props) {
       icon: <DashboardIcon color="secondary" />,
     },
     {
-      text: "Fellows",
-      link: "fellowdetails",
+      text: "Educators Details",
+      link: "educatordetails",
       icon: <PeopleAltIcon sx={{ color: "rgb(63,94,251)" }} />,
     },
     {
@@ -195,13 +196,7 @@ function NavigationFellow(props) {
               {pathname.split("/")[2]}
             </Typography>
 
-            {/* <Button
-              variant="contained"
-              onClick={hangeNavOnchange}
-              style={{ marginLeft: "800px" }}
-            >
-              Change Usertype
-            </Button> */}
+ 
             <Button
               onClick={handleMenuClick}
               sx={{
@@ -211,7 +206,7 @@ function NavigationFellow(props) {
                 color: "white",
               }}
             >
-              Fellow <ExpandCircleDownIcon />
+              Educators <ExpandCircleDownIcon />
             </Button>
             <Popover
               open={Boolean(anchorEl)}
@@ -227,11 +222,9 @@ function NavigationFellow(props) {
               }}
             >
               <MenuItem onClick={handleSchoolOnchange}>
-                {/* <Logout fontSize="small" /> */}
                 <span style={{ marginLeft: "8px" }}>School</span>
               </MenuItem>
               <MenuItem onClick={handleAnganwadiOnchange}>
-                {/* <Logout fontSize="small" /> */}
                 <span style={{ marginLeft: "8px" }}>Anganwadi</span>
               </MenuItem>
             </Popover>
@@ -278,11 +271,16 @@ function NavigationFellow(props) {
       </Box>
       <Box
         sx={{
-          marginTop: "50px",
+          marginTop: "50px", // Adjust the marginTop as needed
+          marginBottom: "60px", // Add marginBottom to create space for the fixed Links component
           width: "100%",
+          flex: "1", // Allow the Outlet to take remaining height
         }}
       >
         <Outlet />
+      </Box>
+      <Box position="fixed" bottom={0} left={0}>
+        <Links />
       </Box>
     </Box>
   );

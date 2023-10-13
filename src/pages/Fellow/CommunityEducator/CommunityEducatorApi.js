@@ -9,19 +9,11 @@ export const getAllDistricts = async () =>
 export const getDistrictsWiseBlocks = async (blockId) =>
   await Api.get(`getblocksofdistricts/20/${blockId}`);
 
-export const getCommunityEducator1 = async (year, managerid, passcode) =>
-  await Api.get(`getDashboardCounts/${year}/${managerid}/${passcode}`);
+export const getCommunityEducator1 = async (body) =>
+  await Api.get(`getDashboardCounts`, body);
 
-export const getCommunityEducator2 = async (
-  year,
-  managerid,
-  passcode,
-  districtid,
-  blockid
-) =>
-  await Api.get(
-    `getDashboardCounts/${year}/${managerid}/${passcode}/${districtid}/${blockid}`
-  );
+export const getCommunityEducator2 = async (body) =>
+  await Api.get(`getDashboardCounts`, body);
 
 // useEffect(() => {
 //   Api.get(`getManagerIdsWidPasscode`).then((response) => {

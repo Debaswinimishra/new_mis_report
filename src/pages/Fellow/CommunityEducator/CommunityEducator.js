@@ -219,11 +219,12 @@ const ComunityEducator = () => {
       alert("Please select some filters to preceed");
       setLoaded(false);
     } else {
-      const response = await getCommunityEducator1(
-        selectedYear,
-        managerName,
-        passcode
-      );
+      const body = {
+        year: selectedYear,
+        managerName: managerName,
+        passcode: passcode,
+      };
+      const response = await getCommunityEducator1(body);
       console.log("community--->", response.data, response.status);
       if (response.status === 200) {
         setLoaded(false);
@@ -245,13 +246,15 @@ const ComunityEducator = () => {
       alert("Please select some filters to preceed");
       setLoaded(false);
     } else {
-      const response = await getCommunityEducator2(
-        selectedYearTab2,
-        managerNameTab2,
-        passcodeTab2,
-        districtName,
-        blockName
-      );
+      const body = {
+        year: selectedYearTab2,
+        managerName: managerNameTab2,
+        passcode: passcodeTab2,
+        districtName: districtName,
+        blockName,
+        blockName,
+      };
+      const response = await getCommunityEducator2(body);
       console.log("community2--->", response.data);
       if (response.status === 200) {
         setLoaded(false);

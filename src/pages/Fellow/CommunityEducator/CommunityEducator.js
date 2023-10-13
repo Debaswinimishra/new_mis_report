@@ -251,8 +251,7 @@ const ComunityEducator = () => {
         managerName: managerNameTab2,
         passcode: passcodeTab2,
         districtName: districtName,
-        blockName,
-        blockName,
+        blockName: blockName,
       };
       const response = await getCommunityEducator2(body);
       console.log("community2--->", response.data);

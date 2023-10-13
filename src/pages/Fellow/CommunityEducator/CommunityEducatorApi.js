@@ -10,10 +10,10 @@ export const getDistrictsWiseBlocks = async (blockId) =>
   await Api.get(`getblocksofdistricts/20/${blockId}`);
 
 export const getCommunityEducator1 = async (body) =>
-  await Api.get(`getDashboardCounts`, body);
+  await Api.post(`getDashboardCounts`, body);
 
 export const getCommunityEducator2 = async (body) =>
-  await Api.get(`getDashboardCounts`, body);
+  await Api.post(`getDashboardCounts`, body);
 
 // useEffect(() => {
 //   Api.get(`getManagerIdsWidPasscode`).then((response) => {

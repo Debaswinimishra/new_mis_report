@@ -169,8 +169,6 @@ const ComunityEducator = () => {
     setManagerNameTab2("");
     setManagerTypeTab2("");
     setPasscodeTab2("");
-    setDistrictName("");
-    setBlockName("");
     setTab2FilterData([]);
     setIsFilterButtonClicked(false);
     setIsDataAvailable(false);
@@ -242,15 +240,12 @@ const ComunityEducator = () => {
     if (
       selectedYearTab2 === "" ||
       managerNameTab2 === "" ||
-      passcodeTab2 === "" ||
-      districtName === "" ||
-      blockName === ""
+      passcodeTab2 === ""
     ) {
       // return
       alert("Please select some filters to preceed");
       setLoaded(false);
     } else {
-<<<<<<< HEAD
       const body = {
         year: selectedYearTab2,
         managerName: managerNameTab2,
@@ -260,15 +255,6 @@ const ComunityEducator = () => {
         blockName,
       };
       const response = await getCommunityEducator2(body);
-=======
-      const response = await getCommunityEducator2(
-        selectedYearTab2,
-        managerNameTab2,
-        passcodeTab2,
-        districtName,
-        blockName
-      );
->>>>>>> c1f850bcff3b7343827c113489d64ee748c133b6
       console.log("community2--->", response.data);
       if (response.status === 200) {
         setLoaded(false);
@@ -496,11 +482,8 @@ const ComunityEducator = () => {
             )}
 
             {}
-<<<<<<< HEAD
             {/* // )} */}
             <Links />
-=======
->>>>>>> c1f850bcff3b7343827c113489d64ee748c133b6
           </>
         )}
 

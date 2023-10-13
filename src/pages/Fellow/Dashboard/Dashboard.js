@@ -39,9 +39,9 @@ const Dashboard = () => {
 
   const handleCallAPI = async () => {
     try {
-      const response = await Api.get(`getDashboardCounts`);
+      const response = await Api.post(`getDashboardCounts`);
 
-      if (response.data.status === "success") {
+      if (response.data.status === 200) {
         setTotalUsersCount(response.data.resData);
         setFemaleCount(response.data.resData);
         setFellowsCount(response.data.resData);
@@ -60,7 +60,7 @@ const Dashboard = () => {
   };
   const handleApi = () => {
     setLoaded(true);
-    Api.get(`getDashboardCounts`).then((res) => {
+    Api.post(`getDashboardCounts`).then((res) => {
       setUser(res.data);
       setLoaded(false);
       // Output the user data to the console

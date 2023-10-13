@@ -692,11 +692,21 @@ const CommonMonthlyQuiz = () => {
                   value={questionName}
                   onChange={handleQuestionChange}
                 >
-                  {questionArr?.map((option, index) => (
+                 
+                  {/* {questionArr?.map((option, index) => (
                     <MenuItem key={option.question} value={option.questionId}>
                       {option.question}
                     </MenuItem>
-                  ))}
+                  ))} */}
+                  {questionArr ? (
+                    questionArr.map((option, index) => (
+                    <MenuItem key={option.question} value={option.questionId}>
+                      {option.question}
+                    </MenuItem>
+                     ))
+                    ) : (
+                    <div>None</div>
+                  )}
                 </TextField>
 
                 <Stack spacing={2} direction="row">

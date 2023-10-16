@@ -176,7 +176,7 @@ const FellowDetails = () => {
       return alert("Please select All filters to proceed");
     }
     try {
-      // setLoaded(true);
+      setLoaded(true);
       if (districtName && blockName) {
         const filterCriteriaWithBlockAndDistrict = {
           year: selectedYear,
@@ -190,10 +190,11 @@ const FellowDetails = () => {
           filterCriteriaWithBlockAndDistrict
         );
         console.log("data", data);
-        // setLoaded(false);
+        setLoaded(false);
         if (data.length === 0) {
-          // alert("No data found");
           setFilteredData([]);
+          alert("No data found");
+          setLoaded(false);
         } else if (data.length > 0) {
           setFilteredData(data);
           setTotalDataLength(data.length);
@@ -205,14 +206,15 @@ const FellowDetails = () => {
           managerid: managerName,
           passcode: passcode,
         };
-        setLoaded(true);
+        // setLoaded(true);
         const dataWithoutDistAndBlock = await FellowDetailsForManager(
           filterCriteriaWithoutBlockAndDistrict
         );
         console.log("dataWithoutDistAndBlock", dataWithoutDistAndBlock);
         if (dataWithoutDistAndBlock.length === 0) {
-          // alert("No data found");
           setFilteredData([]);
+          alert("No data found");
+          setLoaded(false);
         } else if (dataWithoutDistAndBlock.length > 0) {
           setFilteredData(dataWithoutDistAndBlock);
           setTotalDataLength(dataWithoutDistAndBlock.length);
@@ -221,7 +223,7 @@ const FellowDetails = () => {
       }
     } catch (error) {
       console.error("Error--->", error);
-      // setLoaded(false);
+      setLoaded(false);
     }
   };
 
@@ -242,7 +244,7 @@ const FellowDetails = () => {
       case "Status(Active/Inactive)":
         return row.status;
       case "Aadhaar Number":
-        return row.aadhaar;
+        return row.aadhaar ? row.aadhaar : "NA";
       default:
         return "";
     }
@@ -370,58 +372,51 @@ const FellowDetails = () => {
       </div>
       {loaded ? (
         <img src={loader} />
-      ) : (
-        <>
-          {filteredData && filteredData?.length > 0 ? (
-            <TableContainer
-              component={Paper}
-              sx={{
-                marginTop: 3,
-                width: "100%",
-                borderRadius: "6px",
-                maxHeight: "800px",
-              }}
-            >
-              <Table aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    {moduleColumn.map((column) => (
-                      <StyledTableCell key={column}>{column}</StyledTableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {Array.isArray(filteredData) &&
-                    filteredData
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((row, index) => (
-                        <StyledTableRow key={index}>
-                          {moduleColumn.map((column, columnIndex) => (
-                            <StyledTableCell key={columnIndex}>
-                              {getCellValue(row, column, index)}
-                            </StyledTableCell>
-                          ))}
-                        </StyledTableRow>
+      ) : filteredData && filteredData?.length > 0 ? (
+        <TableContainer
+          component={Paper}
+          sx={{
+            marginTop: 3,
+            width: "100%",
+            borderRadius: "6px",
+            maxHeight: "800px",
+          }}
+        >
+          <Table aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                {moduleColumn.map((column) => (
+                  <StyledTableCell key={column}>{column}</StyledTableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Array.isArray(filteredData) &&
+                filteredData
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => (
+                    <StyledTableRow key={index}>
+                      {moduleColumn.map((column, columnIndex) => (
+                        <StyledTableCell key={columnIndex}>
+                          {getCellValue(row, column, index)}
+                        </StyledTableCell>
                       ))}
-                </TableBody>
-              </Table>
-              <TablePagination
-                component="div"
-                count={totalDataLength}
-                page={page}
-                onPageChange={handleChangePage}
-                rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-              <Download csvData={xlData} fileName={fileName} />
-            </TableContainer>
-          ) : (
-            <Logo />
-          )}
-        </>
+                    </StyledTableRow>
+                  ))}
+            </TableBody>
+          </Table>
+          <TablePagination
+            component="div"
+            count={totalDataLength}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+          <Download csvData={xlData} fileName={fileName} />
+        </TableContainer>
+      ) : (
+        <Logo />
       )}
     </Box>
   );

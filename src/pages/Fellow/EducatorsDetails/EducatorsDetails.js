@@ -75,6 +75,7 @@ const FellowDetails = () => {
   const [allBlocks, setAllBlocks] = useState([]);
   const [blockName, setBlockName] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  console.log("filteredData", filteredData);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
@@ -171,38 +172,53 @@ const FellowDetails = () => {
   };
   const [data, setData] = useState([]);
   const fetchFilteredData = async () => {
-    if (
-      selectedYear === "" ||
-      managerName === "" ||
-      passcode === "" ||
-      districtName === "" ||
-      blockName === ""
-    ) {
+    if (selectedYear === "" || managerName === "" || passcode === "") {
       return alert("Please select All filters to proceed");
     }
     try {
       // setLoaded(true);
-      const filterCriteria = await FellowDetailsForManager({ 
-        year: selectedYear,
-        managerid: managerName,
-        passcode: passcode,
-        districtName: districtName,
-        blockName: blockName,
-      });
-      console.log("filterCriteria===>", filterCriteria);
-
-      // const data = await FellowDetailsForManager(filterCriteria);
-      console.log("data====>", data);
-      if (filterCriteria.status === 204) {
-        alert("No data found");
+      if (districtName && blockName) {
+        const filterCriteriaWithBlockAndDistrict = {
+          year: selectedYear,
+          managerid: managerName,
+          passcode: passcode,
+          districtName: districtName,
+          blockName: blockName,
+        };
+        // setLoaded(true);
+        const data = await FellowDetailsForManager(
+          filterCriteriaWithBlockAndDistrict
+        );
+        console.log("data", data);
         // setLoaded(false);
-      } else if (filterCriteria.status === 200) {
-        setData(filterCriteria.data)
-        setFilteredData(filterCriteria.data);
-        setTotalDataLength(filterCriteria.data.length);
+        if (data.length === 0) {
+          // alert("No data found");
+          setFilteredData([]);
+        } else if (data.length > 0) {
+          setFilteredData(data);
+          setTotalDataLength(data.length);
+          // setLoaded(false);
+        }
+      } else {
+        const filterCriteriaWithoutBlockAndDistrict = {
+          year: selectedYear,
+          managerid: managerName,
+          passcode: passcode,
+        };
         setLoaded(true);
+        const dataWithoutDistAndBlock = await FellowDetailsForManager(
+          filterCriteriaWithoutBlockAndDistrict
+        );
+        console.log("dataWithoutDistAndBlock", dataWithoutDistAndBlock);
+        if (dataWithoutDistAndBlock.length === 0) {
+          // alert("No data found");
+          setFilteredData([]);
+        } else if (dataWithoutDistAndBlock.length > 0) {
+          setFilteredData(dataWithoutDistAndBlock);
+          setTotalDataLength(dataWithoutDistAndBlock.length);
+          setLoaded(false);
+        }
       }
-      // setLoaded(false);
     } catch (error) {
       console.error("Error--->", error);
       // setLoaded(false);
@@ -305,10 +321,10 @@ const FellowDetails = () => {
           >
             {selectedYear && selectedYear != ""
               ? managerTypeArr?.map((option) => (
-                <MenuItem key={option.id} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))
+                  <MenuItem key={option.id} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))
               : null}
           </TextField>
 
@@ -322,10 +338,10 @@ const FellowDetails = () => {
           >
             {selectedYear && selectedYear != ""
               ? managerArr.map((option, index) => (
-                <MenuItem key={index + 1} value={option.managerid}>
-                  {option.managername}
-                </MenuItem>
-              ))
+                  <MenuItem key={index + 1} value={option.managerid}>
+                    {option.managername}
+                  </MenuItem>
+                ))
               : null}
           </TextField>
 
@@ -345,18 +361,18 @@ const FellowDetails = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             {passcode &&
-              passcode.length > 0 &&
-              districts.length > 0 &&
-              Array.isArray(districts)
+            passcode.length > 0 &&
+            districts.length > 0 &&
+            Array.isArray(districts)
               ? districts.map((option, index) => (
-                <MenuItem
-                  key={index + 1}
-                  value={option._id}
-                  data-name={option.districtname}
-                >
-                  {option.districtname}
-                </MenuItem>
-              ))
+                  <MenuItem
+                    key={index + 1}
+                    value={option._id}
+                    data-name={option.districtname}
+                  >
+                    {option.districtname}
+                  </MenuItem>
+                ))
               : null}
           </TextField>
 
@@ -369,14 +385,14 @@ const FellowDetails = () => {
             onChange={(e) => handleBlockChange(e)}
           >
             {districtName &&
-              districtName > 0 &&
-              allBlocks.length > 0 &&
-              Array.isArray(allBlocks)
+            districtName > 0 &&
+            allBlocks.length > 0 &&
+            Array.isArray(allBlocks)
               ? allBlocks?.map((option, index) => (
-                <MenuItem key={index + 1} value={option._id}>
-                  {option.blockname}
-                </MenuItem>
-              ))
+                  <MenuItem key={index + 1} value={option._id}>
+                    {option.blockname}
+                  </MenuItem>
+                ))
               : null}
           </TextField>
 
@@ -414,7 +430,6 @@ const FellowDetails = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-
                   {Array.isArray(filteredData) &&
                     filteredData
                       .slice(
@@ -443,9 +458,7 @@ const FellowDetails = () => {
               <Download csvData={xlData} fileName={fileName} />
             </TableContainer>
           ) : (
-            // <Logo />
-            ""
-
+            <Logo />
           )}
         </>
       )}

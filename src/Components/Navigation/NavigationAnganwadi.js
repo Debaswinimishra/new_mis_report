@@ -109,6 +109,8 @@ function NavigationAnganwadi(props) {
         >
           THINKZONE
         </h1>
+        <p style={{ marginTop: "80px", marginLeft:"-130px",color: "transparent", backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
+            fontFamily: "'Nuosu SIL', serif", WebkitBackgroundClip: "text",fontSize: "1.4rem",fontWeight: "bold"}}>v1.2.1</p>
       </Toolbar>
 
       <Divider />

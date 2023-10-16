@@ -132,13 +132,13 @@ const FellowDetails = () => {
     setBlockName("");
     setPasscode(event.target.value);
     try {
-      setLoaded(true);
+      // setLoaded(true);
       const response2 = await getAllDistricts();
       console.log("response--->", response2.data);
       setDistricts(response2.data);
-      setLoaded(false);
+      // setLoaded(false);
     } catch (error) {
-      setLoaded(false);
+      // setLoaded(false);
       console.error("Error--->", error);
     }
 
@@ -150,11 +150,11 @@ const FellowDetails = () => {
     const selectedValue = e.target.value;
     setDistrictName(e.target.value);
     console.log("Selected value:", e);
-    setLoaded(true);
+    // setLoaded(true);
     const response = await getDistrictsWiseBlocks(e.target.value);
     console.log("block response---->", response.data);
     setAllBlocks(response.data);
-    setLoaded(false);
+    // setLoaded(false);
   };
 
   const handleBlockChange = (e) => {
@@ -170,7 +170,7 @@ const FellowDetails = () => {
     setRowsPerPage(event.target.value);
     setPage(0);
   };
-
+  const [data, setData] = useState([]);
   const fetchFilteredData = async () => {
     if (selectedYear === "") {
       return alert("Please select All filters to proceed");
@@ -226,6 +226,45 @@ const FellowDetails = () => {
       setLoaded(false);
     }
   };
+
+
+
+   // const fetchFilteredData = async () => {
+  //   if (
+  //     selectedYear === "" ||
+  //     managerName === "" ||
+  //     passcode === "" ||
+  //     districtName === "" ||
+  //     blockName === ""
+  //   ) {
+  //     return alert("Please select All filters to proceed");
+  //   }
+  //   try {
+  //     // setLoaded(true);
+  //     const filterCriteria = 
+  //       year: selectedYear,
+  //       managerid: managerName,
+  //       passcode: passcode,
+  //       districtName: districtName,
+  //       blockName: blockName,
+  //     };
+  //     console.log("filterCriteria===>", filterCriteria);
+
+  //     const data = await FellowDetailsForManager(filterCriteria);
+  //     console.log("data====>", data);
+  //     if (filterCriteria.status === 204) {
+  //       alert("No data found");
+  //       // setLoaded(false);
+  //     } else if (data.status === 200) {
+  //       setFilteredData(data);
+  //       setTotalDataLength(data.length);
+  //     }
+  //     // setLoaded(false);
+  //   } catch (error) {
+  //     console.error("Error--->", error);
+  //     // setLoaded(false);
+  //   }
+  // };
 
   const getCellValue = (row, column, index) => {
     switch (column) {

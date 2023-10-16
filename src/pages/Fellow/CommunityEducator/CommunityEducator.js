@@ -72,6 +72,10 @@ const ComunityEducator = () => {
   console.log("tab1FilterData--->", tab1FilterData);
   const [tab2FilterData, setTab2FilterData] = useState([]);
   console.log("tab2FilterData--->", tab2FilterData);
+
+  const [isFilterButtonClicked, setIsFilterButtonClicked] = useState(false);
+  const [isDataAvailable, setIsDataAvailable] = useState(false);
+
   const handleTabChange = (event, newValue) => {
     setSelectedTabIndex(newValue);
   };
@@ -152,12 +156,19 @@ const ComunityEducator = () => {
     setManagerName("");
     setManagerType("");
     setPasscode("");
+    setTab1FilterData([]);
+    setIsFilterButtonClicked(false);
+    setIsDataAvailable(false);
+    setLoaded(false);
   };
   const handleYearChangeTab2 = (selectedYearTab2) => {
     setSelectedYearTab2(selectedYearTab2);
     setManagerNameTab2("");
     setManagerTypeTab2("");
     setPasscodeTab2("");
+    setTab2FilterData([]);
+    setIsFilterButtonClicked(false);
+    setIsDataAvailable(false);
   };
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);
@@ -201,7 +212,9 @@ const ComunityEducator = () => {
   const handleCommunityEducatorTab1 = async () => {
     setLoaded(true);
     if (selectedYear === "" || managerName === "" || passcode === "") {
-      return alert("Please select some filters to preceed");
+      // return
+      alert("Please select some filters to preceed");
+      setLoaded(false);
     } else {
       const response = await getCommunityEducator1(
         selectedYear,
@@ -212,6 +225,8 @@ const ComunityEducator = () => {
       if (response.status === 200) {
         setLoaded(false);
         setTab1FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
       }
     }
   };
@@ -223,7 +238,9 @@ const ComunityEducator = () => {
       managerNameTab2 === "" ||
       passcodeTab2 === ""
     ) {
-      return alert("Please select some filters to preceed");
+      // return
+      alert("Please select some filters to preceed");
+      setLoaded(false);
     } else {
       const response = await getCommunityEducator1(
         selectedYearTab2,
@@ -236,6 +253,8 @@ const ComunityEducator = () => {
       if (response.status === 200) {
         setLoaded(false);
         setTab2FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
       }
     }
   };
@@ -428,34 +447,56 @@ const ComunityEducator = () => {
               </div>
             </div>
             {/* {loaded && ( */}
+            {/* 
+            {loaded ? (
+              <img src={loader} />
+            ) : !isFilterButtonClicked ? null : !isDataAvailable ? (
+              <Logo />
+            ) : (
+              <div
+                style={{
+                  padding: "30px 20px",
+                  width: "100%",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Fields
+                  data={tab1FilterData}
+                  totalDataLength={totalDataLength}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  handleChangePage={handleChangePage}
+                  handleChangeRowsPerPage={handleChangeRowsPerPage}
+                  xlData={xlData}
+                  fileName={fileName}
+                  columns={columns}
+                  getCellValue={getCellValue}
+                />
+              </div>
+            )} */}
+
             {loaded ? (
               <img src={loader} />
             ) : (
               <>
-                {tab1FilterData && tab1FilterData.length > 0 ? (
-                  <div
-                    style={{
-                      padding: "30px 20px",
-                      width: "100%",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <Fields
-                      data={tab1FilterData}
-                      totalDataLength={totalDataLength}
-                      page={page}
-                      rowsPerPage={rowsPerPage}
-                      handleChangePage={handleChangePage}
-                      handleChangeRowsPerPage={handleChangeRowsPerPage}
-                      xlData={xlData}
-                      fileName={fileName}
-                      columns={columns}
-                      getCellValue={getCellValue}
-                    />
+                {isFilterButtonClicked && tab1FilterData.length > 0 ? (
+                  <div style={{ padding: "30px 20px", width: "100%" }}>
+                    <div>
+                      <Fields
+                        data={tab1FilterData}
+                        totalDataLength={totalDataLength}
+                        page={page}
+                        rowsPerPage={rowsPerPage}
+                        handleChangePage={handleChangePage}
+                        handleChangeRowsPerPage={handleChangeRowsPerPage}
+                        xlData={xlData}
+                        fileName={fileName}
+                        columns={columns}
+                        getCellValue={getCellValue}
+                      />
+                    </div>
                   </div>
-                ) : !selectedYear && !managerName && !passcode ? null : (
-                  <Logo />
-                )}
+                ) : null}
               </>
             )}
 
@@ -580,7 +621,7 @@ const ComunityEducator = () => {
               <img src={loader} />
             ) : (
               <>
-                {tab2FilterData && tab2FilterData.length > 0 ? (
+                {isFilterButtonClicked && tab2FilterData.length > 0 ? (
                   <div style={{ padding: "30px 20px", width: "100%" }}>
                     <div>
                       <Fields
@@ -597,11 +638,7 @@ const ComunityEducator = () => {
                       />
                     </div>
                   </div>
-                ) : !selectedYearTab2 &&
-                  !managerNameTab2 &&
-                  !passcodeTab2 ? null : (
-                  <Logo />
-                )}
+                ) : null}
               </>
             )}
           </>

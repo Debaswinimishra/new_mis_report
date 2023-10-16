@@ -124,7 +124,7 @@ const Dashboard = () => {
             target="Active fellows"
           >
             <Card
-              name="Monthly Timespent"
+              name="Average Timespent"
               number={user[0]?.averageTimeSpent || "NA"}
               Icon={PeopleIcon}
               style={{ backgroundColor: "green" }}

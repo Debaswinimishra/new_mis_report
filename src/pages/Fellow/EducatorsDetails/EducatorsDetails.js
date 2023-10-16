@@ -172,7 +172,7 @@ const FellowDetails = () => {
   };
 
   const fetchFilteredData = async () => {
-    if (selectedYear === "" || managerName === "" || passcode === "") {
+    if (selectedYear === "") {
       return alert("Please select All filters to proceed");
     }
     try {

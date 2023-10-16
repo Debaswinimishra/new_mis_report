@@ -169,6 +169,8 @@ const ComunityEducator = () => {
     setManagerNameTab2("");
     setManagerTypeTab2("");
     setPasscodeTab2("");
+    setDistrictName("");
+    setBlockName("");
     setTab2FilterData([]);
     setIsFilterButtonClicked(false);
     setIsDataAvailable(false);
@@ -179,21 +181,30 @@ const ComunityEducator = () => {
   };
   const handleManagerChangeTab2 = (event) => {
     setManagerNameTab2(event.target.value);
+    setDistrictName("");
+    setBlockName("");
     // console.log("managername---------->", managerName);
   };
   const handleManagerTypeChange = (event) => {
     setManagerType(event.target.value);
+    setPasscode("");
   };
   const handleManagerTypeChangeTab2 = (event) => {
     setManagerTypeTab2(event.target.value);
+    setDistrictName("");
+    setBlockName("");
+    setPasscodeTab2("");
   };
 
   const handlePasscodeChange = (event) => {
     setPasscode(event.target.value);
+   
   };
 
   const handlePasscodeChangeTab2 = (event) => {
     setPasscodeTab2(event.target.value);
+    setDistrictName("");
+    setBlockName("");
   };
 
   const handleDistrictChange = async (e) => {

@@ -243,6 +243,11 @@ const ComunityEducator = () => {
         setTab1FilterData(response.data);
         setIsFilterButtonClicked(true);
         setIsDataAvailable(response.data.length > 0);
+      } else {
+        setLoaded(false);
+        setTab1FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
       }
     }
 

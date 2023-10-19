@@ -57,9 +57,12 @@ const ComunityEducator = () => {
   // console.log("managerName--->", managerName);
   const [managerNameTab2, setManagerNameTab2] = useState("");
   const [districts, setDistricts] = useState([]);
-  const [districtName, setDistrictName] = useState("");
+  const [districtName, setDistrictName] = useState(11);
   const [allBlocks, setAllBlocks] = useState([]);
-  const [blockName, setBlockName] = useState("");
+  const [blockName, setBlockName] = useState(25);
+  console.log("====================================blockName", blockName);
+  console.log();
+  console.log("====================================districtName", districtName);
   const [data, setData] = useState([]);
   const [page, setPage] = React.useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
@@ -216,11 +219,12 @@ const ComunityEducator = () => {
       alert("Please select some filters to preceed");
       setLoaded(false);
     } else {
-      const response = await getCommunityEducator1(
-        selectedYear,
-        managerName,
-        passcode
-      );
+      const body = {
+        year: selectedYear,
+        managerName: managerName,
+        passcode: passcode,
+      };
+      const response = await getCommunityEducator1(body);
       console.log("community--->", response.data, response.status);
       if (response.status === 200) {
         setLoaded(false);
@@ -242,13 +246,15 @@ const ComunityEducator = () => {
       alert("Please select some filters to preceed");
       setLoaded(false);
     } else {
-      const response = await getCommunityEducator1(
-        selectedYearTab2,
-        managerNameTab2,
-        passcodeTab2,
-        districtName,
-        blockName
-      );
+      const body = {
+        year: selectedYearTab2,
+        managerName: managerNameTab2,
+        passcode: passcodeTab2,
+        districtName: districtName,
+        blockName,
+        blockName,
+      };
+      const response = await getCommunityEducator2(body);
       console.log("community2--->", response.data);
       if (response.status === 200) {
         setLoaded(false);
@@ -447,33 +453,6 @@ const ComunityEducator = () => {
               </div>
             </div>
             {/* {loaded && ( */}
-            {/* 
-            {loaded ? (
-              <img src={loader} />
-            ) : !isFilterButtonClicked ? null : !isDataAvailable ? (
-              <Logo />
-            ) : (
-              <div
-                style={{
-                  padding: "30px 20px",
-                  width: "100%",
-                  flexWrap: "wrap",
-                }}
-              >
-                <Fields
-                  data={tab1FilterData}
-                  totalDataLength={totalDataLength}
-                  page={page}
-                  rowsPerPage={rowsPerPage}
-                  handleChangePage={handleChangePage}
-                  handleChangeRowsPerPage={handleChangeRowsPerPage}
-                  xlData={xlData}
-                  fileName={fileName}
-                  columns={columns}
-                  getCellValue={getCellValue}
-                />
-              </div>
-            )} */}
 
             {loaded ? (
               <img src={loader} />
@@ -499,7 +478,7 @@ const ComunityEducator = () => {
                 ) : null}
               </>
             )}
-
+            {}
             {/* // )} */}
             <Links />
           </>

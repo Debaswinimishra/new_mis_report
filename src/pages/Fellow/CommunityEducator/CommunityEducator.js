@@ -250,10 +250,12 @@ const ComunityEducator = () => {
   };
 
   const handleCommunityEducatorTab2 = async () => {
-    setLoaded(true);
     if (!managerNameTab2 && !managerTypeTab2 && !districtName && !blockName) {
       alert("Please select filters");
+    } else if (!managerTypeTab2 || !managerNameTab2) {
+      alert("Please select managername or managertype");
     } else {
+      setLoaded(true);
       const body = {
         // year: selectedYearTab2,
         managerName: managerNameTab2,

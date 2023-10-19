@@ -287,6 +287,7 @@ const CommonMonthlyQuiz = () => {
     "Topic name",
     "Secured Mark",
     "Total Mark",
+    "Percentage"
   ];
 
   const getCellValue = (row, column, index) => {
@@ -310,7 +311,7 @@ const CommonMonthlyQuiz = () => {
       case "Secured Mark":
         return row.securedMarks;
         case "Percentage":
-          return row.totalMarks;
+          return row.percentage;
       default:
         return "";
     }

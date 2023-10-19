@@ -21,6 +21,7 @@ import { getAllTeacherTrainingDetails } from "./NewTrainingApi";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Loader from "../../../ReusableComponents/Loader";
 
 const managerTypeArr = [
   { id: 0, value: "none", label: "none" },
@@ -538,7 +539,7 @@ const NewTraining = () => {
 
               {/* Display data based on the selected tab */}
               {loaded ? (
-                <img src={loader} />
+                <Loader />
               ) : (
                 <>
                   {value === "one" && moduleData?.length > 0 ? (

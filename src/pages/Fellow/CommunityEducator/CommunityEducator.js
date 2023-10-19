@@ -32,6 +32,7 @@ import {
 } from "./CommunityEducatorApi";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Loader from "../../../ReusableComponents/Loader";
 
 const managerTypeSet = [
   { value: "none", label: "none" },
@@ -484,7 +485,7 @@ const ComunityEducator = () => {
             </div>
             {/* {loaded && ( */}
             {loaded ? (
-              <img src={loader} />
+              <Loader />
             ) : (
               <>
                 {isFilterButtonClicked && tab1FilterData.length > 0 ? (
@@ -627,7 +628,7 @@ const ComunityEducator = () => {
             </div>
 
             {loaded ? (
-              <img src={loader} />
+              <Loader />
             ) : (
               <>
                 {isFilterButtonClicked && tab2FilterData.length > 0 ? (

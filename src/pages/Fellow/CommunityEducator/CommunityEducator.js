@@ -287,6 +287,14 @@ const ComunityEducator = () => {
         setIsFilterButtonClicked(true);
         setIsDataAvailable(response.data.length > 0);
         // }
+      } else if (response.data.length === 0) {
+        setLoaded(false);
+
+        alert("No Record");
+        setTab2FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
+        setLoaded(false);
       } else {
         setLoaded(false);
         setTab2FilterData(response.data);

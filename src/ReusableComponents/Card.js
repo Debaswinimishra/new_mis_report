@@ -5,12 +5,12 @@ import Typography from "@mui/material/Typography";
 
 const CustomCard = ({ name, number, Icon, style }) => {
   return (
-    <Card style={{ ...cardStyle, ...style }}>
+    <Card variant="outlined" style={{ ...cardStyle, ...style }}>
       <CardContent>
-        <Typography variant="h5" component="div" style={titleStyle}>
+        <Typography variant="h6" component="div" style={titleStyle}>
           {name}
         </Typography>
-        <Typography variant="h4" component="div" style={numberStyle}>
+        <Typography variant="h5" component="div" style={numberStyle}>
           {number}
         </Typography>
       </CardContent>
@@ -30,17 +30,20 @@ const cardStyle = {
   borderRadius: "8px",
   boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
   fontFamily: "sans-serif",
+  boxSizing: "border-box",
 };
 
 const titleStyle = {
   fontSize: "20px",
   marginBottom: "10px",
+  textAlign: "center",
 };
 
 const numberStyle = {
-  fontSize: "2.5rem",
-  fontWeight: "bold",
+  fontSize: "2rem",
   color: "#4169e1", // Adjust the color as needed
+  fontWeight: "bold",
+  textAlign: "center",
 };
 
 export default CustomCard;

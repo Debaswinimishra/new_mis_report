@@ -57,10 +57,13 @@ const ComunityEducator = () => {
   // console.log("managerName--->", managerName);
   const [managerNameTab2, setManagerNameTab2] = useState("");
   const [districts, setDistricts] = useState([]);
-  const [districtName, setDistrictName] = useState(11);
+  const [districtName, setDistrictName] = useState();
   const [allBlocks, setAllBlocks] = useState([]);
-  const [blockName, setBlockName] = useState(25);
-  console.log("====================================blockName", blockName);
+  const [blockName, setBlockName] = useState();
+  console.log(
+    "====================================blockName",
+    typeof blockName
+  );
   console.log();
   console.log("====================================districtName", districtName);
   const [data, setData] = useState([]);
@@ -257,13 +260,16 @@ const ComunityEducator = () => {
     //   setLoaded(false);
     // } else {
     const body = {
-      year: selectedYearTab2,
-      managerName: managerNameTab2,
-      passcode: passcodeTab2,
-      districtName: districtName,
-      blockName,
-      blockName,
+      // year: selectedYearTab2,
+      // managerName: managerNameTab2,
+      // passcode: passcodeTab2,
+      districtid: districtName,
+      blockid: blockName,
+      // blockName,
     };
+    console.log("====================================body", body);
+    console.log();
+    console.log("====================================");
     const response = await getCommunityEducator2(body);
     console.log("community2--->", response.data);
     if (response.status === 200) {
@@ -490,7 +496,7 @@ const ComunityEducator = () => {
             {}
             {/* // )} */}
             {/* <Links /> */}
-            null
+            {/* null */}
           </>
         )}
 
@@ -512,17 +518,17 @@ const ComunityEducator = () => {
                   gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
                 }}
               >
-                <Select1
+                {/* <Select1
                   selectedYear={selectedYearTab2}
                   onChange={handleYearChangeTab2}
-                />
+                /> */}
                 {/* <Text
                   name="Select manager-type"
                   currencies={managerTypeSet}
                   handleChange={handleManagerTypeChangeTab2}
                 /> */}
 
-                <TextField
+                {/* <TextField
                   id="outlined-select-currency"
                   select
                   label="Select manager Type"
@@ -535,9 +541,9 @@ const ComunityEducator = () => {
                       {option.label}
                     </MenuItem>
                   ))}
-                </TextField>
+                </TextField> */}
 
-                <TextField
+                {/* <TextField
                   id="outlined-select-currency"
                   select
                   label="Select manager"
@@ -552,14 +558,14 @@ const ComunityEducator = () => {
                         </MenuItem>
                       ))
                     : null}
-                </TextField>
+                </TextField> */}
 
-                <ReusableTextField
+                {/* <ReusableTextField
                   label="Select passcode"
                   value={passcodeTab2}
                   options={passcodeArray}
                   onChange={handlePasscodeChangeTab2}
-                />
+                /> */}
                 <TextField
                   id="outlined-select-currency"
                   select

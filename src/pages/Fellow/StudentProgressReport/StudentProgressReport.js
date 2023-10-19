@@ -23,6 +23,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { studentProgressApi } from "./StudentProgressReportApi";
+import Loader from "../../../ReusableComponents/Loader";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -362,7 +363,7 @@ const StudentProgressReport = () => {
 
           {/* Display data */}
           {loaded ? (
-            <img src={loader} />
+            <Loader />
           ) : (
             <>
               {data && data?.length > 0 ? (

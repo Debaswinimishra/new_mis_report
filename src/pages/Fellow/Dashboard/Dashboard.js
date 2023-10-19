@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import PeopleIcon from "@mui/icons-material/People";
 import Box from "@mui/material/Box";
-import "./Dashboard.css";
+// import "./Dashboard.css";
 import loader from "../../../Assets/R.gif";
 import Text from "../../../ReusableComponents/Text";
 import Select1 from "../../../ReusableComponents/Select1";
@@ -15,6 +15,7 @@ import Card from "../../../ReusableComponents/Card";
 // import Api from "../environment/Api";
 // import Api from "../../..Environment/Api";
 import Api from "../../../Environment/Api";
+import Loader from "../../../ReusableComponents/Loader";
 // import Select1 from "../components/Select1";
 const Femalefellows = "http://localhost:3000/home/fellows";
 const Dashboard = () => {
@@ -82,12 +83,27 @@ const Dashboard = () => {
   }, [year]);
 
   return (
-    <>
-      <div className="content"></div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "20px",
+      }}
+    >
       {loaded ? (
-        <img src={loader} />
+        <Loader />
       ) : (
-        <div className="container">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+            gap: "20px",
+            justifyContent: "center",
+            maxWidth: "100%",
+            padding: "20px",
+          }}
+        >
           <Card
             name="Total Educators Trained till date"
             number={user[0]?.totalUsersCount || "NA"}
@@ -102,7 +118,6 @@ const Dashboard = () => {
               name="Total Educators Trained till date(Female)"
               number={user[0]?.femaleUsersCount || "NA"}
               Icon={PeopleIcon}
-              style={{ backgroundColor: "orange" }}
             />
           </a>
 
@@ -115,7 +130,6 @@ const Dashboard = () => {
               name="Total Active Educators"
               number={user[0]?.activeUsersCount || "NA"}
               Icon={PeopleIcon}
-              style={{ backgroundColor: "teal" }}
             />
           </a>
           <a
@@ -127,7 +141,6 @@ const Dashboard = () => {
               name="Average Monthly Time Spent on App"
               number={user[0]?.averageTimeSpent || "NA"}
               Icon={PeopleIcon}
-              style={{ backgroundColor: "green" }}
             />
           </a>
           <a
@@ -139,33 +152,26 @@ const Dashboard = () => {
               name="Total Students Impacted till date"
               number={user[0]?.totalStudentsCount || "NA"}
               Icon={PeopleIcon}
-              style={{ backgroundColor: "blue" }}
             />
           </a>
           <Card
             name="Total Students Impacted till date - Female"
             number={user[0]?.femaleStudentsCount || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "red" }}
           />
           <Card
             name="Total Students - 1 to 5"
             number={user[0]?.pgeStudentsCount || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "red" }}
           />
           <Card
             name="Total Students - Pre-primary"
             number={user[0]?.eceStudentsCount || "NA"}
             Icon={PeopleIcon}
-            style={{ backgroundColor: "red" }}
           />
         </div>
       )}
-      {/* <Box position="fixed" bottom={0} left={0}>
-        <Links />
-      </Box> */}
-    </>
+    </div>
   );
 };
 

@@ -32,6 +32,7 @@ import {
 } from "./CommunityEducatorApi";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Loader from "../../../ReusableComponents/Loader";
 
 const managerTypeSet = [
   { value: "none", label: "none" },
@@ -245,6 +246,12 @@ const ComunityEducator = () => {
         setTab1FilterData(response.data);
         setIsFilterButtonClicked(true);
         setIsDataAvailable(response.data.length > 0);
+      } else if (response.data.length === 0) {
+        setLoaded(false);
+        setTab1FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        alert("No Record");
+        setLoaded(false);
       } else {
         setLoaded(false);
         setTab1FilterData(response.data);
@@ -280,6 +287,11 @@ const ComunityEducator = () => {
         setIsFilterButtonClicked(true);
         setIsDataAvailable(response.data.length > 0);
         // }
+      } else {
+        setLoaded(false);
+        setTab2FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
       }
     }
   };
@@ -473,7 +485,7 @@ const ComunityEducator = () => {
             </div>
             {/* {loaded && ( */}
             {loaded ? (
-              <img src={loader} />
+              <Loader />
             ) : (
               <>
                 {isFilterButtonClicked && tab1FilterData.length > 0 ? (
@@ -616,7 +628,7 @@ const ComunityEducator = () => {
             </div>
 
             {loaded ? (
-              <img src={loader} />
+              <Loader />
             ) : (
               <>
                 {isFilterButtonClicked && tab2FilterData.length > 0 ? (

@@ -24,6 +24,7 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Logo from "../../../ReusableComponents/Logo";
+import Loader from "../../../ReusableComponents/Loader";
 // import Links from "../../../ReusableComponents/Links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -227,9 +228,7 @@ const FellowDetails = () => {
     }
   };
 
-
-
-   // const fetchFilteredData = async () => {
+  // const fetchFilteredData = async () => {
   //   if (
   //     selectedYear === "" ||
   //     managerName === "" ||
@@ -241,7 +240,7 @@ const FellowDetails = () => {
   //   }
   //   try {
   //     // setLoaded(true);
-  //     const filterCriteria = 
+  //     const filterCriteria =
   //       year: selectedYear,
   //       managerid: managerName,
   //       passcode: passcode,
@@ -410,7 +409,7 @@ const FellowDetails = () => {
         </div>
       </div>
       {loaded ? (
-        <img src={loader} />
+        <Loader />
       ) : filteredData && filteredData?.length > 0 ? (
         <TableContainer
           component={Paper}

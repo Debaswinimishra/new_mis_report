@@ -49,13 +49,15 @@ const ComunityEducator = () => {
   const [managerArr, setManagerArr] = useState([]);
   const [managerType, setManagerType] = useState("");
   console.log("managerType--->", managerType);
-  const [managerTypeTab2, setManagerTypeTab2] = useState("");
+  const [managerTypeTab2, setManagerTypeTab2] = useState("manager");
   console.log("managerTypeTab2--->", managerTypeTab2);
   const [passcode, setPasscode] = useState("");
   const [passcodeTab2, setPasscodeTab2] = useState("");
   const [managerName, setManagerName] = useState("");
-  // console.log("managerName--->", managerName);
+  console.log("managerName--->", managerName);
   const [managerNameTab2, setManagerNameTab2] = useState("");
+  console.log("managerName2--->", managerNameTab2);
+
   const [districts, setDistricts] = useState([]);
   const [districtName, setDistrictName] = useState();
   const [allBlocks, setAllBlocks] = useState([]);
@@ -95,7 +97,7 @@ const ComunityEducator = () => {
       setDistrictName("");
       setSelectedYearTab2([]);
       setTab2FilterData([]);
-      setManagerTypeTab2("");
+      setManagerTypeTab2("manager");
       try {
         const response = await getAllCommunityEducatiorFilter();
         setManagerArr(response.data.resData);
@@ -193,7 +195,7 @@ const ComunityEducator = () => {
     setPasscode("");
   };
   const handleManagerTypeChangeTab2 = (event) => {
-    setManagerTypeTab2(event.target.value);
+    setManagerTypeTab2(manager);
     setDistrictName("");
     setBlockName("");
     setPasscodeTab2("");
@@ -255,10 +257,8 @@ const ComunityEducator = () => {
   };
 
   const handleCommunityEducatorTab2 = async () => {
-    if (!managerNameTab2 && !managerTypeTab2 && !districtName && !blockName) {
+    if (!managerNameTab2 && !districtName && !blockName) {
       alert("Please select filters");
-    } else if (!managerTypeTab2 || !managerNameTab2) {
-      alert("Please select managername or managertype");
     } else {
       setLoaded(true);
       const body = {
@@ -531,7 +531,7 @@ const ComunityEducator = () => {
                   handleChange={handleManagerTypeChangeTab2}
                 /> */}
 
-                <TextField
+                {/* <TextField
                   id="outlined-select-currency"
                   select
                   label="Select manager Type"
@@ -544,7 +544,7 @@ const ComunityEducator = () => {
                       {option.label}
                     </MenuItem>
                   ))}
-                </TextField>
+                </TextField> */}
 
                 <TextField
                   id="outlined-select-currency"

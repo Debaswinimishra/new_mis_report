@@ -245,6 +245,12 @@ const ComunityEducator = () => {
         setTab1FilterData(response.data);
         setIsFilterButtonClicked(true);
         setIsDataAvailable(response.data.length > 0);
+      } else if (response.data.length === 0) {
+        setLoaded(false);
+        setTab1FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        alert("No Record");
+        setLoaded(false);
       } else {
         setLoaded(false);
         setTab1FilterData(response.data);
@@ -280,6 +286,11 @@ const ComunityEducator = () => {
         setIsFilterButtonClicked(true);
         setIsDataAvailable(response.data.length > 0);
         // }
+      } else {
+        setLoaded(false);
+        setTab2FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
       }
     }
   };

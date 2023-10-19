@@ -226,25 +226,26 @@ const ComunityEducator = () => {
   };
 
   const handleCommunityEducatorTab1 = async () => {
-    setLoaded(true);
-    // if (selectedYear === "" || managerName === "" || passcode === "") {
-    //   // return
-    //   alert("Please select some filters to preceed");
-    //   setLoaded(false);
-    // } else {
-    const body = {
-      year: selectedYear,
-      managerName: managerName,
-      passcode: passcode,
-    };
-    const response = await getCommunityEducator1(body);
-    console.log("community--->", response.data, response.status);
-    if (response.status === 200) {
-      setLoaded(false);
-      setTab1FilterData(response.data);
-      setIsFilterButtonClicked(true);
-      setIsDataAvailable(response.data.length > 0);
+    if (!selectedYear && !managerName && !passcode && !managerType) {
+      alert("please select filters");
+    } else {
+      setLoaded(true);
+
+      const body = {
+        year: selectedYear,
+        managerName: managerName,
+        passcode: passcode,
+      };
+      const response = await getCommunityEducator1(body);
+      console.log("community--->", response.data, response.status);
+      if (response.status === 200) {
+        setLoaded(false);
+        setTab1FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
+      }
     }
+
     // }
   };
 
@@ -261,7 +262,7 @@ const ComunityEducator = () => {
     // } else {
     const body = {
       // year: selectedYearTab2,
-      // managerName: managerNameTab2,
+      managerName: managerNameTab2,
       // passcode: passcodeTab2,
       districtid: districtName,
       blockid: blockName,
@@ -528,7 +529,7 @@ const ComunityEducator = () => {
                   handleChange={handleManagerTypeChangeTab2}
                 /> */}
 
-                {/* <TextField
+                <TextField
                   id="outlined-select-currency"
                   select
                   label="Select manager Type"
@@ -541,9 +542,9 @@ const ComunityEducator = () => {
                       {option.label}
                     </MenuItem>
                   ))}
-                </TextField> */}
+                </TextField>
 
-                {/* <TextField
+                <TextField
                   id="outlined-select-currency"
                   select
                   label="Select manager"
@@ -558,7 +559,7 @@ const ComunityEducator = () => {
                         </MenuItem>
                       ))
                     : null}
-                </TextField> */}
+                </TextField>
 
                 {/* <ReusableTextField
                   label="Select passcode"

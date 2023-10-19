@@ -558,7 +558,7 @@ const CommonMonthlyQuiz = () => {
                   )}
                 </>
               )}
-            <Links />
+            {/* <Links /> */}
           </>
         </Box>
       )}

@@ -251,34 +251,29 @@ const ComunityEducator = () => {
 
   const handleCommunityEducatorTab2 = async () => {
     setLoaded(true);
-    // if (
-    //   selectedYearTab2 === "" ||
-    //   managerNameTab2 === "" ||
-    //   passcodeTab2 === ""
-    // ) {
-    //   // return
-    //   alert("Please select some filters to preceed");
-    //   setLoaded(false);
-    // } else {
-    const body = {
-      // year: selectedYearTab2,
-      managerName: managerNameTab2,
-      // passcode: passcodeTab2,
-      districtid: districtName,
-      blockid: blockName,
-      // blockName,
-    };
-    console.log("====================================body", body);
-    console.log();
-    console.log("====================================");
-    const response = await getCommunityEducator2(body);
-    console.log("community2--->", response.data);
-    if (response.status === 200) {
-      setLoaded(false);
-      setTab2FilterData(response.data);
-      setIsFilterButtonClicked(true);
-      setIsDataAvailable(response.data.length > 0);
-      // }
+    if (!managerNameTab2 && !managerTypeTab2 && !districtName && !blockName) {
+      alert("Please select filters");
+    } else {
+      const body = {
+        // year: selectedYearTab2,
+        managerName: managerNameTab2,
+        // passcode: passcodeTab2,
+        districtid: districtName,
+        blockid: blockName,
+        // blockName,
+      };
+      console.log("====================================body", body);
+      console.log();
+      console.log("====================================");
+      const response = await getCommunityEducator2(body);
+      console.log("community2--->", response.data);
+      if (response.status === 200) {
+        setLoaded(false);
+        setTab2FilterData(response.data);
+        setIsFilterButtonClicked(true);
+        setIsDataAvailable(response.data.length > 0);
+        // }
+      }
     }
   };
   const handleChangePage = (event, newPage) => {

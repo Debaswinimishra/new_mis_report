@@ -313,7 +313,7 @@ const FellowDetails = () => {
           }}
         >
           <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
-          <TextField
+          {/* <TextField
             id="outlined-select-currency"
             select
             label="Select manager-type"
@@ -327,7 +327,7 @@ const FellowDetails = () => {
                   </MenuItem>
                 ))
               : null}
-          </TextField>
+          </TextField> */}
 
           <TextField
             id="outlined-select-currency"

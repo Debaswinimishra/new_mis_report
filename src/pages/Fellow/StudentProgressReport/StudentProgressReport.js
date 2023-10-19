@@ -134,14 +134,14 @@ const StudentProgressReport = () => {
   };
 
   const ActivityFilter = async () => {
-    if (
-      selectedYear === "" ||
-      managerName === "" ||
-      passcode === "" ||
-      activityType === ""
-    ) {
-      return alert("Please select all filters to proceed");
-    }
+    // if (
+    //   selectedYear === "" ||
+    //   managerName === "" ||
+    //   passcode === "" ||
+    //   activityType === ""
+    // ) {
+    //   return alert("Please select all filters to proceed");
+    // }
     try {
       setLoaded(true);
       const filterCriteria = {

@@ -29,13 +29,13 @@ const RouteFellow = () => {
         <Route path="dashboard" element={<Dashboard />} />
 
         <Route path="commonmonthlyquiz" element={<CommonMonthlyQuiz />} />
-        <Route path="communityeducator" element={<CommunityEducator />} />
+        <Route path="overall_c.e" element={<CommunityEducator />} />
         <Route path="trainingmodule" element={<NewTraining />} />
         <Route
           path="studentprogressreport"
           element={<StudentProgressReport />}
         />
-        <Route path="educatordetails" element={<EducatorsDetails />} />
+        <Route path="details_c.e" element={<EducatorsDetails />} />
       </Route>
     </Routes>
   );

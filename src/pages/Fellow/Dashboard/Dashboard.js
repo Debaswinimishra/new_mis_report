@@ -89,7 +89,7 @@ const Dashboard = () => {
       ) : (
         <div className="container">
           <Card
-            name="Total Educators"
+            name="Total Educators Trained till date"
             number={user[0]?.totalUsersCount || "NA"}
             Icon={PeopleIcon}
           />
@@ -99,7 +99,7 @@ const Dashboard = () => {
             target="femailfellowship"
           >
             <Card
-              name="Female Educators"
+              name="Total Educators Trained till date(Female)"
               number={user[0]?.femaleUsersCount || "NA"}
               Icon={PeopleIcon}
               style={{ backgroundColor: "orange" }}
@@ -112,7 +112,7 @@ const Dashboard = () => {
             target="female"
           >
             <Card
-              name="Active Educators"
+              name="Total Active Educators"
               number={user[0]?.activeUsersCount || "NA"}
               Icon={PeopleIcon}
               style={{ backgroundColor: "teal" }}
@@ -124,7 +124,7 @@ const Dashboard = () => {
             target="Active fellows"
           >
             <Card
-              name="Average Timespent"
+              name="Average Monthly Time Spent on App"
               number={user[0]?.averageTimeSpent || "NA"}
               Icon={PeopleIcon}
               style={{ backgroundColor: "green" }}
@@ -136,26 +136,26 @@ const Dashboard = () => {
             target="fellowdropout"
           >
             <Card
-              name="Total Student"
+              name="Total Students Impacted till date"
               number={user[0]?.totalStudentsCount || "NA"}
               Icon={PeopleIcon}
               style={{ backgroundColor: "blue" }}
             />
           </a>
           <Card
-            name="Total Female Student"
+            name="Total Students Impacted till date - Female"
             number={user[0]?.femaleStudentsCount || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "red" }}
           />
           <Card
-            name="Total PGE Student"
+            name="Total Students - 1 to 5"
             number={user[0]?.pgeStudentsCount || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "red" }}
           />
           <Card
-            name="Total ECE Student"
+            name="Total Students - Pre-primary"
             number={user[0]?.eceStudentsCount || "NA"}
             Icon={PeopleIcon}
             style={{ backgroundColor: "red" }}

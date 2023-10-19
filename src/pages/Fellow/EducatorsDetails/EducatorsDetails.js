@@ -172,9 +172,9 @@ const FellowDetails = () => {
   };
   const [data, setData] = useState([]);
   const fetchFilteredData = async () => {
-    if (selectedYear === "" || managerName === "" || passcode === "") {
-      return alert("Please select All filters to proceed");
-    }
+    // if (selectedYear === "" || managerName === "" || passcode === "") {
+    //   return alert("Please select All filters to proceed");
+    // }
     try {
       setLoaded(true);
       if (districtName && blockName) {

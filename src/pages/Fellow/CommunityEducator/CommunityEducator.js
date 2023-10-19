@@ -225,11 +225,11 @@ const ComunityEducator = () => {
 
   const handleCommunityEducatorTab1 = async () => {
     setLoaded(true);
-    if (selectedYear === "" || managerName === "" || passcode === "") {
-      // return
-      alert("Please select some filters to preceed");
-      setLoaded(false);
-    } else {
+    // if (selectedYear === "" || managerName === "" || passcode === "") {
+    //   // return
+    //   alert("Please select some filters to preceed");
+    //   setLoaded(false);
+    // } else {
       const body = {
         year: selectedYear,
         managerName: managerName,
@@ -243,20 +243,20 @@ const ComunityEducator = () => {
         setIsFilterButtonClicked(true);
         setIsDataAvailable(response.data.length > 0);
       }
-    }
+    // }
   };
 
   const handleCommunityEducatorTab2 = async () => {
     setLoaded(true);
-    if (
-      selectedYearTab2 === "" ||
-      managerNameTab2 === "" ||
-      passcodeTab2 === ""  
-    ) {
-      // return
-      alert("Please select some filters to preceed");
-      setLoaded(false);
-    } else {
+    // if (
+    //   selectedYearTab2 === "" ||
+    //   managerNameTab2 === "" ||
+    //   passcodeTab2 === ""  
+    // ) {
+    //   // return
+    //   alert("Please select some filters to preceed");
+    //   setLoaded(false);
+    // } else {
       const body = {
         year: selectedYearTab2,
         managerName: managerNameTab2,
@@ -272,7 +272,7 @@ const ComunityEducator = () => {
         setTab2FilterData(response.data);
         setIsFilterButtonClicked(true);
         setIsDataAvailable(response.data.length > 0);
-      }
+      // }
     }
   };
   const handleChangePage = (event, newPage) => {

@@ -58,19 +58,20 @@ function NavigationFellow(props) {
       icon: <DashboardIcon color="secondary" />,
     },
     {
-      text: "Educators Details",
-      link: "educatordetails",
+      text: "Details C.E",
+      link: "details_c.e",
       icon: <PeopleAltIcon sx={{ color: "rgb(63,94,251)" }} />,
+    },
+   
+    {
+      text: "Overall C.E",
+      link: "overall_c.e",
+      icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
     },
     {
       text: "Common Monthly Quiz",
       link: "commonmonthlyquiz",
       icon: <CastForEducationIcon sx={{ color: "rgb(0,128,0)" }} />,
-    },
-    {
-      text: "Community Educator",
-      link: "communityeducator",
-      icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
     },
     {
       text: "Training Module",
@@ -119,6 +120,7 @@ function NavigationFellow(props) {
             WebkitBackgroundClip: "text",
             backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
             fontFamily: "'Nuosu SIL', serif",
+            cursor: "pointer",
           }}
           onClick={handleNavOnchange}
         >
@@ -281,9 +283,9 @@ function NavigationFellow(props) {
       >
         <Outlet />
       </Box>
-      <Box position="fixed" bottom={0} left={0}>
+      {/* <Box position="fixed" bottom={0} left={0}>
         <Links />
-      </Box>
+      </Box> */}
     </Box>
   );
 }

@@ -305,10 +305,12 @@ const CommonMonthlyQuiz = () => {
         return row.username;
       case "Topic name":
         return row.topicName;
+        case "Total Mark":
+        return row.totalMarks;
       case "Secured Mark":
         return row.securedMarks;
-      case "Total Mark":
-        return row.totalMarks;
+        case "Percentage":
+          return row.totalMarks;
       default:
         return "";
     }

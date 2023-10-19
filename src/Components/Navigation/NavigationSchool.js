@@ -105,6 +105,7 @@ function NavigationSchool(props) {
             WebkitBackgroundClip: "text",
             backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
             fontFamily: "'Nuosu SIL', serif",
+            cursor: "pointer",
           }}
           onClick={hangeNavOnchange}
         >

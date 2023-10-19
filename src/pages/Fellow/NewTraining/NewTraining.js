@@ -174,14 +174,14 @@ const NewTraining = () => {
   };
 
   const onfilter = async () => {
-    if (
-      selectedYear === "" ||
-      managerName === "" ||
-      passcode === "" ||
-      trainingType === ""
-    ) {
-      return alert("Please select All filters to proceed");
-    }
+    // if (
+    //   selectedYear === "" ||
+    //   managerName === "" ||
+    //   passcode === "" ||
+    //   trainingType === ""
+    // ) {
+    //   return alert("Please select All filters to proceed");
+    // }
 
     const body = {
       year: selectedYear,

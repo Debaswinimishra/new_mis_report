@@ -12,7 +12,7 @@ import Select1 from "../../../ReusableComponents/Select1";
 import PeopleIcon from "@mui/icons-material/People";
 import Fields from "../../../ReusableComponents/Fields";
 import Logo from "../../../ReusableComponents/Logo";
-import Links from "../../../ReusableComponents/Links";
+// import Links from "../../../ReusableComponents/Links";
 import Number from "../../../ReusableComponents/Number";
 import Card from "../../../ReusableComponents/Card";
 import moment from "moment/moment";
@@ -198,7 +198,6 @@ const ComunityEducator = () => {
 
   const handlePasscodeChange = (event) => {
     setPasscode(event.target.value);
-   
   };
 
   const handlePasscodeChangeTab2 = (event) => {
@@ -230,19 +229,19 @@ const ComunityEducator = () => {
     //   alert("Please select some filters to preceed");
     //   setLoaded(false);
     // } else {
-      const body = {
-        year: selectedYear,
-        managerName: managerName,
-        passcode: passcode,
-      };
-      const response = await getCommunityEducator1(body);
-      console.log("community--->", response.data, response.status);
-      if (response.status === 200) {
-        setLoaded(false);
-        setTab1FilterData(response.data);
-        setIsFilterButtonClicked(true);
-        setIsDataAvailable(response.data.length > 0);
-      }
+    const body = {
+      year: selectedYear,
+      managerName: managerName,
+      passcode: passcode,
+    };
+    const response = await getCommunityEducator1(body);
+    console.log("community--->", response.data, response.status);
+    if (response.status === 200) {
+      setLoaded(false);
+      setTab1FilterData(response.data);
+      setIsFilterButtonClicked(true);
+      setIsDataAvailable(response.data.length > 0);
+    }
     // }
   };
 
@@ -251,27 +250,27 @@ const ComunityEducator = () => {
     // if (
     //   selectedYearTab2 === "" ||
     //   managerNameTab2 === "" ||
-    //   passcodeTab2 === ""  
+    //   passcodeTab2 === ""
     // ) {
     //   // return
     //   alert("Please select some filters to preceed");
     //   setLoaded(false);
     // } else {
-      const body = {
-        year: selectedYearTab2,
-        managerName: managerNameTab2,
-        passcode: passcodeTab2,
-        districtName: districtName,
-        blockName,
-        blockName,
-      };
-      const response = await getCommunityEducator2(body);
-      console.log("community2--->", response.data);
-      if (response.status === 200) {
-        setLoaded(false);
-        setTab2FilterData(response.data);
-        setIsFilterButtonClicked(true);
-        setIsDataAvailable(response.data.length > 0);
+    const body = {
+      year: selectedYearTab2,
+      managerName: managerNameTab2,
+      passcode: passcodeTab2,
+      districtName: districtName,
+      blockName,
+      blockName,
+    };
+    const response = await getCommunityEducator2(body);
+    console.log("community2--->", response.data);
+    if (response.status === 200) {
+      setLoaded(false);
+      setTab2FilterData(response.data);
+      setIsFilterButtonClicked(true);
+      setIsDataAvailable(response.data.length > 0);
       // }
     }
   };
@@ -464,7 +463,6 @@ const ComunityEducator = () => {
               </div>
             </div>
             {/* {loaded && ( */}
-
             {loaded ? (
               <img src={loader} />
             ) : (
@@ -491,7 +489,8 @@ const ComunityEducator = () => {
             )}
             {}
             {/* // )} */}
-            <Links />
+            {/* <Links /> */}
+            null
           </>
         )}
 

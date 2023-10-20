@@ -48,7 +48,7 @@ const ComunityEducator = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedYearTab2, setSelectedYearTab2] = useState("");
   const [managerArr, setManagerArr] = useState([]);
-  const [managerType, setManagerType] = useState("");
+  const [managerType, setManagerType] = useState("manager");
   console.log("managerType--->", managerType);
   const [managerTypeTab2, setManagerTypeTab2] = useState("manager");
   console.log("managerTypeTab2--->", managerTypeTab2);
@@ -433,8 +433,7 @@ const ComunityEducator = () => {
                   options={managerTypeSet}
                   onChange={handleManagerTypeChange}
                 /> */}
-
-                <TextField
+                {/* <TextField
                   id="outlined-select-currency"
                   select
                   label="Select manager Type"
@@ -447,8 +446,7 @@ const ComunityEducator = () => {
                       {option.label}
                     </MenuItem>
                   ))}
-                </TextField>
-
+                </TextField> */}
                 <TextField
                   id="outlined-select-currency"
                   select

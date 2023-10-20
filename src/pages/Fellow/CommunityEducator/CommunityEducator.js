@@ -110,7 +110,7 @@ const ComunityEducator = () => {
       setSelectedYear("");
       setPasscode("");
       setTab1FilterData([]);
-      setManagerType("");
+      setManagerType("manager");
       try {
         const response1 = await getAllCommunityEducatiorFilter();
         setManagerArr(response1.data.resData);
@@ -163,7 +163,7 @@ const ComunityEducator = () => {
   const handleYearChange = (selectedYear) => {
     setSelectedYear(selectedYear);
     setManagerName("");
-    setManagerType("");
+    setManagerType("manager");
     setPasscode("");
     setTab1FilterData([]);
     setIsFilterButtonClicked(false);
@@ -276,9 +276,9 @@ const ComunityEducator = () => {
         blockid: blockName,
         // blockName,
       };
-      console.log("====================================body", body);
-      console.log();
-      console.log("====================================");
+      // console.log("====================================body", body);
+      // console.log();
+      // console.log("====================================");
       const response = await getCommunityEducator2(body);
       console.log("community2--->", response.data);
       if (response.status === 200) {
@@ -455,7 +455,7 @@ const ComunityEducator = () => {
                   value={managerName}
                   onChange={(e) => handleManagerChange(e)}
                 >
-                  <MenuItem value = "">None</MenuItem>
+                  <MenuItem value="">None</MenuItem>
                   {managerType === "manager"
                     ? managerArr.map((option, index) => (
                         <MenuItem key={index + 1} value={option.managerid}>
@@ -573,7 +573,7 @@ const ComunityEducator = () => {
                   value={managerNameTab2}
                   onChange={(e) => handleManagerChangeTab2(e)}
                 >
-                  <MenuItem value = "">None</MenuItem>
+                  <MenuItem value="">None</MenuItem>
                   {managerTypeTab2 === "manager"
                     ? managerArr.map((option, index) => (
                         <MenuItem key={index + 1} value={option.managerid}>
@@ -597,7 +597,7 @@ const ComunityEducator = () => {
                   value={districtName}
                   onChange={(e) => handleDistrictChange(e)}
                 >
-                  <MenuItem value = "">None</MenuItem>
+                  <MenuItem value="">None</MenuItem>
                   {districts?.map((option, index) => (
                     <MenuItem
                       key={index + 1}
@@ -617,7 +617,7 @@ const ComunityEducator = () => {
                   value={blockName}
                   onChange={(e) => handleBlockChange(e)}
                 >
-                  <MenuItem value = "">None</MenuItem>
+                  <MenuItem value="">None</MenuItem>
                   {allBlocks.map((option, index) => (
                     <MenuItem key={index + 1} value={option._id}>
                       {option.blockname}

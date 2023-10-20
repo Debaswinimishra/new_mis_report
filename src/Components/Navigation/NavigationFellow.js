@@ -42,6 +42,7 @@ function NavigationFellow(props) {
     // location.pathname.split("/")[2]
     ();
   const handleDrawerToggle = () => {
+    alert()
     setMobileOpen(!mobileOpen);
   };
   const [anchorEl, setAnchorEl] = useState(null);
@@ -70,17 +71,17 @@ function NavigationFellow(props) {
     },
     {
       text: "Common Monthly Quiz",
-      link: "commonmonthlyquiz",
+      link: "common_monthly_quiz",
       icon: <CastForEducationIcon sx={{ color: "rgb(0,128,0)" }} />,
     },
     {
       text: "Training Module",
-      link: "trainingmodule",
+      link: "training_module",
       icon: <CategoryIcon sx={{ color: "rgb(75,0,130)" }} />,
     },
     {
       text: "Student Progress Report",
-      link: "studentprogressreport",
+      link: "student_progress_report",
       icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
     },
     {
@@ -197,7 +198,7 @@ function NavigationFellow(props) {
                 alignSelf: "center",
               }}
             >
-              {pathname.split("/")[2]}
+              {pathname.split("/")[2].replace("_"," ")}
             </Typography>
 
  

@@ -250,6 +250,7 @@ const StudentProgressReport = () => {
                 value={managerType}
                 onChange={(e) => handleManagerTypeChange(e)}
               >
+                <MenuItem value = "">None</MenuItem>
                 {selectedYear && selectedYear != ""
                   ? managerTypeArr?.map((option) => (
                       <MenuItem key={option.id} value={option.value}>
@@ -268,6 +269,7 @@ const StudentProgressReport = () => {
                   value={managerName}
                   onChange={(e) => handleManagerChange(e)}
                 >
+                  <MenuItem value = "">None</MenuItem>
                   {managerArr.map((option, index) => (
                     <MenuItem key={index + 1} value={option.managerid}>
                       {option.managername}
@@ -313,6 +315,7 @@ const StudentProgressReport = () => {
                   value={activityType}
                   onChange={handleActivtyChange}
                 >
+                  <MenuItem value = "">None</MenuItem>
                   {ActivityTypeArr.map((option, index) => (
                     <MenuItem key={option.id} value={option.value}>
                       {option.label}

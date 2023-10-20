@@ -421,6 +421,7 @@ const CommonMonthlyQuiz = () => {
                   value={managerType}
                   onChange={(e) => handleManagerTypeChange(e)}
                 >
+                  <MenuItem value = "">None</MenuItem>
                   {selectedYear && selectedYear != ""
                     ? managerTypeArr?.map((option) => (
                         <MenuItem key={option.id} value={option.value}>

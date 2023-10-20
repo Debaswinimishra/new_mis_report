@@ -278,7 +278,7 @@ const FellowDetails = () => {
       case "Gender":
         return row.gender;
       case "Contact Number":
-        return row.contactnumber;
+        return row.contactnumber ? row.contactnumber : "NA";
       case "Status(Active/Inactive)":
         return row.status;
       case "Aadhaar Number":
@@ -337,6 +337,7 @@ const FellowDetails = () => {
             value={managerName}
             onChange={(e) => handleManagerChange(e)}
           >
+            <MenuItem value = "">None</MenuItem>
             {selectedYear && selectedYear != ""
               ? managerArr.map((option, index) => (
                   <MenuItem key={index + 1} value={option.managerid}>
@@ -361,6 +362,7 @@ const FellowDetails = () => {
             value={districtName}
             onChange={(e) => handleDistrictChange(e)}
           >
+            <MenuItem value = "">None</MenuItem>
             {passcode &&
             passcode.length > 0 &&
             districts.length > 0 &&
@@ -385,6 +387,7 @@ const FellowDetails = () => {
             value={blockName}
             onChange={(e) => handleBlockChange(e)}
           >
+            <MenuItem value = "">None</MenuItem>
             {districtName &&
             districtName > 0 &&
             allBlocks.length > 0 &&

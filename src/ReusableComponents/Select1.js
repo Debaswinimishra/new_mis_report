@@ -20,6 +20,7 @@ const Select1 = ({ selectedYear, onChange }) => {
         onChange={(e) => handleYearChange(e)}
         style={{ width: "100%" }}
       >
+        <MenuItem value = "">None</MenuItem>
         {years.map((year) => (
           <MenuItem key={year} value={year}>
             {year}

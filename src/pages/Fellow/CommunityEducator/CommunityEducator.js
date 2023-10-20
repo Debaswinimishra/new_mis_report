@@ -457,6 +457,7 @@ const ComunityEducator = () => {
                   value={managerName}
                   onChange={(e) => handleManagerChange(e)}
                 >
+                  <MenuItem value = "">None</MenuItem>
                   {managerType === "manager"
                     ? managerArr.map((option, index) => (
                         <MenuItem key={index + 1} value={option.managerid}>
@@ -574,6 +575,7 @@ const ComunityEducator = () => {
                   value={managerNameTab2}
                   onChange={(e) => handleManagerChangeTab2(e)}
                 >
+                  <MenuItem value = "">None</MenuItem>
                   {managerTypeTab2 === "manager"
                     ? managerArr.map((option, index) => (
                         <MenuItem key={index + 1} value={option.managerid}>
@@ -597,6 +599,7 @@ const ComunityEducator = () => {
                   value={districtName}
                   onChange={(e) => handleDistrictChange(e)}
                 >
+                  <MenuItem value = "">None</MenuItem>
                   {districts?.map((option, index) => (
                     <MenuItem
                       key={index + 1}
@@ -616,6 +619,7 @@ const ComunityEducator = () => {
                   value={blockName}
                   onChange={(e) => handleBlockChange(e)}
                 >
+                  <MenuItem value = "">None</MenuItem>
                   {allBlocks.map((option, index) => (
                     <MenuItem key={index + 1} value={option._id}>
                       {option.blockname}

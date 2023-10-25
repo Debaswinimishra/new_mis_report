@@ -179,11 +179,6 @@ const FellowDetails = () => {
       return;
     }
 
-    if (!managerName) {
-      alert("Please select a manager before filtering.");
-      return;
-    }
-
     setLoaded(true);
     const filterCriteriaWithBlockAndDistrict = {
       year: selectedYear,
@@ -353,10 +348,7 @@ const FellowDetails = () => {
       </div>
       {loaded ? (
         <Loader />
-      ) : selectedYear &&
-        managerName &&
-        filteredData &&
-        filteredData.length > 0 ? (
+      ) : selectedYear && filteredData && filteredData.length > 0 ? (
         <TableContainer
           component={Paper}
           sx={{
@@ -400,7 +392,7 @@ const FellowDetails = () => {
           <Download csvData={xlData} fileName={fileName} />
         </TableContainer>
       ) : (
-        "" // <Logo />
+        ""
       )}
     </Box>
   );

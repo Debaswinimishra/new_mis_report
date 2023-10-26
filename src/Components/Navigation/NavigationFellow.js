@@ -69,21 +69,21 @@ function NavigationFellow(props) {
       link: "overall_c.e",
       icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
     },
-    {
-      text: "Common Monthly Quiz",
-      link: "common_monthly_quiz",
-      icon: <CastForEducationIcon sx={{ color: "rgb(0,128,0)" }} />,
-    },
-    {
-      text: "Training Module",
-      link: "training_module",
-      icon: <CategoryIcon sx={{ color: "rgb(75,0,130)" }} />,
-    },
-    {
-      text: "Student Progress Report",
-      link: "student_progress_report",
-      icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
-    },
+    // {
+    //   text: "Common Monthly Quiz",
+    //   link: "common_monthly_quiz",
+    //   icon: <CastForEducationIcon sx={{ color: "rgb(0,128,0)" }} />,
+    // },
+    // {
+    //   text: "Training Module",
+    //   link: "training_module",
+    //   icon: <CategoryIcon sx={{ color: "rgb(75,0,130)" }} />,
+    // },
+    // {
+    //   text: "Student Progress Report",
+    //   link: "student_progress_report",
+    //   icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
+    // },
     {
       text: "Log out",
       link: "/",

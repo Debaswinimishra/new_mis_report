@@ -107,16 +107,9 @@ const FellowDetails = () => {
     setPasscode("");
     setDistrictName("");
     setBlockName("");
+    setFilteredData([]);
+    setTotalDataLength(0);
     setSelectedYear(selectedYear);
-    // setShowFieldsData(false);
-  };
-
-  const handleManagerTypeChange = (event) => {
-    setManagerName("");
-    setPasscode("");
-    setDistrictName("");
-    setBlockName("");
-    setManagerType(event.target.value);
     // setShowFieldsData(false);
   };
 
@@ -124,11 +117,15 @@ const FellowDetails = () => {
     setPasscode("");
     setDistrictName("");
     setBlockName("");
+    setFilteredData([]);
+    setTotalDataLength(0);
     setManagerName(event.target.value);
     // setShowFieldsData(false);
   };
 
   const handlePasscodeChange = async (event) => {
+    setFilteredData([]);
+    setTotalDataLength(0);
     setDistrictName("");
     setBlockName("");
     setPasscode(event.target.value);
@@ -148,6 +145,8 @@ const FellowDetails = () => {
 
   const handleDistrictChange = async (e) => {
     setBlockName("");
+    setFilteredData([]);
+    setTotalDataLength(0);
     const selectedValue = e.target.value;
     setDistrictName(e.target.value);
     console.log("Selected value:", e);
@@ -160,6 +159,8 @@ const FellowDetails = () => {
 
   const handleBlockChange = (e) => {
     console.log("block--->", e.target.value);
+    setFilteredData([]);
+    setTotalDataLength(0);
     setBlockName(e.target.value);
   };
 
@@ -171,36 +172,46 @@ const FellowDetails = () => {
     setRowsPerPage(event.target.value);
     setPage(0);
   };
-  const [data, setData] = useState([]);
-  const fetchFilteredData = async () => {
-    // if (selectedYear === "" || managerName === "" || passcode === "") {
-    //   return alert("Please select All filters to proceed");
-    // }
-    try {
-      setLoaded(true);
-      if (districtName && blockName) {
-        const filterCriteriaWithBlockAndDistrict = {
-          year: selectedYear,
-          managerid: managerName,
-          passcode: passcode,
-          districtName: districtName,
-          blockName: blockName,
-        };
-        // setLoaded(true);
-        const data = await FellowDetailsForManager(
-          filterCriteriaWithBlockAndDistrict
-        );
-        console.log("data", data);
+
+  const fetchFilteredData = () => {
+    if (!selectedYear) {
+      alert("Please select a year before filtering.");
+      return;
+    }
+
+    setLoaded(true);
+    const filterCriteriaWithBlockAndDistrict = {
+      year: selectedYear,
+      managerid: managerName,
+      passcode: passcode,
+      districtid: districtName,
+      blockid: blockName,
+    };
+
+    // const filterCriteriaWithoutBlockAndDistrict = {
+    //   year: selectedYear,
+    //   managerid: managerName,
+    //   passcode: passcode,
+    // };
+
+    const apiCall =
+      // districtName && blockName
+      //   ?
+      FellowDetailsForManager(filterCriteriaWithBlockAndDistrict);
+    // : FellowDetailsForManager(filterCriteriaWithoutBlockAndDistrict);
+
+    apiCall
+      .then((data) => {
         setLoaded(false);
+        console.log("data", data);
         if (data.length === 0) {
           setFilteredData([]);
           alert("No data found");
-          setLoaded(false);
         } else if (data.length > 0) {
           setFilteredData(data);
           setTotalDataLength(data.length);
-          // setLoaded(false);
         }
+<<<<<<< HEAD
       } else if (selectedYear && managerName && passcode) {
         const filterCriteriaWithoutBlockAndDistrict = {
           year: selectedYear,
@@ -259,44 +270,17 @@ const FellowDetails = () => {
       console.error("Error--->", error);
       setLoaded(false);
     }
+=======
+      })
+      .catch((error) => {
+        setLoaded(false);
+        console.error("Error:", error);
+      })
+      .finally(() => {
+        setLoaded(false);
+      });
+>>>>>>> 4c023aa31f3f47bbe3470ef1d83050d03bb31343
   };
-
-  // const fetchFilteredData = async () => {
-  //   if (
-  //     selectedYear === "" ||
-  //     managerName === "" ||
-  //     passcode === "" ||
-  //     districtName === "" ||
-  //     blockName === ""
-  //   ) {
-  //     return alert("Please select All filters to proceed");
-  //   }
-  //   try {
-  //     // setLoaded(true);
-  //     const filterCriteria =
-  //       year: selectedYear,
-  //       managerid: managerName,
-  //       passcode: passcode,
-  //       districtName: districtName,
-  //       blockName: blockName,
-  //     };
-  //     console.log("filterCriteria===>", filterCriteria);
-
-  //     const data = await FellowDetailsForManager(filterCriteria);
-  //     console.log("data====>", data);
-  //     if (filterCriteria.status === 204) {
-  //       alert("No data found");
-  //       // setLoaded(false);
-  //     } else if (data.status === 200) {
-  //       setFilteredData(data);
-  //       setTotalDataLength(data.length);
-  //     }
-  //     // setLoaded(false);
-  //   } catch (error) {
-  //     console.error("Error--->", error);
-  //     // setLoaded(false);
-  //   }
-  // };
 
   const getCellValue = (row, column, index) => {
     switch (column) {
@@ -346,21 +330,6 @@ const FellowDetails = () => {
           }}
         >
           <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
-          {/* <TextField
-            id="outlined-select-currency"
-            select
-            label="Select manager-type"
-            value={managerType}
-            onChange={(e) => handleManagerTypeChange(e)}
-          >
-            {selectedYear && selectedYear != ""
-              ? managerTypeArr?.map((option) => (
-                  <MenuItem key={option.id} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))
-              : null}
-          </TextField> */}
 
           <TextField
             id="outlined-select-currency"
@@ -371,6 +340,7 @@ const FellowDetails = () => {
             onChange={(e) => handleManagerChange(e)}
           >
             <MenuItem value="">None</MenuItem>
+<<<<<<< HEAD
             {
               // selectedYear && selectedYear != ""
               //   ?
@@ -380,6 +350,15 @@ const FellowDetails = () => {
                 </MenuItem>
               ))
             }
+=======
+            {Array.isArray(managerArr)
+              ? managerArr.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.managerid}>
+                    {option.managername}
+                  </MenuItem>
+                ))
+              : null}
+>>>>>>> 4c023aa31f3f47bbe3470ef1d83050d03bb31343
           </TextField>
 
           <ReusableTextField
@@ -398,6 +377,7 @@ const FellowDetails = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             <MenuItem value="">None</MenuItem>
+<<<<<<< HEAD
             {
               // passcode &&
               // passcode.length > 0 &&
@@ -414,6 +394,19 @@ const FellowDetails = () => {
                 </MenuItem>
               ))
             }
+=======
+            {Array.isArray(districts)
+              ? districts.map((option, index) => (
+                  <MenuItem
+                    key={index + 1}
+                    value={option._id}
+                    data-name={option.districtname}
+                  >
+                    {option.districtname}
+                  </MenuItem>
+                ))
+              : null}
+>>>>>>> 4c023aa31f3f47bbe3470ef1d83050d03bb31343
           </TextField>
 
           <TextField
@@ -425,6 +418,7 @@ const FellowDetails = () => {
             onChange={(e) => handleBlockChange(e)}
           >
             <MenuItem value="">None</MenuItem>
+<<<<<<< HEAD
             {
               // districtName &&
               // districtName > 0 &&
@@ -437,6 +431,15 @@ const FellowDetails = () => {
                 </MenuItem>
               ))
             }
+=======
+            {Array.isArray(allBlocks)
+              ? allBlocks?.map((option, index) => (
+                  <MenuItem key={index + 1} value={option._id}>
+                    {option.blockname}
+                  </MenuItem>
+                ))
+              : null}
+>>>>>>> 4c023aa31f3f47bbe3470ef1d83050d03bb31343
           </TextField>
 
           <Stack spacing={2} direction="row">
@@ -452,7 +455,7 @@ const FellowDetails = () => {
       </div>
       {loaded ? (
         <Loader />
-      ) : filteredData && filteredData?.length > 0 ? (
+      ) : selectedYear && filteredData && filteredData.length > 0 ? (
         <TableContainer
           component={Paper}
           sx={{
@@ -496,7 +499,7 @@ const FellowDetails = () => {
           <Download csvData={xlData} fileName={fileName} />
         </TableContainer>
       ) : (
-        <Logo />
+        ""
       )}
     </Box>
   );

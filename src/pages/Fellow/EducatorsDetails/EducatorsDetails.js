@@ -211,66 +211,6 @@ const FellowDetails = () => {
           setFilteredData(data);
           setTotalDataLength(data.length);
         }
-<<<<<<< HEAD
-      } else if (selectedYear && managerName && passcode) {
-        const filterCriteriaWithoutBlockAndDistrict = {
-          year: selectedYear,
-          managerid: managerName,
-          passcode: passcode,
-        };
-        // setLoaded(true);
-        const dataWithoutDistAndBlock = await FellowDetailsForManager(
-          filterCriteriaWithoutBlockAndDistrict
-        );
-        console.log("dataWithoutDistAndBlock", dataWithoutDistAndBlock);
-        if (dataWithoutDistAndBlock.length === 0) {
-          setFilteredData([]);
-          alert("No data found");
-          setLoaded(false);
-        } else if (dataWithoutDistAndBlock.length > 0) {
-          setFilteredData(dataWithoutDistAndBlock);
-          setTotalDataLength(dataWithoutDistAndBlock.length);
-          setLoaded(false);
-        }
-      } else if (selectedYear && managerName) {
-        const filterCriteria = {
-          year: selectedYear,
-          managerid: managerName,
-        };
-        // setLoaded(true);
-        const data = await FellowDetailsForManager(filterCriteria);
-        console.log("dataWithoutDistAndBlock", data);
-        if (data.length === 0) {
-          setFilteredData([]);
-          alert("No data found");
-          setLoaded(false);
-        } else if (data.length > 0) {
-          setFilteredData(data);
-          setTotalDataLength(data.length);
-          setLoaded(false);
-        }
-      } else if (selectedYear) {
-        const filterCriteria = {
-          year: selectedYear,
-        };
-        // setLoaded(true);
-        const data = await FellowDetailsForManager(filterCriteria);
-        console.log("dataWithoutDistAndBlock", data);
-        if (data.length === 0) {
-          setFilteredData([]);
-          alert("No data found");
-          setLoaded(false);
-        } else if (data.length > 0) {
-          setFilteredData(data);
-          setTotalDataLength(data.length);
-          setLoaded(false);
-        }
-      }
-    } catch (error) {
-      console.error("Error--->", error);
-      setLoaded(false);
-    }
-=======
       })
       .catch((error) => {
         setLoaded(false);
@@ -279,7 +219,6 @@ const FellowDetails = () => {
       .finally(() => {
         setLoaded(false);
       });
->>>>>>> 4c023aa31f3f47bbe3470ef1d83050d03bb31343
   };
 
   const getCellValue = (row, column, index) => {
@@ -340,17 +279,6 @@ const FellowDetails = () => {
             onChange={(e) => handleManagerChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-<<<<<<< HEAD
-            {
-              // selectedYear && selectedYear != ""
-              //   ?
-              managerArr.map((option, index) => (
-                <MenuItem key={index + 1} value={option.managerid}>
-                  {option.managername}
-                </MenuItem>
-              ))
-            }
-=======
             {Array.isArray(managerArr)
               ? managerArr.map((option, index) => (
                   <MenuItem key={index + 1} value={option.managerid}>
@@ -358,7 +286,6 @@ const FellowDetails = () => {
                   </MenuItem>
                 ))
               : null}
->>>>>>> 4c023aa31f3f47bbe3470ef1d83050d03bb31343
           </TextField>
 
           <ReusableTextField
@@ -377,24 +304,6 @@ const FellowDetails = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-<<<<<<< HEAD
-            {
-              // passcode &&
-              // passcode.length > 0 &&
-              // districts.length > 0 &&
-              // Array.isArray(districts)
-              //   ?
-              districts.map((option, index) => (
-                <MenuItem
-                  key={index + 1}
-                  value={option._id}
-                  data-name={option.districtname}
-                >
-                  {option.districtname}
-                </MenuItem>
-              ))
-            }
-=======
             {Array.isArray(districts)
               ? districts.map((option, index) => (
                   <MenuItem
@@ -406,7 +315,6 @@ const FellowDetails = () => {
                   </MenuItem>
                 ))
               : null}
->>>>>>> 4c023aa31f3f47bbe3470ef1d83050d03bb31343
           </TextField>
 
           <TextField
@@ -418,20 +326,6 @@ const FellowDetails = () => {
             onChange={(e) => handleBlockChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-<<<<<<< HEAD
-            {
-              // districtName &&
-              // districtName > 0 &&
-              // allBlocks.length > 0 &&
-              // Array.isArray(allBlocks)
-              //   ?
-              allBlocks?.map((option, index) => (
-                <MenuItem key={index + 1} value={option._id}>
-                  {option.blockname}
-                </MenuItem>
-              ))
-            }
-=======
             {Array.isArray(allBlocks)
               ? allBlocks?.map((option, index) => (
                   <MenuItem key={index + 1} value={option._id}>
@@ -439,7 +333,6 @@ const FellowDetails = () => {
                   </MenuItem>
                 ))
               : null}
->>>>>>> 4c023aa31f3f47bbe3470ef1d83050d03bb31343
           </TextField>
 
           <Stack spacing={2} direction="row">

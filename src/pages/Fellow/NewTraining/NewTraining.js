@@ -24,13 +24,13 @@ import Box from "@mui/material/Box";
 import Loader from "../../../ReusableComponents/Loader";
 
 const managerTypeArr = [
-  { id: 0, value: "none", label: "none" },
+  // { id: 0, value: "none", label: "none" },
   { id: 1, value: "MANAGER", label: "MANAGER" },
   { id: 2, value: "Crc", label: "CRC" },
   { id: 3, value: "Aww", label: "Supervisor" },
 ];
 const trainingTypeArray = [
-  { id: 0, value: "none", label: "none" },
+  // { id: 0, value: "none", label: "none" },
   { id: 1, value: "training1", label: "21st" },
   { id: 2, value: "training2", label: "Tech" },
   { id: 3, value: "training3", label: "Pedagogy" },
@@ -175,15 +175,14 @@ const NewTraining = () => {
   };
 
   const onfilter = async () => {
-    // if (
-    //   selectedYear === "" ||
-    //   managerName === "" ||
-    //   passcode === "" ||
-    //   trainingType === ""
-    // ) {
-    //   return alert("Please select All filters to proceed");
-    // }
-
+    if (
+      selectedYear === "" ||
+      managerName === "" ||
+      passcode === "" ||
+      trainingType === ""
+    ) {
+      return alert("Please select All filters to proceed");
+    }
     const body = {
       year: selectedYear,
       managerid: managerName,
@@ -463,7 +462,7 @@ const NewTraining = () => {
                 value={managerType}
                 onChange={(e) => handleManagerTypeChange(e)}
               >
-                <MenuItem value = "">None</MenuItem>
+                <MenuItem value="">None</MenuItem>
                 {selectedYear && selectedYear != ""
                   ? managerTypeArr?.map((option) => (
                       <MenuItem key={option.id} value={option.value}>
@@ -481,7 +480,7 @@ const NewTraining = () => {
                 value={managerName}
                 onChange={(e) => handleManagerChange(e)}
               >
-                <MenuItem value = "">None</MenuItem>
+                <MenuItem value="">None</MenuItem>
                 {selectedYear && selectedYear != ""
                   ? managerArr.map((option, index) => (
                       <MenuItem key={index + 1} value={option.managerid}>
@@ -504,7 +503,7 @@ const NewTraining = () => {
                 value={trainingType}
                 onChange={(e) => handleTrainingTypeChange(e)}
               >
-                <MenuItem value = "">None</MenuItem>
+                <MenuItem value="">None</MenuItem>
                 {selectedYear && selectedYear != ""
                   ? trainingTypeArray?.map((option) => (
                       <MenuItem key={option.id} value={option.value}>

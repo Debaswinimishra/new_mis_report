@@ -236,7 +236,7 @@ const ComunityEducator = () => {
 
       const body = {
         year: selectedYear,
-        managerName: managerName,
+        managerid: managerName,
         passcode: passcode,
       };
       const response = await getCommunityEducator1(body);
@@ -270,7 +270,7 @@ const ComunityEducator = () => {
       setLoaded(true);
       const body = {
         // year: selectedYearTab2,
-        managerName: managerNameTab2,
+        managerid: managerNameTab2,
         // passcode: passcodeTab2,
         districtid: districtName,
         blockid: blockName,

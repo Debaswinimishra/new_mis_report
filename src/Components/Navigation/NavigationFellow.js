@@ -28,6 +28,8 @@ import InsightsIcon from "@mui/icons-material/Insights";
 import GroupsIcon from "@mui/icons-material/Groups";
 import Links from "../../ReusableComponents/Links";
 import Avatar from "@mui/material/Avatar";
+import SchoolIcon from "@mui/icons-material/School";
+
 import QuizIcon from "@mui/icons-material/Quiz";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 const drawerWidth = 240;
@@ -68,6 +70,16 @@ function NavigationFellow(props) {
       text: "Overall C.E",
       link: "overall_c.e",
       icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
+    },
+    {
+      text: "Training Details C.E",
+      link: "training_details_c.e",
+      icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
+    },
+    {
+      text: "Assessments C.E",
+      link: "assessments_c.e",
+      icon: <SchoolIcon sx={{ color: "rgb(0,128,128)" }} />,
     },
     // {
     //   text: "Common Monthly Quiz",

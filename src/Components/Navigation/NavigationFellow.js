@@ -81,6 +81,16 @@ function NavigationFellow(props) {
       link: "assessments_c.e",
       icon: <SchoolIcon sx={{ color: "rgb(0,128,128)" }} />,
     },
+    {
+      text: "Overall Timespent C.E",
+      link: "overall_timespent_c.e",
+      icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
+    },
+    {
+      text: "Timespent Details C.E",
+      link: "timespent_details_c.e",
+      icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
+    },
     // {
     //   text: "Common Monthly Quiz",
     //   link: "common_monthly_quiz",

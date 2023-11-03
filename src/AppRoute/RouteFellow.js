@@ -12,6 +12,8 @@ import PrivateRoute from "./PrivateRoute";
 import EducatorsDetails from "../Pages/Fellow/EducatorsDetails/EducatorsDetails";
 import TrainingDetails from "../Pages/Fellow/TrainingDetails/TrainingDetails";
 import Assessments from "../Pages/Fellow/Assessments/Assessments";
+import OverallTimespent from "../Pages/Fellow/OverallTimespent/OverallTimespent";
+import TimespentDetails from "../Pages/Fellow/TimespentDetails/TimespentDetails";
 
 // import * from "../AppRoute/Route404";
 // import FelloRoutes from "../Pages/Fellow/FelloRoutes";
@@ -40,6 +42,8 @@ const RouteFellow = () => {
         <Route path="details_c.e" element={<EducatorsDetails />} />
         <Route path="training_details_c.e" element={<TrainingDetails />} />
         <Route path="assessments_c.e" element={<Assessments />} />
+        <Route path="overall_timespent_c.e" element={<OverallTimespent />} />
+        <Route path="timespent_details_c.e" element={<TimespentDetails />} />
 
 
       </Route>

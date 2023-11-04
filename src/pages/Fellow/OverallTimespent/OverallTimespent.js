@@ -46,12 +46,21 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const managerTypeArr = [
-  { value: "none", label: "none" },
-  { value: "manager", label: "MANAGER" },
-  { value: "Crc", label: "CRC" },
-  { value: "Aww", label: "Supervisor" },
-];
+const monthArr = [
+  //   { value: "none", label: "none" },
+    { value: "january", label: "January" },
+    { value: "february", label: "February" },
+    { value: "march", label: "March" },
+    { value: "april", label: "April" },
+    { value: "may", label: "May" },
+    { value: "june", label: "June" },
+    { value: "july", label: "July" },
+    { value: "august", label: "August" },
+    { value: "september", label: "September" },
+    { value: "october", label: "October" },
+    { value: "november", label: "November" },
+    { value: "december", label: "December" },
+  ];
 
 const moduleColumn = [
   "Serial No",
@@ -80,6 +89,8 @@ const OverallTimespent = () => {
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
+  const [month, setMonth] = useState("");
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -111,6 +122,14 @@ const OverallTimespent = () => {
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
     // setShowFieldsData(false);
+  };
+
+  const handleMonthChange = (event) => {
+    setMonth(event.target.value);
+    setManagerName("");
+    setPasscode("");
+    setDistrictName("");
+    setBlockName("");
   };
 
   const handleManagerChange = (event) => {
@@ -269,6 +288,23 @@ const OverallTimespent = () => {
           }}
         >
           <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
+
+          <TextField
+                id="outlined-select-currency"
+                select
+                label="Select month"
+                value={month}
+                 onChange={(e) => handleMonthChange(e)}
+              >
+                <MenuItem value = "">None</MenuItem>
+                {selectedYear && selectedYear != ""
+                  ? monthArr?.map((option) => (
+                      <MenuItem key={option.id} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))
+                  : null}
+              </TextField>
 
           <TextField
             id="outlined-select-currency"

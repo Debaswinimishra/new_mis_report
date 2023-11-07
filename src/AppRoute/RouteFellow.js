@@ -10,6 +10,7 @@ import NewTraining from "../Pages/Fellow/NewTraining/NewTraining";
 import StudentProgressReport from "../Pages/Fellow/StudentProgressReport/StudentProgressReport";
 import PrivateRoute from "./PrivateRoute";
 import EducatorsDetails from "../Pages/Fellow/EducatorsDetails/EducatorsDetails";
+import Feedback from "../Pages/Fellow/Feedback/Feedback";
 
 // import * from "../AppRoute/Route404";
 // import FelloRoutes from "../Pages/Fellow/FelloRoutes";
@@ -36,6 +37,7 @@ const RouteFellow = () => {
           element={<StudentProgressReport />}
         />
         <Route path="details_c.e" element={<EducatorsDetails />} />
+        <Route path="feedback" element={<Feedback />} />
       </Route>
     </Routes>
   );

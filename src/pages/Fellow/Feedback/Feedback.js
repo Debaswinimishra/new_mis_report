@@ -13,11 +13,11 @@ import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
 import {
-  getAllCommunityEducatiorFilter,
-  getAllDistricts,
-  getDistrictsWiseBlocks,
-} from "../CommunityEducator/CommunityEducatorApi";
-import { FellowDetailsForManager } from "./EducatorsDetailsApi";
+  getAllManagersWidPasscodes,
+  getSurveyDetails,
+  getAllFeedbackData,
+} from "./FeedbackApi";
+// import { FellowDetailsForManager } from "./EducatorsDetailsApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -25,7 +25,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Logo from "../../../ReusableComponents/Logo";
 import Loader from "../../../ReusableComponents/Loader";
-// import Links from "../../../ReusableComponents/Links";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -46,13 +47,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const managerTypeArr = [
-  { value: "none", label: "none" },
-  { value: "manager", label: "MANAGER" },
-  { value: "Crc", label: "CRC" },
-  { value: "Aww", label: "Supervisor" },
-];
-
 const moduleColumn = [
   "Serial No",
   "User Name",
@@ -64,27 +58,24 @@ const moduleColumn = [
   "Aadhaar Number",
 ];
 
-const FellowDetails = () => {
+const Feedback = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   const [managerName, setManagerName] = useState([]);
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
-  const [districts, setDistricts] = useState([]);
   const [page, setPage] = useState(0);
-  const [districtName, setDistrictName] = useState("");
-  const [allBlocks, setAllBlocks] = useState([]);
-  const [blockName, setBlockName] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   console.log("filteredData", filteredData);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
+  const [surevey, setSurvey] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllCommunityEducatiorFilter();
+        const response = await getAllManagersWidPasscodes();
         setManagerArr(response.data.resData);
       } catch (err) {
         console.log("err--->", err.response.status);
@@ -102,66 +93,27 @@ const FellowDetails = () => {
   });
 
   const handleYearChange = (selectedYear) => {
-    setManagerType("");
+    setSelectedYear(selectedYear);
+    // setManagerType("");
     setManagerName("");
     setPasscode("");
-    setDistrictName("");
-    setBlockName("");
     setFilteredData([]);
     setTotalDataLength(0);
-    setSelectedYear(selectedYear);
-    // setShowFieldsData(false);
   };
 
   const handleManagerChange = (event) => {
     setPasscode("");
-    setDistrictName("");
-    setBlockName("");
     setFilteredData([]);
     setTotalDataLength(0);
     setManagerName(event.target.value);
-    // setShowFieldsData(false);
   };
 
   const handlePasscodeChange = async (event) => {
     setFilteredData([]);
     setTotalDataLength(0);
-    setDistrictName("");
-    setBlockName("");
     setPasscode(event.target.value);
-    try {
-      // setLoaded(true);
-      const response2 = await getAllDistricts();
-      console.log("response--->", response2.data);
-      setDistricts(response2.data);
-      // setLoaded(false);
-    } catch (error) {
-      // setLoaded(false);
-      console.error("Error--->", error);
-    }
 
-    // setShowFieldsData(false);
-  };
-
-  const handleDistrictChange = async (e) => {
-    setBlockName("");
-    setFilteredData([]);
-    setTotalDataLength(0);
-    const selectedValue = e.target.value;
-    setDistrictName(e.target.value);
-    console.log("Selected value:", e);
-    // setLoaded(true);
-    const response = await getDistrictsWiseBlocks(e.target.value);
-    console.log("block response---->", response.data);
-    setAllBlocks(response.data);
-    // setLoaded(false);
-  };
-
-  const handleBlockChange = (e) => {
-    console.log("block--->", e.target.value);
-    setFilteredData([]);
-    setTotalDataLength(0);
-    setBlockName(e.target.value);
+    //!---------------------To add the feed back response from api
   };
 
   const handleChangePage = (event, newPage) => {
@@ -174,51 +126,52 @@ const FellowDetails = () => {
   };
 
   const fetchFilteredData = () => {
-    if (!selectedYear) {
-      alert("Please select a year before filtering.");
-      return;
+    if (!selectedYear && !managerName && !passcode) {
+      return toast.error("Please select all the fields before proceeding.");
+    } else if (!selectedYear) {
+      return toast.error("Please select a year before proceeding.");
+    } else if (!managerName) {
+      return toast.error("Please select a manager before proceeding.");
+    } else if (!passcode) {
+      return toast.error("Please select a passcode before proceeding.");
+    } else {
+      setLoaded(true);
+      const dataForFiltration = {
+        year: selectedYear,
+        managerid: managerName,
+        passcode: passcode,
+      };
+
+      // const filterCriteriaWithoutBlockAndDistrict = {
+      //   year: selectedYear,
+      //   managerid: managerName,
+      //   passcode: passcode,
+      // };
+
+      //*---------------------Api call for populating the table------------------------
+      const apiCall =
+        //   ? Here the filtration of data will be done.
+        getAllFeedbackData(dataForFiltration);
+      apiCall
+        .then((data) => {
+          setLoaded(false);
+          console.log("data", data);
+          if (data.length === 0) {
+            setFilteredData([]);
+            alert("No data found");
+          } else if (data.length > 0) {
+            setFilteredData(data);
+            setTotalDataLength(data.length);
+          }
+        })
+        .catch((error) => {
+          setLoaded(false);
+          console.error("Error:", error);
+        })
+        .finally(() => {
+          setLoaded(false);
+        });
     }
-
-    setLoaded(true);
-    const filterCriteriaWithBlockAndDistrict = {
-      year: selectedYear,
-      managerid: managerName,
-      passcode: passcode,
-      districtid: districtName,
-      blockid: blockName,
-    };
-
-    // const filterCriteriaWithoutBlockAndDistrict = {
-    //   year: selectedYear,
-    //   managerid: managerName,
-    //   passcode: passcode,
-    // };
-
-    const apiCall =
-      // districtName && blockName
-      //   ?
-      FellowDetailsForManager(filterCriteriaWithBlockAndDistrict);
-    // : FellowDetailsForManager(filterCriteriaWithoutBlockAndDistrict);
-
-    apiCall
-      .then((data) => {
-        setLoaded(false);
-        console.log("data", data);
-        if (data.length === 0) {
-          setFilteredData([]);
-          alert("No data found");
-        } else if (data.length > 0) {
-          setFilteredData(data);
-          setTotalDataLength(data.length);
-        }
-      })
-      .catch((error) => {
-        setLoaded(false);
-        console.error("Error:", error);
-      })
-      .finally(() => {
-        setLoaded(false);
-      });
   };
 
   const getCellValue = (row, column, index) => {
@@ -229,14 +182,10 @@ const FellowDetails = () => {
         return row.username;
       case "User Id":
         return row.userid;
-      case "No of Students":
-        return row.studentsCount;
       case "Gender":
         return row.gender;
       case "Contact Number":
         return row.contactnumber ? row.contactnumber : "NA";
-      case "Status(Active/Inactive)":
-        return row.status;
       case "Aadhaar Number":
         return row.aadhaar ? row.aadhaar : "NA";
       default:
@@ -279,7 +228,7 @@ const FellowDetails = () => {
             onChange={(e) => handleManagerChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(managerArr)
+            {selectedYear && Array.isArray(managerArr)
               ? managerArr.map((option, index) => (
                   <MenuItem key={index + 1} value={option.managerid}>
                     {option.managername}
@@ -298,38 +247,16 @@ const FellowDetails = () => {
           <TextField
             id="outlined-select-currency"
             select
-            label="Select districts"
+            label="Survey name"
             defaultValue="none"
-            value={districtName}
-            onChange={(e) => handleDistrictChange(e)}
+            value={managerName}
+            onChange={(e) => handleManagerChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(districts)
-              ? districts.map((option, index) => (
-                  <MenuItem
-                    key={index + 1}
-                    value={option._id}
-                    data-name={option.districtname}
-                  >
-                    {option.districtname}
-                  </MenuItem>
-                ))
-              : null}
-          </TextField>
-
-          <TextField
-            id="outlined-select-currency"
-            select
-            label="Select Blocks"
-            defaultValue="none"
-            value={blockName}
-            onChange={(e) => handleBlockChange(e)}
-          >
-            <MenuItem value="">None</MenuItem>
-            {Array.isArray(allBlocks)
-              ? allBlocks?.map((option, index) => (
-                  <MenuItem key={index + 1} value={option._id}>
-                    {option.blockname}
+            {Array.isArray(managerArr)
+              ? managerArr.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.managerid}>
+                    {option.managername}
                   </MenuItem>
                 ))
               : null}
@@ -394,8 +321,9 @@ const FellowDetails = () => {
       ) : (
         ""
       )}
+      <ToastContainer />
     </Box>
   );
 };
 
-export default FellowDetails;
+export default Feedback;

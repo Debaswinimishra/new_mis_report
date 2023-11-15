@@ -336,14 +336,14 @@ const ComunityEducator = () => {
     }
   };
 
-  const columns1 = ["Serial No", "Total Active Educators"];
+  const columns1 = ["Serial No", "Total Active Educator"];
 
   const getCellValue1 = (row, column, index) => {
     console.log("2---->", row);
     switch (column) {
       case "Serial No":
         return index + 1;
-      case "Total Active Educators":
+      case "Total Active Educator":
         return row.activeUsersCount;
 
       default:

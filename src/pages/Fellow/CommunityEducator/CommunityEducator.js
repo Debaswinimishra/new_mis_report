@@ -336,14 +336,14 @@ const ComunityEducator = () => {
     }
   };
 
-  const columns1 = ["Serial No", "Total Active Educator"];
+  const columns1 = ["Serial No", "Total Active Educators"];
 
   const getCellValue1 = (row, column, index) => {
     console.log("2---->", row);
     switch (column) {
       case "Serial No":
         return index + 1;
-      case "Total Active Educator":
+      case "Total Active Educators":
         return row.activeUsersCount;
 
       default:
@@ -505,7 +505,7 @@ const ComunityEducator = () => {
                         rowsPerPage={rowsPerPage}
                         handleChangePage={handleChangePage}
                         handleChangeRowsPerPage={handleChangeRowsPerPage}
-                        xlData={xlData}
+                        // xlData={xlData}
                         fileName={fileName}
                         columns={columns}
                         getCellValue={getCellValue}

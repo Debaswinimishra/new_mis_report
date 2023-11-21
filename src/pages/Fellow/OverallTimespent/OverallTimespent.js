@@ -193,8 +193,8 @@ const OverallTimespent = () => {
   };
 
   const fetchFilteredData = () => {
-    if (!selectedYear) {
-      alert("Please select a year before filtering.");
+    if (!selectedYear || !month) {
+      alert("Please select year and month before filtering.");
       return;
     }
 

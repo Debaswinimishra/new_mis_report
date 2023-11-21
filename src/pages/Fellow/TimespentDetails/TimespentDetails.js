@@ -47,7 +47,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const monthArr = [
-//   { value: "none", label: "none" },
+  //   { value: "none", label: "none" },
   { value: "january", label: "January" },
   { value: "february", label: "February" },
   { value: "march", label: "March" },
@@ -191,8 +191,8 @@ const TimespentDetails = () => {
   };
 
   const fetchFilteredData = () => {
-    if (!selectedYear) {
-      alert("Please select a year before filtering.");
+    if (!selectedYear || !month || !managerName || !passcode) {
+      alert("Please select all required fields (Year, Month, Manager, Passcode) before filtering.");
       return;
     }
 
@@ -288,21 +288,21 @@ const TimespentDetails = () => {
           <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
 
           <TextField
-                id="outlined-select-currency"
-                select
-                label="Select month"
-                value={month}
-                 onChange={(e) => handleMonthChange(e)}
-              >
-                <MenuItem value = "">None</MenuItem>
-                {selectedYear && selectedYear != ""
-                  ? monthArr?.map((option) => (
-                      <MenuItem key={option.id} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))
-                  : null}
-              </TextField>
+            id="outlined-select-currency"
+            select
+            label="Select month"
+            value={month}
+            onChange={(e) => handleMonthChange(e)}
+          >
+            <MenuItem value="">None</MenuItem>
+            {selectedYear && selectedYear != ""
+              ? monthArr?.map((option) => (
+                  <MenuItem key={option.id} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))
+              : null}
+          </TextField>
 
           <TextField
             id="outlined-select-currency"
@@ -312,14 +312,16 @@ const TimespentDetails = () => {
             value={managerName}
             onChange={(e) => handleManagerChange(e)}
           >
-            <MenuItem value="">None</MenuItem>
-            {Array.isArray(managerArr)
-              ? managerArr.map((option, index) => (
-                  <MenuItem key={index + 1} value={option.managerid}>
-                    {option.managername}
-                  </MenuItem>
-                ))
-              : null}
+             <MenuItem value="">None</MenuItem>
+            {Array.isArray(managerArr) && selectedYear && month ? (
+              managerArr.map((option, index) => (
+                <MenuItem key={index + 1} value={option.managerid}>
+                  {option.managername}
+                </MenuItem>
+              ))
+            ) : (
+             ""
+            )}
           </TextField>
 
           <ReusableTextField
@@ -338,7 +340,7 @@ const TimespentDetails = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(districts)
+            {Array.isArray(districts) 
               ? districts.map((option, index) => (
                   <MenuItem
                     key={index + 1}

@@ -59,30 +59,42 @@ const moduleColumn = [
 ];
 
 const Feedback = () => {
-  const [selectedYear, setSelectedYear] = useState("");
-  const [managerArr, setManagerArr] = useState([]);
-  const [managerName, setManagerName] = useState([]);
+  const [selectedYear, setSelectedYear] = useState(""); //? When the year is selected
+  const [managerArr, setManagerArr] = useState([]); //?All managerdata are fetched here
+  const [managerName, setManagerName] = useState([]); //? The particular manager is selected
   const [managerType, setManagerType] = useState("");
-  const [passcode, setPasscode] = useState("");
+  const [passcode, setPasscode] = useState(""); //?Selected passcode
   const [page, setPage] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
-  console.log("filteredData", filteredData);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
-  const [surevey, setSurvey] = useState([]);
+  const [surevey, setSurvey] = useState([]); //?Here I will store all the surveys (for filter) that I will get from API
+  const [selectedSurvey, setSelectedSurvey] = useState(""); //?Individual survey name/ survey id selected
+  const [allData, setAllData] = useState([]); //?After filteration, all my data will be stored here
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await getAllManagersWidPasscodes();
+  //     } catch (err) {
+  //       console.log("err--->", err.response.status);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getAllManagersWidPasscodes();
-        setManagerArr(response.data.resData);
-      } catch (err) {
-        console.log("err--->", err.response.status);
-      }
-    };
-    fetchData();
-  }, []);
+    if (selectedYear) {
+      getAllManagersWidPasscodes().then((res) => {
+        if (res.status === 200) {
+          setManagerArr(res.data.resData);
+        } else {
+          toast.error("Sorry, couldn't load data!");
+        }
+      });
+    }
+  }, [selectedYear]);
 
   let passcodeArray = [];
 
@@ -112,8 +124,19 @@ const Feedback = () => {
     setFilteredData([]);
     setTotalDataLength(0);
     setPasscode(event.target.value);
+    getSurveyDetails().then((res) => {
+      if (res.status === 200) {
+        setSurvey(res.data);
+      } else {
+        toast.error("Sorry, couldn't retreive data !");
+      }
+    });
+  };
 
-    //!---------------------To add the feed back response from api
+  //*----------Survey change---------------------
+  const onSurveyChange = (e) => {
+    setSelectedSurvey(e.target.value);
+    // setAllData([]);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -148,10 +171,10 @@ const Feedback = () => {
       //   passcode: passcode,
       // };
 
-      //*---------------------Api call for populating the table------------------------
+      //*Api call for populating the table
       const apiCall =
         //   ? Here the filtration of data will be done.
-        getAllFeedbackData(dataForFiltration);
+        getAllFeedbackData(dataForFiltration); //
       apiCall
         .then((data) => {
           setLoaded(false);
@@ -174,6 +197,7 @@ const Feedback = () => {
     }
   };
 
+  //?------------------This will modify my table data when fetched----------
   const getCellValue = (row, column, index) => {
     switch (column) {
       case "Serial No":
@@ -217,6 +241,23 @@ const Feedback = () => {
             gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
           }}
         >
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Survey name"
+            defaultValue="none"
+            value={selectedSurvey}
+            onChange={(e) => onSurveyChange(e)}
+          >
+            <MenuItem value="">None</MenuItem>
+            {Array.isArray(surevey)
+              ? surevey.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.managerid}>
+                    {option.managername}
+                  </MenuItem>
+                ))
+              : null}
+          </TextField>
           <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
 
           <TextField
@@ -243,24 +284,6 @@ const Feedback = () => {
             options={passcodeArray}
             onChange={(e) => handlePasscodeChange(e)}
           />
-
-          <TextField
-            id="outlined-select-currency"
-            select
-            label="Survey name"
-            defaultValue="none"
-            value={managerName}
-            onChange={(e) => handleManagerChange(e)}
-          >
-            <MenuItem value="">None</MenuItem>
-            {Array.isArray(managerArr)
-              ? managerArr.map((option, index) => (
-                  <MenuItem key={index + 1} value={option.managerid}>
-                    {option.managername}
-                  </MenuItem>
-                ))
-              : null}
-          </TextField>
 
           <Stack spacing={2} direction="row">
             <Button

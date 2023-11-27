@@ -153,6 +153,8 @@ const Feedback = () => {
       return toast.error("Please select all the fields before proceeding.");
     } else if (!selectedYear) {
       return toast.error("Please select a year before proceeding.");
+    } else if (!selectedSurvey) {
+      return toast.error("Please select a survey before proceeding.");
     } else if (!managerName) {
       return toast.error("Please select a manager before proceeding.");
     } else if (!passcode) {

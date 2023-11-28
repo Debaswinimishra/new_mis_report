@@ -49,9 +49,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const moduleColumn = [
   "Serial No",
-  "User Name",
-  "User Id",
-  "No of Students",
+  "Username",
+  "Manager",
+  "Passcode",
   "Gender",
   "Contact Number",
   "Status(Active/Inactive)",
@@ -73,16 +73,13 @@ const Feedback = () => {
   const [selectedSurvey, setSelectedSurvey] = useState(""); //?Individual survey name/ survey id selected
   const [allData, setAllData] = useState([]); //?After filteration, all my data will be stored here
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await getAllManagersWidPasscodes();
-  //     } catch (err) {
-  //       console.log("err--->", err.response.status);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    getSurveyDetails().then((res) => {
+      if (res.status === 200) {
+        setSurvey(res.data);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     if (selectedYear) {
@@ -120,22 +117,18 @@ const Feedback = () => {
     setManagerName(event.target.value);
   };
 
-  const handlePasscodeChange = async (event) => {
+  const handlePasscodeChange = (event) => {
     setFilteredData([]);
     setTotalDataLength(0);
     setPasscode(event.target.value);
-    getSurveyDetails().then((res) => {
-      if (res.status === 200) {
-        setSurvey(res.data);
-      } else {
-        toast.error("Sorry, couldn't retreive data !");
-      }
-    });
   };
 
   //*----------Survey change---------------------
   const onSurveyChange = (e) => {
     setSelectedSurvey(e.target.value);
+    setSelectedYear("");
+    setManagerName("");
+    setPasscode("");
     // setAllData([]);
   };
 
@@ -151,42 +144,34 @@ const Feedback = () => {
   const fetchFilteredData = () => {
     if (!selectedYear && !managerName && !passcode) {
       return toast.error("Please select all the fields before proceeding.");
-    } else if (!selectedYear) {
-      return toast.error("Please select a year before proceeding.");
-    } else if (!selectedSurvey) {
-      return toast.error("Please select a survey before proceeding.");
-    } else if (!managerName) {
-      return toast.error("Please select a manager before proceeding.");
-    } else if (!passcode) {
-      return toast.error("Please select a passcode before proceeding.");
-    } else {
+    }
+    // else if (!selectedYear) {
+    //   return toast.error("Please select a year before proceeding.");
+    // } else if (!selectedSurvey) {
+    //   return toast.error("Please select a survey before proceeding.");
+    // } else if (!managerName) {
+    //   return toast.error("Please select a manager before proceeding.");
+    // } else if (!passcode) {
+    //   return toast.error("Please select a passcode before proceeding.");
+    // }
+    else {
       setLoaded(true);
       const dataForFiltration = {
-        year: selectedYear,
-        managerid: managerName,
-        passcode: passcode,
+        survey: selectedSurvey,
+        year: selectedYear ? selectedYear : "",
+        managerid: managerName ? managerName : "",
+        passcode: passcode ? passcode : "",
       };
-
-      // const filterCriteriaWithoutBlockAndDistrict = {
-      //   year: selectedYear,
-      //   managerid: managerName,
-      //   passcode: passcode,
-      // };
-
-      //*Api call for populating the table
-      const apiCall =
-        //   ? Here the filtration of data will be done.
-        getAllFeedbackData(dataForFiltration); //
+      const apiCall = getAllFeedbackData(dataForFiltration);
       apiCall
-        .then((data) => {
+        .then((res) => {
           setLoaded(false);
-          console.log("data", data);
-          if (data.length === 0) {
-            setFilteredData([]);
-            alert("No data found");
-          } else if (data.length > 0) {
-            setFilteredData(data);
-            setTotalDataLength(data.length);
+          console.log("data-------------------->::", res.data);
+          if (res.status === 200) {
+            setFilteredData(res.data);
+            setTotalDataLength(res.data.length);
+          } else {
+            toast.error("Sorry, something went wrong !");
           }
         })
         .catch((error) => {
@@ -206,10 +191,10 @@ const Feedback = () => {
         return index + 1;
       case "User Name":
         return row.username;
-      case "User Id":
-        return row.userid;
-      case "Gender":
-        return row.gender;
+      case "Manager Name":
+        return row.managername;
+      case "Passcode":
+        return row.passcode;
       case "Contact Number":
         return row.contactnumber ? row.contactnumber : "NA";
       case "Aadhaar Number":
@@ -225,6 +210,14 @@ const Feedback = () => {
     const { ...exceptBoth } = x;
     return exceptBoth;
   });
+
+  //todo---------------------------------Console logs------------------------------------------------
+  // console.log("survey------------------------->", surevey);
+  // console.log("year----------------------------->", selectedYear);
+  // console.log("manager----------------------------->", managerName);
+  // console.log("passcode----------------------------->", passcode);
+  // console.log("selected survey----------------------------->", selectedSurvey);
+  console.log("filtered data----------------------------->", filteredData);
 
   return (
     <Box>
@@ -254,8 +247,8 @@ const Feedback = () => {
             <MenuItem value="">None</MenuItem>
             {Array.isArray(surevey)
               ? surevey.map((option, index) => (
-                  <MenuItem key={index + 1} value={option.managerid}>
-                    {option.managername}
+                  <MenuItem key={index + 1} value={option.surveyId}>
+                    {option.surveyName}
                   </MenuItem>
                 ))
               : null}

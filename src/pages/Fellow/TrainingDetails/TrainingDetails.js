@@ -13,11 +13,11 @@ import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
 import {
-  getAllManagersWidPasscodes,
-  getSurveyDetails,
-  getAllFeedbackData,
-} from "./FeedbackApi";
-// import { FellowDetailsForManager } from "./EducatorsDetailsApi";
+  getAllCommunityEducatiorFilter,
+  getAllDistricts,
+  getDistrictsWiseBlocks,
+} from "../CommunityEducator/CommunityEducatorApi";
+import { FellowDetailsForManager } from "./TrainingDetailsApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -25,9 +25,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Logo from "../../../ReusableComponents/Logo";
 import Loader from "../../../ReusableComponents/Loader";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Fields from "../../../ReusableComponents/Fields";
+// import Links from "../../../ReusableComponents/Links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -48,52 +46,52 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const moduleColumn = [
-  "Serial No",
-  "Username",
-  "Manager",
-  "Passcode",
-  "Completion Status",
-  // "Gender",
-  // "Contact Number",
-  // "Status(Active/Inactive)",
-  // "Yo",
+const managerTypeArr = [
+  { value: "none", label: "none" },
+  { value: "manager", label: "MANAGER" },
+  { value: "Crc", label: "CRC" },
+  { value: "Aww", label: "Supervisor" },
 ];
 
-const Feedback = () => {
-  const [selectedYear, setSelectedYear] = useState(""); //? When the year is selected
-  const [managerArr, setManagerArr] = useState([]); //?All managerdata are fetched here
-  const [managerName, setManagerName] = useState([]); //? The particular manager is selected
+const moduleColumn = [
+  "Serial No",
+  "User Name",
+  "User Id",
+  "No of Students",
+  "Gender",
+  "Contact Number",
+  "Status(Active/Inactive)",
+  "Aadhaar Number",
+];
+
+const TrainingDetails = () => {
+  const [selectedYear, setSelectedYear] = useState("");
+  const [managerArr, setManagerArr] = useState([]);
+  const [managerName, setManagerName] = useState([]);
   const [managerType, setManagerType] = useState("");
-  const [passcode, setPasscode] = useState(""); //?Selected passcode
+  const [passcode, setPasscode] = useState("");
+  const [districts, setDistricts] = useState([]);
   const [page, setPage] = useState(0);
+  const [districtName, setDistrictName] = useState("");
+  const [allBlocks, setAllBlocks] = useState([]);
+  const [blockName, setBlockName] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  console.log("filteredData", filteredData);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
-  const [surevey, setSurvey] = useState([]); //?Here I will store all the surveys (for filter) that I will get from API
-  const [selectedSurvey, setSelectedSurvey] = useState(""); //?Individual survey name/ survey id selected
-  const [allData, setAllData] = useState([]); //?After filteration, all my data will be stored here
 
   useEffect(() => {
-    getSurveyDetails().then((res) => {
-      if (res.status === 200) {
-        setSurvey(res.data);
+    const fetchData = async () => {
+      try {
+        const response = await getAllCommunityEducatiorFilter();
+        setManagerArr(response.data.resData);
+      } catch (err) {
+        console.log("err--->", err.response.status);
       }
-    });
+    };
+    fetchData();
   }, []);
-
-  useEffect(() => {
-    if (selectedYear) {
-      getAllManagersWidPasscodes().then((res) => {
-        if (res.status === 200) {
-          setManagerArr(res.data.resData);
-        } else {
-          toast.error("Sorry, couldn't load data!");
-        }
-      });
-    }
-  }, [selectedYear]);
 
   let passcodeArray = [];
 
@@ -104,34 +102,66 @@ const Feedback = () => {
   });
 
   const handleYearChange = (selectedYear) => {
-    setSelectedYear(selectedYear);
-    // setManagerType("");
+    setManagerType("");
     setManagerName("");
     setPasscode("");
+    setDistrictName("");
+    setBlockName("");
     setFilteredData([]);
     setTotalDataLength(0);
+    setSelectedYear(selectedYear);
+    // setShowFieldsData(false);
   };
 
   const handleManagerChange = (event) => {
     setPasscode("");
+    setDistrictName("");
+    setBlockName("");
     setFilteredData([]);
     setTotalDataLength(0);
     setManagerName(event.target.value);
+    // setShowFieldsData(false);
   };
 
-  const handlePasscodeChange = (event) => {
+  const handlePasscodeChange = async (event) => {
     setFilteredData([]);
     setTotalDataLength(0);
+    setDistrictName("");
+    setBlockName("");
     setPasscode(event.target.value);
+    try {
+      // setLoaded(true);
+      const response2 = await getAllDistricts();
+      console.log("response--->", response2.data);
+      setDistricts(response2.data);
+      // setLoaded(false);
+    } catch (error) {
+      // setLoaded(false);
+      console.error("Error--->", error);
+    }
+
+    // setShowFieldsData(false);
   };
 
-  //*----------Survey change---------------------
-  const onSurveyChange = (e) => {
-    setSelectedSurvey(e.target.value);
-    setSelectedYear("");
-    setManagerName("");
-    setPasscode("");
-    // setAllData([]);
+  const handleDistrictChange = async (e) => {
+    setBlockName("");
+    setFilteredData([]);
+    setTotalDataLength(0);
+    const selectedValue = e.target.value;
+    setDistrictName(e.target.value);
+    console.log("Selected value:", e);
+    // setLoaded(true);
+    const response = await getDistrictsWiseBlocks(e.target.value);
+    console.log("block response---->", response.data);
+    setAllBlocks(response.data);
+    // setLoaded(false);
+  };
+
+  const handleBlockChange = (e) => {
+    console.log("block--->", e.target.value);
+    setFilteredData([]);
+    setTotalDataLength(0);
+    setBlockName(e.target.value);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -144,62 +174,70 @@ const Feedback = () => {
   };
 
   const fetchFilteredData = () => {
-    if (!selectedSurvey) {
-      return toast.error("Please select a survey before proceeding.");
+    if (!selectedYear) {
+      alert("Please select a year before filtering.");
+      return;
     }
-    // else if (!selectedYear) {
-    //   return toast.error("Please select a year before proceeding.");
-    // } else if (!selectedSurvey) {
-    //   return toast.error("Please select a survey before proceeding.");
-    // } else if (!managerName) {
-    //   return toast.error("Please select a manager before proceeding.");
-    // } else if (!passcode) {
-    //   return toast.error("Please select a passcode before proceeding.");
-    // }
-    else {
-      setLoaded(true);
-      const dataForFiltration = {
-        survey: selectedSurvey,
-        year: selectedYear ? selectedYear : "",
-        managerid: managerName ? managerName : "",
-        passcode: passcode ? passcode : "",
-      };
-      const apiCall = getAllFeedbackData(dataForFiltration);
-      apiCall
-        .then((res) => {
-          setLoaded(false);
-          console.log("data-------------------->::", res.data);
-          if (res.status === 200) {
-            setFilteredData(res.data);
-            setTotalDataLength(res.data.length);
-          } else {
-            toast.error("Sorry, something went wrong !");
-          }
-        })
-        .catch((error) => {
-          setLoaded(false);
-          console.error("Error:", error);
-        })
-        .finally(() => {
-          setLoaded(false);
-        });
-    }
+
+    setLoaded(true);
+    const filterCriteriaWithBlockAndDistrict = {
+      year: selectedYear,
+      managerid: managerName,
+      passcode: passcode,
+      districtid: districtName,
+      blockid: blockName,
+    };
+
+    // const filterCriteriaWithoutBlockAndDistrict = {
+    //   year: selectedYear,
+    //   managerid: managerName,
+    //   passcode: passcode,
+    // };
+
+    const apiCall =
+      // districtName && blockName
+      //   ?
+      FellowDetailsForManager(filterCriteriaWithBlockAndDistrict);
+    // : FellowDetailsForManager(filterCriteriaWithoutBlockAndDistrict);
+
+    apiCall
+      .then((data) => {
+        setLoaded(false);
+        console.log("data", data);
+        if (data.length === 0) {
+          setFilteredData([]);
+          alert("No data found");
+        } else if (data.length > 0) {
+          setFilteredData(data);
+          setTotalDataLength(data.length);
+        }
+      })
+      .catch((error) => {
+        setLoaded(false);
+        console.error("Error:", error);
+      })
+      .finally(() => {
+        setLoaded(false);
+      });
   };
 
-  //?------------------This will modify my table data when fetched----------
   const getCellValue = (row, column, index) => {
     switch (column) {
       case "Serial No":
         return index + 1;
-      case "Username":
+      case "User Name":
         return row.username;
-      case "Manager":
-        return row.managername;
-      case "Passcode":
-        return row.passcode;
-      case "Completion Status":
+      case "User Id":
+        return row.userid;
+      case "No of Students":
+        return row.studentsCount;
+      case "Gender":
+        return row.gender;
+      case "Contact Number":
         return row.contactnumber ? row.contactnumber : "NA";
-      case "Yo":
+      case "Status(Active/Inactive)":
+        return row.status;
+      case "Aadhaar Number":
         return row.aadhaar ? row.aadhaar : "NA";
       default:
         return "";
@@ -212,24 +250,6 @@ const Feedback = () => {
     const { ...exceptBoth } = x;
     return exceptBoth;
   });
-
-  const mySelectedSurveyData = filteredData.map(
-    (item) =>
-      item.modifiedSurveyData.filter((obj) => obj.surveyId === selectedSurvey)
-    // console.log("item.modifiedSUrvey---------------->", item.modifiedSurveyData)
-  );
-
-  //todo---------------------------------Console logs------------------------------------------------
-  // console.log("survey------------------------->", surevey);
-  // console.log("year----------------------------->", selectedYear);
-  // console.log("manager----------------------------->", managerName);
-  // console.log("passcode----------------------------->", passcode);
-  console.log("selected survey----------------------------->", selectedSurvey);
-  console.log("filtered data----------------------------->", filteredData);
-  console.log(
-    "mySelectedSurveyData--------------------------->",
-    mySelectedSurveyData
-  );
 
   return (
     <Box>
@@ -248,23 +268,6 @@ const Feedback = () => {
             gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
           }}
         >
-          <TextField
-            id="outlined-select-currency"
-            select
-            label="Survey name"
-            defaultValue="none"
-            value={selectedSurvey}
-            onChange={(e) => onSurveyChange(e)}
-          >
-            <MenuItem value="">None</MenuItem>
-            {Array.isArray(surevey)
-              ? surevey.map((option, index) => (
-                  <MenuItem key={index + 1} value={option.surveyId}>
-                    {option.surveyName}
-                  </MenuItem>
-                ))
-              : null}
-          </TextField>
           <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
 
           <TextField
@@ -276,7 +279,7 @@ const Feedback = () => {
             onChange={(e) => handleManagerChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {selectedYear && Array.isArray(managerArr)
+            {Array.isArray(managerArr)
               ? managerArr.map((option, index) => (
                   <MenuItem key={index + 1} value={option.managerid}>
                     {option.managername}
@@ -292,6 +295,46 @@ const Feedback = () => {
             onChange={(e) => handlePasscodeChange(e)}
           />
 
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select districts"
+            defaultValue="none"
+            value={districtName}
+            onChange={(e) => handleDistrictChange(e)}
+          >
+            <MenuItem value="">None</MenuItem>
+            {Array.isArray(districts)
+              ? districts.map((option, index) => (
+                  <MenuItem
+                    key={index + 1}
+                    value={option._id}
+                    data-name={option.districtname}
+                  >
+                    {option.districtname}
+                  </MenuItem>
+                ))
+              : null}
+          </TextField>
+
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select Blocks"
+            defaultValue="none"
+            value={blockName}
+            onChange={(e) => handleBlockChange(e)}
+          >
+            <MenuItem value="">None</MenuItem>
+            {Array.isArray(allBlocks)
+              ? allBlocks?.map((option, index) => (
+                  <MenuItem key={index + 1} value={option._id}>
+                    {option.blockname}
+                  </MenuItem>
+                ))
+              : null}
+          </TextField>
+
           <Stack spacing={2} direction="row">
             <Button
               variant="contained"
@@ -303,7 +346,7 @@ const Feedback = () => {
           </Stack>
         </div>
       </div>
-      {/* {loaded ? (
+      {loaded ? (
         <Loader />
       ) : selectedYear && filteredData && filteredData.length > 0 ? (
         <TableContainer
@@ -350,27 +393,9 @@ const Feedback = () => {
         </TableContainer>
       ) : (
         ""
-      )} */}
-
-      {filteredData && Object.keys(filteredData).length > 0 ? (
-        <Fields
-          data={filteredData}
-          totalDataLength={totalDataLength}
-          page={page}
-          rowsPerPage={rowsPerPage}
-          handleChangePage={handleChangePage}
-          handleChangeRowsPerPage={handleChangeRowsPerPage}
-          xlData={xlData}
-          fileName={fileName}
-          columns={moduleColumn}
-          getCellValue={getCellValue}
-        />
-      ) : (
-        "No Data Available"
       )}
-      <ToastContainer />
     </Box>
   );
 };
 
-export default Feedback;
+export default TrainingDetails;

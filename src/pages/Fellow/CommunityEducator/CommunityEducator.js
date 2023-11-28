@@ -497,19 +497,90 @@ const ComunityEducator = () => {
               <>
                 {isFilterButtonClicked && tab1FilterData.length > 0 ? (
                   <div style={{ padding: "30px 20px", width: "100%" }}>
-                    <div>
-                      <Fields
-                        data={tab1FilterData}
-                        totalDataLength={totalDataLength}
-                        page={page}
-                        rowsPerPage={rowsPerPage}
-                        handleChangePage={handleChangePage}
-                        handleChangeRowsPerPage={handleChangeRowsPerPage}
-                        xlData={xlData}
-                        fileName={fileName}
-                        columns={columns}
-                        getCellValue={getCellValue}
-                      />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {tab1FilterData.map((item, index) => (
+                        <div
+                          key={index} // Added a unique key for each mapped element
+                          style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: "#f3f2ff",
+                              width: "350px",
+                              height: "200px", // Increased the height to accommodate all child divs
+                              borderRadius: "10px",
+                              border: "1px solid #000", // Added a border for better visualization
+                              margin: "10px", // Added margin for better spacing
+                            }}
+                          >
+                            <h3>
+                              Total Educators Trained:{" "}
+                              <h2 style={{ color: "rgb(65, 105, 225)" }}>
+                                {item.totalUsersCount}
+                              </h2>
+                            </h3>
+                          </div>
+                          <div
+                            style={{
+                              backgroundColor: "#f3f2ff",
+                              width: "350px",
+                              height: "200px", // Increased the height to accommodate all child divs
+                              borderRadius: "10px",
+                              border: "1px solid #000", // Added a border for better visualization
+                              margin: "10px", // Added margin for better spacing
+                            }}
+                          >
+                            <h3>
+                              Total Students Impacted:{" "}
+                              <h2 style={{ color: "rgb(65, 105, 225)" }}>
+                                {item.totalStudentsCount}{" "}
+                              </h2>
+                            </h3>
+                          </div>
+                          <div
+                            style={{
+                              backgroundColor: "#f3f2ff",
+                              width: "350px",
+                              height: "200px", // Increased the height to accommodate all child divs
+                              borderRadius: "10px",
+                              border: "1px solid #000", // Added a border for better visualization
+                              margin: "10px", // Added margin for better spacing
+                            }}
+                          >
+                            <h3>
+                              Total Primary-grade Students Impacted:{" "}
+                              <h2 style={{ color: "rgb(65, 105, 225)" }}>
+                                {item.pgeStudentsCount}
+                              </h2>
+                            </h3>
+                          </div>
+                          <div
+                            style={{
+                              backgroundColor: "#f3f2ff",
+                              width: "350px",
+                              height: "200px", // Increased the height to accommodate all child divs
+                              borderRadius: "10px",
+                              border: "1px solid #000", // Added a border for better visualization
+                              margin: "10px", // Added margin for better spacing
+                            }}
+                          >
+                            <h3>
+                              Total Pre-Primary-grade Students Impacted:{" "}
+                              <h2 style={{ color: "rgb(65, 105, 225)" }}>
+                                {item.eceStudentsCount}
+                              </h2>
+                            </h3>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ) : null}
@@ -643,19 +714,39 @@ const ComunityEducator = () => {
               <>
                 {isFilterButtonClicked && tab2FilterData.length > 0 ? (
                   <div style={{ padding: "30px 20px", width: "100%" }}>
-                    <div>
-                      <Fields
-                        data={tab2FilterData}
-                        totalDataLength={totalDataLength}
-                        page={page}
-                        rowsPerPage={rowsPerPage}
-                        handleChangePage={handleChangePage}
-                        handleChangeRowsPerPage={handleChangeRowsPerPage}
-                        fileName={fileName}
-                        xlData={xlDatas}
-                        columns={columns1}
-                        getCellValue={getCellValue1}
-                      />
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {tab2FilterData.map((item, index) => (
+                        <div
+                          key={index} // Added a unique key for each mapped element
+                          style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                          }}
+                        >
+                          <div
+                            style={{
+                              backgroundColor: "#f3f2ff",
+                              width: "350px",
+                              height: "200px", // Increased the height to accommodate all child divs
+                              borderRadius: "10px",
+                              border: "1px solid #000", // Added a border for better visualization
+                              margin: "10px", // Added margin for better spacing
+                            }}
+                          >
+                            <h3>
+                              Total Educators Trained:{" "}
+                              <h2 style={{ color: "rgb(65, 105, 225)" }}>
+                                {item.activeUsersCount}
+                              </h2>
+                            </h3>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 ) : null}

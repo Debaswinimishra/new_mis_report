@@ -29,7 +29,10 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import FeedIcon from "@mui/icons-material/Feed";
 import Links from "../../ReusableComponents/Links";
 import Avatar from "@mui/material/Avatar";
+import SchoolIcon from "@mui/icons-material/School";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import QuizIcon from "@mui/icons-material/Quiz";
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 const drawerWidth = 240;
 
@@ -76,6 +79,27 @@ function NavigationFellow(props) {
       link: "feedback",
       icon: <FeedIcon sx={{ color: "#018749" }} />,
     },
+    {
+      text: "Training Details C.E",
+      link: "training_details_c.e",
+      icon: <GroupsIcon sx={{ color: "orange" }} />,
+    },
+    {
+      text: "Assessments C.E",
+      link: "assessments_c.e",
+      icon: <SchoolIcon sx={{ color: "#F64A8A" }} />,
+    },
+    {
+      text: "Timespent Details C.E",
+      link: "timespent_details_c.e",
+      icon: <AccessTimeIcon sx={{ color: "rgb(0,128,128)" }} />,
+    },
+    {
+      text: "Overall Timespent C.E",
+      link: "overall_timespent_c.e",
+      icon: <AccessTimeFilledIcon sx={{ color: "purple" }} />,
+    },
+   
     // {
     //   text: "Common Monthly Quiz",
     //   link: "common_monthly_quiz",

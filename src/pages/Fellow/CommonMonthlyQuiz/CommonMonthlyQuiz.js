@@ -287,7 +287,7 @@ const CommonMonthlyQuiz = () => {
     "Topic name",
     "Secured Mark",
     "Total Mark",
-    "Percentage"
+    "Percentage",
   ];
 
   const getCellValue = (row, column, index) => {
@@ -306,12 +306,12 @@ const CommonMonthlyQuiz = () => {
         return row.username;
       case "Topic name":
         return row.topicName;
-        case "Total Mark":
+      case "Total Mark":
         return row.totalMarks;
       case "Secured Mark":
         return row.securedMarks;
-        case "Percentage":
-          return row.percentage;
+      case "Percentage":
+        return row.percentage;
       default:
         return "";
     }
@@ -421,7 +421,7 @@ const CommonMonthlyQuiz = () => {
                   value={managerType}
                   onChange={(e) => handleManagerTypeChange(e)}
                 >
-                  <MenuItem value = "">None</MenuItem>
+                  <MenuItem value="">None</MenuItem>
                   {selectedYear && selectedYear != ""
                     ? managerTypeArr?.map((option) => (
                         <MenuItem key={option.id} value={option.value}>
@@ -696,7 +696,6 @@ const CommonMonthlyQuiz = () => {
                   value={questionName}
                   onChange={handleQuestionChange}
                 >
-                 
                   {/* {questionArr?.map((option, index) => (
                     <MenuItem key={option.question} value={option.questionId}>
                       {option.question}
@@ -704,11 +703,11 @@ const CommonMonthlyQuiz = () => {
                   ))} */}
                   {questionArr ? (
                     questionArr.map((option, index) => (
-                    <MenuItem key={option.question} value={option.questionId}>
-                      {option.question}
-                    </MenuItem>
-                     ))
-                    ) : (
+                      <MenuItem key={option.question} value={option.questionId}>
+                        {option.question}
+                      </MenuItem>
+                    ))
+                  ) : (
                     <div>None</div>
                   )}
                 </TextField>

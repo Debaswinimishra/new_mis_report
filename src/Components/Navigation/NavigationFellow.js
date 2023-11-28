@@ -75,12 +75,12 @@ function NavigationFellow(props) {
     {
       text: "Training Details C.E",
       link: "training_details_c.e",
-      icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
+      icon: <GroupsIcon sx={{ color: "orange" }} />,
     },
     {
       text: "Assessments C.E",
       link: "assessments_c.e",
-      icon: <SchoolIcon sx={{ color: "rgb(0,128,128)" }} />,
+      icon: <SchoolIcon sx={{ color: "#F64A8A" }} />,
     },
     {
       text: "Timespent Details C.E",
@@ -90,7 +90,7 @@ function NavigationFellow(props) {
     {
       text: "Overall Timespent C.E",
       link: "overall_timespent_c.e",
-      icon: <AccessTimeFilledIcon sx={{ color: "rgb(0,128,128)" }} />,
+      icon: <AccessTimeFilledIcon sx={{ color: "purple" }} />,
     },
    
     // {

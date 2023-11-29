@@ -62,7 +62,7 @@ const monthArr = [
   { value: "december", label: "December" },
 ];
 
-const moduleColumn = [
+const column = [
   "Serial No",
   "User Name",
   "User Id",
@@ -397,7 +397,7 @@ const TimespentDetails = () => {
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
-                {moduleColumn.map((column) => (
+                {column.map((column) => (
                   <StyledTableCell key={column}>{column}</StyledTableCell>
                 ))}
               </TableRow>
@@ -408,7 +408,7 @@ const TimespentDetails = () => {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => (
                     <StyledTableRow key={index}>
-                      {moduleColumn.map((column, columnIndex) => (
+                      {column.map((column, columnIndex) => (
                         <StyledTableCell key={columnIndex}>
                           {getCellValue(row, column, index)}
                         </StyledTableCell>

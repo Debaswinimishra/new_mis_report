@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
 import loader from "../../../Assets/R.gif";
+import moment from "moment";
 import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
@@ -17,7 +18,7 @@ import {
   getAllDistricts,
   getDistrictsWiseBlocks,
 } from "../CommunityEducator/CommunityEducatorApi";
-import { FellowDetailsForManager } from "./TimespentDetailsApi";
+import { TimespentDetailsApi } from "./TimespentDetailsApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -48,29 +49,35 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const monthArr = [
   //   { value: "none", label: "none" },
-  { value: "january", label: "January" },
-  { value: "february", label: "February" },
-  { value: "march", label: "March" },
-  { value: "april", label: "April" },
-  { value: "may", label: "May" },
-  { value: "june", label: "June" },
-  { value: "july", label: "July" },
-  { value: "august", label: "August" },
-  { value: "september", label: "September" },
-  { value: "october", label: "October" },
-  { value: "november", label: "November" },
-  { value: "december", label: "December" },
+  { value: "1", label: "January" },
+  { value: "2", label: "February" },
+  { value: "3", label: "March" },
+  { value: "4", label: "April" },
+  { value: "5", label: "May" },
+  { value: "6", label: "June" },
+  { value: "7", label: "July" },
+  { value: "8", label: "August" },
+  { value: "9", label: "September" },
+  { value: "10", label: "October" },
+  { value: "11", label: "November" },
+  { value: "12", label: "December" },
 ];
 
 const column = [
   "Serial No",
   "User Name",
-  "User Id",
-  "No of Students",
-  "Gender",
-  "Contact Number",
-  "Status(Active/Inactive)",
-  "Aadhaar Number",
+  "Registration Date",
+  "Pedagogy",
+  "21st Century",
+  "Technology",
+  "Commom Monthly Quiz",
+  "PGE",
+  "ECE",
+  "FLN",
+  "Community Engagement",
+  "Student Assessment",
+  "Books",
+  "Survey",
 ];
 
 const TimespentDetails = () => {
@@ -192,13 +199,16 @@ const TimespentDetails = () => {
 
   const fetchFilteredData = () => {
     if (!selectedYear || !month || !managerName || !passcode) {
-      alert("Please select all required fields (Year, Month, Manager, Passcode) before filtering.");
+      alert(
+        "Please select all required fields (Year, Month, Manager, Passcode) before filtering."
+      );
       return;
     }
 
     setLoaded(true);
     const filterCriteriaWithBlockAndDistrict = {
-      year: selectedYear,
+      year: parseInt(selectedYear),
+      month: parseInt(month),
       managerid: managerName,
       passcode: passcode,
       districtid: districtName,
@@ -214,7 +224,7 @@ const TimespentDetails = () => {
     const apiCall =
       // districtName && blockName
       //   ?
-      FellowDetailsForManager(filterCriteriaWithBlockAndDistrict);
+      TimespentDetailsApi(filterCriteriaWithBlockAndDistrict);
     // : FellowDetailsForManager(filterCriteriaWithoutBlockAndDistrict);
 
     apiCall
@@ -244,24 +254,36 @@ const TimespentDetails = () => {
         return index + 1;
       case "User Name":
         return row.username;
-      case "User Id":
-        return row.userid;
-      case "No of Students":
-        return row.studentsCount;
-      case "Gender":
-        return row.gender;
-      case "Contact Number":
-        return row.contactnumber ? row.contactnumber : "NA";
-      case "Status(Active/Inactive)":
-        return row.status;
-      case "Aadhaar Number":
-        return row.aadhaar ? row.aadhaar : "NA";
+      case "Registration Date":
+        return moment(row.createdon).format("DD/MM/YYYY")
+      case "Pedagogy":
+        return row.training3;
+      case "21st Century":
+        return row.training1;
+      case "Technology":
+        return row.training2;
+      case "Commom Monthly Quiz":
+        return row.tchTtlQuiz;
+      case "PGE":
+        return row.pgeactivity ;
+      case "ECE":
+        return row.eceactivity ;
+      case "FLN":
+        return row.fln ;
+      case "Community Engagement":
+        return row.communityActivity ;
+      case "Student Assessment":
+        return row.studentAssessment ;
+      case "Books":
+        return row.reading ;
+        case "Survey":
+          return row.tchSurvey ;
       default:
         return "";
     }
   };
 
-  const fileName = "FellowDetails";
+  const fileName = "TimespentDetails";
 
   const xlData = filteredData.map((x) => {
     const { ...exceptBoth } = x;
@@ -312,16 +334,14 @@ const TimespentDetails = () => {
             value={managerName}
             onChange={(e) => handleManagerChange(e)}
           >
-             <MenuItem value="">None</MenuItem>
-            {Array.isArray(managerArr) && selectedYear && month ? (
-              managerArr.map((option, index) => (
-                <MenuItem key={index + 1} value={option.managerid}>
-                  {option.managername}
-                </MenuItem>
-              ))
-            ) : (
-             ""
-            )}
+            <MenuItem value="">None</MenuItem>
+            {Array.isArray(managerArr) && selectedYear && month
+              ? managerArr.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.managerid}>
+                    {option.managername}
+                  </MenuItem>
+                ))
+              : ""}
           </TextField>
 
           <ReusableTextField
@@ -340,7 +360,7 @@ const TimespentDetails = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(districts) 
+            {Array.isArray(districts)
               ? districts.map((option, index) => (
                   <MenuItem
                     key={index + 1}

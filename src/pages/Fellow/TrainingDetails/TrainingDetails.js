@@ -244,7 +244,7 @@ const TrainingDetails = () => {
     }
   };
 
-  const fileName = "FellowDetails";
+  const fileName = "TrainingDetails";
 
   const xlData = filteredData.map((x) => {
     const { ...exceptBoth } = x;

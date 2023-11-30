@@ -12,12 +12,13 @@ import loader from "../../../Assets/R.gif";
 import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
+import moment from "moment";
 import {
   getAllCommunityEducatiorFilter,
   getAllDistricts,
   getDistrictsWiseBlocks,
 } from "../CommunityEducator/CommunityEducatorApi";
-import { FellowDetailsForManager } from "./OverallTimespentApi";
+import { OverallTimespentApi } from "./OverallTimespentApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -48,29 +49,29 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const monthArr = [
   //   { value: "none", label: "none" },
-    { value: "january", label: "January" },
-    { value: "february", label: "February" },
-    { value: "march", label: "March" },
-    { value: "april", label: "April" },
-    { value: "may", label: "May" },
-    { value: "june", label: "June" },
-    { value: "july", label: "July" },
-    { value: "august", label: "August" },
-    { value: "september", label: "September" },
-    { value: "october", label: "October" },
-    { value: "november", label: "November" },
-    { value: "december", label: "December" },
+    { value: "1", label: "January" },
+    { value: "2", label: "February" },
+    { value: "3", label: "March" },
+    { value: "4", label: "April" },
+    { value: "5", label: "May" },
+    { value: "6", label: "June" },
+    { value: "7", label: "July" },
+    { value: "8", label: "August" },
+    { value: "9", label: "September" },
+    { value: "10", label: "October" },
+    { value: "11", label: "November" },
+    { value: "12", label: "December" },
   ];
 
 const moduleColumn = [
   "Serial No",
   "User Name",
-  "User Id",
-  "No of Students",
-  "Gender",
-  "Contact Number",
-  "Status(Active/Inactive)",
-  "Aadhaar Number",
+  "Registration Date",
+  "Monthly Time Spent",
+  // "Gender",
+  // "Contact Number",
+  // "Status(Active/Inactive)",
+  // "Aadhaar Number",
 ];
 
 const OverallTimespent = () => {
@@ -90,6 +91,7 @@ const OverallTimespent = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
   const [month, setMonth] = useState("");
+  console.log("month==>", month);
 
 
   useEffect(() => {
@@ -200,7 +202,8 @@ const OverallTimespent = () => {
 
     setLoaded(true);
     const filterCriteriaWithBlockAndDistrict = {
-      year: selectedYear,
+      year: parseInt(selectedYear),
+      month: parseInt(month),
       managerid: managerName,
       passcode: passcode,
       districtid: districtName,
@@ -216,7 +219,7 @@ const OverallTimespent = () => {
     const apiCall =
       // districtName && blockName
       //   ?
-      FellowDetailsForManager(filterCriteriaWithBlockAndDistrict);
+      OverallTimespentApi(filterCriteriaWithBlockAndDistrict);
     // : FellowDetailsForManager(filterCriteriaWithoutBlockAndDistrict);
 
     apiCall
@@ -246,24 +249,16 @@ const OverallTimespent = () => {
         return index + 1;
       case "User Name":
         return row.username;
-      case "User Id":
-        return row.userid;
-      case "No of Students":
-        return row.studentsCount;
-      case "Gender":
-        return row.gender;
-      case "Contact Number":
-        return row.contactnumber ? row.contactnumber : "NA";
-      case "Status(Active/Inactive)":
-        return row.status;
-      case "Aadhaar Number":
-        return row.aadhaar ? row.aadhaar : "NA";
+      case "Registration Date":
+        return moment(row.createdon).format("DD/MM/YYYY")
+      case "Monthly Time Spent":
+        return row.timeSpent;
       default:
         return "";
     }
   };
 
-  const fileName = "FellowDetails";
+  const fileName = "OverallTimespent";
 
   const xlData = filteredData.map((x) => {
     const { ...exceptBoth } = x;

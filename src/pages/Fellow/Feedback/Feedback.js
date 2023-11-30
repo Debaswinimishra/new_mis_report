@@ -131,7 +131,7 @@ const Feedback = () => {
     setSelectedYear("");
     setManagerName("");
     setPasscode("");
-    // setAllData([]);
+    setFilteredData([]);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -352,7 +352,9 @@ const Feedback = () => {
         ""
       )} */}
 
-      {filteredData && Object.keys(filteredData).length > 0 ? (
+      {selectedSurvey &&
+      filteredData &&
+      Object.keys(filteredData).length > 0 ? (
         <Fields
           data={filteredData}
           totalDataLength={totalDataLength}
@@ -365,9 +367,7 @@ const Feedback = () => {
           columns={moduleColumn}
           getCellValue={getCellValue}
         />
-      ) : (
-        "No Data Available"
-      )}
+      ) : null}
       <ToastContainer />
     </Box>
   );

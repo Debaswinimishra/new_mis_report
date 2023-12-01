@@ -251,6 +251,24 @@ const Assessments = () => {
     return exceptBoth;
   });
 
+  const arr = [
+    { username: "mona", ttl1: 50, ttl2: 60, ttl3: 56 },
+    { username: "Ravi", ttl1: 70, ttl2: 90, ttl3: 26 },
+  ];
+
+  // Log column names
+  const columns = Object.keys(arr[0]);
+  columns.forEach((column) => {
+    console.log(column);
+  });
+
+  // Log each cell value
+  arr.forEach((row) => {
+    columns.forEach((column) => {
+      console.log(row[column]);
+    });
+  });
+
   return (
     <Box>
       <div
@@ -361,35 +379,23 @@ const Assessments = () => {
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
-                {moduleColumn.map((column) => (
+                {columns.map((column) => (
                   <StyledTableCell key={column}>{column}</StyledTableCell>
                 ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {Array.isArray(filteredData) &&
-                filteredData
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => (
-                    <StyledTableRow key={index}>
-                      {moduleColumn.map((column, columnIndex) => (
-                        <StyledTableCell key={columnIndex}>
-                          {getCellValue(row, column, index)}
-                        </StyledTableCell>
-                      ))}
-                    </StyledTableRow>
+              {arr.map((row, index) => (
+                <StyledTableRow key={index}>
+                  {columns.map((column) => (
+                    <StyledTableCell key={column}>
+                      {row[column]}
+                    </StyledTableCell>
                   ))}
+                </StyledTableRow>
+              ))}
             </TableBody>
           </Table>
-          <TablePagination
-            component="div"
-            count={totalDataLength}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-          <Download csvData={xlData} fileName={fileName} />
         </TableContainer>
       ) : (
         ""

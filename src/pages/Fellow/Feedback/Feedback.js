@@ -172,8 +172,12 @@ const Feedback = () => {
           if (res.status === 200) {
             setFilteredData(res.data);
             setTotalDataLength(res.data.length);
+          } else if (res.status === 204) {
+            toast.error("No data available", {
+              style: { backgroundColor: "black", color: "white" },
+            });
           } else {
-            toast.error("Sorry, something went wrong !");
+            toast.error("Something went wrong");
           }
         })
         .catch((error) => {
@@ -213,12 +217,6 @@ const Feedback = () => {
     return exceptBoth;
   });
 
-  const mySelectedSurveyData = filteredData.map(
-    (item) =>
-      item.modifiedSurveyData.filter((obj) => obj.surveyId === selectedSurvey)
-    // console.log("item.modifiedSUrvey---------------->", item.modifiedSurveyData)
-  );
-
   //todo---------------------------------Console logs------------------------------------------------
   // console.log("survey------------------------->", surevey);
   // console.log("year----------------------------->", selectedYear);
@@ -226,10 +224,6 @@ const Feedback = () => {
   // console.log("passcode----------------------------->", passcode);
   console.log("selected survey----------------------------->", selectedSurvey);
   console.log("filtered data----------------------------->", filteredData);
-  console.log(
-    "mySelectedSurveyData--------------------------->",
-    mySelectedSurveyData
-  );
 
   return (
     <Box>

@@ -56,12 +56,10 @@ const managerTypeArr = [
 const moduleColumn = [
   "Serial No",
   "User Name",
-  "User Id",
-  "No of Students",
-  "Gender",
-  "Contact Number",
-  "Status(Active/Inactive)",
-  "Aadhaar Number",
+  "No of Topics Completed",
+  "No of Modules Completed",
+  "Avg Baseline % of Completed Modules",
+  "Avg Endline % of Completed Modules",
 ];
 
 const TrainingDetails = () => {
@@ -184,8 +182,8 @@ const TrainingDetails = () => {
       year: selectedYear,
       managerid: managerName,
       passcode: passcode,
-      districtid: districtName,
-      blockid: blockName,
+      // districtid: districtName,
+      // blockid: blockName,
     };
 
     // const filterCriteriaWithoutBlockAndDistrict = {
@@ -227,18 +225,14 @@ const TrainingDetails = () => {
         return index + 1;
       case "User Name":
         return row.username;
-      case "User Id":
-        return row.userid;
-      case "No of Students":
-        return row.studentsCount;
-      case "Gender":
-        return row.gender;
-      case "Contact Number":
-        return row.contactnumber ? row.contactnumber : "NA";
-      case "Status(Active/Inactive)":
-        return row.status;
-      case "Aadhaar Number":
-        return row.aadhaar ? row.aadhaar : "NA";
+      case "No of Topics Completed":
+        return row.completedTopics;
+      case "No of Modules Completed":
+        return row.completedModules;
+      case "Avg Baseline % of Completed Modules":
+        return row.avgBaselineMarks;
+      case "Avg Endline % of Completed Modules":
+        return row.avgEndlineMarks;
       default:
         return "";
     }

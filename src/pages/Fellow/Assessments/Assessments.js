@@ -56,12 +56,10 @@ const managerTypeArr = [
 const moduleColumn = [
   "Serial No",
   "User Name",
-  "User Id",
-  "No of Students",
-  "Gender",
-  "Contact Number",
-  "Status(Active/Inactive)",
-  "Aadhaar Number",
+  "No of Assessments Completed",
+  "Assessment 1 - Baseline(Old)",
+  "Assessment 1 - Endline(Old)",
+  // row.assessments.map((x)=>x.type)
 ];
 
 const Assessments = () => {
@@ -184,8 +182,8 @@ const Assessments = () => {
       year: selectedYear,
       managerid: managerName,
       passcode: passcode,
-      districtid: districtName,
-      blockid: blockName,
+      // districtid: districtName,
+      // blockid: blockName,
     };
 
     // const filterCriteriaWithoutBlockAndDistrict = {
@@ -221,24 +219,19 @@ const Assessments = () => {
       });
   };
 
+
   const getCellValue = (row, column, index) => {
     switch (column) {
       case "Serial No":
         return index + 1;
       case "User Name":
         return row.username;
-      case "User Id":
-        return row.userid;
-      case "No of Students":
-        return row.studentsCount;
-      case "Gender":
-        return row.gender;
-      case "Contact Number":
-        return row.contactnumber ? row.contactnumber : "NA";
-      case "Status(Active/Inactive)":
-        return row.status;
-      case "Aadhaar Number":
-        return row.aadhaar ? row.aadhaar : "NA";
+      case "No of Assessments Completed":
+        return row.topicsCompleted;
+        case "Assessment 1 - Baseline(Old)":
+        return row.baselineOld;
+        case "Assessment 1 - Endline(Old)":
+        return row.endlineOld;
       default:
         return "";
     }
@@ -250,6 +243,7 @@ const Assessments = () => {
     const { ...exceptBoth } = x;
     return exceptBoth;
   });
+
 
   return (
     <Box>

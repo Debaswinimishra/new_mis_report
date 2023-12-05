@@ -202,7 +202,7 @@ const Feedback = () => {
       case "Passcode":
         return row.passcode;
       case "Completion Status":
-        return row.contactnumber ? row.contactnumber : "NA";
+        return row.completionStatus === true ? "Complete" : "Incomplete";
       case "Yo":
         return row.aadhaar ? row.aadhaar : "NA";
       default:

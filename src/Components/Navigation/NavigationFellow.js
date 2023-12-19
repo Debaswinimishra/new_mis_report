@@ -26,6 +26,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import CategoryIcon from "@mui/icons-material/Category";
 import InsightsIcon from "@mui/icons-material/Insights";
 import GroupsIcon from "@mui/icons-material/Groups";
+import FeedIcon from "@mui/icons-material/Feed";
 import Links from "../../ReusableComponents/Links";
 import Avatar from "@mui/material/Avatar";
 import SchoolIcon from "@mui/icons-material/School";
@@ -45,7 +46,7 @@ function NavigationFellow(props) {
     // location.pathname.split("/")[2]
     ();
   const handleDrawerToggle = () => {
-    alert()
+    alert();
     setMobileOpen(!mobileOpen);
   };
   const [anchorEl, setAnchorEl] = useState(null);
@@ -66,11 +67,17 @@ function NavigationFellow(props) {
       link: "details_c.e",
       icon: <PeopleAltIcon sx={{ color: "rgb(63,94,251)" }} />,
     },
-   
+
     {
       text: "Overall C.E",
       link: "overall_c.e",
       icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
+    },
+
+    {
+      text: "Feedback",
+      link: "feedback",
+      icon: <FeedIcon sx={{ color: "#018749" }} />,
     },
     {
       text: "Training Details C.E",
@@ -149,10 +156,22 @@ function NavigationFellow(props) {
           }}
           onClick={handleNavOnchange}
         >
-          THINKZONE 
+          THINKZONE
         </h1>
-        <p style={{ marginTop: "80px", marginLeft:"-130px",color: "transparent", backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
-            fontFamily: "'Nuosu SIL', serif", WebkitBackgroundClip: "text",fontSize: "1.4rem",fontWeight: "bold"}}>v1.2.1</p>
+        <p
+          style={{
+            marginTop: "80px",
+            marginLeft: "-130px",
+            color: "transparent",
+            backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
+            fontFamily: "'Nuosu SIL', serif",
+            WebkitBackgroundClip: "text",
+            fontSize: "1.4rem",
+            fontWeight: "bold",
+          }}
+        >
+          v1.2.1
+        </p>
       </Toolbar>
 
       <Divider />
@@ -222,10 +241,9 @@ function NavigationFellow(props) {
                 alignSelf: "center",
               }}
             >
-              {pathname.split("/")[2].replace("_"," ")}
+              {pathname.split("/")[2].replace("_", " ")}
             </Typography>
 
- 
             <Button
               onClick={handleMenuClick}
               sx={{

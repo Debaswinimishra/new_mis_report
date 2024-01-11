@@ -30,9 +30,9 @@ import FeedIcon from "@mui/icons-material/Feed";
 import Links from "../../ReusableComponents/Links";
 import Avatar from "@mui/material/Avatar";
 import SchoolIcon from "@mui/icons-material/School";
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import QuizIcon from "@mui/icons-material/Quiz";
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 const drawerWidth = 240;
 
@@ -74,11 +74,11 @@ function NavigationFellow(props) {
       icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
     },
 
-    {
-      text: "Feedback",
-      link: "feedback",
-      icon: <FeedIcon sx={{ color: "#018749" }} />,
-    },
+    // {
+    //   text: "Feedback",
+    //   link: "feedback",
+    //   icon: <FeedIcon sx={{ color: "#018749" }} />,
+    // },
     {
       text: "Training Details C.E",
       link: "training_details_c.e",
@@ -99,7 +99,7 @@ function NavigationFellow(props) {
       link: "overall_timespent_c.e",
       icon: <AccessTimeFilledIcon sx={{ color: "purple" }} />,
     },
-   
+
     // {
     //   text: "Common Monthly Quiz",
     //   link: "common_monthly_quiz",
@@ -170,7 +170,7 @@ function NavigationFellow(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.1
+          v1.2.2
         </p>
       </Toolbar>
 

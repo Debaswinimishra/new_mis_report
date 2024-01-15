@@ -99,20 +99,21 @@ const ComunityEducator = () => {
       setSelectedYearTab2([]);
       setTab2FilterData([]);
       setManagerTypeTab2("manager");
-      try {
-        const response = await getAllCommunityEducatiorFilter();
-        setManagerArr(response.data.resData);
-      } catch (err) {
-        console.log("err--->", err.response.status);
-      }
+      // try {
+      //   const response = await getAllCommunityEducatiorFilter();
+      //   setManagerArr(response.data.resData);
+      // } catch (err) {
+      //   console.log("err--->", err.response.status);
+      // }
     } else if (selectedTabIndex === 1) {
       setManagerName("");
       setSelectedYear("");
       setPasscode("");
       setTab1FilterData([]);
       setManagerType("manager");
+      setManagerArr([]);
       try {
-        const response1 = await getAllCommunityEducatiorFilter();
+        const response1 = await getAllCommunityEducatiorFilter(selectedYear);
         setManagerArr(response1.data.resData);
         const response2 = await getAllDistricts();
         console.log("response--->", response1.data);
@@ -160,7 +161,7 @@ const ComunityEducator = () => {
       passcodeArray = element.passcodes;
     }
   });
-  const handleYearChange = (selectedYear) => {
+  const handleYearChange = async (selectedYear) => {
     setSelectedYear(selectedYear);
     setManagerName("");
     setManagerType("manager");
@@ -169,18 +170,12 @@ const ComunityEducator = () => {
     setIsFilterButtonClicked(false);
     setIsDataAvailable(false);
     setLoaded(false);
+
+    const response = await getAllCommunityEducatiorFilter(selectedYear);
+    console.log("manager year----->", response.data);
+    setManagerArr(response.data.resData);
   };
-  const handleYearChangeTab2 = (selectedYearTab2) => {
-    setSelectedYearTab2(selectedYearTab2);
-    setManagerNameTab2("");
-    setManagerTypeTab2("");
-    setPasscodeTab2("");
-    setDistrictName("");
-    setBlockName("");
-    setTab2FilterData([]);
-    setIsFilterButtonClicked(false);
-    setIsDataAvailable(false);
-  };
+
   const handleManagerChange = (event) => {
     setManagerName(event.target.value);
     // console.log("managername---------->", managerName);

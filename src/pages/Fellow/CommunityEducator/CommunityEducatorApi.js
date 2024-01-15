@@ -1,7 +1,7 @@
 import Api from "../../../Environment/Api";
 
-export const getAllCommunityEducatiorFilter = async () =>
-  await Api.get(`getManagerIdsWidPasscode`);
+export const getAllCommunityEducatiorFilter = async (year) =>
+  await Api.get(`getManagerIdsWidPasscode/${year}`);
 
 export const getAllDistricts = async () =>
   await Api.get(`getdistrictsofstate/20`);

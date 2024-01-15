@@ -46,6 +46,7 @@ const managerTypeSet = [
 
 const ComunityEducator = () => {
   const [selectedYear, setSelectedYear] = useState("");
+  console.log("selectedYear--->", selectedYear);
   const [selectedYearTab2, setSelectedYearTab2] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   const [managerType, setManagerType] = useState("manager");
@@ -106,17 +107,18 @@ const ComunityEducator = () => {
       //   console.log("err--->", err.response.status);
       // }
     } else if (selectedTabIndex === 1) {
-      setManagerName("");
-      setSelectedYear("");
-      setPasscode("");
-      setTab1FilterData([]);
-      setManagerType("manager");
-      setManagerArr([]);
       try {
-        const response1 = await getAllCommunityEducatiorFilter(selectedYear);
+        setManagerName("");
+        setSelectedYear("");
+        setPasscode("");
+        setTab1FilterData([]);
+        setManagerType("manager");
+
+        const response1 = await getAllCommunityEducatiorFilter("");
         setManagerArr(response1.data.resData);
         const response2 = await getAllDistricts();
         console.log("response--->", response1.data);
+
         setDistricts(response2.data);
       } catch (err) {
         console.log("err--->", err.response.status);

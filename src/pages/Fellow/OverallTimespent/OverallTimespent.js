@@ -97,7 +97,6 @@ const OverallTimespent = () => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter(selectedYear);
-        console.log("manager year----->", response.data);
         setManagerArr(response.data.resData);
       } catch (err) {
         console.log("err--->", err.response.status);
@@ -114,7 +113,6 @@ const OverallTimespent = () => {
     }
   });
 
-  // console.log("selectedYear------------------------>", selectedYear);
   const handleYearChange = async (selectedYear) => {
     setManagerType("");
     setManagerName("");

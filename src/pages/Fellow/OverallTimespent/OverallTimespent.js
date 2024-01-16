@@ -49,19 +49,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const monthArr = [
   //   { value: "none", label: "none" },
-    { value: "1", label: "January" },
-    { value: "2", label: "February" },
-    { value: "3", label: "March" },
-    { value: "4", label: "April" },
-    { value: "5", label: "May" },
-    { value: "6", label: "June" },
-    { value: "7", label: "July" },
-    { value: "8", label: "August" },
-    { value: "9", label: "September" },
-    { value: "10", label: "October" },
-    { value: "11", label: "November" },
-    { value: "12", label: "December" },
-  ];
+  { value: "1", label: "January" },
+  { value: "2", label: "February" },
+  { value: "3", label: "March" },
+  { value: "4", label: "April" },
+  { value: "5", label: "May" },
+  { value: "6", label: "June" },
+  { value: "7", label: "July" },
+  { value: "8", label: "August" },
+  { value: "9", label: "September" },
+  { value: "10", label: "October" },
+  { value: "11", label: "November" },
+  { value: "12", label: "December" },
+];
 
 const moduleColumn = [
   "Serial No",
@@ -93,11 +93,11 @@ const OverallTimespent = () => {
   const [month, setMonth] = useState("");
   console.log("month==>", month);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllCommunityEducatiorFilter();
+        const response = await getAllCommunityEducatiorFilter(selectedYear);
+        console.log("manager year----->", response.data);
         setManagerArr(response.data.resData);
       } catch (err) {
         console.log("err--->", err.response.status);
@@ -114,7 +114,8 @@ const OverallTimespent = () => {
     }
   });
 
-  const handleYearChange = (selectedYear) => {
+  // console.log("selectedYear------------------------>", selectedYear);
+  const handleYearChange = async (selectedYear) => {
     setManagerType("");
     setManagerName("");
     setPasscode("");
@@ -124,6 +125,9 @@ const OverallTimespent = () => {
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
     // setShowFieldsData(false);
+    const response = await getAllCommunityEducatiorFilter(selectedYear);
+    console.log("manager year----->", response.data);
+    setManagerArr(response.data.resData);
   };
 
   const handleMonthChange = (event) => {
@@ -250,7 +254,7 @@ const OverallTimespent = () => {
       case "User Name":
         return row.username;
       case "Registration Date":
-        return moment(row.createdon).format("DD/MM/YYYY")
+        return moment(row.createdon).format("DD/MM/YYYY");
       case "Monthly Time Spent":
         return row.timeSpent;
       default:
@@ -285,21 +289,21 @@ const OverallTimespent = () => {
           <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
 
           <TextField
-                id="outlined-select-currency"
-                select
-                label="Select month"
-                value={month}
-                 onChange={(e) => handleMonthChange(e)}
-              >
-                <MenuItem value = "">None</MenuItem>
-                {selectedYear && selectedYear != ""
-                  ? monthArr?.map((option) => (
-                      <MenuItem key={option.id} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))
-                  : null}
-              </TextField>
+            id="outlined-select-currency"
+            select
+            label="Select month"
+            value={month}
+            onChange={(e) => handleMonthChange(e)}
+          >
+            <MenuItem value="">None</MenuItem>
+            {selectedYear && selectedYear != ""
+              ? monthArr?.map((option) => (
+                  <MenuItem key={option.id} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))
+              : null}
+          </TextField>
 
           <TextField
             id="outlined-select-currency"

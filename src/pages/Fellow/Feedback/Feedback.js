@@ -28,6 +28,7 @@ import Loader from "../../../ReusableComponents/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Fields from "../../../ReusableComponents/Fields";
+import { getAllCommunityEducatiorFilter } from "../CommunityEducator/CommunityEducatorApi";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -85,7 +86,7 @@ const Feedback = () => {
 
   useEffect(() => {
     if (selectedYear) {
-      getAllManagersWidPasscodes().then((res) => {
+      getAllCommunityEducatiorFilter(selectedYear).then((res) => {
         if (res.status === 200) {
           setManagerArr(res.data.resData);
         } else {

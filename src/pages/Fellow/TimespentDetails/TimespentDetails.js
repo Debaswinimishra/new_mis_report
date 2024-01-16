@@ -101,7 +101,7 @@ const TimespentDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllCommunityEducatiorFilter();
+        const response = await getAllCommunityEducatiorFilter(selectedYear);
         setManagerArr(response.data.resData);
       } catch (err) {
         console.log("err--->", err.response.status);
@@ -118,15 +118,19 @@ const TimespentDetails = () => {
     }
   });
 
-  const handleYearChange = (selectedYear) => {
+  const handleYearChange = async (selectedYear) => {
     setManagerType("");
     setManagerName("");
     setPasscode("");
     setDistrictName("");
     setBlockName("");
     setFilteredData([]);
+    setMonth("");
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
+    const response = await getAllCommunityEducatiorFilter(selectedYear);
+    console.log("manager year----->", response.data);
+    setManagerArr(response.data.resData);
     // setShowFieldsData(false);
   };
   const handleMonthChange = (event) => {
@@ -255,7 +259,7 @@ const TimespentDetails = () => {
       case "User Name":
         return row.username;
       case "Registration Date":
-        return moment(row.createdon).format("DD/MM/YYYY")
+        return moment(row.createdon).format("DD/MM/YYYY");
       case "Pedagogy":
         return row.training3;
       case "21st Century":
@@ -265,19 +269,19 @@ const TimespentDetails = () => {
       case "Commom Monthly Quiz":
         return row.tchTtlQuiz;
       case "PGE":
-        return row.pgeactivity ;
+        return row.pgeactivity;
       case "ECE":
-        return row.eceactivity ;
+        return row.eceactivity;
       case "FLN":
-        return row.fln ;
+        return row.fln;
       case "Community Engagement":
-        return row.communityActivity ;
+        return row.communityActivity;
       case "Student Assessment":
-        return row.studentAssessment ;
+        return row.studentAssessment;
       case "Books":
-        return row.reading ;
-        case "Survey":
-          return row.tchSurvey ;
+        return row.reading;
+      case "Survey":
+        return row.tchSurvey;
       default:
         return "";
     }

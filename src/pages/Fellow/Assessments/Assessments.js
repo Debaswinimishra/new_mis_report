@@ -82,7 +82,7 @@ const Assessments = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllCommunityEducatiorFilter();
+        const response = await getAllCommunityEducatiorFilter(selectedYear);
         setManagerArr(response.data.resData);
       } catch (err) {
         console.log("err--->", err.response.status);
@@ -99,7 +99,7 @@ const Assessments = () => {
     }
   });
 
-  const handleYearChange = (selectedYear) => {
+  const handleYearChange = async (selectedYear) => {
     setManagerType("");
     setManagerName("");
     setPasscode("");
@@ -109,6 +109,9 @@ const Assessments = () => {
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
     // setShowFieldsData(false);
+    const response = await getAllCommunityEducatiorFilter(selectedYear);
+    console.log("manager year----->", response.data);
+    setManagerArr(response.data.resData);
   };
 
   const handleManagerChange = (event) => {
@@ -219,7 +222,6 @@ const Assessments = () => {
       });
   };
 
-
   const getCellValue = (row, column, index) => {
     switch (column) {
       case "Serial No":
@@ -228,9 +230,9 @@ const Assessments = () => {
         return row.username;
       case "No of Assessments Completed":
         return row.topicsCompleted;
-        case "Assessment 1 - Baseline(Old)":
+      case "Assessment 1 - Baseline(Old)":
         return row.baselineOld;
-        case "Assessment 1 - Endline(Old)":
+      case "Assessment 1 - Endline(Old)":
         return row.endlineOld;
       default:
         return "";
@@ -243,7 +245,6 @@ const Assessments = () => {
     const { ...exceptBoth } = x;
     return exceptBoth;
   });
-
 
   return (
     <Box>

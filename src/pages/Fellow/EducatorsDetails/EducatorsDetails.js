@@ -84,7 +84,7 @@ const FellowDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllCommunityEducatiorFilter();
+        const response = await getAllCommunityEducatiorFilter(selectedYear);
         setManagerArr(response.data.resData);
       } catch (err) {
         console.log("err--->", err.response.status);
@@ -101,7 +101,7 @@ const FellowDetails = () => {
     }
   });
 
-  const handleYearChange = (selectedYear) => {
+  const handleYearChange = async (selectedYear) => {
     setManagerType("");
     setManagerName("");
     setPasscode("");
@@ -111,6 +111,9 @@ const FellowDetails = () => {
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
     // setShowFieldsData(false);
+    const response = await getAllCommunityEducatiorFilter(selectedYear);
+    console.log("manager year----->", response.data);
+    setManagerArr(response.data.resData);
   };
 
   const handleManagerChange = (event) => {

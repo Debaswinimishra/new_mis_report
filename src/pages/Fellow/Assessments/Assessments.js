@@ -92,10 +92,18 @@ const Assessments = () => {
   }, []);
 
   let passcodeArray = [];
+  let districtArr = [];
+  let blocksArr = [];
 
   managerArr?.filter((element) => {
-    if (element.managerid === managerName) {
-      passcodeArray = element.passcodes;
+    if (element?.managerid === managerName) {
+      passcodeArray = element?.passcodes;
+      districtArr = element?.distBlocks;
+      districtArr?.filter((element) => {
+        if (element?.districtid === districtName) {
+          blocksArr = element?.blocks;
+        }
+      });
     }
   });
 
@@ -132,9 +140,9 @@ const Assessments = () => {
     setPasscode(event.target.value);
     try {
       // setLoaded(true);
-      const response2 = await getAllDistricts();
-      console.log("response--->", response2.data);
-      setDistricts(response2.data);
+      // const response2 = await getAllDistricts();
+      // console.log("response--->", response2.data);
+      // setDistricts(response2.data);
       // setLoaded(false);
     } catch (error) {
       // setLoaded(false);
@@ -152,9 +160,9 @@ const Assessments = () => {
     setDistrictName(e.target.value);
     console.log("Selected value:", e);
     // setLoaded(true);
-    const response = await getDistrictsWiseBlocks(e.target.value);
-    console.log("block response---->", response.data);
-    setAllBlocks(response.data);
+    // const response = await getDistrictsWiseBlocks(e.target.value);
+    // console.log("block response---->", response.data);
+    // setAllBlocks(response.data);
     // setLoaded(false);
   };
 
@@ -174,52 +182,44 @@ const Assessments = () => {
     setPage(0);
   };
 
-  const fetchFilteredData = () => {
-    if (!selectedYear) {
-      alert("Please select a year before filtering.");
-      return;
+  const fetchFilteredData = async () => {
+    try {
+      if (!selectedYear) {
+        alert("Please select a year before filtering.");
+        return;
+      }
+
+      setLoaded(true);
+      const filterCriteriaWithBlockAndDistrict = {
+        year: selectedYear,
+        managerid: managerName,
+        passcode: passcode,
+        districtid: districtName,
+        blockid: blockName,
+      };
+
+      const data = await FellowDetailsForManager(
+        filterCriteriaWithBlockAndDistrict
+      );
+
+      setLoaded(false);
+      // console.log("data", data);
+
+      if (data.length === 0) {
+        setFilteredData([]);
+        alert("No data found");
+      } else if (data.length > 0) {
+        setFilteredData(data);
+        setTotalDataLength(data.length);
+      }
+    } catch (error) {
+      setLoaded(false);
+      console.error("Error:", error);
+      // Handle the error, e.g., show an error message to the user
+      alert("An error occurred while fetching data");
+    } finally {
+      setLoaded(false);
     }
-
-    setLoaded(true);
-    const filterCriteriaWithBlockAndDistrict = {
-      year: selectedYear,
-      managerid: managerName,
-      passcode: passcode,
-      // districtid: districtName,
-      // blockid: blockName,
-    };
-
-    // const filterCriteriaWithoutBlockAndDistrict = {
-    //   year: selectedYear,
-    //   managerid: managerName,
-    //   passcode: passcode,
-    // };
-
-    const apiCall =
-      // districtName && blockName
-      //   ?
-      FellowDetailsForManager(filterCriteriaWithBlockAndDistrict);
-    // : FellowDetailsForManager(filterCriteriaWithoutBlockAndDistrict);
-
-    apiCall
-      .then((data) => {
-        setLoaded(false);
-        console.log("data", data);
-        if (data.length === 0) {
-          setFilteredData([]);
-          alert("No data found");
-        } else if (data.length > 0) {
-          setFilteredData(data);
-          setTotalDataLength(data.length);
-        }
-      })
-      .catch((error) => {
-        setLoaded(false);
-        console.error("Error:", error);
-      })
-      .finally(() => {
-        setLoaded(false);
-      });
   };
 
   const getCellValue = (row, column, index) => {
@@ -299,11 +299,11 @@ const Assessments = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(districts)
-              ? districts.map((option, index) => (
+            {Array.isArray(districtArr)
+              ? districtArr.map((option, index) => (
                   <MenuItem
                     key={index + 1}
-                    value={option._id}
+                    value={option.districtid}
                     data-name={option.districtname}
                   >
                     {option.districtname}
@@ -321,9 +321,9 @@ const Assessments = () => {
             onChange={(e) => handleBlockChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(allBlocks)
-              ? allBlocks?.map((option, index) => (
-                  <MenuItem key={index + 1} value={option._id}>
+            {Array.isArray(blocksArr)
+              ? blocksArr?.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.blockid}>
                     {option.blockname}
                   </MenuItem>
                 ))

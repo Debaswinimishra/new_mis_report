@@ -106,13 +106,20 @@ const OverallTimespent = () => {
   }, []);
 
   let passcodeArray = [];
+  let districtArr = [];
+  let blocksArr = [];
 
   managerArr?.filter((element) => {
-    if (element.managerid === managerName) {
-      passcodeArray = element.passcodes;
+    if (element?.managerid === managerName) {
+      passcodeArray = element?.passcodes;
+      districtArr = element?.distBlocks;
+      districtArr?.filter((element) => {
+        if (element?.districtid === districtName) {
+          blocksArr = element?.blocks;
+        }
+      });
     }
   });
-
   const handleYearChange = async (selectedYear) => {
     setManagerType("");
     setManagerName("");
@@ -196,53 +203,45 @@ const OverallTimespent = () => {
     setPage(0);
   };
 
-  const fetchFilteredData = () => {
-    if (!selectedYear || !month) {
-      alert("Please select year and month before filtering.");
-      return;
+  const fetchFilteredData = async () => {
+    try {
+      if (!selectedYear || !month) {
+        alert("Please select year and month before filtering.");
+        return;
+      }
+
+      setLoaded(true);
+      const filterCriteriaWithBlockAndDistrict = {
+        year: parseInt(selectedYear),
+        month: parseInt(month),
+        managerid: managerName,
+        passcode: passcode,
+        districtid: districtName,
+        blockid: blockName,
+      };
+
+      const data = await OverallTimespentApi(
+        filterCriteriaWithBlockAndDistrict
+      );
+
+      setLoaded(false);
+      console.log("data", data);
+
+      if (data.length === 0) {
+        setFilteredData([]);
+        alert("No data found");
+      } else if (data.length > 0) {
+        setFilteredData(data);
+        setTotalDataLength(data.length);
+      }
+    } catch (error) {
+      setLoaded(false);
+      console.error("Error:", error);
+      // Handle the error, e.g., show an error message to the user
+      alert("An error occurred while fetching data");
+    } finally {
+      setLoaded(false);
     }
-
-    setLoaded(true);
-    const filterCriteriaWithBlockAndDistrict = {
-      year: parseInt(selectedYear),
-      month: parseInt(month),
-      managerid: managerName,
-      passcode: passcode,
-      districtid: districtName,
-      blockid: blockName,
-    };
-
-    // const filterCriteriaWithoutBlockAndDistrict = {
-    //   year: selectedYear,
-    //   managerid: managerName,
-    //   passcode: passcode,
-    // };
-
-    const apiCall =
-      // districtName && blockName
-      //   ?
-      OverallTimespentApi(filterCriteriaWithBlockAndDistrict);
-    // : FellowDetailsForManager(filterCriteriaWithoutBlockAndDistrict);
-
-    apiCall
-      .then((data) => {
-        setLoaded(false);
-        console.log("data", data);
-        if (data.length === 0) {
-          setFilteredData([]);
-          alert("No data found");
-        } else if (data.length > 0) {
-          setFilteredData(data);
-          setTotalDataLength(data.length);
-        }
-      })
-      .catch((error) => {
-        setLoaded(false);
-        console.error("Error:", error);
-      })
-      .finally(() => {
-        setLoaded(false);
-      });
   };
 
   const getCellValue = (row, column, index) => {
@@ -337,12 +336,12 @@ const OverallTimespent = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(districts)
-              ? districts.map((option, index) => (
+            {Array.isArray(districtArr)
+              ? districtArr.map((option, index) => (
                   <MenuItem
                     key={index + 1}
-                    value={option._id}
-                    data-name={option.districtname}
+                    value={option?.districtid}
+                    data-name={option?.districtname}
                   >
                     {option.districtname}
                   </MenuItem>
@@ -359,9 +358,9 @@ const OverallTimespent = () => {
             onChange={(e) => handleBlockChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(allBlocks)
-              ? allBlocks?.map((option, index) => (
-                  <MenuItem key={index + 1} value={option._id}>
+            {Array.isArray(blocksArr)
+              ? blocksArr?.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.blockid}>
                     {option.blockname}
                   </MenuItem>
                 ))

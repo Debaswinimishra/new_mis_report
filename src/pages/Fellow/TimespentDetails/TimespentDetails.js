@@ -111,10 +111,18 @@ const TimespentDetails = () => {
   }, []);
 
   let passcodeArray = [];
+  let districtArr = [];
+  let blocksArr = [];
 
   managerArr?.filter((element) => {
-    if (element.managerid === managerName) {
-      passcodeArray = element.passcodes;
+    if (element?.managerid === managerName) {
+      passcodeArray = element?.passcodes;
+      districtArr = element?.distBlocks;
+      districtArr?.filter((element) => {
+        if (element?.districtid === districtName) {
+          blocksArr = element?.blocks;
+        }
+      });
     }
   });
 
@@ -201,55 +209,45 @@ const TimespentDetails = () => {
     setPage(0);
   };
 
-  const fetchFilteredData = () => {
-    if (!selectedYear || !month || !managerName || !passcode) {
-      alert(
-        "Please select all required fields (Year, Month, Manager, Passcode) before filtering."
+  const fetchFilteredData = async () => {
+    try {
+      if (!selectedYear || !month || !managerName || !passcode) {
+        alert("Please select a year before filtering.");
+        return;
+      }
+
+      setLoaded(true);
+      const filterCriteriaWithBlockAndDistrict = {
+        year: parseInt(selectedYear),
+        month: parseInt(month),
+        managerid: managerName,
+        passcode: passcode,
+        districtid: districtName,
+        blockid: blockName,
+      };
+
+      const data = await TimespentDetailsApi(
+        filterCriteriaWithBlockAndDistrict
       );
-      return;
+
+      setLoaded(false);
+      // console.log("data", data);
+
+      if (data.length === 0) {
+        setFilteredData([]);
+        alert("No data found");
+      } else if (data.length > 0) {
+        setFilteredData(data);
+        setTotalDataLength(data.length);
+      }
+    } catch (error) {
+      setLoaded(false);
+      console.error("Error:", error);
+      // Handle the error, e.g., show an error message to the user
+      alert("An error occurred while fetching data");
+    } finally {
+      setLoaded(false);
     }
-
-    setLoaded(true);
-    const filterCriteriaWithBlockAndDistrict = {
-      year: parseInt(selectedYear),
-      month: parseInt(month),
-      managerid: managerName,
-      passcode: passcode,
-      districtid: districtName,
-      blockid: blockName,
-    };
-
-    // const filterCriteriaWithoutBlockAndDistrict = {
-    //   year: selectedYear,
-    //   managerid: managerName,
-    //   passcode: passcode,
-    // };
-
-    const apiCall =
-      // districtName && blockName
-      //   ?
-      TimespentDetailsApi(filterCriteriaWithBlockAndDistrict);
-    // : FellowDetailsForManager(filterCriteriaWithoutBlockAndDistrict);
-
-    apiCall
-      .then((data) => {
-        setLoaded(false);
-        console.log("data", data);
-        if (data.length === 0) {
-          setFilteredData([]);
-          alert("No data found");
-        } else if (data.length > 0) {
-          setFilteredData(data);
-          setTotalDataLength(data.length);
-        }
-      })
-      .catch((error) => {
-        setLoaded(false);
-        console.error("Error:", error);
-      })
-      .finally(() => {
-        setLoaded(false);
-      });
   };
 
   const getCellValue = (row, column, index) => {
@@ -364,14 +362,14 @@ const TimespentDetails = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(districts)
-              ? districts.map((option, index) => (
+            {Array.isArray(districtArr)
+              ? districtArr.map((option, index) => (
                   <MenuItem
                     key={index + 1}
-                    value={option._id}
-                    data-name={option.districtname}
+                    value={option?.districtid}
+                    data-name={option?.districtname}
                   >
-                    {option.districtname}
+                    {option?.districtname}
                   </MenuItem>
                 ))
               : null}
@@ -386,10 +384,10 @@ const TimespentDetails = () => {
             onChange={(e) => handleBlockChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(allBlocks)
-              ? allBlocks?.map((option, index) => (
-                  <MenuItem key={index + 1} value={option._id}>
-                    {option.blockname}
+            {Array.isArray(blocksArr)
+              ? blocksArr?.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.blockid}>
+                    {option?.blockname}
                   </MenuItem>
                 ))
               : null}

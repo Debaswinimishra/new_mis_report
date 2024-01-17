@@ -153,16 +153,24 @@ const ComunityEducator = () => {
   // }, []);
 
   let passcodeArray = [];
+  let districtArr = [];
+  let blocksArr = [];
 
   managerArr?.filter((element) => {
     if (
       element.managerid === managerName ||
       element.managerid === managerNameTab2
     ) {
-      // console.log("x--->", managerName, element);
-      passcodeArray = element.passcodes;
+      passcodeArray = element?.passcodes;
+      districtArr = element?.distBlocks;
+      districtArr?.filter((element) => {
+        if (element?.districtid === districtName) {
+          blocksArr = element?.blocks;
+        }
+      });
     }
   });
+
   const handleYearChange = async (selectedYear) => {
     setSelectedYear(selectedYear);
     setManagerName("");
@@ -174,8 +182,8 @@ const ComunityEducator = () => {
     setLoaded(false);
 
     const response = await getAllCommunityEducatiorFilter(selectedYear);
-    console.log("manager year----->", response.data);
-    setManagerArr(response.data.resData);
+    console.log("manager year----->", response?.data);
+    setManagerArr(response?.data?.resData);
   };
 
   const handleManagerChange = (event) => {
@@ -210,14 +218,15 @@ const ComunityEducator = () => {
   };
 
   const handleDistrictChange = async (e) => {
-    const selectedValue = e.target.value;
+    // const selectedValue = e.target.value;
     // const selectedDistrictName = e.currentTarget.getAttribute("data-name");
+    blocksArr = [];
     setDistrictName(e.target.value);
-    console.log("Selected value:", e);
+    // console.log("Selected value:", e);
     // console.log("Selected district name:", selectedDistrictName);
-    const response = await getDistrictsWiseBlocks(e.target.value);
-    console.log("block response---->", response.data);
-    setAllBlocks(response.data);
+    // const response = await getDistrictsWiseBlocks(e.target.value);
+    // console.log("block response---->", response.data);
+    // setAllBlocks(response.data);
   };
 
   const handleBlockChange = (e) => {
@@ -666,10 +675,10 @@ const ComunityEducator = () => {
                   onChange={(e) => handleDistrictChange(e)}
                 >
                   <MenuItem value="">None</MenuItem>
-                  {districts?.map((option, index) => (
+                  {districtArr?.map((option, index) => (
                     <MenuItem
                       key={index + 1}
-                      value={option._id}
+                      value={option.districtid}
                       data-name={option.districtname}
                     >
                       {option.districtname}
@@ -686,8 +695,8 @@ const ComunityEducator = () => {
                   onChange={(e) => handleBlockChange(e)}
                 >
                   <MenuItem value="">None</MenuItem>
-                  {allBlocks.map((option, index) => (
-                    <MenuItem key={index + 1} value={option._id}>
+                  {blocksArr.map((option, index) => (
+                    <MenuItem key={index + 1} value={option.blockid}>
                       {option.blockname}
                     </MenuItem>
                   ))}

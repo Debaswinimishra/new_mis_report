@@ -220,7 +220,7 @@ const ComunityEducator = () => {
   const handleDistrictChange = async (e) => {
     // const selectedValue = e.target.value;
     // const selectedDistrictName = e.currentTarget.getAttribute("data-name");
-    blocksArr = [];
+    setBlockName("");
     setDistrictName(e.target.value);
     // console.log("Selected value:", e);
     // console.log("Selected district name:", selectedDistrictName);

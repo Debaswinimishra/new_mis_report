@@ -46,8 +46,6 @@ const RouteFellow = () => {
         <Route path="assessments_c.e" element={<Assessments />} />
         <Route path="overall_timespent_c.e" element={<OverallTimespent />} />
         <Route path="timespent_details_c.e" element={<TimespentDetails />} />
-
-
       </Route>
     </Routes>
   );

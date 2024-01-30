@@ -3,6 +3,7 @@ import RouteAnganwadi from "./RouteAnganwadi";
 import RouteFellow from "./RouteFellow";
 import RouteSchool from "./RouteSchool";
 import Route404 from "./Route404";
+import RoutePrakashak from "./RoutePrakashak";
 
 function RouteRoot() {
   return (
@@ -11,6 +12,7 @@ function RouteRoot() {
       <RouteAnganwadi />
       <RouteFellow />
       <RouteSchool />
+      <RoutePrakashak />
       {/* <Route404 /> */}
     </>
   );

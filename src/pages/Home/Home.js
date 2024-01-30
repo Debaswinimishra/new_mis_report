@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
 import Logout from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
-import GiteIcon from '@mui/icons-material/Gite';
+import GiteIcon from "@mui/icons-material/Gite";
 import SchoolIcon from "@mui/icons-material/School";
 
 function Home() {
@@ -161,6 +161,35 @@ function Home() {
               }}
             />
             <span style={{ fontSize: "20px" }}>Anganwadi</span>
+          </Card>
+          <Card
+            sx={{
+              width: "250px",
+              height: "200px",
+              textAlign: "center",
+              margin: "10px",
+              borderRadius: "10px",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              backgroundColor: "#FFF",
+              justifyContent: "center",
+              transition: "transform 0.2s ease-in-out",
+              "&:hover": {
+                transform: "scale(1.05)",
+              },
+            }}
+            onClick={() => {
+              navigate("/prakashak/dashboard");
+            }}
+          >
+            <PeopleIcon
+              sx={{
+                fontSize: 48,
+              }}
+            />
+            <span style={{ fontSize: "20px" }}>Prakashak</span>
           </Card>
         </div>
       </Box>

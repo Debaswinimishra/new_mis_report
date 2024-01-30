@@ -31,6 +31,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Dashboard from "../../Pages/Prakashak/Dashboard/Dashboard";
 import RemoteInstruction from "../../Pages/Prakashak/RemoteInstruction/RemoteInstruction";
+import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatbot";
+import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
+import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -152,9 +155,13 @@ function NavigationPrakashak(props) {
           <Dashboard />
         ) : selectedTabIndex === 1 ? (
           <RemoteInstruction />
-        ) : (
-          <h1>This Page will be developed soon</h1>
-        )}
+        ) : selectedTabIndex === 2 ? (
+          <WhatsappChatbot />
+        ) : selectedTabIndex === 3 ? (
+          <Schoolwise />
+        ) : selectedTabIndex === 4 ? (
+          <Classwise />
+        ) : null}
       </div>
     </Box>
   );

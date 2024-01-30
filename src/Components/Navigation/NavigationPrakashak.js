@@ -29,6 +29,8 @@ import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 const drawerWidth = 240;
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import Dashboard from "../../Pages/Prakashak/Dashboard/Dashboard";
+import RemoteInstruction from "../../Pages/Prakashak/RemoteInstruction/RemoteInstruction";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -144,6 +146,15 @@ function NavigationPrakashak(props) {
             {item.text}
           </div>
         ))}
+      </div>
+      <div>
+        {selectedTabIndex === 0 ? (
+          <Dashboard />
+        ) : selectedTabIndex === 1 ? (
+          <RemoteInstruction />
+        ) : (
+          <h1>This Page will be developed soon</h1>
+        )}
       </div>
     </Box>
   );

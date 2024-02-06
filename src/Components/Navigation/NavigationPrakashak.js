@@ -106,7 +106,7 @@ function NavigationPrakashak(props) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <AppBar
-        position="fixed"
+        // position="fixed"
         style={{
           backgroundColor: "#F5F5F5",
           padding: "1%",
@@ -141,12 +141,18 @@ function NavigationPrakashak(props) {
               cursor: "pointer",
               borderRadius: "5px",
               backgroundColor:
-                item.id === selectedTabIndex ? "#E8E8E8" : "white",
+                item.id === selectedTabIndex ? "rgb(65, 105, 225)" : "white",
             }}
             value={item.id}
             onClick={() => handleTabChange(item)}
           >
-            {item.text}
+            <span
+              style={{
+                color: item.id === selectedTabIndex ? "white" : "black",
+              }}
+            >
+              {item.text}
+            </span>
           </div>
         ))}
       </div>

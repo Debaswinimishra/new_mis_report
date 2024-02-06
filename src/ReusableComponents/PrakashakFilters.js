@@ -66,7 +66,7 @@ const PrakashakFilters = () => {
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
+
         justifyContent: "space-around",
         width: "25%",
         marginTop: "4%",

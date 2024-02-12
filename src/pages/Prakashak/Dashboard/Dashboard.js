@@ -20,7 +20,14 @@ const Dashboard = () => {
     <>
       <PrakashakFilters />
 
-      <div style={{ marginTop: "2%", paddingBottom: "4%", marginLeft: "4%" }}>
+      <div
+        style={{
+          marginTop: "2%",
+          paddingBottom: "4%",
+          marginLeft: "4%",
+          alignContent: "flex-start",
+        }}
+      >
         <div
           style={{
             display: "flex",
@@ -171,7 +178,7 @@ const Dashboard = () => {
             display: "flex",
             flexWrap: "wrap",
             alignContent: "center",
-            justifyContent: "center",
+            // justifyContent: "center",
             width: "100%",
             gap: "2%",
             marginTop: "-2%",

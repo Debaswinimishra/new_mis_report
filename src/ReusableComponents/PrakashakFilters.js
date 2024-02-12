@@ -57,6 +57,10 @@ const PrakashakFilters = () => {
     setSelectedWeek(e.target.value);
   };
 
+  const filterButtonClick = () => {
+    console.log("filter button clicked");
+  };
+
   //todo--------------Console logs-------------------
   console.log("selected year------------------->", selectedYear);
   console.log("selected month------------------->", selectedMonth);
@@ -66,12 +70,12 @@ const PrakashakFilters = () => {
     <div
       style={{
         display: "flex",
-
-        justifyContent: "space-around",
-        width: "25%",
+        // justifyContent: "space-around",
+        // width: "25%",
         marginTop: "4%",
-        marginLeft: "70%",
-        // flexWrap: "wrap",
+        marginLeft: "60%",
+        // width: "30%",
+        flexWrap: "wrap",
       }}
     >
       <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
@@ -122,6 +126,17 @@ const PrakashakFilters = () => {
           ))}
         </Select>
       </FormControl>
+      <Button
+        variant="contained"
+        sx={{
+          height: "40px",
+          width: "120px",
+          marginTop: "1.2%",
+        }}
+        onClick={filterButtonClick}
+      >
+        Filter
+      </Button>
     </div>
   );
 };

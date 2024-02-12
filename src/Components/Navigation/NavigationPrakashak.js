@@ -105,28 +105,29 @@ function NavigationPrakashak(props) {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <AppBar
+      <div
         // position="fixed"
         style={{
           backgroundColor: "#F5F5F5",
           padding: "1%",
           color: "black",
+          // alignItems: "flex-start",
         }}
       >
-        <div style={{ alignSelf: "flex-start" }}>
+        <div style={{ alignSelf: "flex-start", textAlign: "start" }}>
           <b>PRAKASHAK</b>
         </div>
-        <div style={{ alignSelf: "flex-start" }}>
+        <div style={{ alignSelf: "flex-start", textAlign: "start" }}>
           <i>
             Parents' Remote Assistance and Knowledge Support for the Holistic
             Advancement of Kids
           </i>
         </div>
-      </AppBar>
+      </div>
       <div
         style={{
           // position: "absolute",
-          marginTop: "7%",
+          marginTop: "2%",
           display: "flex",
           justifyContent: "space-around",
           width: "100%",

@@ -5,6 +5,7 @@ import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 // import { getAuthenticateUser } from "../../AllApi/LoginApi";
 import { getAuthenticateUser } from "../../Pages/Login/LoginApi";
+
 import Swal from "sweetalert2";
 
 const Login = () => {
@@ -14,33 +15,32 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const authentication = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const body = {
-      userid: userId,
-      password: password,
-      usertype: "manager",
-      loginType: "password",
-    };
-
-    console.log("body-->", body);
-
     try {
-      const response = await getAuthenticateUser(body, config);
-      console.log("response--->", response.data, response.status);
-      if (response.data.status === "success") {
-        localStorage.setItem("login", true);
-        Swal.fire({
-          icon: "success",
-          title: "Login Successful",
-          showConfirmButton: false,
-          timer: 1000, // Close the alert after 1.5 seconds
-        });
-        // alert("Login Successful");
-        navigate("/home");
+      const response = await getAuthenticateUser(userId, password);
+      console.log("response--->", response?.data, response?.status);
+      const { usertype, approvalStatus } = response?.data;
+
+      if (response?.status === 200) {
+        if (approvalStatus === "approved") {
+          localStorage.setItem("login", true);
+          Swal.fire({
+            icon: "success",
+            title: "Login Successful",
+            showConfirmButton: false,
+            timer: 1000, // Close the alert after 1.5 seconds
+          });
+
+          if (usertype === "admin") {
+            navigate("/home");
+          } else if (usertype === "prakashak") {
+            navigate("/prakashak");
+          } else if (usertype === "mis") {
+            navigate("/mis");
+          } else {
+          }
+        } else {
+          alert("You are not approved yet.");
+        }
       } else {
         alert("Please Enter Valid ID and Password");
       }

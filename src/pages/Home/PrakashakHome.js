@@ -13,10 +13,10 @@ import Logout from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
 import GiteIcon from "@mui/icons-material/Gite";
 import SchoolIcon from "@mui/icons-material/School";
-import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 import { useLocation } from "react-router-dom";
+import AutoGraphIcon from "@mui/icons-material/AutoGraph";
 
-function Home() {
+const PrakashakHome = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { usertype } = location.state || {};
@@ -60,17 +60,6 @@ function Home() {
           padding: "16px",
         }}
       >
-        {/* <h1
-          style={{
-            color: "#FFF",
-            marginTop: "50px",
-            marginBottom: "20px",
-            fontSize: "24px",
-          }}
-        >
-          Choose Your Dashboard
-        </h1> */}
-
         <div
           style={{
             display: "flex",
@@ -97,96 +86,9 @@ function Home() {
                 transform: "scale(1.05)",
               },
             }}
-            onClick={() => {
-              navigate("/fellow/dashboard");
-            }}
-          >
-            <PeopleIcon
-              sx={{
-                fontSize: 48,
-              }}
-            />
-            <span style={{ fontSize: "20px" }}>Educators</span>
-          </Card>
-          <Card
-            sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              backgroundColor: "#FFF",
-              justifyContent: "center",
-              transition: "transform 0.2s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.05)",
-              },
-            }}
-            onClick={() => {
-              navigate("/school/dashboard");
-            }}
-          >
-            <SchoolIcon
-              sx={{
-                fontSize: 48,
-              }}
-            />
-            <span style={{ fontSize: "20px" }}>School</span>
-          </Card>
-          <Card
-            sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              backgroundColor: "#FFF",
-              justifyContent: "center",
-              transition: "transform 0.2s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.05)",
-              },
-            }}
             // onClick={() => {
-            //   navigate("/anganwadi/dashboard");
+            //   navigate("/fellow/dashboard");
             // }}
-          >
-            <GiteIcon
-              sx={{
-                fontSize: 48,
-              }}
-            />
-            <span style={{ fontSize: "20px" }}>Anganwadi</span>
-          </Card>
-          <Card
-            sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              backgroundColor: "#FFF",
-              justifyContent: "center",
-              transition: "transform 0.2s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.05)",
-              },
-            }}
-            onClick={() => {
-              navigate("/anganwadi/dashboard");
-            }}
           >
             <AutoGraphIcon
               sx={{
@@ -237,6 +139,6 @@ function Home() {
       </Popover>
     </>
   );
-}
+};
 
-export default Home;
+export default PrakashakHome;

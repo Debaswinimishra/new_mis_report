@@ -23,6 +23,7 @@ const Login = () => {
       if (response?.status === 200) {
         if (approvalStatus === "approved") {
           localStorage.setItem("login", true);
+          localStorage.setItem("usertype", usertype);
           Swal.fire({
             icon: "success",
             title: "Login Successful",
@@ -30,12 +31,12 @@ const Login = () => {
             timer: 1000, // Close the alert after 1.5 seconds
           });
 
-          if (usertype === "admin") {
+          if (
+            usertype === "admin" ||
+            usertype === "prakashak" ||
+            usertype === "mis"
+          ) {
             navigate("/home");
-          } else if (usertype === "prakashak") {
-            navigate("/prakashak");
-          } else if (usertype === "mis") {
-            navigate("/mis");
           } else {
           }
         } else {

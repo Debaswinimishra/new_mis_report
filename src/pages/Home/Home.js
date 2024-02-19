@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PeopleIcon from "@mui/icons-material/People";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import QuizIcon from "@mui/icons-material/Quiz";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -19,9 +20,63 @@ import { useLocation } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { usertype } = location.state || {};
+  const userType = localStorage.getItem("usertype");
+  console.log("userType", userType);
 
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const cards = [
+    {
+      type: "admin",
+      name: "Educators",
+      icon: <PeopleIcon fontSize="large" />,
+      path: "/fellow/dashboard",
+    },
+    {
+      type: "admin",
+      name: "School",
+      icon: <SchoolIcon fontSize="large" />,
+      path: "/school/dashboard",
+    },
+    {
+      type: "admin",
+      name: "Anganwadi",
+      icon: <GiteIcon fontSize="large" />,
+      path: "/anganwadi/dashboard",
+    },
+    {
+      type: "admin",
+      name: "Prakashak",
+      icon: <AccountBalanceIcon fontSize="large" />,
+      path: "/prakashak",
+    },
+    {
+      type: "mis",
+      name: "Educators",
+      icon: <PeopleIcon fontSize="large" />,
+      path: "/fellow/dashboard",
+    },
+    {
+      type: "mis",
+      name: "School",
+      icon: <SchoolIcon fontSize="large" />,
+      path: "/school/dashboard",
+    },
+    {
+      type: "mis",
+      name: "Anganwadi",
+      icon: <GiteIcon fontSize="large" />,
+      path: "/anganwadi/dashboard",
+    },
+    {
+      type: "prakashak",
+      name: "Prakashak",
+      icon: <AccountBalanceIcon fontSize="large" />,
+      path: "/prakashak",
+    },
+  ];
+
+  const filteredCards = cards?.filter((card) => card?.type === userType);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -60,17 +115,6 @@ function Home() {
           padding: "16px",
         }}
       >
-        {/* <h1
-          style={{
-            color: "#FFF",
-            marginTop: "50px",
-            marginBottom: "20px",
-            fontSize: "24px",
-          }}
-        >
-          Choose Your Dashboard
-        </h1> */}
-
         <div
           style={{
             display: "flex",
@@ -79,122 +123,34 @@ function Home() {
             flexWrap: "wrap",
           }}
         >
-          <Card
-            sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              backgroundColor: "#FFF",
-              justifyContent: "center",
-              transition: "transform 0.2s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.05)",
-              },
-            }}
-            onClick={() => {
-              navigate("/fellow/dashboard");
-            }}
-          >
-            <PeopleIcon
+          {filteredCards?.map((card, index) => (
+            <Card
+              key={index}
               sx={{
-                fontSize: 48,
+                width: "250px",
+                height: "200px",
+                textAlign: "center",
+                margin: "10px",
+                borderRadius: "10px",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                backgroundColor: "#FFF",
+                justifyContent: "center",
+                transition: "transform 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                },
               }}
-            />
-            <span style={{ fontSize: "20px" }}>Educators</span>
-          </Card>
-          <Card
-            sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              backgroundColor: "#FFF",
-              justifyContent: "center",
-              transition: "transform 0.2s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.05)",
-              },
-            }}
-            onClick={() => {
-              navigate("/school/dashboard");
-            }}
-          >
-            <SchoolIcon
-              sx={{
-                fontSize: 48,
+              onClick={() => {
+                navigate(card.path);
               }}
-            />
-            <span style={{ fontSize: "20px" }}>School</span>
-          </Card>
-          <Card
-            sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              backgroundColor: "#FFF",
-              justifyContent: "center",
-              transition: "transform 0.2s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.05)",
-              },
-            }}
-            onClick={() => {
-              navigate("/anganwadi/dashboard");
-            }}
-          >
-            <GiteIcon
-              sx={{
-                fontSize: 48,
-              }}
-            />
-            <span style={{ fontSize: "20px" }}>Anganwadi</span>
-          </Card>
-          <Card
-            sx={{
-              width: "250px",
-              height: "200px",
-              textAlign: "center",
-              margin: "10px",
-              borderRadius: "10px",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              backgroundColor: "#FFF",
-              justifyContent: "center",
-              transition: "transform 0.2s ease-in-out",
-              "&:hover": {
-                transform: "scale(1.05)",
-              },
-            }}
-            onClick={() => {
-              navigate("/prakashak/dashboard");
-            }}
-          >
-            <PeopleIcon
-              sx={{
-                fontSize: 48,
-              }}
-            />
-            <span style={{ fontSize: "20px" }}>Prakashak</span>
-          </Card>
+            >
+              {card.icon}
+              <span style={{ fontSize: "20px" }}>{card.name}</span>
+            </Card>
+          ))}
         </div>
       </Box>
 

@@ -12,6 +12,8 @@ import {
   Button,
   CircularProgress,
 } from "@mui/material";
+import Card from "../../../ReusableComponents/Card";
+import PeopleIcon from "@mui/icons-material/People";
 
 const classArr = [
   { value: 1, label: "1" },
@@ -84,22 +86,22 @@ const Classwise = () => {
           // display: "flex",
           flexWrap: "wrap",
           justifyContent: "space-around",
-          width: "100%",
+          width: "96%",
+          marginLeft: "3%",
+          marginBottom: "2%",
         }}
       >
-        <div
+        <Card
+          name="Number of students"
+          number={255}
+          Icon={PeopleIcon}
           style={{
-            backgroundColor: "#f3f2ff",
-            width: "250px",
-            height: "120px", // Increased the height to accommodate all child divs
-            borderRadius: "10px",
-            border: "1px solid #000", // Added a border for better visualization
-            margin: "5px", // Added margin for better spacing
+            width: "208px",
+            height: "170px",
+            marginTop: "1.5%",
+            backgroundColor: "#F5F5F5",
           }}
-        >
-          <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-          <h3>Total No. of Students </h3>
-        </div>
+        />
         <h1>Remote Instructions in Brief</h1>
         <div
           style={{
@@ -108,127 +110,110 @@ const Classwise = () => {
             alignContent: "center",
             // justifyContent: "space-evenly",
             width: "100%",
+            gap: "2%",
           }}
         >
-          <div
+          <Card
+            name="Number of students"
+            number={255}
+            Icon={PeopleIcon}
             style={{
-              backgroundColor: "#f3f2ff",
-              width: "250px",
-              height: "120px", // Increased the height to accommodate all child divs
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              margin: "5px", // Added margin for better spacing
+              width: "208px",
+              height: "170px",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
             }}
-          >
-            <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-            <h3>Total No. of Students </h3>
-          </div>
-          <div
+          />
+          <Card
+            name="Number of students"
+            number={255}
+            Icon={PeopleIcon}
             style={{
-              backgroundColor: "#f3f2ff",
-              width: "250px",
-              height: "120px", // Increased the height to accommodate all child divs
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              margin: "5px", // Added margin for better spacing
+              width: "208px",
+              height: "170px",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
             }}
-          >
-            <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-            <h3>Total No. of Students </h3>
-          </div>{" "}
-          <div
+          />{" "}
+          <Card
+            name="Number of students"
+            number={255}
+            Icon={PeopleIcon}
             style={{
-              backgroundColor: "#f3f2ff",
-              width: "250px",
-              height: "120px", // Increased the height to accommodate all child divs
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              margin: "5px", // Added margin for better spacing
+              width: "208px",
+              height: "170px",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
             }}
-          >
-            <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-            <h3>Total No. of Students </h3>
-          </div>{" "}
-          <div
+          />{" "}
+          <Card
+            name="Number of students"
+            number={255}
+            Icon={PeopleIcon}
             style={{
-              backgroundColor: "#f3f2ff",
-              width: "250px",
-              height: "120px", // Increased the height to accommodate all child divs
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              margin: "5px", // Added margin for better spacing
+              width: "208px",
+              height: "170px",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
             }}
-          >
-            <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-            <h3>Total No. of Students </h3>
-          </div>{" "}
-          <div
+          />{" "}
+          <Card
+            name="Number of students"
+            number={255}
+            Icon={PeopleIcon}
             style={{
-              backgroundColor: "#f3f2ff",
-              width: "250px",
-              height: "120px", // Increased the height to accommodate all child divs
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              margin: "5px", // Added margin for better spacing
+              width: "208px",
+              height: "170px",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
             }}
-          >
-            <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-            <h3>Total No. of Students </h3>
-          </div>{" "}
-          <div
+          />{" "}
+          <Card
+            name="Number of students"
+            number={255}
+            Icon={PeopleIcon}
             style={{
-              backgroundColor: "#f3f2ff",
-              width: "250px",
-              height: "120px", // Increased the height to accommodate all child divs
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              margin: "5px", // Added margin for better spacing
+              width: "208px",
+              height: "170px",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
             }}
-          >
-            <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-            <h3>Total No. of Students </h3>
-          </div>{" "}
-          <div
+          />{" "}
+          <Card
+            name="Number of students"
+            number={255}
+            Icon={PeopleIcon}
             style={{
-              backgroundColor: "#f3f2ff",
-              width: "250px",
-              height: "120px", // Increased the height to accommodate all child divs
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              margin: "5px", // Added margin for better spacing
+              width: "208px",
+              height: "170px",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
             }}
-          >
-            <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-            <h3>Total No. of Students </h3>
-          </div>{" "}
-          <div
+          />{" "}
+          <Card
+            name="Number of students"
+            number={255}
+            Icon={PeopleIcon}
             style={{
-              backgroundColor: "#f3f2ff",
-              width: "250px",
-              height: "120px", // Increased the height to accommodate all child divs
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              margin: "5px", // Added margin for better spacing
+              width: "208px",
+              height: "170px",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
             }}
-          >
-            <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-            <h3>Total No. of Students </h3>
-          </div>
+          />
         </div>
         <h1>Chatbot in Brief</h1>
-        <div
+        <Card
+          name="Number of students"
+          number={255}
+          Icon={PeopleIcon}
           style={{
-            backgroundColor: "#f3f2ff",
-            width: "250px",
-            height: "120px", // Increased the height to accommodate all child divs
-            borderRadius: "10px",
-            border: "1px solid #000", // Added a border for better visualization
-            margin: "5px", // Added margin for better spacing
+            width: "208px",
+            height: "170px",
+            marginTop: "1.5%",
+            backgroundColor: "#F5F5F5",
           }}
-        >
-          <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
-          <h3>Total No. of Students </h3>
-        </div>
+        />{" "}
       </div>
     </div>
   );

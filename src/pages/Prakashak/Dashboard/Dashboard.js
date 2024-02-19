@@ -168,7 +168,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -179,7 +179,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -190,7 +190,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -201,7 +201,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -212,7 +212,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -223,7 +223,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -234,7 +234,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -245,7 +245,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -256,18 +256,18 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
             }}
           />
           <Card
-            name="Number of boys"
+            name="Total number of boys"
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -293,7 +293,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -304,7 +304,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -315,7 +315,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -326,7 +326,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -353,7 +353,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -364,7 +364,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -375,7 +375,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -386,7 +386,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -397,7 +397,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -408,7 +408,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -419,7 +419,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -446,7 +446,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -457,7 +457,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -468,7 +468,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -479,7 +479,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
@@ -490,7 +490,7 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "200px",
+              width: "208px",
               height: "170px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",

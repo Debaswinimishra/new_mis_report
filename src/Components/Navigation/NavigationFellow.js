@@ -73,7 +73,6 @@ function NavigationFellow(props) {
       link: "overall_c.e",
       icon: <GroupsIcon sx={{ color: "rgb(0,128,128)" }} />,
     },
-
     // {
     //   text: "Feedback",
     //   link: "feedback",
@@ -99,7 +98,6 @@ function NavigationFellow(props) {
       link: "overall_timespent_c.e",
       icon: <AccessTimeFilledIcon sx={{ color: "purple" }} />,
     },
-
     // {
     //   text: "Common Monthly Quiz",
     //   link: "common_monthly_quiz",

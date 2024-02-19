@@ -31,12 +31,10 @@ const Login = () => {
             timer: 1000, // Close the alert after 1.5 seconds
           });
 
-          if (
-            usertype === "admin" ||
-            usertype === "prakashak" ||
-            usertype === "mis"
-          ) {
+          if (usertype === "admin" || usertype === "mis") {
             navigate("/home");
+          } else if (usertype === "prakashak") {
+            navigate("/prakashak/dashboard");
           } else {
           }
         } else {

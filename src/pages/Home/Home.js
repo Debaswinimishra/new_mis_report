@@ -48,7 +48,7 @@ function Home() {
       type: "admin",
       name: "Prakashak",
       icon: <AccountBalanceIcon fontSize="large" />,
-      path: "/prakashak",
+      path: "/prakashak/dashboard",
     },
     {
       type: "mis",
@@ -67,12 +67,6 @@ function Home() {
       name: "Anganwadi",
       icon: <GiteIcon fontSize="large" />,
       path: "/anganwadi/dashboard",
-    },
-    {
-      type: "prakashak",
-      name: "Prakashak",
-      icon: <AccountBalanceIcon fontSize="large" />,
-      path: "/prakashak",
     },
   ];
 

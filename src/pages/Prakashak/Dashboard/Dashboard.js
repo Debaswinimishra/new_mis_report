@@ -169,10 +169,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -180,10 +181,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -191,10 +193,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -202,10 +205,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -213,10 +217,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -224,10 +229,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -235,10 +241,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -246,32 +253,35 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
-            name="Total number of girls"
+            name="Number of girls"
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
-            name="Total number of boys"
+            name="Number of boys"
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
         </div>
@@ -294,10 +304,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -305,10 +316,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -316,10 +328,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -327,10 +340,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
         </div>
@@ -354,10 +368,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -365,10 +380,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -376,10 +392,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -387,10 +404,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -398,10 +416,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -409,10 +428,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -420,10 +440,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
         </div>
@@ -443,14 +464,15 @@ const Dashboard = () => {
           }}
         >
           <Card
-            name="No. of conversations in Chatbot"
+            name="Conversations in Chatbot"
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -458,10 +480,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -469,10 +492,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -480,10 +504,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
           <Card
@@ -491,10 +516,11 @@ const Dashboard = () => {
             number={255}
             Icon={PeopleIcon}
             style={{
-              width: "208px",
-              height: "170px",
+              width: "240px",
+              height: "130px",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
+              paddingTop: "2%",
             }}
           />
         </div>

@@ -64,11 +64,12 @@ const Dashboard = () => {
   const filterButtonClick = () => {
     alert("filter button clicked");
   };
+  4;
 
   //todo----------------------Console logs---------------------------
-  console.log("selected year------------------->", selectedYear);
-  console.log("selected month------------------->", selectedMonth);
-  console.log("selected week------------------->", selectedWeek);
+  console.log("selected year------>", selectedYear);
+  console.log("selected month------->", selectedMonth);
+  console.log("selected week-------->", selectedWeek);
 
   return (
     <>

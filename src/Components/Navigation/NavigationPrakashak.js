@@ -136,7 +136,7 @@ function NavigationPrakashak(props) {
             sx={{
               position: "absolute",
               top: "2px",
-              right: "0px",
+              right: "16px",
               // backgroundColor: "#FFF",
             }}
           >

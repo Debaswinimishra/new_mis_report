@@ -13,7 +13,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 
-import PrakashakFilters from "../../../ReusableComponents/PrakashakFilters";
 const classArr = [
   { value: 1, label: "1" },
   { value: 2, label: "2" },
@@ -40,7 +39,6 @@ const Classwise = () => {
           // flexWrap: "wrap",
         }}
       >
-        <PrakashakFilters />
         <FormControl
           sx={{ m: 0.5 }}
           size="small"

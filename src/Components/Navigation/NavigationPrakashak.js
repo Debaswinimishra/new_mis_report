@@ -148,14 +148,17 @@ function NavigationPrakashak(props) {
               backgroundColor:
                 item.link.split("/")[1] === pathname.split("/")[2]
                   ? "rgb(65, 105, 225)"
-                  : "white",
+                  : "#F8F8F8",
             }}
             value={item.id}
             onClick={() => handleTabChange(`/${item.link}`)}
           >
             <span
               style={{
-                color: item.link.split("/")[1] === pathname.split("/")[2] ? "white" : "black",
+                color:
+                  item.link.split("/")[1] === pathname.split("/")[2]
+                    ? "white"
+                    : "black",
               }}
             >
               {item.text}

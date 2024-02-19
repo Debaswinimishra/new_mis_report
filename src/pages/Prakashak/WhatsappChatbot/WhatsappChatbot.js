@@ -1,5 +1,4 @@
 import React from "react";
-import PrakashakFilters from "../../../ReusableComponents/PrakashakFilters";
 
 const WhatsappChatbot = () => {
   const handleFilter = () => {
@@ -8,8 +7,7 @@ const WhatsappChatbot = () => {
   };
   return (
     <div>
-      <div style={{ marginRight: "15%" }}>
-        <PrakashakFilters />
+      <div style={{ marginRight: "15%", marginTop: "5%" }}>
         <button
           style={{
             border: "2px solid rgb(65, 105, 225)",

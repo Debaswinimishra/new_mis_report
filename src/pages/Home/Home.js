@@ -155,9 +155,9 @@ function Home() {
                 transform: "scale(1.05)",
               },
             }}
-            // onClick={() => {
-            //   navigate("/anganwadi/dashboard");
-            // }}
+            onClick={() => {
+              navigate("/anganwadi/dashboard");
+            }}
           >
             <GiteIcon
               sx={{
@@ -185,10 +185,10 @@ function Home() {
               },
             }}
             onClick={() => {
-              navigate("/anganwadi/dashboard");
+              navigate("/prakashak/dashboard");
             }}
           >
-            <AutoGraphIcon
+            <PeopleIcon
               sx={{
                 fontSize: 48,
               }}

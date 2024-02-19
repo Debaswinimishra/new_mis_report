@@ -59,7 +59,7 @@ function NavigationPrakashak(props) {
   };
 
   useEffect(() => {
-    setActiveLink(location.pathname.split("/")[2]);
+    setActiveLink(location.pathname);
   }, [location.pathname]);
 
   const listItem = [
@@ -107,8 +107,8 @@ function NavigationPrakashak(props) {
 
   //todo---------------------Console logs---------------------------
   // console.log("selectedTabIndex----------------------->", selectedTabIndex);
-  // console.log("activeLink------------------------------->", activeLink);
-  console.log("usertype----------------------->", usertype);
+  console.log("activeLink------------------------------->", activeLink);
+  // console.log("usertype----------------------->", usertype);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -214,15 +214,15 @@ function NavigationPrakashak(props) {
         ))}
       </div>
       <div>
-        {activeLink === "dashboard" ? (
+        {activeLink === "/prakashak/dashboard" ? (
           <Dashboard />
-        ) : activeLink === "remote_instructions" ? (
+        ) : activeLink === "/prakashak/remote_instructions" ? (
           <RemoteInstruction />
-        ) : activeLink === "whatsapp_chatbot" ? (
+        ) : activeLink === "/prakashak/whatsapp_chatbot" ? (
           <WhatsappChatbot />
-        ) : activeLink === "school_wise" ? (
+        ) : activeLink === "/prakashak/school_wise" ? (
           <Schoolwise />
-        ) : activeLink === "class_wise" ? (
+        ) : activeLink === "/prakashak/class_wise" ? (
           <Classwise />
         ) : null}
       </div>

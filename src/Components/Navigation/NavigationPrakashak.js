@@ -40,7 +40,7 @@ function NavigationPrakashak(props) {
   const navigate = useNavigate();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [activeLink, setActiveLink] = React.useState();
+  const [activeLink, setActiveLink] = React.useState("dashboard");
   const [selectedTabIndex, setSelectedTabIndex] = useState(0); //For changing the respective tab
 
   const handleNavigate = (link) => {
@@ -51,40 +51,43 @@ function NavigationPrakashak(props) {
     navigate(link);
   };
 
-  const handleTabChange = (item) => {
-    console.log(`tabIndex- ${item.id} and navigation link-${item.link}`);
-    setSelectedTabIndex(item.id);
-    navigate(item.link);
+  const handleTabChange = (link) => {
+    setActiveLink(link);
+    navigate(link);
   };
+
+  useEffect(() => {
+    setActiveLink(location.pathname.split("/")[2]);
+  }, [location.pathname]);
 
   const listItem = [
     {
       text: "Overall Dashboard",
-      link: "dashboard",
+      link: "prakashak/dashboard",
       id: 0,
       //   icon: <DashboardIcon color="secondary" />,
     },
     {
       text: "Remote Instructions",
-      link: "remote_instructions",
+      link: "prakashak/remote_instructions",
       id: 1,
       //   icon: <DashboardIcon color="secondary" />,
     },
     {
       text: "Whatsapp Chatbot",
-      link: "whatsapp_chatbot",
+      link: "prakashak/whatsapp_chatbot",
       id: 2,
       //   icon: <DashboardIcon color="secondary" />,
     },
     {
       text: "School-wise",
-      link: "school_wise",
+      link: "prakashak/school_wise",
       id: 3,
       //   icon: <DashboardIcon color="secondary" />,
     },
     {
       text: "Class-wise",
-      link: "class_wise",
+      link: "prakashak/class_wise",
       id: 4,
       //   icon: <DashboardIcon color="secondary" />,
     },
@@ -101,7 +104,8 @@ function NavigationPrakashak(props) {
   };
 
   //todo---------------------Console logs---------------------------
-  console.log("selectedTabIndex----------------------->", selectedTabIndex);
+  // console.log("selectedTabIndex----------------------->", selectedTabIndex);
+  console.log("activeLink------------------------------->", activeLink);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -142,14 +146,16 @@ function NavigationPrakashak(props) {
               cursor: "pointer",
               borderRadius: "5px",
               backgroundColor:
-                item.id === selectedTabIndex ? "rgb(65, 105, 225)" : "white",
+                item.link.split("/")[1] === pathname.split("/")[2]
+                  ? "rgb(65, 105, 225)"
+                  : "white",
             }}
             value={item.id}
-            onClick={() => handleTabChange(item)}
+            onClick={() => handleTabChange(`/${item.link}`)}
           >
             <span
               style={{
-                color: item.id === selectedTabIndex ? "white" : "black",
+                color: item.link.split("/")[1] === pathname.split("/")[2] ? "white" : "black",
               }}
             >
               {item.text}
@@ -158,15 +164,15 @@ function NavigationPrakashak(props) {
         ))}
       </div>
       <div>
-        {selectedTabIndex === 0 ? (
+        {activeLink === "dashboard" ? (
           <Dashboard />
-        ) : selectedTabIndex === 1 ? (
+        ) : activeLink === "remote_instructions" ? (
           <RemoteInstruction />
-        ) : selectedTabIndex === 2 ? (
+        ) : activeLink === "whatsapp_chatbot" ? (
           <WhatsappChatbot />
-        ) : selectedTabIndex === 3 ? (
+        ) : activeLink === "school_wise" ? (
           <Schoolwise />
-        ) : selectedTabIndex === 4 ? (
+        ) : activeLink === "class_wise" ? (
           <Classwise />
         ) : null}
       </div>

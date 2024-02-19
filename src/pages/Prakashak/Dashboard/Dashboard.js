@@ -62,7 +62,7 @@ const Dashboard = () => {
   };
 
   const filterButtonClick = () => {
-    console.log("filter button clicked");
+    alert("filter button clicked");
   };
 
   //todo----------------------Console logs---------------------------

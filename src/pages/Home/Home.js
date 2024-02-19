@@ -48,7 +48,7 @@ function Home() {
       type: "admin",
       name: "Prakashak",
       icon: <AccountBalanceIcon fontSize="large" />,
-      path: "/prakashak",
+      path: "/prakashak/dashboard",
     },
     {
       type: "mis",
@@ -72,7 +72,7 @@ function Home() {
       type: "prakashak",
       name: "Prakashak",
       icon: <AccountBalanceIcon fontSize="large" />,
-      path: "/prakashak",
+      path: "/prakashak/dashboard",
     },
   ];
 

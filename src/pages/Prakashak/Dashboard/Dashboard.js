@@ -14,6 +14,8 @@ import {
   CircularProgress,
 } from "@mui/material";
 import PrakashakFilters from "../../../ReusableComponents/PrakashakFilters";
+import Card from "../../../ReusableComponents/Card";
+import PeopleIcon from "@mui/icons-material/People";
 
 const Dashboard = () => {
   return (
@@ -39,136 +41,66 @@ const Dashboard = () => {
             // marginLeft: "4%",
           }}
         >
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>No. of districts </h4>
-          </div>
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>Number of blocks</h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>Number of clusters </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>No. of schools </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>No. of new schools </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>No. of students </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>No. of new students </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>Smartphone users</h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>No. of girls </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>Total number of boys </h4>
-          </div>
+          <Card
+            name="Number of districts"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Number of blocks"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Number of clusters"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Number of schools"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Number of new schools"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Number of students"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Number of new students"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Smartphone users"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Total number of girls"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Number of boys"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
         </div>
         <h3 style={{ marginTop: "1.5%" }}>
           <u>Time-Spent details</u>
@@ -181,61 +113,33 @@ const Dashboard = () => {
             // justifyContent: "center",
             width: "100%",
             gap: "2%",
-            marginTop: "-2%",
+            // marginTop: "-2%",
           }}
         >
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>Parents spending 2-15 mins </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>Parents spending 16-30 mins </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>Parents spending 31-45 mins </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7%" }}>Parents spending 45+ mins </h4>
-          </div>{" "}
+          <Card
+            name="Parents spending 2-15 mins"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Parents spending 16-30 mins"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Parents spending 31-45 mins"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Parents spending 45+ mins"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
         </div>
 
         <h3 style={{ marginTop: "1.5%" }}>
@@ -249,106 +153,51 @@ const Dashboard = () => {
             // justifyContent: "center",
             width: "100%",
             gap: "2%",
-            marginTop: "-1.5%",
+            // marginTop: "-1.5%",
           }}
         >
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>No.of calls received </h4>
-          </div>
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>
-              Avg. minutes of calls received
-            </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>Total no. of SMS delivered </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>Avg. minutes spent in IVRs</h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>
-              No. of calls received in IVRs{" "}
-            </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>
-              No. of unique calls received in IVRs
-            </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>No. of active users</h4>
-          </div>
+          <Card
+            name="Number of calls received"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Avg. minutes of calls received"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Numbers of SMS delivered"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Avg. minutes spent on IVRs"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Calls received in IVRs"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Unique calls received in IVRs"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Number of active users"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
         </div>
 
         <h3 style={{ marginTop: "1.5%" }}>
@@ -362,78 +211,39 @@ const Dashboard = () => {
             // justifyContent: "center",
             width: "100%",
             gap: "2%",
-            marginTop: "-1.5%",
+            // marginTop: "-1.5%",
           }}
         >
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>
-              No. of conversations in Chatbot{" "}
-            </h4>
-          </div>
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>No. of videos watched</h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>No. of assessments taken</h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>
-              Avg. minutes spent in WhatsApp
-            </h4>
-          </div>{" "}
-          <div
-            style={{
-              backgroundColor: "#f3f2ff",
-              width: "190px",
-              height: "100px",
-              borderRadius: "10px",
-              border: "1px solid #000", // Added a border for better visualization
-              marginTop: "2%",
-            }}
-          >
-            <h2 style={{ color: "rgb(65, 105, 225)" }}>255</h2>
-            <h4 style={{ marginTop: "-7.7%" }}>No. of active users</h4>
-          </div>
+          <Card
+            name="No. of conversations in Chatbot"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Total number of videos watched"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Number of assessments taken"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Avg. minutes spent on WhatsApp"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
+          <Card
+            name="Total number of active users"
+            number={255}
+            Icon={PeopleIcon}
+            style={{ width: "200px", height: "170px", marginTop: "1%" }}
+          />
         </div>
       </div>
     </>

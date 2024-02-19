@@ -24,29 +24,33 @@ const RouteFellow = () => {
   const isLoggedin = localStorage.getItem("login");
   console.log("isLoggedinfellow--->", isLoggedin);
   // if (isLoggedin === "true") {
+  const userType = localStorage.getItem("usertype");
+  console.log("userType---->", userType);
   return (
     <Routes>
-      <Route
-        path="/fellow/*"
-        element={<PrivateRoute element={<FellowRoot />} />}
-      >
-        <Route index element={<Dashboard />} />
-        <Route path="dashboard" element={<Dashboard />} />
-
-        <Route path="common_monthly_quiz" element={<CommonMonthlyQuiz />} />
-        <Route path="overall_c.e" element={<CommunityEducator />} />
-        <Route path="training_module" element={<NewTraining />} />
+      {userType === "mis" ? (
         <Route
-          path="student_progress_report"
-          element={<StudentProgressReport />}
-        />
-        <Route path="details_c.e" element={<EducatorsDetails />} />
-        <Route path="feedback" element={<Feedback />} />
-        <Route path="training_details_c.e" element={<TrainingDetails />} />
-        <Route path="assessments_c.e" element={<Assessments />} />
-        <Route path="overall_timespent_c.e" element={<OverallTimespent />} />
-        <Route path="timespent_details_c.e" element={<TimespentDetails />} />
-      </Route>
+          path="/fellow/*"
+          element={<PrivateRoute element={<FellowRoot />} />}
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
+
+          <Route path="common_monthly_quiz" element={<CommonMonthlyQuiz />} />
+          <Route path="overall_c.e" element={<CommunityEducator />} />
+          <Route path="training_module" element={<NewTraining />} />
+          <Route
+            path="student_progress_report"
+            element={<StudentProgressReport />}
+          />
+          <Route path="details_c.e" element={<EducatorsDetails />} />
+          <Route path="feedback" element={<Feedback />} />
+          <Route path="training_details_c.e" element={<TrainingDetails />} />
+          <Route path="assessments_c.e" element={<Assessments />} />
+          <Route path="overall_timespent_c.e" element={<OverallTimespent />} />
+          <Route path="timespent_details_c.e" element={<TimespentDetails />} />
+        </Route>
+      ) : null}
     </Routes>
   );
   // } else {

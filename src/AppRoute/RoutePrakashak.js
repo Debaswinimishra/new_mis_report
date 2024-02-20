@@ -7,14 +7,19 @@ import RemoteInstruction from "../Pages/Prakashak/RemoteInstruction/RemoteInstru
 import WhatsappChatbot from "../Pages/Prakashak/WhatsappChatbot/WhatsappChatbot";
 import Schoolwise from "../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../Pages/Prakashak/Classwise/Classwise";
+
 const RoutePrakashak = () => {
   const navigate = useNavigate();
   const isLoggedin = localStorage.getItem("login");
   const userType = localStorage.getItem("usertype");
-  console.log("userType---->", userType);
+
+  if (!isLoggedin) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <Routes>
-      {userType === "prakashak" ? (
+      {userType === "prakashak" && (
         <Route
           path="/prakashak/*"
           element={<PrivateRoute element={<PrakashakRoot />} />}
@@ -26,16 +31,17 @@ const RoutePrakashak = () => {
           <Route path="school_wise" element={<Schoolwise />} />
           <Route path="class_wise" element={<Classwise />} />
         </Route>
-      ) : null}
+      )}
       <Route
         path="*"
         element={
           <Navigate
-            to={userType === "prakashak" ? "/prakashak/dashboard" : "/home"}
+            to={userType === "prakashak" ? "/prakashak/dashboard" : "/"}
           />
         }
       />
     </Routes>
   );
 };
+
 export default RoutePrakashak;

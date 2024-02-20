@@ -4,6 +4,8 @@ import Login from "../Pages/Login/Login";
 
 function RouteHome() {
   const isLoggedin = localStorage.getItem("login");
+  const userType = localStorage.getItem("usertype");
+  console.log("userType---->", userType);
   console.log("isLoggedinhome--->", isLoggedin);
   return (
     <>

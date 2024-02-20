@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import FellowRoot from "../Pages/Fellow";
 import Dashboard from "../Pages/Fellow/Dashboard/Dashboard";
@@ -26,6 +26,10 @@ const RouteFellow = () => {
   // if (isLoggedin === "true") {
   const userType = localStorage.getItem("usertype");
   console.log("userType---->", userType);
+
+  if (!isLoggedin) {
+    return <Navigate to="/" />;
+  }
   return (
     <Routes>
       {userType === "mis" ? (
@@ -51,6 +55,10 @@ const RouteFellow = () => {
           <Route path="timespent_details_c.e" element={<TimespentDetails />} />
         </Route>
       ) : null}
+      <Route
+        path="*"
+        element={<Navigate to={userType === "mis" ? "/home" : "/"} />}
+      />
     </Routes>
   );
   // } else {

@@ -5,16 +5,7 @@ const PrivateRoute = ({ element }) => {
   const userType = localStorage.getItem("usertype");
 
   if (isLoggedin === "true") {
-    if (
-      userType === "admin" ||
-      userType === "mis" ||
-      userType === "prakashak"
-    ) {
-      return element;
-    } else {
-      // Redirect to unauthorized page for unknown user types
-      return <Navigate to="/unauthorized" />;
-    }
+    return element;
   } else {
     return <Navigate to="/" />;
   }

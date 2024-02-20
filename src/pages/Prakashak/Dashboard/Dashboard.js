@@ -19,28 +19,11 @@ import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
 import Logout from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const handleLogout = () => {
-    Swal.fire({
-      title: "Do you want to log out?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Logout",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        localStorage.removeItem("login");
-        navigate("/");
-      }
-    });
-  };
   return (
     <>
       <PrakashakFilters />
-      <MenuItem onClick={handleLogout}>
-        <Logout fontSize="small" />
-        <span style={{ marginLeft: "8px" }}>Logout</span>
-      </MenuItem>
       <div
         style={{
           marginTop: "2%",

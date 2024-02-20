@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import QuizIcon from "@mui/icons-material/Quiz";
@@ -22,6 +23,11 @@ function Home() {
   const location = useLocation();
   const userType = localStorage.getItem("usertype");
   console.log("userType", userType);
+
+  if (!userType) {
+    // Handle the case when userType is not set
+    return <Navigate to="/" />;
+  }
 
   const [anchorEl, setAnchorEl] = useState(null);
 

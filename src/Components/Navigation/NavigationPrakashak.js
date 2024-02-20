@@ -2,38 +2,18 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import Popover from "@mui/material/Popover";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import LogoutIcon from "@mui/icons-material/Logout";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import Button from "@mui/material/Button";
-import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
-import CastForEducationIcon from "@mui/icons-material/CastForEducation";
-const drawerWidth = 240;
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import Dashboard from "../../Pages/Prakashak/Dashboard/Dashboard";
 import RemoteInstruction from "../../Pages/Prakashak/RemoteInstruction/RemoteInstruction";
 import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatbot";
 import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
+import Avatar from "@mui/material/Avatar";
+import Popover from "@mui/material/Popover";
+import MenuItem from "@mui/material/MenuItem";
+import Logout from "@mui/icons-material/Logout";
+import Swal from "sweetalert2";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -42,13 +22,35 @@ function NavigationPrakashak(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [activeLink, setActiveLink] = React.useState("dashboard");
   const [selectedTabIndex, setSelectedTabIndex] = useState(0); //For changing the respective tab
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleNavigate = (link) => {
-    setActiveLink(link.split("/")[2]);
-    if (link === "/") {
-      localStorage.removeItem("login");
+  const usertype = localStorage.getItem("usertype");
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    if (usertype === "prakashak") {
+      Swal.fire({
+        title: "Do you want to log out?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Logout",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.removeItem("login");
+          navigate("/");
+        }
+      });
+    } else {
+      navigate("/home");
     }
-    navigate(link);
+    handleClose();
   };
 
   const handleTabChange = (link) => {
@@ -105,7 +107,8 @@ function NavigationPrakashak(props) {
 
   //todo---------------------Console logs---------------------------
   // console.log("selectedTabIndex----------------------->", selectedTabIndex);
-  console.log("activeLink------------------------------->", activeLink);
+  // console.log("activeLink------------------------------->", activeLink);
+  console.log("usertype----------------------->", usertype);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -127,11 +130,52 @@ function NavigationPrakashak(props) {
             Advancement of Kids
           </i>
         </div>
+        <div>
+          <IconButton
+            onClick={handleMenuClick}
+            sx={{
+              position: "absolute",
+              top: "2px",
+              right: "0px",
+              // backgroundColor: "#FFF",
+            }}
+          >
+            <Avatar
+              alt="Logo"
+              src="https://thinkzone.in/wp-content/uploads/2022/06/Instagram-1-1-1-1-2.png"
+              sx={{
+                height: "50px",
+                width: "50px",
+                backgroundColor: "#FFF",
+              }}
+            />
+          </IconButton>
+          <Popover
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+          >
+            <MenuItem onClick={handleLogout}>
+              <Logout fontSize="small" />
+              {usertype === "prakashak" ? (
+                <span style={{ marginLeft: "8px" }}>Logout</span>
+              ) : usertype === "admin" ? (
+                <span style={{ marginLeft: "8px" }}>Back</span>
+              ) : null}
+            </MenuItem>
+          </Popover>
+        </div>
       </div>
       <div
         style={{
-          // position: "absolute",
-          marginTop: "2%",
           display: "flex",
           justifyContent: "space-around",
           width: "100%",
@@ -147,15 +191,21 @@ function NavigationPrakashak(props) {
               borderRadius: "5px",
               backgroundColor:
                 item.link.split("/")[1] === pathname.split("/")[2]
-                  ? "rgb(65, 105, 225)"
-                  : "white",
+                  ? "rgb(65, 85, 225)"
+                  : "#F8F8F8",
+              width: "200px",
+              height: "60px",
+              marginTop: "1.5%",
             }}
             value={item.id}
             onClick={() => handleTabChange(`/${item.link}`)}
           >
             <span
               style={{
-                color: item.link.split("/")[1] === pathname.split("/")[2] ? "white" : "black",
+                color:
+                  item.link.split("/")[1] === pathname.split("/")[2]
+                    ? "white"
+                    : "black",
               }}
             >
               {item.text}

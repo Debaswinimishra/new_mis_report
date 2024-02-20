@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
+import Api from "../Environment/Api";
+import Box from "@mui/material/Box";
 
 const Dashboard = () => {
   //?---------------Month array---------------------------
@@ -48,6 +50,8 @@ const Dashboard = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear.toString());
   const [selectedMonth, setSelectedMonth] = useState(monthArr[0].value);
   const [selectedWeek, setSelectedWeek] = useState("");
+  const [dashboardData, setDashboardData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -64,12 +68,33 @@ const Dashboard = () => {
   const filterButtonClick = () => {
     alert("filter button clicked");
   };
-  4;
+
+  useEffect(() => {
+    setLoading(true);
+    const body = {
+      year: selectedYear,
+      month: selectedMonth,
+    };
+    Api.post(`/getDashboardReport`, body)
+      .then((res) => {
+        setDashboardData(res.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error(`The Error is ---> ${error}`);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+      });
+  }, []);
 
   //todo----------------------Console logs---------------------------
   console.log("selected year------>", selectedYear);
   console.log("selected month------->", selectedMonth);
   console.log("selected week-------->", selectedWeek);
+  console.log("dashboard data---------->", dashboardData);
 
   return (
     <>
@@ -145,386 +170,394 @@ const Dashboard = () => {
         </Button>
       </div>
 
-      <div
-        style={{
-          marginTop: "2%",
-          paddingBottom: "4%",
-          marginLeft: "4%",
-          alignContent: "flex-start",
-        }}
-      >
+      {loading ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Box>
+            <CircularProgress />
+          </Box>
+        </div>
+      ) : (
         <div
           style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignContent: "center",
-            // justifyContent: "center",
-            width: "100%",
-            gap: "2%",
-            // marginLeft: "4%",
+            marginTop: "2%",
+            paddingBottom: "4%",
+            marginLeft: "4%",
+            alignContent: "flex-start",
           }}
         >
-          <Card
-            name="Number of districts"
-            number={255}
-            Icon={PeopleIcon}
+          <div
             style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
+              display: "flex",
+              flexWrap: "wrap",
+              alignContent: "center",
+              // justifyContent: "center",
+              width: "100%",
+              gap: "2%",
+              // marginLeft: "4%",
             }}
-          />
-          <Card
-            name="Number of blocks"
-            number={255}
-            Icon={PeopleIcon}
+          >
+            <Card
+              name="Number of districts"
+              number={dashboardData.total_districts}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of blocks"
+              number={dashboardData.total_blocks}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of clusters"
+              number={dashboardData.total_clusters}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of schools"
+              number={dashboardData.total_schools}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of new schools"
+              number={dashboardData.total_new_schools}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of students"
+              number={dashboardData.total_students}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of new students"
+              number={dashboardData.total_new_students}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Smartphone users"
+              number={dashboardData.total_chatbot_users}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of girls"
+              number={dashboardData.total_girl_students}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of boys"
+              number={dashboardData.total_boy_students}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+          </div>
+          <h3 style={{ marginTop: "1.5%" }}>
+            <u>Time-Spent details</u>
+          </h3>
+          <div
             style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
+              display: "flex",
+              flexWrap: "wrap",
+              alignContent: "center",
+              // justifyContent: "center",
+              width: "100%",
+              gap: "2%",
+              // marginTop: "-2%",
             }}
-          />
-          <Card
-            name="Number of clusters"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Number of schools"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Number of new schools"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Number of students"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Number of new students"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Smartphone users"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Number of girls"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Number of boys"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-        </div>
-        <h3 style={{ marginTop: "1.5%" }}>
-          <u>Time-Spent details</u>
-        </h3>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignContent: "center",
-            // justifyContent: "center",
-            width: "100%",
-            gap: "2%",
-            // marginTop: "-2%",
-          }}
-        >
-          <Card
-            name="Parents spending 2-15 mins"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Parents spending 16-30 mins"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Parents spending 31-45 mins"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Parents spending 45+ mins"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-        </div>
+          >
+            <Card
+              name="Parents spending 2-15 mins"
+              number={dashboardData.no_of_parents_spent_2to5mins}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Parents spending 16-30 mins"
+              number={dashboardData.no_of_parents_spent_16to30mins}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Parents spending 31-45 mins"
+              number={dashboardData.no_of_parents_spent_31to45mins}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Parents spending 45+ mins"
+              number={dashboardData.no_of_parents_spent_gte45mins}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+          </div>
 
-        <h3 style={{ marginTop: "1.5%" }}>
-          <u>Remote instructions in brief</u>
-        </h3>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignContent: "center",
-            // justifyContent: "center",
-            width: "100%",
-            gap: "2%",
-            // marginTop: "-1.5%",
-          }}
-        >
-          <Card
-            name="Number of calls received"
-            number={255}
-            Icon={PeopleIcon}
+          <h3 style={{ marginTop: "1.5%" }}>
+            <u>Remote instructions in brief</u>
+          </h3>
+          <div
             style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
+              display: "flex",
+              flexWrap: "wrap",
+              alignContent: "center",
+              // justifyContent: "center",
+              width: "100%",
+              gap: "2%",
+              // marginTop: "-1.5%",
             }}
-          />
-          <Card
-            name="Avg. minutes of calls received"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Numbers of SMS delivered"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Avg. minutes spent on IVRs"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Calls received in IVRs"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Unique calls received in IVRs"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Number of active users"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-        </div>
+          >
+            <Card
+              name="Number of calls received"
+              number={dashboardData.total_calls_received}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Avg. minutes of calls received"
+              number={dashboardData.calls_avg_mins}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Numbers of SMS delivered"
+              number={dashboardData.total_sms_received}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Avg. minutes spent on IVRs"
+              number={dashboardData.ivrs_avg_mins}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Calls received in IVRs"
+              number={dashboardData.total_ivrs_calls_received}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Unique calls received in IVRs"
+              number={dashboardData.total_unique_ivrs_calls_received}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of active users"
+              number={dashboardData.calls_active_users}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+          </div>
 
-        <h3 style={{ marginTop: "1.5%" }}>
-          <u>Chatbot in brief</u>
-        </h3>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignContent: "center",
-            // justifyContent: "center",
-            width: "100%",
-            gap: "2%",
-            // marginTop: "-1.5%",
-          }}
-        >
-          <Card
-            name="Conversations in Chatbot"
-            number={255}
-            Icon={PeopleIcon}
+          <h3 style={{ marginTop: "1.5%" }}>
+            <u>Chatbot in brief</u>
+          </h3>
+          <div
             style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
+              display: "flex",
+              flexWrap: "wrap",
+              alignContent: "center",
+              // justifyContent: "center",
+              width: "100%",
+              gap: "2%",
+              // marginTop: "-1.5%",
             }}
-          />
-          <Card
-            name="Total number of videos watched"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Number of assessments taken"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Avg. minutes spent on WhatsApp"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
-          <Card
-            name="Total number of active users"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "240px",
-              height: "130px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-              paddingTop: "2%",
-            }}
-          />
+          >
+            <Card
+              name="Conversations in Chatbot"
+              number={dashboardData.total_chatbot_convo}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Total number of videos watched"
+              number={dashboardData.total_chatbot_videos}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Number of assessments taken"
+              number={dashboardData.total_chatbot_assess_taken}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Avg. minutes spent on WhatsApp"
+              number={dashboardData.chatbot_avg_mins}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+            <Card
+              name="Total number of active users"
+              number={dashboardData.chatbot_active_users}
+              Icon={PeopleIcon}
+              style={{
+                width: "240px",
+                height: "130px",
+                marginTop: "1.5%",
+                backgroundColor: "#F5F5F5",
+                paddingTop: "2%",
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

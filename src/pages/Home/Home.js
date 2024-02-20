@@ -77,7 +77,7 @@ function Home() {
   ];
 
   const filteredCards = cards?.filter((card) => card?.type === userType);
-
+  console.log("filteredCards--------->", filteredCards);
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

@@ -79,15 +79,45 @@ const Classwise = () => {
   }, []);
 
   const fetchData = () => {
-    Api.post(`getClassWiseReport`)
-      .then((response) => {
-        console.log("set=================>", response.data);
-        setData(response.data);
-      })
-      .catch((err) => {
-        console.log("err=================>", err);
-      });
+    const body = {
+      year: selectedYear,
+      month: selectedMonth,
+      week: selectedWeek,
+      class: selectedClass,
+    };
+
+    console.log(
+      "check---------->",
+      selectedYear,
+      selectedMonth,
+      selectedWeek,
+      selectedClass
+    );
+
+    if (selectedYear && selectedMonth && selectedWeek && selectedClass) {
+      Api.post(`getClassWiseReport`, body)
+        .then((response) => {
+          console.log("set=================>", response.data);
+          setData(response.data);
+        })
+        .catch((err) => {
+          console.log("err=================>", err);
+        });
+    } else {
+      Api.post(`getClassWiseReport`)
+        .then((response) => {
+          console.log("set=================>", response.data);
+          setData(response.data);
+        })
+        .catch((err) => {
+          console.log("err=================>", err);
+        });
+    }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const filterButtonClick = () => {
     // alert("filter button clicked");

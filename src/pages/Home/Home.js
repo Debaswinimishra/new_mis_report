@@ -74,6 +74,12 @@ function Home() {
       icon: <GiteIcon fontSize="large" />,
       path: "/anganwadi/dashboard",
     },
+    {
+      type: "prakashak",
+      name: "Prakashak",
+      icon: <AccountBalanceIcon fontSize="large" />,
+      path: "/prakashak/dashboard",
+    },
   ];
 
   const filteredCards = cards?.filter((card) => card?.type === userType);

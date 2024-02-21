@@ -13,33 +13,36 @@ const RoutePrakashak = () => {
   const isLoggedin = localStorage.getItem("login");
   const userType = localStorage.getItem("usertype");
 
-  if (!isLoggedin) {
-    return <Navigate to="/" />;
-  }
+  // if (!isLoggedin) {
+  //   return <Navigate to="/" />;
+  // }
 
   return (
     <Routes>
-      {userType === "prakashak" && (
-        <Route
-          path="/prakashak/*"
-          element={<PrivateRoute element={<PrakashakRoot />} />}
-        >
-          <Route index element={<Dashboard />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="remote_instructions" element={<RemoteInstruction />} />
-          <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
-          <Route path="school_wise" element={<Schoolwise />} />
-          <Route path="class_wise" element={<Classwise />} />
-        </Route>
-      )}
+      {/* {userType === "prakashak" && ( */}
       <Route
+        path="/prakashak"
+        element={<PrivateRoute element={<PrakashakRoot />} />}
+      >
+        <Route index element={<Dashboard />} />
+        <Route path="" element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="remote_instructions" element={<RemoteInstruction />} />
+        <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
+        <Route path="school_wise" element={<Schoolwise />} />
+        <Route path="class_wise" element={<Classwise />} />
+        <Route path="*" element={<Dashboard />} />
+      </Route>
+
+      {/* )} */}
+      {/* <Route
         path="*"
         element={
           <Navigate
-            to={userType === "prakashak" ? "/prakashak/dashboard" : "/"}
+            to={userType === "prakashak" ? "/prakashak/dashboard" : ""}
           />
         }
-      />
+      /> */}
     </Routes>
   );
 };

@@ -71,29 +71,52 @@ const Dashboard = () => {
 
   useEffect(() => {
     setLoading(true);
-    const body = {
-      year: selectedYear,
-      month: selectedMonth,
-    };
-    Api.post(`/getDashboardReport`, body)
-      .then((res) => {
-        setDashboardData(res.data);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      })
-      .catch((error) => {
-        console.error(`The Error is ---> ${error}`);
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-      });
+    if (selectedWeek) {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+        week: selectedWeek,
+      };
+      console.log("body------->", body);
+      Api.post(`/getDashboardReport`, body)
+        .then((res) => {
+          setDashboardData(res.data);
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        })
+        .catch((error) => {
+          console.error(`The Error is ---> ${error}`);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
+        });
+    } else {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+      };
+      console.log("body------->", body);
+      Api.post(`/getDashboardReport`, body)
+        .then((res) => {
+          setDashboardData(res.data);
+          setTimeout(() => {
+            setLoading(false);
+          }, 5000);
+        })
+        .catch((error) => {
+          console.error(`The Error is ---> ${error}`);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
+        });
+    }
   }, []);
 
   //todo----------------------Console logs---------------------------
-  console.log("selected year------>", selectedYear);
-  console.log("selected month------->", selectedMonth);
-  console.log("selected week-------->", selectedWeek);
+  // console.log("selected year------>", selectedYear);
+  // console.log("selected month------->", selectedMonth);
+  // console.log("selected week-------->", selectedWeek);
   console.log("dashboard data---------->", dashboardData);
 
   return (
@@ -176,7 +199,7 @@ const Dashboard = () => {
             <CircularProgress />
           </Box>
         </div>
-      ) : (
+      ) : !loading && dashboardData.length > 0 ? (
         <div
           style={{
             marginTop: "2%",
@@ -557,7 +580,9 @@ const Dashboard = () => {
             />
           </div>
         </div>
-      )}
+      ) : !loading && !dashboardData ? (
+        <h1>No Data Available</h1>
+      ) : null}
     </>
   );
 };

@@ -66,7 +66,47 @@ const Dashboard = () => {
   };
 
   const filterButtonClick = () => {
-    alert("filter button clicked");
+    setLoading(true);
+    if (selectedWeek) {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+        week: selectedWeek,
+      };
+      console.log("body------->", body);
+      Api.post(`/getDashboardReport`, body)
+        .then((res) => {
+          setDashboardData(res.data);
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        })
+        .catch((error) => {
+          console.error(`The Error is ---> ${error}`);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
+        });
+    } else {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+      };
+      console.log("body------->", body);
+      Api.post(`/getDashboardReport`, body)
+        .then((res) => {
+          setDashboardData(res.data);
+          setTimeout(() => {
+            setLoading(false);
+          }, 5000);
+        })
+        .catch((error) => {
+          console.error(`The Error is ---> ${error}`);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
+        });
+    }
   };
 
   useEffect(() => {
@@ -87,6 +127,7 @@ const Dashboard = () => {
         })
         .catch((error) => {
           console.error(`The Error is ---> ${error}`);
+          setDashboardData([]);
           setTimeout(() => {
             setLoading(false);
           }, 500);
@@ -580,7 +621,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
-      ) : !loading && !dashboardData ? (
+      ) : !loading && dashboardData.length === 0 ? (
         <h1>No Data Available</h1>
       ) : null}
     </>

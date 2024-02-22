@@ -214,6 +214,7 @@ const Dashboard = () => {
             onChange={handleWeekChange}
             label="Month"
           >
+            <MenuItem value={null}>None</MenuItem>
             {weekArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}

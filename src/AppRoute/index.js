@@ -22,6 +22,18 @@ function RouteRoot() {
           {/* <RoutePrakashak /> */}
         </>
       )}
+
+      {userType === null && (
+        <>
+          <RouteHome />
+          <RouteAnganwadi />
+          <RouteFellow />
+          <RouteSchool />
+
+          {/* <RoutePrakashak /> */}
+        </>
+      )}
+
       {userType === "admin" && (
         <>
           <RouteHome />

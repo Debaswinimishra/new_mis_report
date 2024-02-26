@@ -18,6 +18,7 @@ import Api from "../Environment/Api";
 const Classwise = () => {
   //?---------------Month array---------------------------
   const monthArr = [
+    { value: "0", label: "Select Month" },
     { value: "1", label: "January" },
     { value: "2", label: "February" },
     { value: "3", label: "March" },
@@ -79,14 +80,40 @@ const Classwise = () => {
   }, []);
 
   const fetchData = () => {
-    Api.post(`getClassWiseReport`)
-      .then((response) => {
-        // console.log("set=================>", response.data);
-        setData(response.data);
-      })
-      .catch((err) => {
-        console.log("err=================>", err);
-      });
+    const body = {
+      year: selectedYear,
+      month: selectedMonth,
+      week: selectedWeek,
+      class: selectedClass,
+    };
+
+    console.log(
+      "check---------->",
+      selectedYear,
+      selectedMonth,
+      selectedWeek,
+      selectedClass
+    );
+
+    if (selectedYear && selectedMonth && selectedWeek && selectedClass) {
+      Api.post(`getClassWiseReport`, body)
+        .then((response) => {
+          console.log("set=================>", response.data);
+          setData(response.data);
+        })
+        .catch((err) => {
+          console.log("err=================>", err);
+        });
+    } else {
+      Api.post(`getClassWiseReport`)
+        .then((response) => {
+          console.log("set=================>", response.data);
+          setData(response.data);
+        })
+        .catch((err) => {
+          console.log("err=================>", err);
+        });
+    }
   };
 
   const filterButtonClick = () => {

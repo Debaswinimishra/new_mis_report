@@ -75,6 +75,9 @@ const Classwise = () => {
   };
 
   const [data, setData] = useState({});
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = () => {
     const body = {

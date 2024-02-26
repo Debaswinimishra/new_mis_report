@@ -55,7 +55,7 @@ const Dashboard = () => {
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(
-    currentMonthSelected.value
+    parseInt(currentMonthSelected.value)
   );
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState([]);
@@ -70,7 +70,7 @@ const Dashboard = () => {
   };
 
   const handleWeekChange = (e) => {
-    setSelectedWeek(parseInt(e.target.value));
+    setSelectedWeek(e.target.value ? parseInt(e.target.value) : "");
   };
 
   const filterButtonClick = () => {
@@ -165,8 +165,8 @@ const Dashboard = () => {
   //todo----------------------Console logs---------------------------
   // console.log("selected year------>", selectedYear);
   console.log("selected month------->", selectedMonth);
-  // console.log("selected week-------->", selectedWeek);
-  console.log("dashboard data---------->", dashboardData);
+  console.log("selected week-------->", selectedWeek);
+  // console.log("dashboard data---------->", dashboardData);
 
   return (
     <>

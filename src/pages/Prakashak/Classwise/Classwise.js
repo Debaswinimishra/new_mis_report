@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FormControl,
   InputLabel,
@@ -14,10 +14,11 @@ import {
 } from "@mui/material";
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
-
+import Api from "../Environment/Api";
 const Classwise = () => {
   //?---------------Month array---------------------------
   const monthArr = [
+    { value: "0", label: "Select Month" },
     { value: "1", label: "January" },
     { value: "2", label: "February" },
     { value: "3", label: "March" },
@@ -72,11 +73,57 @@ const Classwise = () => {
   const handleClassChange = (e) => {
     setSelectedClass(e.target.value);
   };
+
+  const [data, setData] = useState({});
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    const body = {
+      year: selectedYear,
+      month: selectedMonth,
+      week: selectedWeek,
+      class: selectedClass,
+    };
+
+    console.log(
+      "check---------->",
+      selectedYear,
+      selectedMonth,
+      selectedWeek,
+      selectedClass
+    );
+
+    if (selectedYear && selectedMonth && selectedWeek && selectedClass) {
+      Api.post(`getClassWiseReport`, body)
+        .then((response) => {
+          console.log("set=================>", response.data);
+          setData(response.data);
+        })
+        .catch((err) => {
+          console.log("err=================>", err);
+        });
+    } else {
+      Api.post(`getClassWiseReport`)
+        .then((response) => {
+          console.log("set=================>", response.data);
+          setData(response.data);
+        })
+        .catch((err) => {
+          console.log("err=================>", err);
+        });
+    }
+  };
+
   const filterButtonClick = () => {
-    alert("filter button clicked");
+    // alert("filter button clicked");
+    fetchData();
   };
   return (
     <div>
+      <style>{`
+    .card{}`}</style>
       <div
         style={{
           display: "flex",
@@ -178,15 +225,94 @@ const Classwise = () => {
       >
         <Card
           name="Number of students"
-          number={255}
+          number={data.total_students}
           Icon={PeopleIcon}
           style={{
             width: "208px",
-            height: "170px",
+            height: "190px",
+            paddingTop: "2%",
+            paddingBottom: "3%",
+
             marginTop: "1.5%",
             backgroundColor: "#F5F5F5",
           }}
         />
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignContent: "center",
+            // justifyContent: "space-evenly",
+            width: "100%",
+            gap: "2%",
+          }}
+        >
+          <Card
+            name="Total Time Spent"
+            number={data.total_timespent}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />
+          <Card
+            name="Number of Parents Spent 2-15 min"
+            number={data.no_of_parents_spent_2to5mins}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+          <Card
+            name="Number of Parents Spent 16-30 min"
+            number={data.no_of_parents_spent_16to30mins}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+          <Card
+            name="Number of Parents Spent 31-45 min"
+            number={data.no_of_parents_spent_31to45mins}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+          <Card
+            name="Number of Parents Spent 45+ min"
+            number={data.no_of_parents_spent_gte45mins}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+        </div>
         <h1>Remote Instructions in Brief</h1>
         <div
           style={{
@@ -199,106 +325,174 @@ const Classwise = () => {
           }}
         >
           <Card
-            name="Number of students"
-            number={255}
+            name="Total No. of Calls received"
+            number={data.total_calls_received}
             Icon={PeopleIcon}
             style={{
               width: "208px",
-              height: "170px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+          <Card
+            name="Average minutes of calls received"
+            number={data.calls_avg_mins}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+          <Card
+            name="Total No. of SMS delivered"
+            number={data.total_sms_received}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+          <Card
+            name="Average minutes spent in IVRS"
+            number={data.ivrs_avg_mins}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+          <Card
+            name="Total No. of calls received in IVRs"
+            number={data.total_ivrs_calls_received}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+          <Card
+            name="Total No. of Unique Calls Received in IVR"
+            number={data.total_unique_ivrs_calls_received}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
             }}
           />
           <Card
-            name="Number of students"
-            number={255}
+            name="Number of Active Users"
+            number={data.calls_active_users}
             Icon={PeopleIcon}
             style={{
               width: "208px",
-              height: "170px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-            }}
-          />{" "}
-          <Card
-            name="Number of students"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "208px",
-              height: "170px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-            }}
-          />{" "}
-          <Card
-            name="Number of students"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "208px",
-              height: "170px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-            }}
-          />{" "}
-          <Card
-            name="Number of students"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "208px",
-              height: "170px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-            }}
-          />{" "}
-          <Card
-            name="Number of students"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "208px",
-              height: "170px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-            }}
-          />{" "}
-          <Card
-            name="Number of students"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "208px",
-              height: "170px",
-              marginTop: "1.5%",
-              backgroundColor: "#F5F5F5",
-            }}
-          />{" "}
-          <Card
-            name="Number of students"
-            number={255}
-            Icon={PeopleIcon}
-            style={{
-              width: "208px",
-              height: "170px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
               marginTop: "1.5%",
               backgroundColor: "#F5F5F5",
             }}
           />
         </div>
         <h1>Chatbot in Brief</h1>
-        <Card
-          name="Number of students"
-          number={255}
-          Icon={PeopleIcon}
+        <div
           style={{
-            width: "208px",
-            height: "170px",
-            marginTop: "1.5%",
-            backgroundColor: "#F5F5F5",
+            display: "flex",
+            flexWrap: "wrap",
+            alignContent: "center",
+            // justifyContent: "space-evenly",
+            width: "100%",
+            gap: "2%",
           }}
-        />{" "}
+        >
+          <Card
+            name="Total No. of Conversations in Chatbot"
+            number={data.total_chatbot_convo}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />{" "}
+          <Card
+            name="Total No. of Videos Watched"
+            number={data.total_chatbot_videos}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />
+          <Card
+            name="Total No. of Assessment Taken"
+            number={data.total_chatbot_assess_taken}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />
+          <Card
+            name="Average minutes spent in WhatsApp"
+            number={data.chatbot_avg_mins}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />
+          <Card
+            name="Number of Active Users"
+            number={data.chatbot_active_users}
+            Icon={PeopleIcon}
+            style={{
+              width: "208px",
+              height: "190px",
+              paddingTop: "2%",
+              paddingBottom: "3%",
+              marginTop: "1.5%",
+              backgroundColor: "#F5F5F5",
+            }}
+          />
+        </div>
       </div>
     </div>
   );

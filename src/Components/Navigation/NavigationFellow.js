@@ -241,7 +241,7 @@ function NavigationFellow(props) {
                 alignSelf: "center",
               }}
             >
-              {pathname.split("/")[2].replace("_", " ")}
+              {pathname.split("/")[2]?.replace("_", " ")}
             </Typography>
 
             <Button

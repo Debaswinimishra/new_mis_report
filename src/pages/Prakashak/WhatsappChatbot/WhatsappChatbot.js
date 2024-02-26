@@ -6,8 +6,8 @@ const WhatsappChatbot = () => {
     alert("clicked");
   };
   return (
-    <div>
-      <div style={{ marginRight: "15%", marginTop: "5%" }}>
+    <div style={{ marginTop: "5%" }}>
+      {/* <div style={{ marginRight: "15%", marginTop: "5%" }}>
         <button
           style={{
             border: "2px solid rgb(65, 105, 225)",
@@ -25,9 +25,9 @@ const WhatsappChatbot = () => {
         >
           <h3 style={{ color: "white", marginTop: "-1.9%" }}>Filter</h3>
         </button>
-      </div>
+      </div> */}
 
-      <div
+      {/* <div
         style={{
           // display: "flex",
           flexWrap: "wrap",
@@ -48,7 +48,9 @@ const WhatsappChatbot = () => {
           <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
           <h3>Total No. of Students </h3>
         </div>
-      </div>
+      </div> */}
+
+      <h1>This module is under development</h1>
     </div>
   );
 };

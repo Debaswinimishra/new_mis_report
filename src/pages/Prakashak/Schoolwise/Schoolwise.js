@@ -55,7 +55,7 @@ const Schoolwise = () => {
   };
   return (
     <div>
-      <div style={{ margin: "2%", marginLeft: "50%", display: "flex" }}>
+      {/* <div style={{ margin: "2%", marginLeft: "50%", display: "flex" }}>
         <TextField
           id="outlined-select-currency"
           select
@@ -147,8 +147,8 @@ const Schoolwise = () => {
         >
           <h3 style={{ color: "white", marginTop: "2%" }}>Filter</h3>
         </button>
-      </div>
-
+      </div> */}
+      {/* 
       <div
         style={{
           // display: "flex",
@@ -299,6 +299,9 @@ const Schoolwise = () => {
           <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
           <h3>Total No. of Students </h3>
         </div>
+      </div> */}
+      <div style={{ marginTop: "5%" }}>
+        <h1>This module is under development</h1>
       </div>
     </div>
   );

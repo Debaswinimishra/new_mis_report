@@ -17,6 +17,7 @@ import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
 import Api from "../Environment/Api";
 import Box from "@mui/material/Box";
+import moment from "moment";
 
 const Dashboard = () => {
   //?---------------Month array---------------------------
@@ -46,32 +47,39 @@ const Dashboard = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, index) => currentYear - index);
 
+  const currentMonth = moment().format("MMMM");
+  const currentMonthSelected = monthArr?.filter(
+    (item) => item.label === currentMonth
+  )[0];
+
   //&-------------Filter states---------------
-  const [selectedYear, setSelectedYear] = useState(currentYear.toString());
-  const [selectedMonth, setSelectedMonth] = useState(monthArr[0].value);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentMonthSelected.value
+  );
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
+    setSelectedYear(parseInt(e.target.value));
   };
 
   const handleMonthChange = (e) => {
-    setSelectedMonth(e.target.value);
+    setSelectedMonth(parseInt(e.target.value));
   };
 
   const handleWeekChange = (e) => {
-    setSelectedWeek(e.target.value);
+    setSelectedWeek(parseInt(e.target.value));
   };
 
   const filterButtonClick = () => {
     setLoading(true);
     if (selectedWeek) {
       const body = {
-        year: selectedYear,
-        month: selectedMonth,
-        week: selectedWeek,
+        year: parseInt(selectedYear),
+        month: parseInt(selectedMonth),
+        week: parseInt(selectedWeek),
       };
       console.log("body------->", body);
       Api.post(`/getDashboardReport`, body)
@@ -113,9 +121,9 @@ const Dashboard = () => {
     setLoading(true);
     if (selectedWeek) {
       const body = {
-        year: selectedYear,
-        month: selectedMonth,
-        week: selectedWeek,
+        year: parseInt(selectedYear),
+        month: parseInt(selectedMonth),
+        week: parseInt(selectedWeek),
       };
       console.log("body------->", body);
       Api.post(`/getDashboardReport`, body)
@@ -134,8 +142,8 @@ const Dashboard = () => {
         });
     } else {
       const body = {
-        year: selectedYear,
-        month: selectedMonth,
+        year: parseInt(selectedYear),
+        month: parseInt(selectedMonth),
       };
       console.log("body------->", body);
       Api.post(`/getDashboardReport`, body)
@@ -156,7 +164,7 @@ const Dashboard = () => {
 
   //todo----------------------Console logs---------------------------
   // console.log("selected year------>", selectedYear);
-  // console.log("selected month------->", selectedMonth);
+  console.log("selected month------->", selectedMonth);
   // console.log("selected week-------->", selectedWeek);
   console.log("dashboard data---------->", dashboardData);
 
@@ -241,7 +249,7 @@ const Dashboard = () => {
             <CircularProgress />
           </Box>
         </div>
-      ) : !loading && dashboardData.length > 0 ? (
+      ) : !loading && Object.keys(dashboardData).length > 0 ? (
         <div
           style={{
             marginTop: "2%",
@@ -622,7 +630,7 @@ const Dashboard = () => {
             />
           </div>
         </div>
-      ) : !loading && dashboardData.length === 0 ? (
+      ) : !loading && Object.keys(dashboardData).length === 0 ? (
         <h1>No Data Available</h1>
       ) : null}
     </>

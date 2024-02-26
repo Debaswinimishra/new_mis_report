@@ -85,9 +85,9 @@ const Dashboard = () => {
       Api.post(`/getDashboardReport`, body)
         .then((res) => {
           setDashboardData(res.data);
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
+          // setTimeout(() => {
+          setLoading(false);
+          // }, 1000);
         })
         .catch((error) => {
           console.error(`The Error is ---> ${error}`);
@@ -104,15 +104,15 @@ const Dashboard = () => {
       Api.post(`/getDashboardReport`, body)
         .then((res) => {
           setDashboardData(res.data);
-          setTimeout(() => {
-            setLoading(false);
-          }, 5000);
+          // setTimeout(() => {
+          setLoading(false);
+          // }, 5000);
         })
         .catch((error) => {
           console.error(`The Error is ---> ${error}`);
-          setTimeout(() => {
-            setLoading(false);
-          }, 500);
+          // setTimeout(() => {
+          setLoading(false);
+          // }, 500);
         });
     }
   };
@@ -129,9 +129,9 @@ const Dashboard = () => {
       Api.post(`/getDashboardReport`, body)
         .then((res) => {
           setDashboardData(res.data);
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
+          // setTimeout(() => {
+          setLoading(false);
+          // }, 1000);
         })
         .catch((error) => {
           console.error(`The Error is ---> ${error}`);
@@ -149,9 +149,9 @@ const Dashboard = () => {
       Api.post(`/getDashboardReport`, body)
         .then((res) => {
           setDashboardData(res.data);
-          setTimeout(() => {
-            setLoading(false);
-          }, 5000);
+          // setTimeout(() => {
+          setLoading(false);
+          // }, 5000);
         })
         .catch((error) => {
           console.error(`The Error is ---> ${error}`);
@@ -163,7 +163,7 @@ const Dashboard = () => {
   }, []);
 
   //todo----------------------Console logs---------------------------
-  // console.log("selected year------>", selectedYear);
+  console.log("selected year------>", selectedYear);
   console.log("selected month------->", selectedMonth);
   console.log("selected week-------->", selectedWeek);
   // console.log("dashboard data---------->", dashboardData);

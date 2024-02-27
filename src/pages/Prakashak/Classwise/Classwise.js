@@ -243,727 +243,756 @@ const Classwise = () => {
         >
           <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignContent: "center",
-              justifyContent: "center",
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
               width: "97%",
-              gap: "2%",
             }}
           >
             <div
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
                 display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "97%",
+                gap: "2%",
               }}
             >
               <div
                 style={{
-                  height: "50%",
-                  color: "#CD5C5C",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of students
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of students
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_students}</h1>
+                </div>
               </div>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "#CD5C5C",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{data.total_students}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Total Time Spent
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.total_timespent}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                No. of Parents Spent 2-15 min
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total Time Spent
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_timespent}</h1>
+                </div>
               </div>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{data.no_of_parents_spent_2to5mins}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                No. of Parents Spent 16-30 min
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.no_of_parents_spent_16to30mins}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "rgb(153 58 134)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                No. of Parents Spent 31-45 min
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of Parents Spent 2-15 min
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                </div>
               </div>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "rgb(153 58 134)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{data.no_of_parents_spent_31to45mins}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of Parents Spent 16-30 min
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_16to30mins}</h1>
+                </div>
               </div>
-            </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of Parents Spent 31-45 min
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_31to45mins}</h1>
+                </div>
+              </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                No. of Parents Spent 45+ min
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.no_of_parents_spent_gte45mins}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of Parents Spent 45+ min
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_gte45mins}</h1>
+                </div>
               </div>
             </div>
           </div>
-          <h1>Remote Instructions in Brief</h1>
+
           <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignContent: "center",
-              justifyContent: "center",
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
               width: "97%",
-              gap: "2%",
             }}
           >
+            <h1>Remote Instructions in Brief</h1>
             <div
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
                 display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "97%",
+                gap: "2%",
               }}
             >
               <div
                 style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Total No. of Calls received
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of Calls received
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_calls_received}</h1>
+                </div>
               </div>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{data.total_calls_received}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "rgb(153 58 134)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Average minutes of calls received
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(153 58 134)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.calls_avg_mins}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#CD5C5C",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Total No. of SMS delivered
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Average minutes of calls received
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.calls_avg_mins}</h1>
+                </div>
               </div>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "#CD5C5C",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{data.total_sms_received}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Average minutes spent in IVRS
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.ivrs_avg_mins}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#CD5C5C",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Total No. of calls received in IVRs
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of SMS delivered
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_sms_received}</h1>
+                </div>
               </div>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "#CD5C5C",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{data.total_ivrs_calls_received}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Average minutes spent in IVRS
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.ivrs_avg_mins}</h1>
+                </div>
               </div>
-            </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of calls received in IVRs
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_ivrs_calls_received}</h1>
+                </div>
+              </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Unique Calls Received in IVR
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Unique Calls Received in IVR
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_unique_ivrs_calls_received}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.total_unique_ivrs_calls_received}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of Active Users
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.calls_active_users}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Active Users
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.calls_active_users}</h1>
+                </div>
               </div>
             </div>
           </div>
-          <h1>Chatbot in Brief</h1>
+
           <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignContent: "center",
-              justifyContent: "center",
-              width: "100%",
-              gap: "2%",
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
+              width: "97%",
             }}
           >
+            <h1>Chatbot in Brief</h1>
             <div
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
                 display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "100%",
+                gap: "2%",
               }}
             >
               <div
                 style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Total Conversations in Chatbot
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total Conversations in Chatbot
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_chatbot_convo}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.total_chatbot_convo}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(153 58 134)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Total No. of Videos Watched
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of Videos Watched
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_chatbot_videos}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(153 58 134)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.total_chatbot_videos}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Total No. of Assessment Taken
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of Assessment Taken
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_chatbot_assess_taken}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.total_chatbot_assess_taken}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Average minutes spent in WhatsApp
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Average minutes spent in WhatsApp
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.chatbot_avg_mins}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.chatbot_avg_mins}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of Active Users
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{data.chatbot_active_users}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Active Users
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.chatbot_active_users}</h1>
+                </div>
               </div>
             </div>
           </div>

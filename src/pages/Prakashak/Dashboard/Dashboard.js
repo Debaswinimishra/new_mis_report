@@ -306,1066 +306,1097 @@ const Dashboard = () => {
         >
           <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignContent: "center",
-              justifyContent: "center",
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
               width: "97%",
-              gap: "2%",
-              // marginLeft: "4%",
             }}
           >
             <div
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
                 display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "97%",
+                gap: "2%",
+                // marginLeft: "4%",
               }}
             >
               <div
                 style={{
-                  height: "50%",
-                  color: "#CD5C5C",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of districts
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of districts
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_districts}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#CD5C5C",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_districts}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of blocks
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of blocks
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_blocks}</h1>
+                </div>
               </div>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{dashboardData.total_blocks}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Number of clusters
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_clusters}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Number of schools
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of clusters
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_clusters}</h1>
+                </div>
               </div>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{dashboardData.total_schools}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "rgb(153 58 134)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Total number of new schools
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(153 58 134)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_new_schools}</h1>
-              </div>
-            </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Number of students
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of schools
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_schools}</h1>
+                </div>
               </div>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{dashboardData.total_students}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total number of new schools
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_new_schools}</h1>
+                </div>
               </div>
-            </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of students
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_students}</h1>
+                </div>
+              </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of new students
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of new students
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_new_students}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_new_students}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(153 58 134)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Smartphone users
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Smartphone users
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_chatbot_users}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(153 58 134)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_chatbot_users}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "#CD5C5C",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of girls
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of girls
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_girl_students}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#CD5C5C",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_girl_students}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of boys
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_boy_students}</h1>
-              </div>
-            </div>
-          </div>
-          <h3 style={{ marginTop: "1.5%" }}>
-            <u>Time-Spent details</u>
-          </h3>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignContent: "center",
-              justifyContent: "center",
-              width: "97%",
-              gap: "2%",
-              // marginTop: "-2%",
-            }}
-          >
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#CD5C5C",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                No. of parents spending 2-15 mins
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#CD5C5C",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.no_of_parents_spent_2to5mins}</h1>
-              </div>
-            </div>
-
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                No. of parents spending 16-30 mins
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.no_of_parents_spent_16to30mins}</h1>
-              </div>
-            </div>
-
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                No. of parents spending 31-45 mins
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.no_of_parents_spent_31to45mins}</h1>
-              </div>
-            </div>
-
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                No. of parents spending 45+ mins
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.no_of_parents_spent_gte45mins}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of boys
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_boy_students}</h1>
+                </div>
               </div>
             </div>
           </div>
 
-          <h3 style={{ marginTop: "1.5%" }}>
-            <u>Remote instructions in brief</u>
-          </h3>
           <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignContent: "center",
-              justifyContent: "center",
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "5%",
               width: "97%",
-              gap: "2%",
-              // marginTop: "-1.5%",
             }}
           >
+            <h1 style={{ marginTop: "-2%" }}>Time-Spent details</h1>
             <div
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
                 display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "97%",
+                gap: "2%",
+                // marginTop: "-2%",
               }}
             >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(153 58 134)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of calls received
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of parents spending 2-15 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.no_of_parents_spent_2to5mins}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(153 58 134)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_calls_received}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Avg. minutes of calls received
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of parents spending 16-30 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.no_of_parents_spent_16to30mins}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.calls_avg_mins}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Numbers of SMS delivered
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of parents spending 31-45 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.no_of_parents_spent_31to45mins}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_sms_received}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Avg. minutes spent on IVRs
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.ivrs_avg_mins}</h1>
-              </div>
-            </div>
-
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#CD5C5C",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Calls received in IVRs
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#CD5C5C",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_ivrs_calls_received}</h1>
-              </div>
-            </div>
-
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Unique calls received in IVRs
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_unique_ivrs_calls_received}</h1>
-              </div>
-            </div>
-
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "rgb(153 58 134)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Number of active users
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(153 58 134)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.calls_active_users}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of parents spending 45+ mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.no_of_parents_spent_gte45mins}</h1>
+                </div>
               </div>
             </div>
           </div>
 
-          <h3 style={{ marginTop: "1.5%" }}>
-            <u>Chatbot in brief</u>
-          </h3>
           <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignContent: "center",
-              justifyContent: "center",
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "5%",
               width: "97%",
-              gap: "2%",
-              // marginTop: "-1.5%",
             }}
           >
+            <h1 style={{ marginTop: "-2%" }}>Remote instructions in brief</h1>
             <div
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
                 display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "97%",
+                gap: "2%",
+                // marginTop: "-1.5%",
               }}
             >
               <div
                 style={{
-                  height: "50%",
-                  color: "#CD5C5C",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Conversations in Chatbot
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of calls received
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_calls_received}</h1>
+                </div>
               </div>
+
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "#CD5C5C",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{dashboardData.total_chatbot_convo}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Avg. minutes of calls received
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.calls_avg_mins}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Numbers of SMS delivered
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_sms_received}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Avg. minutes spent on IVRs
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.ivrs_avg_mins}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Calls received in IVRs
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_ivrs_calls_received}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Unique calls received in IVRs
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_unique_ivrs_calls_received}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of active users
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.calls_active_users}</h1>
+                </div>
               </div>
             </div>
+          </div>
 
+          <div
+            style={{
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "5%",
+              width: "97%",
+            }}
+          >
+            <h1 style={{ marginTop: "-2%" }}>Chatbot in brief</h1>
             <div
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
                 display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "97%",
+                gap: "2%",
+                // marginTop: "-1.5%",
               }}
             >
               <div
                 style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Total number of videos watched
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Conversations in Chatbot
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_chatbot_convo}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_chatbot_videos}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Number of assessments taken
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total number of videos watched
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_chatbot_videos}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.total_chatbot_assess_taken}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(214 148 16)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Avg. minutes spent on WhatsApp
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of assessments taken
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_chatbot_assess_taken}</h1>
+                </div>
               </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>{dashboardData.chatbot_avg_mins}</h1>
-              </div>
-            </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
               <div
                 style={{
-                  height: "50%",
-                  color: "rgb(153 58 134)",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                Total number of active users
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Avg. minutes spent on WhatsApp
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.chatbot_avg_mins}</h1>
+                </div>
               </div>
+
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "rgb(153 58 134)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
-                <h1>{dashboardData.chatbot_active_users}</h1>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total number of active users
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.chatbot_active_users}</h1>
+                </div>
               </div>
             </div>
           </div>

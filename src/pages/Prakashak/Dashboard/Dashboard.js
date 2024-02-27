@@ -609,7 +609,7 @@ const Dashboard = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "rgb(153 58 134)",
+                    color: "#CD5C5C",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
@@ -621,7 +621,7 @@ const Dashboard = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
+                    backgroundColor: "#CD5C5C",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -648,7 +648,7 @@ const Dashboard = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#CD5C5C",
+                    color: "rgb(153 58 134)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
@@ -660,7 +660,7 @@ const Dashboard = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#CD5C5C",
+                    backgroundColor: "rgb(153 58 134)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",

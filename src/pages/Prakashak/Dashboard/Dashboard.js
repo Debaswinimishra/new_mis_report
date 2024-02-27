@@ -263,132 +263,397 @@ const Dashboard = () => {
               display: "flex",
               flexWrap: "wrap",
               alignContent: "center",
-              // justifyContent: "center",
-              width: "100%",
+              justifyContent: "center",
+              width: "97%",
               gap: "2%",
               // marginLeft: "4%",
             }}
           >
-            <Card
-              name="Number of districts"
-              number={dashboardData.total_districts}
-              Icon={PeopleIcon}
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Number of blocks"
-              number={dashboardData.total_blocks}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#CD5C5C",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of districts
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#CD5C5C",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_districts}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Number of clusters"
-              number={dashboardData.total_clusters}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of blocks
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_blocks}</h1>
+              </div>
+            </div>
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Number of schools"
-              number={dashboardData.total_schools}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#6A5ACD",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of clusters
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#6A5ACD",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_clusters}</h1>
+              </div>
+            </div>
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Number of new schools"
-              number={dashboardData.total_new_schools}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of schools
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_schools}</h1>
+              </div>
+            </div>
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Number of students"
-              number={dashboardData.total_students}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(153 58 134)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total number of new schools
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(153 58 134)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_new_schools}</h1>
+              </div>
+            </div>
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Number of new students"
-              number={dashboardData.total_new_students}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#6A5ACD",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of students
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#6A5ACD",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_students}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Smartphone users"
-              number={dashboardData.total_chatbot_users}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of new students
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_new_students}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Number of girls"
-              number={dashboardData.total_girl_students}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(153 58 134)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Smartphone users
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(153 58 134)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_chatbot_users}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Number of boys"
-              number={dashboardData.total_boy_students}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#CD5C5C",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of girls
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#CD5C5C",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_girl_students}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of boys
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_boy_students}</h1>
+              </div>
+            </div>
           </div>
           <h3 style={{ marginTop: "1.5%" }}>
             <u>Time-Spent details</u>
@@ -398,60 +663,167 @@ const Dashboard = () => {
               display: "flex",
               flexWrap: "wrap",
               alignContent: "center",
-              // justifyContent: "center",
-              width: "100%",
+              justifyContent: "center",
+              width: "97%",
               gap: "2%",
               // marginTop: "-2%",
             }}
           >
-            <Card
-              name="Parents spending 2-15 mins"
-              number={dashboardData.no_of_parents_spent_2to5mins}
-              Icon={PeopleIcon}
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Parents spending 16-30 mins"
-              number={dashboardData.no_of_parents_spent_16to30mins}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#CD5C5C",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Parents spending 2-15 mins
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#CD5C5C",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.no_of_parents_spent_2to5mins}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Parents spending 31-45 mins"
-              number={dashboardData.no_of_parents_spent_31to45mins}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Parents spending 16-30 mins
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.no_of_parents_spent_16to30mins}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Parents spending 45+ mins"
-              number={dashboardData.no_of_parents_spent_gte45mins}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Parents spending 31-45 mins
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.no_of_parents_spent_31to45mins}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#6A5ACD",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Parents spending 45+ mins
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#6A5ACD",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.no_of_parents_spent_gte45mins}</h1>
+              </div>
+            </div>
           </div>
 
           <h3 style={{ marginTop: "1.5%" }}>
@@ -462,96 +834,284 @@ const Dashboard = () => {
               display: "flex",
               flexWrap: "wrap",
               alignContent: "center",
-              // justifyContent: "center",
-              width: "100%",
+              justifyContent: "center",
+              width: "97%",
               gap: "2%",
               // marginTop: "-1.5%",
             }}
           >
-            <Card
-              name="Number of calls received"
-              number={dashboardData.total_calls_received}
-              Icon={PeopleIcon}
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Avg. minutes of calls received"
-              number={dashboardData.calls_avg_mins}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(153 58 134)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of calls received
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(153 58 134)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_calls_received}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Numbers of SMS delivered"
-              number={dashboardData.total_sms_received}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Avg. minutes of calls received
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.calls_avg_mins}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Avg. minutes spent on IVRs"
-              number={dashboardData.ivrs_avg_mins}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#6A5ACD",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Numbers of SMS delivered
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#6A5ACD",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_sms_received}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Calls received in IVRs"
-              number={dashboardData.total_ivrs_calls_received}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Avg. minutes spent on IVRs
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.ivrs_avg_mins}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Unique calls received in IVRs"
-              number={dashboardData.total_unique_ivrs_calls_received}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#CD5C5C",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Calls received in IVRs
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#CD5C5C",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_ivrs_calls_received}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Number of active users"
-              number={dashboardData.calls_active_users}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Unique calls received in IVRs
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_unique_ivrs_calls_received}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(153 58 134)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of active users
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(153 58 134)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.calls_active_users}</h1>
+              </div>
+            </div>
           </div>
 
           <h3 style={{ marginTop: "1.5%" }}>
@@ -562,43 +1122,97 @@ const Dashboard = () => {
               display: "flex",
               flexWrap: "wrap",
               alignContent: "center",
-              // justifyContent: "center",
-              width: "100%",
+              justifyContent: "center",
+              width: "97%",
               gap: "2%",
               // marginTop: "-1.5%",
             }}
           >
-            <Card
-              name="Conversations in Chatbot"
-              number={dashboardData.total_chatbot_convo}
-              Icon={PeopleIcon}
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Total number of videos watched"
-              number={dashboardData.total_chatbot_videos}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#CD5C5C",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Conversations in Chatbot
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#CD5C5C",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_chatbot_convo}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "240px",
-                height: "130px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total number of videos watched
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_chatbot_videos}</h1>
+              </div>
+            </div>
+
             <Card
               name="Number of assessments taken"
               number={dashboardData.total_chatbot_assess_taken}
               Icon={PeopleIcon}
               style={{
-                width: "240px",
-                height: "130px",
+                width: "247px",
+                height: "140px",
                 marginTop: "1.5%",
                 backgroundColor: "#F5F5F5",
                 paddingTop: "2%",
@@ -609,8 +1223,8 @@ const Dashboard = () => {
               number={dashboardData.chatbot_avg_mins}
               Icon={PeopleIcon}
               style={{
-                width: "240px",
-                height: "130px",
+                width: "247px",
+                height: "140px",
                 marginTop: "1.5%",
                 backgroundColor: "#F5F5F5",
                 paddingTop: "2%",
@@ -621,8 +1235,8 @@ const Dashboard = () => {
               number={dashboardData.chatbot_active_users}
               Icon={PeopleIcon}
               style={{
-                width: "240px",
-                height: "130px",
+                width: "247px",
+                height: "140px",
                 marginTop: "1.5%",
                 backgroundColor: "#F5F5F5",
                 paddingTop: "2%",

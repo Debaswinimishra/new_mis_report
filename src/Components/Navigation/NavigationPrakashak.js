@@ -111,7 +111,13 @@ function NavigationPrakashak(props) {
   // console.log("usertype----------------------->", usertype);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        // backgroundColor: "#FDF5E6",
+      }}
+    >
       <div
         // position="fixed"
         style={{

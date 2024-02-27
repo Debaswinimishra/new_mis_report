@@ -693,7 +693,7 @@ const Dashboard = () => {
                   fontWeight: "600",
                 }}
               >
-                Parents spending 2-15 mins
+                No. of parents spending 2-15 mins
               </div>
               <div
                 style={{
@@ -732,7 +732,7 @@ const Dashboard = () => {
                   fontWeight: "600",
                 }}
               >
-                Parents spending 16-30 mins
+                No. of parents spending 16-30 mins
               </div>
               <div
                 style={{
@@ -771,7 +771,7 @@ const Dashboard = () => {
                   fontWeight: "600",
                 }}
               >
-                Parents spending 31-45 mins
+                No. of parents spending 31-45 mins
               </div>
               <div
                 style={{
@@ -810,7 +810,7 @@ const Dashboard = () => {
                   fontWeight: "600",
                 }}
               >
-                Parents spending 45+ mins
+                No. of parents spending 45+ mins
               </div>
               <div
                 style={{
@@ -1206,42 +1206,122 @@ const Dashboard = () => {
               </div>
             </div>
 
-            <Card
-              name="Number of assessments taken"
-              number={dashboardData.total_chatbot_assess_taken}
-              Icon={PeopleIcon}
+            <div
               style={{
-                width: "247px",
-                height: "140px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Avg. minutes spent on WhatsApp"
-              number={dashboardData.chatbot_avg_mins}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#6A5ACD",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of assessments taken
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#6A5ACD",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.total_chatbot_assess_taken}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "247px",
-                height: "140px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
-            <Card
-              name="Total number of active users"
-              number={dashboardData.chatbot_active_users}
-              Icon={PeopleIcon}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Avg. minutes spent on WhatsApp
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.chatbot_avg_mins}</h1>
+              </div>
+            </div>
+
+            <div
               style={{
-                width: "247px",
-                height: "140px",
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-            />
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(153 58 134)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total number of active users
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(153 58 134)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{dashboardData.chatbot_active_users}</h1>
+              </div>
+            </div>
           </div>
         </div>
       ) : !loading && Object.keys(dashboardData).length === 0 ? (

@@ -191,17 +191,18 @@ function NavigationPrakashak(props) {
         {listItem.map((item, index) => (
           <div
             style={{
-              border: "2px solid black",
+              // border: "2px solid black",
               padding: "1%",
               cursor: "pointer",
               borderRadius: "5px",
               backgroundColor:
                 item.link.split("/")[1] === pathname.split("/")[2]
                   ? "rgb(65, 85, 225)"
-                  : "#F8F8F8",
+                  : "white",
               width: "200px",
               height: "60px",
               marginTop: "1.5%",
+              boxShadow: "2px 3px 6px  grey",
             }}
             value={item.id}
             onClick={() => handleTabChange(`/${item.link}`)}
@@ -212,6 +213,7 @@ function NavigationPrakashak(props) {
                   item.link.split("/")[1] === pathname.split("/")[2]
                     ? "white"
                     : "black",
+                fontFamily: "Congenial SemiBold",
               }}
             >
               {item.text}

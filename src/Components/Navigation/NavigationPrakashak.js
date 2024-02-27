@@ -197,7 +197,7 @@ function NavigationPrakashak(props) {
               borderRadius: "5px",
               backgroundColor:
                 item.link.split("/")[1] === pathname.split("/")[2]
-                  ? "rgb(65, 85, 225)"
+                  ? "rgb(90 81 221)"
                   : "white",
               width: "200px",
               height: "60px",

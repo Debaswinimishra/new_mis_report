@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
+import Box from "@mui/material/Box";
 import Api from "../Environment/Api";
 const Classwise = () => {
   //?---------------Month array---------------------------
@@ -57,6 +58,7 @@ const Classwise = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear.toString());
   const [selectedMonth, setSelectedMonth] = useState(monthArr[0].value);
   const [selectedWeek, setSelectedWeek] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -80,6 +82,7 @@ const Classwise = () => {
   }, []);
 
   const fetchData = () => {
+    setLoading(true);
     const body = {
       year: selectedYear,
       month: selectedMonth,
@@ -100,24 +103,28 @@ const Classwise = () => {
         .then((response) => {
           console.log("set=================>", response.data);
           setData(response.data);
+          setLoading(false);
         })
         .catch((err) => {
           console.log("err=================>", err);
+          setLoading(false);
         });
     } else {
       Api.post(`getClassWiseReport`)
         .then((response) => {
           console.log("set=================>", response.data);
           setData(response.data);
+          setLoading(false);
         })
         .catch((err) => {
           console.log("err=================>", err);
+          setLoading(false);
         });
     }
   };
 
   const filterButtonClick = () => {
-    // alert("filter button clicked");
+    setLoading(true);
     fetchData();
   };
   return (
@@ -130,7 +137,7 @@ const Classwise = () => {
           // justifyContent: "space-around",
           // width: "25%",
           marginTop: "4%",
-          marginLeft: "60%",
+          marginLeft: "48%",
           // width: "30%",
           flexWrap: "wrap",
         }}
@@ -147,6 +154,22 @@ const Classwise = () => {
             {years.map((item, index) => (
               <MenuItem key={index} value={item}>
                 {item}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Class</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedClass}
+            onChange={handleClassChange}
+            label="Class"
+          >
+            {classArr.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.label}
               </MenuItem>
             ))}
           </Select>
@@ -183,22 +206,7 @@ const Classwise = () => {
             ))}
           </Select>
         </FormControl>
-        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Class</InputLabel>
-          <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedClass}
-            onChange={handleClassChange}
-            label="Class"
-          >
-            {classArr.map((item, index) => (
-              <MenuItem key={index} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+
         <Button
           variant="contained"
           sx={{
@@ -213,268 +221,756 @@ const Classwise = () => {
       </div>
 
       {/* ---------------------------- content --------------------- */}
-      <div
-        style={{
-          // display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-around",
-          width: "96%",
-          marginLeft: "3%",
-          marginBottom: "2%",
-        }}
-      >
-        <Card
-          name="Number of students"
-          number={data.total_students}
-          Icon={PeopleIcon}
-          style={{
-            width: "240px",
-            height: "130px",
-            marginTop: "1.5%",
-            backgroundColor: "#F5F5F5",
-            paddingTop: "2%",
-          }}
-        />
+      {loading ? (
+        <div
+          style={{ display: "flex", justifyContent: "center", marginTop: "5%" }}
+        >
+          <Box>
+            <CircularProgress />
+          </Box>
+        </div>
+      ) : !loading && Object.keys(data).length > 0 ? (
         <div
           style={{
             display: "flex",
             flexWrap: "wrap",
-            alignContent: "center",
-            // justifyContent: "space-evenly",
-            width: "100%",
-            gap: "2%",
+            justifyContent: "center",
+            width: "96%",
+            marginLeft: "3%",
+            marginBottom: "2%",
+            marginTop: "2%",
           }}
         >
-          <Card
-            name="Total Time Spent"
-            number={data.total_timespent}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignContent: "center",
+              justifyContent: "center",
+              width: "97%",
+              gap: "2%",
+            }}
+          >
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-          />
-          <Card
-            name="No. of Parents Spent 2-15 min"
-            number={data.no_of_parents_spent_2to5mins}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#CD5C5C",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of students
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#CD5C5C",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.total_students}</h1>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-          />{" "}
-          <Card
-            name="No. of Parents Spent 16-30 min"
-            number={data.no_of_parents_spent_16to30mins}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total Time Spent
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.total_timespent}</h1>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-          />{" "}
-          <Card
-            name="No. of Parents Spent 31-45 min"
-            number={data.no_of_parents_spent_31to45mins}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#6A5ACD",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                No. of Parents Spent 2-15 min
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#6A5ACD",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.no_of_parents_spent_2to5mins}</h1>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-          />{" "}
-          <Card
-            name="No. of Parents Spent 45+ min"
-            number={data.no_of_parents_spent_gte45mins}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                No. of Parents Spent 16-30 min
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.no_of_parents_spent_16to30mins}</h1>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
                 marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
               }}
-          />{" "}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(153 58 134)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                No. of Parents Spent 31-45 min
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(153 58 134)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.no_of_parents_spent_31to45mins}</h1>
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#6A5ACD",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                No. of Parents Spent 45+ min
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#6A5ACD",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.no_of_parents_spent_gte45mins}</h1>
+              </div>
+            </div>
+          </div>
+          <h1>Remote Instructions in Brief</h1>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignContent: "center",
+              justifyContent: "center",
+              width: "97%",
+              gap: "2%",
+            }}
+          >
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total No. of Calls received
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.total_calls_received}</h1>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(153 58 134)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Average minutes of calls received
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(153 58 134)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.calls_avg_mins}</h1>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#CD5C5C",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total No. of SMS delivered
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#CD5C5C",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.total_sms_received}</h1>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Average minutes spent in IVRS
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.ivrs_avg_mins}</h1>
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#CD5C5C",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total No. of calls received in IVRs
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#CD5C5C",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.total_ivrs_calls_received}</h1>
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Unique Calls Received in IVR
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.total_unique_ivrs_calls_received}</h1>
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of Active Users
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.calls_active_users}</h1>
+              </div>
+            </div>
+          </div>
+          <h1>Chatbot in Brief</h1>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignContent: "center",
+              justifyContent: "center",
+              width: "100%",
+              gap: "2%",
+            }}
+          >
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#6A5ACD",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total Conversations in Chatbot
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#6A5ACD",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.total_chatbot_convo}</h1>
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(153 58 134)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total No. of Videos Watched
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(153 58 134)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.total_chatbot_videos}</h1>
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Total No. of Assessment Taken
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.total_chatbot_assess_taken}</h1>
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#6A5ACD",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Average minutes spent in WhatsApp
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#6A5ACD",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.chatbot_avg_mins}</h1>
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                // // paddingTop: "2%",
+                // fontFamily: "Arial, sans-serif", // Default font family
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "rgb(214 148 16)",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                Number of Active Users
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "rgb(214 148 16)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.chatbot_active_users}</h1>
+              </div>
+            </div>
+          </div>
         </div>
-        <h1>Remote Instructions in Brief</h1>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignContent: "center",
-            // justifyContent: "space-evenly",
-            width: "100%",
-            gap: "2%",
-          }}
-        >
-          <Card
-            name="Total No. of Calls received"
-            number={data.total_calls_received}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />{" "}
-          <Card
-            name="Average minutes of calls received"
-            number={data.calls_avg_mins}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />{" "}
-          <Card
-            name="Total No. of SMS delivered"
-            number={data.total_sms_received}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />{" "}
-          <Card
-            name="Average minutes spent in IVRS"
-            number={data.ivrs_avg_mins}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />{" "}
-          <Card
-            name="Total No. of calls received in IVRs"
-            number={data.total_ivrs_calls_received}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />{" "}
-          <Card
-            name="Unique Calls Received in IVR"
-            number={data.total_unique_ivrs_calls_received}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />
-          <Card
-            name="Number of Active Users"
-            number={data.calls_active_users}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />
-        </div>
-        <h1>Chatbot in Brief</h1>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            alignContent: "center",
-            // justifyContent: "space-evenly",
-            width: "100%",
-            gap: "2%",
-          }}
-        >
-          <Card
-            name="Total Conversations in Chatbot"
-            number={data.total_chatbot_convo}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />{" "}
-          <Card
-            name="Total No. of Videos Watched"
-            number={data.total_chatbot_videos}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />
-          <Card
-            name="Total No. of Assessment Taken"
-            number={data.total_chatbot_assess_taken}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />
-          <Card
-            name="Average minutes spent in WhatsApp"
-            number={data.chatbot_avg_mins}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />
-          <Card
-            name="Number of Active Users"
-            number={data.chatbot_active_users}
-            Icon={PeopleIcon}
-           style={{
-                width: "247px",
-                height: "140px",
-                marginTop: "1.5%",
-                backgroundColor: "#F5F5F5",
-                paddingTop: "2%",
-              }}
-          />
-        </div>
-      </div>
+      ) : !loading && Object.keys(data).length === 0 ? (
+        <h1>No data Available</h1>
+      ) : null}
     </div>
   );
 };

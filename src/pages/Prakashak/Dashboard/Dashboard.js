@@ -54,9 +54,7 @@ const Dashboard = () => {
 
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState(
-    parseInt(currentMonthSelected.value)
-  );
+  const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -66,7 +64,7 @@ const Dashboard = () => {
   };
 
   const handleMonthChange = (e) => {
-    setSelectedMonth(parseInt(e.target.value));
+    setSelectedMonth(e.target.value ? parseInt(e.target.value) : "");
   };
 
   const handleWeekChange = (e) => {
@@ -75,89 +73,106 @@ const Dashboard = () => {
 
   const filterButtonClick = () => {
     setLoading(true);
-    if (selectedWeek) {
+    if (!selectedMonth && !selectedWeek) {
+      const body = {
+        year: parseInt(selectedYear),
+      };
+      console.log("body---------------->", body);
+      Api.post(`getDashboardReport`, body)
+        .then((res) => {
+          if (res.status === 200) {
+            setDashboardData(res.data);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.log(`The Error is-----> ${err}`);
+        });
+    } else if (selectedMonth && !selectedWeek) {
+      const body = {
+        year: parseInt(selectedYear),
+        month: parseInt(selectedMonth),
+      };
+      console.log("body---------------->", body);
+      Api.post(`getDashboardReport`, body)
+        .then((res) => {
+          if (res.status === 200) {
+            setDashboardData(res.data);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.log(`The Error is-----> ${err}`);
+        });
+    } else {
       const body = {
         year: parseInt(selectedYear),
         month: parseInt(selectedMonth),
         week: parseInt(selectedWeek),
       };
-      console.log("body------->", body);
-      Api.post(`/getDashboardReport`, body)
+      console.log("body---------------->", body);
+      Api.post(`getDashboardReport`, body)
         .then((res) => {
-          setDashboardData(res.data);
-          // setTimeout(() => {
-          setLoading(false);
-          // }, 1000);
-        })
-        .catch((error) => {
-          console.error(`The Error is ---> ${error}`);
-          setTimeout(() => {
+          if (res.status === 200) {
+            setDashboardData(res.data);
             setLoading(false);
-          }, 500);
-        });
-    } else {
-      const body = {
-        year: selectedYear,
-        month: selectedMonth,
-      };
-      console.log("body------->", body);
-      Api.post(`/getDashboardReport`, body)
-        .then((res) => {
-          setDashboardData(res.data);
-          // setTimeout(() => {
-          setLoading(false);
-          // }, 5000);
+          }
         })
-        .catch((error) => {
-          console.error(`The Error is ---> ${error}`);
-          // setTimeout(() => {
-          setLoading(false);
-          // }, 500);
+        .catch((err) => {
+          console.log(`The Error is-----> ${err}`);
         });
     }
   };
 
   useEffect(() => {
     setLoading(true);
-    if (selectedWeek) {
+    if (!selectedMonth && !selectedWeek) {
+      const body = {
+        year: parseInt(selectedYear),
+      };
+      console.log("body---------------->", body);
+      Api.post(`getDashboardReport`, body)
+        .then((res) => {
+          if (res.status === 200) {
+            setDashboardData(res.data);
+            setLoading(false);
+          }
+        })
+        .catch((err) => {
+          console.log(`The Error is-----> ${err}`);
+        });
+    } else if (selectedMonth && !selectedWeek) {
       const body = {
         year: parseInt(selectedYear),
         month: parseInt(selectedMonth),
-        week: parseInt(selectedWeek),
       };
-      console.log("body------->", body);
-      Api.post(`/getDashboardReport`, body)
+      console.log("body---------------->", body);
+      Api.post(`getDashboardReport`, body)
         .then((res) => {
-          setDashboardData(res.data);
-          // setTimeout(() => {
-          setLoading(false);
-          // }, 1000);
-        })
-        .catch((error) => {
-          console.error(`The Error is ---> ${error}`);
-          setDashboardData([]);
-          setTimeout(() => {
+          if (res.status === 200) {
+            setDashboardData(res.data);
             setLoading(false);
-          }, 500);
+          }
+        })
+        .catch((err) => {
+          console.log(`The Error is-----> ${err}`);
         });
     } else {
       const body = {
         year: parseInt(selectedYear),
         month: parseInt(selectedMonth),
+        week: parseInt(selectedWeek),
       };
-      console.log("body------->", body);
-      Api.post(`/getDashboardReport`, body)
+      console.log("body---------------->", body);
+      Api.post(`getDashboardReport`, body)
         .then((res) => {
-          setDashboardData(res.data);
-          // setTimeout(() => {
-          setLoading(false);
-          // }, 5000);
-        })
-        .catch((error) => {
-          console.error(`The Error is ---> ${error}`);
-          setTimeout(() => {
+          if (res.status === 200) {
+            setDashboardData(res.data);
             setLoading(false);
-          }, 500);
+          }
+        })
+        .catch((err) => {
+          console.log(`The Error is-----> ${err}`);
         });
     }
   }, []);
@@ -206,6 +221,7 @@ const Dashboard = () => {
             onChange={handleMonthChange}
             label="Month"
           >
+            <MenuItem value={null}>None</MenuItem>
             {monthArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}

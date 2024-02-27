@@ -72,6 +72,7 @@ const Dashboard = () => {
   };
 
   const filterButtonClick = () => {
+    setDashboardData([]);
     setLoading(true);
     if (!selectedMonth && !selectedWeek) {
       const body = {
@@ -83,10 +84,14 @@ const Dashboard = () => {
           if (res.status === 200) {
             setDashboardData(res.data);
             setLoading(false);
+          } else {
+            setLoading(false);
+            console.log("status code-----", res.status);
           }
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
+          setLoading(false);
         });
     } else if (selectedMonth && !selectedWeek) {
       const body = {
@@ -99,10 +104,14 @@ const Dashboard = () => {
           if (res.status === 200) {
             setDashboardData(res.data);
             setLoading(false);
+          } else {
+            setLoading(false);
+            console.log("status code-----", res.status);
           }
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
+          setLoading(false);
         });
     } else {
       const body = {
@@ -116,10 +125,14 @@ const Dashboard = () => {
           if (res.status === 200) {
             setDashboardData(res.data);
             setLoading(false);
+          } else {
+            setLoading(false);
+            console.log("status code-----", res.status);
           }
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
+          setLoading(false);
         });
     }
   };
@@ -136,10 +149,14 @@ const Dashboard = () => {
           if (res.status === 200) {
             setDashboardData(res.data);
             setLoading(false);
+          } else {
+            setLoading(false);
+            console.log("status code-----", res.status);
           }
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
+          setLoading(false);
         });
     } else if (selectedMonth && !selectedWeek) {
       const body = {
@@ -152,10 +169,14 @@ const Dashboard = () => {
           if (res.status === 200) {
             setDashboardData(res.data);
             setLoading(false);
+          } else {
+            setLoading(false);
+            console.log("status code-----", res.status);
           }
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
+          setLoading(false);
         });
     } else {
       const body = {
@@ -169,19 +190,28 @@ const Dashboard = () => {
           if (res.status === 200) {
             setDashboardData(res.data);
             setLoading(false);
+          } else {
+            setLoading(false);
+            console.log("status code-----", res.status);
           }
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
+          setLoading(false);
         });
     }
   }, []);
 
   //todo----------------------Console logs---------------------------
-  console.log("selected year------>", selectedYear);
-  console.log("selected month------->", selectedMonth);
-  console.log("selected week-------->", selectedWeek);
-  // console.log("dashboard data---------->", dashboardData);
+  // console.log("selected year------>", selectedYear);
+  // console.log("selected month------->", selectedMonth);
+  // console.log("selected week-------->", selectedWeek);
+  console.log("dashboard data---------->", dashboardData);
+  console.log(
+    `Loading : ${loading}<---------> dashboardData length : ${
+      Object.keys(dashboardData).length
+    }`
+  );
 
   return (
     <>

@@ -13,7 +13,7 @@ const RouteAnganwadi = () => {
   return (
     <Routes>
       <Route
-        path="/anganwadi"
+        path="/anganwadi/*"
         element={<PrivateRoute element={<AnganwadiRoot />} />}
       >
         {/* <Route path="/anganwadi" element={<AnganwadiRoot />}> */}

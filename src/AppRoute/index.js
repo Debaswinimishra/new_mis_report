@@ -38,6 +38,7 @@ function RouteRoot() {
     const storedUserType = localStorage.getItem("usertype");
     setUserType(storedUserType);
   }, []);
+
   return (
     <>
       <Routes>
@@ -63,7 +64,6 @@ function RouteRoot() {
       )}
       {userType === "prakashak" && (
         <>
-          <RouteHome />
           <RoutePrakashak />
         </>
       )}

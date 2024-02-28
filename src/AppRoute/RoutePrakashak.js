@@ -21,7 +21,7 @@ const RoutePrakashak = () => {
     <Routes>
       {/* {userType === "prakashak" && ( */}
       <Route
-        path="/prakashak"
+        path="/prakashak/*"
         element={<PrivateRoute element={<PrakashakRoot />} />}
       >
         <Route index element={<Dashboard />} />

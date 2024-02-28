@@ -23,6 +23,11 @@ const RouteAnganwadi = () => {
         {/* <Route path="module2" element={<Module2 />} />
         <Route path="module3" element={<Module3 />} /> */}
       </Route>
+
+      <Route path="/*" element={<PrivateRoute element={<AnganwadiRoot />} />}>
+        <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
+      </Route>
     </Routes>
   );
   // } else {

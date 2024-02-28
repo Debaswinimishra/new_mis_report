@@ -14,6 +14,8 @@ function RouteHome() {
         <Route path="/home" element={<Home />} />
         {/* ) : ( */}
         <Route path="/" element={<Login />} />
+
+        {/* <Route path="*" element={<Home />} /> */}
         {/* )} */}
         {/* {!isLoggedin && <Navigate to="/" />} */}
       </Routes>

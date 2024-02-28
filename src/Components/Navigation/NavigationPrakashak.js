@@ -59,7 +59,7 @@ function NavigationPrakashak(props) {
   };
 
   useEffect(() => {
-    setActiveLink(location.pathname.split("/")[2]);
+    setActiveLink(location.pathname);
   }, [location.pathname]);
 
   const listItem = [
@@ -109,9 +109,17 @@ function NavigationPrakashak(props) {
   // console.log("selectedTabIndex----------------------->", selectedTabIndex);
   // console.log("activeLink------------------------------->", activeLink);
   console.log("usertype----------------------->", usertype);
+  console.log("activeLink------------------------------->", activeLink);
+  // console.log("usertype----------------------->", usertype);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        // backgroundColor: "#FDF5E6",
+      }}
+    >
       <div
         // position="fixed"
         style={{
@@ -185,17 +193,18 @@ function NavigationPrakashak(props) {
         {listItem.map((item, index) => (
           <div
             style={{
-              border: "2px solid black",
+              // border: "2px solid black",
               padding: "1%",
               cursor: "pointer",
               borderRadius: "5px",
               backgroundColor:
                 item.link.split("/")[1] === pathname.split("/")[2]
-                  ? "rgb(65, 85, 225)"
-                  : "#F8F8F8",
+                  ? "rgb(90 81 221)"
+                  : "white",
               width: "200px",
               height: "60px",
               marginTop: "1.5%",
+              boxShadow: "2px 3px 6px  grey",
             }}
             value={item.id}
             onClick={() => handleTabChange(`/${item.link}`)}
@@ -206,6 +215,7 @@ function NavigationPrakashak(props) {
                   item.link.split("/")[1] === pathname.split("/")[2]
                     ? "white"
                     : "black",
+                fontFamily: "Congenial SemiBold",
               }}
             >
               {item.text}
@@ -214,15 +224,15 @@ function NavigationPrakashak(props) {
         ))}
       </div>
       <div>
-        {activeLink === "dashboard" ? (
+        {activeLink === "/prakashak/dashboard" ? (
           <Dashboard />
-        ) : activeLink === "remote_instructions" ? (
+        ) : activeLink === "/prakashak/remote_instructions" ? (
           <RemoteInstruction />
-        ) : activeLink === "whatsapp_chatbot" ? (
+        ) : activeLink === "/prakashak/whatsapp_chatbot" ? (
           <WhatsappChatbot />
-        ) : activeLink === "school_wise" ? (
+        ) : activeLink === "/prakashak/school_wise" ? (
           <Schoolwise />
-        ) : activeLink === "class_wise" ? (
+        ) : activeLink === "/prakashak/class_wise" ? (
           <Classwise />
         ) : null}
       </div>

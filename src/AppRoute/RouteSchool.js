@@ -16,7 +16,11 @@ const RouteSchool = () => {
         path="/school/*"
         element={<PrivateRoute element={<SchoolRoot />} />}
       >
-        {/* <Route path="/school" element={<SchoolRoot />}> */}
+        <Route index element={<Dashboard />} />
+        <Route path="dashboard" element={<Dashboard />} />
+      </Route>
+
+      <Route path="/*" element={<PrivateRoute element={<SchoolRoot />} />}>
         <Route index element={<Dashboard />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="" element={<Dashboard />} />

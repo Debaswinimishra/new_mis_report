@@ -9,7 +9,7 @@ import Schoolwise from "../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../Pages/Prakashak/Classwise/Classwise";
 
 const RoutePrakashak = () => {
-  const navigate = useNavigate();
+  const Navigate = useNavigate();
   const isLoggedin = localStorage.getItem("login");
   const userType = localStorage.getItem("usertype");
 

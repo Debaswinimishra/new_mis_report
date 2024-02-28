@@ -17,7 +17,7 @@ import TimespentDetails from "../Pages/Fellow/TimespentDetails/TimespentDetails"
 import Feedback from "../Pages/Fellow/Feedback/Feedback";
 
 const RouteFellow = () => {
-  const navigate = useNavigate();
+  const Navigate = useNavigate();
   const isLoggedin = localStorage.getItem("login");
   console.log("isLoggedinfellow--->", isLoggedin);
   // if (isLoggedin === "true") {

@@ -13,7 +13,7 @@ import {
   Button,
   CircularProgress,
 } from "@mui/material";
-
+import Api from "../Environment/Api";
 const Schoolwise = () => {
   let districtArr = [];
   let blocksArr = [];
@@ -53,9 +53,55 @@ const Schoolwise = () => {
     // console.log("school--->", e.target.value);
     alert("clicked");
   };
+  const [data, setData] = useState({});
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  // const fetchData = () => {
+  //   // const body = {
+  //   //   district: selectedYear,
+  //   //   month: selectedMonth,
+  //   //   week: selectedWeek,
+  //   //   class: selectedClass,
+  //   // };
+
+  //   // console.log(
+  //   //   "check---------->",
+  //   //   selectedYear,
+  //   //   selectedMonth,
+  //   //   selectedWeek,
+  //   //   selectedClass
+  //   // );
+
+  //   if (selectedYear && selectedMonth && selectedWeek && selectedClass) {
+  //     Api.post(`getSchoolWiseReport`, body)
+  //       .then((response) => {
+  //         console.log("set=================>", response.data);
+  //         setData(response.data);
+  //       })
+  //       .catch((err) => {
+  //         console.log("err=================>", err);
+  //       });
+  //   } else {
+  //     Api.post(`getClassWiseReport`)
+  //       .then((response) => {
+  //         console.log("set=================>", response.data);
+  //         setData(response.data);
+  //       })
+  //       .catch((err) => {
+  //         console.log("err=================>", err);
+  //       });
+  //   }
+  // };
+
+  // const filterButtonClick = () => {
+  //   // alert("filter button clicked");
+  //   fetchData();
+  // };
   return (
     <div>
-      <div style={{ margin: "2%", marginLeft: "50%", display: "flex" }}>
+      {/* <div style={{ margin: "2%", marginLeft: "50%", display: "flex" }}>
         <TextField
           id="outlined-select-currency"
           select
@@ -147,8 +193,8 @@ const Schoolwise = () => {
         >
           <h3 style={{ color: "white", marginTop: "2%" }}>Filter</h3>
         </button>
-      </div>
-
+      </div> */}
+      {/* 
       <div
         style={{
           // display: "flex",
@@ -299,6 +345,9 @@ const Schoolwise = () => {
           <h1 style={{ color: "rgb(65, 105, 225)" }}>255</h1>
           <h3>Total No. of Students </h3>
         </div>
+      </div> */}
+      <div style={{ marginTop: "5%" }}>
+        <h1>This module is under development</h1>
       </div>
     </div>
   );

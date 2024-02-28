@@ -150,7 +150,7 @@ function Home() {
                 },
               }}
               onClick={() => {
-                navigate(card.path);
+                navigate(card?.path);
               }}
             >
               {card.icon}

@@ -19,19 +19,18 @@ import Api from "../Environment/Api";
 const Classwise = () => {
   //?---------------Month array---------------------------
   const monthArr = [
-    { value: "0", label: "Select Month" },
-    { value: "1", label: "January" },
-    { value: "2", label: "February" },
-    { value: "3", label: "March" },
-    { value: "4", label: "April" },
-    { value: "5", label: "May" },
-    { value: "6", label: "June" },
-    { value: "7", label: "July" },
-    { value: "8", label: "August" },
-    { value: "9", label: "September" },
-    { value: "10", label: "October" },
-    { value: "11", label: "November" },
-    { value: "12", label: "December" },
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
   ];
 
   //?-----------------Week array--------------------
@@ -56,7 +55,7 @@ const Classwise = () => {
   //&-------------Filter states---------------
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedYear, setSelectedYear] = useState(currentYear.toString());
-  const [selectedMonth, setSelectedMonth] = useState(monthArr[0].value);
+  const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -65,11 +64,16 @@ const Classwise = () => {
   };
 
   const handleMonthChange = (e) => {
+    setSelectedWeek("");
     setSelectedMonth(e.target.value);
   };
 
   const handleWeekChange = (e) => {
-    setSelectedWeek(e.target.value);
+    if (!selectedMonth && e.target.value) {
+      alert("Please select a month before selecting a week !");
+    } else {
+      setSelectedWeek(e.target.value);
+    }
   };
 
   const handleClassChange = (e) => {
@@ -167,6 +171,7 @@ const Classwise = () => {
             onChange={handleClassChange}
             label="Class"
           >
+            <MenuItem value={null}>None</MenuItem>
             {classArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -183,6 +188,7 @@ const Classwise = () => {
             onChange={handleMonthChange}
             label="Month"
           >
+            <MenuItem value={null}>None</MenuItem>
             {monthArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -199,6 +205,7 @@ const Classwise = () => {
             onChange={handleWeekChange}
             label="Month"
           >
+            <MenuItem value={null}>None</MenuItem>
             {weekArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}

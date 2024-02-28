@@ -22,18 +22,18 @@ import moment from "moment";
 const Dashboard = () => {
   //?---------------Month array---------------------------
   const monthArr = [
-    { value: "1", label: "January" },
-    { value: "2", label: "February" },
-    { value: "3", label: "March" },
-    { value: "4", label: "April" },
-    { value: "5", label: "May" },
-    { value: "6", label: "June" },
-    { value: "7", label: "July" },
-    { value: "8", label: "August" },
-    { value: "9", label: "September" },
-    { value: "10", label: "October" },
-    { value: "11", label: "November" },
-    { value: "12", label: "December" },
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
   ];
 
   //?-----------------Week array--------------------
@@ -64,11 +64,16 @@ const Dashboard = () => {
   };
 
   const handleMonthChange = (e) => {
+    setSelectedWeek("");
     setSelectedMonth(e.target.value ? parseInt(e.target.value) : "");
   };
 
   const handleWeekChange = (e) => {
-    setSelectedWeek(e.target.value ? parseInt(e.target.value) : "");
+    if (!selectedMonth && e.target.value) {
+      alert("Please select a month before selecting a week !");
+    } else {
+      setSelectedWeek(e.target.value ? parseInt(e.target.value) : "");
+    }
   };
 
   const filterButtonClick = () => {
@@ -117,7 +122,7 @@ const Dashboard = () => {
       const body = {
         year: parseInt(selectedYear),
         month: parseInt(selectedMonth),
-        week: parseInt(selectedWeek),
+        week: selectedWeek,
       };
       console.log("body---------------->", body);
       Api.post(`getDashboardReport`, body)
@@ -206,12 +211,12 @@ const Dashboard = () => {
   // console.log("selected year------>", selectedYear);
   // console.log("selected month------->", selectedMonth);
   // console.log("selected week-------->", selectedWeek);
-  console.log("dashboard data---------->", dashboardData);
-  console.log(
-    `Loading : ${loading}<---------> dashboardData length : ${
-      Object.keys(dashboardData).length
-    }`
-  );
+  // console.log("dashboard data---------->", dashboardData);
+  // console.log(
+  //   `Loading : ${loading}<---------> dashboardData length : ${
+  //     Object.keys(dashboardData).length
+  //   }`
+  // );
 
   return (
     <>

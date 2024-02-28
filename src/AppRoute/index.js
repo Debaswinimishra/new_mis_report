@@ -32,12 +32,12 @@ import Login from "../Pages/Login/Login";
 import Home from "../Pages/Home/Home";
 
 function RouteRoot() {
-  const [userType, setUserType] = useState("");
-
-  useEffect(() => {
-    const storedUserType = localStorage.getItem("usertype");
-    setUserType(storedUserType);
-  }, []);
+  // const [userType, setUserType] = useState("");
+  const userType = localStorage.getItem("usertype");
+  // useEffect(() => {
+  //   const storedUserType = localStorage.getItem("usertype");
+  //   setUserType(storedUserType);
+  // }, []);
 
   return (
     <>

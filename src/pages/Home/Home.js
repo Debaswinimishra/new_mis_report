@@ -150,7 +150,9 @@ function Home() {
                 },
               }}
               onClick={() => {
+                console.log("card", card);
                 navigate(card?.path);
+                window.location.reload();
               }}
             >
               {card.icon}

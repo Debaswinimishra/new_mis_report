@@ -123,7 +123,7 @@ function NavigationFellow(props) {
   const handleNavigate = (link) => {
     setActiveLink(link.split("/")[2]);
     if (link === "/") {
-      localStorage.removeItem("login");
+      localStorage.clear();
     }
     navigate(link);
   };

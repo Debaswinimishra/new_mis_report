@@ -41,10 +41,10 @@ function RouteRoot() {
 
   return (
     <>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
-      </Routes>
+      </Routes> */}
       {userType === "admin" && (
         <>
           <RouteHome />

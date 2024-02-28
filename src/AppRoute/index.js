@@ -47,7 +47,7 @@ function RouteRoot() {
       </Routes>
       {userType === "admin" && (
         <>
-          <RouteHome />
+          {/* <RouteHome /> */}
           <RouteAnganwadi />
           <RouteFellow />
           <RouteSchool />
@@ -56,7 +56,7 @@ function RouteRoot() {
       )}
       {userType === "mis" && (
         <>
-          <RouteHome />
+          {/* <RouteHome /> */}
           <RouteAnganwadi />
           <RouteFellow />
           <RouteSchool />

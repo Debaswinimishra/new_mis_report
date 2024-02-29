@@ -129,7 +129,7 @@ const WhatsappChatbot = () => {
     fetchData();
   };
   const classData = ["A", "B", "C", "D", "E"];
-  const numberData = [10, 20, 15, 25, 30];
+  const numberData = [10, 20, 17, 25, 30];
 
   useEffect(() => {
     if (chartRef && chartRef.current) {

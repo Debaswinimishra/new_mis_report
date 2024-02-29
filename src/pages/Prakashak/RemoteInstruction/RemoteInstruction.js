@@ -19,6 +19,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import Api from "../Environment/Api";
 import Box from "@mui/material/Box";
 import moment from "moment";
+import Graph from "../../../ReusableComponents/Graphs";
 
 const RemoteInstruction = () => {
   //~-------------------------------------------------------
@@ -142,6 +143,11 @@ const RemoteInstruction = () => {
         }
       })
       .catch((err) => console.log(`The error is---> ${err}`));
+  };
+
+  const graphData = {
+    labels: ["Label-1", "Label-2", "Label-3", "Label-4", "Label-5"],
+    values: [10, 20, 30, 40, 50],
   };
 
   //todo--------------------Console logs--------------------------
@@ -819,6 +825,7 @@ const RemoteInstruction = () => {
               </div>
             </div>
           </div>
+          <Graph data={graphData} />
         </div>
       ) : Object.keys(remoteInstData).length === 0 && loading === false ? (
         <div

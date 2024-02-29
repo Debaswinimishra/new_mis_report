@@ -16,12 +16,13 @@ const RoutePrakashak = () => {
   // if (!isLoggedin) {
   //   return <Navigate to="/" />;
   // }
+  console.log("prakashak Route");
 
   return (
     <Routes>
       {/* {userType === "prakashak" && ( */}
       <Route
-        path="/prakashak/*"
+        path="/prakashak"
         element={<PrivateRoute element={<PrakashakRoot />} />}
       >
         <Route index element={<Dashboard />} />

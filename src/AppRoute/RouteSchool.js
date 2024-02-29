@@ -12,10 +12,7 @@ const RouteSchool = () => {
   // if (isLoggedin === "true") {
   return (
     <Routes>
-      <Route
-        path="/school/*"
-        element={<PrivateRoute element={<SchoolRoot />} />}
-      >
+      <Route path="/school" element={<PrivateRoute element={<SchoolRoot />} />}>
         {/* <Route path="/school" element={<SchoolRoot />}> */}
         <Route index element={<Dashboard />} />
         <Route path="dashboard" element={<Dashboard />} />

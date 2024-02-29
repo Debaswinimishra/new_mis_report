@@ -30,10 +30,7 @@ const RouteFellow = () => {
   return (
     <Routes>
       {/* {userType === "mis" ? ( */}
-      <Route
-        path="/fellow/*"
-        element={<PrivateRoute element={<FellowRoot />} />}
-      >
+      <Route path="/fellow" element={<PrivateRoute element={<FellowRoot />} />}>
         <Route index element={<Dashboard />} />
         <Route path="" element={<Dashboard />} />
         <Route path="dashboard" element={<Dashboard />} />

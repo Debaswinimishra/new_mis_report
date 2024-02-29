@@ -10,12 +10,8 @@ function RouteHome() {
   return (
     <>
       <Routes>
-        {/* {isLoggedin === true ? ( */}
         <Route path="/home" element={<Home />} />
-        {/* ) : ( */}
         <Route path="/" element={<Login />} />
-        {/* )} */}
-        {/* {!isLoggedin && <Navigate to="/" />} */}
       </Routes>
     </>
   );

@@ -57,7 +57,7 @@ const Classwise = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear.toString());
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState();
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -1004,7 +1004,7 @@ const Classwise = () => {
             </div>
           </div>
         </div>
-      ) : !loading && Object.keys(data).length === 0 ? (
+      ) : loading === false && Object.keys(data).length === 0 ? (
         <h1>No data Available</h1>
       ) : null}
     </div>

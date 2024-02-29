@@ -13,6 +13,8 @@ import {
   Button,
   CircularProgress,
 } from "@mui/material";
+import Card from "../../../ReusableComponents/Card";
+import PeopleIcon from "@mui/icons-material/People";
 import Api from "../Environment/Api";
 import Box from "@mui/material/Box";
 import moment from "moment";
@@ -20,18 +22,18 @@ import moment from "moment";
 const Dashboard = () => {
   //?---------------Month array---------------------------
   const monthArr = [
-    { value: "1", label: "January" },
-    { value: "2", label: "February" },
-    { value: "3", label: "March" },
-    { value: "4", label: "April" },
-    { value: "5", label: "May" },
-    { value: "6", label: "June" },
-    { value: "7", label: "July" },
-    { value: "8", label: "August" },
-    { value: "9", label: "September" },
-    { value: "10", label: "October" },
-    { value: "11", label: "November" },
-    { value: "12", label: "December" },
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
   ];
 
   //?-----------------Week array--------------------
@@ -62,11 +64,16 @@ const Dashboard = () => {
   };
 
   const handleMonthChange = (e) => {
+    setSelectedWeek("");
     setSelectedMonth(e.target.value ? parseInt(e.target.value) : "");
   };
 
   const handleWeekChange = (e) => {
-    setSelectedWeek(e.target.value ? parseInt(e.target.value) : "");
+    if (!selectedMonth && e.target.value) {
+      alert("Please select a month before selecting a week !");
+    } else {
+      setSelectedWeek(e.target.value ? parseInt(e.target.value) : "");
+    }
   };
 
   const filterButtonClick = () => {
@@ -115,7 +122,7 @@ const Dashboard = () => {
       const body = {
         year: parseInt(selectedYear),
         month: parseInt(selectedMonth),
-        week: parseInt(selectedWeek),
+        week: selectedWeek,
       };
       console.log("body---------------->", body);
       Api.post(`getDashboardReport`, body)
@@ -204,12 +211,12 @@ const Dashboard = () => {
   // console.log("selected year------>", selectedYear);
   // console.log("selected month------->", selectedMonth);
   // console.log("selected week-------->", selectedWeek);
-  console.log("dashboard data---------->", dashboardData);
-  console.log(
-    `Loading : ${loading}<---------> dashboardData length : ${
-      Object.keys(dashboardData).length
-    }`
-  );
+  // console.log("dashboard data---------->", dashboardData);
+  // console.log(
+  //   `Loading : ${loading}<---------> dashboardData length : ${
+  //     Object.keys(dashboardData).length
+  //   }`
+  // );
 
   return (
     <>
@@ -293,7 +300,7 @@ const Dashboard = () => {
             <CircularProgress />
           </Box>
         </div>
-      ) : !loading && Object.keys(dashboardData).length > 0 ? (
+      ) : Object.keys(dashboardData).length > 0 && !loading ? (
         <div
           style={{
             marginTop: "2%",
@@ -339,13 +346,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "#CD5C5C",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of districts
+                  <p>Number of districts</p>
                 </div>
                 <div
                   style={{
@@ -378,13 +385,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "rgb(214 148 16)",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of blocks
+                  <p> Number of blocks</p>
                 </div>
                 <div
                   style={{
@@ -416,13 +423,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "#6A5ACD",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of clusters
+                  <p> Number of clusters</p>
                 </div>
                 <div
                   style={{
@@ -454,13 +461,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of schools
+                  <p> Number of schools</p>
                 </div>
                 <div
                   style={{
@@ -530,13 +537,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "#6A5ACD",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of students
+                  <p>Number of students</p>
                 </div>
                 <div
                   style={{
@@ -569,13 +576,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of new students
+                  <p> Number of new students</p>
                 </div>
                 <div
                   style={{
@@ -608,13 +615,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "#CD5C5C",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Smartphone users
+                  <p> Smartphone users</p>
                 </div>
                 <div
                   style={{
@@ -647,13 +654,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "rgb(153 58 134)",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of girls
+                  <p>Number of girls</p>
                 </div>
                 <div
                   style={{
@@ -686,13 +693,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "rgb(214 148 16)",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of boys
+                  <p> Number of boys</p>
                 </div>
                 <div
                   style={{
@@ -925,13 +932,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "rgb(153 58 134)",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of calls received
+                  <p> Number of calls received</p>
                 </div>
                 <div
                   style={{
@@ -1081,13 +1088,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "#CD5C5C",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Calls received in IVRs
+                  <p> Calls received in IVRs</p>
                 </div>
                 <div
                   style={{
@@ -1159,13 +1166,13 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "rgb(153 58 134)",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of active users
+                  <p> Number of active users</p>
                 </div>
                 <div
                   style={{

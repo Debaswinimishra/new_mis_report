@@ -16,7 +16,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Popover from "@mui/material/Popover";
-import ExpandCircleDownIcon from '@mui/icons-material/ExpandCircleDown';
+import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
@@ -25,7 +25,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
 const drawerWidth = 240;
 
@@ -77,7 +77,7 @@ function NavigationAnganwadi(props) {
   const handleNavigate = (link) => {
     setActiveLink(link.split("/")[2]);
     if (link === "/") {
-      localStorage.removeItem("login");
+      localStorage.clear();
     }
     navigate(link);
   };
@@ -110,8 +110,20 @@ function NavigationAnganwadi(props) {
         >
           THINKZONE
         </h1>
-        <p style={{ marginTop: "80px", marginLeft:"-130px",color: "transparent", backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
-            fontFamily: "'Nuosu SIL', serif", WebkitBackgroundClip: "text",fontSize: "1.4rem",fontWeight: "bold"}}>v1.2.1</p>
+        <p
+          style={{
+            marginTop: "80px",
+            marginLeft: "-130px",
+            color: "transparent",
+            backgroundImage: "linear-gradient(310deg,#2152ff,#21d4fd)",
+            fontFamily: "'Nuosu SIL', serif",
+            WebkitBackgroundClip: "text",
+            fontSize: "1.4rem",
+            fontWeight: "bold",
+          }}
+        >
+          v1.2.1
+        </p>
       </Toolbar>
 
       <Divider />

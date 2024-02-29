@@ -30,7 +30,7 @@ export default function Profile() {
       confirmButtonText: "Logout",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem("login");
+        localStorage.clear();
       }
     });
   };

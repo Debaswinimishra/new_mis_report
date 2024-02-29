@@ -43,7 +43,7 @@ function NavigationPrakashak(props) {
         confirmButtonText: "Logout",
       }).then((result) => {
         if (result.isConfirmed) {
-          localStorage.removeItem("login");
+          localStorage.clear();
           navigate("/");
         }
       });
@@ -107,8 +107,6 @@ function NavigationPrakashak(props) {
 
   //todo---------------------Console logs---------------------------
   // console.log("selectedTabIndex----------------------->", selectedTabIndex);
-  // console.log("activeLink------------------------------->", activeLink);
-  console.log("usertype----------------------->", usertype);
   console.log("activeLink------------------------------->", activeLink);
   // console.log("usertype----------------------->", usertype);
 

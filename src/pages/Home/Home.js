@@ -100,7 +100,7 @@ function Home() {
       confirmButtonText: "Logout",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem("login");
+        localStorage.clear();
         navigate("/");
       }
     });
@@ -150,7 +150,9 @@ function Home() {
                 },
               }}
               onClick={() => {
-                navigate(card.path);
+                console.log("card", card);
+                navigate(card?.path);
+                window.location.reload();
               }}
             >
               {card.icon}

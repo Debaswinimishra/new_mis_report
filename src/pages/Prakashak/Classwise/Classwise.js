@@ -284,13 +284,13 @@ const Classwise = () => {
                   style={{
                     height: "50%",
                     color: "#CD5C5C",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of students
+                  <p> Number of students</p>
                 </div>
                 <div
                   style={{
@@ -322,13 +322,13 @@ const Classwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(214 148 16)",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Total Time Spent
+                  <p> Total Time Spent</p>
                 </div>
                 <div
                   style={{
@@ -535,13 +535,13 @@ const Classwise = () => {
                   style={{
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Total No. of Calls received
+                  <p> Total No. of Calls received</p>
                 </div>
                 <div
                   style={{
@@ -765,13 +765,13 @@ const Classwise = () => {
                   style={{
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Active Users
+                  <p> Number of Active Users</p>
                 </div>
                 <div
                   style={{
@@ -981,13 +981,13 @@ const Classwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(214 148 16)",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Active Users
+                  <p> Number of Active Users</p>
                 </div>
                 <div
                   style={{

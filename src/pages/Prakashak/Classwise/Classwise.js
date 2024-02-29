@@ -102,7 +102,7 @@ const Classwise = () => {
       selectedClass
     );
 
-    if (selectedYear && selectedMonth && selectedWeek && selectedClass) {
+    if (selectedYear) {
       Api.post(`getClassWiseReport`, body)
         .then((response) => {
           console.log("set=================>", response.data);

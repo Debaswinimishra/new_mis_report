@@ -12,15 +12,10 @@ const RoutePrakashak = () => {
   const navigate = useNavigate();
   const isLoggedin = localStorage.getItem("login");
   const userType = localStorage.getItem("usertype");
-
-  // if (!isLoggedin) {
-  //   return <Navigate to="/" />;
-  // }
   console.log("prakashak Route");
 
   return (
     <Routes>
-      {/* {userType === "prakashak" && ( */}
       <Route
         path="/prakashak"
         element={<PrivateRoute element={<PrakashakRoot />} />}
@@ -34,8 +29,6 @@ const RoutePrakashak = () => {
         <Route path="class_wise" element={<Classwise />} />
         <Route path="*" element={<Dashboard />} />
       </Route>
-
-      {/* )} */}
       {/* <Route
         path="*"
         element={

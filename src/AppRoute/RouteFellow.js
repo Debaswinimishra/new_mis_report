@@ -29,12 +29,10 @@ const RouteFellow = () => {
   }
   return (
     <Routes>
-      {/* {userType === "mis" ? ( */}
       <Route path="/fellow" element={<PrivateRoute element={<FellowRoot />} />}>
         <Route index element={<Dashboard />} />
         <Route path="" element={<Dashboard />} />
         <Route path="dashboard" element={<Dashboard />} />
-
         <Route path="common_monthly_quiz" element={<CommonMonthlyQuiz />} />
         <Route path="overall_c.e" element={<CommunityEducator />} />
         <Route path="training_module" element={<NewTraining />} />
@@ -49,7 +47,6 @@ const RouteFellow = () => {
         <Route path="overall_timespent_c.e" element={<OverallTimespent />} />
         <Route path="timespent_details_c.e" element={<TimespentDetails />} />
       </Route>
-      {/* ) : null} */}
       {/* <Route
         path="*"
         element={<Navigate to={userType === "mis" ? "/home" : "/"} />}

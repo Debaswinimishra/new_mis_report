@@ -56,8 +56,8 @@ const Dashboard = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
-  const [dashboardData, setDashboardData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [dashboardData, setDashboardData] = useState({});
+  const [loading, setLoading] = useState();
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -1406,7 +1406,9 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      ) : !loading && Object.keys(dashboardData).length === 0 ? (
+      ) : dashboardData &&
+        Object.keys(dashboardData).length === 0 &&
+        loading === false ? (
         <h1>No Data Available</h1>
       ) : null}
     </>

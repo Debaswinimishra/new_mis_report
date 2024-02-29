@@ -54,7 +54,7 @@ const Classwise = () => {
 
   //&-------------Filter states---------------
   const [selectedClass, setSelectedClass] = useState("");
-  const [selectedYear, setSelectedYear] = useState(currentYear.toString());
+  const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState(false);
@@ -102,7 +102,7 @@ const Classwise = () => {
       selectedClass
     );
 
-    if (selectedYear && selectedMonth && selectedWeek && selectedClass) {
+    if (selectedYear) {
       Api.post(`getClassWiseReport`, body)
         .then((response) => {
           console.log("set=================>", response.data);

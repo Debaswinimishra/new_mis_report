@@ -4,6 +4,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TextField,
   Table,
   TableHead,
   TableRow,
@@ -26,7 +27,8 @@ const Schoolwise = () => {
   const [blockName, setBlockName] = useState();
 
   const [loading, setLoading] = useState(false);
-
+  let districtArr = [];
+  let blocksArr = [];
   //   const handleYearChange = (e) => {
   //     setSelectedYear(e.target.value);
   //   };
@@ -46,6 +48,22 @@ const Schoolwise = () => {
   // const handleClassChange = (e) => {
   //   setSelectedClass(e.target.value);
   // };
+  const handleDistrictChange = async (e) => {
+    // const selectedValue = e.target.value;
+    // const selectedDistrictName = e.currentTarget.getAttribute("data-name");
+    setBlockName("");
+    setDistrictName(e.target.value);
+    // console.log("Selected value:", e);
+    // console.log("Selected district name:", selectedDistrictName);
+    // const response = await getDistrictsWiseBlocks(e.target.value);
+    // console.log("block response---->", response.data);
+    // setAllBlocks(response.data);
+  };
+
+  const handleBlockChange = (e) => {
+    console.log("block--->", e.target.value);
+    setBlockName(e.target.value);
+  };
 
   const [data, setData] = useState({});
   useEffect(() => {
@@ -166,7 +184,41 @@ const Schoolwise = () => {
             ))}
           </Select>
         </FormControl> */}
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Select districts"
+          defaultValue="none"
+          value={districtName}
+          onChange={(e) => handleDistrictChange(e)}
+        >
+          <MenuItem value="">None</MenuItem>
+          {districtArr?.map((option, index) => (
+            <MenuItem
+              key={index + 1}
+              value={option.districtid}
+              data-name={option.districtname}
+            >
+              {option.districtname}
+            </MenuItem>
+          ))}
+        </TextField>
 
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Select Blocks"
+          defaultValue="none"
+          value={blockName}
+          onChange={(e) => handleBlockChange(e)}
+        >
+          <MenuItem value="">None</MenuItem>
+          {blocksArr.map((option, index) => (
+            <MenuItem key={index + 1} value={option.blockid}>
+              {option.blockname}
+            </MenuItem>
+          ))}
+        </TextField>
         <Button
           variant="contained"
           sx={{

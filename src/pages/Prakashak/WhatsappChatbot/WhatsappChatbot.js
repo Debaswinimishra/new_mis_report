@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   FormControl,
   InputLabel,
@@ -17,23 +17,25 @@ import PeopleIcon from "@mui/icons-material/People";
 import Box from "@mui/material/Box";
 import Api from "../Environment/Api";
 import Nodata from "../../../Assets/Nodata.gif";
-
+import Chart from "chart.js/auto";
 const WhatsappChatbot = () => {
+  const chartRef = useRef(null);
+  //?---------------Month array---------------------------
   //?---------------Month array---------------------------
   const monthArr = [
-    { value: "0", label: "Select Month" },
-    { value: "1", label: "January" },
-    { value: "2", label: "February" },
-    { value: "3", label: "March" },
-    { value: "4", label: "April" },
-    { value: "5", label: "May" },
-    { value: "6", label: "June" },
-    { value: "7", label: "July" },
-    { value: "8", label: "August" },
-    { value: "9", label: "September" },
-    { value: "10", label: "October" },
-    { value: "11", label: "November" },
-    { value: "12", label: "December" },
+    { value: "", label: "select Year" },
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
   ];
 
   //?-----------------Week array--------------------
@@ -67,13 +69,17 @@ const WhatsappChatbot = () => {
   };
 
   const handleMonthChange = (e) => {
+    setSelectedWeek("");
     setSelectedMonth(e.target.value);
   };
 
   const handleWeekChange = (e) => {
-    setSelectedWeek(e.target.value);
+    if (!selectedMonth && e.target.value) {
+      alert("Please select a month before selecting a week !");
+    } else {
+      setSelectedWeek(e.target.value);
+    }
   };
-
   // const handleClassChange = (e) => {
   //   setSelectedClass(e.target.value);
   // };
@@ -87,6 +93,8 @@ const WhatsappChatbot = () => {
     setLoading(true);
     const body = {
       year: selectedYear,
+      month: selectedMonth,
+      week: selectedWeek,
     };
 
     console.log("check---------->", selectedYear, selectedMonth, selectedWeek);
@@ -120,6 +128,58 @@ const WhatsappChatbot = () => {
     setLoading(true);
     fetchData();
   };
+  const classData = ["A", "B", "C", "D", "E"];
+  const numberData = [10, 20, 15, 25, 30];
+
+  useEffect(() => {
+    if (chartRef && chartRef.current) {
+      const chartContext = chartRef.current.getContext("2d");
+      let chartInstance = null; // Initialize chartInstance variable
+
+      // Destroy existing chart if it exists
+      if (window.myChart instanceof Chart) {
+        window.myChart.destroy();
+      }
+
+      // Create new chart instance
+      chartInstance = new Chart(chartContext, {
+        type: "bar",
+        data: {
+          labels: classData,
+          datasets: [
+            {
+              label: "Number",
+              data: numberData,
+              backgroundColor: "rgba(54, 162, 235, 0.6)", // Adjust as needed
+              borderColor: "rgba(54, 162, 235, 1)", // Adjust as needed
+              borderWidth: 1,
+              barThickness: 70,
+            },
+          ],
+        },
+        options: {
+          layout: {
+            padding: {
+              top: 20,
+              bottom: 20,
+              left: 20,
+              right: 20,
+              width: 10,
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      // Store chart instance in window object
+      window.myChart = chartInstance;
+    }
+  }, [classData, numberData]);
+
   return (
     <div>
       <div
@@ -159,6 +219,7 @@ const WhatsappChatbot = () => {
             onChange={handleMonthChange}
             label="Month"
           >
+            <MenuItem value={null}>None</MenuItem>
             {monthArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -175,6 +236,7 @@ const WhatsappChatbot = () => {
             onChange={handleWeekChange}
             label="Month"
           >
+            <MenuItem value={null}>None</MenuItem>
             {weekArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -508,6 +570,10 @@ const WhatsappChatbot = () => {
       ) : !loading && Object.keys(data).length === 0 ? (
         <img src={Nodata} />
       ) : null}
+
+      <div>
+        <canvas ref={chartRef}></canvas>
+      </div>
     </div>
   );
 };

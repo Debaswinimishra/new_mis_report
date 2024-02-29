@@ -60,12 +60,16 @@ const Dashboard = () => {
   const [loading, setLoading] = useState();
 
   const handleYearChange = (e) => {
-    setSelectedYear(parseInt(e.target.value));
+    setSelectedYear(e.target.value);
   };
 
   const handleMonthChange = (e) => {
-    setSelectedWeek("");
-    setSelectedMonth(e.target.value ? parseInt(e.target.value) : "");
+    if (e.target.value > currentMonthSelected.value) {
+      alert("You can't select a month greater than the current month !");
+    } else {
+      setSelectedWeek("");
+      setSelectedMonth(e.target.value ? e.target.value : "");
+    }
   };
 
   const handleWeekChange = (e) => {
@@ -209,7 +213,7 @@ const Dashboard = () => {
 
   //todo----------------------Console logs---------------------------
   // console.log("selected year------>", selectedYear);
-  // console.log("selected month------->", selectedMonth);
+  console.log("selected month------->", selectedMonth);
   // console.log("selected week-------->", selectedWeek);
   // console.log("dashboard data---------->", dashboardData);
   // console.log(
@@ -217,6 +221,10 @@ const Dashboard = () => {
   //     Object.keys(dashboardData).length
   //   }`
   // );
+  console.log(
+    "currentMonthSelected-------------->",
+    currentMonthSelected.value
+  );
 
   return (
     <>

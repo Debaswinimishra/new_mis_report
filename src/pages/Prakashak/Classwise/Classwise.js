@@ -52,6 +52,11 @@ const Classwise = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, index) => currentYear - index);
 
+  const currentMonth = moment().format("MMMM");
+  const currentMonthSelected = monthArr?.filter(
+    (item) => item.label === currentMonth
+  )[0];
+
   //&-------------Filter states---------------
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedYear, setSelectedYear] = useState(currentYear.toString());
@@ -64,8 +69,12 @@ const Classwise = () => {
   };
 
   const handleMonthChange = (e) => {
-    setSelectedWeek("");
-    setSelectedMonth(e.target.value);
+    if (e.target.value > currentMonthSelected.value) {
+      alert("You can't select a month greater than the current month !");
+    } else {
+      setSelectedWeek("");
+      setSelectedMonth(e.target.value);
+    }
   };
 
   const handleWeekChange = (e) => {

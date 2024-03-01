@@ -214,7 +214,7 @@ const Dashboard = () => {
 
   //todo----------------------Console logs---------------------------
   // console.log("selected year------>", selectedYear);
-  console.log("selected month------->", selectedMonth);
+  // console.log("selected month------->", selectedMonth);
   // console.log("selected week-------->", selectedWeek);
   // console.log("dashboard data---------->", dashboardData);
   // console.log(
@@ -222,10 +222,10 @@ const Dashboard = () => {
   //     Object.keys(dashboardData).length
   //   }`
   // );
-  console.log(
-    "currentMonthSelected-------------->",
-    currentMonthSelected.value
-  );
+  // console.log(
+  //   "currentMonthSelected-------------->",
+  //   currentMonthSelected.value
+  // );
 
   return (
     <>

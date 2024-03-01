@@ -242,8 +242,6 @@ function NavigationPrakashak(props) {
           <Schoolwise />
         ) : activeLink === "/prakashak/class_wise" ? (
           <Classwise />
-        ) : activeLink === "/prakashak/" || activeLink === "/prakashak" ? (
-          <Dashboard />
         ) : null}
       </div>
     </Box>

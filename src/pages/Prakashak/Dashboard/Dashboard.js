@@ -42,6 +42,7 @@ const Dashboard = () => {
     { value: 2, label: "2" },
     { value: 3, label: "3" },
     { value: 4, label: "4" },
+    { value: 5, label: "5" },
   ];
 
   const currentYear = new Date().getFullYear();
@@ -979,7 +980,7 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",

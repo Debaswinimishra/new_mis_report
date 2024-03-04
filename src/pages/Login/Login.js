@@ -37,23 +37,31 @@ const Login = () => {
             usertype === "prakashak"
           ) {
             navigate("/home");
-          }
-          // else if (usertype === "prakashak") {
-          //   navigate("/prakashak/dashboard");
-          // }
-          else {
+          } else {
             navigate("/");
           }
         } else {
-          alert("You are not approved yet.");
+          Swal.fire({
+            icon: "info",
+            title: "Approval Required",
+            text: "You are not approved yet.",
+          });
         }
       } else {
-        alert("Please Enter Valid ID and Password");
+        Swal.fire({
+          icon: "error",
+          title: "Invalid ID or Password",
+          text: "Please Enter Valid ID and Password",
+        });
       }
       // setManagerArr(response.data.resData);
     } catch (err) {
       console.log("err--->", err.response);
-      alert("Please Enter Valid ID and Password");
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred. Please try again later.",
+      });
     }
   };
 

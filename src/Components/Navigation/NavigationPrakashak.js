@@ -59,8 +59,16 @@ function NavigationPrakashak(props) {
   };
 
   useEffect(() => {
-    setActiveLink(location.pathname);
-  }, [location.pathname]);
+    console.log("location.pathname------------->", location.pathname);
+    if (
+      location.pathname === "/prakashak" ||
+      location.pathname === "/prakashak/"
+    ) {
+      navigate("/prakashak/dashboard", { replace: true });
+    } else {
+      setActiveLink(location.pathname);
+    }
+  }, [location.pathname, navigate]);
 
   const listItem = [
     {
@@ -108,6 +116,8 @@ function NavigationPrakashak(props) {
   //todo---------------------Console logs---------------------------
   // console.log("selectedTabIndex----------------------->", selectedTabIndex);
   console.log("activeLink------------------------------->", activeLink);
+  console.log("pathname--------------------.", pathname);
+  // console.log("pathname length------------->", pathname.split("/").length);
   // console.log("usertype----------------------->", usertype);
 
   return (

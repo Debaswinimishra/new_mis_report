@@ -22,7 +22,7 @@ import "./styles.css";
 
 export default function App() {
   useEffect(() => {
-    if (localStorage.getItem("userType") === null) {
+    if (localStorage.getItem("usertype") === null) {
       localStorage.clear();
     }
   }, []);

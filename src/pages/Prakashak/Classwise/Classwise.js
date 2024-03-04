@@ -16,6 +16,7 @@ import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
 import Box from "@mui/material/Box";
 import Api from "../Environment/Api";
+import moment from "moment";
 const Classwise = () => {
   //?---------------Month array---------------------------
   const monthArr = [
@@ -39,6 +40,7 @@ const Classwise = () => {
     { value: 2, label: "2" },
     { value: 3, label: "3" },
     { value: 4, label: "4" },
+    { value: 5, label: "5" },
   ];
 
   //?----------------Class Array-----------------------
@@ -47,10 +49,19 @@ const Classwise = () => {
     { value: 2, label: "2" },
     { value: 3, label: "3" },
     { value: 4, label: "4" },
+    { value: 5, label: "5" },
+    { value: 6, label: "6" },
+    { value: 7, label: "7" },
+    { value: 8, label: "8" },
   ];
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, index) => currentYear - index);
+
+  const currentMonth = moment().format("MMMM");
+  const currentMonthSelected = monthArr?.filter(
+    (item) => item.label === currentMonth
+  )[0];
 
   //&-------------Filter states---------------
   const [selectedClass, setSelectedClass] = useState("");
@@ -64,8 +75,12 @@ const Classwise = () => {
   };
 
   const handleMonthChange = (e) => {
-    setSelectedWeek("");
-    setSelectedMonth(e.target.value);
+    if (e.target.value > currentMonthSelected.value) {
+      alert("You can't select a month greater than the current month !");
+    } else {
+      setSelectedWeek("");
+      setSelectedMonth(e.target.value);
+    }
   };
 
   const handleWeekChange = (e) => {

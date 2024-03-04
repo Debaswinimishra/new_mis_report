@@ -15,6 +15,7 @@ import Assessments from "../Pages/Fellow/Assessments/Assessments";
 import OverallTimespent from "../Pages/Fellow/OverallTimespent/OverallTimespent";
 import TimespentDetails from "../Pages/Fellow/TimespentDetails/TimespentDetails";
 import Feedback from "../Pages/Fellow/Feedback/Feedback";
+import Route404 from "./Route404";
 
 const RouteFellow = () => {
   const navigate = useNavigate();
@@ -47,6 +48,8 @@ const RouteFellow = () => {
         <Route path="overall_timespent_c.e" element={<OverallTimespent />} />
         <Route path="timespent_details_c.e" element={<TimespentDetails />} />
       </Route>
+      {/* <Route path="*" element={<Route404 />} /> */}
+      {/* <Route path="*" element={<Navigate to="/fellow/dashboard" />} /> */}
       {/* <Route
         path="*"
         element={<Navigate to={userType === "mis" ? "/home" : "/"} />}

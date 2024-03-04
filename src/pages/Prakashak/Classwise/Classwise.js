@@ -54,7 +54,7 @@ const Classwise = () => {
 
   //&-------------Filter states---------------
   const [selectedClass, setSelectedClass] = useState("");
-  const [selectedYear, setSelectedYear] = useState(currentYear.toString());
+  const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState();

@@ -19,10 +19,17 @@ const Graph = ({ data }) => {
           labels: data.labels,
           datasets: [
             {
-              label: "Data",
-              data: data.values,
+              label: "Data 1",
+              data: data.values1,
               backgroundColor: "rgba(54, 162, 235, 0.5)", // Example color
               borderColor: "rgba(54, 162, 235, 1)", // Example border color
+              borderWidth: 1,
+            },
+            {
+              label: "Data 2",
+              data: data.values2,
+              backgroundColor: "rgba(255, 99, 132, 0.5)", // Another color
+              borderColor: "rgba(255, 99, 132, 1)", // Another border color
               borderWidth: 1,
             },
           ],

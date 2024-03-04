@@ -147,7 +147,8 @@ const RemoteInstruction = () => {
 
   const graphData = {
     labels: ["Label-1", "Label-2", "Label-3", "Label-4", "Label-5"],
-    values: [10, 20, 30, 40, 50],
+    values1: [100, 230, 330, 140, 350],
+    values2: [200, 300, 120, 450, 280],
   };
 
   //todo--------------------Console logs--------------------------

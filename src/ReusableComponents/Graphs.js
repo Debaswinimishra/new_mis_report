@@ -3,11 +3,17 @@ import Chart from "chart.js/auto";
 
 const Graph = ({ data }) => {
   const chartRef = useRef(null);
+  const chartInstance = useRef(null); // To keep track of the Chart instance
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
+      if (chartInstance.current) {
+        // Destroy the previous Chart instance before rendering a new one
+        chartInstance.current.destroy();
+      }
+
       const ctx = chartRef.current.getContext("2d");
-      new Chart(ctx, {
+      chartInstance.current = new Chart(ctx, {
         type: "bar",
         data: {
           labels: data.labels,
@@ -30,6 +36,13 @@ const Graph = ({ data }) => {
         },
       });
     }
+
+    // Clean up function
+    return () => {
+      if (chartInstance.current) {
+        chartInstance.current.destroy();
+      }
+    };
   }, [data]);
 
   return <canvas ref={chartRef} />;

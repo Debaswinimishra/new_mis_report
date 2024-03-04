@@ -20,6 +20,7 @@ import Api from "../Environment/Api";
 import Box from "@mui/material/Box";
 import moment from "moment";
 import Graph from "../../../ReusableComponents/Graphs";
+import Nodata from "../../../Assets/Nodata.gif";
 
 const RemoteInstruction = () => {
   //~-------------------------------------------------------
@@ -839,8 +840,8 @@ const RemoteInstruction = () => {
           }}
         >
           <img
-            src={logo}
-            alt="Under development"
+            src={Nodata}
+            alt="No Data"
             style={{
               maxWidth: "100%",
               maxHeight: "80vh",

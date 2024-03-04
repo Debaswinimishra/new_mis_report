@@ -168,7 +168,7 @@ function NavigationFellow(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.2
+          v1.2.3
         </p>
       </Toolbar>
 

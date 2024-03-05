@@ -213,7 +213,9 @@ const TimespentDetails = () => {
   const fetchFilteredData = async () => {
     try {
       if (!selectedYear || !month || !managerName || !passcode) {
-        alert("Please select a year before filtering.");
+        alert(
+          "Please select a year, month, manager name, passcode before filtering."
+        );
         return;
       }
 

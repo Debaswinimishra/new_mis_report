@@ -78,6 +78,7 @@ const Assessments = () => {
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -344,48 +345,66 @@ const Assessments = () => {
       {loaded ? (
         <Loader />
       ) : selectedYear && filteredData && filteredData.length > 0 ? (
-        <TableContainer
-          component={Paper}
-          sx={{
-            marginTop: 3,
-            width: "100%",
-            borderRadius: "6px",
-            maxHeight: "800px",
-          }}
-        >
-          <Table aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                {moduleColumn.map((column) => (
-                  <StyledTableCell key={column}>{column}</StyledTableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {Array.isArray(filteredData) &&
-                filteredData
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => (
-                    <StyledTableRow key={index}>
-                      {moduleColumn.map((column, columnIndex) => (
-                        <StyledTableCell key={columnIndex}>
-                          {getCellValue(row, column, index)}
-                        </StyledTableCell>
-                      ))}
-                    </StyledTableRow>
-                  ))}
-            </TableBody>
-          </Table>
-          <TablePagination
-            component="div"
-            count={totalDataLength}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
+        <>
+          <TextField
+            fullWidth
+            id="fullWidth"
+            label="Search"
+            variant="outlined"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <Download csvData={xlData} fileName={fileName} />
-        </TableContainer>
+          <TableContainer
+            component={Paper}
+            sx={{
+              marginTop: 3,
+              width: "100%",
+              borderRadius: "6px",
+              maxHeight: "800px",
+            }}
+          >
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  {moduleColumn.map((column) => (
+                    <StyledTableCell key={column}>{column}</StyledTableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {Array.isArray(filteredData) &&
+                  filteredData
+                    .filter(
+                      (row) =>
+                        row["username"] &&
+                        row["username"]
+                          .toString()
+                          .toLowerCase()
+                          .startsWith(searchQuery.toLowerCase())
+                    )
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => (
+                      <StyledTableRow key={index}>
+                        {moduleColumn.map((column, columnIndex) => (
+                          <StyledTableCell key={columnIndex}>
+                            {getCellValue(row, column, index)}
+                          </StyledTableCell>
+                        ))}
+                      </StyledTableRow>
+                    ))}
+              </TableBody>
+            </Table>
+            <TablePagination
+              component="div"
+              count={totalDataLength}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+            <Download csvData={xlData} fileName={fileName} />
+          </TableContainer>
+        </>
       ) : (
         ""
       )}

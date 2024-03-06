@@ -142,15 +142,16 @@ function NavigationPrakashak(props) {
           style={{
             alignSelf: "flex-start",
             textAlign: "start",
-            display: "flex",
           }}
         >
           <b>PRAKASHAK</b>
-          <p style={{ marginLeft: "3%", marginTop: "-0.5%" }}>
-            <b> {Version.version}</b> <sup>({networkStatus})</sup>
-          </p>
+          <sub>
+            v{Version.version}({networkStatus})
+          </sub>
         </div>
-        <div style={{ alignSelf: "flex-start", textAlign: "start" }}>
+        <div
+          style={{ alignSelf: "flex-start", textAlign: "start", marginTop: 6 }}
+        >
           <i>
             Parents' Remote Assistance and Knowledge Support for the Holistic
             Advancement of Kids
@@ -242,8 +243,8 @@ function NavigationPrakashak(props) {
                       ? "white"
                       : "black",
                   fontFamily: "Congenial SemiBold",
-                  fontSize: 17,
-                  fontWeight: "bold",
+                  fontSize: 19,
+                  fontWeight: "500",
                 }}
               >
                 {item.text}

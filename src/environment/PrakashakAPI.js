@@ -5,6 +5,9 @@ export const baseURL = "https://tatvagyan.in/prakashak";
 export const Version = {
   version: "1.2.2",
 };
+
+export const networkStatus =
+  baseURL === "https://tatvagyan.in/prakashak" ? "Test 🟠" : "Live 🟢";
 export default axios.create({
   baseURL,
 });

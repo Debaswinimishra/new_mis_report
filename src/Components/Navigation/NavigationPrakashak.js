@@ -14,6 +14,7 @@ import Popover from "@mui/material/Popover";
 import MenuItem from "@mui/material/MenuItem";
 import Logout from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
+import { Version, networkStatus } from "../../Environment/PrakashakAPI";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -137,8 +138,17 @@ function NavigationPrakashak(props) {
           // alignItems: "flex-start",
         }}
       >
-        <div style={{ alignSelf: "flex-start", textAlign: "start" }}>
+        <div
+          style={{
+            alignSelf: "flex-start",
+            textAlign: "start",
+            display: "flex",
+          }}
+        >
           <b>PRAKASHAK</b>
+          <p style={{ marginLeft: "3%", marginTop: "-0.5%" }}>
+            <b> {Version.version}</b> <sup>({networkStatus})</sup>
+          </p>
         </div>
         <div style={{ alignSelf: "flex-start", textAlign: "start" }}>
           <i>
@@ -217,17 +227,28 @@ function NavigationPrakashak(props) {
             value={item.id}
             onClick={() => handleTabChange(`/${item.link}`)}
           >
-            <span
+            <div
               style={{
-                color:
-                  item.link.split("/")[1] === pathname.split("/")[2]
-                    ? "white"
-                    : "black",
-                fontFamily: "Congenial SemiBold",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingTop: 5,
               }}
             >
-              {item.text}
-            </span>
+              <span
+                style={{
+                  color:
+                    item.link.split("/")[1] === pathname.split("/")[2]
+                      ? "white"
+                      : "black",
+                  fontFamily: "Congenial SemiBold",
+                  fontSize: 17,
+                  fontWeight: "bold",
+                }}
+              >
+                {item.text}
+              </span>
+            </div>
           </div>
         ))}
       </div>

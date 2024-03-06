@@ -15,9 +15,10 @@ import {
 } from "@mui/material";
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
-import Api from "../Environment/Api";
+import PrakashakAPI from "../../../Environment/PrakashakAPI";
 import Box from "@mui/material/Box";
 import moment from "moment";
+import Nodata from "../../../Assets/Nodata.gif";
 
 const Dashboard = () => {
   //?---------------Month array---------------------------
@@ -89,7 +90,7 @@ const Dashboard = () => {
         year: parseInt(selectedYear),
       };
       console.log("body---------------->", body);
-      Api.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport`, body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
@@ -109,7 +110,7 @@ const Dashboard = () => {
         month: parseInt(selectedMonth),
       };
       console.log("body---------------->", body);
-      Api.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport`, body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
@@ -130,7 +131,7 @@ const Dashboard = () => {
         week: selectedWeek,
       };
       console.log("body---------------->", body);
-      Api.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport`, body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
@@ -154,7 +155,7 @@ const Dashboard = () => {
         year: parseInt(selectedYear),
       };
       console.log("body---------------->", body);
-      Api.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport`, body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
@@ -174,7 +175,7 @@ const Dashboard = () => {
         month: parseInt(selectedMonth),
       };
       console.log("body---------------->", body);
-      Api.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport`, body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
@@ -195,7 +196,7 @@ const Dashboard = () => {
         week: parseInt(selectedWeek),
       };
       console.log("body---------------->", body);
-      Api.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport`, body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
@@ -1418,7 +1419,25 @@ const Dashboard = () => {
       ) : dashboardData &&
         Object.keys(dashboardData).length === 0 &&
         loading === false ? (
-        <h1>No Data Available</h1>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "90vh",
+          }}
+        >
+          <img
+            src={Nodata}
+            alt="No Data"
+            style={{
+              maxWidth: "100%",
+              maxHeight: "80vh",
+              marginBottom: "20px",
+            }}
+          />
+        </div>
       ) : null}
     </>
   );

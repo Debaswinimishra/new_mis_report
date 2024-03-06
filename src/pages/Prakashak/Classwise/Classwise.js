@@ -15,7 +15,7 @@ import {
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
 import Box from "@mui/material/Box";
-import Api from "../Environment/Api";
+import PrakashakAPI from "../../../Environment/PrakashakAPI";
 import moment from "moment";
 const Classwise = () => {
   //?---------------Month array---------------------------
@@ -118,7 +118,7 @@ const Classwise = () => {
     );
 
     if (selectedYear) {
-      Api.post(`getClassWiseReport`, body)
+      PrakashakAPI.post(`getClassWiseReport`, body)
         .then((response) => {
           console.log("set=================>", response.data);
           setData(response.data);
@@ -129,7 +129,7 @@ const Classwise = () => {
           setLoading(false);
         });
     } else {
-      Api.post(`getClassWiseReport`)
+      PrakashakAPI.post(`getClassWiseReport`)
         .then((response) => {
           console.log("set=================>", response.data);
           setData(response.data);

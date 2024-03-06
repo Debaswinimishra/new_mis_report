@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
-import Api from "../Environment/Api";
+import PrakashakAPI from "../../../Environment/PrakashakAPI";
 import Box from "@mui/material/Box";
 import moment from "moment";
 import Graph from "../../../ReusableComponents/Graphs";
@@ -97,7 +97,7 @@ const RemoteInstruction = () => {
       alert("Please select a month before selecting the week !");
     }
     console.log("body passed------------>", body);
-    Api.post(`getRemoteInstReport`, body)
+    PrakashakAPI.post(`getRemoteInstReport`, body)
       .then((res) => {
         if (res.status === 200) {
           setRemoteInstData(res.data);
@@ -133,7 +133,7 @@ const RemoteInstruction = () => {
       alert("Please select a month before selecting the week !");
     }
     console.log("body passed------------>", body);
-    Api.post(`getRemoteInstReport`, body)
+    PrakashakAPI.post(`getRemoteInstReport`, body)
       .then((res) => {
         if (res.status === 200) {
           setRemoteInstData(res.data);

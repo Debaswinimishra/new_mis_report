@@ -1,10 +1,11 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import AnganwadiRoot from "../Pages/Anganwadi";
 import Dashboard from "../Pages/Anganwadi/Dashboard/Dashboard";
 // import Module2 from "../Pages/Anganwadi/Module2/Module2";
 // import Module3 from "../Pages/Anganwadi/Module3/Module3";
 import PrivateRoute from "./PrivateRoute";
+import Route404 from "./Route404";
 const RouteAnganwadi = () => {
   const navigate = useNavigate();
   const isLoggedin = localStorage.getItem("login");
@@ -16,18 +17,12 @@ const RouteAnganwadi = () => {
         path="/anganwadi"
         element={<PrivateRoute element={<AnganwadiRoot />} />}
       >
-        {/* <Route path="/anganwadi" element={<AnganwadiRoot />}> */}
         <Route index element={<Dashboard />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="" element={<Dashboard />} />
-        {/* <Route path="module2" element={<Module2 />} />
-        <Route path="module3" element={<Module3 />} /> */}
       </Route>
-
-      <Route path="/*" element={<PrivateRoute element={<AnganwadiRoot />} />}>
-        <Route index element={<Dashboard />} />
-        <Route path="dashboard" element={<Dashboard />} />
-      </Route>
+      {/* <Route path="*" element={<Route404 />} /> */}
+      {/* <Route path="*" element={<Navigate to="/anganwadi/dashboard" />} /> */}
     </Routes>
   );
   // } else {

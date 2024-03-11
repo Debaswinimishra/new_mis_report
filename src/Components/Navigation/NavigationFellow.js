@@ -168,7 +168,7 @@ function NavigationFellow(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.2
+          v1.2.3
         </p>
       </Toolbar>
 
@@ -239,7 +239,7 @@ function NavigationFellow(props) {
                 alignSelf: "center",
               }}
             >
-              {pathname.split("/")[2]?.replace("_", " ")}
+              {pathname ? pathname?.split("/")[2]?.replace("_", " ") : null}
             </Typography>
 
             <Button

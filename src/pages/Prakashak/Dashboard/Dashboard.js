@@ -42,6 +42,7 @@ const Dashboard = () => {
     { value: 2, label: "2" },
     { value: 3, label: "3" },
     { value: 4, label: "4" },
+    { value: 5, label: "5" },
   ];
 
   const currentYear = new Date().getFullYear();
@@ -56,16 +57,20 @@ const Dashboard = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
-  const [dashboardData, setDashboardData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [dashboardData, setDashboardData] = useState({});
+  const [loading, setLoading] = useState();
 
   const handleYearChange = (e) => {
-    setSelectedYear(parseInt(e.target.value));
+    setSelectedYear(e.target.value);
   };
 
   const handleMonthChange = (e) => {
-    setSelectedWeek("");
-    setSelectedMonth(e.target.value ? parseInt(e.target.value) : "");
+    if (e.target.value > currentMonthSelected.value) {
+      alert("You can't select a month greater than the current month !");
+    } else {
+      setSelectedWeek("");
+      setSelectedMonth(e.target.value ? e.target.value : "");
+    }
   };
 
   const handleWeekChange = (e) => {
@@ -216,6 +221,10 @@ const Dashboard = () => {
   //   `Loading : ${loading}<---------> dashboardData length : ${
   //     Object.keys(dashboardData).length
   //   }`
+  // );
+  // console.log(
+  //   "currentMonthSelected-------------->",
+  //   currentMonthSelected.value
   // );
 
   return (
@@ -971,7 +980,7 @@ const Dashboard = () => {
                   style={{
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -1406,7 +1415,9 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      ) : !loading && Object.keys(dashboardData).length === 0 ? (
+      ) : dashboardData &&
+        Object.keys(dashboardData).length === 0 &&
+        loading === false ? (
         <h1>No Data Available</h1>
       ) : null}
     </>

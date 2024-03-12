@@ -128,8 +128,12 @@ const WhatsappChatbot = () => {
     setLoading(true);
     fetchData();
   };
-  const classData = ["A", "B", "C", "D", "E"];
-  const numberData = [10, 20, 17, 25, 30];
+  const classData = data.graphData.classData;
+  const numberData = data.graphData.numberData;
+  console.log(
+    "====================================class Array",
+    data.graphData.classData
+  );
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
@@ -160,6 +164,7 @@ const WhatsappChatbot = () => {
         options: {
           layout: {
             padding: {
+              alignContent: "center",
               top: 20,
               bottom: 20,
               left: 20,
@@ -268,312 +273,319 @@ const WhatsappChatbot = () => {
           </Box>
         </div>
       ) : !loading && Object.keys(data).length > 0 ? (
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            width: "96%",
-            marginLeft: "3%",
-            marginBottom: "2%",
-            marginTop: "2%",
-          }}
-        >
+        <>
           <div
             style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              width: "96%",
+              marginLeft: "3%",
+              marginBottom: "2%",
               marginTop: "2%",
-              boxShadow: "2px 1px 5px grey",
-              padding: "3%",
-              width: "97%",
             }}
           >
             <div
               style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignContent: "center",
-                justifyContent: "center",
+                marginTop: "2%",
+                boxShadow: "2px 1px 5px grey",
+                padding: "3%",
                 width: "97%",
-                gap: "2%",
               }}
             >
               <div
                 style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
                   display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  flexWrap: "wrap",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  width: "97%",
+                  gap: "2%",
                 }}
               >
                 <div
                   style={{
-                    height: "50%",
-                    color: "#CD5C5C",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
                   }}
                 >
-                  Total No. of Users
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#CD5C5C",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Total No. of Users
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#CD5C5C",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.chatbot_users}</h1>
+                  </div>
                 </div>
                 <div
                   style={{
-                    height: "50%",
-                    backgroundColor: "#CD5C5C",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
                   }}
                 >
-                  <h1>{data.chatbot_users}</h1>
-                </div>
-              </div>
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total No. of New Users
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{data.chatbot_new_users}</h1>
-                </div>
-              </div>
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#6A5ACD",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total No. of Active Users
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "rgb(214 148 16)",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Total No. of New Users
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "rgb(214 148 16)",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.chatbot_new_users}</h1>
+                  </div>
                 </div>
                 <div
                   style={{
-                    height: "50%",
-                    backgroundColor: "#6A5ACD",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
                   }}
                 >
-                  <h1>{data.chatbot_active_users}</h1>
-                </div>
-              </div>
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#2E8B57",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total No. of Parents completed at least one activity
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#2E8B57",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{data.chatbot_users_completed_one_act}</h1>
-                </div>
-              </div>
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total No. of parents completed the full thread
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#6A5ACD",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Total No. of Active Users
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#6A5ACD",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.chatbot_active_users}</h1>
+                  </div>
                 </div>
                 <div
                   style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
                   }}
                 >
-                  <h1>{data.chatbot_users_completed_full_thread}</h1>
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#2E8B57",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Total No. of Parents completed at least one activity
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#2E8B57",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.chatbot_users_completed_one_act}</h1>
+                  </div>
                 </div>
-              </div>
+                <div
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "rgb(153 58 134)",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Total No. of parents completed the full thread
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "rgb(153 58 134)",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.chatbot_users_completed_full_thread}</h1>
+                  </div>
+                </div>
 
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
                 <div
                   style={{
-                    height: "50%",
-                    color: "#6A5ACD",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
                   }}
                 >
-                  Total No. of Minutes Spent
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#6A5ACD",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Total No. of Minutes Spent
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#6A5ACD",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.total_chatbot_mins}</h1>
+                  </div>
                 </div>
                 <div
                   style={{
-                    height: "50%",
-                    backgroundColor: "#6A5ACD",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
                   }}
                 >
-                  <h1>{data.total_chatbot_mins}</h1>
-                </div>
-              </div>
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Average Minutes Spent
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{data.chatbot_avg_mins}</h1>
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "rgb(153 58 134)",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Average Minutes Spent
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "rgb(153 58 134)",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.chatbot_avg_mins}</h1>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+          <div
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              display: "grid",
+            }}
+          >
+            <canvas ref={chartRef}></canvas>
+          </div>
+        </>
       ) : !loading && Object.keys(data).length === 0 ? (
         <img src={Nodata} />
       ) : null}
-
-      <div>
-        <canvas ref={chartRef}></canvas>
-      </div>
     </div>
   );
 };

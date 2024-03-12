@@ -14,6 +14,7 @@ import Popover from "@mui/material/Popover";
 import MenuItem from "@mui/material/MenuItem";
 import Logout from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
+import { Version, networkStatus } from "../../Environment/PrakashakAPI";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -137,10 +138,20 @@ function NavigationPrakashak(props) {
           // alignItems: "flex-start",
         }}
       >
-        <div style={{ alignSelf: "flex-start", textAlign: "start" }}>
+        <div
+          style={{
+            alignSelf: "flex-start",
+            textAlign: "start",
+          }}
+        >
           <b>PRAKASHAK</b>
+          <sub>
+            v{Version.version}({networkStatus})
+          </sub>
         </div>
-        <div style={{ alignSelf: "flex-start", textAlign: "start" }}>
+        <div
+          style={{ alignSelf: "flex-start", textAlign: "start", marginTop: 6 }}
+        >
           <i>
             Parents' Remote Assistance and Knowledge Support for the Holistic
             Advancement of Kids
@@ -218,17 +229,28 @@ function NavigationPrakashak(props) {
             value={item.id}
             onClick={() => handleTabChange(`/${item.link}`)}
           >
-            <span
+            <div
               style={{
-                color:
-                  item.link.split("/")[1] === pathname.split("/")[2]
-                    ? "white"
-                    : "black",
-                fontFamily: "Congenial SemiBold",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingTop: 5,
               }}
             >
-              {item.text}
-            </span>
+              <span
+                style={{
+                  color:
+                    item.link.split("/")[1] === pathname.split("/")[2]
+                      ? "white"
+                      : "black",
+                  fontFamily: "Congenial SemiBold",
+                  fontSize: 19,
+                  fontWeight: "500",
+                }}
+              >
+                {item.text}
+              </span>
+            </div>
           </div>
         ))}
       </div>

@@ -20,7 +20,7 @@ const Graph = ({ data }) => {
             {
               label: "No. of responses",
               data: data.values1,
-              backgroundColor: "#0093AF",
+              backgroundColor: "#6CB4EE", // Generate random colors
               borderColor: "rgba(54, 162, 235, 1)",
               borderWidth: 1,
               maxBarThickness: 120,
@@ -28,7 +28,7 @@ const Graph = ({ data }) => {
             // {
             //   label: "Data 2",
             //   data: data.values2,
-            //   backgroundColor: "rgba(255, 99, 132, 0.5)", // Another color
+            //   backgroundColor: data.values2.map(() => getRandomColor()), // Generate random colors
             //   borderColor: "rgba(255, 99, 132, 1)", // Another border color
             //   borderWidth: 1,
             // },
@@ -50,6 +50,16 @@ const Graph = ({ data }) => {
       }
     };
   }, [data]);
+
+  // Function to generate random colors
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   return <canvas ref={chartRef} />;
 };

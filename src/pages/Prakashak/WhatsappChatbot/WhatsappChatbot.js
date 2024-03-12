@@ -15,9 +15,12 @@ import {
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
 import Box from "@mui/material/Box";
-import Api from "../Environment/Api";
+import Api from "../../../Environment/PrakashakAPI";
+
 import Nodata from "../../../Assets/Nodata.gif";
 import Chart from "chart.js/auto";
+import Graph from "../../../ReusableComponents/Graphs";
+
 const WhatsappChatbot = () => {
   const chartRef = useRef(null);
   //?---------------Month array---------------------------
@@ -128,12 +131,21 @@ const WhatsappChatbot = () => {
     setLoading(true);
     fetchData();
   };
-  const classData = data.graphData.classData;
-  const numberData = data.graphData.numberData;
-  console.log(
-    "====================================class Array",
-    data.graphData.classData
-  );
+  const graphData = {
+    labels: data.graphData?.classData,
+    values1: data.graphData?.numberData,
+    //   labels: ["SMS", "Automated Calls", "IVRs"],
+    //   values1: [remoteInstData.total_sms_scheduled],
+    //   values2: [remoteInstData.total_calls_made],
+    //   values3: [remoteInstData.total_ivrs_calls_made],
+  };
+
+  const classData = data.graphData?.classData;
+  const numberData = data.graphData?.numberData;
+  // console.log(
+  //   "====================================class Array",
+  //   data.graphData.classData
+  // );
 
   useEffect(() => {
     if (chartRef && chartRef.current) {
@@ -575,12 +587,14 @@ const WhatsappChatbot = () => {
           </div>
           <div
             style={{
-              alignItems: "center",
+              height: "500px",
+              display: "flex",
               justifyContent: "center",
-              display: "grid",
+              marginTop: "54px",
+              width: "100%",
             }}
           >
-            <canvas ref={chartRef}></canvas>
+            <Graph data={graphData} />
           </div>
         </>
       ) : !loading && Object.keys(data).length === 0 ? (

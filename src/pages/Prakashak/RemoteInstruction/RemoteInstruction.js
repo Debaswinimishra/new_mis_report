@@ -146,12 +146,6 @@ const RemoteInstruction = () => {
       .catch((err) => console.log(`The error is---> ${err}`));
   };
 
-  const graphData = {
-    labels: ["Label-1", "Label-2", "Label-3", "Label-4", "Label-5"],
-    values1: [100, 230, 330, 140, 350],
-    values2: [200, 300, 120, 450, 280],
-  };
-
   //todo--------------------Console logs--------------------------
   console.log("selectedYear---->", selectedYear);
   console.log("selectedMonth---->", selectedMonth);
@@ -160,6 +154,19 @@ const RemoteInstruction = () => {
     "remoteInstData-------------------------------->",
     remoteInstData
   );
+
+  const graphData = {
+    labels: ["SMS", "Automated Calls", "IVRs"],
+    values1: [
+      remoteInstData.total_sms_scheduled,
+      remoteInstData.total_calls_made,
+      remoteInstData.total_ivrs_calls_made,
+    ],
+    //   labels: ["SMS", "Automated Calls", "IVRs"],
+    //   values1: [remoteInstData.total_sms_scheduled],
+    //   values2: [remoteInstData.total_calls_made],
+    //   values3: [remoteInstData.total_ivrs_calls_made],
+  };
 
   return (
     <div>
@@ -827,7 +834,17 @@ const RemoteInstruction = () => {
               </div>
             </div>
           </div>
-          <Graph data={graphData} />
+          <div
+            style={{
+              height: "500px",
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "54px",
+              width: "100%",
+            }}
+          >
+            <Graph data={graphData} />
+          </div>
         </div>
       ) : Object.keys(remoteInstData).length === 0 && loading === false ? (
         <div

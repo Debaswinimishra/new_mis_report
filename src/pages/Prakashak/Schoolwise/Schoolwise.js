@@ -125,100 +125,49 @@ const Schoolwise = () => {
       <div
         style={{
           display: "flex",
-          // justifyContent: "space-around",
-          // width: "25%",
           marginTop: "4%",
-          marginLeft: "48%",
-          // width: "30%",
+          marginLeft: "71%",
           flexWrap: "wrap",
         }}
       >
-        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Year</InputLabel>
-          <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedYear}
-            onChange={handleYearChange}
-            label="Year"
-          >
-            {years.map((item, index) => (
-              <MenuItem key={index} value={item}>
-                {item}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Month</InputLabel>
+          <InputLabel id="usertype-label">District</InputLabel>
           <Select
             labelId="usertype-label"
             id="usertype-select"
-            value={selectedMonth}
-            onChange={handleMonthChange}
-            label="Month"
+            value={districtName}
+            onChange={(e) => handleDistrictChange(e)}
+            label="District"
           >
-            <MenuItem value={null}>None</MenuItem>
-            {monthArr.map((item, index) => (
-              <MenuItem key={index} value={item.value}>
-                {item.label}
+            <MenuItem value="">None</MenuItem>
+            {districtArr?.map((option, index) => (
+              <MenuItem
+                key={index + 1}
+                value={option.districtid}
+                data-name={option.districtname}
+              >
+                {option.districtname}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Week</InputLabel>
+          <InputLabel id="usertype-label">Block</InputLabel>
           <Select
             labelId="usertype-label"
             id="usertype-select"
-            value={selectedWeek}
-            onChange={handleWeekChange}
-            label="Month"
+            value={blockName}
+            onChange={(e) => handleBlockChange(e)}
+            label="Block"
           >
-            <MenuItem value={null}>None</MenuItem>
-            {weekArr.map((item, index) => (
-              <MenuItem key={index} value={item.value}>
-                {item.label}
+            <MenuItem value="">None</MenuItem>
+            {blocksArr.map((option, index) => (
+              <MenuItem key={index + 1} value={option.blockid}>
+                {option.blockname}
               </MenuItem>
             ))}
           </Select>
-        </FormControl> */}
-        <TextField
-          id="outlined-select-currency"
-          select
-          label="Select districts"
-          defaultValue="none"
-          value={districtName}
-          onChange={(e) => handleDistrictChange(e)}
-        >
-          <MenuItem value="">None</MenuItem>
-          {districtArr?.map((option, index) => (
-            <MenuItem
-              key={index + 1}
-              value={option.districtid}
-              data-name={option.districtname}
-            >
-              {option.districtname}
-            </MenuItem>
-          ))}
-        </TextField>
-
-        <TextField
-          id="outlined-select-currency"
-          select
-          label="Select Blocks"
-          defaultValue="none"
-          value={blockName}
-          onChange={(e) => handleBlockChange(e)}
-        >
-          <MenuItem value="">None</MenuItem>
-          {blocksArr.map((option, index) => (
-            <MenuItem key={index + 1} value={option.blockid}>
-              {option.blockname}
-            </MenuItem>
-          ))}
-        </TextField>
+        </FormControl>
         <Button
           variant="contained"
           sx={{
@@ -327,13 +276,13 @@ const Schoolwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(214 148 16)",
-                    paddingTop: "13px",
+                    paddingTop: "18px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  <p> Total No. of Parent PoC Identified</p>
+                  Total No. of Parents PoC Identified
                 </div>
                 <div
                   style={{
@@ -371,7 +320,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Students in Class 1
+                  Number of Students in Class 1
                 </div>
                 <div
                   style={{
@@ -409,7 +358,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Students in Class 2
+                  Number of Students in Class 2
                 </div>
                 <div
                   style={{
@@ -448,7 +397,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p> No. of Students in Class 3</p>
+                  <p> Number of Students in Class 3</p>
                 </div>
                 <div
                   style={{
@@ -486,7 +435,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Students in Class 4
+                  Number of Students in Class 4
                 </div>
                 <div
                   style={{
@@ -524,7 +473,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Students in Class 5
+                  Number of Students in Class 5
                 </div>
                 <div
                   style={{
@@ -601,7 +550,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Parents Spent 2-15 min
+                  Number of Parents Spent 2-15 mins
                 </div>
                 <div
                   style={{
@@ -639,7 +588,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Parents Spent 16-30 min
+                  Number of Parents Spent 16-30 mins
                 </div>
                 <div
                   style={{
@@ -677,7 +626,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Parents Spent 31-45 min
+                  Number of Parents Spent 31-45 mins
                 </div>
                 <div
                   style={{
@@ -716,7 +665,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Parents Spent 45+ min
+                  Number of Parents Spent 45+ mins
                 </div>
                 <div
                   style={{

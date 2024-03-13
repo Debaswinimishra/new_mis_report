@@ -156,7 +156,7 @@ const Classwise = () => {
           // justifyContent: "space-around",
           // width: "25%",
           marginTop: "4%",
-          marginLeft: "48%",
+          marginLeft: "53%",
           // width: "30%",
           flexWrap: "wrap",
         }}
@@ -381,7 +381,7 @@ const Classwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Parents Spent 2-15 min
+                  No. of Parents Spent 2-15 mins
                 </div>
                 <div
                   style={{
@@ -419,7 +419,7 @@ const Classwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Parents Spent 16-30 min
+                  No. of Parents Spent 16-30 mins
                 </div>
                 <div
                   style={{
@@ -457,7 +457,7 @@ const Classwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Parents Spent 31-45 min
+                  No. of Parents Spent 31-45 mins
                 </div>
                 <div
                   style={{
@@ -496,7 +496,7 @@ const Classwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of Parents Spent 45+ min
+                  No. of Parents Spent 45+ mins
                 </div>
                 <div
                   style={{

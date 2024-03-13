@@ -205,7 +205,7 @@ const WhatsappChatbot = () => {
           // justifyContent: "space-around",
           // width: "25%",
           marginTop: "4%",
-          marginLeft: "48%",
+          marginLeft: "62%",
           // width: "30%",
           flexWrap: "wrap",
         }}
@@ -339,7 +339,7 @@ const WhatsappChatbot = () => {
                       fontWeight: "600",
                     }}
                   >
-                    Total No. of Users
+                    <p> Total No. of Users</p>
                   </div>
                   <div
                     style={{
@@ -377,7 +377,7 @@ const WhatsappChatbot = () => {
                       fontWeight: "600",
                     }}
                   >
-                    Total No. of New Users
+                    <p> Total No. of New Users</p>
                   </div>
                   <div
                     style={{
@@ -415,7 +415,7 @@ const WhatsappChatbot = () => {
                       fontWeight: "600",
                     }}
                   >
-                    Total No. of Active Users
+                    <p> Total No. of Active Users</p>
                   </div>
                   <div
                     style={{
@@ -448,7 +448,7 @@ const WhatsappChatbot = () => {
                       height: "50%",
                       color: "#2E8B57",
                       paddingTop: "20px",
-                      fontSize: "1.2rem",
+                      fontSize: "1.1rem",
                       fontFamily: "Congenial SemiBold",
                       fontWeight: "600",
                     }}
@@ -568,7 +568,7 @@ const WhatsappChatbot = () => {
                       fontWeight: "600",
                     }}
                   >
-                    Average Minutes Spent
+                    <p> Average Minutes Spent</p>
                   </div>
                   <div
                     style={{

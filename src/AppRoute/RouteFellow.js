@@ -18,7 +18,7 @@ import Feedback from "../Pages/Fellow/Feedback/Feedback";
 import Route404 from "./Route404";
 
 const RouteFellow = () => {
-  const navigate = useNavigate();
+  const Navigate = useNavigate();
   const isLoggedin = localStorage.getItem("login");
   console.log("isLoggedinfellow--->", isLoggedin);
   // if (isLoggedin === "true") {

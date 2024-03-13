@@ -25,10 +25,17 @@ const Schoolwise = () => {
   const [districtName, setDistrictName] = useState();
   const [allBlocks, setAllBlocks] = useState([]);
   const [blockName, setBlockName] = useState();
+  const [allClusters, setAllCluseters] = useState([]);
+  const [clusterName, setClusterName] = useState("");
+  const [allSchools, setAllSchools] = useState([]);
+  const [schoolName, setSchoolName] = useState("");
 
   const [loading, setLoading] = useState(false);
   let districtArr = [];
   let blocksArr = [];
+  let clustersArr = [];
+  let schoolArr = [];
+
   //   const handleYearChange = (e) => {
   //     setSelectedYear(e.target.value);
   //   };
@@ -63,6 +70,14 @@ const Schoolwise = () => {
   const handleBlockChange = (e) => {
     console.log("block--->", e.target.value);
     setBlockName(e.target.value);
+  };
+
+  const handleClusterChange = (e) => {
+    setClusterName(e.target.value);
+  };
+
+  const handleSchoolName = (e) => {
+    setSchoolName(e.target.value);
   };
 
   const [data, setData] = useState({});
@@ -126,7 +141,7 @@ const Schoolwise = () => {
         style={{
           display: "flex",
           marginTop: "4%",
-          marginLeft: "71%",
+          marginLeft: "53%",
           flexWrap: "wrap",
         }}
       >
@@ -164,6 +179,40 @@ const Schoolwise = () => {
             {blocksArr.map((option, index) => (
               <MenuItem key={index + 1} value={option.blockid}>
                 {option.blockname}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Cluster</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={clusterName}
+            onChange={(e) => handleClusterChange(e)}
+            label="Cluster"
+          >
+            <MenuItem value="">None</MenuItem>
+            {clustersArr.map((option, index) => (
+              <MenuItem key={index + 1} value={option.clusterid}>
+                {option.clustername}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">School</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={schoolName}
+            onChange={(e) => handleSchoolName(e)}
+            label="School"
+          >
+            <MenuItem value="">None</MenuItem>
+            {schoolArr.map((option, index) => (
+              <MenuItem key={index + 1} value={option.schoolid}>
+                {option.schoolname}
               </MenuItem>
             ))}
           </Select>

@@ -20,7 +20,7 @@ const Graph = ({ data }) => {
             {
               label: "No. of responses",
               data: data.values1,
-              backgroundColor: "#6CB4EE", // Generate random colors
+              backgroundColor: "#6CB4EE",
               borderColor: "rgba(54, 162, 235, 1)",
               borderWidth: 1,
               maxBarThickness: 120,

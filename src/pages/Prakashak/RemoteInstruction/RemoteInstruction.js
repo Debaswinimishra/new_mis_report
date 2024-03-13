@@ -51,6 +51,11 @@ const RemoteInstruction = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 5 }, (_, index) => currentYear - index);
 
+  const currentMonth = moment().format("MMMM");
+  const currentMonthSelected = monthArr?.filter(
+    (item) => item.label === currentMonth
+  )[0];
+
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -63,15 +68,19 @@ const RemoteInstruction = () => {
   };
 
   const handleMonthChange = (e) => {
-    setSelectedWeek("");
-    setSelectedMonth(e.target.value ? e.target.value : "");
+    if (e.target.value > currentMonthSelected.value) {
+      alert("You can't select a month greater than the current month !");
+    } else {
+      setSelectedWeek("");
+      setSelectedMonth(e.target.value ? e.target.value : "");
+    }
   };
 
   const handleWeekChange = (e) => {
     if (!selectedMonth && e.target.value) {
       alert("Please select a month before selecting a week !");
     } else {
-      setSelectedWeek(e.target.value ? e.target.value : "");
+      setSelectedWeek(e.target.value ? parseInt(e.target.value) : "");
     }
   };
 

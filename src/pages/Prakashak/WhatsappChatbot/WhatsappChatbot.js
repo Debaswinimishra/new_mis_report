@@ -26,7 +26,7 @@ const WhatsappChatbot = () => {
   //?---------------Month array---------------------------
   //?---------------Month array---------------------------
   const monthArr = [
-    { value: "", label: "select Year" },
+    // { value: "", label: "select Year" },
     { value: 1, label: "January" },
     { value: 2, label: "February" },
     { value: 3, label: "March" },

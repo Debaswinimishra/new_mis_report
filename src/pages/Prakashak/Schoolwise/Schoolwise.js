@@ -21,60 +21,108 @@ import Nodata from "../../../Assets/Nodata.gif";
 import Chart from "chart.js/auto";
 const Schoolwise = () => {
   const chartRef = useRef(null);
-  const [districts, setDistricts] = useState([]);
-  const [districtName, setDistrictName] = useState();
-  const [allBlocks, setAllBlocks] = useState([]);
-  const [blockName, setBlockName] = useState();
-  const [allClusters, setAllCluseters] = useState([]);
-  const [clusterName, setClusterName] = useState("");
+
   const [allSchools, setAllSchools] = useState([]);
   const [schoolName, setSchoolName] = useState("");
 
   const [loading, setLoading] = useState(false);
-  let districtArr = [];
-  let blocksArr = [];
-  let clustersArr = [];
-  let schoolArr = [];
 
-  //   const handleYearChange = (e) => {
-  //     setSelectedYear(e.target.value);
-  //   };
+  const [districts, setDistricts] = useState("");
 
-  //   const handleMonthChange = (e) => {
-  //     setSelectedWeek("");
-  //     setSelectedMonth(e.target.value);
-  //   };
+  const [districtArr, setDistrictArr] = useState([]);
+  const [blocks, setBlocks] = useState("");
+  const [blockArr, setBlockArr] = useState([]);
+  const [clusters, setCluseters] = useState("");
+  const [clusterArr, setClusterArr] = useState([]);
+  const [schools, setSchools] = useState("");
+  const [schoolArr, setSchoolArr] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Api.get("getAllDistricts");
+        console.log("set=================>", response.data[0].districtsArr);
+        setDistrictArr(response.data[0].districtsArr);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching districts:", error);
+        setLoading(false);
+      }
+    };
 
-  //   const handleWeekChange = (e) => {
-  //     if (!selectedMonth && e.target.value) {
-  //       alert("Please select a month before selecting a week !");
-  //     } else {
-  //       setSelectedWeek(e.target.value);
-  //     }
-  //   };
-  // const handleClassChange = (e) => {
-  //   setSelectedClass(e.target.value);
-  // };
-  const handleDistrictChange = async (e) => {
-    // const selectedValue = e.target.value;
-    // const selectedDistrictName = e.currentTarget.getAttribute("data-name");
-    setBlockName("");
-    setDistrictName(e.target.value);
-    // console.log("Selected value:", e);
-    // console.log("Selected district name:", selectedDistrictName);
-    // const response = await getDistrictsWiseBlocks(e.target.value);
-    // console.log("block response---->", response.data);
-    // setAllBlocks(response.data);
+    fetchData();
+
+    return () => {};
+  }, []);
+
+  const handleDistrictChange = (e) => {
+    setDistricts(e.target.value);
+    // Other logic related to district change
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
+        console.log("set=================>", response.data[0].blocksArr);
+        setBlockArr(response.data[0].blocks);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching Blocks:", error);
+        setLoading(false);
+      }
+    };
+
+    // Fetch data only if a district is selected
+    if (districts) {
+      fetchData();
+    }
+
+    return () => {};
+  }, [districts]);
 
   const handleBlockChange = (e) => {
     console.log("block--->", e.target.value);
-    setBlockName(e.target.value);
+    setBlocks(e.target.value);
   };
+  useEffect(() => {
+    const fetchClusters = async () => {
+      try {
+        if (blocks) {
+          setLoading(true);
+          const response = await Api.get(`getAllClustersByBlock/${blocks}`);
+          console.log("set=================>", response.data[0].clusters);
+          setClusterArr(response.data[0].clusters);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching Clusters:", error);
+        setClusterArr([]); // Reset clusterArr to an empty array if there's an error
+        setLoading(false);
+      }
+    };
+
+    // Fetch data only if a block is selected
+    fetchClusters();
+  }, [blocks]);
 
   const handleClusterChange = (e) => {
-    setClusterName(e.target.value);
+    setCluseters(e.target.value);
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
+        console.log("set=================>", response.data[0].blocksArr);
+        setSchoolArr(response.data[0].clusters);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching Blocks:", error);
+        setLoading(false);
+      }
+    };
+
+    // Fetch data only if a district is selected
+    fetchData();
+  }, [clusters]);
 
   const handleSchoolName = (e) => {
     setSchoolName(e.target.value);
@@ -87,11 +135,7 @@ const Schoolwise = () => {
 
   const fetchData = () => {
     setLoading(true);
-    const body = {
-      //   year: selectedYear,
-      //   month: selectedMonth,
-      //   week: selectedWeek,
-    };
+    const body = {};
 
     // console.log("check---------->", selectedYear, selectedMonth, selectedWeek);
 
@@ -146,73 +190,73 @@ const Schoolwise = () => {
         }}
       >
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">District</InputLabel>
+          <InputLabel id="district-label">District</InputLabel>
           <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={districtName}
+            labelId="district-label"
+            id="district-select"
+            value={districts}
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
             <MenuItem value="">None</MenuItem>
-            {districtArr?.map((option, index) => (
-              <MenuItem
-                key={index + 1}
-                value={option.districtid}
-                data-name={option.districtname}
-              >
-                {option.districtname}
+            {districtArr.map((district, index) => (
+              <MenuItem key={index} value={district}>
+                {district}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Block</InputLabel>
+          <InputLabel id="block-label">Block</InputLabel>
           <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={blockName}
-            onChange={(e) => handleBlockChange(e)}
+            labelId="block-label"
+            id="block-select"
+            value={blocks}
+            onChange={handleBlockChange}
             label="Block"
+            disabled={loading || !districts}
           >
-            <MenuItem value="">None</MenuItem>
-            {blocksArr.map((option, index) => (
-              <MenuItem key={index + 1} value={option.blockid}>
-                {option.blockname}
-              </MenuItem>
-            ))}
+            {blockArr &&
+              blockArr.map((block, index) => (
+                <MenuItem key={index} value={block}>
+                  {block}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Cluster</InputLabel>
+          <InputLabel id="cluster-label">Cluster</InputLabel>
           <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={clusterName}
-            onChange={(e) => handleClusterChange(e)}
+            labelId="cluster-label"
+            id="cluster-select"
+            value={clusters}
+            onChange={handleClusterChange}
             label="Cluster"
+            disabled={loading || !blocks}
           >
-            <MenuItem value="">None</MenuItem>
-            {clustersArr.map((option, index) => (
-              <MenuItem key={index + 1} value={option.clusterid}>
-                {option.clustername}
+            {clusterArr?.map((cluster, index) => (
+              <MenuItem key={index} value={cluster}>
+                {cluster}
               </MenuItem>
             ))}
           </Select>
+          {/* {loading && <CircularProgress size={24} />} */}
         </FormControl>
+
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="usertype-label">School</InputLabel>
           <Select
             labelId="usertype-label"
             id="usertype-select"
-            value={schoolName}
+            value={schools}
             onChange={(e) => handleSchoolName(e)}
             label="School"
+            disabled={loading || !clusters}
           >
             <MenuItem value="">None</MenuItem>
-            {schoolArr.map((option, index) => (
-              <MenuItem key={index + 1} value={option.schoolid}>
-                {option.schoolname}
+            {schoolArr?.map((school, index) => (
+              <MenuItem key={index} value={school}>
+                {school}
               </MenuItem>
             ))}
           </Select>

@@ -26,7 +26,6 @@ const WhatsappChatbot = () => {
   //?---------------Month array---------------------------
   //?---------------Month array---------------------------
   const monthArr = [
-    { value: "", label: "select Year" },
     { value: 1, label: "January" },
     { value: 2, label: "February" },
     { value: 3, label: "March" },
@@ -63,7 +62,7 @@ const WhatsappChatbot = () => {
   //&-------------Filter states---------------
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState(monthArr[0].value);
+  const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState(false);
 

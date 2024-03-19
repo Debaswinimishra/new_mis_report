@@ -26,6 +26,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 import Logo from "../../../ReusableComponents/Logo";
 import Loader from "../../../ReusableComponents/Loader";
+import IconButton from "@mui/material/IconButton";
+import ClearIcon from "@mui/icons-material/Clear";
 // import Links from "../../../ReusableComponents/Links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -418,6 +420,17 @@ const TimespentDetails = () => {
             variant="outlined"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <IconButton
+                  onClick={() => setSearchQuery("")}
+                  edge="end"
+                  aria-label="clear search input"
+                >
+                  <ClearIcon />
+                </IconButton>
+              ),
+            }}
           />
           <TableContainer
             component={Paper}

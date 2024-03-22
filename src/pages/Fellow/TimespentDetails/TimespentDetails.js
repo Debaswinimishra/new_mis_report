@@ -458,7 +458,7 @@ const TimespentDetails = () => {
                         row["username"]
                           .toString()
                           .toLowerCase()
-                          .startsWith(searchQuery.toLowerCase())
+                          .includes(searchQuery.toLowerCase())
                     )
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => (

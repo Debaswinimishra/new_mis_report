@@ -354,7 +354,7 @@ const Assessments = () => {
             label="Search"
             variant="outlined"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => setSearchQuery(e?.target?.value)}
             InputProps={{
               endAdornment: (
                 <IconButton
@@ -393,8 +393,13 @@ const Assessments = () => {
                         row["username"]
                           .toString()
                           .toLowerCase()
-                          .startsWith(searchQuery.toLowerCase())
+                          .includes(searchQuery.toLowerCase())
                     )
+                    // .filter((row) => {
+                    //   if (!row["username"]) return false;
+                    //   const words = row["username"].toString().toLowerCase().split(" ");
+                    //   return words.some((word) => word.startsWith(searchQuery.toLowerCase()));
+                    // })
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => (
                       <StyledTableRow key={index}>

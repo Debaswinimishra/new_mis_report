@@ -111,8 +111,11 @@ const Schoolwise = () => {
     const fetchData = async () => {
       try {
         const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-        console.log("set=================>", response.data[0].blocksArr);
-        setSchoolArr(response.data[0].clusters);
+        console.log(
+          "setsCHIOOOKKKKK=================>",
+          response.data[0].schools
+        );
+        setSchoolArr(response.data[0].schools);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);

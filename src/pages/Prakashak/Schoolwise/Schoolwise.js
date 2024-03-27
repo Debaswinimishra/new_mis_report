@@ -107,13 +107,15 @@ const Schoolwise = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-        // console.log(
-        //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
-        //   response.data[0].school_name
-        // );
-        setSchoolArr(response.data[0]?.school_name);
-        setLoading(false);
+        if (clusters) {
+          const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
+          // console.log(
+          //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
+          //   response.data[0].school_name
+          // );
+          setSchoolArr(response.data);
+          setLoading(false);
+        }
       } catch (error) {
         console.error("Error fetching Blocks:", error);
         setLoading(false);
@@ -139,7 +141,7 @@ const Schoolwise = () => {
       district: districts,
       block: blocks,
       cluster: clusters,
-      school: schools,
+      school: schools.school_name,
     };
 
     console.log("check---------->", districts, blocks, clusters, schools);
@@ -183,6 +185,8 @@ const Schoolwise = () => {
     setLoading(true);
     fetchData();
   };
+
+  console.log("schoolArr--------------------->", schoolArr);
 
   return (
     <div>
@@ -258,9 +262,9 @@ const Schoolwise = () => {
             label="School"
             disabled={!clusters}
           >
-            {schoolArr.map((school, index) => (
+            {schoolArr?.map((school, index) => (
               <MenuItem key={index} value={school}>
-                {school}
+                {school.school_name}
               </MenuItem>
             ))}
           </Select>

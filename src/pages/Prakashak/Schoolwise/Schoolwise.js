@@ -22,9 +22,6 @@ import Chart from "chart.js/auto";
 const Schoolwise = () => {
   const chartRef = useRef(null);
 
-  const [allSchools, setAllSchools] = useState([]);
-  const [schoolName, setSchoolName] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const [districts, setDistricts] = useState("");
@@ -90,7 +87,7 @@ const Schoolwise = () => {
           setLoading(true);
           const response = await Api.get(`getAllClustersByBlock/${blocks}`);
           console.log("set=================>", response.data[0].clusters);
-          setClusterArr(response.data[0].clusters);
+          setClusterArr(response.data[0]?.clusters);
           setLoading(false);
         }
       } catch (error) {
@@ -111,11 +108,11 @@ const Schoolwise = () => {
     const fetchData = async () => {
       try {
         const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-        console.log(
-          "setsCHIOOOKKKKK=================>",
-          response.data[0].schools
-        );
-        setSchoolArr(response.data[0].schools);
+        // console.log(
+        //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
+        //   response.data[0].school_name
+        // );
+        setSchoolArr(response.data[0]?.school_name);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);
@@ -128,7 +125,7 @@ const Schoolwise = () => {
   }, [clusters]);
 
   const handleSchoolName = (e) => {
-    setSchoolName(e.target.value);
+    setSchools(e.target.value);
   };
 
   const [data, setData] = useState({});
@@ -138,9 +135,14 @@ const Schoolwise = () => {
 
   const fetchData = () => {
     setLoading(true);
-    const body = {};
+    const body = {
+      district: districts,
+      block: blocks,
+      cluster: clusters,
+      school: schools,
+    };
 
-    // console.log("check---------->", selectedYear, selectedMonth, selectedWeek);
+    console.log("check---------->", districts, blocks, clusters, schools);
 
     // if ("") {
     //   Api.post(`getSchoolWiseReport`, body)
@@ -165,7 +167,7 @@ const Schoolwise = () => {
     //       setLoading(false);
     //     });
     // }
-    Api.post(`getSchoolWiseReport`)
+    Api.post(`getSchoolWiseReport`, body)
       .then((response) => {
         console.log("set=================>", response.data);
         setData(response.data);
@@ -247,17 +249,16 @@ const Schoolwise = () => {
         </FormControl>
 
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">School</InputLabel>
+          <InputLabel id="school-label">School</InputLabel>
           <Select
-            labelId="usertype-label"
-            id="usertype-select"
+            labelId="school-label"
+            id="school-select"
             value={schools}
-            onChange={(e) => handleSchoolName(e)}
+            onChange={handleSchoolName}
             label="School"
-            disabled={loading || !clusters}
+            disabled={!clusters}
           >
-            <MenuItem value="">None</MenuItem>
-            {schoolArr?.map((school, index) => (
+            {schoolArr.map((school, index) => (
               <MenuItem key={index} value={school}>
                 {school}
               </MenuItem>

@@ -53,6 +53,9 @@ const Schoolwise = () => {
 
   const handleDistrictChange = (e) => {
     setDistricts(e.target.value);
+    setBlocks("");
+    setCluseters("");
+    setSchools("");
     // Other logic related to district change
   };
   useEffect(() => {
@@ -77,8 +80,9 @@ const Schoolwise = () => {
   }, [districts]);
 
   const handleBlockChange = (e) => {
-    console.log("block--->", e.target.value);
     setBlocks(e.target.value);
+    setCluseters("");
+    setSchools("");
   };
   useEffect(() => {
     const fetchClusters = async () => {
@@ -103,6 +107,7 @@ const Schoolwise = () => {
 
   const handleClusterChange = (e) => {
     setCluseters(e.target.value);
+    setSchools("");
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -207,7 +212,6 @@ const Schoolwise = () => {
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
-            <MenuItem value="">None</MenuItem>
             {districtArr.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
@@ -225,6 +229,7 @@ const Schoolwise = () => {
             label="Block"
             disabled={loading || !districts}
           >
+            <MenuItem value="">None</MenuItem>
             {blockArr &&
               blockArr.map((block, index) => (
                 <MenuItem key={index} value={block}>
@@ -243,6 +248,7 @@ const Schoolwise = () => {
             label="Cluster"
             disabled={loading || !blocks}
           >
+            <MenuItem value="">None</MenuItem>
             {clusterArr?.map((cluster, index) => (
               <MenuItem key={index} value={cluster}>
                 {cluster}
@@ -262,6 +268,7 @@ const Schoolwise = () => {
             label="School"
             disabled={!clusters}
           >
+            <MenuItem value="">None</MenuItem>
             {schoolArr?.map((school, index) => (
               <MenuItem key={index} value={school}>
                 {school.school_name}

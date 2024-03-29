@@ -187,11 +187,25 @@ const Schoolwise = () => {
   };
 
   const filterButtonClick = () => {
-    setLoading(true);
-    fetchData();
+    if (!districts) {
+      alert("Please select a district to proceed.");
+    } else if (!blocks) {
+      alert("Please select a block before proceeding.");
+    } else if (!clusters) {
+      alert("Please select a cluster before proceeding.");
+    } else if (!schools) {
+      alert("Please select a school before proceeding.");
+    } else {
+      setLoading(true);
+      fetchData();
+    }
   };
 
-  console.log("schoolArr--------------------->", schoolArr);
+  // console.log("schoolArr--------------------->", schoolArr);
+  console.log("districts--------->", districts);
+  console.log("blocks--------->", blocks);
+  console.log("clusters--------->", clusters);
+  console.log("schools--------->", schools);
 
   return (
     <div>

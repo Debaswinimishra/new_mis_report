@@ -33,6 +33,7 @@ const Schoolwise = () => {
   const [clusterArr, setClusterArr] = useState([]);
   const [schools, setSchools] = useState("");
   const [schoolArr, setSchoolArr] = useState([]);
+  const [filtered, setFiltered] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -189,12 +190,6 @@ const Schoolwise = () => {
   const filterButtonClick = () => {
     if (!districts) {
       alert("Please select a district to proceed.");
-    } else if (!blocks) {
-      alert("Please select a block before proceeding.");
-    } else if (!clusters) {
-      alert("Please select a cluster before proceeding.");
-    } else if (!schools) {
-      alert("Please select a school before proceeding.");
     } else {
       setLoading(true);
       fetchData();
@@ -1310,7 +1305,7 @@ const Schoolwise = () => {
             </div>
           </div>
         </div>
-      ) : !loading && Object.keys(data).length === 0 ? (
+      ) : !loading && districts && Object.keys(data).length === 0 ? (
         <img src={Nodata} />
       ) : null}
 

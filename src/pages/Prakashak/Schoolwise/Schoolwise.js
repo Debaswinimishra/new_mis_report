@@ -18,6 +18,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import Box from "@mui/material/Box";
 import Api from "../../../Environment/PrakashakAPI";
 import Nodata from "../../../Assets/Nodata.gif";
+import defaultImage from "../../../Assets/default.jpg";
 import Chart from "chart.js/auto";
 const Schoolwise = () => {
   const chartRef = useRef(null);
@@ -188,6 +189,7 @@ const Schoolwise = () => {
   };
 
   const filterButtonClick = () => {
+    setFiltered(true);
     if (!districts) {
       alert("Please select a district to proceed.");
     } else {
@@ -1305,9 +1307,11 @@ const Schoolwise = () => {
             </div>
           </div>
         </div>
-      ) : !loading && districts && Object.keys(data).length === 0 ? (
+      ) : !loading && filtered && Object.keys(data).length === 0 ? (
         <img src={Nodata} />
-      ) : null}
+      ) : (
+        <img src={defaultImage} width={"20%"} />
+      )}
 
       <div>
         <canvas ref={chartRef}></canvas>

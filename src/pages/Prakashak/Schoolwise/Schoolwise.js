@@ -184,11 +184,9 @@ const Schoolwise = () => {
       })
       .catch((err) => {
         console.log("err=================>", err);
-        if(err.response.status === 406){
-          alert("something went wrong",err.response.status);
-        }else{
-          alert("something went wrong",err.response.status);
-        }
+        // if (err.response.status === 406) {
+        //   alert("something went wrong", err.response.status);
+        // }
         setLoading(false);
       });
   };

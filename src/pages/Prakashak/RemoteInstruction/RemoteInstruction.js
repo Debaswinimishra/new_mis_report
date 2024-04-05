@@ -122,7 +122,11 @@ const RemoteInstruction = () => {
           console.log("res status------->", res.status);
         }
       })
-      .catch((err) => console.log(`The error is---> ${err}`));
+      .catch((err) => {
+        setLoading(false);
+        // alert("No data available");
+        console.log(`The error is---> ${err}`);
+      });
   }, []);
 
   const filterButtonClick = () => {
@@ -158,7 +162,11 @@ const RemoteInstruction = () => {
           console.log("res status------->", res.status);
         }
       })
-      .catch((err) => console.log(`The error is---> ${err}`));
+      .catch((err) => {
+        setLoading(false);
+        // alert("No data available");
+        console.log(`The error is---> ${err}`);
+      });
   };
 
   //todo--------------------Console logs--------------------------

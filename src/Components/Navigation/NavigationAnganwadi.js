@@ -122,7 +122,7 @@ function NavigationAnganwadi(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.3
+          v1.2.4
         </p>
       </Toolbar>
 

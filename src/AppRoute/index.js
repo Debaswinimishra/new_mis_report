@@ -32,6 +32,7 @@ import FellowRoot from "../Pages/Fellow";
 import CommunityEducator from "../Pages/Fellow/CommunityEducator/CommunityEducator";
 // import EducatorsDetails from "../Pages/Fellow/EducatorsDetails/FellowDetails";
 import EducatorsDetails from "../Pages/Fellow/EducatorsDetails/EducatorsDetails";
+import ChatbotReports from "../Pages/Fellow/ChatbotReports/ChatbotReports";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -76,6 +77,7 @@ function RouteRoot() {
                 path="timespent_details_c.e"
                 element={<TimespentDetails />}
               />
+              <Route path="chatbot_reports" element={<ChatbotReports />} />
             </Route>
             <Route
               path="/anganwadi"

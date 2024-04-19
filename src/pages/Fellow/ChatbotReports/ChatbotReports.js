@@ -66,7 +66,7 @@ const ChatbotReports = () => {
       toast.error("You can't select a month greater than the current month !", {
         style: {
           borderRadius: "100px",
-          backgroundColor: "darkgrey",
+          backgroundColor: "black",
           color: "white",
         },
       });
@@ -77,10 +77,10 @@ const ChatbotReports = () => {
 
   //*-----------------On filter button press---------------------
   const handleFilterData = () => {
-    toast.success("Filter button clicked 😊", {
+    toast.success("Filter button clicked !", {
       style: {
         borderRadius: "30px",
-        backgroundColor: "darkgrey",
+        backgroundColor: "black",
         color: "white",
       },
     });
@@ -156,56 +156,69 @@ const ChatbotReports = () => {
           flexWrap: "wrap",
           gap: "14px",
           marginTop: "2%",
+          marginLeft: "2%",
         }}
       >
         <div
           style={{
-            height: "170px",
-            width: "250px",
-            backgroundColor: "#baade6",
+            height: "190px",
+            width: "265px",
+            backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
             border: "1px solid grey",
             boxShadow: "0px 2px 0px",
           }}
         >
-          <p style={{ fontWeight: "600" }}>Total No. of Users</p>
+          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
+            Total No. of Users
+          </p>
+          <h1>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "170px",
-            width: "250px",
-            backgroundColor: "#baade6",
+            height: "190px",
+            width: "265px",
+            backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
             border: "1px solid grey",
             boxShadow: "0px 2px 0px",
           }}
         >
-          <p style={{ fontWeight: "600" }}>Total No. of Users</p>
+          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
+            Total No. of Users
+          </p>
+          <h1>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "170px",
-            width: "250px",
-            backgroundColor: "#baade6",
+            height: "190px",
+            width: "265px",
+            backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
             border: "1px solid grey",
             boxShadow: "0px 2px 0px",
           }}
         >
-          <p style={{ fontWeight: "600" }}>Total No. of Users</p>
+          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
+            Total No. of Users
+          </p>
+          <h1>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "170px",
-            width: "250px",
-            backgroundColor: "#baade6",
+            height: "190px",
+            width: "265px",
+            backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
             border: "1px solid grey",
             boxShadow: "0px 2px 0px",
           }}
         >
-          <p style={{ fontWeight: "600" }}>Total No. of Users</p>
-        </div>
+          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
+            Total No. of Users
+          </p>
+          <h1>250</h1>
+        </div>{" "}
       </div>
 
       <u>
@@ -221,56 +234,69 @@ const ChatbotReports = () => {
           flexWrap: "wrap",
           gap: "14px",
           marginTop: "2%",
+          marginLeft: "2%",
         }}
       >
         <div
           style={{
-            height: "170px",
-            width: "250px",
-            backgroundColor: "#baade6",
+            height: "190px",
+            width: "265px",
+            backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
             border: "1px solid grey",
             boxShadow: "0px 2px 0px",
           }}
         >
-          <p style={{ fontWeight: "600" }}>Total No. of Users</p>
+          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
+            Total No. of Users
+          </p>
+          <h1>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "170px",
-            width: "250px",
-            backgroundColor: "#baade6",
+            height: "190px",
+            width: "265px",
+            backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
             border: "1px solid grey",
             boxShadow: "0px 2px 0px",
           }}
         >
-          <p style={{ fontWeight: "600" }}>Total No. of Users</p>
+          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
+            Total No. of Users
+          </p>
+          <h1>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "170px",
-            width: "250px",
-            backgroundColor: "#baade6",
+            height: "190px",
+            width: "265px",
+            backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
             border: "1px solid grey",
             boxShadow: "0px 2px 0px",
           }}
         >
-          <p style={{ fontWeight: "600" }}>Total No. of Users</p>
+          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
+            Total No. of Users
+          </p>
+          <h1>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "170px",
-            width: "250px",
-            backgroundColor: "#baade6",
+            height: "190px",
+            width: "265px",
+            backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
             border: "1px solid grey",
             boxShadow: "0px 2px 0px",
           }}
         >
-          <p style={{ fontWeight: "600" }}>Total No. of Users</p>
-        </div>
+          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
+            Total No. of Users
+          </p>
+          <h1>250</h1>
+        </div>{" "}
       </div>
 
       <ToastContainer />

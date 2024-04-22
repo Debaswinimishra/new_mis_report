@@ -161,63 +161,75 @@ const ChatbotReports = () => {
       >
         <div
           style={{
-            height: "190px",
+            height: "210px",
             width: "265px",
-            backgroundColor: "rgb(68 202 242)",
+            // backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
-            border: "1px solid grey",
-            boxShadow: "0px 2px 0px",
+            // border: "1px solid grey",
+            boxShadow: "0px 3px 5px 2px lightgrey",
           }}
         >
-          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
+          <p
+            style={{
+              fontWeight: "600",
+              paddingTop: "20px",
+              fontSize: "19px",
+            }}
+          >
             Total No. of Users
           </p>
-          <h1>250</h1>
+          <h1 style={{ color: "#0066b2" }}>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "190px",
+            height: "210px",
             width: "265px",
-            backgroundColor: "rgb(68 202 242)",
+            // backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
-            border: "1px solid grey",
-            boxShadow: "0px 2px 0px",
+            // border: "1px solid grey",
+            boxShadow: "0px 3px 5px 2px lightgrey",
           }}
         >
-          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
-            Total No. of Users
+          <p
+            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
+          >
+            Total no. of active users
           </p>
-          <h1>250</h1>
+          <h1 style={{ color: "#0066b2" }}>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "190px",
+            height: "210px",
             width: "265px",
-            backgroundColor: "rgb(68 202 242)",
+            // backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
-            border: "1px solid grey",
-            boxShadow: "0px 2px 0px",
+            // border: "1px solid grey",
+            boxShadow: "0px 3px 5px 2px lightgrey",
           }}
         >
-          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
-            Total No. of Users
+          <p
+            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
+          >
+            Monthly new users
           </p>
-          <h1>250</h1>
+          <h1 style={{ color: "#0066b2" }}>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "190px",
+            height: "210px",
             width: "265px",
-            backgroundColor: "rgb(68 202 242)",
+            // backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
-            border: "1px solid grey",
-            boxShadow: "0px 2px 0px",
+            // border: "1px solid grey",
+            boxShadow: "0px 3px 5px 2px lightgrey",
           }}
         >
-          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
-            Total No. of Users
+          <p
+            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
+          >
+            Monthly active users
           </p>
-          <h1>250</h1>
+          <h1 style={{ color: "#0066b2" }}>250</h1>
         </div>{" "}
       </div>
 
@@ -239,63 +251,71 @@ const ChatbotReports = () => {
       >
         <div
           style={{
-            height: "190px",
+            height: "210px",
             width: "265px",
-            backgroundColor: "rgb(68 202 242)",
+            // backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
-            border: "1px solid grey",
-            boxShadow: "0px 2px 0px",
+            // border: "1px solid grey",
+            boxShadow: "0px 3px 5px 2px lightgrey",
           }}
         >
-          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
-            Total No. of Users
+          <p
+            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
+          >
+            Chatbot Interactions
           </p>
-          <h1>250</h1>
+          <h1 style={{ color: "#0066b2" }}>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "190px",
+            height: "210px",
             width: "265px",
-            backgroundColor: "rgb(68 202 242)",
+            // backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
-            border: "1px solid grey",
-            boxShadow: "0px 2px 0px",
+            // border: "1px solid grey",
+            boxShadow: "0px 3px 5px 2px lightgrey",
           }}
         >
-          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
-            Total No. of Users
+          <p
+            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
+          >
+            No. of feedback received
           </p>
-          <h1>250</h1>
+          <h1 style={{ color: "#0066b2" }}>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "190px",
+            height: "210px",
             width: "265px",
-            backgroundColor: "rgb(68 202 242)",
+            // backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
-            border: "1px solid grey",
-            boxShadow: "0px 2px 0px",
+            // border: "1px solid grey",
+            boxShadow: "0px 3px 5px 2px lightgrey",
           }}
         >
-          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
-            Total No. of Users
+          <p
+            style={{ fontWeight: "600", paddingTop: "-20px", fontSize: "18px" }}
+          >
+            Avg. session duration in minutes for triggers
           </p>
-          <h1>250</h1>
+          <h1 style={{ color: "#0066b2" }}>250</h1>
         </div>{" "}
         <div
           style={{
-            height: "190px",
+            height: "210px",
             width: "265px",
-            backgroundColor: "rgb(68 202 242)",
+            // backgroundColor: "rgb(68 202 242)",
             borderRadius: "10px",
-            border: "1px solid grey",
-            boxShadow: "0px 2px 0px",
+            // border: "1px solid grey",
+            boxShadow: "0px 3px 5px 2px lightgrey",
           }}
         >
-          <p style={{ fontWeight: "600", paddingTop: "20px" }}>
-            Total No. of Users
+          <p
+            style={{ fontWeight: "600", paddingTop: "-27px", fontSize: "18px" }}
+          >
+            Avg. session duration in minutes for push messages
           </p>
-          <h1>250</h1>
+          <h1 style={{ color: "#0066b2" }}>250</h1>
         </div>{" "}
       </div>
 

@@ -19,6 +19,7 @@ import Box from "@mui/material/Box";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PrakashakAPI from "../../../Environment/PrakashakAPI";
 
 const ChatbotReports = () => {
   //~-------------------------------------------------------
@@ -77,16 +78,51 @@ const ChatbotReports = () => {
 
   //*-----------------On filter button press---------------------
   const handleFilterData = () => {
-    toast.success("Filter button clicked !", {
-      style: {
-        borderRadius: "30px",
-        backgroundColor: "black",
-        color: "white",
-      },
-    });
+    if (!selectedMonth) {
+      toast.error("Please select a month !", {
+        style: {
+          borderRadius: "100px",
+          backgroundColor: "black",
+          color: "white",
+        },
+      });
+    } else {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+      };
+      console.log("body sent---------->", body);
+      PrakashakAPI.post("getChatbotReportMonthWise", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setObtainedData(res.data);
+          } else {
+            console.log("status got------>", res.status);
+            toast.error("No data found !", {
+              style: {
+                borderRadius: "100px",
+                backgroundColor: "black",
+                color: "white",
+              },
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("The error in filter--------->", error);
+          toast.error("Data couldn't be fetched !", {
+            style: {
+              borderRadius: "100px",
+              backgroundColor: "black",
+              color: "white",
+            },
+          });
+        });
+    }
   };
 
   //todo-----------------------Console logs-------------------
+  // console.log("selected month---------->", selectedMonth);
+  console.log("obtainedData------------>", obtainedData);
 
   return (
     <div>
@@ -178,7 +214,9 @@ const ChatbotReports = () => {
           >
             Total No. of Users
           </p>
-          <h1 style={{ color: "#0066b2" }}>250</h1>
+          <h1 style={{ color: "#0066b2" }}>
+            {obtainedData?.totalUsers ? obtainedData?.totalUsers : 0}
+          </h1>
         </div>{" "}
         <div
           style={{
@@ -195,7 +233,9 @@ const ChatbotReports = () => {
           >
             Total no. of active users
           </p>
-          <h1 style={{ color: "#0066b2" }}>250</h1>
+          <h1 style={{ color: "#0066b2" }}>
+            {obtainedData?.activeUsers ? obtainedData?.activeUsers : 0}
+          </h1>
         </div>{" "}
         <div
           style={{
@@ -212,7 +252,9 @@ const ChatbotReports = () => {
           >
             Monthly new users
           </p>
-          <h1 style={{ color: "#0066b2" }}>250</h1>
+          <h1 style={{ color: "#0066b2" }}>
+            {obtainedData?.monthlyUsers ? obtainedData?.monthlyUsers : 0}
+          </h1>
         </div>{" "}
         <div
           style={{
@@ -229,7 +271,11 @@ const ChatbotReports = () => {
           >
             Monthly active users
           </p>
-          <h1 style={{ color: "#0066b2" }}>250</h1>
+          <h1 style={{ color: "#0066b2" }}>
+            {obtainedData?.monthlyActiveUsers
+              ? obtainedData?.monthlyActiveUsers
+              : 0}
+          </h1>
         </div>{" "}
       </div>
 
@@ -264,7 +310,10 @@ const ChatbotReports = () => {
           >
             Chatbot Interactions
           </p>
-          <h1 style={{ color: "#0066b2" }}>250</h1>
+          <h1 style={{ color: "#0066b2" }}>
+            {" "}
+            {obtainedData?.totalConvos ? obtainedData?.totalConvos : 0}
+          </h1>
         </div>{" "}
         <div
           style={{
@@ -281,7 +330,12 @@ const ChatbotReports = () => {
           >
             No. of feedback received
           </p>
-          <h1 style={{ color: "#0066b2" }}>250</h1>
+          <h1 style={{ color: "#0066b2" }}>
+            {" "}
+            {obtainedData?.nonTriggerResponses
+              ? obtainedData?.nonTriggerResponses
+              : 0}
+          </h1>
         </div>{" "}
         <div
           style={{
@@ -298,7 +352,12 @@ const ChatbotReports = () => {
           >
             Avg. session duration in minutes for triggers
           </p>
-          <h1 style={{ color: "#0066b2" }}>250</h1>
+          <h1 style={{ color: "#0066b2" }}>
+            {" "}
+            {obtainedData?.triggerAvgDuration
+              ? obtainedData?.triggerAvgDuration
+              : 0}
+          </h1>
         </div>{" "}
         <div
           style={{
@@ -315,7 +374,12 @@ const ChatbotReports = () => {
           >
             Avg. session duration in minutes for push messages
           </p>
-          <h1 style={{ color: "#0066b2" }}>250</h1>
+          <h1 style={{ color: "#0066b2" }}>
+            {" "}
+            {obtainedData?.messagingAvgDuration
+              ? obtainedData?.messagingAvgDuration
+              : 0}
+          </h1>
         </div>{" "}
       </div>
 

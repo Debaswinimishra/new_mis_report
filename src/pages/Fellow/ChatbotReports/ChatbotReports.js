@@ -19,6 +19,8 @@ import Box from "@mui/material/Box";
 import moment from "moment";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Nodata from "../../../Assets/Nodata.gif";
+import Loader from "../../../ReusableComponents/Loader";
 import PrakashakAPI from "../../../Environment/PrakashakAPI";
 
 const ChatbotReports = () => {
@@ -51,6 +53,7 @@ const ChatbotReports = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [obtainedData, setObtainedData] = useState([]);
+  const [loading, setLoading] = useState(null);
 
   //*------------For changing the year field--------------------
   const handleYearChange = (e) => {
@@ -78,7 +81,9 @@ const ChatbotReports = () => {
 
   //*-----------------On filter button press---------------------
   const handleFilterData = () => {
+    setLoading(true);
     if (!selectedMonth) {
+      setLoading(false);
       toast.error("Please select a month !", {
         style: {
           borderRadius: "100px",
@@ -96,6 +101,7 @@ const ChatbotReports = () => {
         .then((res) => {
           if (res.status === 200) {
             setObtainedData(res.data);
+            setLoading(false);
           } else {
             console.log("status got------>", res.status);
             toast.error("No data found !", {
@@ -105,6 +111,7 @@ const ChatbotReports = () => {
                 color: "white",
               },
             });
+            setLoading(false);
           }
         })
         .catch((error) => {
@@ -116,6 +123,7 @@ const ChatbotReports = () => {
               color: "white",
             },
           });
+          setLoading(false);
         });
     }
   };
@@ -184,204 +192,242 @@ const ChatbotReports = () => {
       </div>
       <hr />
 
-      <div
-        style={{
-          width: "95%",
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "14px",
-          marginTop: "2%",
-          marginLeft: "2%",
-        }}
-      >
-        <div
-          style={{
-            height: "210px",
-            width: "265px",
-            // backgroundColor: "rgb(68 202 242)",
-            borderRadius: "10px",
-            // border: "1px solid grey",
-            boxShadow: "0px 3px 5px 2px lightgrey",
-          }}
-        >
-          <p
+      {loading ? (
+        <div>
+          <Loader />
+        </div>
+      ) : loading === false && Object.keys(obtainedData).length > 0 ? (
+        <div>
+          <div
             style={{
-              fontWeight: "600",
-              paddingTop: "20px",
-              fontSize: "19px",
+              width: "95%",
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: "14px",
+              marginTop: "2%",
+              marginLeft: "2%",
             }}
           >
-            Total No. of Users
-          </p>
-          <h1 style={{ color: "#0066b2" }}>
-            {obtainedData?.totalUsers ? obtainedData?.totalUsers : 0}
-          </h1>
-        </div>{" "}
-        <div
-          style={{
-            height: "210px",
-            width: "265px",
-            // backgroundColor: "rgb(68 202 242)",
-            borderRadius: "10px",
-            // border: "1px solid grey",
-            boxShadow: "0px 3px 5px 2px lightgrey",
-          }}
-        >
-          <p
-            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
-          >
-            Total no. of active users
-          </p>
-          <h1 style={{ color: "#0066b2" }}>
-            {obtainedData?.activeUsers ? obtainedData?.activeUsers : 0}
-          </h1>
-        </div>{" "}
-        <div
-          style={{
-            height: "210px",
-            width: "265px",
-            // backgroundColor: "rgb(68 202 242)",
-            borderRadius: "10px",
-            // border: "1px solid grey",
-            boxShadow: "0px 3px 5px 2px lightgrey",
-          }}
-        >
-          <p
-            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
-          >
-            Monthly new users
-          </p>
-          <h1 style={{ color: "#0066b2" }}>
-            {obtainedData?.monthlyUsers ? obtainedData?.monthlyUsers : 0}
-          </h1>
-        </div>{" "}
-        <div
-          style={{
-            height: "210px",
-            width: "265px",
-            // backgroundColor: "rgb(68 202 242)",
-            borderRadius: "10px",
-            // border: "1px solid grey",
-            boxShadow: "0px 3px 5px 2px lightgrey",
-          }}
-        >
-          <p
-            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
-          >
-            Monthly active users
-          </p>
-          <h1 style={{ color: "#0066b2" }}>
-            {obtainedData?.monthlyActiveUsers
-              ? obtainedData?.monthlyActiveUsers
-              : 0}
-          </h1>
-        </div>{" "}
-      </div>
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                Total No. of Users
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {obtainedData?.totalUsers ? obtainedData?.totalUsers : 0}
+              </h1>
+            </div>{" "}
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                Total no. of active users
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {obtainedData?.activeUsers ? obtainedData?.activeUsers : 0}
+              </h1>
+            </div>{" "}
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                Monthly new users
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {obtainedData?.monthlyUsers ? obtainedData?.monthlyUsers : 0}
+              </h1>
+            </div>{" "}
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                Monthly active users
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {obtainedData?.monthlyActiveUsers
+                  ? obtainedData?.monthlyActiveUsers
+                  : 0}
+              </h1>
+            </div>{" "}
+          </div>
 
-      <u>
-        {" "}
-        <h1>Interactions</h1>
-      </u>
+          <u>
+            {" "}
+            <h1>Interactions</h1>
+          </u>
 
-      <div
-        style={{
-          width: "95%",
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "14px",
-          marginTop: "2%",
-          marginLeft: "2%",
-        }}
-      >
-        <div
-          style={{
-            height: "210px",
-            width: "265px",
-            // backgroundColor: "rgb(68 202 242)",
-            borderRadius: "10px",
-            // border: "1px solid grey",
-            boxShadow: "0px 3px 5px 2px lightgrey",
-          }}
-        >
-          <p
-            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
+          <div
+            style={{
+              width: "95%",
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              gap: "14px",
+              marginTop: "2%",
+              marginLeft: "2%",
+            }}
           >
-            Chatbot Interactions
-          </p>
-          <h1 style={{ color: "#0066b2" }}>
-            {" "}
-            {obtainedData?.totalConvos ? obtainedData?.totalConvos : 0}
-          </h1>
-        </div>{" "}
-        <div
-          style={{
-            height: "210px",
-            width: "265px",
-            // backgroundColor: "rgb(68 202 242)",
-            borderRadius: "10px",
-            // border: "1px solid grey",
-            boxShadow: "0px 3px 5px 2px lightgrey",
-          }}
-        >
-          <p
-            style={{ fontWeight: "600", paddingTop: "20px", fontSize: "19px" }}
-          >
-            No. of feedback received
-          </p>
-          <h1 style={{ color: "#0066b2" }}>
-            {" "}
-            {obtainedData?.nonTriggerResponses
-              ? obtainedData?.nonTriggerResponses
-              : 0}
-          </h1>
-        </div>{" "}
-        <div
-          style={{
-            height: "210px",
-            width: "265px",
-            // backgroundColor: "rgb(68 202 242)",
-            borderRadius: "10px",
-            // border: "1px solid grey",
-            boxShadow: "0px 3px 5px 2px lightgrey",
-          }}
-        >
-          <p
-            style={{ fontWeight: "600", paddingTop: "-20px", fontSize: "18px" }}
-          >
-            Avg. session duration in minutes for triggers
-          </p>
-          <h1 style={{ color: "#0066b2" }}>
-            {" "}
-            {obtainedData?.triggerAvgDuration
-              ? obtainedData?.triggerAvgDuration
-              : 0}
-          </h1>
-        </div>{" "}
-        <div
-          style={{
-            height: "210px",
-            width: "265px",
-            // backgroundColor: "rgb(68 202 242)",
-            borderRadius: "10px",
-            // border: "1px solid grey",
-            boxShadow: "0px 3px 5px 2px lightgrey",
-          }}
-        >
-          <p
-            style={{ fontWeight: "600", paddingTop: "-27px", fontSize: "18px" }}
-          >
-            Avg. session duration in minutes for push messages
-          </p>
-          <h1 style={{ color: "#0066b2" }}>
-            {" "}
-            {obtainedData?.messagingAvgDuration
-              ? obtainedData?.messagingAvgDuration
-              : 0}
-          </h1>
-        </div>{" "}
-      </div>
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                Chatbot Interactions
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {" "}
+                {obtainedData?.totalConvos ? obtainedData?.totalConvos : 0}
+              </h1>
+            </div>{" "}
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                No. of feedback received
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {" "}
+                {obtainedData?.nonTriggerResponses
+                  ? obtainedData?.nonTriggerResponses
+                  : 0}
+              </h1>
+            </div>{" "}
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "-20px",
+                  fontSize: "18px",
+                }}
+              >
+                Avg. session duration in minutes for triggers
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {" "}
+                {obtainedData?.triggerAvgDuration
+                  ? obtainedData?.triggerAvgDuration
+                  : 0}
+              </h1>
+            </div>{" "}
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "-27px",
+                  fontSize: "18px",
+                }}
+              >
+                Avg. session duration in minutes for push messages
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {" "}
+                {obtainedData?.messagingAvgDuration
+                  ? obtainedData?.messagingAvgDuration
+                  : 0}
+              </h1>
+            </div>{" "}
+          </div>
+        </div>
+      ) : loading === false && Object.keys(obtainedData).length === 0 ? (
+        <img src={Nodata} />
+      ) : null}
 
       <ToastContainer />
     </div>

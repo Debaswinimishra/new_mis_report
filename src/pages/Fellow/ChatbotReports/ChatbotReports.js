@@ -42,7 +42,7 @@ const ChatbotReports = () => {
   ];
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 4 }, (_, index) => currentYear - index);
 
   const currentMonth = moment().format("MMMM");
   const currentMonthSelected = monthArr?.filter(
@@ -83,7 +83,7 @@ const ChatbotReports = () => {
   const handleFilterData = () => {
     setLoading(true);
     if (!selectedMonth) {
-      setLoading(false);
+      setLoading(null);
       toast.error("Please select a month !", {
         style: {
           borderRadius: "100px",
@@ -91,6 +91,7 @@ const ChatbotReports = () => {
           color: "white",
         },
       });
+      setObtainedData([]);
     } else {
       const body = {
         year: selectedYear,
@@ -425,7 +426,9 @@ const ChatbotReports = () => {
             </div>{" "}
           </div>
         </div>
-      ) : loading === false && Object.keys(obtainedData).length === 0 ? (
+      ) : loading === false &&
+        Object.keys(obtainedData).length === 0 &&
+        selectedMonth ? (
         <img src={Nodata} />
       ) : null}
 

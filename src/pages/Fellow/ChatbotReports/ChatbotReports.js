@@ -308,7 +308,7 @@ const ChatbotReports = () => {
 
           <u>
             {" "}
-            <h1>Interactions</h1>
+            <h1>Feedback</h1>
           </u>
 
           <div
@@ -363,15 +363,143 @@ const ChatbotReports = () => {
                   fontSize: "19px",
                 }}
               >
-                No. of feedback received
+                No. of total feedback received
               </p>
               <h1 style={{ color: "#0066b2" }}>
                 {" "}
-                {obtainedData?.nonTriggerResponses
-                  ? obtainedData?.nonTriggerResponses
+                {obtainedData?.totalFeedbacks
+                  ? obtainedData?.totalFeedbacks
                   : 0}
               </h1>
-            </div>{" "}
+            </div>
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                No. of text feedback received
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {" "}
+                {obtainedData?.textFeedbacks ? obtainedData?.textFeedbacks : 0}
+              </h1>
+            </div>
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                No. of audio feedback received
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {" "}
+                {obtainedData?.audioFeedbacks
+                  ? obtainedData?.audioFeedbacks
+                  : 0}
+              </h1>
+            </div>
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                No. of image feedback received
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {" "}
+                {obtainedData?.imageFeedbacks
+                  ? obtainedData?.imageFeedbacks
+                  : 0}
+              </h1>
+            </div>
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                No. of video feedback received
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {" "}
+                {obtainedData?.videoFeedbacks
+                  ? obtainedData?.videoFeedbacks
+                  : 0}
+              </h1>
+            </div>
+            <div
+              style={{
+                height: "210px",
+                width: "265px",
+                // backgroundColor: "rgb(68 202 242)",
+                borderRadius: "10px",
+                // border: "1px solid grey",
+                boxShadow: "0px 3px 5px 2px lightgrey",
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "600",
+                  paddingTop: "20px",
+                  fontSize: "19px",
+                }}
+              >
+                No. of contact feedback received
+              </p>
+              <h1 style={{ color: "#0066b2" }}>
+                {" "}
+                {obtainedData?.contactFeedbacks
+                  ? obtainedData?.contactFeedbacks
+                  : 0}
+              </h1>
+            </div>
             <div
               style={{
                 height: "210px",

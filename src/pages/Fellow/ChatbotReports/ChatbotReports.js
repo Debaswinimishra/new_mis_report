@@ -253,7 +253,9 @@ const ChatbotReports = () => {
                 Total no. of active users
               </p>
               <h1 style={{ color: "#0066b2" }}>
-                {obtainedData?.activeUsers ? obtainedData?.activeUsers : 0}
+                {obtainedData?.totalActiveUsers
+                  ? obtainedData?.totalActiveUsers
+                  : 0}
               </h1>
             </div>{" "}
             <div

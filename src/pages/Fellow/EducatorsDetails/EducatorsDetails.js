@@ -64,6 +64,7 @@ const moduleColumn = [
   "Contact Number",
   "Status(Active/Inactive)",
   "Aadhaar Number",
+  "Previous Passcode",
 ];
 
 const FellowDetails = () => {
@@ -222,6 +223,8 @@ const FellowDetails = () => {
         return row.status;
       case "Aadhaar Number":
         return row.aadhaar ? row.aadhaar : "NA";
+      case "Previous Passcode":
+        return row.previousPasscode ? row.previousPasscode : "NA";
       default:
         return "";
     }

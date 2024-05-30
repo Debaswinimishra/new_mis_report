@@ -28,6 +28,11 @@ import Logo from "../../../ReusableComponents/Logo";
 import Loader from "../../../ReusableComponents/Loader";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 // import Links from "../../../ReusableComponents/Links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -100,6 +105,8 @@ const TimespentDetails = () => {
   const [loaded, setLoaded] = useState(false);
   const [month, setMonth] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  console.log("selectedDate---->", selectedDate);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -134,6 +141,7 @@ const TimespentDetails = () => {
     setManagerName("");
     setPasscode("");
     setDistrictName("");
+    setSelectedDate("");
     setBlockName("");
     setFilteredData([]);
     setMonth("");
@@ -145,11 +153,12 @@ const TimespentDetails = () => {
     // setShowFieldsData(false);
   };
   const handleMonthChange = (event) => {
-    setMonth(event.target.value);
+    setSelectedDate("");
     setManagerName("");
     setPasscode("");
     setDistrictName("");
     setBlockName("");
+    setMonth(event.target.value);
   };
 
   const handleManagerChange = (event) => {
@@ -225,6 +234,7 @@ const TimespentDetails = () => {
       const filterCriteriaWithBlockAndDistrict = {
         year: parseInt(selectedYear),
         month: parseInt(month),
+        date: moment(selectedDate).format("YYYY-MM-DD"),
         managerid: managerName,
         passcode: passcode,
         districtid: districtName,
@@ -297,6 +307,26 @@ const TimespentDetails = () => {
     return exceptBoth;
   });
 
+  const shouldDisableDate = (date) => {
+    if (!selectedYear || !month) {
+      return true; // Disable all dates if year or month is not selected
+    }
+    const currentYear = dayjs(date).year();
+    const currentMonth = dayjs(date).month() + 1; // Month is 0-based in dayjs
+    return (
+      currentYear !== parseInt(selectedYear) || currentMonth !== parseInt(month)
+    );
+  };
+
+  const handleDateChange = (newValue) => {
+    if (newValue) {
+      const formattedDate = dayjs(newValue).format("YYYY-MM-DD");
+      setSelectedDate(formattedDate);
+    } else {
+      setSelectedDate(null);
+    }
+  };
+
   return (
     <Box>
       <div
@@ -332,6 +362,19 @@ const TimespentDetails = () => {
                 ))
               : null}
           </TextField>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Select Date"
+              value={selectedDate}
+              onChange={handleDateChange}
+              shouldDisableDate={shouldDisableDate}
+              clearable
+              renderInput={(params) => (
+                <TextField {...params} style={{ marginBottom: "20px" }} />
+              )}
+            />
+          </LocalizationProvider>
 
           <TextField
             id="outlined-select-currency"

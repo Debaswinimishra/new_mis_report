@@ -123,7 +123,7 @@ function NavigationSchool(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.5
+          v1.2.6
         </p>
       </Toolbar>
 

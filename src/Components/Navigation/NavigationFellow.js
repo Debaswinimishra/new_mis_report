@@ -98,11 +98,11 @@ function NavigationFellow(props) {
       link: "overall_timespent_c.e",
       icon: <AccessTimeFilledIcon sx={{ color: "purple" }} />,
     },
-    {
-      text: "Chatbot Reports",
-      link: "chatbot_reports",
-      icon: <CastForEducationIcon sx={{ color: "rgb(0,128,0)" }} />,
-    },
+    // {
+    //   text: "Chatbot Reports",
+    //   link: "chatbot_reports",
+    //   icon: <CastForEducationIcon sx={{ color: "rgb(0,128,0)" }} />,
+    // },
     // {
     //   text: "Training Module",
     //   link: "training_module",

@@ -191,6 +191,7 @@ const FellowDetails = () => {
         setFilteredData([]);
         alert("No data found");
       } else if (data.length > 0) {
+        console.log("data------------------>", data)
         setFilteredData(data);
         setTotalDataLength(data.length);
       }

@@ -8,7 +8,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
-import loader from "../../../Assets/R.gif";
 import moment from "moment";
 import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
@@ -24,7 +23,6 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
-import Logo from "../../../ReusableComponents/Logo";
 import Loader from "../../../ReusableComponents/Loader";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -33,6 +31,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
+import Logo from "../../../ReusableComponents/Logo";
+import loader from "../../../Assets/R.gif";
 // import Links from "../../../ReusableComponents/Links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -105,9 +105,10 @@ const TimespentDetails = () => {
   const [loaded, setLoaded] = useState(false);
   const [month, setMonth] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedDate, setSelectedDate] = useState(null);
-  console.log("selectedDate---->", selectedDate);
-
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
+  console.log("SelectedStartDate---->", selectedStartDate);
+  (0.0).toExponential;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -141,7 +142,8 @@ const TimespentDetails = () => {
     setManagerName("");
     setPasscode("");
     setDistrictName("");
-    setSelectedDate("");
+    setSelectedStartDate(null);
+    setSelectedEndDate(null);
     setBlockName("");
     setFilteredData([]);
     setMonth("");
@@ -153,7 +155,8 @@ const TimespentDetails = () => {
     // setShowFieldsData(false);
   };
   const handleMonthChange = (event) => {
-    setSelectedDate("");
+    setSelectedStartDate(null);
+    setSelectedEndDate(null);
     setManagerName("");
     setPasscode("");
     setDistrictName("");
@@ -223,27 +226,40 @@ const TimespentDetails = () => {
 
   const fetchFilteredData = async () => {
     try {
-      if (!selectedYear || !month || !managerName || !passcode) {
-        alert(
-          "Please select a year, month, manager name, passcode before filtering."
-        );
+      if (!selectedYear) {
+        alert("Please select a year before filtering.");
         return;
       }
 
       setLoaded(true);
-      const filterCriteriaWithBlockAndDistrict = {
-        year: parseInt(selectedYear),
-        month: parseInt(month),
-        date: moment(selectedDate).format("YYYY-MM-DD"),
-        managerid: managerName,
-        passcode: passcode,
-        districtid: districtName,
-        blockid: blockName,
-      };
+      let filterCriteria;
 
-      const data = await TimespentDetailsApi(
-        filterCriteriaWithBlockAndDistrict
-      );
+      if (month) {
+        filterCriteria = {
+          year: parseInt(selectedYear),
+          month: parseInt(month),
+          managerid: managerName,
+          passcode: passcode,
+          districtid: districtName,
+          blockid: blockName,
+        };
+      } else if (selectedStartDate && selectedEndDate) {
+        filterCriteria = {
+          year: parseInt(selectedYear),
+          startDt: selectedStartDate,
+          endDt: selectedEndDate,
+          managerid: managerName,
+          passcode: passcode,
+          districtid: districtName,
+          blockid: blockName,
+        };
+      } else {
+        alert("Please select either a month or a date range.");
+        setLoaded(false);
+        return;
+      }
+
+      const data = await TimespentDetailsApi(filterCriteria);
 
       setLoaded(false);
       // console.log("data", data);
@@ -251,14 +267,12 @@ const TimespentDetails = () => {
       if (data.length === 0) {
         setFilteredData([]);
         alert("No data found");
-      } else if (data.length > 0) {
+      } else {
         setFilteredData(data);
         setTotalDataLength(data.length);
       }
     } catch (error) {
-      setLoaded(false);
       console.error("Error:", error);
-      // Handle the error, e.g., show an error message to the user
       alert("An error occurred while fetching data");
     } finally {
       setLoaded(false);
@@ -307,25 +321,36 @@ const TimespentDetails = () => {
     return exceptBoth;
   });
 
-  const shouldDisableDate = (date) => {
-    if (!selectedYear || !month) {
-      return true; // Disable all dates if year or month is not selected
-    }
-    const currentYear = dayjs(date).year();
-    const currentMonth = dayjs(date).month() + 1; // Month is 0-based in dayjs
-    return (
-      currentYear !== parseInt(selectedYear) || currentMonth !== parseInt(month)
-    );
-  };
+  // const shouldDisableDate = (date) => {
+  //   if (!selectedYear || !month) {
+  //     return true; // Disable all dates if year or month is not selected
+  //   }
+  //   const currentYear = dayjs(date).year();
+  //   const currentMonth = dayjs(date).month() + 1; // Month is 0-based in dayjs
+  //   return (
+  //     currentYear !== parseInt(selectedYear) || currentMonth !== parseInt(month)
+  //   );
+  // };
 
   const handleDateChange = (newValue) => {
     if (newValue) {
       const formattedDate = dayjs(newValue).format("YYYY-MM-DD");
-      setSelectedDate(formattedDate);
+      setSelectedStartDate(formattedDate);
     } else {
-      setSelectedDate(null);
+      setSelectedStartDate(null);
     }
   };
+  const handleEndDateChange = (newValue) => {
+    if (newValue) {
+      const formattedDate = dayjs(newValue).format("YYYY-MM-DD");
+      setSelectedEndDate(formattedDate);
+    } else {
+      setSelectedEndDate("");
+    }
+  };
+
+  const disableDateRangeSelection = !!month;
+  const disableMonthSelection = !!selectedStartDate || !!selectedEndDate;
 
   return (
     <Box>
@@ -352,6 +377,7 @@ const TimespentDetails = () => {
             label="Select month"
             value={month}
             onChange={(e) => handleMonthChange(e)}
+            disabled={disableMonthSelection}
           >
             <MenuItem value="">None</MenuItem>
             {selectedYear && selectedYear != ""
@@ -365,11 +391,28 @@ const TimespentDetails = () => {
 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
-              label="Select Date"
-              value={selectedDate}
+              label="Start Date"
+              value={selectedStartDate}
               onChange={handleDateChange}
-              shouldDisableDate={shouldDisableDate}
+              // shouldDisableDate={shouldDisableDate}
               clearable
+              inputFormat="DD/MM/YYYY"
+              disabled={disableDateRangeSelection}
+              renderInput={(params) => (
+                <TextField {...params} style={{ marginBottom: "20px" }} />
+              )}
+            />
+          </LocalizationProvider>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="End Date"
+              value={selectedEndDate}
+              onChange={handleEndDateChange}
+              // shouldDisableDate={shouldDisableDate}
+              clearable
+              inputFormat="DD/MM/YYYY"
+              disabled={disableDateRangeSelection}
               renderInput={(params) => (
                 <TextField {...params} style={{ marginBottom: "20px" }} />
               )}
@@ -385,7 +428,7 @@ const TimespentDetails = () => {
             onChange={(e) => handleManagerChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(managerArr) && selectedYear && month
+            {Array.isArray(managerArr) && selectedYear
               ? managerArr.map((option, index) => (
                   <MenuItem key={index + 1} value={option.managerid}>
                     {option.managername}

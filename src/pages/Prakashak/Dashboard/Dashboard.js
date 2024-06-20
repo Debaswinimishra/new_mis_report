@@ -731,7 +731,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* <div
+          <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -907,7 +907,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
           <div
             style={{

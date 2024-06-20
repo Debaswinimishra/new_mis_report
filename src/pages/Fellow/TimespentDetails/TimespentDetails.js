@@ -13,6 +13,13 @@ import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
 import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import {
   getAllCommunityEducatiorFilter,
   getAllDistricts,
   getDistrictsWiseBlocks,
@@ -88,6 +95,7 @@ const column = [
 ];
 
 const TimespentDetails = () => {
+  const today = dayjs();
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   const [managerName, setManagerName] = useState([]);
@@ -107,7 +115,8 @@ const TimespentDetails = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
-  console.log("SelectedStartDate---->", selectedStartDate);
+  const [openModal, setOpenModal] = useState(false);
+  console.log("SelectedStartDate---->", selectedStartDate, selectedEndDate);
   (0.0).toExponential;
   useEffect(() => {
     const fetchData = async () => {
@@ -115,7 +124,7 @@ const TimespentDetails = () => {
         const response = await getAllCommunityEducatiorFilter(selectedYear);
         setManagerArr(response.data.resData);
       } catch (err) {
-        console.log("err--->", err.response.status);
+        // console.log("err--->", err.response.status);
       }
     };
     fetchData();
@@ -149,9 +158,18 @@ const TimespentDetails = () => {
     setMonth("");
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
-    const response = await getAllCommunityEducatiorFilter(selectedYear);
-    console.log("manager year----->", response.data);
-    setManagerArr(response.data.resData);
+    if (selectedYear) {
+      // Fetch the data only if a valid year is selected
+      try {
+        const response = await getAllCommunityEducatiorFilter(selectedYear);
+        console.log("manager year----->", response.data);
+        setManagerArr(response.data.resData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    } else {
+      setManagerArr([]);
+    }
     // setShowFieldsData(false);
   };
   const handleMonthChange = (event) => {
@@ -340,13 +358,32 @@ const TimespentDetails = () => {
       setSelectedStartDate(null);
     }
   };
+
   const handleEndDateChange = (newValue) => {
-    if (newValue) {
+    const today = dayjs();
+    if (
+      newValue &&
+      dayjs(newValue).isValid() &&
+      dayjs(newValue).isAfter(today)
+    ) {
+      setOpenModal(true);
+    } else if (
+      newValue &&
+      selectedStartDate &&
+      dayjs(newValue).isValid() &&
+      dayjs(selectedStartDate).isValid() &&
+      dayjs(newValue).isBefore(dayjs(selectedStartDate))
+    ) {
+      setOpenModal(true);
+    } else {
       const formattedDate = dayjs(newValue).format("YYYY-MM-DD");
       setSelectedEndDate(formattedDate);
-    } else {
-      setSelectedEndDate("");
     }
+  };
+
+  const handleClose = () => {
+    setSelectedEndDate(null);
+    setOpenModal(false);
   };
 
   const disableDateRangeSelection = !!month;
@@ -484,14 +521,32 @@ const TimespentDetails = () => {
               : null}
           </TextField>
 
+          <Dialog open={openModal} onClose={handleClose}>
+            <DialogTitle>{"Invalid Date Range"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Please select a valid date range.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           <Stack spacing={2} direction="row">
-            <Button
-              variant="contained"
-              onClick={fetchFilteredData}
-              style={{ width: "100%", height: "auto", marginTop: "10px" }}
-            >
-              Filter
-            </Button>
+            {loaded ? (
+              <Loader />
+            ) : (
+              <Button
+                variant="contained"
+                onClick={fetchFilteredData}
+                style={{ width: "100%", height: "auto", marginTop: "10px" }}
+              >
+                Filter
+              </Button>
+            )}
           </Stack>
         </div>
       </div>

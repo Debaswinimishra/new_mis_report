@@ -37,6 +37,7 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import CircularProgress from "@mui/material/CircularProgress";
 import dayjs from "dayjs";
 import Logo from "../../../ReusableComponents/Logo";
 import loader from "../../../Assets/R.gif";
@@ -536,17 +537,13 @@ const TimespentDetails = () => {
           </Dialog>
 
           <Stack spacing={2} direction="row">
-            {loaded ? (
-              <Loader />
-            ) : (
-              <Button
-                variant="contained"
-                onClick={fetchFilteredData}
-                style={{ width: "100%", height: "auto", marginTop: "10px" }}
-              >
-                Filter
-              </Button>
-            )}
+            <Button
+              variant="contained"
+              onClick={fetchFilteredData}
+              style={{ width: "100%", height: "auto", marginTop: "10px" }}
+            >
+              Filter
+            </Button>
           </Stack>
         </div>
       </div>

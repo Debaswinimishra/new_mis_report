@@ -151,7 +151,7 @@ const ComunityEducator = () => {
 
   //   fetchData();
   // }, []);
-
+  
   let passcodeArray = [];
   let districtArr = [];
   let blocksArr = [];

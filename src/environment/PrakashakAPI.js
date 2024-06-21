@@ -3,7 +3,7 @@ import axios from "axios";
 export const baseURL = "https://tatvagyan.in/prakashak";
 
 export const Version = {
-  version: "1.2.4",
+  version: "1.2.7",
 };
 
 export const networkStatus =

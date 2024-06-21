@@ -201,7 +201,7 @@ const Schoolwise = () => {
     }
   };
 
-  // console.log("schoolArr--------------------->", schoolArr);
+  console.log("schoolArr--------------------->", schoolArr, typeof schoolArr);
   console.log("districts--------->", districts);
   console.log("blocks--------->", blocks);
   console.log("clusters--------->", clusters);

@@ -380,7 +380,7 @@ const Schoolwise = () => {
                   <h1>{data.total_students}</h1>
                 </div>
               </div>
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -417,7 +417,7 @@ const Schoolwise = () => {
                 >
                   <h1>{data.total_poc}</h1>
                 </div>
-              </div>
+              </div> */}
               <div
                 style={{
                   width: "255px",

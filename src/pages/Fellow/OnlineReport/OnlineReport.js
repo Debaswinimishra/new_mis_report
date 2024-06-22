@@ -24,8 +24,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
 
 import Loader from "../../../ReusableComponents/Loader";
-import IconButton from "@mui/material/IconButton";
-import ClearIcon from "@mui/icons-material/Clear";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -208,8 +206,8 @@ const OnlineReport = () => {
       const filterCriteriaWithBlockAndDistrict = {
         year: Number(selectedYear),
         month: selectedMonth,
-        // districtid: districtName,
-        // blockid: blockName,
+        districtid: districtName,
+        blockid: blockName,
       };
       console.log(
         "====================================",
@@ -251,8 +249,9 @@ const OnlineReport = () => {
       case "Gender":
         return row.gender;
       case "Address":
-        return row.address ? row.address : "NA";
-
+        return row.statename && row.districtname && row.blockname
+          ? `${row.statename},${row.districtname},${row.blockname}`
+          : "NA";
       case "Status(Active/Inactive)":
         return row.status ? row.status : "NA";
 
@@ -365,7 +364,7 @@ const OnlineReport = () => {
         <Loader />
       ) : selectedYear && filteredData && filteredData.length > 0 ? (
         <>
-          <TextField
+          {/* <TextField
             fullWidth
             id="fullWidth"
             label="Search"
@@ -383,7 +382,7 @@ const OnlineReport = () => {
                 </IconButton>
               ),
             }}
-          />
+          /> */}
           <TableContainer
             component={Paper}
             sx={{

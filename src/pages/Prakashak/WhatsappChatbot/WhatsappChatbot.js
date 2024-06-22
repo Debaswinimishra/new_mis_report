@@ -24,7 +24,8 @@ import Nodata from "../../../Assets/Nodata.gif";
 import Chart from "chart.js/auto";
 import Graph from "../../../ReusableComponents/Graphs";
 import moment from "moment";
-
+import TablePagination from "@mui/material/TablePagination";
+import Download from "../../../downloads/ExportCsv";
 const WhatsappChatbot = () => {
   const chartRef = useRef(null);
   //?---------------Month array---------------------------
@@ -222,32 +223,18 @@ const WhatsappChatbot = () => {
   const [modalContentTitle, setModalContentTitle] = useState("");
   const [modalContentData, setModalContentData] = useState([]);
 
-  // Function to handle modal opening
-  // const handleOpen = async (contentTitle) => {
-  //   setModalContentTitle(contentTitle);
-  //   setLoading(true);
-
-  //   try {
-  //     const response = await Api.get(`getDataFor${contentTitle}`);
-  //     setModalContentData(response.data);
-  //   } catch (error) {
-  //     console.error("Error fetching modal data:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // // Function to handle modal closing
-  // const handleClose = () => {
-  //   setModalContentTitle("");
-  //   setModalContentData([]);
-  // };
   const handleOpen = () => {
     setOpen(true);
     setModalContentData([]);
     setModalContentTitle("");
   };
   const handleClose = () => setOpen(false);
+  const fileName = "WhatsappChatboatReport";
+
+  const xlData = data.chats?.map((x) => {
+    const { ...exceptBoth } = x;
+    return exceptBoth;
+  });
   return (
     <div>
       <div
@@ -713,6 +700,15 @@ const WhatsappChatbot = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+              {/* <TablePagination
+              component="div"
+              count={totalDataLength}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            /> */}
+              <Download csvData={xlData} fileName={fileName} />
             </Box>
           </Modal>
         </>

@@ -15,7 +15,13 @@ import moment from "moment";
 import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
 
-import { getAllCommunityEducatiorFilter } from "../CommunityEducator/CommunityEducatorApi";
+import {
+  getAllCommunityEducatiorFilter,
+  getAllDistricts,
+  getDistrictsWiseBlocks,
+  getCommunityEducator1,
+  getCommunityEducator2,
+} from "../CommunityEducator/CommunityEducatorApi";
 import { getOnlineRequestedReport } from "./OnlineReuestApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
@@ -99,20 +105,35 @@ const OnlineReport = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const handleMonthChange = (e) => {
-    if (
-      e.target.value > currentMonthSelected.value &&
-      selectedYear === currentYear
-    ) {
-      toast.error("You can't select a month greater than the current month !", {
-        style: {
-          borderRadius: "100px",
-          backgroundColor: "black",
-          color: "white",
-        },
-      });
-    } else {
-      setSelectedMonth(e.target.value ? e.target.value : "");
+  const [districts, setDistrcits] = useState([]);
+  const [blocks, setAllBlocks] = useState([]);
+  const handleMonthChange = async (e) => {
+    try {
+      if (
+        e.target.value > currentMonthSelected.value &&
+        selectedYear === currentYear
+      ) {
+        toast.error(
+          "You can't select a month greater than the current month !",
+          {
+            style: {
+              borderRadius: "100px",
+              backgroundColor: "black",
+              color: "white",
+            },
+          }
+        );
+      } else {
+        setSelectedMonth(e.target.value ? e.target.value : "");
+        console.log("district--->", e.target.value);
+        if (e.target.value > 0) {
+          const response = await getAllDistricts();
+          console.log("districyt----->", response.data);
+          setDistrcits(response.data);
+        }
+      }
+    } catch (err) {
+      console.log("err----->", err);
     }
   };
   useEffect(() => {
@@ -174,13 +195,22 @@ const OnlineReport = () => {
   };
 
   const handleDistrictChange = async (e) => {
+    console.log("id--->", e.target.value);
     setBlockName("");
     setFilteredData([]);
     setTotalDataLength(0);
+    const selectedValue = e.target.value;
     setDistrictName(e.target.value);
+    console.log("Selected value:", e);
+    // setLoaded(true);
+    const response = await getDistrictsWiseBlocks(e.target.value);
+    console.log("block response---->", response.data);
+    setAllBlocks(response.data);
+    // setLoaded(false);
   };
 
   const handleBlockChange = (e) => {
+    // console.log("block--->", e.target.value);
     setFilteredData([]);
     setTotalDataLength(0);
     setBlockName(e.target.value);
@@ -204,8 +234,8 @@ const OnlineReport = () => {
 
       setLoaded(true);
       const filterCriteriaWithBlockAndDistrict = {
-        year: Number(selectedYear),
-        month: selectedMonth,
+        year: selectedYear.toString(),
+        month: selectedMonth.toString(),
         districtid: districtName,
         blockid: blockName,
       };
@@ -219,7 +249,7 @@ const OnlineReport = () => {
       );
 
       setLoaded(false);
-      // console.log("data", data);
+      console.log("data", data);
 
       if (data.length === 0) {
         setFilteredData([]);
@@ -318,11 +348,11 @@ const OnlineReport = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(districtArr)
-              ? districtArr.map((option, index) => (
+            {Array.isArray(districts)
+              ? districts.map((option, index) => (
                   <MenuItem
                     key={index + 1}
-                    value={option?.districtid}
+                    value={option?._id}
                     data-name={option?.districtname}
                   >
                     {option?.districtname}
@@ -340,9 +370,9 @@ const OnlineReport = () => {
             onChange={(e) => handleBlockChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(blocksArr)
-              ? blocksArr?.map((option, index) => (
-                  <MenuItem key={index + 1} value={option?.blockid}>
+            {Array.isArray(blocks)
+              ? blocks?.map((option, index) => (
+                  <MenuItem key={index + 1} value={option?._id}>
                     {option?.blockname}
                   </MenuItem>
                 ))

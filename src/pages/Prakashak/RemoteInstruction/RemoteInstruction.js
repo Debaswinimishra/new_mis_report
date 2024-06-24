@@ -225,13 +225,15 @@ const RemoteInstruction = () => {
         ];
   const tableData = [
     {
-      customer_id: "C001",
-      mobile: "1234567890",
+      studentName: "Adarsh Kumar Mishra",
+      ParentsName: "Mishra",
       class: "10",
-      board: "CBSE",
-      school: "XYZA School",
-      status: "Active",
-      date: new Date(),
+      MobileNumber: "8392098203",
+      Gender: "Male",
+      School: "JNV",
+      district: "Nayagarh",
+      block: "Nayagarh",
+      status: "sent",
     },
   ];
 
@@ -652,12 +654,12 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: " Total minutes of contents consumed",
-                    remoteInstruction: "auto_calls",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: " Total minutes of contents consumed",
+                //     remoteInstruction: "auto_calls",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -847,12 +849,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: "Total minutes spent in IVRs",
-                    remoteInstruction: "ivrs",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total minutes spent in IVRs",
+                //     remoteInstruction: "ivrs",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",

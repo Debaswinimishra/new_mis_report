@@ -273,9 +273,8 @@ const WhatsappChatbot = () => {
       status: "Active",
       date: new Date(),
     },
-    // Add more rows as needed
   ];
-  const xlData = tableData; // Your CSV data
+  const xlData = tableData;
   const fileName = "whatsappChatboat.csv";
 
   return (

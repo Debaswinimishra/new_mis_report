@@ -75,7 +75,6 @@ const DynamicModal = ({
           </Table>
         </TableContainer>
 
-        {/* Uncomment and implement TablePagination if needed */}
         {/* <TablePagination
           component="div"
           count={totalDataLength}

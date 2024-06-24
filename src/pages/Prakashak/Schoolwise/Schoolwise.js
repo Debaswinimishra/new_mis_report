@@ -20,12 +20,19 @@ import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
 import Box from "@mui/material/Box";
 import Api from "../../../Environment/PrakashakAPI";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import moment from "moment";
 import Nodata from "../../../Assets/Nodata.gif";
 import defaultImage from "../../../Assets/default.jpg";
 import Chart from "chart.js/auto";
+import DynamicModal from "../../../Components/DynamicModal";
+import SelectYear from "../../../ReusableComponents/SelectYear";
+
 const Schoolwise = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [year, setYear] = useState("2024");
   const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
@@ -37,7 +44,23 @@ const Schoolwise = () => {
   const [schoolArr, setSchoolArr] = useState([]);
   const [filtered, setFiltered] = useState(false);
   const [open, setOpen] = useState(false);
-  const [modalContentData, setModalContentData] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  console.log("tableData", tableData);
+
+  const modalTitle = "Number Of Students";
+  const tableHeaders = [
+    "student_name",
+    "Class",
+    "gender",
+    "parents_name",
+    "parents_phone_number",
+    "school_name",
+    "district",
+    "block",
+    "cluster",
+  ];
+  const xlData = tableData;
+  const fileName = "whatsappChatboat.csv";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,6 +79,10 @@ const Schoolwise = () => {
 
     return () => {};
   }, []);
+
+  const handleYearChange = (e) => {
+    setYear(e.target.value);
+  };
 
   const handleDistrictChange = (e) => {
     setDistricts(e.target.value);
@@ -203,13 +230,53 @@ const Schoolwise = () => {
     }
   };
 
-  const handleOpen = () => {
+  const handleOpen = async (classNumber) => {
     setOpen(true);
-    setModalContentData([]);
-    // setModalContentTitle("");   If the title is passed
+    setLoading(true);
+
+    const body = {
+      year: 2024,
+      ...(classNumber && { class: classNumber }),
+      ...(districts && { district: districts }),
+      ...(blocks && { block: blocks }),
+      ...(clusters && { cluster: clusters }),
+      ...(schools && { school_name: schools?.school_name }),
+    };
+
+    try {
+      const response = await Api.post("/getAllStudentsReport", body);
+      console.log("getAllStudentsReport=================>", response.data);
+      setTableData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+      setLoading(false);
+    }
   };
 
   const handleClose = () => setOpen(false);
+
+  const handleDownload = () => {
+    // const data = modalContentData.map((chat, index) => ({
+    //   "Sl No.": index + 1,
+    //   "Customer Id": chat.customer_id,
+    //   "Mobile No.": chat.mobile,
+    //   Class: chat.class,
+    //   Board: chat.board,
+    //   School: chat.school,
+    //   Status: chat.status,
+    //   Date: moment(chat.date).format("DD/MM/YYYY"),
+    // }));
+    // const worksheet = XLSX.utils.json_to_sheet(data);
+    // const workbook = XLSX.utils.book_new();
+    // XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+    // const excelBuffer = XLSX.write(workbook, {
+    //   bookType: "xlsx",
+    //   type: "array",
+    // });
+    // const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
+    // saveAs(blob, "table_data.xlsx");
+  };
 
   console.log("schoolArr--------------------->", schoolArr, typeof schoolArr);
   console.log("districts--------->", districts);
@@ -227,6 +294,7 @@ const Schoolwise = () => {
           flexWrap: "wrap",
         }}
       >
+        <SelectYear Year={year} handleYearChange={handleYearChange} />
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="district-label">District</InputLabel>
           <Select
@@ -430,7 +498,7 @@ const Schoolwise = () => {
                 </div>
               </div> */}
             <div
-              onClick={() => handleOpen()}
+              onClick={() => handleOpen(1)}
               style={{
                 width: "255px",
                 height: "180px",
@@ -469,7 +537,7 @@ const Schoolwise = () => {
               </div>
             </div>
             <div
-              onClick={() => handleOpen()}
+              onClick={() => handleOpen(2)}
               style={{
                 width: "255px",
                 height: "180px",
@@ -509,7 +577,7 @@ const Schoolwise = () => {
             </div>
 
             <div
-              onClick={() => handleOpen()}
+              onClick={() => handleOpen(3)}
               style={{
                 width: "255px",
                 height: "180px",
@@ -548,7 +616,7 @@ const Schoolwise = () => {
               </div>
             </div>
             <div
-              onClick={() => handleOpen()}
+              onClick={() => handleOpen(4)}
               style={{
                 width: "255px",
                 height: "180px",
@@ -587,7 +655,7 @@ const Schoolwise = () => {
               </div>
             </div>
             <div
-              onClick={() => handleOpen()}
+              onClick={() => handleOpen(5)}
               style={{
                 width: "255px",
                 height: "180px",
@@ -1335,66 +1403,17 @@ const Schoolwise = () => {
       <div>
         <canvas ref={chartRef}></canvas>
       </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 1000,
-            height: 600,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            boxShadow: 24,
-            p: 4,
-            overflow: "scroll",
-          }}
-        >
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {modalContentData}
-          </Typography>
 
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">Sl No.</TableCell>
-                  <TableCell align="center">Customer Id</TableCell>
-                  <TableCell align="center">Mobile No.</TableCell>
-                  <TableCell align="center">Class</TableCell>
-                  <TableCell align="center">Board</TableCell>
-                  <TableCell align="center">School</TableCell>
-                  <TableCell align="center">Status</TableCell>
-                  <TableCell align="center">Date</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {modalContentData &&
-                  modalContentData.map((chat, index) => (
-                    <TableRow key={index}>
-                      <TableCell align="center">{index + 1}</TableCell>
-                      <TableCell align="center">{chat.customer_id}</TableCell>
-                      <TableCell align="center">{chat.mobile}</TableCell>
-                      <TableCell align="center">{chat.class}</TableCell>
-                      <TableCell align="center">{chat.board}</TableCell>
-                      <TableCell align="center">{chat.school}</TableCell>
-                      <TableCell align="center">{chat.status}</TableCell>
-                      <TableCell align="center">
-                        {moment(chat.date).format("DD/MM/YYYY")}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box>
-      </Modal>
+      <DynamicModal
+        open={open}
+        loading={loading}
+        handleClose={handleClose}
+        modalTitle={modalTitle}
+        tableHeaders={tableHeaders}
+        tableData={tableData}
+        xlData={xlData}
+        fileName={fileName}
+      />
     </div>
   );
 };

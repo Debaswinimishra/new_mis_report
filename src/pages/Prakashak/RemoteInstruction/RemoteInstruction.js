@@ -25,6 +25,7 @@ import Box from "@mui/material/Box";
 import moment from "moment";
 import Graph from "../../../ReusableComponents/Graphs";
 import Nodata from "../../../Assets/Nodata.gif";
+import DynamicModal from "../../../Components/DynamicModal";
 
 const RemoteInstruction = () => {
   //~-------------------------------------------------------
@@ -69,6 +70,7 @@ const RemoteInstruction = () => {
   const [loading, setLoading] = useState();
   const [open, setOpen] = useState(false);
   const [modalContentData, setModalContentData] = useState([]);
+  const [modalContentTitle, setModalContentTitle] = useState("");
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -175,13 +177,39 @@ const RemoteInstruction = () => {
       });
   };
 
-  const handleOpen = () => {
+  const handleOpen = (contentTitle) => {
+    //
     setOpen(true);
     setModalContentData([]);
-    // setModalContentTitle("");   If the title is passed
+    setModalContentTitle(contentTitle);
   };
 
   const handleClose = () => setOpen(false);
+
+  const tableHeaders = [
+    "Sl No.",
+    "Customer Id",
+    "Mobile No.",
+    "Class",
+    "Board",
+    "School",
+    "Status",
+    "Date",
+  ];
+  const tableData = [
+    {
+      customer_id: "C001",
+      mobile: "1234567890",
+      class: "10",
+      board: "CBSE",
+      school: "XYZA School",
+      status: "Active",
+      date: new Date(),
+    },
+  ];
+
+  const xlData = tableData;
+  const fileName = "whatsappChatboat.csv";
 
   //todo--------------------Console logs--------------------------
   console.log("selectedYear---->", selectedYear);
@@ -191,6 +219,7 @@ const RemoteInstruction = () => {
     "remoteInstData-------------------------------->",
     remoteInstData
   );
+  console.log("contentTitle--------------------->", modalContentTitle);
 
   const graphData = {
     labels: ["SMS", "Automated Calls", "IVRs"],
@@ -911,68 +940,15 @@ const RemoteInstruction = () => {
           >
             <Graph data={graphData} />
           </div>
-          <Modal
+          <DynamicModal
             open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 1000,
-                height: 600,
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                p: 4,
-                overflow: "scroll",
-              }}
-            >
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                {modalContentData}
-              </Typography>
-
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="center">Sl No.</TableCell>
-                      <TableCell align="center">Customer Id</TableCell>
-                      <TableCell align="center">Mobile No.</TableCell>
-                      <TableCell align="center">Class</TableCell>
-                      <TableCell align="center">Board</TableCell>
-                      <TableCell align="center">School</TableCell>
-                      <TableCell align="center">Status</TableCell>
-                      <TableCell align="center">Date</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {remoteInstData.chats &&
-                      remoteInstData.chats.map((chat, index) => (
-                        <TableRow key={index}>
-                          <TableCell align="center">{index + 1}</TableCell>
-                          <TableCell align="center">
-                            {chat.customer_id}
-                          </TableCell>
-                          <TableCell align="center">{chat.mobile}</TableCell>
-                          <TableCell align="center">{chat.class}</TableCell>
-                          <TableCell align="center">{chat.board}</TableCell>
-                          <TableCell align="center">{chat.school}</TableCell>
-                          <TableCell align="center">{chat.status}</TableCell>
-                          <TableCell align="center">
-                            {moment(chat.date).format("DD/MM/YYYY")}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </Modal>
+            handleClose={handleClose}
+            modalTitle={modalContentTitle}
+            tableHeaders={tableHeaders}
+            tableData={tableData}
+            xlData={xlData}
+            fileName={fileName}
+          />
         </div>
       ) : Object.keys(remoteInstData).length === 0 && loading === false ? (
         <div

@@ -40,15 +40,16 @@ const DynamicModal = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box
+     <Box
         sx={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 1000,
+          height: 600,
           bgcolor: "background.paper",
-          border: "none",
+          border: "2px solid #000",
           boxShadow: 24,
           p: 4,
           overflow: "scroll",

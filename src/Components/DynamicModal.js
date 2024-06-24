@@ -43,15 +43,20 @@ const DynamicModal = ({
       <Box
         sx={{
           position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 1200,
+          height: 600,
           bgcolor: "background.paper",
-          border: "none",
           boxShadow: 24,
+          borderRadius: 2,
           p: 4,
           overflow: "scroll",
+          "&::-webkit-scrollbar": {
+            width: 0, // Remove the scrollbar
+            height: 0,
+          },
         }}
       >
         <Box

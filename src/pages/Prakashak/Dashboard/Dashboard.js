@@ -23,6 +23,7 @@ import PrakashakAPI from "../../../Environment/PrakashakAPI";
 import Box from "@mui/material/Box";
 import moment from "moment";
 import Nodata from "../../../Assets/Nodata.gif";
+import DynamicModal from "../../../Components/DynamicModal";
 
 const Dashboard = () => {
   //?---------------Month array---------------------------
@@ -156,23 +157,28 @@ const Dashboard = () => {
         });
     }
   };
-
-  useEffect(() => {
+  const [districsArray, setDistrictArr] = useState([]);
+  console.log(
+    "====================================districsArray",
+    districsArray
+  );
+  console.log();
+  console.log("====================================");
+  const fetchData = () => {
     setLoading(true);
+
     if (!selectedMonth && !selectedWeek) {
-      const body = {
-        year: parseInt(selectedYear),
-      };
+      const body = { year: parseInt(selectedYear) };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+
+      PrakashakAPI.post("getDashboardReport", body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
-            setLoading(false);
           } else {
-            setLoading(false);
             console.log("status code-----", res.status);
           }
+          setLoading(false);
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
@@ -184,15 +190,16 @@ const Dashboard = () => {
         month: parseInt(selectedMonth),
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+
+      PrakashakAPI.post("getAllDistricts", body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
-            setLoading(false);
+            setDistrictArr(res.data);
+            // setDashboardData(res.data); // Uncomment if needed
           } else {
-            setLoading(false);
             console.log("status code-----", res.status);
           }
+          setLoading(false);
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
@@ -205,46 +212,140 @@ const Dashboard = () => {
         week: parseInt(selectedWeek),
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+
+      PrakashakAPI.post("getDashboardReport", body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
-            setLoading(false);
           } else {
-            setLoading(false);
             console.log("status code-----", res.status);
           }
+          setLoading(false);
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
           setLoading(false);
         });
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [selectedYear, selectedMonth, selectedWeek]);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   if (!selectedMonth && !selectedWeek) {
+  //     const body = {
+  //       year: parseInt(selectedYear),
+  //     };
+  //     console.log("body---------------->", body);
+  //     PrakashakAPI.post(`getDashboardReport`, body)
+  //       .then((res) => {
+  //         if (res.status === 200) {
+  //           setDashboardData(res.data);
+  //           setLoading(false);
+  //         } else {
+  //           setLoading(false);
+  //           console.log("status code-----", res.status);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(`The Error is-----> ${err}`);
+  //         setLoading(false);
+  //       });
+  //   } else if (selectedMonth && !selectedWeek) {
+  //     const body = {
+  //       year: parseInt(selectedYear),
+  //       month: parseInt(selectedMonth),
+  //     };
+  //     console.log("body---------------->", body);
+  //     PrakashakAPI.post(`getAllDistricts`, body)
+  //       .then((res) => {
+  //         if (res.status === 200) {
+  //           setDistrictArr(res.data);
+  //           // setDashboardData(res.data);
+  //           setLoading(false);
+  //         } else {
+  //           setLoading(false);
+  //           console.log("status code-----", res.status);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(`The Error is-----> ${err}`);
+  //         setLoading(false);
+  //       });
+  //   } else {
+  //     const body = {
+  //       year: parseInt(selectedYear),
+  //       month: parseInt(selectedMonth),
+  //       week: parseInt(selectedWeek),
+  //     };
+  //     console.log("body---------------->", body);
+  //     PrakashakAPI.post(`getDashboardReport`, body)
+  //       .then((res) => {
+  //         if (res.status === 200) {
+  //           setDashboardData(res.data);
+  //           setLoading(false);
+  //         } else {
+  //           setLoading(false);
+  //           console.log("status code-----", res.status);
+  //         }
+  //       })
+  //       .catch((err) => {
+  //         console.log(`The Error is-----> ${err}`);
+  //         setLoading(false);
+  //       });
+  //   }
+  // }, []);
 
   //todo----------------------Console logs---------------------------
-  // console.log("selected year------>", selectedYear);
-  // console.log("selected month------->", selectedMonth);
-  // console.log("selected week-------->", selectedWeek);
-  // console.log("dashboard data---------->", dashboardData);
-  // console.log(
-  //   `Loading : ${loading}<---------> dashboardData length : ${
-  //     Object.keys(dashboardData).length
-  //   }`
-  // );
-  // console.log(
-  //   "currentMonthSelected-------------->",
-  //   currentMonthSelected.value
-  // );
+  const fetchDatas = async () => {
+    setLoading(true);
+    try {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth ? parseInt(selectedMonth) : undefined,
+        week: selectedWeek ? parseInt(selectedWeek) : undefined,
+      };
+
+      const response = await PrakashakAPI.post("getAllDistricts", body);
+
+      if (response.status === 200) {
+        // Assuming response.data is like { districtsArr: ["PURI"] }
+        setDistrictArr(response.data[0].districtsArr); // Assuming response structure
+        console.table(response.data.districtsArr, "response.data.districtsArr");
+      } else {
+        console.error(`Error fetching districts: Status ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const [open, setOpen] = useState(false);
-  const [modalContentTitle, setModalContentTitle] = useState("");
-  const [modalContentData, setModalContentData] = useState([]);
   const handleOpen = () => {
+    // console.log(
+    //   "====================================dst",
+    //   districsArray.districtsArr
+    // );
+    console.log();
+    console.log("====================================", setDistrictArr());
     setOpen(true);
-    setModalContentData([]);
-    setModalContentTitle("");
+    fetchDatas();
   };
   const handleClose = () => setOpen(false);
+
+  const modalTitle = "districts";
+  const districtsArr = ["Districts"];
+  const districtsData = [
+    {
+      districts: districsArray,
+    },
+  ];
+  const xlData = districtsData;
+  const fileName = "Dashboard.csv";
   return (
     <>
       <div
@@ -1450,66 +1551,15 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <Modal
+            <DynamicModal
               open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: 1000,
-                  height: 600,
-                  bgcolor: "background.paper",
-                  border: "2px solid #000",
-                  boxShadow: 24,
-                  p: 4,
-                  overflow: "scroll",
-                }}
-              >
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                  {modalContentData}
-                </Typography>
-
-                <TableContainer component={Paper}>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="center">Sl No.</TableCell>
-                        <TableCell align="center">Customer Id</TableCell>
-                        <TableCell align="center">Mobile No.</TableCell>
-                        <TableCell align="center">Class</TableCell>
-                        <TableCell align="center">Board</TableCell>
-                        <TableCell align="center">School</TableCell>
-                        <TableCell align="center">Status</TableCell>
-                        <TableCell align="center">Date</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {/* {data.chats && */}
-                      {/* // data.chats.map((chat, index) => ( */}
-                      {/* <TableRow>
-                        <TableCell align="center">{1}</TableCell>
-                        <TableCell align="center">{chat.customer_id}</TableCell>
-                        <TableCell align="center">{chat.mobile}</TableCell>
-                        <TableCell align="center">{chat.class}</TableCell>
-                        <TableCell align="center">{chat.board}</TableCell>
-                        <TableCell align="center">{chat.school}</TableCell>
-                        <TableCell align="center">{chat.status}</TableCell>
-                        <TableCell align="center">
-                          {moment(chat.date).format("DD/MM/YYYY")}
-                        </TableCell>
-                      </TableRow> */}
-                      {/* ))} */}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Box>
-            </Modal>
+              handleClose={handleClose}
+              modalTitle={modalTitle}
+              tableHeaders={districtsArr}
+              tableData={districtsData}
+              xlData={xlData}
+              fileName={fileName}
+            />
           </div>
         </div>
       ) : dashboardData &&

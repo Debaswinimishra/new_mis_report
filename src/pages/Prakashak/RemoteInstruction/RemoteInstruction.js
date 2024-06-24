@@ -71,6 +71,7 @@ const RemoteInstruction = () => {
   const [open, setOpen] = useState(false);
   const [modalContentData, setModalContentData] = useState([]);
   const [modalContentTitle, setModalContentTitle] = useState("");
+  const [remoteInstructionType, setRemoteInstructionType] = useState("");
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -177,8 +178,8 @@ const RemoteInstruction = () => {
       });
   };
 
-  const handleOpen = (contentTitle) => {
-    //
+  const handleOpen = ({ contentTitle, remoteInstruction }) => {
+    setRemoteInstructionType(remoteInstruction);
     setOpen(true);
     setModalContentData([]);
     setModalContentTitle(contentTitle);
@@ -212,14 +213,14 @@ const RemoteInstruction = () => {
   const fileName = "whatsappChatboat.csv";
 
   //todo--------------------Console logs--------------------------
-  console.log("selectedYear---->", selectedYear);
-  console.log("selectedMonth---->", selectedMonth);
-  console.log("selectedWeek---->", selectedWeek);
-  console.log(
-    "remoteInstData-------------------------------->",
-    remoteInstData
-  );
-  console.log("contentTitle--------------------->", modalContentTitle);
+  // console.log("selectedYear---->", selectedYear);
+  // console.log("selectedMonth---->", selectedMonth);
+  // console.log("selectedWeek---->", selectedWeek);
+  // console.log(
+  //   "remoteInstData-------------------------------->",
+  //   remoteInstData
+  // );
+  // console.log("contentTitle--------------------->", modalContentTitle);
 
   const graphData = {
     labels: ["SMS", "Automated Calls", "IVRs"],
@@ -344,7 +345,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() => handleOpen("Total no. of SMS scheduled")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of SMS scheduled",
+                    remoteInstruction: "sms",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -381,7 +387,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("Total no. of SMS delivered")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of SMS delivered",
+                    remoteInstruction: "sms",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -422,7 +433,10 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
-                  handleOpen("Total no. of SMS scheduled for Maths")
+                  handleOpen({
+                    contentTitle: "Total no. of SMS scheduled for Maths",
+                    remoteInstruction: "sms",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -462,7 +476,10 @@ const RemoteInstruction = () => {
               </div>
               <div
                 onClick={() =>
-                  handleOpen("Total no. of SMS scheduled for Odia")
+                  handleOpen({
+                    contentTitle: " Total no. of SMS scheduled for Odia",
+                    remoteInstruction: "sms",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -524,7 +541,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() => handleOpen("Total no. of calls made")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: " Total no. of calls made",
+                    remoteInstruction: "auto_calls",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -562,7 +584,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("Total no. of calls received")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of calls received",
+                    remoteInstruction: "auto_calls",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -599,7 +626,12 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("Total minutes of contents consumed")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: " Total minutes of contents consumed",
+                    remoteInstruction: "auto_calls",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -638,7 +670,11 @@ const RemoteInstruction = () => {
               </div>
               <div
                 onClick={() =>
-                  handleOpen("Total no. parents listened to the full content")
+                  handleOpen({
+                    contentTitle:
+                      "Total no. parents listened to the full content",
+                    remoteInstruction: "auto_calls",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -700,7 +736,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() => handleOpen("Total no. of incoming calls")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of incoming calls",
+                    remoteInstruction: "ivrs",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -737,7 +778,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("Total no. of unique calls")}
+                  onClick={() =>
+                    handleOpen({
+                      contentTitle: "Total no. of unique calls",
+                      remoteInstruction: "ivrs",
+                    })
+                  }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -775,7 +821,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("Total minutes spent in IVRs")}
+                  onClick={() =>
+                    handleOpen({
+                      contentTitle: "Total minutes spent in IVRs",
+                      remoteInstruction: "ivrs",
+                    })
+                  }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -812,8 +863,11 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() =>
-                  handleOpen(" Total no. parents listened to maths activity")
+                 onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. parents listened to maths activity",
+                    remoteInstruction: "ivrs",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -852,7 +906,10 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
-                  handleOpen("Total no. parents listened to odia activity")
+                  handleOpen({
+                    contentTitle: "Total no. parents listened to odia activity",
+                    remoteInstruction: "ivrs",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -891,7 +948,10 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
-                  handleOpen("Total no. of calls diverted to experts")
+                  handleOpen({
+                    contentTitle: "Total no. of calls diverted to experts",
+                    remoteInstruction: "ivrs",
+                  })
                 }
                 style={{
                   width: "255px",

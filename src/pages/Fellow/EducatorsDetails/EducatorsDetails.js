@@ -27,6 +27,7 @@ import Logo from "../../../ReusableComponents/Logo";
 import Loader from "../../../ReusableComponents/Loader";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
+import moment from "moment";
 // import Links from "../../../ReusableComponents/Links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -59,6 +60,7 @@ const moduleColumn = [
   "Serial No",
   "User Name",
   "User Id",
+  "Created on",
   "No of Students",
   "Gender",
   "Contact Number",
@@ -213,6 +215,8 @@ const FellowDetails = () => {
         return row.username;
       case "User Id":
         return row.userid;
+      case "Created on":
+        return moment(row.createdon).format("DD/MM/YYYY");
       case "No of Students":
         return row.studentsCount;
       case "Gender":

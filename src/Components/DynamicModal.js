@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -31,6 +31,11 @@ const DynamicModal = ({
 
   const [page, setPage] = useState(0);
   const rowsPerPage = 15;
+
+  useEffect(() => {
+    console.log("Table Headers:", tableHeaders);
+    console.log("Table Data:", tableData);
+  }, [tableHeaders, tableData]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -121,11 +126,9 @@ const DynamicModal = ({
                       )
                       .map((row, rowIndex) => (
                         <TableRow key={rowIndex}>
-                          {Object.keys(row).map((key, cellIndex) => (
+                          {tableHeaders.map((header, cellIndex) => (
                             <TableCell align="center" key={cellIndex}>
-                              {key === "date"
-                                ? moment(row[key]).format("DD/MM/YYYY")
-                                : row[key]}
+                              {row[header.toLowerCase().replace(/ /g, "_")]}
                             </TableCell>
                           ))}
                         </TableRow>

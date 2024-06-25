@@ -94,7 +94,7 @@ const DynamicModal = ({
           >
             <CircularProgress />
           </Box>
-        ) : (
+        ) : !loading && tableData.length > 0 ? (
           <>
             <TableContainer component={Paper}>
               <Table>
@@ -144,7 +144,11 @@ const DynamicModal = ({
               <Download csvData={xlData} fileName={fileName} />
             )}
           </>
-        )}
+        ) : !loading && tableData.length === 0 ? (
+          <div>
+            <h2>No data available</h2>
+          </div>
+        ) : null}
       </Box>
     </Modal>
   );

@@ -72,7 +72,7 @@ const RemoteInstruction = () => {
   const [modalContentData, setModalContentData] = useState([]);
   const [modalContentTitle, setModalContentTitle] = useState("");
   const [remoteInstructionType, setRemoteInstructionType] = useState("");
-  const [modalLoader,setModalLoader]=useState(false)
+  const [modalLoader, setModalLoader] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -182,6 +182,7 @@ const RemoteInstruction = () => {
   const handleOpen = ({ contentTitle, remoteInstruction }) => {
     setRemoteInstructionType(remoteInstruction);
     setOpen(true);
+    setModalLoader(true);
     setModalContentTitle(contentTitle);
     const body = selectedWeek
       ? {
@@ -203,7 +204,9 @@ const RemoteInstruction = () => {
         .then((res) => {
           if (res.status === 200) {
             setModalContentData(res.data);
+            setModalLoader(false);
           } else {
+            setModalLoader(false);
             console.log(
               "response status while getting report data--------->",
               res.status
@@ -212,6 +215,7 @@ const RemoteInstruction = () => {
           }
         })
         .catch((error) => {
+          setModalLoader(false);
           console.error(
             "The error while receiving report data----------->",
             error
@@ -221,8 +225,10 @@ const RemoteInstruction = () => {
       PrakashakAPI.post("getAutoCallsReport", body)
         .then((res) => {
           if (res.status === 200) {
+            setModalLoader(false);
             setModalContentData(res.data);
           } else {
+            setModalLoader(false);
             console.log(
               "response status while getting report data--------->",
               res.status
@@ -231,6 +237,7 @@ const RemoteInstruction = () => {
           }
         })
         .catch((error) => {
+          setModalLoader(false);
           console.error(
             "The error while receiving report data----------->",
             error
@@ -240,8 +247,10 @@ const RemoteInstruction = () => {
       PrakashakAPI.post("getIvrsReport", body)
         .then((res) => {
           if (res.status === 200) {
+            setModalLoader(false);
             setModalContentData(res.data);
           } else {
+            setModalLoader(false);
             console.log(
               "response status while getting report data--------->",
               res.status
@@ -250,6 +259,7 @@ const RemoteInstruction = () => {
           }
         })
         .catch((error) => {
+          setModalLoader(false);
           console.error(
             "The error while receiving report data----------->",
             error
@@ -1106,6 +1116,7 @@ const RemoteInstruction = () => {
             tableData={modalContentData}
             xlData={xlData}
             fileName={fileName}
+            loading={modalLoader}
           />
         </div>
       ) : Object.keys(remoteInstData).length === 0 && loading === false ? (

@@ -295,6 +295,17 @@ const Dashboard = () => {
       case "newStudents":
         return "New Students";
 
+      case "district":
+        return "Number of districts";
+      case "block":
+        return "Number of blocks";
+      case "clusters":
+        return "Number of Clusters";
+      case "schools":
+        return "Number of Schools";
+      case "newSchools":
+        return "Total number of new schools";
+
       default:
         return "Data";
     }

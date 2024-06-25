@@ -268,6 +268,7 @@ const Dashboard = () => {
   const [modalTitle, setModalTitle] = useState("");
 
   const getModalTitle = (type) => {
+    console.log("type---->", type);
     switch (type) {
       case "students":
         return "Number of Students";
@@ -283,6 +284,17 @@ const Dashboard = () => {
         return "Total No. of Videos Watched";
       case "chatbotActive":
         return "Number of Active Users";
+      case "boys":
+        return "Number of Males";
+      case "girls":
+        return "Number of Females";
+
+      case "smartphoneUsers":
+        return "Smart Phone Users";
+
+      case "newStudents":
+        return "New Students";
+
       default:
         return "Data";
     }
@@ -597,7 +609,6 @@ const Dashboard = () => {
 
     const newModalTitle = getModalTitle(type);
     setModalTitle(newModalTitle);
-
     fetchDatas(type);
   };
   const handleClose = () => setOpen(false);

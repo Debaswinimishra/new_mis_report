@@ -295,6 +295,17 @@ const Dashboard = () => {
       case "newStudents":
         return "New Students";
 
+      case "district":
+        return "Districts";
+      case "block":
+        return "Blocks";
+      case "clusters":
+        return "Clusters";
+      case "schools":
+        return "Schools";
+      case "newSchools":
+        return "newSchools";
+
       default:
         return "Data";
     }
@@ -646,7 +657,7 @@ const Dashboard = () => {
   console.log("schoolsData--->", schoolsData);
 
   console.log("blocksData---->", blocksData);
-  const xlData = districtsData;
+  const xlData = tableData;
   const fileName = "Dashboard.csv";
   return (
     <>
@@ -1896,8 +1907,6 @@ const Dashboard = () => {
               modalTitle={modalTitle}
               tableHeaders={tableHeaders}
               tableData={tableDatas}
-              // tableHeaders={tableHeaders}
-              // tableData={tableData}
               xlData={xlData}
               fileName={fileName}
               loading={modalLoader}

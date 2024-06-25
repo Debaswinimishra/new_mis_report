@@ -11,7 +11,11 @@ import {
   TableCell,
   TableBody,
   Button,
+  Modal,
   CircularProgress,
+  Typography,
+  TableContainer,
+  Paper,
 } from "@mui/material";
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
@@ -19,6 +23,7 @@ import PrakashakAPI from "../../../Environment/PrakashakAPI";
 import Box from "@mui/material/Box";
 import moment from "moment";
 import Nodata from "../../../Assets/Nodata.gif";
+import DynamicModal from "../../../Components/DynamicModal";
 
 const Dashboard = () => {
   //?---------------Month array---------------------------
@@ -60,6 +65,7 @@ const Dashboard = () => {
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
+  const [tableData, setTableData] = useState([]);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -152,23 +158,29 @@ const Dashboard = () => {
         });
     }
   };
+  const [districsArray, setDistrictArr] = useState([]);
+  const [blocksArr, setBlocksArr] = useState([]);
+  console.log(
+    "====================================districsArray",
+    districsArray
+  );
 
-  useEffect(() => {
+  console.log("====================================", blocksArr);
+  const fetchData = () => {
     setLoading(true);
+
     if (!selectedMonth && !selectedWeek) {
-      const body = {
-        year: parseInt(selectedYear),
-      };
+      const body = { year: parseInt(selectedYear) };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+
+      PrakashakAPI.post("getDashboardReport", body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
-            setLoading(false);
           } else {
-            setLoading(false);
             console.log("status code-----", res.status);
           }
+          setLoading(false);
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
@@ -180,15 +192,16 @@ const Dashboard = () => {
         month: parseInt(selectedMonth),
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+
+      PrakashakAPI.post("getAllDistricts", body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
-            setLoading(false);
+            setDistrictArr(res.data);
+            // setDashboardData(res.data); // Uncomment if needed
           } else {
-            setLoading(false);
             console.log("status code-----", res.status);
           }
+          setLoading(false);
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
@@ -201,38 +214,92 @@ const Dashboard = () => {
         week: parseInt(selectedWeek),
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+
+      PrakashakAPI.post("getDashboardReport", body)
         .then((res) => {
           if (res.status === 200) {
             setDashboardData(res.data);
-            setLoading(false);
           } else {
-            setLoading(false);
             console.log("status code-----", res.status);
           }
+          setLoading(false);
         })
         .catch((err) => {
           console.log(`The Error is-----> ${err}`);
           setLoading(false);
         });
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [selectedYear, selectedMonth, selectedWeek]);
 
   //todo----------------------Console logs---------------------------
-  // console.log("selected year------>", selectedYear);
-  // console.log("selected month------->", selectedMonth);
-  // console.log("selected week-------->", selectedWeek);
-  // console.log("dashboard data---------->", dashboardData);
-  // console.log(
-  //   `Loading : ${loading}<---------> dashboardData length : ${
-  //     Object.keys(dashboardData).length
-  //   }`
-  // );
-  // console.log(
-  //   "currentMonthSelected-------------->",
-  //   currentMonthSelected.value
-  // );
+  const [tableDatas, setTableDatas] = useState([]);
+  console.log("tableHeaders----->", tableDatas);
+  const fetchDatas = async () => {
+    setLoading(true);
+    try {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth ? parseInt(selectedMonth) : undefined,
+        week: selectedWeek ? parseInt(selectedWeek) : undefined,
+      };
 
+      const response = await PrakashakAPI.post("getAllDistricts", body);
+
+      const response2 = await PrakashakAPI.post("getAllBlocks", body);
+
+      if (response.status === 200) {
+        setDistrictArr(response.data[0].districtsArr);
+      }
+      if (response2.status === 200) {
+        console.log(response2.data[0], "response.data---------->");
+        setBlocksArr(response2.data[0]?.blocks);
+      } else {
+        console.error(`Error fetching districts: Status ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = (type) => {
+    console.log("type------->", type);
+    if (type === "district") {
+      setTableDatas(districtsData);
+      setTableData(districtsData);
+    }
+    if (type === "block") {
+      setTableDatas(blocksData);
+    }
+    setOpen(true);
+    fetchDatas();
+  };
+  const handleClose = () => setOpen(false);
+
+  const modalTitle = "districts";
+  const districtsArr = ["Districts"];
+  const blocksArray = ["Blocks"];
+  const districtsData = [
+    {
+      districts: districsArray,
+    },
+  ];
+
+  const blocksData = [
+    {
+      blocks: blocksArr,
+    },
+  ];
+
+  console.log("blocksData---->", blocksData);
+  const xlData = districtsData;
+  const fileName = "Dashboard.csv";
   return (
     <>
       <div
@@ -344,6 +411,7 @@ const Dashboard = () => {
               }}
             >
               <div
+                onClick={() => handleOpen("district")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -383,6 +451,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen("block")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -421,6 +490,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -459,6 +529,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -497,6 +568,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -535,6 +607,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -574,6 +647,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -613,6 +687,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -652,6 +727,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -691,6 +767,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -930,6 +1007,7 @@ const Dashboard = () => {
               }}
             >
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -969,6 +1047,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1008,6 +1087,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1047,6 +1127,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1086,6 +1167,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1125,6 +1207,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1164,6 +1247,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1264,6 +1348,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1381,6 +1466,7 @@ const Dashboard = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1419,6 +1505,17 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+            <DynamicModal
+              open={open}
+              handleClose={handleClose}
+              modalTitle={modalTitle}
+              tableHeaders={districtsArr}
+              tableData={tableDatas}
+              // tableHeaders={tableHeaders}
+              // tableData={tableData}
+              xlData={xlData}
+              fileName={fileName}
+            />
           </div>
         </div>
       ) : dashboardData &&

@@ -25,6 +25,7 @@ import Box from "@mui/material/Box";
 import moment from "moment";
 import Graph from "../../../ReusableComponents/Graphs";
 import Nodata from "../../../Assets/Nodata.gif";
+import DynamicModal from "../../../Components/DynamicModal";
 
 const RemoteInstruction = () => {
   //~-------------------------------------------------------
@@ -69,6 +70,8 @@ const RemoteInstruction = () => {
   const [loading, setLoading] = useState();
   const [open, setOpen] = useState(false);
   const [modalContentData, setModalContentData] = useState([]);
+  const [modalContentTitle, setModalContentTitle] = useState("");
+  const [remoteInstructionType, setRemoteInstructionType] = useState("");
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -175,22 +178,151 @@ const RemoteInstruction = () => {
       });
   };
 
-  const handleOpen = () => {
+  const handleOpen = ({ contentTitle, remoteInstruction }) => {
+    setRemoteInstructionType(remoteInstruction);
     setOpen(true);
     setModalContentData([]);
-    // setModalContentTitle("");   If the title is passed
+    setModalContentTitle(contentTitle);
+    const body = selectedWeek
+      ? {
+          year: selectedYear,
+          month: selectedMonth,
+          week: selectedWeek,
+        }
+      : !selectedWeek && selectedMonth
+      ? {
+          year: selectedYear,
+          month: selectedMonth,
+        }
+      : {
+          year: selectedYear,
+        };
+
+    if (remoteInstruction === "sms") {
+      PrakashakAPI.post("getSmsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+          } else {
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (remoteInstruction === "auto_calls") {
+      PrakashakAPI.post("getAutoCallsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+          } else {
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else {
+      PrakashakAPI.post("getIvrsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+          } else {
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    }
   };
 
   const handleClose = () => setOpen(false);
 
+  const tableHeaders =
+    remoteInstructionType === "sms"
+      ? [
+          "Student Name",
+          "Parent's name",
+          "Class",
+          "Mobile No.",
+          "Gender",
+          "School",
+          "District",
+          "Block",
+          "Status",
+          "Duration",
+        ]
+      : remoteInstructionType === "ivrs"
+      ? [
+          "Student Name",
+          "Parent's name",
+          "Class",
+          "Mobile No.",
+          "Gender",
+          "School",
+          "District",
+          "Block",
+          "Status",
+          "Flow Status",
+          "Duration",
+        ]
+      : [
+          "Student Name",
+          "Parent's name",
+          "Class",
+          "Mobile No.",
+          "Gender",
+          "School",
+          "District",
+          "Block",
+          "Status",
+          "Duration",
+        ];
+  const tableData = [
+    {
+      studentName: "Adarsh Kumar Mishra",
+      ParentsName: "Mishra",
+      class: "10",
+      MobileNumber: "8392098203",
+      Gender: "Male",
+      School: "JNV",
+      district: "Nayagarh",
+      block: "Nayagarh",
+      status: "sent",
+    },
+  ];
+
+  const xlData = tableData;
+  const fileName = "whatsappChatboat.csv";
+
   //todo--------------------Console logs--------------------------
-  console.log("selectedYear---->", selectedYear);
-  console.log("selectedMonth---->", selectedMonth);
-  console.log("selectedWeek---->", selectedWeek);
-  console.log(
-    "remoteInstData-------------------------------->",
-    remoteInstData
-  );
+  // console.log("selectedYear---->", selectedYear);
+  // console.log("selectedMonth---->", selectedMonth);
+  // console.log("selectedWeek---->", selectedWeek);
+  // console.log(
+  //   "remoteInstData-------------------------------->",
+  //   remoteInstData
+  // );
+  // console.log("contentTitle--------------------->", modalContentTitle);
 
   const graphData = {
     labels: ["SMS", "Automated Calls", "IVRs"],
@@ -315,7 +447,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() => handleOpen("Total no. of SMS scheduled")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of SMS scheduled",
+                    remoteInstruction: "sms",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -352,7 +489,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("Total no. of SMS delivered")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of SMS delivered",
+                    remoteInstruction: "sms",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -393,7 +535,10 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
-                  handleOpen("Total no. of SMS scheduled for Maths")
+                  handleOpen({
+                    contentTitle: "Total no. of SMS scheduled for Maths",
+                    remoteInstruction: "sms",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -433,7 +578,10 @@ const RemoteInstruction = () => {
               </div>
               <div
                 onClick={() =>
-                  handleOpen("Total no. of SMS scheduled for Odia")
+                  handleOpen({
+                    contentTitle: " Total no. of SMS scheduled for Odia",
+                    remoteInstruction: "sms",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -495,7 +643,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() => handleOpen("Total no. of calls made")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: " Total no. of calls made",
+                    remoteInstruction: "auto_calls",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -533,7 +686,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("Total no. of calls received")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of calls received",
+                    remoteInstruction: "auto_calls",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -570,7 +728,12 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("Total minutes of contents consumed")}
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: " Total minutes of contents consumed",
+                //     remoteInstruction: "auto_calls",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -609,7 +772,11 @@ const RemoteInstruction = () => {
               </div>
               <div
                 onClick={() =>
-                  handleOpen("Total no. parents listened to the full content")
+                  handleOpen({
+                    contentTitle:
+                      "Total no. parents listened to the full content",
+                    remoteInstruction: "auto_calls",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -671,7 +838,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() => handleOpen("Total no. of incoming calls")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of incoming calls",
+                    remoteInstruction: "ivrs",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -708,7 +880,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("Total no. of unique calls")}
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of unique calls",
+                    remoteInstruction: "ivrs",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -746,7 +923,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("Total minutes spent in IVRs")}
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total minutes spent in IVRs",
+                //     remoteInstruction: "ivrs",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -784,7 +966,11 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
-                  handleOpen(" Total no. parents listened to maths activity")
+                  handleOpen({
+                    contentTitle:
+                      "Total no. parents listened to maths activity",
+                    remoteInstruction: "ivrs",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -823,7 +1009,10 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
-                  handleOpen("Total no. parents listened to odia activity")
+                  handleOpen({
+                    contentTitle: "Total no. parents listened to odia activity",
+                    remoteInstruction: "ivrs",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -862,7 +1051,10 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
-                  handleOpen("Total no. of calls diverted to experts")
+                  handleOpen({
+                    contentTitle: "Total no. of calls diverted to experts",
+                    remoteInstruction: "ivrs",
+                  })
                 }
                 style={{
                   width: "255px",
@@ -911,68 +1103,15 @@ const RemoteInstruction = () => {
           >
             <Graph data={graphData} />
           </div>
-          <Modal
+          <DynamicModal
             open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 1000,
-                height: 600,
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                p: 4,
-                overflow: "scroll",
-              }}
-            >
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                {modalContentData}
-              </Typography>
-
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="center">Sl No.</TableCell>
-                      <TableCell align="center">Customer Id</TableCell>
-                      <TableCell align="center">Mobile No.</TableCell>
-                      <TableCell align="center">Class</TableCell>
-                      <TableCell align="center">Board</TableCell>
-                      <TableCell align="center">School</TableCell>
-                      <TableCell align="center">Status</TableCell>
-                      <TableCell align="center">Date</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {remoteInstData.chats &&
-                      remoteInstData.chats.map((chat, index) => (
-                        <TableRow key={index}>
-                          <TableCell align="center">{index + 1}</TableCell>
-                          <TableCell align="center">
-                            {chat.customer_id}
-                          </TableCell>
-                          <TableCell align="center">{chat.mobile}</TableCell>
-                          <TableCell align="center">{chat.class}</TableCell>
-                          <TableCell align="center">{chat.board}</TableCell>
-                          <TableCell align="center">{chat.school}</TableCell>
-                          <TableCell align="center">{chat.status}</TableCell>
-                          <TableCell align="center">
-                            {moment(chat.date).format("DD/MM/YYYY")}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </Modal>
+            handleClose={handleClose}
+            modalTitle={modalContentTitle}
+            tableHeaders={tableHeaders}
+            tableData={tableData}
+            xlData={xlData}
+            fileName={fileName}
+          />
         </div>
       ) : Object.keys(remoteInstData).length === 0 && loading === false ? (
         <div

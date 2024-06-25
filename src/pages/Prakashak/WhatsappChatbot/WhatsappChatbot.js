@@ -75,6 +75,7 @@ const WhatsappChatbot = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState(false);
+  const [modalLoader, setModalLoader] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -235,18 +236,24 @@ const WhatsappChatbot = () => {
       const response = await Api.post("getChatBotAllUsersReport", body);
 
       if (response.status === 200) {
+        setModalLoader(false);
+
         setTableData(response.data);
       } else {
+        setModalLoader(false);
+
         console.error(`Error fetching districts: Status ${response.status}`);
       }
     } catch (error) {
       console.error("Error fetching districts:", error);
     } finally {
       setLoading(false);
+      setModalLoader(false);
     }
   };
 
   const handleOpen = async () => {
+    setModalLoader(true);
     setOpen(true);
     await fetchNewuserData();
   };
@@ -263,7 +270,6 @@ const WhatsappChatbot = () => {
     "School Name",
     "District",
     "Block",
-    "Cluster",
   ];
   const xlData = tableData;
   const fileName = "Alluser.csv";
@@ -313,7 +319,6 @@ const WhatsappChatbot = () => {
     "School Name",
     "District",
     "Block",
-    "Cluster",
   ];
   const xlDatas = newusertableData;
   const fileNames = "NewUser.csv";
@@ -350,7 +355,12 @@ const WhatsappChatbot = () => {
     await fetchactiveuserDatas();
   };
 
-  const handleactiveClose = () => setactiveuserModal(false);
+  const handleactiveClose = () => {
+    setactiveuserModal(false);
+    setTableData([]);
+    setNewuserTableData([]);
+    setactiveuserTableData([]);
+  };
 
   const modalTitless = "activeUser";
   const activetableHeaders = [
@@ -362,7 +372,7 @@ const WhatsappChatbot = () => {
     "School Name",
     "District",
     "Block",
-    "Cluster",
+    ,
   ];
   const xlDatass = activeusertableData;
   const fileNamess = "NewUser.csv";
@@ -774,33 +784,36 @@ const WhatsappChatbot = () => {
           </div>
           <DynamicModal
             open={open}
-            loading={loading}
+            loading={modalLoader}
             handleClose={handleClose}
             modalTitle={modalTitle}
             tableHeaders={tableHeaders}
             tableData={tableData}
             xlData={xlData}
             fileName={fileName}
+            // loading={modalLoader}
           />
           <DynamicModal
             open={newuserModal}
-            loading={loading}
+            loading={modalLoader}
             handleClose={handlenewClose}
             modalTitle={modalTitles}
             tableHeaders={newtableHeaders}
             tableData={newusertableData}
             xlData={xlDatas}
             fileName={fileNames}
+            // loading={modalLoader}
           />
           <DynamicModal
             open={activeuserModal}
-            loading={loading}
+            loading={modalLoader}
             handleClose={handleactiveClose}
             modalTitle={modalTitless}
             tableHeaders={activetableHeaders}
             tableData={activeusertableData}
             xlData={xlDatass}
             fileName={fileNamess}
+            // loading={modalLoader}
           />
         </>
       ) : !loading && Object.keys(data).length === 0 ? (

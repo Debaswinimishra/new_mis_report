@@ -21,6 +21,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import Box from "@mui/material/Box";
 import PrakashakAPI from "../../../Environment/PrakashakAPI";
 import moment from "moment";
+import DynamicModal from "../../../Components/DynamicModal";
 const Classwise = () => {
   //?---------------Month array---------------------------
   const monthArr = [
@@ -158,15 +159,55 @@ const Classwise = () => {
     setLoading(true);
     fetchData();
   };
+
   const [open, setOpen] = useState(false);
   const [modalContentTitle, setModalContentTitle] = useState("");
   const [modalContentData, setModalContentData] = useState([]);
-  const handleOpen = () => {
+  const [tableData, setTableData] = useState([]);
+  const fetchNewuserData = async () => {
+    // setLoading(true);
+    try {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+        week: selectedWeek,
+        class: selectedClass,
+      };
+      console.log("====================================userbody", body);
+
+      const response = await PrakashakAPI.post("getAllStudentsReport", body);
+
+      if (response.status === 200) {
+        setTableData(response.data);
+      } else {
+        console.error(`Error fetching districts: Status ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleOpen = async (classNumber) => {
     setOpen(true);
-    setModalContentData([]);
-    setModalContentTitle("");
+    fetchNewuserData();
+    // setLoading(true);
   };
   const handleClose = () => setOpen(false);
+  const modalTitle = "Number Of Students";
+  const tableHeaders = [
+    "student_name",
+    "Class",
+    "gender",
+    "parents_name",
+    "parents_phone_number",
+    "school_name",
+    "district",
+    "block",
+    "cluster",
+  ];
+  const xlData = tableData;
+  const fileName = "StudentReport.csv";
   return (
     <div>
       <style>{`
@@ -1052,68 +1093,16 @@ const Classwise = () => {
               </div>
             </div>
           </div>
-          <Modal
+          <DynamicModal
             open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 1000,
-                height: 600,
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                p: 4,
-                overflow: "scroll",
-              }}
-            >
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                {modalContentData}
-              </Typography>
-
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="center">Sl No.</TableCell>
-                      <TableCell align="center">Customer Id</TableCell>
-                      <TableCell align="center">Mobile No.</TableCell>
-                      <TableCell align="center">Class</TableCell>
-                      <TableCell align="center">Board</TableCell>
-                      <TableCell align="center">School</TableCell>
-                      <TableCell align="center">Status</TableCell>
-                      <TableCell align="center">Date</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data.chats &&
-                      data.chats.map((chat, index) => (
-                        <TableRow key={index}>
-                          <TableCell align="center">{index + 1}</TableCell>
-                          <TableCell align="center">
-                            {chat.customer_id}
-                          </TableCell>
-                          <TableCell align="center">{chat.mobile}</TableCell>
-                          <TableCell align="center">{chat.class}</TableCell>
-                          <TableCell align="center">{chat.board}</TableCell>
-                          <TableCell align="center">{chat.school}</TableCell>
-                          <TableCell align="center">{chat.status}</TableCell>
-                          <TableCell align="center">
-                            {moment(chat.date).format("DD/MM/YYYY")}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </Modal>
+            loading={loading}
+            handleClose={handleClose}
+            modalTitle={modalTitle}
+            tableHeaders={tableHeaders}
+            tableData={tableData}
+            xlData={xlData}
+            fileName={fileName}
+          />
         </div>
       ) : loading === false && Object.keys(data).length === 0 ? (
         <h1>No data Available</h1>

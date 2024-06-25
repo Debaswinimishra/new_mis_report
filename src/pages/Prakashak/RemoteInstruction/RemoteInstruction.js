@@ -297,20 +297,7 @@ const RemoteInstruction = () => {
           "Status",
           "Duration",
         ];
-  const tableData = [
-    {
-      studentName: "Adarsh Kumar Mishra",
-      ParentsName: "Mishra",
-      class: "10",
-      MobileNumber: "8392098203",
-      Gender: "Male",
-      School: "JNV",
-      district: "Nayagarh",
-      block: "Nayagarh",
-      status: "sent",
-    },
-  ];
-
+        
   const xlData = modalContentData;
   const fileName = "whatsappChatboat.csv";
 

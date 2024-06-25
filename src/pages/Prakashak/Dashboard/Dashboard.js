@@ -296,15 +296,15 @@ const Dashboard = () => {
         return "New Students";
 
       case "district":
-        return "Number of districts";
+        return "Districts";
       case "block":
-        return "Number of blocks";
+        return "Blocks";
       case "clusters":
-        return "Number of Clusters";
+        return "Clusters";
       case "schools":
-        return "Number of Schools";
+        return "Schools";
       case "newSchools":
-        return "Total number of new schools";
+        return "newSchools";
 
       default:
         return "Data";
@@ -657,7 +657,7 @@ const Dashboard = () => {
   console.log("schoolsData--->", schoolsData);
 
   console.log("blocksData---->", blocksData);
-  const xlData = districtsData;
+  const xlData = tableDatas;
   const fileName = "Dashboard.csv";
   return (
     <>
@@ -1783,7 +1783,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1820,9 +1820,9 @@ const Dashboard = () => {
                 >
                   <h1>{dashboardData.total_chatbot_assess_taken}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1859,7 +1859,7 @@ const Dashboard = () => {
                 >
                   <h1>{dashboardData.chatbot_avg_mins}</h1>
                 </div>
-              </div>
+              </div> */}
 
               <div
                 onClick={() => handleOpen("chatbotActive")}
@@ -1907,8 +1907,6 @@ const Dashboard = () => {
               modalTitle={modalTitle}
               tableHeaders={tableHeaders}
               tableData={tableDatas}
-              // tableHeaders={tableHeaders}
-              // tableData={tableData}
               xlData={xlData}
               fileName={fileName}
               loading={modalLoader}

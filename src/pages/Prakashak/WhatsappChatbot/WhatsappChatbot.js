@@ -75,7 +75,6 @@ const WhatsappChatbot = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState(false);
-  const [modalLoader, setModalLoader] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -236,23 +235,20 @@ const WhatsappChatbot = () => {
       const response = await Api.post("getChatBotAllUsersReport", body);
 
       if (response.status === 200) {
-        setModalLoader(false);
-
         setTableData(response.data);
       } else {
-        setModalLoader(false);
-
         console.error(`Error fetching districts: Status ${response.status}`);
       }
     } catch (error) {
       console.error("Error fetching districts:", error);
     } finally {
       setLoading(false);
-      setModalLoader(false);
     }
   };
 
-  const handleOpen = async () => {
+  const [modalContentTitle, setModalContentTitle] = useState("");
+  const handleOpen = async (title) => {
+    setModalContentTitle(title);
     setModalLoader(true);
     setOpen(true);
     await fetchNewuserData();
@@ -270,6 +266,7 @@ const WhatsappChatbot = () => {
     "School Name",
     "District",
     "Block",
+    "Cluster",
   ];
   const xlData = tableData;
   const fileName = "Alluser.csv";
@@ -319,6 +316,7 @@ const WhatsappChatbot = () => {
     "School Name",
     "District",
     "Block",
+    "Cluster",
   ];
   const xlDatas = newusertableData;
   const fileNames = "NewUser.csv";
@@ -350,17 +348,13 @@ const WhatsappChatbot = () => {
     }
   };
 
-  const handleactiveOpen = async () => {
+  const handleactiveOpen = async (item) => {
+    setModalContentTitle(item);
     setactiveuserModal(true);
     await fetchactiveuserDatas();
   };
 
-  const handleactiveClose = () => {
-    setactiveuserModal(false);
-    setTableData([]);
-    setNewuserTableData([]);
-    setactiveuserTableData([]);
-  };
+  const handleactiveClose = () => setactiveuserModal(false);
 
   const modalTitless = "activeUser";
   const activetableHeaders = [
@@ -368,11 +362,12 @@ const WhatsappChatbot = () => {
     "Class",
     "Gender",
     "Parents Name",
-    "Parents Phone Number",
+    // "Parents Phone Number",
     "School Name",
     "District",
     "Block",
-    ,
+    "Cluster",
+    "Parents Phone Number",
   ];
   const xlDatass = activeusertableData;
   const fileNamess = "NewUser.csv";
@@ -498,7 +493,7 @@ const WhatsappChatbot = () => {
                 <div
                   className="card"
                   // onClick={() => handleUserOpen()}
-                  onClick={() => handleOpen()}
+                  onClick={() => handleOpen("Total No. of Users")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -538,7 +533,7 @@ const WhatsappChatbot = () => {
                 <div
                   className="card"
                   // onClick={handleOpen}
-                  onClick={() => handlenewOpen()}
+                  onClick={() => handleOpen("Total No. of New Users")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -577,7 +572,7 @@ const WhatsappChatbot = () => {
                 </div>
                 <div
                   className="card"
-                  onClick={() => handleactiveOpen()}
+                  onClick={() => handleactiveOpen("Total No. of Active Users")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -730,8 +725,6 @@ const WhatsappChatbot = () => {
                 </div>
                 <div
                   className="card"
-                  // onClick={handleOpen}
-                  // onClick={() => handleOpen(" Average Minutes Spent")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -784,36 +777,33 @@ const WhatsappChatbot = () => {
           </div>
           <DynamicModal
             open={open}
-            loading={modalLoader}
+            loading={loading}
             handleClose={handleClose}
-            modalTitle={modalTitle}
+            modalTitle={modalContentTitle}
             tableHeaders={tableHeaders}
             tableData={tableData}
             xlData={xlData}
             fileName={fileName}
-            // loading={modalLoader}
           />
           <DynamicModal
             open={newuserModal}
-            loading={modalLoader}
+            loading={loading}
             handleClose={handlenewClose}
-            modalTitle={modalTitles}
+            modalTitle={modalContentTitle}
             tableHeaders={newtableHeaders}
             tableData={newusertableData}
             xlData={xlDatas}
             fileName={fileNames}
-            // loading={modalLoader}
           />
           <DynamicModal
             open={activeuserModal}
-            loading={modalLoader}
+            loading={loading}
             handleClose={handleactiveClose}
-            modalTitle={modalTitless}
+            modalTitle={modalContentTitle}
             tableHeaders={activetableHeaders}
             tableData={activeusertableData}
             xlData={xlDatass}
             fileName={fileNamess}
-            // loading={modalLoader}
           />
         </>
       ) : !loading && Object.keys(data).length === 0 ? (

@@ -72,6 +72,7 @@ const RemoteInstruction = () => {
   const [modalContentData, setModalContentData] = useState([]);
   const [modalContentTitle, setModalContentTitle] = useState("");
   const [remoteInstructionType, setRemoteInstructionType] = useState("");
+  const [modalLoader,setModalLoader]=useState(false)
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -207,6 +208,7 @@ const RemoteInstruction = () => {
               "response status while getting report data--------->",
               res.status
             );
+            setModalContentData([]);
           }
         })
         .catch((error) => {
@@ -225,6 +227,7 @@ const RemoteInstruction = () => {
               "response status while getting report data--------->",
               res.status
             );
+            setModalContentData([]);
           }
         })
         .catch((error) => {
@@ -243,6 +246,7 @@ const RemoteInstruction = () => {
               "response status while getting report data--------->",
               res.status
             );
+            setModalContentData([]);
           }
         })
         .catch((error) => {
@@ -254,7 +258,10 @@ const RemoteInstruction = () => {
     }
   };
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setModalContentData([]);
+  };
 
   const tableHeaders =
     remoteInstructionType === "sms"
@@ -297,7 +304,7 @@ const RemoteInstruction = () => {
           "Status",
           "Duration",
         ];
-        
+
   const xlData = modalContentData;
   const fileName = "whatsappChatboat.csv";
 

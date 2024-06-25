@@ -222,47 +222,20 @@ const WhatsappChatbot = () => {
   // const [modalContentTitle, setModalContentTitle] = useState("");
   // const [modalContentData, setModalContentData] = useState([]);
 
-  // // Function to handle modal opening
-  // // const handleOpen = async (contentTitle) => {
-  // //   setModalContentTitle(contentTitle);
-  // //   setLoading(true);
+  const [open, setOpen] = useState(false);
 
-  // //   try {
-  // //     const response = await Api.get(`getDataFor${contentTitle}`);
-  // //     setModalContentData(response.data);
-  // //   } catch (error) {
-  // //     console.error("Error fetching modal data:", error);
-  // //   } finally {
-  // //     setLoading(false);
-  // //   }
-  // // };
+  const [tableData, setTableData] = useState([]);
 
-  // // // Function to handle modal closing
-  // // const handleClose = () => {
-  // //   setModalContentTitle("");
-  // //   setModalContentData([]);
-  // // };
-
-  // const handleClose = () => setOpen(false);
-  const [datas, setDatas] = useState([]);
-  const [error, setError] = useState(null);
-
-  const fetchDatas = async () => {
-    setLoading(true);
+  const fetchNewuserData = async () => {
     try {
       const body = {
         year: selectedYear,
-        month: selectedMonth,
-        week: selectedWeek,
       };
 
-      const response = await PrakashakAPI.post(
-        "getChatBotActiveUsersReport",
-        body
-      );
+      const response = await Api.post("getChatBotAllUsersReport", body);
 
       if (response.status === 200) {
-        setDatas(response.data);
+        setTableData(response.data);
       } else {
         console.error(`Error fetching districts: Status ${response.status}`);
       }
@@ -273,67 +246,46 @@ const WhatsappChatbot = () => {
     }
   };
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => {
+  const handleOpen = async () => {
     setOpen(true);
-    fetchDatas();
-    // setModalContentData([]);
-    // setModalContentTitle("");
-  };
-  const handleClose = () => {
-    setOpen(false);
-    setnewUserOpen(false);
+    await fetchNewuserData();
   };
 
-  const modalTitle = "Your Modal Title";
+  const handleClose = () => setOpen(false);
+
+  const modalTitle = "Alluser";
   const tableHeaders = [
     "Student Name",
     "Class",
     "Gender",
     "Parents Name",
+    "Parents Phone Number",
     "School Name",
     "District",
     "Block",
     "Cluster",
-    "Contact",
-  ];
-  const tableData = [
-    {
-      student_name: datas.student_name,
-      class: datas.class,
-      gender: datas.gender,
-      parents_name: datas.parents_name,
-      school_name: datas.school_name,
-      district: datas.district,
-      block: datas.block,
-      cluster: datas.cluster,
-      contact: datas.contact,
-    },
   ];
   const xlData = tableData;
-  const fileName = "ActiveUsersReport.csv";
+  const fileName = "Alluser.csv";
 
-  const [userOpen, setUserOpen] = useState(false);
-  const [userData, setuserData] = useState([]);
-  console.log(userData, "response.data.districtsArr");
-  const fetchUserData = async () => {
-    // setLoading(true);
+  // New User---------------------------------------------
+
+  const [newuserModal, setNewuserModal] = useState(false);
+
+  const [newusertableData, setNewuserTableData] = useState([]);
+
+  const fetchNewuserDatas = async () => {
     try {
       const body = {
         year: selectedYear,
         month: selectedMonth,
         week: selectedWeek,
       };
-      console.log("====================================userbody", body);
 
-      const response = await PrakashakAPI.post(
-        "getChatBotAllUsersReport",
-        body
-      );
+      const response = await Api.post("getChatBotAllUsersReport", body);
 
       if (response.status === 200) {
-        setuserData(response.data); // Assuming response structure
-        console.table(response.data, "response.data.districtsArr");
+        setNewuserTableData(response.data);
       } else {
         console.error(`Error fetching districts: Status ${response.status}`);
       }
@@ -343,61 +295,46 @@ const WhatsappChatbot = () => {
       setLoading(false);
     }
   };
-  const handleUserOpen = () => {
-    setUserOpen(true);
-    fetchUserData();
-  };
-  const handleUserClose = () => setUserOpen(false);
 
-  const usermodalTitle = "All User ";
-  const usertableHeaders = [
+  const handlenewOpen = async () => {
+    setNewuserModal(true);
+    await fetchNewuserDatas();
+  };
+
+  const handlenewClose = () => setNewuserModal(false);
+
+  const modalTitles = "NewUser";
+  const newtableHeaders = [
     "Student Name",
     "Class",
     "Gender",
     "Parents Name",
+    "Parents Phone Number",
     "School Name",
     "District",
     "Block",
     "Cluster",
-    "Contact",
   ];
-  const usertableData = [
-    {
-      student_name: datas.student_name,
-      class: datas.class,
-      gender: datas.gender,
-      parents_name: datas.parents_name,
-      school_name: datas.school_name,
-      district: datas.district,
-      block: datas.block,
-      cluster: datas.cluster,
-      contact: datas.contact,
-    },
-  ];
-  const userxlData = usertableData;
-  const userfileName = "Alluser.csv";
+  const xlDatas = newusertableData;
+  const fileNames = "NewUser.csv";
+  // ------------------------ Active User --------------------------------------
 
-  const [newuserOpen, setnewUserOpen] = useState(false);
-  const [newuserData, setnewuserData] = useState([]);
-  console.log(userData, "response.data.districtsArr");
-  const fetchNewuserData = async () => {
-    // setLoading(true);
+  const [activeuserModal, setactiveuserModal] = useState(false);
+
+  const [activeusertableData, setactiveuserTableData] = useState([]);
+
+  const fetchactiveuserDatas = async () => {
     try {
       const body = {
         year: selectedYear,
         month: selectedMonth,
         week: selectedWeek,
       };
-      console.log("====================================userbody", body);
 
-      const response = await PrakashakAPI.post(
-        "getChatBotAllUsersReport",
-        body
-      );
+      const response = await Api.post("getChatBotActiveUsersReport", body);
 
       if (response.status === 200) {
-        setuserData(response.data); // Assuming response structure
-        console.table(response.data, "response.data.districtsArr");
+        setactiveuserTableData(response.data);
       } else {
         console.error(`Error fetching districts: Status ${response.status}`);
       }
@@ -407,39 +344,28 @@ const WhatsappChatbot = () => {
       setLoading(false);
     }
   };
-  const handlenewUserOpen = () => {
-    setnewUserOpen(true);
-    fetchNewuserData();
-  };
-  const handlenewUserClose = () => setnewUserOpen(false);
 
-  const newusermodalTitle = "New User ";
-  const newusertableHeaders = [
+  const handleactiveOpen = async () => {
+    setactiveuserModal(true);
+    await fetchactiveuserDatas();
+  };
+
+  const handleactiveClose = () => setactiveuserModal(false);
+
+  const modalTitless = "activeUser";
+  const activetableHeaders = [
     "Student Name",
     "Class",
     "Gender",
     "Parents Name",
+    "Parents Phone Number",
     "School Name",
     "District",
     "Block",
     "Cluster",
-    "Contact",
   ];
-  const newusertableData = [
-    {
-      student_name: datas.student_name,
-      class: datas.class,
-      gender: datas.gender,
-      parents_name: datas.parents_name,
-      school_name: datas.school_name,
-      district: datas.district,
-      block: datas.block,
-      cluster: datas.cluster,
-      contact: datas.contact,
-    },
-  ];
-  const newuserxlData = usertableData;
-  const newuserfileName = "Newuser.csv";
+  const xlDatass = activeusertableData;
+  const fileNamess = "NewUser.csv";
 
   return (
     <div>
@@ -561,8 +487,8 @@ const WhatsappChatbot = () => {
               >
                 <div
                   className="card"
-                  onClick={() => handleUserOpen(" Total No. of Users")}
-                  // onClick={handleOpen}
+                  // onClick={() => handleUserOpen()}
+                  onClick={() => handleOpen()}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -602,7 +528,7 @@ const WhatsappChatbot = () => {
                 <div
                   className="card"
                   // onClick={handleOpen}
-                  onClick={() => handlenewUserOpen(" Total No. of New Users")}
+                  onClick={() => handlenewOpen()}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -641,7 +567,7 @@ const WhatsappChatbot = () => {
                 </div>
                 <div
                   className="card"
-                  onClick={() => handleOpen(" Total No. of Active Users")}
+                  onClick={() => handleactiveOpen()}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -848,6 +774,7 @@ const WhatsappChatbot = () => {
           </div>
           <DynamicModal
             open={open}
+            loading={loading}
             handleClose={handleClose}
             modalTitle={modalTitle}
             tableHeaders={tableHeaders}
@@ -855,25 +782,25 @@ const WhatsappChatbot = () => {
             xlData={xlData}
             fileName={fileName}
           />
-          {/* all user modal */}
           <DynamicModal
-            open={userOpen}
-            handleClose={handleUserClose}
-            modalTitle={usermodalTitle}
-            tableHeaders={usertableHeaders}
-            tableData={usertableData}
-            xlData={userxlData}
-            fileName={userfileName}
-          />
-          {/* newuser */}
-          <DynamicModal
-            open={newuserOpen}
-            handleClose={handleClose}
-            modalTitle={newusermodalTitle}
-            tableHeaders={newusertableHeaders}
+            open={newuserModal}
+            loading={loading}
+            handleClose={handlenewClose}
+            modalTitle={modalTitles}
+            tableHeaders={newtableHeaders}
             tableData={newusertableData}
-            xlData={newuserxlData}
-            fileName={newuserfileName}
+            xlData={xlDatas}
+            fileName={fileNames}
+          />
+          <DynamicModal
+            open={activeuserModal}
+            loading={loading}
+            handleClose={handleactiveClose}
+            modalTitle={modalTitless}
+            tableHeaders={activetableHeaders}
+            tableData={activeusertableData}
+            xlData={xlDatass}
+            fileName={fileNamess}
           />
         </>
       ) : !loading && Object.keys(data).length === 0 ? (

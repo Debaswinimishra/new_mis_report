@@ -113,11 +113,11 @@ function NavigationFellow(props) {
     //   link: "student_progress_report",
     //   icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
     // },
-    // {
-    //   text: "Online Report",
-    //   link: "online_report",
-    //   icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
-    // },
+    {
+      text: "Online Report",
+      link: "online_report",
+      icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
+    },
     {
       text: "Log out",
       link: "/",

@@ -422,7 +422,7 @@ const Classwise = () => {
   };
 
   const handleClose = () => setOpen(false);
-  const xlData = tableData;
+  const xlData = tableDatas;
   const fileName = "StudentReport.csv";
   return (
     <div>

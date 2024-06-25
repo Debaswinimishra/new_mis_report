@@ -13,6 +13,10 @@ import {
   TableBody,
   Button,
   CircularProgress,
+  Modal,
+  Typography,
+  TableContainer,
+  Paper,
 } from "@mui/material";
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
@@ -63,6 +67,8 @@ const RemoteInstruction = () => {
   const [selectedWeek, setSelectedWeek] = useState("");
   const [remoteInstData, setRemoteInstData] = useState({});
   const [loading, setLoading] = useState();
+  const [open, setOpen] = useState(false);
+  const [modalContentData, setModalContentData] = useState([]);
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -168,6 +174,14 @@ const RemoteInstruction = () => {
         console.log(`The error is---> ${err}`);
       });
   };
+
+  const handleOpen = () => {
+    setOpen(true);
+    setModalContentData([]);
+    // setModalContentTitle("");   If the title is passed
+  };
+
+  const handleClose = () => setOpen(false);
 
   //todo--------------------Console logs--------------------------
   console.log("selectedYear---->", selectedYear);
@@ -301,6 +315,7 @@ const RemoteInstruction = () => {
               }}
             >
               <div
+                onClick={() => handleOpen("Total no. of SMS scheduled")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -337,6 +352,7 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() => handleOpen("Total no. of SMS delivered")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -374,7 +390,11 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_sms_delivered}</h1>
                 </div>
               </div>
+
               <div
+                onClick={() =>
+                  handleOpen("Total no. of SMS scheduled for Maths")
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -412,6 +432,9 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
+                onClick={() =>
+                  handleOpen("Total no. of SMS scheduled for Odia")
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -472,6 +495,7 @@ const RemoteInstruction = () => {
               }}
             >
               <div
+                onClick={() => handleOpen("Total no. of calls made")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -509,6 +533,7 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() => handleOpen("Total no. of calls received")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -545,6 +570,7 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen("Total minutes of contents consumed")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -582,6 +608,9 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
+                onClick={() =>
+                  handleOpen("Total no. parents listened to the full content")
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -642,6 +671,7 @@ const RemoteInstruction = () => {
               }}
             >
               <div
+                onClick={() => handleOpen("Total no. of incoming calls")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -678,6 +708,7 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() => handleOpen("Total no. of unique calls")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -713,7 +744,9 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_unique_ivrs_calls_received}</h1>
                 </div>
               </div>
+
               <div
+                onClick={() => handleOpen("Total minutes spent in IVRs")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -748,7 +781,11 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_ivrs_calls_mins}</h1>
                 </div>
               </div>
+
               <div
+                onClick={() =>
+                  handleOpen(" Total no. parents listened to maths activity")
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -785,6 +822,9 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() =>
+                  handleOpen("Total no. parents listened to odia activity")
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -821,6 +861,9 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() =>
+                  handleOpen("Total no. of calls diverted to experts")
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -868,6 +911,68 @@ const RemoteInstruction = () => {
           >
             <Graph data={graphData} />
           </div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 1000,
+                height: 600,
+                bgcolor: "background.paper",
+                border: "2px solid #000",
+                boxShadow: 24,
+                p: 4,
+                overflow: "scroll",
+              }}
+            >
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                {modalContentData}
+              </Typography>
+
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center">Sl No.</TableCell>
+                      <TableCell align="center">Customer Id</TableCell>
+                      <TableCell align="center">Mobile No.</TableCell>
+                      <TableCell align="center">Class</TableCell>
+                      <TableCell align="center">Board</TableCell>
+                      <TableCell align="center">School</TableCell>
+                      <TableCell align="center">Status</TableCell>
+                      <TableCell align="center">Date</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {remoteInstData.chats &&
+                      remoteInstData.chats.map((chat, index) => (
+                        <TableRow key={index}>
+                          <TableCell align="center">{index + 1}</TableCell>
+                          <TableCell align="center">
+                            {chat.customer_id}
+                          </TableCell>
+                          <TableCell align="center">{chat.mobile}</TableCell>
+                          <TableCell align="center">{chat.class}</TableCell>
+                          <TableCell align="center">{chat.board}</TableCell>
+                          <TableCell align="center">{chat.school}</TableCell>
+                          <TableCell align="center">{chat.status}</TableCell>
+                          <TableCell align="center">
+                            {moment(chat.date).format("DD/MM/YYYY")}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+          </Modal>
         </div>
       ) : Object.keys(remoteInstData).length === 0 && loading === false ? (
         <div

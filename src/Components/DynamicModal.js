@@ -27,7 +27,7 @@ const DynamicModal = ({
   fileName,
 }) => {
   const [page, setPage] = useState(0);
-  const rowsPerPage = 100;
+  const rowsPerPage = 15;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -40,20 +40,20 @@ const DynamicModal = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-     <Box
+      <Box
         sx={{
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 1000,
+          width: 1300,
           height: 600,
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
           borderRadius: 2,
           p: 4,
-          overflow: "scroll",
+          overflowX: "scroll",
           "&::-webkit-scrollbar": {
             width: 0, // Remove the scrollbar
             height: 0,
@@ -99,8 +99,12 @@ const DynamicModal = ({
                 <TableHead>
                   <TableRow>
                     {tableHeaders.map((header, index) => (
-                      <TableCell align="center" key={index}>
-                        {header}
+                      <TableCell
+                        align="center"
+                        key={index}
+                        style={{ fontSize: "17px" }}
+                      >
+                        <b>{header}</b>
                       </TableCell>
                     ))}
                   </TableRow>

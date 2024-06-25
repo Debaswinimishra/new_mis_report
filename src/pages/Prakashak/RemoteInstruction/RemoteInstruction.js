@@ -181,7 +181,6 @@ const RemoteInstruction = () => {
   const handleOpen = ({ contentTitle, remoteInstruction }) => {
     setRemoteInstructionType(remoteInstruction);
     setOpen(true);
-    setModalContentData([]);
     setModalContentTitle(contentTitle);
     const body = selectedWeek
       ? {
@@ -287,13 +286,14 @@ const RemoteInstruction = () => {
         ]
       : [
           "Student Name",
-          "Parent's name",
           "Class",
-          "Mobile No.",
           "Gender",
+          "Parent's name",
           "School",
           "District",
           "Block",
+          "Cluster",
+          "Mobile No.",
           "Status",
           "Duration",
         ];
@@ -311,7 +311,7 @@ const RemoteInstruction = () => {
     },
   ];
 
-  const xlData = tableData;
+  const xlData = modalContentData;
   const fileName = "whatsappChatboat.csv";
 
   //todo--------------------Console logs--------------------------
@@ -323,6 +323,7 @@ const RemoteInstruction = () => {
   //   remoteInstData
   // );
   // console.log("contentTitle--------------------->", modalContentTitle);
+  console.log("modalContentData------------------->", modalContentData);
 
   const graphData = {
     labels: ["SMS", "Automated Calls", "IVRs"],
@@ -1108,7 +1109,7 @@ const RemoteInstruction = () => {
             handleClose={handleClose}
             modalTitle={modalContentTitle}
             tableHeaders={tableHeaders}
-            tableData={tableData}
+            tableData={modalContentData}
             xlData={xlData}
             fileName={fileName}
           />

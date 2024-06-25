@@ -1000,7 +1000,7 @@ const Classwise = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1140,7 +1140,7 @@ const Classwise = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("")}
+                onClick={() => handleOpen("chatbotActive")}
                 style={{
                   width: "255px",
                   height: "180px",

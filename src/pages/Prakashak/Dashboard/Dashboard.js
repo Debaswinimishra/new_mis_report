@@ -65,6 +65,7 @@ const Dashboard = () => {
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
+  const [tableData, setTableData] = useState([]);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -158,12 +159,13 @@ const Dashboard = () => {
     }
   };
   const [districsArray, setDistrictArr] = useState([]);
+  const [blocksArr, setBlocksArr] = useState([]);
   console.log(
     "====================================districsArray",
     districsArray
   );
-  console.log();
-  console.log("====================================");
+
+  console.log("====================================", blocksArr);
   const fetchData = () => {
     setLoading(true);
 
@@ -232,73 +234,10 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
   }, [selectedYear, selectedMonth, selectedWeek]);
-  // useEffect(() => {
-  //   setLoading(true);
-  //   if (!selectedMonth && !selectedWeek) {
-  //     const body = {
-  //       year: parseInt(selectedYear),
-  //     };
-  //     console.log("body---------------->", body);
-  //     PrakashakAPI.post(`getDashboardReport`, body)
-  //       .then((res) => {
-  //         if (res.status === 200) {
-  //           setDashboardData(res.data);
-  //           setLoading(false);
-  //         } else {
-  //           setLoading(false);
-  //           console.log("status code-----", res.status);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(`The Error is-----> ${err}`);
-  //         setLoading(false);
-  //       });
-  //   } else if (selectedMonth && !selectedWeek) {
-  //     const body = {
-  //       year: parseInt(selectedYear),
-  //       month: parseInt(selectedMonth),
-  //     };
-  //     console.log("body---------------->", body);
-  //     PrakashakAPI.post(`getAllDistricts`, body)
-  //       .then((res) => {
-  //         if (res.status === 200) {
-  //           setDistrictArr(res.data);
-  //           // setDashboardData(res.data);
-  //           setLoading(false);
-  //         } else {
-  //           setLoading(false);
-  //           console.log("status code-----", res.status);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(`The Error is-----> ${err}`);
-  //         setLoading(false);
-  //       });
-  //   } else {
-  //     const body = {
-  //       year: parseInt(selectedYear),
-  //       month: parseInt(selectedMonth),
-  //       week: parseInt(selectedWeek),
-  //     };
-  //     console.log("body---------------->", body);
-  //     PrakashakAPI.post(`getDashboardReport`, body)
-  //       .then((res) => {
-  //         if (res.status === 200) {
-  //           setDashboardData(res.data);
-  //           setLoading(false);
-  //         } else {
-  //           setLoading(false);
-  //           console.log("status code-----", res.status);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(`The Error is-----> ${err}`);
-  //         setLoading(false);
-  //       });
-  //   }
-  // }, []);
 
   //todo----------------------Console logs---------------------------
+  const [tableDatas, setTableDatas] = useState([]);
+  console.log("tableHeaders----->", tableDatas);
   const fetchDatas = async () => {
     setLoading(true);
     try {
@@ -310,10 +249,14 @@ const Dashboard = () => {
 
       const response = await PrakashakAPI.post("getAllDistricts", body);
 
+      const response2 = await PrakashakAPI.post("getAllBlocks", body);
+
       if (response.status === 200) {
-        // Assuming response.data is like { districtsArr: ["PURI"] }
-        setDistrictArr(response.data[0].districtsArr); // Assuming response structure
-        console.table(response.data.districtsArr, "response.data.districtsArr");
+        setDistrictArr(response.data[0].districtsArr);
+      }
+      if (response2.status === 200) {
+        console.log(response2.data[0], "response.data---------->");
+        setBlocksArr(response2.data[0]?.blocks);
       } else {
         console.error(`Error fetching districts: Status ${response.status}`);
       }
@@ -325,13 +268,15 @@ const Dashboard = () => {
   };
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
-    // console.log(
-    //   "====================================dst",
-    //   districsArray.districtsArr
-    // );
-    console.log();
-    console.log("====================================", setDistrictArr());
+  const handleOpen = (type) => {
+    console.log("type------->", type);
+    if (type === "district") {
+      setTableDatas(districtsData);
+      setTableData(districtsData);
+    }
+    if (type === "block") {
+      setTableDatas(blocksData);
+    }
     setOpen(true);
     fetchDatas();
   };
@@ -339,11 +284,20 @@ const Dashboard = () => {
 
   const modalTitle = "districts";
   const districtsArr = ["Districts"];
+  const blocksArray = ["Blocks"];
   const districtsData = [
     {
       districts: districsArray,
     },
   ];
+
+  const blocksData = [
+    {
+      blocks: blocksArr,
+    },
+  ];
+
+  console.log("blocksData---->", blocksData);
   const xlData = districtsData;
   const fileName = "Dashboard.csv";
   return (
@@ -457,7 +411,7 @@ const Dashboard = () => {
               }}
             >
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("district")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -497,7 +451,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("block")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1556,7 +1510,9 @@ const Dashboard = () => {
               handleClose={handleClose}
               modalTitle={modalTitle}
               tableHeaders={districtsArr}
-              tableData={districtsData}
+              tableData={tableDatas}
+              // tableHeaders={tableHeaders}
+              // tableData={tableData}
               xlData={xlData}
               fileName={fileName}
             />

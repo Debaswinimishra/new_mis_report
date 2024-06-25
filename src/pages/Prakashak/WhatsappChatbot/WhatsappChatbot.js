@@ -252,7 +252,9 @@ const WhatsappChatbot = () => {
     }
   };
 
-  const handleOpen = async () => {
+  const [modalContentTitle, setModalContentTitle] = useState("");
+  const handleOpen = async (title) => {
+    setModalContentTitle(title);
     setModalLoader(true);
     setOpen(true);
     await fetchNewuserData();
@@ -350,7 +352,8 @@ const WhatsappChatbot = () => {
     }
   };
 
-  const handleactiveOpen = async () => {
+  const handleactiveOpen = async (item) => {
+    setModalContentTitle(item);
     setactiveuserModal(true);
     await fetchactiveuserDatas();
   };
@@ -498,7 +501,7 @@ const WhatsappChatbot = () => {
                 <div
                   className="card"
                   // onClick={() => handleUserOpen()}
-                  onClick={() => handleOpen()}
+                  onClick={() => handleOpen("Total No. of Users")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -538,7 +541,7 @@ const WhatsappChatbot = () => {
                 <div
                   className="card"
                   // onClick={handleOpen}
-                  onClick={() => handlenewOpen()}
+                  onClick={() => handleOpen("Total No. of New Users")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -577,7 +580,7 @@ const WhatsappChatbot = () => {
                 </div>
                 <div
                   className="card"
-                  onClick={() => handleactiveOpen()}
+                  onClick={() => handleactiveOpen("Total No. of Active Users")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -786,7 +789,7 @@ const WhatsappChatbot = () => {
             open={open}
             loading={modalLoader}
             handleClose={handleClose}
-            modalTitle={modalTitle}
+            modalTitle={modalContentTitle}
             tableHeaders={tableHeaders}
             tableData={tableData}
             xlData={xlData}
@@ -797,7 +800,7 @@ const WhatsappChatbot = () => {
             open={newuserModal}
             loading={modalLoader}
             handleClose={handlenewClose}
-            modalTitle={modalTitles}
+            modalTitle={modalContentTitle}
             tableHeaders={newtableHeaders}
             tableData={newusertableData}
             xlData={xlDatas}
@@ -808,7 +811,7 @@ const WhatsappChatbot = () => {
             open={activeuserModal}
             loading={modalLoader}
             handleClose={handleactiveClose}
-            modalTitle={modalTitless}
+            modalTitle={modalContentTitle}
             tableHeaders={activetableHeaders}
             tableData={activeusertableData}
             xlData={xlDatass}

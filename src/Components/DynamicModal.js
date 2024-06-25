@@ -32,11 +32,6 @@ const DynamicModal = ({
   const [page, setPage] = useState(0);
   const rowsPerPage = 15;
 
-  useEffect(() => {
-    console.log("Table Headers:", tableHeaders);
-    console.log("Table Data:", tableData);
-  }, [tableHeaders, tableData]);
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -126,9 +121,11 @@ const DynamicModal = ({
                       )
                       .map((row, rowIndex) => (
                         <TableRow key={rowIndex}>
-                          {tableHeaders.map((header, cellIndex) => (
+                          {Object.keys(row).map((key, cellIndex) => (
                             <TableCell align="center" key={cellIndex}>
-                              {row[header.toLowerCase().replace(/ /g, "_")]}
+                              {key === "date"
+                                ? moment(row[key]).format("DD/MM/YYYY")
+                                : row[key]}
                             </TableCell>
                           ))}
                         </TableRow>

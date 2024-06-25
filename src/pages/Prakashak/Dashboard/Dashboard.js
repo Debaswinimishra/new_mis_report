@@ -1560,7 +1560,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("activeUsers")}
                 style={{
                   width: "255px",
                   height: "180px",

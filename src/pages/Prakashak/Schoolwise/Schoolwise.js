@@ -32,7 +32,7 @@ import SelectYear from "../../../ReusableComponents/SelectYear";
 const Schoolwise = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  const [year, setYear] = useState("2024");
+  // const [year, setYear] = useState("2024");
   const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
@@ -60,7 +60,7 @@ const Schoolwise = () => {
     "cluster",
   ];
   const xlData = tableData;
-  const fileName = "whatsappChatboat.csv";
+  const fileName = "SchoolwiseReport.csv";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,9 +80,9 @@ const Schoolwise = () => {
     return () => {};
   }, []);
 
-  const handleYearChange = (e) => {
-    setYear(e.target.value);
-  };
+  // const handleYearChange = (e) => {
+  //   setYear(e.target.value);
+  // };
 
   const handleDistrictChange = (e) => {
     setDistricts(e.target.value);
@@ -235,7 +235,7 @@ const Schoolwise = () => {
     setLoading(true);
 
     const body = {
-      year: 2024,
+      // year: 2024,
       ...(classNumber && { class: classNumber }),
       ...(districts && { district: districts }),
       ...(blocks && { block: blocks }),
@@ -294,7 +294,7 @@ const Schoolwise = () => {
           flexWrap: "wrap",
         }}
       >
-        <SelectYear Year={year} handleYearChange={handleYearChange} />
+        {/* <SelectYear Year={year} handleYearChange={handleYearChange} /> */}
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="district-label">District</InputLabel>
           <Select
@@ -368,26 +368,26 @@ const Schoolwise = () => {
             ))}
           </Select>
         </FormControl>
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "flex-end",
             width: "100%",
           }}
+        > */}
+        <Button
+          variant="contained"
+          sx={{
+            height: "40px",
+            width: "120px",
+            marginTop: "1.2%",
+            marginRight: "5.9%",
+          }}
+          onClick={filterButtonClick}
         >
-          <Button
-            variant="contained"
-            sx={{
-              height: "40px",
-              width: "120px",
-              marginTop: "1.2%",
-              marginRight: "5.9%",
-            }}
-            onClick={filterButtonClick}
-          >
-            Filter
-          </Button>
-        </Box>
+          Filter
+        </Button>
+        {/* </Box> */}
       </div>
 
       {/* ---------------------------- content --------------------- */}
@@ -524,7 +524,7 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#6A5ACD",
+                    color: "rgb(153 58 134)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
@@ -536,7 +536,7 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#6A5ACD",
+                    backgroundColor: "rgb(153 58 134)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -758,7 +758,45 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#6A5ACD",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Parents Spent 0-1 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
@@ -770,7 +808,7 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#6A5ACD",
+                    backgroundColor: "rgb(214 148 16)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -1324,6 +1362,7 @@ const Schoolwise = () => {
               </div>
 
               <div
+                onClick={() => handleOpen()}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1363,6 +1402,7 @@ const Schoolwise = () => {
               </div>
 
               <div
+                onClick={() => handleOpen()}
                 style={{
                   width: "255px",
                   height: "180px",

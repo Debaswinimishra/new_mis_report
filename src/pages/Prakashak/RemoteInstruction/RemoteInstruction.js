@@ -775,7 +775,7 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_calls_mins}</h1>
                 </div>
               </div>
-              <div
+              {/* <div
                 onClick={() =>
                   handleOpen({
                     contentTitle:
@@ -816,7 +816,7 @@ const RemoteInstruction = () => {
                 >
                   <h1>{remoteInstData.calls_parents_listen_full_content}</h1>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

@@ -66,6 +66,7 @@ const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
   const [tableData, setTableData] = useState([]);
+  const [modalLoader, setModalLoader] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -265,8 +266,9 @@ const Dashboard = () => {
   let body;
   const [tableHeaders, setTableHeaders] = useState([]);
   const fetchDatas = async (type) => {
+    setModalLoader(true);
     console.log("type--->", type);
-    setLoading(true);
+    // setLoading(true);
     try {
       let body = {
         year: selectedYear,
@@ -290,6 +292,7 @@ const Dashboard = () => {
           transformedData = response.data[0].districtsArr.map((district) => ({
             district: district,
           }));
+          setModalLoader(false);
 
           setTableHeaders(["District"]);
         }
@@ -299,6 +302,7 @@ const Dashboard = () => {
           transformedData = response.data[0]?.blocks.map((block) => ({
             block: block,
           }));
+          setModalLoader(false);
           setTableHeaders(["Block"]);
         }
       } else if (type === "clusters") {
@@ -307,6 +311,7 @@ const Dashboard = () => {
           transformedData = response.data[0]?.clusters.map((cluster) => ({
             cluster: cluster,
           }));
+          setModalLoader(false);
           setTableHeaders(["Cluster"]);
         }
       } else if (type === "schools") {
@@ -316,7 +321,7 @@ const Dashboard = () => {
             school_name: school.school_name,
             udise_code: school.udise_code,
           }));
-
+          setModalLoader(false);
           setTableHeaders(["School Name", "UDISE Code"]);
         }
       } else if (type === "students" || type === "girls" || type === "boys") {
@@ -334,6 +339,7 @@ const Dashboard = () => {
             block: student.block,
             cluster: student.cluster,
           }));
+          setModalLoader(false);
           setTableHeaders([
             "Student Name",
             "Class",
@@ -350,6 +356,7 @@ const Dashboard = () => {
         response = await PrakashakAPI.post("getDeliveredSmsReport", body);
         if (response.status === 200) {
           setTableDatas(response.data);
+          setModalLoader(false);
           setTableHeaders(["SMS"]);
         }
       } else if (type === "calls") {
@@ -381,6 +388,7 @@ const Dashboard = () => {
             "Phone",
             "Duration",
           ]);
+          setModalLoader(false);
         }
       } else if (type === "receivedAutocalls") {
         response = await PrakashakAPI.post("getReceivedAutoCallsReport", body);
@@ -411,6 +419,7 @@ const Dashboard = () => {
             "Phone",
             "Duration",
           ]);
+          setModalLoader(false);
         }
       } else if (type === "uniqueIvrs") {
         response = await PrakashakAPI.post("getUniqueIvrsReport", body);
@@ -441,6 +450,7 @@ const Dashboard = () => {
             "Phone",
             "Duration",
           ]);
+          setModalLoader(false);
         }
       } else if (type === "receivedIvrs") {
         response = await PrakashakAPI.post("getReceivedIvrsReport", body);
@@ -470,6 +480,7 @@ const Dashboard = () => {
           "Phone",
           "Duration",
         ]);
+        setModalLoader(false);
       } else if (type === "video") {
         response = await PrakashakAPI.post(
           "getChatBotVideosWatchedReport",
@@ -477,6 +488,7 @@ const Dashboard = () => {
         );
         if (response.status === 200) {
           setTableDatas(response.data);
+          setModalLoader(false);
           setTableHeaders(["Video"]);
         }
       } else if (type === "chatbotActive") {
@@ -512,10 +524,12 @@ const Dashboard = () => {
       }
 
       setTableDatas(transformedData);
+      setModalLoader(false);
     } catch (error) {
       console.error("Error fetching schools:", error);
     } finally {
       setLoading(false);
+      setModalLoader(false);
     }
   };
 
@@ -1851,6 +1865,7 @@ const Dashboard = () => {
               // tableData={tableData}
               xlData={xlData}
               fileName={fileName}
+              loading={modalLoader}
             />
           </div>
         </div>

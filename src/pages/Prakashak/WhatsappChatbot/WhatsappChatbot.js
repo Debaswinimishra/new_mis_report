@@ -280,32 +280,38 @@ const WhatsappChatbot = () => {
     // setModalContentData([]);
     // setModalContentTitle("");
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setnewUserOpen(false);
+  };
 
   const modalTitle = "Your Modal Title";
   const tableHeaders = [
-    "Sl No.",
-    "Customer Id",
-    "Mobile No.",
+    "Student Name",
     "Class",
-    "Board",
-    "School",
-    "Status",
-    "Date",
+    "Gender",
+    "Parents Name",
+    "School Name",
+    "District",
+    "Block",
+    "Cluster",
+    "Contact",
   ];
   const tableData = [
     {
-      customer_id: "C001",
-      mobile: "1234567890",
-      class: "10",
-      board: "CBSE",
-      school: "XYZ School",
-      status: "Active",
-      date: new Date(),
+      student_name: datas.student_name,
+      class: datas.class,
+      gender: datas.gender,
+      parents_name: datas.parents_name,
+      school_name: datas.school_name,
+      district: datas.district,
+      block: datas.block,
+      cluster: datas.cluster,
+      contact: datas.contact,
     },
   ];
   const xlData = tableData;
-  const fileName = "whatsappChatboat.csv";
+  const fileName = "ActiveUsersReport.csv";
 
   const [userOpen, setUserOpen] = useState(false);
   const [userData, setuserData] = useState([]);
@@ -340,35 +346,100 @@ const WhatsappChatbot = () => {
   const handleUserOpen = () => {
     setUserOpen(true);
     fetchUserData();
-    // setModalContentData([]);
-    // setModalContentTitle("");
   };
   const handleUserClose = () => setUserOpen(false);
 
   const usermodalTitle = "All User ";
   const usertableHeaders = [
-    "Sl No.",
-    "Customer Id",
-    "Mobile No.",
+    "Student Name",
     "Class",
-    "Board",
-    "School",
-    "Status",
-    "Date",
+    "Gender",
+    "Parents Name",
+    "School Name",
+    "District",
+    "Block",
+    "Cluster",
+    "Contact",
   ];
   const usertableData = [
     {
-      customer_id: "C001",
-      username: "dhaneswar",
-      class: "10",
-      board: "CBSE",
-      school: "XYZ School",
-      status: "Active",
-      date: new Date(),
+      student_name: datas.student_name,
+      class: datas.class,
+      gender: datas.gender,
+      parents_name: datas.parents_name,
+      school_name: datas.school_name,
+      district: datas.district,
+      block: datas.block,
+      cluster: datas.cluster,
+      contact: datas.contact,
     },
   ];
   const userxlData = usertableData;
   const userfileName = "Alluser.csv";
+
+  const [newuserOpen, setnewUserOpen] = useState(false);
+  const [newuserData, setnewuserData] = useState([]);
+  console.log(userData, "response.data.districtsArr");
+  const fetchNewuserData = async () => {
+    // setLoading(true);
+    try {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+        week: selectedWeek,
+      };
+      console.log("====================================userbody", body);
+
+      const response = await PrakashakAPI.post(
+        "getChatBotAllUsersReport",
+        body
+      );
+
+      if (response.status === 200) {
+        setuserData(response.data); // Assuming response structure
+        console.table(response.data, "response.data.districtsArr");
+      } else {
+        console.error(`Error fetching districts: Status ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handlenewUserOpen = () => {
+    setnewUserOpen(true);
+    fetchNewuserData();
+  };
+  const handlenewUserClose = () => setnewUserOpen(false);
+
+  const newusermodalTitle = "New User ";
+  const newusertableHeaders = [
+    "Student Name",
+    "Class",
+    "Gender",
+    "Parents Name",
+    "School Name",
+    "District",
+    "Block",
+    "Cluster",
+    "Contact",
+  ];
+  const newusertableData = [
+    {
+      student_name: datas.student_name,
+      class: datas.class,
+      gender: datas.gender,
+      parents_name: datas.parents_name,
+      school_name: datas.school_name,
+      district: datas.district,
+      block: datas.block,
+      cluster: datas.cluster,
+      contact: datas.contact,
+    },
+  ];
+  const newuserxlData = usertableData;
+  const newuserfileName = "Newuser.csv";
 
   return (
     <div>
@@ -531,7 +602,7 @@ const WhatsappChatbot = () => {
                 <div
                   className="card"
                   // onClick={handleOpen}
-                  onClick={() => handleOpen(" Total No. of New Users")}
+                  onClick={() => handlenewUserOpen(" Total No. of New Users")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -684,7 +755,7 @@ const WhatsappChatbot = () => {
 
                 <div
                   className="card"
-                  onClick={() => handleOpen(" Total No. of Minutes Spent")}
+                  // onClick={() => handleOpen(" Total No. of Minutes Spent")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -724,7 +795,7 @@ const WhatsappChatbot = () => {
                 <div
                   className="card"
                   // onClick={handleOpen}
-                  onClick={() => handleOpen(" Average Minutes Spent")}
+                  // onClick={() => handleOpen(" Average Minutes Spent")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -793,6 +864,16 @@ const WhatsappChatbot = () => {
             tableData={usertableData}
             xlData={userxlData}
             fileName={userfileName}
+          />
+          {/* newuser */}
+          <DynamicModal
+            open={newuserOpen}
+            handleClose={handleClose}
+            modalTitle={newusermodalTitle}
+            tableHeaders={newusertableHeaders}
+            tableData={newusertableData}
+            xlData={newuserxlData}
+            fileName={newuserfileName}
           />
         </>
       ) : !loading && Object.keys(data).length === 0 ? (

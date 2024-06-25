@@ -834,7 +834,7 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#2E8B57",
+                    color: "rgb(153 58 134)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
@@ -846,7 +846,7 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#2E8B57",
+                    backgroundColor: "rgb(153 58 134)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -872,7 +872,7 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "rgb(153 58 134)",
+                    color: "#2E8B57",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
@@ -884,7 +884,7 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
+                    backgroundColor: "#2E8B57",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",

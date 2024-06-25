@@ -265,10 +265,11 @@ const RemoteInstruction = () => {
           "Class",
           "Mobile No.",
           "Gender",
-          "School Name",
+          "School",
           "District",
           "Block",
           "Status",
+          "Duration",
         ]
       : remoteInstructionType === "ivrs"
       ? [
@@ -277,10 +278,12 @@ const RemoteInstruction = () => {
           "Class",
           "Mobile No.",
           "Gender",
-          "School Name",
+          "School",
           "District",
           "Block",
           "Status",
+          "Flow Status",
+          "Duration",
         ]
       : [
           "Student Name",
@@ -288,10 +291,11 @@ const RemoteInstruction = () => {
           "Class",
           "Mobile No.",
           "Gender",
-          "School Name",
+          "School",
           "District",
           "Block",
           "Status",
+          "Duration",
         ];
   const tableData = [
     {

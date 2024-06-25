@@ -1783,7 +1783,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1820,9 +1820,9 @@ const Dashboard = () => {
                 >
                   <h1>{dashboardData.total_chatbot_assess_taken}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1859,7 +1859,7 @@ const Dashboard = () => {
                 >
                   <h1>{dashboardData.chatbot_avg_mins}</h1>
                 </div>
-              </div>
+              </div> */}
 
               <div
                 onClick={() => handleOpen("chatbotActive")}

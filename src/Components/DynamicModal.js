@@ -51,8 +51,13 @@ const DynamicModal = ({
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
+          borderRadius: 2,
           p: 4,
           overflow: "scroll",
+          "&::-webkit-scrollbar": {
+            width: 0, // Remove the scrollbar
+            height: 0,
+          },
         }}
       >
         <Box

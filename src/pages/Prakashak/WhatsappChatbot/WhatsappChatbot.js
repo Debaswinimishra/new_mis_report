@@ -75,6 +75,7 @@ const WhatsappChatbot = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState(false);
+  const [modalLoader, setModalLoader] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -236,13 +237,16 @@ const WhatsappChatbot = () => {
 
       if (response.status === 200) {
         setTableData(response.data);
+        setModalLoader(false);
       } else {
         console.error(`Error fetching districts: Status ${response.status}`);
+        setModalLoader(false);
       }
     } catch (error) {
       console.error("Error fetching districts:", error);
     } finally {
       setLoading(false);
+      setModalLoader(false);
     }
   };
 
@@ -261,8 +265,8 @@ const WhatsappChatbot = () => {
     "Student Name",
     "Class",
     "Gender",
-    "Parents Name",
     "Parents Phone Number",
+    // "Parents Name",
     "School Name",
     "District",
     "Block",
@@ -316,7 +320,7 @@ const WhatsappChatbot = () => {
     "School Name",
     "District",
     "Block",
-    "Cluster",
+    // "Cluster",
   ];
   const xlDatas = newusertableData;
   const fileNames = "NewUser.csv";
@@ -327,6 +331,8 @@ const WhatsappChatbot = () => {
   const [activeusertableData, setactiveuserTableData] = useState([]);
 
   const fetchactiveuserDatas = async () => {
+    setModalLoader(true);
+
     try {
       const body = {
         year: selectedYear,
@@ -337,14 +343,17 @@ const WhatsappChatbot = () => {
       const response = await Api.post("getChatBotActiveUsersReport", body);
 
       if (response.status === 200) {
+        setModalLoader(false);
         setactiveuserTableData(response.data);
       } else {
         console.error(`Error fetching districts: Status ${response.status}`);
+        setModalLoader(false);
       }
     } catch (error) {
       console.error("Error fetching districts:", error);
     } finally {
       setLoading(false);
+      setModalLoader(false);
     }
   };
 
@@ -777,7 +786,7 @@ const WhatsappChatbot = () => {
           </div>
           <DynamicModal
             open={open}
-            loading={loading}
+            loading={modalLoader}
             handleClose={handleClose}
             modalTitle={modalContentTitle}
             tableHeaders={tableHeaders}
@@ -787,7 +796,7 @@ const WhatsappChatbot = () => {
           />
           <DynamicModal
             open={newuserModal}
-            loading={loading}
+            loading={modalLoader}
             handleClose={handlenewClose}
             modalTitle={modalContentTitle}
             tableHeaders={newtableHeaders}
@@ -797,7 +806,7 @@ const WhatsappChatbot = () => {
           />
           <DynamicModal
             open={activeuserModal}
-            loading={loading}
+            loading={modalLoader}
             handleClose={handleactiveClose}
             modalTitle={modalContentTitle}
             tableHeaders={activetableHeaders}

@@ -13,6 +13,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import TablePagination from "@mui/material/TablePagination";
 import Button from "@mui/material/Button";
 import moment from "moment";
+import Nodata from "../../src/Assets/Nodata.gif";
+
 import Download from "../../src/downloads/ExportCsv";
 
 const DynamicModal = ({
@@ -98,7 +100,7 @@ const DynamicModal = ({
           >
             <CircularProgress />
           </Box>
-        ) : (
+        ) : !loading && tableData.length > 0 ? (
           <>
             <TableContainer component={Paper}>
               <Table>
@@ -146,7 +148,27 @@ const DynamicModal = ({
               <Download csvData={xlData} fileName={fileName} />
             )}
           </>
-        )}
+        ) : !loading && tableData.length === 0 ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90vh",
+            }}
+          >
+            <img
+              src={Nodata}
+              alt="No Data"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "80vh",
+                marginBottom: "20px",
+              }}
+            />
+          </div>
+        ) : null}
       </Box>
     </Modal>
   );

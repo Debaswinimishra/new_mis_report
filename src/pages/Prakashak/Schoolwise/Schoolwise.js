@@ -60,7 +60,7 @@ const Schoolwise = () => {
     "cluster",
   ];
   const xlData = tableData;
-  const fileName = "whatsappChatboat.csv";
+  const fileName = "SchoolwiseReport.csv";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -524,7 +524,7 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#6A5ACD",
+                    color: "rgb(153 58 134)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
@@ -536,7 +536,7 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#6A5ACD",
+                    backgroundColor: "rgb(153 58 134)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -758,25 +758,25 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#6A5ACD",
+                    color: "rgb(153 58 134)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 2-15 mins
+                  Number of Parents Spent 0-1 mins
                 </div>
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#6A5ACD",
+                    backgroundColor: "rgb(153 58 134)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
                 </div>
               </div>
               <div
@@ -796,25 +796,25 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#2E8B57",
+                    color: "rgb(214 148 16)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 16-30 mins
+                  Number of Parents Spent 2-15 mins
                 </div>
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#2E8B57",
+                    backgroundColor: "rgb(214 148 16)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_16to30mins}</h1>
+                  <h1>{data.no_of_parents_spent_2to5mins}</h1>
                 </div>
               </div>
               <div
@@ -841,12 +841,50 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 31-45 mins
+                  Number of Parents Spent 16-30 mins
                 </div>
                 <div
                   style={{
                     height: "50%",
                     backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_16to30mins}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Parents Spent 31-45 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -1284,7 +1322,7 @@ const Schoolwise = () => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1321,9 +1359,10 @@ const Schoolwise = () => {
                 >
                   <h1>{data.total_chatbot_assess_taken}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
+                onClick={() => handleOpen()}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1360,9 +1399,10 @@ const Schoolwise = () => {
                 >
                   <h1>{data.chatbot_avg_mins}</h1>
                 </div>
-              </div>
+              </div> */}
 
               <div
+                // onClick={() => handleOpen()}
                 style={{
                   width: "255px",
                   height: "180px",

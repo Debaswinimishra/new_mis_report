@@ -244,9 +244,39 @@ const WhatsappChatbot = () => {
   // // };
 
   // const handleClose = () => setOpen(false);
+  const [datas, setDatas] = useState([]);
+  const [error, setError] = useState(null);
+
+  const fetchDatas = async () => {
+    setLoading(true);
+    try {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+        week: selectedWeek,
+      };
+
+      const response = await PrakashakAPI.post(
+        "getChatBotActiveUsersReport",
+        body
+      );
+
+      if (response.status === 200) {
+        setDatas(response.data);
+      } else {
+        console.error(`Error fetching districts: Status ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
+    fetchDatas();
     // setModalContentData([]);
     // setModalContentTitle("");
   };
@@ -276,6 +306,69 @@ const WhatsappChatbot = () => {
   ];
   const xlData = tableData;
   const fileName = "whatsappChatboat.csv";
+
+  const [userOpen, setUserOpen] = useState(false);
+  const [userData, setuserData] = useState([]);
+  console.log(userData, "response.data.districtsArr");
+  const fetchUserData = async () => {
+    // setLoading(true);
+    try {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+        week: selectedWeek,
+      };
+      console.log("====================================userbody", body);
+
+      const response = await PrakashakAPI.post(
+        "getChatBotAllUsersReport",
+        body
+      );
+
+      if (response.status === 200) {
+        setuserData(response.data); // Assuming response structure
+        console.table(response.data, "response.data.districtsArr");
+      } else {
+        console.error(`Error fetching districts: Status ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleUserOpen = () => {
+    setUserOpen(true);
+    fetchUserData();
+    // setModalContentData([]);
+    // setModalContentTitle("");
+  };
+  const handleUserClose = () => setUserOpen(false);
+
+  const usermodalTitle = "All User ";
+  const usertableHeaders = [
+    "Sl No.",
+    "Customer Id",
+    "Mobile No.",
+    "Class",
+    "Board",
+    "School",
+    "Status",
+    "Date",
+  ];
+  const usertableData = [
+    {
+      customer_id: "C001",
+      username: "dhaneswar",
+      class: "10",
+      board: "CBSE",
+      school: "XYZ School",
+      status: "Active",
+      date: new Date(),
+    },
+  ];
+  const userxlData = usertableData;
+  const userfileName = "Alluser.csv";
 
   return (
     <div>
@@ -397,7 +490,7 @@ const WhatsappChatbot = () => {
               >
                 <div
                   className="card"
-                  onClick={() => handleOpen(" Total No. of Users")}
+                  onClick={() => handleUserOpen(" Total No. of Users")}
                   // onClick={handleOpen}
                   style={{
                     width: "255px",
@@ -690,6 +783,16 @@ const WhatsappChatbot = () => {
             tableData={tableData}
             xlData={xlData}
             fileName={fileName}
+          />
+          {/* all user modal */}
+          <DynamicModal
+            open={userOpen}
+            handleClose={handleUserClose}
+            modalTitle={usermodalTitle}
+            tableHeaders={usertableHeaders}
+            tableData={usertableData}
+            xlData={userxlData}
+            fileName={userfileName}
           />
         </>
       ) : !loading && Object.keys(data).length === 0 ? (

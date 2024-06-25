@@ -20,12 +20,13 @@ const Select1 = ({ selectedYear, onChange }) => {
         onChange={(e) => handleYearChange(e)}
         style={{ width: "100%" }}
       >
-        <MenuItem value = "">None</MenuItem>
-        {years.map((year) => (
-          <MenuItem key={year} value={year}>
-            {year}
-          </MenuItem>
-        ))}
+        <MenuItem value="">None</MenuItem>
+        {years.length > 0 &&
+          years.map((year) => (
+            <MenuItem key={year} value={year}>
+              {year}
+            </MenuItem>
+          ))}
       </TextField>
     </div>
   );

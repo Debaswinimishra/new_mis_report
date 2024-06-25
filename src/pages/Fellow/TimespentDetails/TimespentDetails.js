@@ -8,11 +8,17 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
-import loader from "../../../Assets/R.gif";
 import moment from "moment";
 import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import {
   getAllCommunityEducatiorFilter,
   getAllDistricts,
@@ -24,10 +30,17 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
-import Logo from "../../../ReusableComponents/Logo";
 import Loader from "../../../ReusableComponents/Loader";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import CircularProgress from "@mui/material/CircularProgress";
+import dayjs from "dayjs";
+import Logo from "../../../ReusableComponents/Logo";
+import loader from "../../../Assets/R.gif";
 // import Links from "../../../ReusableComponents/Links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -83,6 +96,7 @@ const column = [
 ];
 
 const TimespentDetails = () => {
+  const today = dayjs();
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   const [managerName, setManagerName] = useState([]);
@@ -100,14 +114,18 @@ const TimespentDetails = () => {
   const [loaded, setLoaded] = useState(false);
   const [month, setMonth] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  console.log("SelectedStartDate---->", selectedStartDate, selectedEndDate);
+  (0.0).toExponential;
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getAllCommunityEducatiorFilter(selectedYear);
         setManagerArr(response.data.resData);
       } catch (err) {
-        console.log("err--->", err.response.status);
+        // console.log("err--->", err.response.status);
       }
     };
     fetchData();
@@ -134,22 +152,35 @@ const TimespentDetails = () => {
     setManagerName("");
     setPasscode("");
     setDistrictName("");
+    setSelectedStartDate(null);
+    setSelectedEndDate(null);
     setBlockName("");
     setFilteredData([]);
     setMonth("");
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
-    const response = await getAllCommunityEducatiorFilter(selectedYear);
-    console.log("manager year----->", response.data);
-    setManagerArr(response.data.resData);
+    if (selectedYear) {
+      // Fetch the data only if a valid year is selected
+      try {
+        const response = await getAllCommunityEducatiorFilter(selectedYear);
+        console.log("manager year----->", response.data);
+        setManagerArr(response.data.resData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    } else {
+      setManagerArr([]);
+    }
     // setShowFieldsData(false);
   };
   const handleMonthChange = (event) => {
-    setMonth(event.target.value);
+    setSelectedStartDate(null);
+    setSelectedEndDate(null);
     setManagerName("");
     setPasscode("");
     setDistrictName("");
     setBlockName("");
+    setMonth(event.target.value);
   };
 
   const handleManagerChange = (event) => {
@@ -214,26 +245,40 @@ const TimespentDetails = () => {
 
   const fetchFilteredData = async () => {
     try {
-      if (!selectedYear || !month || !managerName || !passcode) {
-        alert(
-          "Please select a year, month, manager name, passcode before filtering."
-        );
+      if (!selectedYear) {
+        alert("Please select a year before filtering.");
         return;
       }
 
       setLoaded(true);
-      const filterCriteriaWithBlockAndDistrict = {
-        year: parseInt(selectedYear),
-        month: parseInt(month),
-        managerid: managerName,
-        passcode: passcode,
-        districtid: districtName,
-        blockid: blockName,
-      };
+      let filterCriteria;
 
-      const data = await TimespentDetailsApi(
-        filterCriteriaWithBlockAndDistrict
-      );
+      if (month) {
+        filterCriteria = {
+          year: parseInt(selectedYear),
+          month: parseInt(month),
+          managerid: managerName,
+          passcode: passcode,
+          districtid: districtName,
+          blockid: blockName,
+        };
+      } else if (selectedStartDate && selectedEndDate) {
+        filterCriteria = {
+          year: parseInt(selectedYear),
+          startDt: selectedStartDate,
+          endDt: selectedEndDate,
+          managerid: managerName,
+          passcode: passcode,
+          districtid: districtName,
+          blockid: blockName,
+        };
+      } else {
+        alert("Please select either a month or a date range.");
+        setLoaded(false);
+        return;
+      }
+
+      const data = await TimespentDetailsApi(filterCriteria);
 
       setLoaded(false);
       // console.log("data", data);
@@ -241,14 +286,12 @@ const TimespentDetails = () => {
       if (data.length === 0) {
         setFilteredData([]);
         alert("No data found");
-      } else if (data.length > 0) {
+      } else {
         setFilteredData(data);
         setTotalDataLength(data.length);
       }
     } catch (error) {
-      setLoaded(false);
       console.error("Error:", error);
-      // Handle the error, e.g., show an error message to the user
       alert("An error occurred while fetching data");
     } finally {
       setLoaded(false);
@@ -297,6 +340,56 @@ const TimespentDetails = () => {
     return exceptBoth;
   });
 
+  // const shouldDisableDate = (date) => {
+  //   if (!selectedYear || !month) {
+  //     return true; // Disable all dates if year or month is not selected
+  //   }
+  //   const currentYear = dayjs(date).year();
+  //   const currentMonth = dayjs(date).month() + 1; // Month is 0-based in dayjs
+  //   return (
+  //     currentYear !== parseInt(selectedYear) || currentMonth !== parseInt(month)
+  //   );
+  // };
+
+  const handleDateChange = (newValue) => {
+    if (newValue) {
+      const formattedDate = dayjs(newValue).format("YYYY-MM-DD");
+      setSelectedStartDate(formattedDate);
+    } else {
+      setSelectedStartDate(null);
+    }
+  };
+
+  const handleEndDateChange = (newValue) => {
+    const today = dayjs();
+    if (
+      newValue &&
+      dayjs(newValue).isValid() &&
+      dayjs(newValue).isAfter(today)
+    ) {
+      setOpenModal(true);
+    } else if (
+      newValue &&
+      selectedStartDate &&
+      dayjs(newValue).isValid() &&
+      dayjs(selectedStartDate).isValid() &&
+      dayjs(newValue).isBefore(dayjs(selectedStartDate))
+    ) {
+      setOpenModal(true);
+    } else {
+      const formattedDate = dayjs(newValue).format("YYYY-MM-DD");
+      setSelectedEndDate(formattedDate);
+    }
+  };
+
+  const handleClose = () => {
+    setSelectedEndDate(null);
+    setOpenModal(false);
+  };
+
+  const disableDateRangeSelection = !!month;
+  const disableMonthSelection = !!selectedStartDate || !!selectedEndDate;
+
   return (
     <Box>
       <div
@@ -322,6 +415,7 @@ const TimespentDetails = () => {
             label="Select month"
             value={month}
             onChange={(e) => handleMonthChange(e)}
+            disabled={disableMonthSelection}
           >
             <MenuItem value="">None</MenuItem>
             {selectedYear && selectedYear != ""
@@ -333,6 +427,36 @@ const TimespentDetails = () => {
               : null}
           </TextField>
 
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Start Date"
+              value={selectedStartDate}
+              onChange={handleDateChange}
+              // shouldDisableDate={shouldDisableDate}
+              clearable
+              inputFormat="DD/MM/YYYY"
+              disabled={disableDateRangeSelection}
+              renderInput={(params) => (
+                <TextField {...params} style={{ marginBottom: "20px" }} />
+              )}
+            />
+          </LocalizationProvider>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="End Date"
+              value={selectedEndDate}
+              onChange={handleEndDateChange}
+              // shouldDisableDate={shouldDisableDate}
+              clearable
+              inputFormat="DD/MM/YYYY"
+              disabled={disableDateRangeSelection}
+              renderInput={(params) => (
+                <TextField {...params} style={{ marginBottom: "20px" }} />
+              )}
+            />
+          </LocalizationProvider>
+
           <TextField
             id="outlined-select-currency"
             select
@@ -342,7 +466,7 @@ const TimespentDetails = () => {
             onChange={(e) => handleManagerChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(managerArr) && selectedYear && month
+            {Array.isArray(managerArr) && selectedYear
               ? managerArr.map((option, index) => (
                   <MenuItem key={index + 1} value={option.managerid}>
                     {option.managername}
@@ -397,6 +521,20 @@ const TimespentDetails = () => {
                 ))
               : null}
           </TextField>
+
+          <Dialog open={openModal} onClose={handleClose}>
+            <DialogTitle>{"Invalid Date Range"}</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Please select a valid date range.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
 
           <Stack spacing={2} direction="row">
             <Button

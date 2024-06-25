@@ -73,6 +73,7 @@ const Classwise = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
   const [loading, setLoading] = useState();
 
   const handleYearChange = (e) => {
@@ -167,6 +168,27 @@ const Classwise = () => {
 
   const [tableDatas, setTableDatas] = useState([]);
   const [tableHeaders, setTableHeaders] = useState([]);
+
+  const getModalTitle = (type) => {
+    switch (type) {
+      case "students":
+        return "Number of Students";
+      case "calls":
+        return "Total No. of Calls Received";
+      case "sms":
+        return "Total No. of SMS Delivered";
+      case "receivedIvrs":
+        return "Total No. of Calls Received in IVRs";
+      case "uniqueIvrs":
+        return "Unique Calls Received in IVR";
+      case "video":
+        return "Total No. of Videos Watched";
+      case "chatbotActive":
+        return "Number of Active Users";
+      default:
+        return "Data";
+    }
+  };
 
   const fetchNewuserData = async (type) => {
     console.log("type--->", type);
@@ -363,14 +385,19 @@ const Classwise = () => {
       setLoading(false);
     }
   };
+
   const handleOpen = async (type) => {
     setOpen(true);
-    fetchNewuserData(type);
-    // setLoading(true);
-  };
-  const handleClose = () => setOpen(false);
-  const modalTitle = "Number Of Students";
+    console.log("type---->", type);
 
+    // Set the modal title based on type
+    const newModalTitle = getModalTitle(type);
+    setModalTitle(newModalTitle);
+
+    fetchNewuserData(type);
+  };
+
+  const handleClose = () => setOpen(false);
   const xlData = tableData;
   const fileName = "StudentReport.csv";
   return (
@@ -585,7 +612,6 @@ const Classwise = () => {
                   <h1>{data.total_timespent}</h1>
                 </div>
               </div>
-
               <div
                 // onClick={() => handleOpen(" ")}
                 style={{
@@ -604,7 +630,7 @@ const Classwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#6A5ACD",
+                    color: "rgb(214 148 16)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
@@ -616,7 +642,7 @@ const Classwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#6A5ACD",
+                    backgroundColor: "rgb(214 148 16)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -627,7 +653,6 @@ const Classwise = () => {
               </div>
 
               <div
-                // onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -666,7 +691,6 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                // onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -705,7 +729,6 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                // onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -745,7 +768,6 @@ const Classwise = () => {
               </div>
 
               <div
-                // onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -845,7 +867,6 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                //  onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1041,7 +1062,6 @@ const Classwise = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1221,21 +1241,23 @@ const Classwise = () => {
               </div>
             </div>
           </div>
-          <DynamicModal
-            open={open}
-            handleClose={handleClose}
-            // modalTitle={modalTitle}
-            tableHeaders={tableHeaders}
-            tableData={tableDatas}
-            // tableHeaders={tableHeaders}
-            // tableData={tableData}
-            xlData={xlData}
-            fileName={fileName}
-          />
         </div>
       ) : loading === false && Object.keys(data).length === 0 ? (
         <h1>No data Available</h1>
       ) : null}
+
+      <DynamicModal
+        open={open}
+        loading={loading}
+        handleClose={handleClose}
+        modalTitle={modalTitle}
+        tableHeaders={tableHeaders}
+        tableData={tableDatas}
+        // tableHeaders={tableHeaders}
+        // tableData={tableData}
+        xlData={xlData}
+        fileName={fileName}
+      />
     </div>
   );
 };

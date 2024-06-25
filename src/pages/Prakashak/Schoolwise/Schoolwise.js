@@ -1322,7 +1322,7 @@ const Schoolwise = () => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1359,9 +1359,9 @@ const Schoolwise = () => {
                 >
                   <h1>{data.total_chatbot_assess_taken}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
                 onClick={() => handleOpen()}
                 style={{
                   width: "255px",
@@ -1399,10 +1399,10 @@ const Schoolwise = () => {
                 >
                   <h1>{data.chatbot_avg_mins}</h1>
                 </div>
-              </div>
+              </div> */}
 
               <div
-                onClick={() => handleOpen()}
+                // onClick={() => handleOpen()}
                 style={{
                   width: "255px",
                   height: "180px",

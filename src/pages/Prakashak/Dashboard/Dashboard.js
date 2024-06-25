@@ -265,6 +265,29 @@ const Dashboard = () => {
   console.log("tableHeaders----->", tableDatas);
   let body;
   const [tableHeaders, setTableHeaders] = useState([]);
+  const [modalTitle, setModalTitle] = useState("");
+
+  const getModalTitle = (type) => {
+    switch (type) {
+      case "students":
+        return "Number of Students";
+      case "calls":
+        return "Total No. of Calls Received";
+      case "sms":
+        return "Total No. of SMS Delivered";
+      case "receivedIvrs":
+        return "Total No. of Calls Received in IVRs";
+      case "uniqueIvrs":
+        return "Unique Calls Received in IVR";
+      case "video":
+        return "Total No. of Videos Watched";
+      case "chatbotActive":
+        return "Number of Active Users";
+      default:
+        return "Data";
+    }
+  };
+
   const fetchDatas = async (type) => {
     setModalLoader(true);
     console.log("type--->", type);
@@ -571,13 +594,14 @@ const Dashboard = () => {
     //   setTableHeaders(["Boys"]);
     // }
     setOpen(true);
+
+    const newModalTitle = getModalTitle(type);
+    setModalTitle(newModalTitle);
+
     fetchDatas(type);
   };
   const handleClose = () => setOpen(false);
 
-  const modalTitle = "districts";
-  const districtsArr = ["Districts"];
-  const blocksArray = ["Blocks"];
   const districtsData = [
     {
       districts: districsArray,
@@ -1858,7 +1882,7 @@ const Dashboard = () => {
             <DynamicModal
               open={open}
               handleClose={handleClose}
-              // modalTitle={modalTitle}
+              modalTitle={modalTitle}
               tableHeaders={tableHeaders}
               tableData={tableDatas}
               // tableHeaders={tableHeaders}

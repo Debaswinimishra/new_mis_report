@@ -183,6 +183,76 @@ const RemoteInstruction = () => {
     setOpen(true);
     setModalContentData([]);
     setModalContentTitle(contentTitle);
+    const body = selectedWeek
+      ? {
+          year: selectedYear,
+          month: selectedMonth,
+          week: selectedWeek,
+        }
+      : !selectedWeek && selectedMonth
+      ? {
+          year: selectedYear,
+          month: selectedMonth,
+        }
+      : {
+          year: selectedYear,
+        };
+
+    if (remoteInstruction === "sms") {
+      PrakashakAPI.post("getSmsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+          } else {
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (remoteInstruction === "auto_calls") {
+      PrakashakAPI.post("getAutoCallsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+          } else {
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else {
+      PrakashakAPI.post("getIvrsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+          } else {
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    }
   };
 
   const handleClose = () => setOpen(false);

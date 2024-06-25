@@ -10,13 +10,18 @@ import {
   TableCell,
   TableBody,
   Button,
+  Modal,
   CircularProgress,
+  Typography,
+  TableContainer,
+  Paper,
 } from "@mui/material";
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
 import Box from "@mui/material/Box";
 import PrakashakAPI from "../../../Environment/PrakashakAPI";
 import moment from "moment";
+import DynamicModal from "../../../Components/DynamicModal";
 const Classwise = () => {
   //?---------------Month array---------------------------
   const monthArr = [
@@ -154,6 +159,55 @@ const Classwise = () => {
     setLoading(true);
     fetchData();
   };
+
+  const [open, setOpen] = useState(false);
+  const [modalContentTitle, setModalContentTitle] = useState("");
+  const [modalContentData, setModalContentData] = useState([]);
+  const [tableData, setTableData] = useState([]);
+  const fetchNewuserData = async () => {
+    // setLoading(true);
+    try {
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+        week: selectedWeek,
+        class: selectedClass,
+      };
+      console.log("====================================userbody", body);
+
+      const response = await PrakashakAPI.post("getAllStudentsReport", body);
+
+      if (response.status === 200) {
+        setTableData(response.data);
+      } else {
+        console.error(`Error fetching districts: Status ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleOpen = async (classNumber) => {
+    setOpen(true);
+    fetchNewuserData();
+    // setLoading(true);
+  };
+  const handleClose = () => setOpen(false);
+  const modalTitle = "Number Of Students";
+  const tableHeaders = [
+    "student_name",
+    "Class",
+    "gender",
+    "parents_name",
+    "parents_phone_number",
+    "school_name",
+    "district",
+    "block",
+    "cluster",
+  ];
+  const xlData = tableData;
+  const fileName = "StudentReport.csv";
   return (
     <div>
       <style>{`
@@ -290,6 +344,7 @@ const Classwise = () => {
               }}
             >
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -366,6 +421,7 @@ const Classwise = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -404,6 +460,7 @@ const Classwise = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -442,6 +499,7 @@ const Classwise = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -481,6 +539,7 @@ const Classwise = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -541,6 +600,7 @@ const Classwise = () => {
               }}
             >
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -579,6 +639,7 @@ const Classwise = () => {
                 </div>
               </div>
               <div
+                //  onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -617,6 +678,7 @@ const Classwise = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -693,6 +755,7 @@ const Classwise = () => {
                 </div>
               </div>
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -732,6 +795,7 @@ const Classwise = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -771,6 +835,7 @@ const Classwise = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -870,6 +935,7 @@ const Classwise = () => {
               </div>
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -908,7 +974,7 @@ const Classwise = () => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -945,9 +1011,9 @@ const Classwise = () => {
                 >
                   <h1>{data.total_chatbot_assess_taken}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -984,9 +1050,10 @@ const Classwise = () => {
                 >
                   <h1>{data.chatbot_avg_mins}</h1>
                 </div>
-              </div>
+              </div> */}
 
               <div
+                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1026,6 +1093,16 @@ const Classwise = () => {
               </div>
             </div>
           </div>
+          <DynamicModal
+            open={open}
+            loading={loading}
+            handleClose={handleClose}
+            modalTitle={modalTitle}
+            tableHeaders={tableHeaders}
+            tableData={tableData}
+            xlData={xlData}
+            fileName={fileName}
+          />
         </div>
       ) : loading === false && Object.keys(data).length === 0 ? (
         <h1>No data Available</h1>

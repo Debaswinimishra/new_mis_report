@@ -27,7 +27,7 @@ const DynamicModal = ({
   xlData,
   fileName,
 }) => {
-  console.log("ftgyfyuf", handleClose);
+  // console.log("ftgyfyuf", handleClose);
 
   const [page, setPage] = useState(0);
   const rowsPerPage = 15;

@@ -26,6 +26,7 @@ import moment from "moment";
 import Graph from "../../../ReusableComponents/Graphs";
 import Nodata from "../../../Assets/Nodata.gif";
 import DynamicModal from "../../../Components/DynamicModal";
+import { Subject } from "@mui/icons-material";
 
 const RemoteInstruction = () => {
   //~-------------------------------------------------------
@@ -179,7 +180,9 @@ const RemoteInstruction = () => {
       });
   };
 
+  //!---------------this function handles various api calls which will handle the data retrived through modal popup--------------
   const handleOpen = ({ contentTitle, remoteInstruction }) => {
+    console.log("content Title to attach new apis----------->", contentTitle);
     setRemoteInstructionType(remoteInstruction);
     setOpen(true);
     setModalLoader(true);
@@ -199,7 +202,10 @@ const RemoteInstruction = () => {
           year: selectedYear,
         };
 
-    if (remoteInstruction === "sms") {
+    if (
+      remoteInstruction === "sms" &&
+      contentTitle === "Total no. of SMS scheduled"
+    ) {
       PrakashakAPI.post("getSmsReport", body)
         .then((res) => {
           if (res.status === 200) {
@@ -221,7 +227,95 @@ const RemoteInstruction = () => {
             error
           );
         });
-    } else if (remoteInstruction === "auto_calls") {
+    } else if (
+      remoteInstruction === "sms" &&
+      contentTitle === "Total no. of SMS delivered"
+    ) {
+      PrakashakAPI.post("getDeliveredSmsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+            setModalLoader(false);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "sms" &&
+      contentTitle === "Total no. of SMS scheduled for Maths"
+    ) {
+      const bodyWithSubject = {
+        ...body,
+        subject: "maths",
+      };
+
+      PrakashakAPI.post("getSmsReport", bodyWithSubject)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+            setModalLoader(false);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "sms" &&
+      contentTitle === "Total no. of SMS scheduled for Odia"
+    ) {
+      const bodyWithSubject = {
+        ...body,
+        subject: "odia",
+      };
+
+      PrakashakAPI.post("getSmsReport", bodyWithSubject)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+            setModalLoader(false);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "auto_calls" &&
+      contentTitle !== "Total no. of calls received"
+    ) {
       PrakashakAPI.post("getAutoCallsReport", body)
         .then((res) => {
           if (res.status === 200) {
@@ -243,8 +337,144 @@ const RemoteInstruction = () => {
             error
           );
         });
-    } else {
+    } else if (
+      remoteInstruction === "auto_calls" &&
+      contentTitle === "Total no. of calls received"
+    ) {
+      PrakashakAPI.post("getReceivedAutoCallsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle === "Total no. of incoming calls"
+    ) {
       PrakashakAPI.post("getIvrsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle == "Total no. of unique calls"
+    ) {
+      PrakashakAPI.post("getUniqueIvrsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle == "Total no. of calls diverted to experts"
+    ) {
+      PrakashakAPI.post("getExpertDivertedIvrsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle === "Total no. parents listened to maths activity"
+    ) {
+      const bodyWithSubject = {
+        ...body,
+        subject: "maths",
+      };
+      PrakashakAPI.post("getIvrsReport", bodyWithSubject)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle === "Total no. parents listened to odia activity"
+    ) {
+      const bodyWithSubject = {
+        ...body,
+        subject: "odia",
+      };
+      PrakashakAPI.post("getIvrsReport", bodyWithSubject)
         .then((res) => {
           if (res.status === 200) {
             setModalLoader(false);
@@ -327,7 +557,7 @@ const RemoteInstruction = () => {
   //   remoteInstData
   // );
   // console.log("contentTitle--------------------->", modalContentTitle);
-  console.log("modalContentData------------------->", modalContentData);
+  // console.log("modalContentData------------------->", modalContentData);
 
   const graphData = {
     labels: ["SMS", "Automated Calls", "IVRs"],
@@ -584,7 +814,7 @@ const RemoteInstruction = () => {
               <div
                 onClick={() =>
                   handleOpen({
-                    contentTitle: " Total no. of SMS scheduled for Odia",
+                    contentTitle: "Total no. of SMS scheduled for Odia",
                     remoteInstruction: "sms",
                   })
                 }

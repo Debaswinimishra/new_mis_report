@@ -24,7 +24,7 @@ import Nodata from "../../../Assets/Nodata.gif";
 import Chart from "chart.js/auto";
 import Graph from "../../../ReusableComponents/Graphs";
 import moment from "moment";
-
+import DynamicModal from "../../../Components/DynamicModal";
 const WhatsappChatbot = () => {
   const chartRef = useRef(null);
   //?---------------Month array---------------------------
@@ -218,36 +218,65 @@ const WhatsappChatbot = () => {
       window.myChart = chartInstance;
     }
   }, [classData, numberData]);
+  // const [open, setOpen] = useState(false);
+  // const [modalContentTitle, setModalContentTitle] = useState("");
+  // const [modalContentData, setModalContentData] = useState([]);
+
+  // // Function to handle modal opening
+  // // const handleOpen = async (contentTitle) => {
+  // //   setModalContentTitle(contentTitle);
+  // //   setLoading(true);
+
+  // //   try {
+  // //     const response = await Api.get(`getDataFor${contentTitle}`);
+  // //     setModalContentData(response.data);
+  // //   } catch (error) {
+  // //     console.error("Error fetching modal data:", error);
+  // //   } finally {
+  // //     setLoading(false);
+  // //   }
+  // // };
+
+  // // // Function to handle modal closing
+  // // const handleClose = () => {
+  // //   setModalContentTitle("");
+  // //   setModalContentData([]);
+  // // };
+
+  // const handleClose = () => setOpen(false);
   const [open, setOpen] = useState(false);
-  const [modalContentTitle, setModalContentTitle] = useState("");
-  const [modalContentData, setModalContentData] = useState([]);
-
-  // Function to handle modal opening
-  // const handleOpen = async (contentTitle) => {
-  //   setModalContentTitle(contentTitle);
-  //   setLoading(true);
-
-  //   try {
-  //     const response = await Api.get(`getDataFor${contentTitle}`);
-  //     setModalContentData(response.data);
-  //   } catch (error) {
-  //     console.error("Error fetching modal data:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // // Function to handle modal closing
-  // const handleClose = () => {
-  //   setModalContentTitle("");
-  //   setModalContentData([]);
-  // };
   const handleOpen = () => {
     setOpen(true);
-    setModalContentData([]);
-    setModalContentTitle("");
+    // setModalContentData([]);
+    // setModalContentTitle("");
   };
   const handleClose = () => setOpen(false);
+
+  const modalTitle = "Your Modal Title";
+  const tableHeaders = [
+    "Sl No.",
+    "Customer Id",
+    "Mobile No.",
+    "Class",
+    "Board",
+    "School",
+    "Status",
+    "Date",
+  ];
+  const tableData = [
+    {
+      customer_id: "C001",
+      mobile: "1234567890",
+      class: "10",
+      board: "CBSE",
+      school: "XYZ School",
+      status: "Active",
+      date: new Date(),
+    },
+  ];
+  const xlData = tableData;
+  const fileName = "whatsappChatboat.csv";
+
   return (
     <div>
       <div
@@ -653,68 +682,15 @@ const WhatsappChatbot = () => {
           >
             <Graph data={graphData} />
           </div>
-          <Modal
+          <DynamicModal
             open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 1000,
-                height: 600,
-                bgcolor: "background.paper",
-                border: "2px solid #000",
-                boxShadow: 24,
-                p: 4,
-                overflow: "scroll",
-              }}
-            >
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                {modalContentData}
-              </Typography>
-
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="center">Sl No.</TableCell>
-                      <TableCell align="center">Customer Id</TableCell>
-                      <TableCell align="center">Mobile No.</TableCell>
-                      <TableCell align="center">Class</TableCell>
-                      <TableCell align="center">Board</TableCell>
-                      <TableCell align="center">School</TableCell>
-                      <TableCell align="center">Status</TableCell>
-                      <TableCell align="center">Date</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data.chats &&
-                      data.chats.map((chat, index) => (
-                        <TableRow key={index}>
-                          <TableCell align="center">{index + 1}</TableCell>
-                          <TableCell align="center">
-                            {chat.customer_id}
-                          </TableCell>
-                          <TableCell align="center">{chat.mobile}</TableCell>
-                          <TableCell align="center">{chat.class}</TableCell>
-                          <TableCell align="center">{chat.board}</TableCell>
-                          <TableCell align="center">{chat.school}</TableCell>
-                          <TableCell align="center">{chat.status}</TableCell>
-                          <TableCell align="center">
-                            {moment(chat.date).format("DD/MM/YYYY")}
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          </Modal>
+            handleClose={handleClose}
+            modalTitle={modalTitle}
+            tableHeaders={tableHeaders}
+            tableData={tableData}
+            xlData={xlData}
+            fileName={fileName}
+          />
         </>
       ) : !loading && Object.keys(data).length === 0 ? (
         <img src={Nodata} />

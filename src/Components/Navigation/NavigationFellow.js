@@ -98,11 +98,11 @@ function NavigationFellow(props) {
       link: "overall_timespent_c.e",
       icon: <AccessTimeFilledIcon sx={{ color: "purple" }} />,
     },
-    {
-      text: "Chatbot Reports",
-      link: "chatbot_reports",
-      icon: <CastForEducationIcon sx={{ color: "rgb(0,128,0)" }} />,
-    },
+    // {
+    //   text: "Chatbot Reports",
+    //   link: "chatbot_reports",
+    //   icon: <CastForEducationIcon sx={{ color: "rgb(0,128,0)" }} />,
+    // },
     // {
     //   text: "Training Module",
     //   link: "training_module",
@@ -111,6 +111,11 @@ function NavigationFellow(props) {
     // {
     //   text: "Student Progress Report",
     //   link: "student_progress_report",
+    //   icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
+    // },
+    // {
+    //   text: "Online Report",
+    //   link: "online_report",
     //   icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
     // },
     {
@@ -168,7 +173,7 @@ function NavigationFellow(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.4
+          v1.2.6
         </p>
       </Toolbar>
 

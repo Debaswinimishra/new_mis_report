@@ -13,6 +13,10 @@ import {
   TableBody,
   Button,
   CircularProgress,
+  Modal,
+  Typography,
+  TableContainer,
+  Paper,
 } from "@mui/material";
 import Card from "../../../ReusableComponents/Card";
 import PeopleIcon from "@mui/icons-material/People";
@@ -21,6 +25,7 @@ import Box from "@mui/material/Box";
 import moment from "moment";
 import Graph from "../../../ReusableComponents/Graphs";
 import Nodata from "../../../Assets/Nodata.gif";
+import DynamicModal from "../../../Components/DynamicModal";
 
 const RemoteInstruction = () => {
   //~-------------------------------------------------------
@@ -63,6 +68,10 @@ const RemoteInstruction = () => {
   const [selectedWeek, setSelectedWeek] = useState("");
   const [remoteInstData, setRemoteInstData] = useState({});
   const [loading, setLoading] = useState();
+  const [open, setOpen] = useState(false);
+  const [modalContentData, setModalContentData] = useState([]);
+  const [modalContentTitle, setModalContentTitle] = useState("");
+  const [remoteInstructionType, setRemoteInstructionType] = useState("");
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -169,14 +178,151 @@ const RemoteInstruction = () => {
       });
   };
 
+  const handleOpen = ({ contentTitle, remoteInstruction }) => {
+    setRemoteInstructionType(remoteInstruction);
+    setOpen(true);
+    setModalContentData([]);
+    setModalContentTitle(contentTitle);
+    const body = selectedWeek
+      ? {
+          year: selectedYear,
+          month: selectedMonth,
+          week: selectedWeek,
+        }
+      : !selectedWeek && selectedMonth
+      ? {
+          year: selectedYear,
+          month: selectedMonth,
+        }
+      : {
+          year: selectedYear,
+        };
+
+    if (remoteInstruction === "sms") {
+      PrakashakAPI.post("getSmsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+          } else {
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (remoteInstruction === "auto_calls") {
+      PrakashakAPI.post("getAutoCallsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+          } else {
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else {
+      PrakashakAPI.post("getIvrsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+          } else {
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    }
+  };
+
+  const handleClose = () => setOpen(false);
+
+  const tableHeaders =
+    remoteInstructionType === "sms"
+      ? [
+          "Student Name",
+          "Parent's name",
+          "Class",
+          "Mobile No.",
+          "Gender",
+          "School",
+          "District",
+          "Block",
+          "Status",
+          "Duration",
+        ]
+      : remoteInstructionType === "ivrs"
+      ? [
+          "Student Name",
+          "Parent's name",
+          "Class",
+          "Mobile No.",
+          "Gender",
+          "School",
+          "District",
+          "Block",
+          "Status",
+          "Flow Status",
+          "Duration",
+        ]
+      : [
+          "Student Name",
+          "Parent's name",
+          "Class",
+          "Mobile No.",
+          "Gender",
+          "School",
+          "District",
+          "Block",
+          "Status",
+          "Duration",
+        ];
+  const tableData = [
+    {
+      studentName: "Adarsh Kumar Mishra",
+      ParentsName: "Mishra",
+      class: "10",
+      MobileNumber: "8392098203",
+      Gender: "Male",
+      School: "JNV",
+      district: "Nayagarh",
+      block: "Nayagarh",
+      status: "sent",
+    },
+  ];
+
+  const xlData = tableData;
+  const fileName = "whatsappChatboat.csv";
+
   //todo--------------------Console logs--------------------------
-  console.log("selectedYear---->", selectedYear);
-  console.log("selectedMonth---->", selectedMonth);
-  console.log("selectedWeek---->", selectedWeek);
-  console.log(
-    "remoteInstData-------------------------------->",
-    remoteInstData
-  );
+  // console.log("selectedYear---->", selectedYear);
+  // console.log("selectedMonth---->", selectedMonth);
+  // console.log("selectedWeek---->", selectedWeek);
+  // console.log(
+  //   "remoteInstData-------------------------------->",
+  //   remoteInstData
+  // );
+  // console.log("contentTitle--------------------->", modalContentTitle);
 
   const graphData = {
     labels: ["SMS", "Automated Calls", "IVRs"],
@@ -301,6 +447,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of SMS scheduled",
+                    remoteInstruction: "sms",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -337,6 +489,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of SMS delivered",
+                    remoteInstruction: "sms",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -374,7 +532,14 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_sms_delivered}</h1>
                 </div>
               </div>
+
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of SMS scheduled for Maths",
+                    remoteInstruction: "sms",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -412,6 +577,12 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: " Total no. of SMS scheduled for Odia",
+                    remoteInstruction: "sms",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -472,6 +643,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: " Total no. of calls made",
+                    remoteInstruction: "auto_calls",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -509,6 +686,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of calls received",
+                    remoteInstruction: "auto_calls",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -545,6 +728,12 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: " Total minutes of contents consumed",
+                //     remoteInstruction: "auto_calls",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -582,6 +771,13 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle:
+                      "Total no. parents listened to the full content",
+                    remoteInstruction: "auto_calls",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -642,6 +838,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of incoming calls",
+                    remoteInstruction: "ivrs",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -678,6 +880,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of unique calls",
+                    remoteInstruction: "ivrs",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -713,7 +921,14 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_unique_ivrs_calls_received}</h1>
                 </div>
               </div>
+
               <div
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total minutes spent in IVRs",
+                //     remoteInstruction: "ivrs",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -748,7 +963,15 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_ivrs_calls_mins}</h1>
                 </div>
               </div>
+
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle:
+                      "Total no. parents listened to maths activity",
+                    remoteInstruction: "ivrs",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -785,6 +1008,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. parents listened to odia activity",
+                    remoteInstruction: "ivrs",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -821,6 +1050,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
+                onClick={() =>
+                  handleOpen({
+                    contentTitle: "Total no. of calls diverted to experts",
+                    remoteInstruction: "ivrs",
+                  })
+                }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -868,6 +1103,15 @@ const RemoteInstruction = () => {
           >
             <Graph data={graphData} />
           </div>
+          <DynamicModal
+            open={open}
+            handleClose={handleClose}
+            modalTitle={modalContentTitle}
+            tableHeaders={tableHeaders}
+            tableData={tableData}
+            xlData={xlData}
+            fileName={fileName}
+          />
         </div>
       ) : Object.keys(remoteInstData).length === 0 && loading === false ? (
         <div

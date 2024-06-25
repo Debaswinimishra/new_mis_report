@@ -2,33 +2,30 @@ import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
+import { FormControl, InputLabel, Select } from "@mui/material";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
-import loader from "../../../Assets/R.gif";
+
+import moment from "moment";
+
 import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
-import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
-import {
-  getAllCommunityEducatiorFilter,
-  getAllDistricts,
-  getDistrictsWiseBlocks,
-} from "../CommunityEducator/CommunityEducatorApi";
-import { FellowDetailsForManager } from "./EducatorsDetailsApi";
+
+import { getAllCommunityEducatiorFilter } from "../CommunityEducator/CommunityEducatorApi";
+import { getOnlineRequestedReport } from "./OnlineReuestApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
-import Logo from "../../../ReusableComponents/Logo";
+
 import Loader from "../../../ReusableComponents/Loader";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
-import moment from "moment";
-// import Links from "../../../ReusableComponents/Links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -55,30 +52,48 @@ const managerTypeArr = [
   { value: "Crc", label: "CRC" },
   { value: "Aww", label: "Supervisor" },
 ];
-
+// username, contact number, gender, address, status(accept/reject), reason
 const moduleColumn = [
   "Serial No",
   "User Name",
-  "User Id",
-  "Created on",
-  "No of Students",
-  "Gender",
   "Contact Number",
+  "Gender",
+  "Address",
   "Status(Active/Inactive)",
-  "Aadhaar Number",
-  "Previous Passcode",
+
+  "reason",
 ];
 
-const FellowDetails = () => {
+const OnlineReport = () => {
+  const monthArr = [
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
+  ];
+  const currentMonth = moment().format("MMMM");
+  const currentMonthSelected = monthArr?.filter(
+    (item) => item.label === currentMonth
+  )[0];
+  const [selectedMonth, setSelectedMonth] = useState("");
+
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   const [managerName, setManagerName] = useState([]);
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
-  // const [districts, setDistricts] = useState([]);
+
   const [page, setPage] = useState(0);
   const [districtName, setDistrictName] = useState("");
-  // const [allBlocks, setAllBlocks] = useState([]);
+
   const [blockName, setBlockName] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   console.log("filteredData", filteredData);
@@ -86,7 +101,22 @@ const FellowDetails = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
+  const handleMonthChange = (e) => {
+    if (
+      e.target.value > currentMonthSelected.value &&
+      selectedYear === currentYear
+    ) {
+      toast.error("You can't select a month greater than the current month !", {
+        style: {
+          borderRadius: "100px",
+          backgroundColor: "black",
+          color: "white",
+        },
+      });
+    } else {
+      setSelectedMonth(e.target.value ? e.target.value : "");
+    }
+  };
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -176,14 +206,17 @@ const FellowDetails = () => {
 
       setLoaded(true);
       const filterCriteriaWithBlockAndDistrict = {
-        year: selectedYear,
-        managerid: managerName,
-        passcode: passcode,
-        districtid: districtName,
-        blockid: blockName,
+        year: Number(selectedYear),
+        month: selectedMonth,
+        // districtid: districtName,
+        // blockid: blockName,
       };
+      console.log(
+        "====================================",
+        filterCriteriaWithBlockAndDistrict
+      );
 
-      const data = await FellowDetailsForManager(
+      const data = await getOnlineRequestedReport(
         filterCriteriaWithBlockAndDistrict
       );
 
@@ -194,7 +227,6 @@ const FellowDetails = () => {
         setFilteredData([]);
         alert("No data found");
       } else if (data.length > 0) {
-        console.log("data------------------>", data)
         setFilteredData(data);
         setTotalDataLength(data.length);
       }
@@ -207,29 +239,25 @@ const FellowDetails = () => {
       setLoaded(false);
     }
   };
-
+  // username, contact number, gender, address, status(accept/reject), reason
   const getCellValue = (row, column, index) => {
     switch (column) {
       case "Serial No":
         return index + 1;
       case "User Name":
         return row.username;
-      case "User Id":
-        return row.userid;
-      case "Created on":
-        return moment(row.createdon).format("DD/MM/YYYY");
-      case "No of Students":
-        return row.studentsCount;
-      case "Gender":
-        return row.gender;
       case "Contact Number":
         return row.contactnumber ? row.contactnumber : "NA";
+      case "Gender":
+        return row.gender;
+      case "Address":
+        return row.address ? row.address : "NA";
+
       case "Status(Active/Inactive)":
-        return row.status;
-      case "Aadhaar Number":
-        return row.aadhaar ? row.aadhaar : "NA";
-      case "Previous Passcode":
-        return row.previousPasscode ? row.previousPasscode : "NA";
+        return row.status ? row.status : "NA";
+
+      case "Reason":
+        return row.reason ? row.reason : "NA";
       default:
         return "";
     }
@@ -263,30 +291,24 @@ const FellowDetails = () => {
         >
           <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
 
-          <TextField
-            id="outlined-select-currency"
-            select
-            label="Select manager"
-            defaultValue="none"
-            value={managerName}
-            onChange={(e) => handleManagerChange(e)}
-          >
-            <MenuItem value="">None</MenuItem>
-            {Array.isArray(managerArr)
-              ? managerArr.map((option, index) => (
-                  <MenuItem key={index + 1} value={option.managerid}>
-                    {option.managername}
-                  </MenuItem>
-                ))
-              : null}
-          </TextField>
-
-          <ReusableTextField
-            label="Select passcode"
-            value={passcode}
-            options={passcodeArray}
-            onChange={(e) => handlePasscodeChange(e)}
-          />
+          <FormControl size="medium" style={{ width: "200px" }}>
+            <InputLabel id="usertype-label">Month</InputLabel>
+            <Select
+              labelId="usertype-label"
+              id="usertype-select"
+              value={selectedMonth}
+              onChange={handleMonthChange}
+              label="Month"
+              style={{ padding: "4px" }}
+            >
+              <MenuItem value={null}>None</MenuItem>
+              {monthArr.map((item, index) => (
+                <MenuItem key={index} value={item.value}>
+                  {item.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           <TextField
             id="outlined-select-currency"
@@ -420,4 +442,4 @@ const FellowDetails = () => {
   );
 };
 
-export default FellowDetails;
+export default OnlineReport;

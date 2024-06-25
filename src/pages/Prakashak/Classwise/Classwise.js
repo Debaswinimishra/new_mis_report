@@ -585,6 +585,47 @@ const Classwise = () => {
                   <h1>{data.total_timespent}</h1>
                 </div>
               </div>
+
+              <div
+                // onClick={() => handleOpen(" ")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of Parents Spent 0-1 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
+                </div>
+              </div>
+
               <div
                 // onClick={() => handleOpen(" ")}
                 style={{

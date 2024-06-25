@@ -45,9 +45,9 @@ const Schoolwise = () => {
   const [filtered, setFiltered] = useState(false);
   const [open, setOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [modalTitle, setModalTitle] = useState("Number Of Students");
   console.log("tableData", tableData);
 
-  const modalTitle = "Number Of Students";
   const tableHeaders = [
     "student_name",
     "Class",
@@ -233,6 +233,10 @@ const Schoolwise = () => {
   const handleOpen = async (classNumber) => {
     setOpen(true);
     setLoading(true);
+    const newModalTitle = classNumber
+      ? `Number Of Students in class ${classNumber}`
+      : "Number Of Students";
+    setModalTitle(newModalTitle);
 
     const body = {
       // year: 2024,

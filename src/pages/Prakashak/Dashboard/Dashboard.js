@@ -1142,7 +1142,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  No. of parents spending 0-2 mins
+                  No. of parents spending 0-1 mins
                 </div>
                 <div
                   style={{
@@ -1153,7 +1153,7 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.no_of_parents_spent_2to5mins}</h1>
+                  <h1>{dashboardData.no_of_parents_spent_0to1mins}</h1>
                 </div>
               </div>
               <div

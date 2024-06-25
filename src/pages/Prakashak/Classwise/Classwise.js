@@ -351,8 +351,32 @@ const Classwise = () => {
       } else if (type === "chatbotActive") {
         response = await PrakashakAPI.post("getChatBotActiveUsersReport", body);
         if (response.status === 200) {
-          setTableDatas(response.data);
-          setTableHeaders(["Chatbot Active Users"]);
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.phone_number,
+            duration: student.duration,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone",
+            "Duration",
+          ]);
         }
       }
 

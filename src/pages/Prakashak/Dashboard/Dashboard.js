@@ -285,16 +285,13 @@ const Dashboard = () => {
       case "chatbotActive":
         return "Number of Active Users";
       case "boys":
-        return "Number of Males";
+        return "Number of boys";
       case "girls":
-        return "Number of Females";
-
+        return "Number of girls";
       case "smartphoneUsers":
         return "Smart Phone Users";
-
       case "newStudents":
-        return "New Students";
-
+        return "Total Number of New Students";
       case "district":
         return "Districts";
       case "block":
@@ -304,8 +301,7 @@ const Dashboard = () => {
       case "schools":
         return "Schools";
       case "newSchools":
-        return "newSchools";
-
+        return "Total Number of newSchools";
       default:
         return "Data";
     }
@@ -360,7 +356,7 @@ const Dashboard = () => {
           setModalLoader(false);
           setTableHeaders(["Cluster"]);
         }
-      } else if (type === "schools") {
+      } else if (type === "schools" || type === "newSchools") {
         response = await PrakashakAPI.post("getAllSchools", body);
         if (response.status === 200) {
           transformedData = response.data.map((school) => ({
@@ -370,7 +366,12 @@ const Dashboard = () => {
           setModalLoader(false);
           setTableHeaders(["School Name", "UDISE Code"]);
         }
-      } else if (type === "students" || type === "girls" || type === "boys") {
+      } else if (
+        type === "students" ||
+        type === "girls" ||
+        type === "boys" ||
+        type == "newStudents"
+      ) {
         response = await PrakashakAPI.post("getAllStudentsReport", body);
         console.log("students---->", response);
         if (response.status === 200) {
@@ -1046,7 +1047,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("smartphoneUsers")}
+                // onClick={() => handleOpen("smartphoneUsers")}
                 style={{
                   width: "255px",
                   height: "180px",

@@ -31,7 +31,7 @@ import SelectYear from "../../../ReusableComponents/SelectYear";
 
 const Schoolwise = () => {
   const chartRef = useRef(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(null);
   // const [year, setYear] = useState("2024");
   const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
@@ -173,12 +173,16 @@ const Schoolwise = () => {
 
   const fetchData = () => {
     setLoading(true);
-    const body = {
-      district: districts,
-      block: blocks,
-      cluster: clusters,
-      school: schools.school_name,
-    };
+    const body = districts
+      ? {
+          district: districts,
+          block: blocks,
+          cluster: clusters,
+          school: schools.school_name,
+        }
+      : {
+          filterType: "DBC",
+        };
 
     console.log("check---------->", districts, blocks, clusters, schools);
 
@@ -233,12 +237,16 @@ const Schoolwise = () => {
   const handleOpenChatbotConvo = async (title) => {
     setOpen(true);
     setLoading(true);
-    const body = {
-      ...(districts && { district: districts }),
-      ...(blocks && { block: blocks }),
-      ...(clusters && { cluster: clusters }),
-      ...(schools && { school_name: schools?.school_name }),
-    };
+    const body = districts
+      ? {
+          ...(districts && { district: districts }),
+          ...(blocks && { block: blocks }),
+          ...(clusters && { cluster: clusters }),
+          ...(schools && { school_name: schools?.school_name }),
+        }
+      : {
+          filterType: "DBC",
+        };
     try {
       const response = await Api.post("/getChatBotConvosReport", body);
       setTableData(response.data);

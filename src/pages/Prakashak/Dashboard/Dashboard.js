@@ -555,8 +555,10 @@ const Dashboard = () => {
           district: student.district,
           block: student.block,
           cluster: student.cluster,
-          // phone_number: student.phone_number,
-          // duration: student.duration,
+          buttonClicked: student.buttonClicked,
+          templateName: student.templateName,
+          msgType: student.msgType,
+          status: student.status,
         }));
         setTableHeaders([
           "Student Name",
@@ -568,6 +570,10 @@ const Dashboard = () => {
           "District",
           "Block",
           "Cluster",
+          "Template Name",
+          "Button Clicked",
+          "Msg Type",
+          "Status",
           // "Phone",
           // "Duration",
         ]);

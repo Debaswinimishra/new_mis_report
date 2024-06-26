@@ -534,7 +534,10 @@ const Dashboard = () => {
           body
         );
         if (response.status === 200) {
-          setTableDatas(response.data);
+          transformedData = response.data.map((student) => ({
+            templateName: student.templateName,
+          }));
+          setTableHeaders(["Template Name"]);
           setModalLoader(false);
           setTableHeaders(["Video"]);
         }
@@ -1045,7 +1048,6 @@ const Dashboard = () => {
                   <h1>{dashboardData.total_new_students}</h1>
                 </div>
               </div>
-
               <div
                 // onClick={() => handleOpen("smartphoneUsers")}
                 style={{

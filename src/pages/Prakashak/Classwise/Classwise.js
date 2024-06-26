@@ -367,7 +367,12 @@ const Classwise = () => {
           body
         );
         if (response.status === 200) {
-          setTableDatas(response.data);
+          transformedData = response.data.map((student) => ({
+            templateName: student.templateName,
+          }));
+
+          setTableHeaders(["Video"]);
+
           setTableHeaders(["Video"]);
         }
       } else if (type === "chatbotActive") {

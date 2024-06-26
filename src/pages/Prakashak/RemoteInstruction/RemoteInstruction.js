@@ -879,7 +879,7 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() =>
+                onClick={() => remoteInstData.total_calls_made >0 &&
                   handleOpen({
                     contentTitle: " Total no. of calls made",
                     remoteInstruction: "auto_calls",
@@ -922,7 +922,7 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() =>
+                onClick={() => remoteInstData.total_calls_received >0 && 
                   handleOpen({
                     contentTitle: "Total no. of calls received",
                     remoteInstruction: "auto_calls",
@@ -1075,6 +1075,7 @@ const RemoteInstruction = () => {
             >
               <div
                 onClick={() =>
+                  remoteInstData.total_ivrs_calls_made > 0 &&
                   handleOpen({
                     contentTitle: "Total no. of incoming calls",
                     remoteInstruction: "ivrs",
@@ -1117,6 +1118,7 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
+                  remoteInstData.total_unique_ivrs_calls_received > 0 &&
                   handleOpen({
                     contentTitle: "Total no. of unique calls",
                     remoteInstruction: "ivrs",
@@ -1159,12 +1161,6 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                // onClick={() =>
-                //   handleOpen({
-                //     contentTitle: "Total minutes spent in IVRs",
-                //     remoteInstruction: "ivrs",
-                //   })
-                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1202,6 +1198,7 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
+                  remoteInstData.total_ivrs_calls_maths > 0 &&
                   handleOpen({
                     contentTitle:
                       "Total no. parents listened to maths activity",
@@ -1245,6 +1242,7 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
+                  remoteInstData.total_ivrs_calls_odia > 0 &&
                   handleOpen({
                     contentTitle: "Total no. parents listened to odia activity",
                     remoteInstruction: "ivrs",
@@ -1287,6 +1285,7 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
+                  remoteInstData.total_ivrs_calls_diverted_expert > 0 &&
                   handleOpen({
                     contentTitle: "Total no. of calls diverted to experts",
                     remoteInstruction: "ivrs",

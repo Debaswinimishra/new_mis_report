@@ -929,7 +929,7 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("sms")}
+                // onClick={() => handleOpen("sms")}
                 style={{
                   width: "255px",
                   height: "180px",

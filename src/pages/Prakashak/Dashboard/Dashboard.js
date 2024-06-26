@@ -293,13 +293,13 @@ const Dashboard = () => {
       case "newStudents":
         return "Total Number of New Students";
       case "district":
-        return "Districts";
+        return "Number of Districts";
       case "block":
-        return "Blocks";
+        return "Number of Blocks";
       case "clusters":
-        return "Clusters";
+        return "Number of Clusters";
       case "schools":
-        return "Schools";
+        return "Number of Schools";
       case "newSchools":
         return "Total Number of newSchools";
       default:

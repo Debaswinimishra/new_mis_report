@@ -282,6 +282,8 @@ const Dashboard = () => {
         return "Unique Calls Received in IVR";
       case "video":
         return "Total No. of Videos Watched";
+      case "chatbot":
+        return "Conversations in Chatbot";
       case "chatbotActive":
         return "Number of Active Users";
       case "boys":
@@ -541,6 +543,35 @@ const Dashboard = () => {
           setModalLoader(false);
           setTableHeaders(["Video"]);
         }
+      } else if (type === "chatbot") {
+        response = await PrakashakAPI.post("getChatBotConvosReport", body);
+        transformedData = response.data.map((student) => ({
+          student_name: student.student_name,
+          class: student.class,
+          gender: student.gender,
+          parents_name: student.parents_name,
+          // parents_phone_number: student.parents_phone_number,
+          school_name: student.school_name,
+          district: student.district,
+          block: student.block,
+          cluster: student.cluster,
+          // phone_number: student.phone_number,
+          // duration: student.duration,
+        }));
+        setTableHeaders([
+          "Student Name",
+          "Class",
+          "Gender",
+          "Parents Name",
+          // "Parents Phone Number",
+          "School Name",
+          "District",
+          "Block",
+          "Cluster",
+          // "Phone",
+          // "Duration",
+        ]);
+        setModalLoader(false);
       } else if (type === "chatbotActive") {
         response = await PrakashakAPI.post("getChatBotActiveUsersReport", body);
         if (response.status === 200) {
@@ -1709,6 +1740,7 @@ const Dashboard = () => {
               }}
             >
               <div
+                onClick={() => handleOpen("chatbot")}
                 style={{
                   width: "255px",
                   height: "180px",

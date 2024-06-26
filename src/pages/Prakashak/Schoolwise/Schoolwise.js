@@ -230,7 +230,27 @@ const Schoolwise = () => {
     }
   };
 
+  const handleOpenChatbotConvo = async (title) => {
+    setOpen(true);
+    setLoading(true);
+    const body = {
+      ...(districts && { district: districts }),
+      ...(blocks && { block: blocks }),
+      ...(clusters && { cluster: clusters }),
+      ...(schools && { school_name: schools?.school_name }),
+    };
+    try {
+      const response = await Api.post("/getChatBotConvosReport", body);
+      setTableData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+      setLoading(false);
+    }
+  };
+
   const handleOpen = async (classNumber) => {
+    console.log("classnumber??--------------------------->", classNumber);
     setOpen(true);
     setLoading(true);
     const newModalTitle = classNumber
@@ -240,7 +260,7 @@ const Schoolwise = () => {
 
     const body = {
       // year: 2024,
-      ...(classNumber && { class: classNumber }),
+      ...(classNumber && { class: classNumber }), //
       ...(districts && { district: districts }),
       ...(blocks && { block: blocks }),
       ...(clusters && { cluster: clusters }),
@@ -249,7 +269,7 @@ const Schoolwise = () => {
 
     try {
       const response = await Api.post("/getAllStudentsReport", body);
-      console.log("getAllStudentsReport=================>", response.data);
+      // console.log("getAllStudentsReport=================>", response.data);
       setTableData(response.data);
       setLoading(false);
     } catch (error) {
@@ -1249,6 +1269,9 @@ const Schoolwise = () => {
               }}
             >
               <div
+                onClick={() => {
+                  handleOpenChatbotConvo("Total Conversations in Chatbot");
+                }}
                 style={{
                   width: "255px",
                   height: "180px",

@@ -682,12 +682,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: "Total no. of SMS scheduled",
-                    remoteInstruction: "sms",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total no. of SMS scheduled",
+                //     remoteInstruction: "sms",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -724,12 +724,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: "Total no. of SMS delivered",
-                    remoteInstruction: "sms",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total no. of SMS delivered",
+                //     remoteInstruction: "sms",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -769,12 +769,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: "Total no. of SMS scheduled for Maths",
-                    remoteInstruction: "sms",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total no. of SMS scheduled for Maths",
+                //     remoteInstruction: "sms",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -811,13 +811,14 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_sms_scheduled_maths}</h1>
                 </div>
               </div>
+
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: "Total no. of SMS scheduled for Odia",
-                    remoteInstruction: "sms",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total no. of SMS scheduled for Odia",
+                //     remoteInstruction: "sms",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",

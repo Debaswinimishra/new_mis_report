@@ -140,6 +140,7 @@ const DynamicModal = ({
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}
               rowsPerPageOptions={[]}
+              labelDisplayedRows={({ from, to }) => `${from}-${to}`}
             />
             {tableData && tableData.length > 0 && (
               <Download csvData={xlData} fileName={fileName} />

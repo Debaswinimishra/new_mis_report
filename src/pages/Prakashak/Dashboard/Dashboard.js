@@ -293,13 +293,13 @@ const Dashboard = () => {
       case "newStudents":
         return "Total Number of New Students";
       case "district":
-        return "Districts";
+        return "Number of Districts";
       case "block":
-        return "Blocks";
+        return "Number of Blocks";
       case "clusters":
-        return "Clusters";
+        return "Number of Clusters";
       case "schools":
-        return "Schools";
+        return "Number of Schools";
       case "newSchools":
         return "Total Number of newSchools";
       default:
@@ -414,7 +414,7 @@ const Dashboard = () => {
             class: student.class,
             gender: student.gender,
             parents_name: student.parents_name,
-            parents_phone_number: student.parents_phone_number,
+            // parents_phone_number: student.parents_phone_number,
             school_name: student.school_name,
             district: student.district,
             block: student.block,
@@ -427,7 +427,7 @@ const Dashboard = () => {
             "Class",
             "Gender",
             "Parents Name",
-            "Parents Phone Number",
+            // "Parents Phone Number",
             "School Name",
             "District",
             "Block",
@@ -534,7 +534,10 @@ const Dashboard = () => {
           body
         );
         if (response.status === 200) {
-          setTableDatas(response.data);
+          transformedData = response.data.map((student) => ({
+            templateName: student.templateName,
+          }));
+          setTableHeaders(["Template Name"]);
           setModalLoader(false);
           setTableHeaders(["Video"]);
         }
@@ -1045,7 +1048,6 @@ const Dashboard = () => {
                   <h1>{dashboardData.total_new_students}</h1>
                 </div>
               </div>
-
               <div
                 // onClick={() => handleOpen("smartphoneUsers")}
                 style={{
@@ -1485,7 +1487,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("sms")}
+                // onClick={() => handleOpen("sms")}
                 style={{
                   width: "255px",
                   height: "180px",

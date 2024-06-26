@@ -31,7 +31,7 @@ import SelectYear from "../../../ReusableComponents/SelectYear";
 
 const Schoolwise = () => {
   const chartRef = useRef(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
   const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
@@ -173,16 +173,12 @@ const Schoolwise = () => {
 
   const fetchData = () => {
     setLoading(true);
-    const body = districts
-      ? {
-          district: districts,
-          block: blocks,
-          cluster: clusters,
-          school: schools.school_name,
-        }
-      : {
-          filterType: "DBC",
-        };
+    const body = {
+      district: districts,
+      block: blocks,
+      cluster: clusters,
+      school: schools.school_name,
+    };
 
     console.log("check---------->", districts, blocks, clusters, schools);
 
@@ -209,19 +205,21 @@ const Schoolwise = () => {
     //       setLoading(false);
     //     });
     // }
-    Api.post(`getSchoolWiseReport`, body)
-      .then((response) => {
-        console.log("set=================>", response.data);
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log("err=================>", err);
-        // if (err.response.status === 406) {
-        //   alert("something went wrong", err.response.status);
-        // }
-        setLoading(false);
-      });
+    if (districts) {
+      Api.post(`getSchoolWiseReport`, body)
+        .then((response) => {
+          console.log("set=================>", response.data);
+          setData(response.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log("err=================>", err);
+          // if (err.response.status === 406) {
+          //   alert("something went wrong", err.response.status);
+          // }
+          setLoading(false);
+        });
+    }
   };
 
   const filterButtonClick = () => {
@@ -237,16 +235,12 @@ const Schoolwise = () => {
   const handleOpenChatbotConvo = async (title) => {
     setOpen(true);
     setLoading(true);
-    const body = districts
-      ? {
-          ...(districts && { district: districts }),
-          ...(blocks && { block: blocks }),
-          ...(clusters && { cluster: clusters }),
-          ...(schools && { school_name: schools?.school_name }),
-        }
-      : {
-          filterType: "DBC",
-        };
+    const body = {
+      ...(districts && { district: districts }),
+      ...(blocks && { block: blocks }),
+      ...(clusters && { cluster: clusters }),
+      ...(schools && { school_name: schools?.school_name }),
+    };
     try {
       const response = await Api.post("/getChatBotConvosReport", body);
       setTableData(response.data);

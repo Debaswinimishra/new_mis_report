@@ -283,6 +283,8 @@ const Dashboard = () => {
         return "Total No. of Videos Watched";
       case "chatbotActive":
         return "Number of Active Users";
+      case "chatbot":
+        return "Conversations in Chatbot";
       default:
         return "Data";
     }
@@ -414,6 +416,45 @@ const Dashboard = () => {
             "Cluster",
             "Phone",
             "Duration",
+          ]);
+          setModalLoader(false);
+        }
+      } else if (type === "chatbot") {
+        response = await PrakashakAPI.post("getChatBotConvosReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            // parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.phone_number ? student.phone_number : "-",
+            buttonClicked: student.buttonClicked ? student.buttonClicked : "-",
+            templateName: student.templateName ? student.templateName : "-",
+            msgType: student.msgType ? student.msgType : "-",
+            status: student.status,
+            createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone Number",
+            "Button Clicked",
+            "Template Name",
+            "Msg Type",
+            "Status",
+            "Created on",
           ]);
           setModalLoader(false);
         }
@@ -1688,6 +1729,7 @@ const Dashboard = () => {
               }}
             >
               <div
+                onClick={() => handleOpen("chatbot")}
                 style={{
                   width: "255px",
                   height: "180px",

@@ -389,25 +389,29 @@ const Classwise = () => {
           district: student.district,
           block: student.block,
           cluster: student.cluster,
-          buttonClicked: student.buttonClicked,
-          templateName: student.templateName,
-          msgType: student.msgType,
+          phone_number: student.phone_number ? student.phone_number : "-",
+          buttonClicked: student.buttonClicked ? student.buttonClicked : "-",
+          templateName: student.templateName ? student.templateName : "-",
+          msgType: student.msgType ? student.msgType : "-",
           status: student.status,
+          createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
         }));
         setTableHeaders([
           "Student Name",
           "Class",
           "Gender",
           "Parents Name",
-          // "Parents Phone Number",
+
           "School Name",
           "District",
           "Block",
           "Cluster",
-          "Template Name",
+          "Phone Number",
           "Button Clicked",
+          "Template Name",
           "Msg Type",
           "Status",
+          "Created on",
         ]);
       } else if (type === "chatbotActive") {
         response = await PrakashakAPI.post("getChatBotActiveUsersReport", body);

@@ -316,6 +316,7 @@ const Dashboard = () => {
     try {
       let body = {
         year: selectedYear,
+        
         month: selectedMonth ? parseInt(selectedMonth) : undefined,
         week: selectedWeek ? parseInt(selectedWeek) : undefined,
       };

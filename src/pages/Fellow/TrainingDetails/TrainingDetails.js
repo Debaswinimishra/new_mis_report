@@ -91,7 +91,7 @@ const TrainingDetails = () => {
         console.log("err--->", err.response.status);
       }
     };
-    fetchData();
+    fetchData(); //
   }, []);
 
   let passcodeArray = [];

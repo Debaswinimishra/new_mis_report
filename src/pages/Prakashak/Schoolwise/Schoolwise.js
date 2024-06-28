@@ -46,6 +46,7 @@ const Schoolwise = () => {
   const [open, setOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [modalTitle, setModalTitle] = useState("Number Of Students");
+  const [title, setTitle] = useState("");
   console.log("tableData", tableData);
 
   const tableHeaders =
@@ -249,8 +250,6 @@ const Schoolwise = () => {
       fetchData();
     }
   };
-
-  const [title, setTitle] = useState("");
 
   const handleOpenChatbotConvo = async (title) => {
     setTitle(title);

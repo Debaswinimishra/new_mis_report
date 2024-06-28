@@ -49,7 +49,7 @@ const DynamicModal = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 1300,
+          width: 1450,
           height: 600,
           bgcolor: "background.paper",
           border: "2px solid #000",

@@ -273,8 +273,12 @@ const Schoolwise = () => {
         district: student.district,
         block: student.block,
         cluster: student.cluster,
-        phone_number: student.contact,
-        // duration: student.duration,
+        phone_number: student.phone_number ? student.phone_number : "-",
+        buttonClicked: student.buttonClicked ? student.buttonClicked : "-",
+        templateName: student.templateName ? student.templateName : "-",
+        msgType: student.msgType ? student.msgType : "-",
+        status: student.status,
+        createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
       }));
       setTableData(transformedData);
       setLoading(false);

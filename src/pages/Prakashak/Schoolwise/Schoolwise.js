@@ -51,7 +51,7 @@ const Schoolwise = () => {
 
   const tableHeaders =
     title === "Total Conversations in Chatbot"
-      ? setTableHeaders([
+      ? [
           "Student Name",
           "Class",
           "Gender",
@@ -66,7 +66,7 @@ const Schoolwise = () => {
           "Msg Type",
           "Status",
           "Created on",
-        ])
+        ]
       : [
           "student_name",
           "Class",

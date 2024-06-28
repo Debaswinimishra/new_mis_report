@@ -48,17 +48,35 @@ const Schoolwise = () => {
   const [modalTitle, setModalTitle] = useState("Number Of Students");
   console.log("tableData", tableData);
 
-  const tableHeaders = [
-    "student_name",
-    "Class",
-    "gender",
-    "parents_name",
-    "parents_phone_number",
-    "school_name",
-    "district",
-    "block",
-    "cluster",
-  ];
+  const tableHeaders =
+    title === "Total Conversations in Chatbot"
+      ? setTableHeaders([
+          "Student Name",
+          "Class",
+          "Gender",
+          "Parents Name",
+          "School Name",
+          "District",
+          "Block",
+          "Cluster",
+          "Phone Number",
+          "Button Clicked",
+          "Template Name",
+          "Msg Type",
+          "Status",
+          "Created on",
+        ])
+      : [
+          "student_name",
+          "Class",
+          "gender",
+          "parents_name",
+          "parents_phone_number",
+          "school_name",
+          "district",
+          "block",
+          "cluster",
+        ];
   const xlData = tableData;
   const fileName = "SchoolwiseReport.csv";
 
@@ -232,7 +250,10 @@ const Schoolwise = () => {
     }
   };
 
+  const [title, setTitle] = useState("");
+
   const handleOpenChatbotConvo = async (title) => {
+    setTitle(title);
     setOpen(true);
     setLoading(true);
     const body = {
@@ -243,7 +264,20 @@ const Schoolwise = () => {
     };
     try {
       const response = await Api.post("/getChatBotConvosReport", body);
-      setTableData(response.data);
+      transformedData = response.data.map((student) => ({
+        student_name: student.student_name,
+        class: student.class,
+        gender: student.gender,
+        parents_name: student.parents_name,
+        // parents_phone_number: student.parents_phone_number,
+        school_name: student.school_name,
+        district: student.district,
+        block: student.block,
+        cluster: student.cluster,
+        phone_number: student.contact,
+        // duration: student.duration,
+      }));
+      setTableData(transformedData);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching districts:", error);

@@ -87,6 +87,15 @@ const FellowDetails = () => {
   const [loaded, setLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const modifiedData =
+    filteredData.length > 0 &&
+    filteredData.map((item) => ({
+      ...item,
+      createdon: new Date(item?.createdon),
+    }));
+
+  console.log(modifiedData);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -236,7 +245,7 @@ const FellowDetails = () => {
 
   const fileName = "FellowDetails";
 
-  const xlData = filteredData.map((x) => {
+  const xlData = modifiedData.map((x) => {
     const { ...exceptBoth } = x;
     return exceptBoth;
   });

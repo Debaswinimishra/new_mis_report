@@ -60,7 +60,9 @@ const moduleColumn = [
   "Serial No",
   "User Name",
   "User Id",
-  "Created on",
+  // "Created on",
+  "Date",
+  "Time",
   "No of Students",
   "Gender",
   "Contact Number",
@@ -86,6 +88,16 @@ const FellowDetails = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const modifiedData =
+    filteredData.length > 0 &&
+    filteredData.map((item) => ({
+      ...item,
+      date: moment(new Date(item.createdon)).format("DD/MM/YYYY"),
+      time: moment(new Date(item.createdon)).format("h:mm:ss a"),
+    }));
+
+  console.log(modifiedData);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -194,7 +206,6 @@ const FellowDetails = () => {
         setFilteredData([]);
         alert("No data found");
       } else if (data.length > 0) {
-        console.log("data------------------>", data)
         setFilteredData(data);
         setTotalDataLength(data.length);
       }
@@ -216,8 +227,12 @@ const FellowDetails = () => {
         return row.username;
       case "User Id":
         return row.userid;
-      case "Created on":
-        return moment(row.createdon).format("DD/MM/YYYY");
+      // case "Created on":
+      //   return moment(row.createdon).format("DD/MM/YYYY");
+      case "Date":
+        return row.date;
+      case "Time":
+        return row.time;
       case "No of Students":
         return row.studentsCount;
       case "Gender":
@@ -237,10 +252,12 @@ const FellowDetails = () => {
 
   const fileName = "FellowDetails";
 
-  const xlData = filteredData.map((x) => {
-    const { ...exceptBoth } = x;
-    return exceptBoth;
-  });
+  const xlData =
+    modifiedData.length > 0 &&
+    modifiedData.map((x) => {
+      const { ...exceptBoth } = x;
+      return exceptBoth;
+    });
 
   const handleClear = () => {};
 
@@ -341,7 +358,7 @@ const FellowDetails = () => {
       </div>
       {loaded ? (
         <Loader />
-      ) : selectedYear && filteredData && filteredData.length > 0 ? (
+      ) : selectedYear && modifiedData && modifiedData.length > 0 ? (
         <>
           <TextField
             fullWidth
@@ -380,8 +397,8 @@ const FellowDetails = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Array.isArray(filteredData) &&
-                  filteredData
+                {Array.isArray(modifiedData) &&
+                  modifiedData
                     .filter(
                       (row) =>
                         row["username"] &&

@@ -75,7 +75,6 @@ export function TimeSpentReport() {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [managerId, setManagerId] = useState("");
-  const [passcodesArray, setPasscodesArray] = useState([]);
   const [passcode, setPasscode] = useState("");
   const [managerArray, setManagerArray] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -222,7 +221,7 @@ export function TimeSpentReport() {
       </div>
 
       <div className="table">
-        
+
       </div>
 
     </Box>

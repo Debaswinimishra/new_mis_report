@@ -110,12 +110,21 @@ const Schoolwise = () => {
     setSchools("");
     // Other logic related to district change
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
-        console.log("set=================>", response.data[0].blocksArr);
-        setBlockArr(response.data[0].blocks);
+        console.log("set=================>", response.data);
+        if (response?.data && response?.data?.length > 0) {
+          // Extracting the blocks from the response data
+          const blocks = response?.data?.map((item) => item?.block);
+          console.log("Blocks:", blocks);
+          setBlockArr(blocks); // Setting the block array with the array of block names
+        } else {
+          console.log("No blocks found for the given district.");
+          setBlockArr([]); // Setting an empty array if no data is found
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);

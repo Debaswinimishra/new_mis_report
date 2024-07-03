@@ -104,7 +104,6 @@ export function TimeSpentReport() {
     setPasscode("");
     setManagerId("");
   };
-  //   console.log("managername------------------->", managerId);
 
   //*-------------On manager change----------------------
   const handleManagerChange = (event) => {
@@ -116,12 +115,6 @@ export function TimeSpentReport() {
     return item.managerid === managerId;
   });
 
-  //   console.log("managerArray--------------------->", managerArray);
-  console.log(
-    "passcodeArray-------------------->",
-    passcodeArray[0]?.passcodes
-  );
-
   //*---------------On changing the passcode-----------------
   const passcodeChange = (event) => {
     setPasscode(event.target.value);
@@ -131,11 +124,8 @@ export function TimeSpentReport() {
   const filterData = async () => {
     try {
       console.log("filter button clicked");
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
-
 
   return (
     <Box>
@@ -183,8 +173,8 @@ export function TimeSpentReport() {
             onChange={handleManagerChange}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(managerArray)
-              ? managerArray.map((option, index) => (
+            {selectedYear && selectedMonth
+              ? managerArray?.map((option, index) => (
                   <MenuItem key={index + 1} value={option.managerid}>
                     {option.managername}
                   </MenuItem>
@@ -220,10 +210,7 @@ export function TimeSpentReport() {
         </div>
       </div>
 
-      <div className="table">
-
-      </div>
-
+      <div className="table"></div>
     </Box>
   );
 }

@@ -148,6 +148,9 @@ export function TimeSpentReport() {
         );
       }
     } catch (error) {
+      toast.error(
+        `Sorry, something went wrong....Code:${error.response.status}`
+      );
       console.error(
         "The error received while fetching filtered data----------------------->",
         error

@@ -19,7 +19,10 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { getManagerWidPasscodes } from "./TimeSpentReport.Api";
+import {
+  getManagerWidPasscodes,
+  getAllTimespentData,
+} from "./TimeSpentReport.Api";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -36,6 +39,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import dayjs from "dayjs";
 import Logo from "../../../ReusableComponents/Logo";
 import loader from "../../../Assets/R.gif";
+import Api from "../../../Environment/Api";
+import { toast } from "react-toastify";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -124,7 +129,30 @@ export function TimeSpentReport() {
   const filterData = async () => {
     try {
       console.log("filter button clicked");
-    } catch (error) {}
+      //?-----Data coming from tyhe API
+      const body = {
+        year: selectedYear,
+        month: selectedMonth,
+        managerid: managerId,
+        passcode: passcode,
+      };
+      const response = await getAllTimespentData(body);
+      if (response.payload.status === 200) {
+        setFilteredData(res.payload.data); // These are subjected to change according to the entities received from API
+      } else if (res.payload.status === 204) {
+        toast.info("Sorry, no data found under these filters !");
+      } else {
+        console.log(
+          "Response status received while fetching filtered data----------->",
+          response.payload.status
+        );
+      }
+    } catch (error) {
+      console.error(
+        "The error received while fetching filtered data----------------------->",
+        error
+      );
+    }
   };
 
   return (

@@ -40,7 +40,7 @@ import dayjs from "dayjs";
 import Logo from "../../../ReusableComponents/Logo";
 import loader from "../../../Assets/R.gif";
 import Api from "../../../Environment/Api";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -239,6 +239,7 @@ export function TimeSpentReport() {
       </div>
 
       <div className="table"></div>
+      <ToastContainer />
     </Box>
   );
 }

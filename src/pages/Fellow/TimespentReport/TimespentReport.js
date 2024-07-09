@@ -67,11 +67,18 @@ const monthArr = [
 
 const moduleColumn = [
   "Serial No",
+  "Year",
+  "Month",
+  "Manager Name",
+  "Passcode",
   "User Name",
-  "Registration Date",
-  "Monthly Time Spent",
-  // "Gender",
-  // "Contact Number",
+  "Address",
+  "Contact Number",
+  "Gender",
+  "Total training module",
+  "Module-wise certificate",
+  "completed module",
+  "Timespent",
   // "Status(Active/Inactive)",
   // "Aadhaar Number",
 ];
@@ -176,26 +183,26 @@ const TimespentReport = () => {
     // setShowFieldsData(false);
   };
 
-  const handleDistrictChange = async (e) => {
-    setBlockName("");
-    setFilteredData([]);
-    setTotalDataLength(0);
-    const selectedValue = e.target.value;
-    setDistrictName(e.target.value);
-    console.log("Selected value:", e);
-    // setLoaded(true);
-    const response = await getDistrictsWiseBlocks(e.target.value);
-    console.log("block response---->", response.data);
-    setAllBlocks(response.data);
-    // setLoaded(false);
-  };
+  // const handleDistrictChange = async (e) => {
+  //   setBlockName("");
+  //   setFilteredData([]);
+  //   setTotalDataLength(0);
+  //   const selectedValue = e.target.value;
+  //   setDistrictName(e.target.value);
+  //   console.log("Selected value:", e);
+  //   // setLoaded(true);
+  //   const response = await getDistrictsWiseBlocks(e.target.value);
+  //   console.log("block response---->", response.data);
+  //   setAllBlocks(response.data);
+  //   // setLoaded(false);
+  // };
 
-  const handleBlockChange = (e) => {
-    console.log("block--->", e.target.value);
-    setFilteredData([]);
-    setTotalDataLength(0);
-    setBlockName(e.target.value);
-  };
+  // const handleBlockChange = (e) => {
+  //   console.log("block--->", e.target.value);
+  //   setFilteredData([]);
+  //   setTotalDataLength(0);
+  //   setBlockName(e.target.value);
+  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -208,8 +215,8 @@ const TimespentReport = () => {
 
   const fetchFilteredData = async () => {
     try {
-      if (!selectedYear || !month) {
-        alert("Please select year and month before filtering.");
+      if (!selectedYear) {
+        alert("Please select year before filtering.");
         return;
       }
 
@@ -249,12 +256,30 @@ const TimespentReport = () => {
     switch (column) {
       case "Serial No":
         return index + 1;
+      case "Year":
+        return row.year;
+      case "Month":
+        return row.month;
+      case "Manager Name":
+        return row.managername;
+      case "Passcode":
+        return row.passcode;
       case "User Name":
         return row.username;
-      case "Registration Date":
-        return moment(row.createdon).format("DD/MM/YYYY");
-      case "Monthly Time Spent":
-        return row.timeSpent;
+      case "Address":
+        return row.address;
+      case "Contact Number":
+        return row.contactnumber;
+      case "Gender":
+        return row.gender;
+      case "Total training module":
+        return row.trainingmodule;
+      case "Module-wise certificate":
+        return row.certificate;
+      case "completed module":
+        return row.completedmodule;
+      case "Timespent":
+        return row.timespent;
       default:
         return "";
     }
@@ -328,7 +353,7 @@ const TimespentReport = () => {
             onChange={(e) => handlePasscodeChange(e)}
           />
 
-          <TextField
+          {/* <TextField
             id="outlined-select-currency"
             select
             label="Select districts"
@@ -366,7 +391,7 @@ const TimespentReport = () => {
                   </MenuItem>
                 ))
               : null}
-          </TextField>
+          </TextField> */}
 
           <Stack spacing={2} direction="row">
             <Button

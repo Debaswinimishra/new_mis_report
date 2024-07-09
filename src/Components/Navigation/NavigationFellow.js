@@ -34,6 +34,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import QuizIcon from "@mui/icons-material/Quiz";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MoreTimeIcon from "@mui/icons-material/MoreTime";
 const drawerWidth = 240;
 
 function NavigationFellow(props) {
@@ -121,7 +122,7 @@ function NavigationFellow(props) {
     {
       text: "Timespent Report",
       link: "timespent_report",
-      icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
+      icon: <MoreTimeIcon sx={{ color: "#F64A8A" }} />,
     },
     {
       text: "Log out",

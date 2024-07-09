@@ -12,13 +12,7 @@ import moment from "moment";
 import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import {
   getManagerWidPasscodes,
   getAllTimespentData,
@@ -28,17 +22,7 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
-import Loader from "../../../ReusableComponents/Loader";
-import IconButton from "@mui/material/IconButton";
-import ClearIcon from "@mui/icons-material/Clear";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import CircularProgress from "@mui/material/CircularProgress";
-import dayjs from "dayjs";
-import Logo from "../../../ReusableComponents/Logo";
-import loader from "../../../Assets/R.gif";
+import Nodata from "../../../Assets/Nodata.gif";
 import Api from "../../../Environment/Api";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -1303,7 +1287,18 @@ export function TimeSpentReport() {
         </div>
       </div>
 
-      {selectedYear && dummyData ? (
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : !loading && selectedYear && dummyData ? (
         <div className="table">
           <TableContainer
             component={Paper}
@@ -1358,6 +1353,26 @@ export function TimeSpentReport() {
             />
             <Download csvData={xlData} fileName={fileName} />
           </TableContainer>
+        </div>
+      ) : loading === false && selectedYear && !dummyData ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "90vh",
+          }}
+        >
+          <img
+            src={Nodata}
+            alt="No Data"
+            style={{
+              maxWidth: "100%",
+              maxHeight: "80vh",
+              marginBottom: "20px",
+            }}
+          />
         </div>
       ) : null}
 

@@ -1109,6 +1109,7 @@ export function TimeSpentReport() {
   const [page, setPage] = useState(0);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [loading, setLoading] = useState(null);
 
   let passcodeArray;
 
@@ -1154,6 +1155,7 @@ export function TimeSpentReport() {
 
   //*--------------On filtering the data------------------------
   const filterData = async () => {
+    setLoading(true);
     try {
       console.log("filter button clicked");
       //?-----Data coming from tyhe API
@@ -1165,9 +1167,9 @@ export function TimeSpentReport() {
       };
       const response = await getAllTimespentData(body);
       if (response.payload.status === 200) {
-        setFilteredData(res.payload.data); // These are subjected to change according to the entities received from API
+        setFilteredData(res.payload.data);
         // setTotalDataLength(res.payload.data.length);
-      } else if (res.payload.status === 204) {
+      } else if (response.payload.status === 204) {
         toast.info("Sorry, no data found under these filters !");
         // setTotalDataLength(0);
       } else {
@@ -1178,13 +1180,23 @@ export function TimeSpentReport() {
         // setTotalDataLength(0);
       }
     } catch (error) {
-      toast.error(
-        `Sorry, something went wrong....Code:${error.response.status}`
-      );
-      console.error(
-        "The error received while fetching filtered data----------------------->",
-        error
-      );
+      if (error.response) {
+        toast.error(
+          `Sorry, something went wrong....Code:${error.response.status}`
+        );
+        console.error(
+          "The error received while fetching filtered data----------------------->",
+          error
+        );
+      } else {
+        toast.error(`Sorry, something went wrong. Error: ${error.message}`);
+        console.error(
+          "An error occurred while fetching filtered data----------------------->",
+          error
+        );
+      }
+    } finally {
+      setLoading(false);
     }
   };
 

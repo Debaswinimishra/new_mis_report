@@ -1134,6 +1134,7 @@ export function TimeSpentReport() {
     setSelectedMonth(event.target.value);
     setPasscode("");
     setManagerId("");
+    setTotalDataLength(dummyData.length); //& This will be removed and in the filter function will be added once API is given
   };
 
   //*-------------On manager change----------------------
@@ -1165,13 +1166,16 @@ export function TimeSpentReport() {
       const response = await getAllTimespentData(body);
       if (response.payload.status === 200) {
         setFilteredData(res.payload.data); // These are subjected to change according to the entities received from API
+        // setTotalDataLength(res.payload.data.length);
       } else if (res.payload.status === 204) {
         toast.info("Sorry, no data found under these filters !");
+        // setTotalDataLength(0);
       } else {
         console.log(
           "Response status received while fetching filtered data----------->",
           response.payload.status
         );
+        // setTotalDataLength(0);
       }
     } catch (error) {
       toast.error(

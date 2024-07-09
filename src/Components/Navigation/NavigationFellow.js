@@ -120,7 +120,7 @@ function NavigationFellow(props) {
     },
     {
       text: "Timespent Report",
-      link: "timespent_report",
+      link: "timespent_report_modulewise",
       icon: <AccessTimeIcon sx={{ color: "rgb(0,128,128)" }} />,
     },
 

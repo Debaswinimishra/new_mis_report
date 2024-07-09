@@ -16,7 +16,7 @@ import { CircularProgress } from "@mui/material";
 import {
   getManagerWidPasscodes,
   getAllTimespentData,
-} from "./TimeSpentReport.Api";
+} from "./TimeSpentReportModuleWise.Api";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -1083,7 +1083,7 @@ const dummyData = [
   },
 ];
 
-export function TimeSpentReport() {
+export function TimeSpentReportModuleWise() {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [managerId, setManagerId] = useState("");

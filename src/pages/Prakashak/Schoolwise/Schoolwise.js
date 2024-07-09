@@ -48,6 +48,7 @@ const Schoolwise = () => {
   const [modalTitle, setModalTitle] = useState("Number Of Students");
   const [title, setTitle] = useState("");
   console.log("tableData", tableData);
+  console.log("districtArr", districtArr);
 
   const tableHeaders =
     title === "Total Conversations in Chatbot"
@@ -85,8 +86,20 @@ const Schoolwise = () => {
     const fetchData = async () => {
       try {
         const response = await Api.get("getAllDistricts");
-        console.log("set=================>", response.data[0].districtsArr);
-        setDistrictArr(response.data[0].districtsArr);
+        if (
+          response &&
+          response?.data &&
+          response?.data?.length > 0 &&
+          response?.data
+        ) {
+          console.log("set=================>", response?.data);
+          const districts =
+            response?.data.length > 0 &&
+            response?.data?.map((item) => item?.district);
+          setDistrictArr(districts);
+        } else {
+          setDistrictArr([]);
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching districts:", error);
@@ -110,12 +123,23 @@ const Schoolwise = () => {
     setSchools("");
     // Other logic related to district change
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
-        console.log("set=================>", response.data[0].blocksArr);
-        setBlockArr(response.data[0].blocks);
+        console.log("set=================>", response.data);
+        if (response?.data && response?.data?.length > 0) {
+          // Extracting the blocks from the response data
+          const blocks =
+            response?.data.length > 0 &&
+            response?.data?.map((item) => item?.block);
+          console.log("Blocks:", blocks);
+          setBlockArr(blocks); // Setting the block array with the array of block names
+        } else {
+          console.log("No blocks found for the given district.");
+          setBlockArr([]); // Setting an empty array if no data is found
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);
@@ -142,8 +166,11 @@ const Schoolwise = () => {
         if (blocks) {
           setLoading(true);
           const response = await Api.get(`getAllClustersByBlock/${blocks}`);
-          console.log("set=================>", response.data[0].clusters);
-          setClusterArr(response.data[0]?.clusters);
+          // console.log("set=================>", response.data);
+          const clusters =
+            response?.data?.length > 0 &&
+            response?.data?.map((item) => item?.cluster);
+          setClusterArr(clusters);
           setLoading(false);
         }
       } catch (error) {
@@ -170,7 +197,7 @@ const Schoolwise = () => {
           //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
           //   response.data[0].school_name
           // );
-          setSchoolArr(response.data);
+          setSchoolArr(response?.data);
           setLoading(false);
         }
       } catch (error) {

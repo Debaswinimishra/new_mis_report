@@ -197,7 +197,7 @@ const Schoolwise = () => {
           //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
           //   response.data[0].school_name
           // );
-          setSchoolArr(response.data);
+          setSchoolArr(response?.data);
           setLoading(false);
         }
       } catch (error) {

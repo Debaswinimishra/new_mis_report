@@ -26,6 +26,7 @@ import moment from "moment";
 import Graph from "../../../ReusableComponents/Graphs";
 import Nodata from "../../../Assets/Nodata.gif";
 import DynamicModal from "../../../Components/DynamicModal";
+import { Subject } from "@mui/icons-material";
 
 const RemoteInstruction = () => {
   //~-------------------------------------------------------
@@ -72,6 +73,7 @@ const RemoteInstruction = () => {
   const [modalContentData, setModalContentData] = useState([]);
   const [modalContentTitle, setModalContentTitle] = useState("");
   const [remoteInstructionType, setRemoteInstructionType] = useState("");
+  const [modalLoader, setModalLoader] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -178,10 +180,12 @@ const RemoteInstruction = () => {
       });
   };
 
+  //!---------------this function handles various api calls which will handle the data retrived through modal popup--------------
   const handleOpen = ({ contentTitle, remoteInstruction }) => {
+    console.log("content Title to attach new apis----------->", contentTitle);
     setRemoteInstructionType(remoteInstruction);
     setOpen(true);
-    setModalContentData([]);
+    setModalLoader(true);
     setModalContentTitle(contentTitle);
     const body = selectedWeek
       ? {
@@ -198,55 +202,294 @@ const RemoteInstruction = () => {
           year: selectedYear,
         };
 
-    if (remoteInstruction === "sms") {
+    if (
+      remoteInstruction === "sms" &&
+      contentTitle === "Total no. of SMS scheduled"
+    ) {
       PrakashakAPI.post("getSmsReport", body)
         .then((res) => {
           if (res.status === 200) {
             setModalContentData(res.data);
+            setModalLoader(false);
           } else {
+            setModalLoader(false);
             console.log(
               "response status while getting report data--------->",
               res.status
             );
+            setModalContentData([]);
           }
         })
         .catch((error) => {
+          setModalLoader(false);
           console.error(
             "The error while receiving report data----------->",
             error
           );
         });
-    } else if (remoteInstruction === "auto_calls") {
+    } else if (
+      remoteInstruction === "sms" &&
+      contentTitle === "Total no. of SMS delivered"
+    ) {
+      PrakashakAPI.post("getDeliveredSmsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+            setModalLoader(false);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "sms" &&
+      contentTitle === "Total no. of SMS scheduled for Maths"
+    ) {
+      const bodyWithSubject = {
+        ...body,
+        subject: "maths",
+      };
+
+      PrakashakAPI.post("getSmsReport", bodyWithSubject)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+            setModalLoader(false);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "sms" &&
+      contentTitle === "Total no. of SMS scheduled for Odia"
+    ) {
+      const bodyWithSubject = {
+        ...body,
+        subject: "odia",
+      };
+
+      PrakashakAPI.post("getSmsReport", bodyWithSubject)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalContentData(res.data);
+            setModalLoader(false);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "auto_calls" &&
+      contentTitle !== "Total no. of calls received"
+    ) {
       PrakashakAPI.post("getAutoCallsReport", body)
         .then((res) => {
           if (res.status === 200) {
+            setModalLoader(false);
             setModalContentData(res.data);
           } else {
+            setModalLoader(false);
             console.log(
               "response status while getting report data--------->",
               res.status
             );
+            setModalContentData([]);
           }
         })
         .catch((error) => {
+          setModalLoader(false);
           console.error(
             "The error while receiving report data----------->",
             error
           );
         });
-    } else {
-      PrakashakAPI.post("getIvrsReport", body)
+    } else if (
+      remoteInstruction === "auto_calls" &&
+      contentTitle === "Total no. of calls received"
+    ) {
+      PrakashakAPI.post("getReceivedAutoCallsReport", body)
         .then((res) => {
           if (res.status === 200) {
+            setModalLoader(false);
             setModalContentData(res.data);
           } else {
+            setModalLoader(false);
             console.log(
               "response status while getting report data--------->",
               res.status
             );
+            setModalContentData([]);
           }
         })
         .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle === "Total no. of incoming calls"
+    ) {
+      PrakashakAPI.post("getIvrsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle == "Total no. of unique calls"
+    ) {
+      PrakashakAPI.post("getUniqueIvrsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle == "Total no. of calls diverted to experts"
+    ) {
+      PrakashakAPI.post("getExpertDivertedIvrsReport", body)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle === "Total no. parents listened to maths activity"
+    ) {
+      const bodyWithSubject = {
+        ...body,
+        subject: "maths",
+      };
+      PrakashakAPI.post("getIvrsReport", bodyWithSubject)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
+          console.error(
+            "The error while receiving report data----------->",
+            error
+          );
+        });
+    } else if (
+      remoteInstruction === "ivrs" &&
+      contentTitle === "Total no. parents listened to odia activity"
+    ) {
+      const bodyWithSubject = {
+        ...body,
+        subject: "odia",
+      };
+      PrakashakAPI.post("getIvrsReport", bodyWithSubject)
+        .then((res) => {
+          if (res.status === 200) {
+            setModalLoader(false);
+            setModalContentData(res.data);
+          } else {
+            setModalLoader(false);
+            console.log(
+              "response status while getting report data--------->",
+              res.status
+            );
+            setModalContentData([]);
+          }
+        })
+        .catch((error) => {
+          setModalLoader(false);
           console.error(
             "The error while receiving report data----------->",
             error
@@ -255,7 +498,10 @@ const RemoteInstruction = () => {
     }
   };
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setModalContentData([]);
+  };
 
   const tableHeaders =
     remoteInstructionType === "sms"
@@ -287,31 +533,19 @@ const RemoteInstruction = () => {
         ]
       : [
           "Student Name",
-          "Parent's name",
           "Class",
-          "Mobile No.",
           "Gender",
+          "Parent's name",
           "School",
           "District",
           "Block",
+          "Cluster",
+          "Mobile No.",
           "Status",
           "Duration",
         ];
-  const tableData = [
-    {
-      studentName: "Adarsh Kumar Mishra",
-      ParentsName: "Mishra",
-      class: "10",
-      MobileNumber: "8392098203",
-      Gender: "Male",
-      School: "JNV",
-      district: "Nayagarh",
-      block: "Nayagarh",
-      status: "sent",
-    },
-  ];
 
-  const xlData = tableData;
+  const xlData = modalContentData;
   const fileName = "whatsappChatboat.csv";
 
   //todo--------------------Console logs--------------------------
@@ -323,6 +557,7 @@ const RemoteInstruction = () => {
   //   remoteInstData
   // );
   // console.log("contentTitle--------------------->", modalContentTitle);
+  // console.log("modalContentData------------------->", modalContentData);
 
   const graphData = {
     labels: ["SMS", "Automated Calls", "IVRs"],
@@ -447,12 +682,12 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: "Total no. of SMS scheduled",
-                    remoteInstruction: "sms",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total no. of SMS scheduled",
+                //     remoteInstruction: "sms",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -489,12 +724,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: "Total no. of SMS delivered",
-                    remoteInstruction: "sms",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total no. of SMS delivered",
+                //     remoteInstruction: "sms",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -534,12 +769,12 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: "Total no. of SMS scheduled for Maths",
-                    remoteInstruction: "sms",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total no. of SMS scheduled for Maths",
+                //     remoteInstruction: "sms",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -576,13 +811,14 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_sms_scheduled_maths}</h1>
                 </div>
               </div>
+
               <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle: " Total no. of SMS scheduled for Odia",
-                    remoteInstruction: "sms",
-                  })
-                }
+                // onClick={() =>
+                //   handleOpen({
+                //     contentTitle: "Total no. of SMS scheduled for Odia",
+                //     remoteInstruction: "sms",
+                //   })
+                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -643,7 +879,7 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() =>
+                onClick={() => remoteInstData.total_calls_made >0 &&
                   handleOpen({
                     contentTitle: " Total no. of calls made",
                     remoteInstruction: "auto_calls",
@@ -686,7 +922,7 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() =>
+                onClick={() => remoteInstData.total_calls_received >0 && 
                   handleOpen({
                     contentTitle: "Total no. of calls received",
                     remoteInstruction: "auto_calls",
@@ -770,7 +1006,7 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_calls_mins}</h1>
                 </div>
               </div>
-              <div
+              {/* <div
                 onClick={() =>
                   handleOpen({
                     contentTitle:
@@ -811,7 +1047,7 @@ const RemoteInstruction = () => {
                 >
                   <h1>{remoteInstData.calls_parents_listen_full_content}</h1>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -839,6 +1075,7 @@ const RemoteInstruction = () => {
             >
               <div
                 onClick={() =>
+                  remoteInstData.total_ivrs_calls_made > 0 &&
                   handleOpen({
                     contentTitle: "Total no. of incoming calls",
                     remoteInstruction: "ivrs",
@@ -881,6 +1118,7 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
+                  remoteInstData.total_unique_ivrs_calls_received > 0 &&
                   handleOpen({
                     contentTitle: "Total no. of unique calls",
                     remoteInstruction: "ivrs",
@@ -923,12 +1161,6 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                // onClick={() =>
-                //   handleOpen({
-                //     contentTitle: "Total minutes spent in IVRs",
-                //     remoteInstruction: "ivrs",
-                //   })
-                // }
                 style={{
                   width: "255px",
                   height: "180px",
@@ -966,6 +1198,7 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
+                  remoteInstData.total_ivrs_calls_maths > 0 &&
                   handleOpen({
                     contentTitle:
                       "Total no. parents listened to maths activity",
@@ -1009,6 +1242,7 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
+                  remoteInstData.total_ivrs_calls_odia > 0 &&
                   handleOpen({
                     contentTitle: "Total no. parents listened to odia activity",
                     remoteInstruction: "ivrs",
@@ -1051,6 +1285,7 @@ const RemoteInstruction = () => {
 
               <div
                 onClick={() =>
+                  remoteInstData.total_ivrs_calls_diverted_expert > 0 &&
                   handleOpen({
                     contentTitle: "Total no. of calls diverted to experts",
                     remoteInstruction: "ivrs",
@@ -1108,9 +1343,10 @@ const RemoteInstruction = () => {
             handleClose={handleClose}
             modalTitle={modalContentTitle}
             tableHeaders={tableHeaders}
-            tableData={tableData}
+            tableData={modalContentData}
             xlData={xlData}
             fileName={fileName}
+            loading={modalLoader}
           />
         </div>
       ) : Object.keys(remoteInstData).length === 0 && loading === false ? (

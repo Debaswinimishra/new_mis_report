@@ -66,6 +66,7 @@ const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
   const [tableData, setTableData] = useState([]);
+  const [modalLoader, setModalLoader] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -160,12 +161,36 @@ const Dashboard = () => {
   };
   const [districsArray, setDistrictArr] = useState([]);
   const [blocksArr, setBlocksArr] = useState([]);
-  console.log(
-    "====================================districsArray",
-    districsArray
-  );
 
-  console.log("====================================", blocksArr);
+  const [clusterArr, setClusterArr] = useState([]);
+  // console.log("clusterArr--->", clusterArr);
+
+  const [schoolArr, setSchoolArr] = useState([]);
+
+  const [studentsArr, setStudentsArr] = useState([]);
+  // console.log("studentsArr---->", studentsArr);
+
+  const [smsArr, setSmsArr] = useState([]);
+  console.log("studentsArr---->", smsArr);
+
+  const [callsArr, setCallsArr] = useState([]);
+  console.log("callsArr---->", callsArr);
+
+  const [receivedCallsArr, setReceivedCallsArr] = useState([]);
+  console.log("receivedCallsArr---->", receivedCallsArr);
+
+  const [callsReceivedIvrArr, setCallsReceivedIvrArr] = useState([]);
+  console.log("callsReceivedIvrArr---->", callsReceivedIvrArr);
+
+  const [uniqueCallsIvrArr, setUniqueCallsIvrArr] = useState([]);
+  console.log("uniqueCallsArr---->", uniqueCallsIvrArr);
+
+  const [activeUserChatbotArr, setActiveUserChatbotArr] = useState([]);
+  console.log("activeUserChatbotArr---->", activeUserChatbotArr);
+
+  const [video, setVideo] = useState([]);
+  console.log("video---->", video);
+
   const fetchData = () => {
     setLoading(true);
 
@@ -238,53 +263,390 @@ const Dashboard = () => {
   //todo----------------------Console logs---------------------------
   const [tableDatas, setTableDatas] = useState([]);
   console.log("tableHeaders----->", tableDatas);
-  const fetchDatas = async () => {
-    setLoading(true);
+  let body;
+  const [tableHeaders, setTableHeaders] = useState([]);
+  const [modalTitle, setModalTitle] = useState("");
+
+  const getModalTitle = (type) => {
+    switch (type) {
+      case "students":
+        return "Number of Students";
+      case "calls":
+        return "Total No. of Calls Received";
+      case "sms":
+        return "Total No. of SMS Delivered";
+      case "receivedIvrs":
+        return "Total No. of Calls Received in IVRs";
+      case "uniqueIvrs":
+        return "Unique Calls Received in IVR";
+      case "video":
+        return "Total No. of Videos Watched";
+      case "chatbotActive":
+        return "Number of Active Users";
+      case "chatbot":
+        return "Conversations in Chatbot";
+      default:
+        return "Data";
+    }
+  };
+
+  const fetchDatas = async (type) => {
+    setModalLoader(true);
+    console.log("type--->", type);
+    // setLoading(true);
     try {
-      const body = {
+      let body = {
         year: selectedYear,
         month: selectedMonth ? parseInt(selectedMonth) : undefined,
         week: selectedWeek ? parseInt(selectedWeek) : undefined,
       };
 
-      const response = await PrakashakAPI.post("getAllDistricts", body);
+      let response;
+      let transformedData = [];
 
-      const response2 = await PrakashakAPI.post("getAllBlocks", body);
+      if (type === "girls") {
+        body.gender = "female";
+      } else if (type === "boys") {
+        body.gender = "male";
+      }
+      //districts data
 
-      if (response.status === 200) {
-        setDistrictArr(response.data[0].districtsArr);
+      if (type === "district") {
+        response = await PrakashakAPI.post("getAllDistricts", body);
+        if (response.status === 200) {
+          transformedData = response.data[0].districtsArr.map((district) => ({
+            district: district,
+          }));
+          setModalLoader(false);
+
+          setTableHeaders(["District"]);
+        }
+      } else if (type === "block") {
+        response = await PrakashakAPI.post("getAllBlocks", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((item, index) => ({
+            slno: index + 1,
+            district: item.district,
+            block: item.block,
+          }));
+          setModalLoader(false);
+          setTableHeaders(["Sl. No", "District", "Block"]);
+        }
+      } else if (type === "clusters") {
+        response = await PrakashakAPI.post("getAllClusters", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((item, index) => ({
+            district: item.district,
+            block: item.block,
+            cluster: item.cluster,
+          }));
+          setModalLoader(false);
+          setTableHeaders(["Cluster"]);
+        }
+      } else if (type === "schools") {
+        response = await PrakashakAPI.post("getAllSchools", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((school) => ({
+            school_name: school.school_name,
+            udise_code: school.udise_code,
+          }));
+          setModalLoader(false);
+          setTableHeaders(["School Name", "UDISE Code"]);
+        }
+      } else if (type === "students" || type === "girls" || type === "boys") {
+        response = await PrakashakAPI.post("getAllStudentsReport", body);
+        console.log("students---->", response);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+          }));
+          setModalLoader(false);
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+          ]);
+        }
+      } else if (type === "sms") {
+        response = await PrakashakAPI.post("getDeliveredSmsReport", body);
+        if (response.status === 200) {
+          setTableDatas(response.data);
+          setModalLoader(false);
+          setTableHeaders(["SMS"]);
+        }
+      } else if (type === "calls") {
+        response = await PrakashakAPI.post("getReceivedAutoCallsReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.phone_number,
+            duration: student.duration,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone",
+            "Duration",
+          ]);
+          setModalLoader(false);
+        }
+      } else if (type === "chatbot") {
+        response = await PrakashakAPI.post("getChatBotConvosReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            // parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.phone_number ? student.phone_number : "-",
+            buttonClicked: student.buttonClicked ? student.buttonClicked : "-",
+            templateName: student.templateName ? student.templateName : "-",
+            msgType: student.msgType ? student.msgType : "-",
+            status: student.status,
+            createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone Number",
+            "Button Clicked",
+            "Template Name",
+            "Msg Type",
+            "Status",
+            "Created on",
+          ]);
+          setModalLoader(false);
+        }
+      } else if (type === "receivedAutocalls") {
+        response = await PrakashakAPI.post("getReceivedAutoCallsReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.phone_number,
+            duration: student.duration,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone",
+            "Duration",
+          ]);
+          setModalLoader(false);
+        }
+      } else if (type === "uniqueIvrs") {
+        response = await PrakashakAPI.post("getUniqueIvrsReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.phone_number,
+            duration: student.duration,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone",
+            "Duration",
+          ]);
+          setModalLoader(false);
+        }
+      } else if (type === "receivedIvrs") {
+        response = await PrakashakAPI.post("getReceivedIvrsReport", body);
+        transformedData = response.data.map((student) => ({
+          student_name: student.student_name,
+          class: student.class,
+          gender: student.gender,
+          parents_name: student.parents_name,
+          parents_phone_number: student.parents_phone_number,
+          school_name: student.school_name,
+          district: student.district,
+          block: student.block,
+          cluster: student.cluster,
+          phone_number: student.phone_number,
+          duration: student.duration,
+        }));
+        setTableHeaders([
+          "Student Name",
+          "Class",
+          "Gender",
+          "Parents Name",
+          "Parents Phone Number",
+          "School Name",
+          "District",
+          "Block",
+          "Cluster",
+          "Phone",
+          "Duration",
+        ]);
+        setModalLoader(false);
+      } else if (type === "video") {
+        response = await PrakashakAPI.post(
+          "getChatBotVideosWatchedReport",
+          body
+        );
+        if (response.status === 200) {
+          setTableDatas(response.data);
+          setModalLoader(false);
+          setTableHeaders(["Video"]);
+        }
+      } else if (type === "chatbotActive") {
+        response = await PrakashakAPI.post("getChatBotActiveUsersReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            // parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.contact,
+            // duration: student.duration,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            // "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone",
+            // "Duration",
+          ]);
+        }
       }
-      if (response2.status === 200) {
-        console.log(response2.data[0], "response.data---------->");
-        setBlocksArr(response2.data[0]?.blocks);
-      } else {
-        console.error(`Error fetching districts: Status ${response.status}`);
-      }
+
+      setTableDatas(transformedData);
+      setModalLoader(false);
     } catch (error) {
-      console.error("Error fetching districts:", error);
+      console.error("Error fetching schools:", error);
     } finally {
       setLoading(false);
+      setModalLoader(false);
     }
   };
 
   const [open, setOpen] = useState(false);
   const handleOpen = (type) => {
     console.log("type------->", type);
-    if (type === "district") {
-      setTableDatas(districtsData);
-      setTableData(districtsData);
-    }
-    if (type === "block") {
-      setTableDatas(blocksData);
-    }
+    // if (type === "district") {
+    //   setTableDatas(districtsData);
+    //   setTableData(districtsData);
+    //   setTableHeaders(["District"]);
+    // }
+    // if (type === "block") {
+    //   setTableDatas(blocksData);
+    //   setTableHeaders(["Block"]);
+    // }
+
+    // if (type === "clusters") {
+    //   setTableDatas(clustersData);
+    //   setTableHeaders(["Cluster"]);
+    // }
+
+    // if (type === "schools") {
+    //   setTableDatas(schoolArr);
+    //   setTableHeaders(["Schools"]);
+    // }
+
+    // if (type === "students") {
+    //   setTableDatas(studentsArr);
+    //   setTableHeaders(["Students"]);
+    // }
+
+    // if (type === "girls") {
+    //   setTableDatas(studentsArr);
+    //   setTableHeaders(["Girls"]);
+    // }
+
+    // if (type === "boys") {
+    //   setTableDatas(studentsArr);
+    //   setTableHeaders(["Boys"]);
+    // }
     setOpen(true);
-    fetchDatas();
+
+    const newModalTitle = getModalTitle(type);
+    setModalTitle(newModalTitle);
+
+    fetchDatas(type);
   };
   const handleClose = () => setOpen(false);
 
-  const modalTitle = "districts";
-  const districtsArr = ["Districts"];
-  const blocksArray = ["Blocks"];
   const districtsData = [
     {
       districts: districsArray,
@@ -296,6 +658,26 @@ const Dashboard = () => {
       blocks: blocksArr,
     },
   ];
+
+  const clustersData = [
+    {
+      clusters: clusterArr,
+    },
+  ];
+
+  const schoolsData = [
+    {
+      schools: schoolArr,
+    },
+  ];
+
+  const studentsData = [
+    {
+      students: studentsArr,
+    },
+  ];
+
+  console.log("schoolsData--->", schoolsData);
 
   console.log("blocksData---->", blocksData);
   const xlData = districtsData;
@@ -490,7 +872,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("clusters")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -529,7 +911,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("schools")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -568,7 +950,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("newSchools")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -607,7 +989,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("students")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -647,7 +1029,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("newStudents")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -687,7 +1069,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("smartphoneUsers")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -727,7 +1109,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("girls")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -767,7 +1149,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("boys")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -828,6 +1210,44 @@ const Dashboard = () => {
                 // marginTop: "-2%",
               }}
             >
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of parents spending 0-1 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.no_of_parents_spent_0to1mins}</h1>
+                </div>
+              </div>
               <div
                 style={{
                   width: "255px",
@@ -1007,7 +1427,7 @@ const Dashboard = () => {
               }}
             >
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("calls")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1047,7 +1467,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                // onClick={() => handleOpen("receivedAutocalls")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1087,7 +1507,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("sms")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1127,7 +1547,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                // onClick={() => handleOpen("")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1167,7 +1587,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("receivedIvrs")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1207,7 +1627,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("uniqueIvrs")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1247,7 +1667,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                // onClick={() => handleOpen("activeUsers")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1309,6 +1729,7 @@ const Dashboard = () => {
               }}
             >
               <div
+                onClick={() => handleOpen("chatbot")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1348,14 +1769,13 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("video")}
                 style={{
                   width: "255px",
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
+
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1466,7 +1886,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("chatbotActive")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1509,12 +1929,13 @@ const Dashboard = () => {
               open={open}
               handleClose={handleClose}
               modalTitle={modalTitle}
-              tableHeaders={districtsArr}
+              tableHeaders={tableHeaders}
               tableData={tableDatas}
               // tableHeaders={tableHeaders}
               // tableData={tableData}
               xlData={xlData}
               fileName={fileName}
+              loading={modalLoader}
             />
           </div>
         </div>

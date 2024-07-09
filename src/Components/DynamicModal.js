@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -13,6 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import TablePagination from "@mui/material/TablePagination";
 import Button from "@mui/material/Button";
 import moment from "moment";
+import Nodata from "../../src/Assets/Nodata.gif";
 
 import Download from "../../src/downloads/ExportCsv";
 
@@ -26,10 +27,10 @@ const DynamicModal = ({
   xlData,
   fileName,
 }) => {
-  console.log("ftgyfyuf", handleClose);
+  // console.log("ftgyfyuf", handleClose);
 
   const [page, setPage] = useState(0);
-  const rowsPerPage = 100;
+  const rowsPerPage = 15;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -42,20 +43,20 @@ const DynamicModal = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-     <Box
+      <Box
         sx={{
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 1000,
+          width: 1450,
           height: 600,
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
           borderRadius: 2,
           p: 4,
-          overflow: "scroll",
+          overflowX: "scroll",
           "&::-webkit-scrollbar": {
             width: 0, // Remove the scrollbar
             height: 0,
@@ -94,15 +95,19 @@ const DynamicModal = ({
           >
             <CircularProgress />
           </Box>
-        ) : (
+        ) : !loading && tableData.length > 0 ? (
           <>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
                     {tableHeaders.map((header, index) => (
-                      <TableCell align="center" key={index}>
-                        {header}
+                      <TableCell
+                        align="center"
+                        key={index}
+                        style={{ fontSize: "17px" }}
+                      >
+                        <b>{header}</b>
                       </TableCell>
                     ))}
                   </TableRow>
@@ -135,12 +140,33 @@ const DynamicModal = ({
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}
               rowsPerPageOptions={[]}
+              labelDisplayedRows={({ from, to }) => `${from}-${to}`}
             />
             {tableData && tableData.length > 0 && (
               <Download csvData={xlData} fileName={fileName} />
             )}
           </>
-        )}
+        ) : !loading && tableData.length === 0 ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "90vh",
+            }}
+          >
+            <img
+              src={Nodata}
+              alt="No Data"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "80vh",
+                marginBottom: "20px",
+              }}
+            />
+          </div>
+        ) : null}
       </Box>
     </Modal>
   );

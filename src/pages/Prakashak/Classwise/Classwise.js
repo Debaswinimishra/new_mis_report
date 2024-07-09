@@ -73,6 +73,7 @@ const Classwise = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
   const [loading, setLoading] = useState();
 
   const handleYearChange = (e) => {
@@ -164,49 +165,307 @@ const Classwise = () => {
   const [modalContentTitle, setModalContentTitle] = useState("");
   const [modalContentData, setModalContentData] = useState([]);
   const [tableData, setTableData] = useState([]);
-  const fetchNewuserData = async () => {
-    // setLoading(true);
+
+  const [tableDatas, setTableDatas] = useState([]);
+  const [tableHeaders, setTableHeaders] = useState([]);
+
+  const getModalTitle = (type) => {
+    switch (type) {
+      case "students":
+        return "Number of Students";
+      case "calls":
+        return "Total No. of Calls Received";
+      case "sms":
+        return "Total No. of SMS Delivered";
+      case "receivedIvrs":
+        return "Total No. of Calls Received in IVRs";
+      case "uniqueIvrs":
+        return "Unique Calls Received in IVR";
+      case "video":
+        return "Total No. of Videos Watched";
+      case "chatbotActive":
+        return "Number of Active Users";
+      case "chatbot conversations":
+        return "Total Conversations in Chatbot";
+      default:
+        return "Data";
+    }
+  };
+
+  const fetchNewuserData = async (type) => {
+    console.log("type--->", type);
+    setLoading(true);
     try {
-      const body = {
+      let body = {
         year: selectedYear,
-        month: selectedMonth,
-        week: selectedWeek,
-        class: selectedClass,
+        month: selectedMonth ? parseInt(selectedMonth) : undefined,
+        week: selectedWeek ? parseInt(selectedWeek) : undefined,
       };
-      console.log("====================================userbody", body);
 
-      const response = await PrakashakAPI.post("getAllStudentsReport", body);
+      let response;
+      let transformedData = [];
 
-      if (response.status === 200) {
-        setTableData(response.data);
-      } else {
-        console.error(`Error fetching districts: Status ${response.status}`);
+      if (type === "girls") {
+        body.gender = "female";
+      } else if (type === "boys") {
+        body.gender = "male";
       }
+      //districts data
+
+      if (type === "students") {
+        response = await PrakashakAPI.post("getAllStudentsReport", body);
+        console.log("students---->", response);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+          ]);
+        }
+      } else if (type === "sms") {
+        response = await PrakashakAPI.post("getDeliveredSmsReport", body);
+        if (response.status === 200) {
+          setTableDatas(response.data);
+          setTableHeaders(["SMS"]);
+        }
+      } else if (type === "calls") {
+        response = await PrakashakAPI.post("getReceivedAutoCallsReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            // parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.phone_number,
+            duration: student.duration,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            // "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone",
+            "Duration",
+          ]);
+        }
+      } else if (type === "receivedAutocalls") {
+        response = await PrakashakAPI.post("getReceivedAutoCallsReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.phone_number,
+            duration: student.duration,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone",
+            "Duration",
+          ]);
+        }
+      } else if (type === "uniqueIvrs") {
+        response = await PrakashakAPI.post("getUniqueIvrsReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.phone_number,
+            duration: student.duration,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone",
+            "Duration",
+          ]);
+        }
+      } else if (type === "receivedIvrs") {
+        response = await PrakashakAPI.post("getReceivedIvrsReport", body);
+        transformedData = response.data.map((student) => ({
+          student_name: student.student_name,
+          class: student.class,
+          gender: student.gender,
+          parents_name: student.parents_name,
+          parents_phone_number: student.parents_phone_number,
+          school_name: student.school_name,
+          district: student.district,
+          block: student.block,
+          cluster: student.cluster,
+          phone_number: student.phone_number,
+          duration: student.duration,
+        }));
+        setTableHeaders([
+          "Student Name",
+          "Class",
+          "Gender",
+          "Parents Name",
+          "Parents Phone Number",
+          "School Name",
+          "District",
+          "Block",
+          "Cluster",
+          "Phone",
+          "Duration",
+        ]);
+      } else if (type === "video") {
+        response = await PrakashakAPI.post(
+          "getChatBotVideosWatchedReport",
+          body
+        );
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            templateName: student.templateName,
+          }));
+
+          setTableHeaders(["Video"]);
+
+          setTableHeaders(["Video"]);
+        }
+      } else if (type === "chatbot conversations") {
+        response = await PrakashakAPI.post("getChatBotConvosReport", body);
+        transformedData = response.data.map((student) => ({
+          student_name: student.student_name,
+          class: student.class,
+          gender: student.gender,
+          parents_name: student.parents_name,
+          // parents_phone_number: student.parents_phone_number,
+          school_name: student.school_name,
+          district: student.district,
+          block: student.block,
+          cluster: student.cluster,
+          phone_number: student.phone_number ? student.phone_number : "-",
+          buttonClicked: student.buttonClicked ? student.buttonClicked : "-",
+          templateName: student.templateName ? student.templateName : "-",
+          msgType: student.msgType ? student.msgType : "-",
+          status: student.status,
+          createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
+        }));
+        setTableHeaders([
+          "Student Name",
+          "Class",
+          "Gender",
+          "Parents Name",
+
+          "School Name",
+          "District",
+          "Block",
+          "Cluster",
+          "Phone Number",
+          "Button Clicked",
+          "Template Name",
+          "Msg Type",
+          "Status",
+          "Created on",
+        ]);
+      } else if (type === "chatbotActive") {
+        response = await PrakashakAPI.post("getChatBotActiveUsersReport", body);
+        if (response.status === 200) {
+          transformedData = response.data.map((student) => ({
+            student_name: student.student_name,
+            class: student.class,
+            gender: student.gender,
+            parents_name: student.parents_name,
+            // parents_phone_number: student.parents_phone_number,
+            school_name: student.school_name,
+            district: student.district,
+            block: student.block,
+            cluster: student.cluster,
+            phone_number: student.contact,
+            // duration: student.duration,
+          }));
+          setTableHeaders([
+            "Student Name",
+            "Class",
+            "Gender",
+            "Parents Name",
+            // "Parents Phone Number",
+            "School Name",
+            "District",
+            "Block",
+            "Cluster",
+            "Phone",
+            // "Duration",
+          ]);
+        }
+      }
+
+      setTableDatas(transformedData);
     } catch (error) {
-      console.error("Error fetching districts:", error);
+      console.error("Error fetching schools:", error);
     } finally {
       setLoading(false);
     }
   };
-  const handleOpen = async (classNumber) => {
+
+  const handleOpen = async (type) => {
     setOpen(true);
-    fetchNewuserData();
-    // setLoading(true);
+    console.log("type---->", type);
+
+    // Set the modal title based on type
+    const newModalTitle = getModalTitle(type);
+    setModalTitle(newModalTitle);
+
+    fetchNewuserData(type); //
   };
+
   const handleClose = () => setOpen(false);
-  const modalTitle = "Number Of Students";
-  const tableHeaders = [
-    "student_name",
-    "Class",
-    "gender",
-    "parents_name",
-    "parents_phone_number",
-    "school_name",
-    "district",
-    "block",
-    "cluster",
-  ];
-  const xlData = tableData;
+  const xlData = tableDatas;
   const fileName = "StudentReport.csv";
   return (
     <div>
@@ -344,7 +603,7 @@ const Classwise = () => {
               }}
             >
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("students")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -421,7 +680,46 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(" ")}
+                // onClick={() => handleOpen(" ")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  No. of Parents Spent 0-1 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
+                </div>
+              </div>
+
+              <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -460,7 +758,6 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -499,7 +796,6 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -539,7 +835,6 @@ const Classwise = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -600,7 +895,7 @@ const Classwise = () => {
               }}
             >
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("calls")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -639,7 +934,6 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                //  onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -678,7 +972,7 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(" ")}
+                // onClick={() => handleOpen("sms")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -755,7 +1049,7 @@ const Classwise = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("receivedIvrs")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -795,7 +1089,7 @@ const Classwise = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("uniqueIvrs")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -835,7 +1129,6 @@ const Classwise = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -896,6 +1189,7 @@ const Classwise = () => {
               }}
             >
               <div
+                onClick={() => handleOpen("chatbot conversations")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -935,7 +1229,7 @@ const Classwise = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("video")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -974,86 +1268,8 @@ const Classwise = () => {
                 </div>
               </div>
 
-              {/* <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#2E8B57",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total No. of Assessment Taken
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#2E8B57",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{data.total_chatbot_assess_taken}</h1>
-                </div>
-              </div> */}
-
-              {/* <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#6A5ACD",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Average minutes spent in WhatsApp
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#6A5ACD",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{data.chatbot_avg_mins}</h1>
-                </div>
-              </div> */}
-
               <div
-                onClick={() => handleOpen(" ")}
+                onClick={() => handleOpen("chatbotActive")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1093,20 +1309,23 @@ const Classwise = () => {
               </div>
             </div>
           </div>
-          <DynamicModal
-            open={open}
-            loading={loading}
-            handleClose={handleClose}
-            modalTitle={modalTitle}
-            tableHeaders={tableHeaders}
-            tableData={tableData}
-            xlData={xlData}
-            fileName={fileName}
-          />
         </div>
       ) : loading === false && Object.keys(data).length === 0 ? (
         <h1>No data Available</h1>
       ) : null}
+
+      <DynamicModal
+        open={open}
+        loading={loading}
+        handleClose={handleClose}
+        modalTitle={modalTitle}
+        tableHeaders={tableHeaders}
+        tableData={tableDatas}
+        // tableHeaders={tableHeaders}
+        // tableData={tableData}
+        xlData={xlData}
+        fileName={fileName}
+      />
     </div>
   );
 };

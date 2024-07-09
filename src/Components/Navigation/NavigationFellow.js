@@ -121,9 +121,9 @@ function NavigationFellow(props) {
       icon: <InsightsIcon sx={{ color: "rgb(128,128,0)" }} />,
     },
     {
-      text: "Timespent Report",
+      text: "Timespent Report(overall)",
       link: "timespent_report",
-      icon: <MoreTimeIcon sx={{ color: "#F64A8A" }} />,
+      icon: <MoreTimeIcon sx={{ color: "#000080" }} />,
     },
     {
       text: "Log out",

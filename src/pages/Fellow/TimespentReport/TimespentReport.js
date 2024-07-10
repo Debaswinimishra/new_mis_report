@@ -275,7 +275,7 @@ const TimespentReport = () => {
       case "Total training module":
         return row.totalTrainingModules;
       case "Module-wise certificate":
-        return row.moduleCertificates;
+        return row.moduleCertificates?.length > 0 ? "received" : "not received";
       case "completed Modules":
         return row.completedModulesRatio;
       case "Timespent":

@@ -226,7 +226,7 @@ const Schoolwise = () => {
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
-            {districtArr.map((district, index) => (
+            {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
               </MenuItem>
@@ -245,7 +245,7 @@ const Schoolwise = () => {
           >
             <MenuItem value="">None</MenuItem>
             {blockArr &&
-              blockArr.map((block, index) => (
+              blockArr?.map((block, index) => (
                 <MenuItem key={index} value={block}>
                   {block}
                 </MenuItem>

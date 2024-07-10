@@ -290,7 +290,7 @@ const Schoolwise = () => {
     };
     try {
       const response = await Api.post("/getChatBotConvosReport", body);
-      transformedData = response.data.map((student) => ({
+      transformedData = response.data?.map((student) => ({
         student_name: student.student_name,
         class: student.class,
         gender: student.gender,
@@ -394,7 +394,7 @@ const Schoolwise = () => {
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
-            {districtArr.map((district, index) => (
+            {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
               </MenuItem>
@@ -413,7 +413,7 @@ const Schoolwise = () => {
           >
             <MenuItem value="">None</MenuItem>
             {blockArr &&
-              blockArr.map((block, index) => (
+              blockArr?.map((block, index) => (
                 <MenuItem key={index} value={block}>
                   {block}
                 </MenuItem>

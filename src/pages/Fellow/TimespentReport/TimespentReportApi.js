@@ -8,3 +8,12 @@ export const TimespentReportApi = async (body) => {
     throw error;
   }
 };
+
+export const getTimeSpentReportOverall = async (body) => {
+  try {
+    let response = await Api.post("getTimeSpentReportOverall", body);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

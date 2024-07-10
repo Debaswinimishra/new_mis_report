@@ -18,7 +18,7 @@ import {
   getAllDistricts,
   getDistrictsWiseBlocks,
 } from "../CommunityEducator/CommunityEducatorApi";
-import { TimespentReportApi } from "./TimespentReportApi";
+import { getTimeSpentReportOverall } from "./TimespentReportApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -77,10 +77,8 @@ const moduleColumn = [
   "Gender",
   "Total training module",
   "Module-wise certificate",
-  "completed module",
+  "completed Modules",
   "Timespent",
-  // "Status(Active/Inactive)",
-  // "Aadhaar Number",
 ];
 
 const TimespentReport = () => {
@@ -230,7 +228,9 @@ const TimespentReport = () => {
         blockid: blockName,
       };
 
-      const data = await TimespentReportApi(filterCriteriaWithBlockAndDistrict);
+      const data = await getTimeSpentReportOverall(
+        filterCriteriaWithBlockAndDistrict
+      );
 
       setLoaded(false);
       console.log("data", data);
@@ -273,13 +273,13 @@ const TimespentReport = () => {
       case "Gender":
         return row.gender;
       case "Total training module":
-        return row.trainingmodule;
+        return row.totalTrainingModules;
       case "Module-wise certificate":
-        return row.certificate;
-      case "completed module":
-        return row.completedmodule;
+        return row.moduleCertificates;
+      case "completed Modules":
+        return row.completedModulesRatio;
       case "Timespent":
-        return row.timespent;
+        return row.timeSpentHHMMSS;
       default:
         return "";
     }

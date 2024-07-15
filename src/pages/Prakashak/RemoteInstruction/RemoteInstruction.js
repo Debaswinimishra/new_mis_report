@@ -549,7 +549,7 @@ const RemoteInstruction = () => {
           "Cluster",
           "Subject",
           "Status",
-          "IVR complete",
+          // "IVR complete",
           "Duration",
         ]
       : [

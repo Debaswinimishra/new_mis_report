@@ -180,6 +180,8 @@ const RemoteInstruction = () => {
       });
   };
 
+  let tableHeaders;
+
   //!---------------this function handles various api calls which will handle the data retrived through modal popup--------------
   const handleOpen = ({ contentTitle, remoteInstruction }) => {
     console.log("content Title to attach new apis----------->", contentTitle);
@@ -503,7 +505,7 @@ const RemoteInstruction = () => {
     setModalContentData([]);
   };
 
-  const tableHeaders =
+  tableHeaders =
     remoteInstructionType === "sms"
       ? [
           "Student Name",
@@ -517,18 +519,36 @@ const RemoteInstruction = () => {
           "Status",
           "Duration",
         ]
-      : remoteInstructionType === "ivrs"
+      : remoteInstructionType === "ivrs" &&
+        modalContentTitle !== "Total no. of unique calls"
       ? [
           "Student Name",
-          "Parent's name",
           "Class",
-          "Mobile No.",
           "Gender",
+          "Parent's name",
           "School",
           "District",
           "Block",
+          "Cluster",
+          "Mobile No.",
+          "Subject",
           "Status",
-          "Flow Status",
+          "Duration",
+        ]
+      : remoteInstructionType === "ivrs" &&
+        modalContentTitle === "Total no. of unique calls"
+      ? [
+          "Student Name",
+          "Class",
+          "Gender",
+          "Parent's name",
+          "Mobile No.",
+          "School",
+          "District",
+          "Block",
+          "Cluster",
+          "Subject",
+          "Status",
           "Duration",
         ]
       : [
@@ -879,7 +899,8 @@ const RemoteInstruction = () => {
               }}
             >
               <div
-                onClick={() => remoteInstData.total_calls_made >0 &&
+                onClick={() =>
+                  remoteInstData.total_calls_made > 0 &&
                   handleOpen({
                     contentTitle: " Total no. of calls made",
                     remoteInstruction: "auto_calls",
@@ -922,7 +943,8 @@ const RemoteInstruction = () => {
               </div>
 
               <div
-                onClick={() => remoteInstData.total_calls_received >0 && 
+                onClick={() =>
+                  remoteInstData.total_calls_received > 0 &&
                   handleOpen({
                     contentTitle: "Total no. of calls received",
                     remoteInstruction: "auto_calls",

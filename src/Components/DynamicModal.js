@@ -36,6 +36,8 @@ const DynamicModal = ({
     setPage(newPage);
   };
 
+  console.log("table daata-------------------------->", tableData);
+
   return (
     <Modal
       open={open}

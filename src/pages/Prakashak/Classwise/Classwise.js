@@ -638,7 +638,7 @@ const Classwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.total_timespent}</h1>
+                  <h1>{parseFloat(data.total_timespent.toFixed(2))}</h1>
                 </div>
               </div>
               <div

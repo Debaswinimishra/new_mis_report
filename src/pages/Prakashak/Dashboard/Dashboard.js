@@ -330,9 +330,10 @@ const Dashboard = () => {
 
       if (type === "district") {
         response = await PrakashakAPI.post("getAllDistricts", body);
+        console.log("district response--->", response.data);
         if (response.status === 200) {
-          transformedData = response.data[0].districtsArr.map((district) => ({
-            district: district,
+          transformedData = response.data.map((district) => ({
+            district: district.district,
           }));
           setModalLoader(false);
 
@@ -340,9 +341,10 @@ const Dashboard = () => {
         }
       } else if (type === "block") {
         response = await PrakashakAPI.post("getAllBlocks", body);
+        console.log("block response--->", response.data);
         if (response.status === 200) {
-          transformedData = response.data[0]?.blocks.map((block) => ({
-            block: block,
+          transformedData = response.data.map((block) => ({
+            block: block.block,
           }));
           setModalLoader(false);
           setTableHeaders(["Block"]);

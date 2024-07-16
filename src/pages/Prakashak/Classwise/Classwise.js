@@ -185,6 +185,8 @@ const Classwise = () => {
         return "Total No. of Videos Watched";
       case "chatbotActive":
         return "Number of Active Users";
+      case "chatbot conversations":
+        return "Total Conversations in Chatbot";
       default:
         return "Data";
     }
@@ -375,6 +377,42 @@ const Classwise = () => {
 
           setTableHeaders(["Video"]);
         }
+      } else if (type === "chatbot conversations") {
+        response = await PrakashakAPI.post("getChatBotConvosReport", body);
+        transformedData = response.data.map((student) => ({
+          student_name: student.student_name,
+          class: student.class,
+          gender: student.gender,
+          parents_name: student.parents_name,
+          // parents_phone_number: student.parents_phone_number,
+          school_name: student.school_name,
+          district: student.district,
+          block: student.block,
+          cluster: student.cluster,
+          phone_number: student.phone_number ? student.phone_number : "-",
+          buttonClicked: student.buttonClicked ? student.buttonClicked : "-",
+          templateName: student.templateName ? student.templateName : "-",
+          msgType: student.msgType ? student.msgType : "-",
+          status: student.status,
+          createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
+        }));
+        setTableHeaders([
+          "Student Name",
+          "Class",
+          "Gender",
+          "Parents Name",
+
+          "School Name",
+          "District",
+          "Block",
+          "Cluster",
+          "Phone Number",
+          "Button Clicked",
+          "Template Name",
+          "Msg Type",
+          "Status",
+          "Created on",
+        ]);
       } else if (type === "chatbotActive") {
         response = await PrakashakAPI.post("getChatBotActiveUsersReport", body);
         if (response.status === 200) {
@@ -423,7 +461,7 @@ const Classwise = () => {
     const newModalTitle = getModalTitle(type);
     setModalTitle(newModalTitle);
 
-    fetchNewuserData(type);
+    fetchNewuserData(type); //
   };
 
   const handleClose = () => setOpen(false);
@@ -1151,6 +1189,7 @@ const Classwise = () => {
               }}
             >
               <div
+                onClick={() => handleOpen("chatbot conversations")}
                 style={{
                   width: "255px",
                   height: "180px",

@@ -46,19 +46,39 @@ const Schoolwise = () => {
   const [open, setOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [modalTitle, setModalTitle] = useState("Number Of Students");
+  const [title, setTitle] = useState("");
   console.log("tableData", tableData);
+  console.log("districtArr", districtArr);
 
-  const tableHeaders = [
-    "student_name",
-    "Class",
-    "gender",
-    "parents_name",
-    "parents_phone_number",
-    "school_name",
-    "district",
-    "block",
-    "cluster",
-  ];
+  const tableHeaders =
+    title === "Total Conversations in Chatbot"
+      ? [
+          "Student Name",
+          "Class",
+          "Gender",
+          "Parents Name",
+          "School Name",
+          "District",
+          "Block",
+          "Cluster",
+          "Phone Number",
+          "Button Clicked",
+          "Template Name",
+          "Msg Type",
+          "Status",
+          "Created on",
+        ]
+      : [
+          "student_name",
+          "Class",
+          "gender",
+          "parents_name",
+          "parents_phone_number",
+          "school_name",
+          "district",
+          "block",
+          "cluster",
+        ];
   const xlData = tableData;
   const fileName = "SchoolwiseReport.csv";
 
@@ -66,8 +86,20 @@ const Schoolwise = () => {
     const fetchData = async () => {
       try {
         const response = await Api.get("getAllDistricts");
-        console.log("set=================>", response.data[0].districtsArr);
-        setDistrictArr(response.data[0].districtsArr);
+        if (
+          response &&
+          response?.data &&
+          response?.data?.length > 0 &&
+          response?.data
+        ) {
+          console.log("set=================>", response?.data);
+          const districts =
+            response?.data.length > 0 &&
+            response?.data?.map((item) => item?.district);
+          setDistrictArr(districts);
+        } else {
+          setDistrictArr([]);
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching districts:", error);
@@ -91,12 +123,23 @@ const Schoolwise = () => {
     setSchools("");
     // Other logic related to district change
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
-        console.log("set=================>", response.data[0].blocksArr);
-        setBlockArr(response.data[0].blocks);
+        console.log("set=================>", response.data);
+        if (response?.data && response?.data?.length > 0) {
+          // Extracting the blocks from the response data
+          const blocks =
+            response?.data.length > 0 &&
+            response?.data?.map((item) => item?.block);
+          console.log("Blocks:", blocks);
+          setBlockArr(blocks); // Setting the block array with the array of block names
+        } else {
+          console.log("No blocks found for the given district.");
+          setBlockArr([]); // Setting an empty array if no data is found
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);
@@ -123,8 +166,11 @@ const Schoolwise = () => {
         if (blocks) {
           setLoading(true);
           const response = await Api.get(`getAllClustersByBlock/${blocks}`);
-          console.log("set=================>", response.data[0].clusters);
-          setClusterArr(response.data[0]?.clusters);
+          // console.log("set=================>", response.data);
+          const clusters =
+            response?.data?.length > 0 &&
+            response?.data?.map((item) => item?.cluster);
+          setClusterArr(clusters);
           setLoading(false);
         }
       } catch (error) {
@@ -151,7 +197,7 @@ const Schoolwise = () => {
           //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
           //   response.data[0].school_name
           // );
-          setSchoolArr(response.data);
+          setSchoolArr(response?.data);
           setLoading(false);
         }
       } catch (error) {
@@ -205,19 +251,21 @@ const Schoolwise = () => {
     //       setLoading(false);
     //     });
     // }
-    Api.post(`getSchoolWiseReport`, body)
-      .then((response) => {
-        console.log("set=================>", response.data);
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log("err=================>", err);
-        // if (err.response.status === 406) {
-        //   alert("something went wrong", err.response.status);
-        // }
-        setLoading(false);
-      });
+    if (districts) {
+      Api.post(`getSchoolWiseReport`, body)
+        .then((response) => {
+          console.log("set=================>", response.data);
+          setData(response.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log("err=================>", err);
+          // if (err.response.status === 406) {
+          //   alert("something went wrong", err.response.status);
+          // }
+          setLoading(false);
+        });
+    }
   };
 
   const filterButtonClick = () => {
@@ -230,7 +278,45 @@ const Schoolwise = () => {
     }
   };
 
+  const handleOpenChatbotConvo = async (title) => {
+    setTitle(title);
+    setOpen(true);
+    setLoading(true);
+    const body = {
+      ...(districts && { district: districts }),
+      ...(blocks && { block: blocks }),
+      ...(clusters && { cluster: clusters }),
+      ...(schools && { school_name: schools?.school_name }),
+    };
+    try {
+      const response = await Api.post("/getChatBotConvosReport", body);
+      transformedData = response.data?.map((student) => ({
+        student_name: student.student_name,
+        class: student.class,
+        gender: student.gender,
+        parents_name: student.parents_name,
+        // parents_phone_number: student.parents_phone_number,
+        school_name: student.school_name,
+        district: student.district,
+        block: student.block,
+        cluster: student.cluster,
+        phone_number: student.phone_number ? student.phone_number : "-",
+        buttonClicked: student.buttonClicked ? student.buttonClicked : "-",
+        templateName: student.templateName ? student.templateName : "-",
+        msgType: student.msgType ? student.msgType : "-",
+        status: student.status,
+        createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
+      }));
+      setTableData(transformedData);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+      setLoading(false);
+    }
+  };
+
   const handleOpen = async (classNumber) => {
+    console.log("classnumber??--------------------------->", classNumber);
     setOpen(true);
     setLoading(true);
     const newModalTitle = classNumber
@@ -240,7 +326,7 @@ const Schoolwise = () => {
 
     const body = {
       // year: 2024,
-      ...(classNumber && { class: classNumber }),
+      ...(classNumber && { class: classNumber }), //
       ...(districts && { district: districts }),
       ...(blocks && { block: blocks }),
       ...(clusters && { cluster: clusters }),
@@ -249,7 +335,7 @@ const Schoolwise = () => {
 
     try {
       const response = await Api.post("/getAllStudentsReport", body);
-      console.log("getAllStudentsReport=================>", response.data);
+      // console.log("getAllStudentsReport=================>", response.data);
       setTableData(response.data);
       setLoading(false);
     } catch (error) {
@@ -308,7 +394,7 @@ const Schoolwise = () => {
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
-            {districtArr.map((district, index) => (
+            {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
               </MenuItem>
@@ -327,7 +413,7 @@ const Schoolwise = () => {
           >
             <MenuItem value="">None</MenuItem>
             {blockArr &&
-              blockArr.map((block, index) => (
+              blockArr?.map((block, index) => (
                 <MenuItem key={index} value={block}>
                   {block}
                 </MenuItem>
@@ -1249,6 +1335,9 @@ const Schoolwise = () => {
               }}
             >
               <div
+                onClick={() => {
+                  handleOpenChatbotConvo("Total Conversations in Chatbot");
+                }}
                 style={{
                   width: "255px",
                   height: "180px",

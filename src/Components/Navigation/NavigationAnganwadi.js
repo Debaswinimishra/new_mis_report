@@ -27,6 +27,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Button from "@mui/material/Button";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
+import { Version } from "../../Environment/Api";
 const drawerWidth = 240;
 
 function NavigationAnganwadi(props) {
@@ -122,7 +123,7 @@ function NavigationAnganwadi(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.6
+          v{Version.version}
         </p>
       </Toolbar>
 

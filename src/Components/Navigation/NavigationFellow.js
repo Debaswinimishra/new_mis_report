@@ -34,6 +34,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import QuizIcon from "@mui/icons-material/Quiz";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
+import { Version } from "../../Environment/Api";
 const drawerWidth = 240;
 
 function NavigationFellow(props) {
@@ -173,7 +174,7 @@ function NavigationFellow(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.6
+          v{Version.version}
         </p>
       </Toolbar>
 

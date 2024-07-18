@@ -34,6 +34,7 @@ import CommunityEducator from "../Pages/Fellow/CommunityEducator/CommunityEducat
 import EducatorsDetails from "../Pages/Fellow/EducatorsDetails/EducatorsDetails";
 import ChatbotReports from "../Pages/Fellow/ChatbotReports/ChatbotReports";
 import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
+import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -79,6 +80,7 @@ function RouteRoot() {
                 element={<TimespentDetails />}
               />
               <Route path="online_report" element={<OnlineReport />} />
+              <Route path="timespent_report" element={<TimespentReport />} />
               <Route path="chatbot_reports" element={<ChatbotReports />} />
             </Route>
             <Route
@@ -153,6 +155,7 @@ function RouteRoot() {
                 element={<TimespentDetails />}
               />
             </Route>
+            <Route path="timespent_report" element={<TimespentReport />} />
             <Route
               path="/anganwadi"
               element={<PrivateRoute element={<AnganwadiRoot />} />}

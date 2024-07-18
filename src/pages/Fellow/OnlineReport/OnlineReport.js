@@ -328,7 +328,6 @@ const OnlineReport = () => {
               value={selectedMonth}
               onChange={handleMonthChange}
               label="Month"
-              style={{ padding: "4px" }}
             >
               <MenuItem value={null}>None</MenuItem>
               {monthArr.map((item, index) => (
@@ -339,7 +338,7 @@ const OnlineReport = () => {
             </Select>
           </FormControl>
 
-          <TextField
+          {/*   <TextField
             id="outlined-select-currency"
             select
             label="Select districts"
@@ -377,7 +376,7 @@ const OnlineReport = () => {
                   </MenuItem>
                 ))
               : null}
-          </TextField>
+          </TextField>*/}
 
           <Stack spacing={2} direction="row">
             <Button

@@ -269,6 +269,27 @@ const Dashboard = () => {
 
   const getModalTitle = (type) => {
     switch (type) {
+      case "district":
+        return "Number of District";
+      case "block":
+        return "Number of blocks";
+
+      case "clusters":
+        return "Number of Clusters";
+      case "schools":
+        return "Number of Schools";
+      case "newSchools":
+        return "Total number of new schools";
+      case "newStudents":
+        return "Total number of Smartphone users";
+
+      case "smartphoneUsers":
+        return "Total number of Smartphone users";
+      case "girls":
+        return "Total Number of girls";
+      case "boys":
+        return "Total Number of Boys";
+
       case "students":
         return "Number of Students";
       case "calls":
@@ -313,9 +334,10 @@ const Dashboard = () => {
 
       if (type === "district") {
         response = await PrakashakAPI.post("getAllDistricts", body);
+        console.log("district response--->", response.data);
         if (response.status === 200) {
-          transformedData = response.data[0].districtsArr.map((district) => ({
-            district: district,
+          transformedData = response.data.map((district) => ({
+            district: district.district,
           }));
           setModalLoader(false);
 
@@ -323,14 +345,13 @@ const Dashboard = () => {
         }
       } else if (type === "block") {
         response = await PrakashakAPI.post("getAllBlocks", body);
+        console.log("block response--->", response.data);
         if (response.status === 200) {
-          transformedData = response.data.map((item, index) => ({
-            slno: index + 1,
-            district: item.district,
-            block: item.block,
+          transformedData = response.data.map((block) => ({
+            block: block.block,
           }));
           setModalLoader(false);
-          setTableHeaders(["Sl. No", "District", "Block"]);
+          setTableHeaders(["Block"]);
         }
       } else if (type === "clusters") {
         response = await PrakashakAPI.post("getAllClusters", body);

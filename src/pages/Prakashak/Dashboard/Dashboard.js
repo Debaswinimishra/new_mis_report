@@ -1090,7 +1090,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("smartphoneUsers")}
+                // onClick={() => handleOpen("smartphoneUsers")}
                 style={{
                   width: "255px",
                   height: "180px",

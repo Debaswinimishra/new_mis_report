@@ -45,40 +45,50 @@ const Schoolwise = () => {
   const [filtered, setFiltered] = useState(false);
   const [open, setOpen] = useState(false);
   const [tableData, setTableData] = useState([]);
-  const [modalTitle, setModalTitle] = useState("Number Of Students");
-  const [title, setTitle] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [tableHeaders, setTableHeaders] = useState([
+    "student_name",
+    "Class",
+    "gender",
+    "parents_name",
+    "parents_phone_number",
+    "school_name",
+    "district",
+    "block",
+    "cluster",
+  ]);
   console.log("tableData", tableData);
   console.log("districtArr", districtArr);
 
-  const tableHeaders =
-    title === "Total Conversations in Chatbot"
-      ? [
-          "Student Name",
-          "Class",
-          "Gender",
-          "Parents Name",
-          "School Name",
-          "District",
-          "Block",
-          "Cluster",
-          "Phone Number",
-          "Button Clicked",
-          "Template Name",
-          "Msg Type",
-          "Status",
-          "Created on",
-        ]
-      : [
-          "student_name",
-          "Class",
-          "gender",
-          "parents_name",
-          "parents_phone_number",
-          "school_name",
-          "district",
-          "block",
-          "cluster",
-        ];
+  // const tableHeaders =
+  //   modalTitle === "Total Conversations in Chatbot"
+  //     ? [
+  //         "Student Name",
+  //         "Class",
+  //         "Gender",
+  //         "Parents Name",
+  //         "School Name",
+  //         "District",
+  //         "Block",
+  //         "Cluster",
+  //         "Phone Number",
+  //         "Button Clicked",
+  //         "Template Name",
+  //         "Msg Type",
+  //         "Status",
+  //         "Created on",
+  //       ]
+  //     : [
+  //         "student_name",
+  //         "Class",
+  //         "gender",
+  //         "parents_name",
+  //         "parents_phone_number",
+  //         "school_name",
+  //         "district",
+  //         "block",
+  //         "cluster",
+  //       ];
   const xlData = tableData;
   const fileName = "SchoolwiseReport.csv";
 
@@ -278,95 +288,92 @@ const Schoolwise = () => {
     }
   };
 
-  const handleOpenChatbotConvo = async (title) => {
-    setTitle(title);
+  const handleOpenModal = async (type, param) => {
     setOpen(true);
     setLoading(true);
-    const body = {
-      ...(districts && { district: districts }),
-      ...(blocks && { block: blocks }),
-      ...(clusters && { cluster: clusters }),
-      ...(schools && { school_name: schools?.school_name }),
-    };
-    try {
-      const response = await Api.post("/getChatBotConvosReport", body);
-      transformedData = response.data?.map((student) => ({
-        student_name: student.student_name,
-        class: student.class,
-        gender: student.gender,
-        parents_name: student.parents_name,
-        // parents_phone_number: student.parents_phone_number,
-        school_name: student.school_name,
-        district: student.district,
-        block: student.block,
-        cluster: student.cluster,
-        phone_number: student.phone_number ? student.phone_number : "-",
-        buttonClicked: student.buttonClicked ? student.buttonClicked : "-",
-        templateName: student.templateName ? student.templateName : "-",
-        msgType: student.msgType ? student.msgType : "-",
-        status: student.status,
-        createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
-      }));
-      setTableData(transformedData);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching districts:", error);
-      setLoading(false);
-    }
-  };
-
-  const handleOpen = async (classNumber) => {
-    console.log("classnumber??--------------------------->", classNumber);
-    setOpen(true);
-    setLoading(true);
-    const newModalTitle = classNumber
-      ? `Number Of Students in class ${classNumber}`
-      : "Number Of Students";
-    setModalTitle(newModalTitle);
-
-    const body = {
-      // year: 2024,
-      ...(classNumber && { class: classNumber }), //
+    setTableData([]); // Reset table data before fetching new data
+    setTableHeaders([]);
+    setModalTitle("");
+    let body = {
       ...(districts && { district: districts }),
       ...(blocks && { block: blocks }),
       ...(clusters && { cluster: clusters }),
       ...(schools && { school_name: schools?.school_name }),
     };
 
-    try {
-      const response = await Api.post("/getAllStudentsReport", body);
-      // console.log("getAllStudentsReport=================>", response.data);
-      setTableData(response.data);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching districts:", error);
-      setLoading(false);
+    if (type === "chatbotConvo") {
+      setModalTitle(param);
+      try {
+        const response = await Api.post("/getChatBotConvosReport", body);
+        const transformedData = response.data?.map((student) => ({
+          student_name: student.student_name,
+          class: student.class,
+          gender: student.gender,
+          parents_name: student.parents_name,
+          school_name: student.school_name,
+          district: student.district,
+          block: student.block,
+          cluster: student.cluster,
+          phone_number: student.phone_number || "-",
+          buttonClicked: student.buttonClicked || "-",
+          templateName: student.templateName || "-",
+          msgType: student.msgType || "-",
+          status: student.status,
+          createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
+        }));
+        setTableData(transformedData);
+        setTableHeaders([
+          "Student Name",
+          "Class",
+          "Gender",
+          "Parents Name",
+          "School Name",
+          "District",
+          "Block",
+          "Cluster",
+          "Phone Number",
+          "Button Clicked",
+          "Template Name",
+          "Msg Type",
+          "Status",
+          "Created on",
+        ]);
+      } catch (error) {
+        console.error("Error fetching chatbot conversations:", error);
+      }
+    } else if (type === "studentReport") {
+      const classNumber = param;
+      classNumber
+        ? setModalTitle(`Number Of Students in class ${classNumber}`)
+        : setModalTitle("Number Of Students");
+      body = {
+        ...body,
+        ...(classNumber && { class: classNumber }),
+      };
+      try {
+        const response = await Api.post("/getAllStudentsReport", body);
+        setTableData(response.data);
+        setTableHeaders([
+          "student_name",
+          "Class",
+          "gender",
+          "parents_name",
+          "parents_phone_number",
+          "school_name",
+          "district",
+          "block",
+          "cluster",
+        ]);
+      } catch (error) {
+        console.error("Error fetching student report:", error);
+      }
     }
+
+    // setModalTitle(newModalTitle);
+    setLoading(false);
   };
 
   const handleClose = () => setOpen(false);
-
-  const handleDownload = () => {
-    // const data = modalContentData.map((chat, index) => ({
-    //   "Sl No.": index + 1,
-    //   "Customer Id": chat.customer_id,
-    //   "Mobile No.": chat.mobile,
-    //   Class: chat.class,
-    //   Board: chat.board,
-    //   School: chat.school,
-    //   Status: chat.status,
-    //   Date: moment(chat.date).format("DD/MM/YYYY"),
-    // }));
-    // const worksheet = XLSX.utils.json_to_sheet(data);
-    // const workbook = XLSX.utils.book_new();
-    // XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-    // const excelBuffer = XLSX.write(workbook, {
-    //   bookType: "xlsx",
-    //   type: "array",
-    // });
-    // const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
-    // saveAs(blob, "table_data.xlsx");
-  };
 
   console.log("schoolArr--------------------->", schoolArr, typeof schoolArr);
   console.log("districts--------->", districts);
@@ -520,7 +527,7 @@ const Schoolwise = () => {
               }}
             >
               <div
-                onClick={() => handleOpen()}
+                onClick={() => handleOpenModal("studentReport")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -597,7 +604,7 @@ const Schoolwise = () => {
                 </div>
               </div> */}
               <div
-                onClick={() => handleOpen(1)}
+                onClick={() => handleOpenModal("studentReport", 1)}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -636,7 +643,7 @@ const Schoolwise = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(2)}
+                onClick={() => handleOpenModal("studentReport", 2)}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -676,7 +683,7 @@ const Schoolwise = () => {
               </div>
 
               <div
-                onClick={() => handleOpen(3)}
+                onClick={() => handleOpenModal("studentReport", 3)}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -715,7 +722,7 @@ const Schoolwise = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(4)}
+                onClick={() => handleOpenModal("studentReport", 4)}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -754,7 +761,7 @@ const Schoolwise = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen(5)}
+                onClick={() => handleOpenModal("studentReport", 5)}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1336,7 +1343,10 @@ const Schoolwise = () => {
             >
               <div
                 onClick={() => {
-                  handleOpenChatbotConvo("Total Conversations in Chatbot");
+                  handleOpenModal(
+                    "chatbotConvo",
+                    "Total Conversations in Chatbot"
+                  );
                 }}
                 style={{
                   width: "255px",

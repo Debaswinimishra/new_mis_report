@@ -279,9 +279,9 @@ const Dashboard = () => {
       case "schools":
         return "Number of Schools";
       case "newSchools":
-        return "Total number of new schools";
+        return "Total number of New schools";
       case "newStudents":
-        return "Total number of Smartphone users";
+        return "Total number of New Students";
 
       case "smartphoneUsers":
         return "Total number of Smartphone users";

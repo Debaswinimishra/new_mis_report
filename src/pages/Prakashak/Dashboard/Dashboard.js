@@ -269,6 +269,27 @@ const Dashboard = () => {
 
   const getModalTitle = (type) => {
     switch (type) {
+      case "district":
+        return "Number of District";
+      case "block":
+        return "Number of blocks";
+
+      case "clusters":
+        return "Number of Clusters";
+      case "schools":
+        return "Number of Schools";
+      case "newSchools":
+        return "Total number of New schools";
+      case "newStudents":
+        return "Total number of New Students";
+
+      case "smartphoneUsers":
+        return "Total number of Smartphone users";
+      case "girls":
+        return "Total Number of girls";
+      case "boys":
+        return "Total Number of Boys";
+
       case "students":
         return "Number of Students";
       case "calls":
@@ -330,7 +351,7 @@ const Dashboard = () => {
             block: block.block,
           }));
           setModalLoader(false);
-          setTableHeaders(["Sl. No", "District", "Block"]);
+          setTableHeaders(["Block"]);
         }
       } else if (type === "clusters") {
         response = await PrakashakAPI.post("getAllClusters", body);
@@ -1069,7 +1090,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("smartphoneUsers")}
+                // onClick={() => handleOpen("smartphoneUsers")}
                 style={{
                   width: "255px",
                   height: "180px",

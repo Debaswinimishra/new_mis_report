@@ -233,7 +233,7 @@ const Schoolwise = () => {
       district: districts,
       block: blocks,
       cluster: clusters,
-      school: schools.school_name,
+      school_name: schools.school_name,
     };
 
     console.log("check---------->", districts, blocks, clusters, schools);

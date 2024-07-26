@@ -13,11 +13,7 @@ import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
 import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
 import moment from "moment";
-import {
-  getAllCommunityEducatiorFilter,
-  getAllDistricts,
-  getDistrictsWiseBlocks,
-} from "../CommunityEducator/CommunityEducatorApi";
+import { getAllCommunityEducatiorFilter } from "../CommunityEducator/CommunityEducatorApi";
 import { getAllTimespentData } from "./TimeSpentReportModuleWise.Api";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";

@@ -27,6 +27,7 @@ import Button from "@mui/material/Button";
 import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
 
 import CastForEducationIcon from "@mui/icons-material/CastForEducation";
+import { Version } from "../../Environment/Api";
 const drawerWidth = 240;
 
 function NavigationSchool(props) {
@@ -123,7 +124,7 @@ function NavigationSchool(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.6
+          v{Version.version}
         </p>
       </Toolbar>
 

@@ -190,7 +190,9 @@ function NavigationPrakashak(props) {
               horizontal: "right",
             }}
           >
-            <span style={{ marginLeft: "18px", fontSize: 18 }}>v1.2.6</span>
+            <span style={{ marginLeft: "18px", fontSize: 18 }}>
+              v{Version.version}
+            </span>
             <MenuItem onClick={handleLogout}>
               <Logout fontSize="small" />
               {usertype === "prakashak" ? (

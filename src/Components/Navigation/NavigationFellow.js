@@ -34,6 +34,8 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import QuizIcon from "@mui/icons-material/Quiz";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MoreTimeIcon from "@mui/icons-material/MoreTime";
+import { Version } from "../../Environment/Api";
 const drawerWidth = 240;
 
 function NavigationFellow(props) {
@@ -125,6 +127,11 @@ function NavigationFellow(props) {
     },
 
     {
+      text: "Timespent Report(overall)",
+      link: "timespent_report",
+      icon: <MoreTimeIcon sx={{ color: "#000080" }} />,
+    },
+    {
       text: "Log out",
       link: "/",
       icon: <LogoutIcon sx={{ color: "rgb(255,0,0)" }} />,
@@ -179,7 +186,7 @@ function NavigationFellow(props) {
             fontWeight: "bold",
           }}
         >
-          v1.2.6
+          v{Version.version}
         </p>
       </Toolbar>
 

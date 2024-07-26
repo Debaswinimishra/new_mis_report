@@ -18,6 +18,7 @@ import Feedback from "../Pages/Fellow/Feedback/Feedback";
 import Route404 from "./Route404";
 import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
 import { TimeSpentReportModuleWise } from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
+import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 
 const RouteFellow = () => {
   const Navigate = useNavigate();
@@ -54,6 +55,7 @@ const RouteFellow = () => {
           path="timespent_report_modulewise"
           element={<TimeSpentReportModuleWise />}
         />
+        <Route path="timespent_report" element={<TimespentReport />} />
       </Route>
       {/* <Route path="*" element={<Route404 />} /> */}
       {/* <Route path="*" element={<Navigate to="/fellow/dashboard" />} /> */}

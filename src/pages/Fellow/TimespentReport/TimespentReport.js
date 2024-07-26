@@ -2,34 +2,33 @@ import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import { FormControl, InputLabel, Select } from "@mui/material";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TablePagination from "@mui/material/TablePagination";
-
-import moment from "moment";
-
+import loader from "../../../Assets/R.gif";
 import Download from "../../../downloads/ExportCsv";
 import Select1 from "../../../ReusableComponents/Select1";
-
+import ReusableTextField from "../../../ReusableComponents/ReusableTextField";
+import moment from "moment";
 import {
   getAllCommunityEducatiorFilter,
   getAllDistricts,
   getDistrictsWiseBlocks,
-  getCommunityEducator1,
-  getCommunityEducator2,
 } from "../CommunityEducator/CommunityEducatorApi";
-import { getOnlineRequestedReport } from "./OnlineReuestApi";
+import { getTimeSpentReportOverall } from "./TimespentReportApi";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Box from "@mui/material/Box";
-
+import Logo from "../../../ReusableComponents/Logo";
 import Loader from "../../../ReusableComponents/Loader";
+import IconButton from "@mui/material/IconButton";
+import ClearIcon from "@mui/icons-material/Clear";
+// import Links from "../../../ReusableComponents/Links";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -50,92 +49,58 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const managerTypeArr = [
-  { value: "none", label: "none" },
-  { value: "manager", label: "MANAGER" },
-  { value: "Crc", label: "CRC" },
-  { value: "Aww", label: "Supervisor" },
+const monthArr = [
+  //   { value: "none", label: "none" },
+  { value: "1", label: "January" },
+  { value: "2", label: "February" },
+  { value: "3", label: "March" },
+  { value: "4", label: "April" },
+  { value: "5", label: "May" },
+  { value: "6", label: "June" },
+  { value: "7", label: "July" },
+  { value: "8", label: "August" },
+  { value: "9", label: "September" },
+  { value: "10", label: "October" },
+  { value: "11", label: "November" },
+  { value: "12", label: "December" },
 ];
-// username, contact number, gender, address, status(accept/reject), reason
+
 const moduleColumn = [
   "Serial No",
+  "Year",
+  "Month",
+  "Manager Name",
+  "Passcode",
   "User Name",
+  "Address",
   "Contact Number",
   "Gender",
-  "Address",
-  "Status(Active/Inactive)",
-
-  "reason",
+  "Total training module",
+  "Module-wise certificate",
+  "completed Modules",
+  "Timespent",
 ];
 
-const OnlineReport = () => {
-  const monthArr = [
-    { value: 1, label: "January" },
-    { value: 2, label: "February" },
-    { value: 3, label: "March" },
-    { value: 4, label: "April" },
-    { value: 5, label: "May" },
-    { value: 6, label: "June" },
-    { value: 7, label: "July" },
-    { value: 8, label: "August" },
-    { value: 9, label: "September" },
-    { value: 10, label: "October" },
-    { value: 11, label: "November" },
-    { value: 12, label: "December" },
-  ];
-  const currentMonth = moment().format("MMMM");
-  const currentMonthSelected = monthArr?.filter(
-    (item) => item.label === currentMonth
-  )[0];
-  const [selectedMonth, setSelectedMonth] = useState("");
-
+const TimespentReport = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   const [managerName, setManagerName] = useState([]);
   const [managerType, setManagerType] = useState("");
   const [passcode, setPasscode] = useState("");
-
+  const [districts, setDistricts] = useState([]);
   const [page, setPage] = useState(0);
   const [districtName, setDistrictName] = useState("");
-
+  const [allBlocks, setAllBlocks] = useState([]);
   const [blockName, setBlockName] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   console.log("filteredData", filteredData);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
+  const [month, setMonth] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [districts, setDistrcits] = useState([]);
-  const [blocks, setAllBlocks] = useState([]);
-  const handleMonthChange = async (e) => {
-    try {
-      if (
-        e.target.value > currentMonthSelected.value &&
-        selectedYear === currentYear
-      ) {
-        toast.error(
-          "You can't select a month greater than the current month !",
-          {
-            style: {
-              borderRadius: "100px",
-              backgroundColor: "black",
-              color: "white",
-            },
-          }
-        );
-      } else {
-        setSelectedMonth(e.target.value ? e.target.value : "");
-        console.log("district--->", e.target.value);
-        if (e.target.value > 0) {
-          const response = await getAllDistricts();
-          console.log("districyt----->", response.data);
-          setDistrcits(response.data);
-        }
-      }
-    } catch (err) {
-      console.log("err----->", err);
-    }
-  };
+  console.log("month==>", month);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -163,7 +128,6 @@ const OnlineReport = () => {
       });
     }
   });
-
   const handleYearChange = async (selectedYear) => {
     setManagerType("");
     setManagerName("");
@@ -173,8 +137,18 @@ const OnlineReport = () => {
     setFilteredData([]);
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
+    // setShowFieldsData(false);
     const response = await getAllCommunityEducatiorFilter(selectedYear);
-    setManagerArr(response?.data?.resData);
+    console.log("manager year----->", response.data);
+    setManagerArr(response.data.resData);
+  };
+
+  const handleMonthChange = (event) => {
+    setMonth(event.target.value);
+    setManagerName("");
+    setPasscode("");
+    setDistrictName("");
+    setBlockName("");
   };
 
   const handleManagerChange = (event) => {
@@ -184,6 +158,7 @@ const OnlineReport = () => {
     setFilteredData([]);
     setTotalDataLength(0);
     setManagerName(event.target.value);
+    // setShowFieldsData(false);
   };
 
   const handlePasscodeChange = async (event) => {
@@ -192,29 +167,40 @@ const OnlineReport = () => {
     setDistrictName("");
     setBlockName("");
     setPasscode(event.target.value);
+    try {
+      // setLoaded(true);
+      const response2 = await getAllDistricts();
+      console.log("response--->", response2.data);
+      setDistricts(response2.data);
+      // setLoaded(false);
+    } catch (error) {
+      // setLoaded(false);
+      console.error("Error--->", error);
+    }
+
+    // setShowFieldsData(false);
   };
 
-  const handleDistrictChange = async (e) => {
-    console.log("id--->", e.target.value);
-    setBlockName("");
-    setFilteredData([]);
-    setTotalDataLength(0);
-    const selectedValue = e.target.value;
-    setDistrictName(e.target.value);
-    console.log("Selected value:", e);
-    // setLoaded(true);
-    const response = await getDistrictsWiseBlocks(e.target.value);
-    console.log("block response---->", response.data);
-    setAllBlocks(response.data);
-    // setLoaded(false);
-  };
+  // const handleDistrictChange = async (e) => {
+  //   setBlockName("");
+  //   setFilteredData([]);
+  //   setTotalDataLength(0);
+  //   const selectedValue = e.target.value;
+  //   setDistrictName(e.target.value);
+  //   console.log("Selected value:", e);
+  //   // setLoaded(true);
+  //   const response = await getDistrictsWiseBlocks(e.target.value);
+  //   console.log("block response---->", response.data);
+  //   setAllBlocks(response.data);
+  //   // setLoaded(false);
+  // };
 
-  const handleBlockChange = (e) => {
-    // console.log("block--->", e.target.value);
-    setFilteredData([]);
-    setTotalDataLength(0);
-    setBlockName(e.target.value);
-  };
+  // const handleBlockChange = (e) => {
+  //   console.log("block--->", e.target.value);
+  //   setFilteredData([]);
+  //   setTotalDataLength(0);
+  //   setBlockName(e.target.value);
+  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -228,23 +214,21 @@ const OnlineReport = () => {
   const fetchFilteredData = async () => {
     try {
       if (!selectedYear) {
-        alert("Please select a year before filtering.");
+        alert("Please select year before filtering.");
         return;
       }
 
       setLoaded(true);
       const filterCriteriaWithBlockAndDistrict = {
-        year: selectedYear.toString(),
-        month: selectedMonth.toString(),
+        year: parseInt(selectedYear),
+        month: parseInt(month),
+        managerid: managerName,
+        passcode: passcode,
         districtid: districtName,
         blockid: blockName,
       };
-      console.log(
-        "====================================",
-        filterCriteriaWithBlockAndDistrict
-      );
 
-      const data = await getOnlineRequestedReport(
+      const data = await getTimeSpentReportOverall(
         filterCriteriaWithBlockAndDistrict
       );
 
@@ -267,39 +251,46 @@ const OnlineReport = () => {
       setLoaded(false);
     }
   };
-  // username, contact number, gender, address, status(accept/reject), reason
+
   const getCellValue = (row, column, index) => {
     switch (column) {
       case "Serial No":
         return index + 1;
+      case "Year":
+        return row.year;
+      case "Month":
+        return row.month;
+      case "Manager Name":
+        return row.managername;
+      case "Passcode":
+        return row.passcode;
       case "User Name":
         return row.username;
+      case "Address":
+        return row.address;
       case "Contact Number":
-        return row.contactnumber ? row.contactnumber : "NA";
+        return row.contactnumber;
       case "Gender":
         return row.gender;
-      case "Address":
-        return row.statename && row.districtname && row.blockname
-          ? `${row.statename},${row.districtname},${row.blockname}`
-          : "NA";
-      case "Status(Active/Inactive)":
-        return row.status ? row.status : "NA";
-
-      case "Reason":
-        return row.reason ? row.reason : "NA";
+      case "Total training module":
+        return row.totalTrainingModules;
+      case "Module-wise certificate":
+        return row.moduleCertificates?.length > 0 ? "received" : "not received";
+      case "completed Modules":
+        return row.completedModulesRatio;
+      case "Timespent":
+        return row.timeSpentHHMMSS;
       default:
         return "";
     }
   };
 
-  const fileName = "FellowDetails";
+  const fileName = "OverallTimespent";
 
   const xlData = filteredData.map((x) => {
     const { ...exceptBoth } = x;
     return exceptBoth;
   });
-
-  const handleClear = () => {};
 
   return (
     <Box>
@@ -320,25 +311,49 @@ const OnlineReport = () => {
         >
           <Select1 selectedYear={selectedYear} onChange={handleYearChange} />
 
-          <FormControl size="medium" style={{ width: "200px" }}>
-            <InputLabel id="usertype-label">Month</InputLabel>
-            <Select
-              labelId="usertype-label"
-              id="usertype-select"
-              value={selectedMonth}
-              onChange={handleMonthChange}
-              label="Month"
-            >
-              <MenuItem value={null}>None</MenuItem>
-              {monthArr.map((item, index) => (
-                <MenuItem key={index} value={item.value}>
-                  {item.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select month"
+            value={month}
+            onChange={(e) => handleMonthChange(e)}
+          >
+            <MenuItem value="">None</MenuItem>
+            {selectedYear && selectedYear != ""
+              ? monthArr?.map((option) => (
+                  <MenuItem key={option.id} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))
+              : null}
+          </TextField>
 
-          {/*   <TextField
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="Select manager"
+            defaultValue="none"
+            value={managerName}
+            onChange={(e) => handleManagerChange(e)}
+          >
+            <MenuItem value="">None</MenuItem>
+            {Array.isArray(managerArr)
+              ? managerArr.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.managerid}>
+                    {option.managername}
+                  </MenuItem>
+                ))
+              : null}
+          </TextField>
+
+          <ReusableTextField
+            label="Select passcode"
+            value={passcode}
+            options={passcodeArray}
+            onChange={(e) => handlePasscodeChange(e)}
+          />
+
+          {/* <TextField
             id="outlined-select-currency"
             select
             label="Select districts"
@@ -347,14 +362,14 @@ const OnlineReport = () => {
             onChange={(e) => handleDistrictChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(districts)
-              ? districts.map((option, index) => (
+            {Array.isArray(districtArr)
+              ? districtArr.map((option, index) => (
                   <MenuItem
                     key={index + 1}
-                    value={option?._id}
+                    value={option?.districtid}
                     data-name={option?.districtname}
                   >
-                    {option?.districtname}
+                    {option.districtname}
                   </MenuItem>
                 ))
               : null}
@@ -369,14 +384,14 @@ const OnlineReport = () => {
             onChange={(e) => handleBlockChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(blocks)
-              ? blocks?.map((option, index) => (
-                  <MenuItem key={index + 1} value={option?._id}>
-                    {option?.blockname}
+            {Array.isArray(blocksArr)
+              ? blocksArr?.map((option, index) => (
+                  <MenuItem key={index + 1} value={option.blockid}>
+                    {option.blockname}
                   </MenuItem>
                 ))
               : null}
-          </TextField>*/}
+          </TextField> */}
 
           <Stack spacing={2} direction="row">
             <Button
@@ -393,7 +408,7 @@ const OnlineReport = () => {
         <Loader />
       ) : selectedYear && filteredData && filteredData.length > 0 ? (
         <>
-          {/* <TextField
+          <TextField
             fullWidth
             id="fullWidth"
             label="Search"
@@ -411,7 +426,7 @@ const OnlineReport = () => {
                 </IconButton>
               ),
             }}
-          /> */}
+          />
           <TableContainer
             component={Paper}
             sx={{
@@ -470,4 +485,4 @@ const OnlineReport = () => {
   );
 };
 
-export default OnlineReport;
+export default TimespentReport;

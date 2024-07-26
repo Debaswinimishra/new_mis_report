@@ -34,7 +34,8 @@ import CommunityEducator from "../Pages/Fellow/CommunityEducator/CommunityEducat
 import EducatorsDetails from "../Pages/Fellow/EducatorsDetails/EducatorsDetails";
 import ChatbotReports from "../Pages/Fellow/ChatbotReports/ChatbotReports";
 import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
-import { TimeSpentReportModuleWise } from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
+// import { TimeSpentReportModuleWise } from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
+import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 
 function RouteRoot() {

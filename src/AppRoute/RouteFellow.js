@@ -17,7 +17,8 @@ import TimespentDetails from "../Pages/Fellow/TimespentDetails/TimespentDetails"
 import Feedback from "../Pages/Fellow/Feedback/Feedback";
 import Route404 from "./Route404";
 import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
-import { TimeSpentReportModuleWise } from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
+// import { TimeSpentReportModuleWise } from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
+import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 
 const RouteFellow = () => {

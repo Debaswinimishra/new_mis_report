@@ -5,5 +5,5 @@ export const getManagerWidPasscodes = async (year) => {
 };
 
 export const getAllTimespentData = async (body) => {
-  return await Api.post(`whateverAPIgivenForGettingTimespentData`, body);
+  return await Api.post(`getDetailedTimeSpentReport`, body);
 };

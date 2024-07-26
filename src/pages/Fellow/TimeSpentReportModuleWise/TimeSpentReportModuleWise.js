@@ -357,7 +357,7 @@ const TimeSpentReportModuleWise = () => {
               maxHeight: "800px",
             }}
           >
-            <Table aria-label="customized table">
+            {/* <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
                   {moduleColumn.map((column) => (
@@ -376,6 +376,29 @@ const TimeSpentReportModuleWise = () => {
                           .toLowerCase()
                           .includes(searchQuery.toLowerCase())
                     )
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, index) => (
+                      <StyledTableRow key={index}>
+                        {moduleColumn.map((column, columnIndex) => (
+                          <StyledTableCell key={columnIndex}>
+                            {getCellValue(row, column, index)}
+                          </StyledTableCell>
+                        ))}
+                      </StyledTableRow>
+                    ))}
+              </TableBody>
+            </Table> */}
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  {moduleColumn.map((column) => (
+                    <StyledTableCell key={column}>{column}</StyledTableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {Array.isArray(filteredData) &&
+                  filteredData
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => (
                       <StyledTableRow key={index}>

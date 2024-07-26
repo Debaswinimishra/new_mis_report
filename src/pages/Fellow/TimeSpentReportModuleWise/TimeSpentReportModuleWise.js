@@ -66,6 +66,7 @@ const moduleColumn = [
   "User Name",
   "Manager Name",
   "Passcode",
+  "Training Module Count",
   "Pedagogy",
   "21st century",
   "Technology",
@@ -76,6 +77,7 @@ const moduleColumn = [
   "Student Assessment",
   "Survey",
   "Book",
+  "Total Timespent",
 ];
 
 const TimeSpentReportModuleWise = () => {
@@ -227,6 +229,8 @@ const TimeSpentReportModuleWise = () => {
         return row.managername;
       case "Passcode":
         return row.passcode;
+      case "Training Module Count":
+        return row.trainingModulesCount;
       case "Pedagogy":
         return row.training3;
       case "21st century":
@@ -247,6 +251,8 @@ const TimeSpentReportModuleWise = () => {
         return row.tchSurvey;
       case "Book":
         return row.reading;
+      case "Total Timespent":
+        return row.timeSpent;
       default:
         return "";
     }

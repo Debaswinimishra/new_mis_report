@@ -93,6 +93,7 @@ const TimeSpentReportModuleWise = () => {
   const [loaded, setLoaded] = useState(false);
   const [month, setMonth] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchedStudents, setSearchedStudents] = useState([]);
 
   const currentYear = new Date().getFullYear();
 
@@ -137,11 +138,9 @@ const TimeSpentReportModuleWise = () => {
   };
 
   const handleMonthChange = (event) => {
-    console.log("month selected------>", event.target.value);
-    console.log("current month----------->", currentMonth);
     if (
       parseInt(selectedYear) === currentYear &&
-      event.target.value > currentMonth
+      event.target.value > currentMonth + 1
     ) {
       alert("You can't select a month beyond the current month");
     } else {
@@ -253,6 +252,20 @@ const TimeSpentReportModuleWise = () => {
     }
   };
 
+  const searchStudentFromFilteredData = (e) => {
+    if (e.target.value) {
+      const mySearchedStudents = filteredData.filter((item) => {
+        return item.username.includes(e.target.value.toLowerCase());
+      });
+      setSearchedStudents(mySearchedStudents);
+      setSearchQuery(e.target.value);
+      console.log("searched students--------->", searchedStudents);
+    } else {
+      setSearchedStudents([]);
+      setSearchQuery("");
+    }
+  };
+
   const fileName = "OverallTimespent";
 
   const xlData = filteredData.map((x) => {
@@ -342,7 +355,7 @@ const TimeSpentReportModuleWise = () => {
             label="Search"
             variant="outlined"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={searchStudentFromFilteredData}
             InputProps={{
               endAdornment: (
                 <IconButton
@@ -396,37 +409,99 @@ const TimeSpentReportModuleWise = () => {
               </TableBody>
             </Table> */}
             <Table aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  {moduleColumn.map((column) => (
-                    <StyledTableCell key={column}>{column}</StyledTableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {Array.isArray(filteredData) &&
-                  filteredData
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => (
-                      <StyledTableRow key={index}>
-                        {moduleColumn.map((column, columnIndex) => (
-                          <StyledTableCell key={columnIndex}>
-                            {getCellValue(row, column, index)}
-                          </StyledTableCell>
+              {filteredData.length > 0 &&
+              searchQuery.length === 0 &&
+              searchedStudents.length === 0 ? (
+                <>
+                  <TableHead>
+                    <TableRow>
+                      {moduleColumn.map((column) => (
+                        <StyledTableCell key={column}>{column}</StyledTableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {Array.isArray(filteredData) &&
+                      filteredData
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((row, index) => (
+                          <StyledTableRow key={index}>
+                            {moduleColumn.map((column, columnIndex) => (
+                              <StyledTableCell key={columnIndex}>
+                                {getCellValue(row, column, index)}
+                              </StyledTableCell>
+                            ))}
+                          </StyledTableRow>
                         ))}
-                      </StyledTableRow>
-                    ))}
-              </TableBody>
+                  </TableBody>
+                </>
+              ) : filteredData.length > 0 &&
+                searchQuery &&
+                searchedStudents.length > 0 ? (
+                <>
+                  <TableHead>
+                    <TableRow>
+                      {moduleColumn.map((column) => (
+                        <StyledTableCell key={column}>{column}</StyledTableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {Array.isArray(searchedStudents) &&
+                      searchedStudents
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((row, index) => (
+                          <StyledTableRow key={index}>
+                            {moduleColumn.map((column, columnIndex) => (
+                              <StyledTableCell key={columnIndex}>
+                                {getCellValue(row, column, index)}
+                              </StyledTableCell>
+                            ))}
+                          </StyledTableRow>
+                        ))}
+                  </TableBody>
+                </>
+              ) : filteredData.length > 0 &&
+                searchQuery &&
+                searchedStudents.length === 0 ? (
+                <h2>Sorry, coudn't find an user with the search value</h2>
+              ) : null}
             </Table>
-            <TablePagination
-              component="div"
-              count={totalDataLength}
-              page={page}
-              onPageChange={handleChangePage}
-              rowsPerPage={rowsPerPage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-            <Download csvData={xlData} fileName={fileName} />
+            {filteredData && !searchQuery && searchedStudents.length === 0 ? (
+              <>
+                <TablePagination
+                  component="div"
+                  count={
+                    searchQuery ? searchedStudents.length : filteredData.length
+                  }
+                  page={page}
+                  onPageChange={handleChangePage}
+                  rowsPerPage={rowsPerPage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+                <Download csvData={xlData} fileName={fileName} />
+              </>
+            ) : filteredData && searchQuery && searchedStudents.length > 0 ? (
+              <>
+                <TablePagination
+                  component="div"
+                  count={
+                    searchQuery ? searchedStudents.length : filteredData.length
+                  }
+                  page={page}
+                  onPageChange={handleChangePage}
+                  rowsPerPage={rowsPerPage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+                <Download csvData={xlData} fileName={fileName} />
+              </>
+            ) : null}
           </TableContainer>
         </>
       ) : (

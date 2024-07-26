@@ -222,25 +222,25 @@ const TimeSpentReportModuleWise = () => {
       case "Passcode":
         return row.passcode;
       case "Pedagogy":
-        return row.address;
+        return row.training3;
       case "21st century":
-        return row.contactnumber;
+        return row.training1;
       case "Technology":
-        return row.gender;
+        return row.training2;
       case "ECE acitivity":
-        return row.totalTrainingModules;
+        return row.eceactivity;
       case "PGE activity":
-        return row.moduleCertificates?.length > 0 ? "received" : "not received";
+        return row.pgeactivity;
       case "FLN":
-        return row.completedModulesRatio;
+        return row.fln;
       case "Community Engagement":
-        return row.timeSpentHHMMSS;
+        return row.communityActivity;
       case "Student Assessment":
-        return row.timeSpentHHMMSS;
+        return row.studentAssessment;
       case "Survey":
-        return row.timeSpentHHMMSS;
+        return row.tchSurvey;
       case "Book":
-        return row.timeSpentHHMMSS;
+        return row.reading;
       default:
         return "";
     }

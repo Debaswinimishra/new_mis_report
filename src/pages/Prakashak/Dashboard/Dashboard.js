@@ -698,10 +698,8 @@ const Dashboard = () => {
     },
   ];
 
-  console.log("schoolsData--->", schoolsData);
-
-  console.log("blocksData---->", blocksData);
-  const xlData = districtsData;
+  const xlData = tableDatas;
+  // console.log("tableDatas------------>", tableDatas);
   const fileName = "Dashboard.csv";
   return (
     <>

@@ -128,7 +128,7 @@ const TimeSpentReportModuleWise = () => {
     setManagerType("");
     setManagerName("");
     setPasscode("");
-    setFilteredData([]);
+    // setFilteredData([]);
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
     // setShowFieldsData(false);
@@ -145,14 +145,14 @@ const TimeSpentReportModuleWise = () => {
 
   const handleManagerChange = (event) => {
     setPasscode("");
-    setFilteredData([]);
+    // setFilteredData([]);
     setTotalDataLength(0);
     setManagerName(event.target.value);
     // setShowFieldsData(false);
   };
 
   const handlePasscodeChange = async (event) => {
-    setFilteredData([]);
+    // setFilteredData([]);
     setTotalDataLength(0);
     setPasscode(event.target.value);
 
@@ -173,6 +173,9 @@ const TimeSpentReportModuleWise = () => {
       if (!selectedYear) {
         alert("Please select year before filtering.");
         return;
+      } else if (!month) {
+        alert("Please select a month before filtering");
+        return;
       }
 
       setLoaded(true);
@@ -188,13 +191,14 @@ const TimeSpentReportModuleWise = () => {
       );
 
       setLoaded(false);
-      console.log("data", data);
+      console.log("data----->", data.data);
 
-      if (data.length === 0) {
+      if (data.data.length === 0) {
         setFilteredData([]);
         alert("No data found");
-      } else if (data.length > 0) {
-        setFilteredData(data);
+      } else if (data.data.length > 0) {
+        console.log("data got from api------>", data);
+        setFilteredData(data.data);
         setTotalDataLength(data.length);
       }
     } catch (error) {
@@ -206,6 +210,8 @@ const TimeSpentReportModuleWise = () => {
       setLoaded(false);
     }
   };
+
+  console.log("filtered Data------------------>", filteredData);
 
   const getCellValue = (row, column, index) => {
     switch (column) {

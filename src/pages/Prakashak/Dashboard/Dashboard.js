@@ -969,7 +969,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("newSchools")}
+                // onClick={() => handleOpen("newSchools")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1048,7 +1048,7 @@ const Dashboard = () => {
               </div>
 
               <div
-                onClick={() => handleOpen("newStudents")}
+                // onClick={() => handleOpen("newStudents")}
                 style={{
                   width: "255px",
                   height: "180px",

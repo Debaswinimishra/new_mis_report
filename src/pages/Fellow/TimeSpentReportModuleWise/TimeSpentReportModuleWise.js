@@ -47,18 +47,18 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const monthArr = [
   //   { value: "none", label: "none" },
-  { value: "1", label: "January" },
-  { value: "2", label: "February" },
-  { value: "3", label: "March" },
-  { value: "4", label: "April" },
-  { value: "5", label: "May" },
-  { value: "6", label: "June" },
-  { value: "7", label: "July" },
-  { value: "8", label: "August" },
-  { value: "9", label: "September" },
-  { value: "10", label: "October" },
-  { value: "11", label: "November" },
-  { value: "12", label: "December" },
+  { value: 1, label: "January" },
+  { value: 2, label: "February" },
+  { value: 3, label: "March" },
+  { value: 4, label: "April" },
+  { value: 5, label: "May" },
+  { value: 6, label: "June" },
+  { value: 7, label: "July" },
+  { value: 8, label: "August" },
+  { value: 9, label: "September" },
+  { value: 10, label: "October" },
+  { value: 11, label: "November" },
+  { value: 12, label: "December" },
 ];
 
 const moduleColumn = [
@@ -87,16 +87,16 @@ const TimeSpentReportModuleWise = () => {
   const [districts, setDistricts] = useState([]);
   const [page, setPage] = useState(0);
   const [districtName, setDistrictName] = useState("");
-  // const [allBlocks, setAllBlocks] = useState([]);
-  // const [blockName, setBlockName] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  console.log("filteredData", filteredData);
   const [totalDataLength, setTotalDataLength] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [loaded, setLoaded] = useState(false);
   const [month, setMonth] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  console.log("month==>", month);
+
+  const currentYear = new Date().getFullYear();
+
+  const currentMonth = new Date().getMonth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -124,23 +124,31 @@ const TimeSpentReportModuleWise = () => {
       });
     }
   });
+
   const handleYearChange = async (selectedYear) => {
+    setMonth("");
     setManagerType("");
     setManagerName("");
     setPasscode("");
-    // setFilteredData([]);
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
-    // setShowFieldsData(false);
     const response = await getAllCommunityEducatiorFilter(selectedYear);
-    console.log("manager year----->", response.data);
     setManagerArr(response.data.resData);
   };
 
   const handleMonthChange = (event) => {
-    setMonth(event.target.value);
-    setManagerName("");
-    setPasscode("");
+    console.log("month selected------>", event.target.value);
+    console.log("current month----------->", currentMonth);
+    if (
+      parseInt(selectedYear) === currentYear &&
+      event.target.value > currentMonth
+    ) {
+      alert("You can't select a month beyond the current month");
+    } else {
+      setMonth(event.target.value);
+      setManagerName("");
+      setPasscode("");
+    }
   };
 
   const handleManagerChange = (event) => {
@@ -204,14 +212,11 @@ const TimeSpentReportModuleWise = () => {
     } catch (error) {
       setLoaded(false);
       console.error("Error:", error);
-      // Handle the error, e.g., show an error message to the user
       alert("An error occurred while fetching data");
     } finally {
       setLoaded(false);
     }
   };
-
-  console.log("filtered Data------------------>", filteredData);
 
   const getCellValue = (row, column, index) => {
     switch (column) {

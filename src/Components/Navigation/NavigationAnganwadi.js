@@ -190,7 +190,7 @@ function NavigationAnganwadi(props) {
             component="div"
             sx={{
               textTransform: "uppercase",
-              width: "250px",
+              width: "100",
               alignSelf: "center",
             }}
           >

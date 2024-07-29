@@ -362,7 +362,7 @@ const Dashboard = () => {
             cluster: item.cluster,
           }));
           setModalLoader(false);
-          setTableHeaders(["Cluster"]);
+          setTableHeaders(["District", "Block", "Clusters"]);
         }
       } else if (type === "schools") {
         response = await PrakashakAPI.post("getAllSchools", body);

@@ -66,6 +66,8 @@ const moduleColumn = [
   "User Name",
   "Manager Name",
   "Passcode",
+  "Year",
+  "Month",
   "Training Module Count",
   "Pedagogy",
   "21st century",
@@ -223,6 +225,10 @@ const TimeSpentReportModuleWise = () => {
         return row.managername;
       case "Passcode":
         return row.passcode;
+      case "Year":
+        return selectedYear;
+      case "Month":
+        return month;
       case "Training Module Count":
         return row.trainingModulesCount;
       case "Pedagogy":
@@ -358,7 +364,7 @@ const TimeSpentReportModuleWise = () => {
       ) : selectedYear && filteredData && filteredData.length > 0 ? (
         <>
           <TextField
-            style={{ width: "80%", marginRight: "10%", marginTop: "22px" }}
+            style={{ width: "80%", marginLeft: "-15%", marginTop: "22px" }}
             label="Search"
             variant="outlined"
             value={searchQuery}

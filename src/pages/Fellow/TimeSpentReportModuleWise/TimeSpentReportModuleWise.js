@@ -337,7 +337,7 @@ const TimeSpentReportModuleWise = () => {
           <Button
             variant="contained"
             onClick={fetchFilteredData}
-            style={{ width: "100%", height: "auto", marginTop: "10px" }}
+            style={{ width: "70%", height: "auto" }}
           >
             Filter
           </Button>

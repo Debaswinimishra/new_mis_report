@@ -358,7 +358,7 @@ const TimeSpentReportModuleWise = () => {
       ) : selectedYear && filteredData && filteredData.length > 0 ? (
         <>
           <TextField
-            style={{ width: "60%", marginRight: "10px", marginTop: "22px" }}
+            style={{ width: "80%", marginRight: "10%", marginTop: "22px" }}
             label="Search"
             variant="outlined"
             value={searchQuery}

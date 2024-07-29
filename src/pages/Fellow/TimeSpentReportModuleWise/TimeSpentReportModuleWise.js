@@ -101,18 +101,6 @@ const TimeSpentReportModuleWise = () => {
 
   const currentMonth = new Date().getMonth();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getAllCommunityEducatiorFilter(selectedYear);
-        setManagerArr(response.data.resData);
-      } catch (err) {
-        console.log("err--->", err.response.status);
-      }
-    };
-    fetchData();
-  }, []);
-
   let passcodeArray = [];
   let districtArr = [];
 
@@ -135,9 +123,15 @@ const TimeSpentReportModuleWise = () => {
     setPasscode("");
     setTotalDataLength(0);
     setSelectedYear(selectedYear);
-    const response = await getAllCommunityEducatiorFilter(selectedYear);
-    setManagerArr(response.data.resData);
+    try {
+      const response = await getAllCommunityEducatiorFilter(selectedYear);
+      setManagerArr(response.data.resData);
+    } catch (err) {
+      console.log("err--->", err.response.status);
+    }
   };
+
+  console.log("Manager array--------->", managerArr);
 
   const handleMonthChange = (event) => {
     if (
@@ -290,9 +284,9 @@ const TimeSpentReportModuleWise = () => {
         <div
           style={{
             marginTop: "20px",
-            padding: "30px 20px",
+            padding: "20px 15px",
             display: "grid",
-            gap: "20px",
+            gap: "10px",
             gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))",
           }}
         >
@@ -306,7 +300,7 @@ const TimeSpentReportModuleWise = () => {
             onChange={(e) => handleMonthChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {selectedYear && selectedYear != ""
+            {selectedYear && selectedYear !== ""
               ? monthArr?.map((option) => (
                   <MenuItem key={option.id} value={option.value}>
                     {option.label}
@@ -324,7 +318,7 @@ const TimeSpentReportModuleWise = () => {
             onChange={(e) => handleManagerChange(e)}
           >
             <MenuItem value="">None</MenuItem>
-            {Array.isArray(managerArr)
+            {selectedYear && month && Array.isArray(managerArr)
               ? managerArr.map((option, index) => (
                   <MenuItem key={index + 1} value={option.managerid}>
                     {option.managername}
@@ -340,24 +334,31 @@ const TimeSpentReportModuleWise = () => {
             onChange={(e) => handlePasscodeChange(e)}
           />
 
-          <Stack spacing={2} direction="row">
-            <Button
-              variant="contained"
-              onClick={fetchFilteredData}
-              style={{ width: "100%", height: "auto", marginTop: "10px" }}
-            >
-              Filter
-            </Button>
-          </Stack>
+          <Button
+            variant="contained"
+            onClick={fetchFilteredData}
+            style={{ width: "100%", height: "auto", marginTop: "10px" }}
+          >
+            Filter
+          </Button>
         </div>
+        <style>
+          {`
+      @media (max-width: 92%) {
+        div[style*="display: grid"] {
+          grid-template-columns: 1fr;
+        }
+      }
+    `}
+        </style>
       </div>
+
       {loaded ? (
         <Loader />
       ) : selectedYear && filteredData && filteredData.length > 0 ? (
         <>
           <TextField
-            fullWidth
-            id="fullWidth"
+            style={{ width: "60%", marginRight: "10px", marginTop: "22px" }}
             label="Search"
             variant="outlined"
             value={searchQuery}

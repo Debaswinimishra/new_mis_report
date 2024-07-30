@@ -390,44 +390,14 @@ const TimeSpentReportModuleWise = () => {
           <TableContainer
             component={Paper}
             sx={{
+              marginLeft: 2,
               marginTop: 3,
-              width: "100%",
+              // width: "82%",
               borderRadius: "6px",
-              maxHeight: "800px",
+              maxHeight: "100%",
             }}
           >
-            {/* <Table aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  {moduleColumn.map((column) => (
-                    <StyledTableCell key={column}>{column}</StyledTableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {Array.isArray(filteredData) &&
-                  filteredData
-                    .filter(
-                      (row) =>
-                        row["username"] &&
-                        row["username"]
-                          .toString()
-                          .toLowerCase()
-                          .includes(searchQuery.toLowerCase())
-                    )
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => (
-                      <StyledTableRow key={index}>
-                        {moduleColumn.map((column, columnIndex) => (
-                          <StyledTableCell key={columnIndex}>
-                            {getCellValue(row, column, index)}
-                          </StyledTableCell>
-                        ))}
-                      </StyledTableRow>
-                    ))}
-              </TableBody>
-            </Table> */}
-            <Table aria-label="customized table">
+            <Table>
               {filteredData.length > 0 &&
               searchQuery.length === 0 &&
               searchedStudents.length === 0 ? (

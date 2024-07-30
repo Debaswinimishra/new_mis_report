@@ -80,6 +80,8 @@ const moduleColumn = [
   "Survey",
   "Book",
   "Total Timespent",
+  "Contact Number",
+  "Address",
 ];
 
 const TimeSpentReportModuleWise = () => {
@@ -226,9 +228,9 @@ const TimeSpentReportModuleWise = () => {
       case "Passcode":
         return row.passcode;
       case "Year":
-        return selectedYear;
+        return moment(row.createdon).format("YYYY");
       case "Month":
-        return month;
+        return moment(row.createdon).format("MM");
       case "Training Module Count":
         return row.trainingModulesCount;
       case "Pedagogy":
@@ -253,6 +255,10 @@ const TimeSpentReportModuleWise = () => {
         return row.reading;
       case "Total Timespent":
         return row.timeSpent;
+      case "Contact Number":
+        return row.contactnumber;
+      case "Address":
+        return row.address;
       default:
         return "";
     }

@@ -448,7 +448,7 @@ const Dashboard = () => {
             class: student.class,
             gender: student.gender,
             parents_name: student.parents_name,
-            // parents_phone_number: student.parents_phone_number,
+            parents_phone_number: student.parents_phone_number,
             school_name: student.school_name,
             district: student.district,
             block: student.block,
@@ -500,7 +500,7 @@ const Dashboard = () => {
             "Class",
             "Gender",
             "Parents Name",
-            "Parents Phone Number",
+            // "Parents Phone Number",
             "School Name",
             "District",
             "Block",
@@ -518,7 +518,7 @@ const Dashboard = () => {
             class: student.class,
             gender: student.gender,
             parents_name: student.parents_name,
-            parents_phone_number: student.parents_phone_number,
+            // parents_phone_number: student.parents_phone_number,
             school_name: student.school_name,
             district: student.district,
             block: student.block,
@@ -531,7 +531,7 @@ const Dashboard = () => {
             "Class",
             "Gender",
             "Parents Name",
-            "Parents Phone Number",
+            // "Parents Phone Number",
             "School Name",
             "District",
             "Block",
@@ -548,7 +548,7 @@ const Dashboard = () => {
           class: student.class,
           gender: student.gender,
           parents_name: student.parents_name,
-          parents_phone_number: student.parents_phone_number,
+          // parents_phone_number: student.parents_phone_number,
           school_name: student.school_name,
           district: student.district,
           block: student.block,
@@ -561,7 +561,7 @@ const Dashboard = () => {
           "Class",
           "Gender",
           "Parents Name",
-          "Parents Phone Number",
+          // "Parents Phone Number",
           "School Name",
           "District",
           "Block",
@@ -576,9 +576,13 @@ const Dashboard = () => {
           body
         );
         if (response.status === 200) {
-          setTableDatas(response.data);
+          transformedData = response.data.map((temp) => ({
+            templateName: temp.templateName,
+          }));
+
+          setTableDatas(transformedData);
           setModalLoader(false);
-          setTableHeaders(["Video"]);
+          setTableHeaders(["TemplateName"]);
         }
       } else if (type === "chatbotActive") {
         response = await PrakashakAPI.post("getChatBotActiveUsersReport", body);

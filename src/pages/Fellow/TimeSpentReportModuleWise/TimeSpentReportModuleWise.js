@@ -228,9 +228,9 @@ const TimeSpentReportModuleWise = () => {
       case "Passcode":
         return row.passcode;
       case "Year":
-        return moment(row.createdon).format("YYYY");
+        return row.year;
       case "Month":
-        return moment(row.createdon).format("MM");
+        return row.month;
       case "Training Module Count":
         return row.trainingModulesCount;
       case "Pedagogy":

@@ -65,7 +65,7 @@ const moduleColumn = [
   "Address",
   "Status(Active/Inactive)",
 
-  "reason",
+  // "reason",
 ];
 
 const OnlineReport = () => {
@@ -235,7 +235,7 @@ const OnlineReport = () => {
       setLoaded(true);
       const filterCriteriaWithBlockAndDistrict = {
         year: selectedYear.toString(),
-        month: selectedMonth.toString(),
+        month: selectedMonth,
         districtid: districtName,
         blockid: blockName,
       };
@@ -285,8 +285,8 @@ const OnlineReport = () => {
       case "Status(Active/Inactive)":
         return row.status ? row.status : "NA";
 
-      case "Reason":
-        return row.reason ? row.reason : "NA";
+      // case "Reason":
+      //   return row.reason ? row.reason : "NA";
       default:
         return "";
     }

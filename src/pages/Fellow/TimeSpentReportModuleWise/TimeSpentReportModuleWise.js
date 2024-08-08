@@ -66,6 +66,8 @@ const moduleColumn = [
   "User Name",
   "Manager Name",
   "Passcode",
+  "Year",
+  "Month",
   "Training Module Count",
   "Pedagogy",
   "21st century",
@@ -78,6 +80,8 @@ const moduleColumn = [
   "Survey",
   "Book",
   "Total Timespent",
+  "Contact Number",
+  "Address",
 ];
 
 const TimeSpentReportModuleWise = () => {
@@ -223,6 +227,10 @@ const TimeSpentReportModuleWise = () => {
         return row.managername;
       case "Passcode":
         return row.passcode;
+      case "Year":
+        return row.year;
+      case "Month":
+        return row.month;
       case "Training Module Count":
         return row.trainingModulesCount;
       case "Pedagogy":
@@ -247,6 +255,10 @@ const TimeSpentReportModuleWise = () => {
         return row.reading;
       case "Total Timespent":
         return row.timeSpent;
+      case "Contact Number":
+        return row.contactnumber;
+      case "Address":
+        return row.address;
       default:
         return "";
     }
@@ -358,7 +370,7 @@ const TimeSpentReportModuleWise = () => {
       ) : selectedYear && filteredData && filteredData.length > 0 ? (
         <>
           <TextField
-            style={{ width: "60%", marginRight: "10px", marginTop: "22px" }}
+            style={{ width: "80%", marginLeft: "-15%", marginTop: "22px" }}
             label="Search"
             variant="outlined"
             value={searchQuery}
@@ -378,44 +390,14 @@ const TimeSpentReportModuleWise = () => {
           <TableContainer
             component={Paper}
             sx={{
+              marginLeft: 2,
               marginTop: 3,
-              width: "100%",
+              // width: "82%",
               borderRadius: "6px",
-              maxHeight: "800px",
+              maxHeight: "100%",
             }}
           >
-            {/* <Table aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  {moduleColumn.map((column) => (
-                    <StyledTableCell key={column}>{column}</StyledTableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {Array.isArray(filteredData) &&
-                  filteredData
-                    .filter(
-                      (row) =>
-                        row["username"] &&
-                        row["username"]
-                          .toString()
-                          .toLowerCase()
-                          .includes(searchQuery.toLowerCase())
-                    )
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => (
-                      <StyledTableRow key={index}>
-                        {moduleColumn.map((column, columnIndex) => (
-                          <StyledTableCell key={columnIndex}>
-                            {getCellValue(row, column, index)}
-                          </StyledTableCell>
-                        ))}
-                      </StyledTableRow>
-                    ))}
-              </TableBody>
-            </Table> */}
-            <Table aria-label="customized table">
+            <Table>
               {filteredData.length > 0 &&
               searchQuery.length === 0 &&
               searchedStudents.length === 0 ? (

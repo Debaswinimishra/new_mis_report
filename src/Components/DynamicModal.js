@@ -35,10 +35,15 @@ const DynamicModal = ({
     setPage(newPage);
   };
 
-  // Filter data based on search query
-  const filteredTableData = tableData.filter((row) =>
-    row.student_name.toLowerCase().includes(searchname.toLowerCase())
-  );
+  // Conditionally filter data based on modalTitle
+  const filteredTableData =
+    modalTitle === "Number of Students"
+      ? tableData.filter(
+          (row) =>
+            row.student_name &&
+            row.student_name.toLowerCase().includes(searchname.toLowerCase())
+        )
+      : tableData;
 
   return (
     <Modal
@@ -129,23 +134,19 @@ const DynamicModal = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {Array.isArray(filteredTableData) &&
-                    filteredTableData
-                      .slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((row, rowIndex) => (
-                        <TableRow key={rowIndex}>
-                          {Object.keys(row).map((key, cellIndex) => (
-                            <TableCell align="center" key={cellIndex}>
-                              {key === "date"
-                                ? moment(row[key]).format("DD/MM/YYYY")
-                                : row[key]}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      ))}
+                  {filteredTableData
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row, rowIndex) => (
+                      <TableRow key={rowIndex}>
+                        {Object.keys(row).map((key, cellIndex) => (
+                          <TableCell align="center" key={cellIndex}>
+                            {key === "date"
+                              ? moment(row[key]).format("DD/MM/YYYY")
+                              : row[key]}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
                 </TableBody>
               </Table>
             </TableContainer>

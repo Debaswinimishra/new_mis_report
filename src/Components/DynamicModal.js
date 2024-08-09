@@ -13,7 +13,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import TablePagination from "@mui/material/TablePagination";
 import Button from "@mui/material/Button";
 import moment from "moment";
+import TextField from "@mui/material/TextField";
 import Nodata from "../../src/Assets/Nodata.gif";
+import IconButton from "@mui/material/IconButton";
+import ClearIcon from "@mui/icons-material/Clear";
 
 import Download from "../../src/downloads/ExportCsv";
 
@@ -85,6 +88,26 @@ const DynamicModal = ({
             Close
           </Button>
         </Box>
+
+        <TextField
+          fullWidth
+          id="fullWidth"
+          label="Search"
+          variant="outlined"
+          // value={searchQuery}
+          // onChange={(e) => setSearchQuery(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <IconButton
+                //onClick={() => setSearchQuery("")}
+                edge="end"
+                aria-label="clear search input"
+              >
+                <ClearIcon />
+              </IconButton>
+            ),
+          }}
+        />
 
         {loading ? (
           <Box

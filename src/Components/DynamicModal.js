@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -15,9 +15,6 @@ import Button from "@mui/material/Button";
 import moment from "moment";
 import TextField from "@mui/material/TextField";
 import Nodata from "../../src/Assets/Nodata.gif";
-import IconButton from "@mui/material/IconButton";
-import ClearIcon from "@mui/icons-material/Clear";
-
 import Download from "../../src/downloads/ExportCsv";
 
 const DynamicModal = ({
@@ -30,16 +27,18 @@ const DynamicModal = ({
   xlData,
   fileName,
 }) => {
-  // console.log("ftgyfyuf", handleClose);
-
   const [page, setPage] = useState(0);
+  const [searchname, setSearchname] = useState("");
   const rowsPerPage = 15;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  console.log("table daata-------------------------->", tableData);
+  // Filter data based on search query
+  const filteredTableData = tableData.filter((row) =>
+    row.student_name.toLowerCase().includes(searchname.toLowerCase())
+  );
 
   return (
     <Modal
@@ -63,7 +62,7 @@ const DynamicModal = ({
           p: 4,
           overflowX: "scroll",
           "&::-webkit-scrollbar": {
-            width: 0, // Remove the scrollbar
+            width: 0,
             height: 0,
           },
         }}
@@ -89,25 +88,17 @@ const DynamicModal = ({
           </Button>
         </Box>
 
-        <TextField
-          fullWidth
-          id="fullWidth"
-          label="Search"
-          variant="outlined"
-          // value={searchQuery}
-          // onChange={(e) => setSearchQuery(e.target.value)}
-          InputProps={{
-            endAdornment: (
-              <IconButton
-                //onClick={() => setSearchQuery("")}
-                edge="end"
-                aria-label="clear search input"
-              >
-                <ClearIcon />
-              </IconButton>
-            ),
-          }}
-        />
+        {modalTitle === "Number of Students" && (
+          <TextField
+            fullWidth
+            id="outlined-multiline-static"
+            label="Search Students' name..."
+            variant="outlined"
+            size="small"
+            value={searchname}
+            onChange={(e) => setSearchname(e.target.value)}
+          />
+        )}
 
         {loading ? (
           <Box
@@ -120,7 +111,7 @@ const DynamicModal = ({
           >
             <CircularProgress />
           </Box>
-        ) : !loading && tableData.length > 0 ? (
+        ) : filteredTableData.length > 0 ? (
           <>
             <TableContainer component={Paper}>
               <Table>
@@ -138,8 +129,8 @@ const DynamicModal = ({
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {Array.isArray(tableData) &&
-                    tableData
+                  {Array.isArray(filteredTableData) &&
+                    filteredTableData
                       .slice(
                         page * rowsPerPage,
                         page * rowsPerPage + rowsPerPage
@@ -160,18 +151,18 @@ const DynamicModal = ({
             </TableContainer>
             <TablePagination
               component="div"
-              count={tableData.length}
+              count={filteredTableData.length}
               page={page}
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}
               rowsPerPageOptions={[]}
               labelDisplayedRows={({ from, to }) => `${from}-${to}`}
             />
-            {tableData && tableData.length > 0 && (
+            {filteredTableData.length > 0 && (
               <Download csvData={xlData} fileName={fileName} />
             )}
           </>
-        ) : !loading && tableData.length === 0 ? (
+        ) : (
           <div
             style={{
               display: "flex",
@@ -191,7 +182,7 @@ const DynamicModal = ({
               }}
             />
           </div>
-        ) : null}
+        )}
       </Box>
     </Modal>
   );

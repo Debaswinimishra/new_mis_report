@@ -625,7 +625,30 @@ const Dashboard = () => {
       setModalLoader(false);
     }
   };
+  const [searchStudent, setSearchStudent] = useState([]);
 
+  const handleNameOnSearch = (event) => {
+    if (event && event.target && event.target.value) {
+      const searchValue = event.target.value.trim();
+
+      // Escape special characters for exact match
+      const escapeRegExp = (string) => {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      };
+
+      const escapedSearchValue = escapeRegExp(searchValue);
+      const regexPattern = `^${escapedSearchValue}$`; // Exact match pattern
+      const regex = new RegExp(regexPattern, "i"); // 'i' flag for case-insensitive search
+
+      const matchingObjects = tableData.filter((student) => {
+        return regex.test(student.student_name);
+      });
+
+      setSearchStudent(matchingObjects);
+    }
+  };
+
+  const dataToRender = searchStudent.length > 0 ? searchStudent : tableData;
   const [open, setOpen] = useState(false);
   const handleOpen = (type) => {
     console.log("type------->", type);
@@ -705,6 +728,7 @@ const Dashboard = () => {
   const xlData = tableDatas;
   // console.log("tableDatas------------>", tableDatas);
   const fileName = "Dashboard.csv";
+
   return (
     <>
       <div
@@ -1956,9 +1980,11 @@ const Dashboard = () => {
               tableData={tableDatas}
               // tableHeaders={tableHeaders}
               // tableData={tableData}
+              searchStudent={searchStudent}
               xlData={xlData}
               fileName={fileName}
               loading={modalLoader}
+              handleNameOnSearch={handleNameOnSearch}
             />
           </div>
         </div>

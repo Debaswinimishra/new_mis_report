@@ -97,9 +97,34 @@ const Login = () => {
 
   return (
     <div>
+      <style>
+        {`
+          
+          .eye-button {
+            position: absolute;
+            top: 50%;
+            left: 90px;
+            transform: translateY(-50%);
+            border: none;
+            background-color: transparent;
+            // font-size: 16px;
+            color: ${showPassword ? "#0074e4" : "#ccc"};
+            cursor: pointer;
+          }
+          // @media (max-width: 600px) {
+          //   .pass-input {
+          //     padding-right: 45px; /* Increase padding-right to accommodate the button */
+          //   }
+          //   .eye-button {
+          //     right: 5px; /* Adjust button position for smaller screens */
+          //     font-size: 14px; /* Adjust button size for smaller screens */
+          //   }
+          // }
+        `}
+      </style>
+
       <div
         style={{
-          //
           background:
             "linear-gradient(to bottom, #000000, #000000 0%, #0074e4 100%, #0074e4)",
           minHeight: "100vh",
@@ -111,15 +136,16 @@ const Login = () => {
         <div
           className="login-div"
           style={{
-            maxWidth: "500px", // Limit the width for responsiveness
+            maxWidth: "500px",
+            width: "90%",
             padding: "40px",
             borderRadius: "10px",
-            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)", // Box shadow for a box-like structure
-            backgroundColor: "#ffffff", // Background color of the login box
+            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.2)",
+            backgroundColor: "#ffffff",
           }}
         >
           <form onSubmit={handleSubmit}>
-            <div className="logo">
+            <div className="logo" style={{ textAlign: "center" }}>
               <img
                 src="https://thinkzone.in/wp-content/uploads/2022/06/Instagram-1-1-1-1-2.png"
                 width="85"
@@ -131,7 +157,6 @@ const Login = () => {
                   display: "block",
                   margin: "0 auto",
                   borderRadius: "10px",
-                  // background: "linear-gradient(to bottom, #0074e4, #00a1e9)",
                 }}
               />
             </div>
@@ -148,7 +173,6 @@ const Login = () => {
               Welcome!
             </div>
             <div
-              // className="sub-title"
               style={{
                 marginTop: "15px",
                 fontSize: "18px",
@@ -162,12 +186,7 @@ const Login = () => {
               learning outcomes of children from under-resourced communities.
             </div>
             <div className="fields" style={{ marginTop: "35px" }}>
-              <div
-                className="username"
-                style={{
-                  marginBottom: "15px",
-                }}
-              >
+              <div className="username" style={{ marginBottom: "15px" }}>
                 <input
                   type="text"
                   className="user-input"
@@ -177,15 +196,13 @@ const Login = () => {
                   style={{
                     border: "1px solid #ccc",
                     borderRadius: "5px",
-                    width: "90%",
+                    width: "100%",
                     padding: "10px",
+                    boxSizing: "border-box",
                   }}
                 />
               </div>
-              <div
-                className="password"
-                style={{ flex: 1, flexDirection: "row" }}
-              >
+              <div className="password" style={{ position: "relative" }}>
                 <input
                   autoComplete="off"
                   type={showPassword ? "text" : "password"}
@@ -196,58 +213,32 @@ const Login = () => {
                   style={{
                     border: "1px solid #ccc",
                     borderRadius: "5px",
-                    width: "90%",
+                    width: "100%",
                     padding: "10px",
+                    boxSizing: "border-box",
+                    paddingRight: "40px", // Add padding to the right to accommodate the button
                   }}
                 />
-
-                {/* <button
-                  type="button"
-                  className="eye-button"
-                  onClick={toggleShowPassword}
-                  style={{
-                    border: "0px",
-                    backgroundColor: "transparent",
-                    fontSize: "10px",
-                    // marginTop: "40px",
-                    color: "#000", // Customize the color as needed
-                  }}
-                >
-                  {showPassword ? (
-                    <span className="material-icons">
-                      <VisibilityRoundedIcon />
-                    </span>
-                  ) : (
-                    <span className="material-icons">
-                      <VisibilityOffRoundedIcon />
-                    </span>
-                  )}
-                </button> */}
                 <button
                   type="button"
                   className="eye-button"
                   onClick={toggleShowPassword}
                   style={{
-                    marginTop: "-40px",
-                    border: "0px",
+                    position: "absolute",
+                    top: "50%",
+                    right: "10",
+                    transform: "translateY(-50%)",
+                    border: "none",
                     backgroundColor: "transparent",
-                    fontSize: "16px", // Increase the font size for better visibility
-                    color: showPassword ? "#0074e4" : "#ccc", // Change color when password is shown or hidden
-                    // marginLeft: "-10px", // Adjust the margin to position it better
+                    fontSize: "16px",
+                    color: showPassword ? "#0074e4" : "#ccc",
                     cursor: "pointer",
-                    position: "relative", // Add position property for better control
-                    zIndex: 1, // Add z-index to make it appear on top of the input field
-                    // marginRight: "-9px",
                   }}
                 >
                   {showPassword ? (
-                    <span className="material-icons">
-                      <VisibilityRoundedIcon />
-                    </span>
+                    <VisibilityRoundedIcon />
                   ) : (
-                    <span className="material-icons">
-                      <VisibilityOffRoundedIcon />
-                    </span>
+                    <VisibilityOffRoundedIcon />
                   )}
                 </button>
               </div>
@@ -265,7 +256,8 @@ const Login = () => {
                 cursor: "pointer",
                 fontWeight: "bold",
                 fontSize: "16px",
-                width: "92%",
+                width: "101%",
+                marginRight: "0%",
               }}
             >
               Login

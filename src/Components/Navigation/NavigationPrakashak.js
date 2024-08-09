@@ -1,20 +1,19 @@
-// import * as React from "react";
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import Dashboard from "../../Pages/Prakashak/Dashboard/Dashboard";
-import RemoteInstruction from "../../Pages/Prakashak/RemoteInstruction/RemoteInstruction";
-import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatbot";
-import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
-import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 import Avatar from "@mui/material/Avatar";
 import Popover from "@mui/material/Popover";
 import MenuItem from "@mui/material/MenuItem";
 import Logout from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
 import { Version, networkStatus } from "../../Environment/PrakashakAPI";
+import Dashboard from "../../Pages/Prakashak/Dashboard/Dashboard";
+import RemoteInstruction from "../../Pages/Prakashak/RemoteInstruction/RemoteInstruction";
+import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatbot";
+import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
+import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -22,7 +21,6 @@ function NavigationPrakashak(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [activeLink, setActiveLink] = React.useState("dashboard");
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0); //For changing the respective tab
   const [anchorEl, setAnchorEl] = useState(null);
 
   const usertype = localStorage.getItem("usertype");
@@ -72,76 +70,46 @@ function NavigationPrakashak(props) {
   }, [location.pathname, navigate]);
 
   const listItem = [
-    {
-      text: "Overall Dashboard",
-      link: "prakashak/dashboard",
-      id: 0,
-      //   icon: <DashboardIcon color="secondary" />,
-    },
+    { text: "Overall Dashboard", link: "prakashak/dashboard", id: 0 },
     {
       text: "Remote Instructions",
       link: "prakashak/remote_instructions",
       id: 1,
-      //   icon: <DashboardIcon color="secondary" />,
     },
-    {
-      text: "Whatsapp Chatbot",
-      link: "prakashak/whatsapp_chatbot",
-      id: 2,
-      //   icon: <DashboardIcon color="secondary" />,
-    },
-    {
-      text: "School-wise",
-      link: "prakashak/school_wise",
-      id: 3,
-      //   icon: <DashboardIcon color="secondary" />,
-    },
-    {
-      text: "Class-wise",
-      link: "prakashak/class_wise",
-      id: 4,
-      //   icon: <DashboardIcon color="secondary" />,
-    },
-
-    // {
-    //   text: "Log out",
-    //   link: "/",
-    //   icon: <LogoutIcon color="red" />,
-    // },
+    { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 2 },
+    { text: "School-wise", link: "prakashak/school_wise", id: 3 },
+    { text: "Class-wise", link: "prakashak/class_wise", id: 4 },
   ];
-
-  const hangeNavOnchange = (link) => {
-    navigate("/home");
-  };
-
-  //todo---------------------Console logs---------------------------
-  // console.log("selectedTabIndex----------------------->", selectedTabIndex);
-  console.log("activeLink------------------------------->", activeLink);
-  console.log("pathname--------------------.", pathname);
-  // console.log("pathname length------------->", pathname.split("/").length);
-  // console.log("usertype----------------------->", usertype);
 
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
-        // backgroundColor: "#FDF5E6",
+        backgroundColor: "#F5F5F5",
+        minHeight: "100vh",
+        width: "100%",
+        padding: "0 16px",
+        boxSizing: "border-box",
       }}
     >
       <div
-        // position="fixed"
         style={{
           backgroundColor: "#F5F5F5",
           padding: "1%",
           color: "black",
-          // alignItems: "flex-start",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          flexWrap: "wrap",
         }}
       >
         <div
           style={{
-            alignSelf: "flex-start",
+            flex: 1,
             textAlign: "start",
+            margin: "auto",
           }}
         >
           <b>PRAKASHAK</b>
@@ -150,72 +118,73 @@ function NavigationPrakashak(props) {
           </sub>
         </div>
         <div
-          style={{ alignSelf: "flex-start", textAlign: "start", marginTop: 6 }}
+          style={{
+            flex: 1,
+            textAlign: "start",
+            marginTop: 6,
+            fontStyle: "italic",
+          }}
         >
-          <i>
-            Parents' Remote Assistance and Knowledge Support for the Holistic
-            Advancement of Kids
-          </i>
+          Parents' Remote Assistance and Knowledge Support for the Holistic
+          Advancement of Kids
         </div>
-        <div>
-          <IconButton
-            onClick={handleMenuClick}
+        <IconButton
+          onClick={handleMenuClick}
+          sx={{
+            position: "relative",
+            top: 0,
+            right: 0,
+          }}
+        >
+          <Avatar
+            alt="Logo"
+            src="https://thinkzone.in/wp-content/uploads/2022/06/Instagram-1-1-1-1-2.png"
             sx={{
-              position: "absolute",
-              top: "2px",
-              right: "0px",
-              // backgroundColor: "#FFF",
+              height: "50px",
+              width: "50px",
+              backgroundColor: "#FFF",
             }}
-          >
-            <Avatar
-              alt="Logo"
-              src="https://thinkzone.in/wp-content/uploads/2022/06/Instagram-1-1-1-1-2.png"
-              sx={{
-                height: "50px",
-                width: "50px",
-                backgroundColor: "#FFF",
-              }}
-            />
-          </IconButton>
-          <Popover
-            open={Boolean(anchorEl)}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-          >
-            <span style={{ marginLeft: "18px", fontSize: 18 }}>
-              v{Version.version}
-            </span>
-            <MenuItem onClick={handleLogout}>
-              <Logout fontSize="small" />
-              {usertype === "prakashak" ? (
-                <span style={{ marginLeft: "8px" }}>Logout</span>
-              ) : usertype === "admin" ? (
-                <span style={{ marginLeft: "8px" }}>Back</span>
-              ) : null}
-            </MenuItem>
-          </Popover>
-        </div>
+          />
+        </IconButton>
+        <Popover
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <span style={{ marginLeft: "18px", fontSize: 18 }}>
+            v{Version.version}
+          </span>
+          <MenuItem onClick={handleLogout}>
+            <Logout fontSize="small" />
+            {usertype === "prakashak" ? (
+              <span style={{ marginLeft: "8px" }}>Logout</span>
+            ) : usertype === "admin" ? (
+              <span style={{ marginLeft: "8px" }}>Back</span>
+            ) : null}
+          </MenuItem>
+        </Popover>
       </div>
       <div
         style={{
           display: "flex",
-          justifyContent: "space-around",
-          width: "100%",
+          flexDirection: "row",
           flexWrap: "wrap",
+          justifyContent: "center",
+          margin: "10px 0",
         }}
       >
         {listItem.map((item, index) => (
           <div
+            key={item.id}
             style={{
-              // border: "2px solid black",
               padding: "1%",
               cursor: "pointer",
               borderRadius: "5px",
@@ -225,34 +194,25 @@ function NavigationPrakashak(props) {
                   : "white",
               width: "200px",
               height: "60px",
-              marginTop: "1.5%",
-              boxShadow: "2px 3px 6px  grey",
+              margin: "1.5%",
+              boxShadow: "2px 3px 6px grey",
+              textAlign: "center",
             }}
-            value={item.id}
             onClick={() => handleTabChange(`/${item.link}`)}
           >
-            <div
+            <span
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                paddingTop: 5,
+                color:
+                  item.link.split("/")[1] === pathname.split("/")[2]
+                    ? "white"
+                    : "black",
+                fontFamily: "Congenial SemiBold",
+                fontSize: 19,
+                fontWeight: "500",
               }}
             >
-              <span
-                style={{
-                  color:
-                    item.link.split("/")[1] === pathname.split("/")[2]
-                      ? "white"
-                      : "black",
-                  fontFamily: "Congenial SemiBold",
-                  fontSize: 19,
-                  fontWeight: "500",
-                }}
-              >
-                {item.text}
-              </span>
-            </div>
+              {item.text}
+            </span>
           </div>
         ))}
       </div>

@@ -131,6 +131,8 @@ const Login = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          width: "100%",
+          overflow: "hidden",
         }}
       >
         <div

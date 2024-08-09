@@ -90,6 +90,7 @@ function NavigationPrakashak(props) {
         minHeight: "100vh",
         width: "100%",
         padding: "0 16px",
+
         boxSizing: "border-box",
       }}
     >
@@ -103,31 +104,10 @@ function NavigationPrakashak(props) {
           justifyContent: "space-between",
           flexDirection: "row",
           flexWrap: "wrap",
+          width: "100%",
+          borderBottom: "0.5px solid black",
         }}
       >
-        <div
-          style={{
-            flex: 1,
-            textAlign: "start",
-            margin: "auto",
-          }}
-        >
-          <b>PRAKASHAK</b>
-          <sub>
-            v{Version.version}({networkStatus})
-          </sub>
-        </div>
-        <div
-          style={{
-            flex: 1,
-            textAlign: "start",
-            marginTop: 6,
-            fontStyle: "italic",
-          }}
-        >
-          Parents' Remote Assistance and Knowledge Support for the Holistic
-          Advancement of Kids
-        </div>
         <IconButton
           onClick={handleMenuClick}
           sx={{
@@ -146,6 +126,32 @@ function NavigationPrakashak(props) {
             }}
           />
         </IconButton>
+        <div
+          style={{
+            flex: 1,
+            textAlign: "start",
+            margin: "auto",
+            width: "100%",
+          }}
+        >
+          <b>PRAKASHAK</b>
+          <sub>
+            v{Version.version}({networkStatus})
+          </sub>
+        </div>
+        <div
+          style={{
+            flex: 1,
+            textAlign: "start",
+            marginTop: 6,
+            fontStyle: "italic",
+            width: "100%",
+          }}
+        >
+          Parents' Remote Assistance and Knowledge Support for the Holistic
+          Advancement of Kids
+        </div>
+
         <Popover
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
@@ -172,6 +178,7 @@ function NavigationPrakashak(props) {
           </MenuItem>
         </Popover>
       </div>
+
       <div
         style={{
           display: "flex",
@@ -216,6 +223,7 @@ function NavigationPrakashak(props) {
           </div>
         ))}
       </div>
+
       <div>
         {activeLink === "/prakashak/dashboard" ? (
           <Dashboard />

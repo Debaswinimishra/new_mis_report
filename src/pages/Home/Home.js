@@ -119,8 +119,30 @@ function Home() {
           background:
             "linear-gradient(to bottom, #000000, #000000 0%, #0074e4 100%, #0074e4)",
           padding: "16px",
+          position: "relative",
         }}
       >
+        <IconButton
+          onClick={handleMenuClick}
+          sx={{
+            position: "absolute",
+            top: "1px",
+            right: "0px",
+
+            // backgroundColor: "#FFF",
+          }}
+        >
+          <Avatar
+            alt="Logo"
+            src="https://thinkzone.in/wp-content/uploads/2022/06/Instagram-1-1-1-1-2.png"
+            sx={{
+              height: "50px",
+              width: "50px",
+              backgroundColor: "#FFF",
+              border: "2px solid black",
+            }}
+          />
+        </IconButton>
         <div
           style={{
             display: "flex",
@@ -162,25 +184,6 @@ function Home() {
         </div>
       </Box>
 
-      <IconButton
-        onClick={handleMenuClick}
-        sx={{
-          position: "absolute",
-          top: "2px",
-          right: "0px",
-          // backgroundColor: "#FFF",
-        }}
-      >
-        <Avatar
-          alt="Logo"
-          src="https://thinkzone.in/wp-content/uploads/2022/06/Instagram-1-1-1-1-2.png"
-          sx={{
-            height: "50px",
-            width: "50px",
-            backgroundColor: "#FFF",
-          }}
-        />
-      </IconButton>
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}

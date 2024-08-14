@@ -7,7 +7,7 @@ export const Version = {
 };
 
 export const networkStatus =
-  baseURL === "https://tatvagyan.in/prakashak" ? "Test 🟠" : "Live 🟢";
+  baseURL === "https://tatvagyan.in/prakashak" ? "Test 🟠" : "Production 🟢";
 export default axios.create({
   baseURL,
 });

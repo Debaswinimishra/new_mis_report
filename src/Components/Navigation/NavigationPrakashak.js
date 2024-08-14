@@ -52,6 +52,10 @@ function NavigationPrakashak(props) {
     handleClose();
   };
 
+  const handleNavigateHome = () => {
+    navigate("/home");
+  };
+
   const handleTabChange = (link) => {
     setActiveLink(link);
     navigate(link);
@@ -109,7 +113,7 @@ function NavigationPrakashak(props) {
         }}
       >
         <IconButton
-          onClick={handleMenuClick}
+          // onClick={handleMenuClick}
           sx={{
             position: "relative",
             top: 0,
@@ -132,7 +136,9 @@ function NavigationPrakashak(props) {
             textAlign: "start",
             margin: "auto",
             width: "100%",
+            cursor: "pointer",
           }}
+          onClick={handleNavigateHome}
         >
           <b>PRAKASHAK</b>
           <sub>

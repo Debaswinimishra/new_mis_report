@@ -91,10 +91,10 @@ function NavigationPrakashak(props) {
       sx={{
         // display: "flex",
         flexDirection: "column",
-        backgroundColor: "#F5F5F5",
+        backgroundColor: "white",
         minHeight: "100vh",
         width: "100%",
-        padding: "0 16px",
+        padding: "0 0",
 
         boxSizing: "border-box",
       }}
@@ -138,6 +138,8 @@ function NavigationPrakashak(props) {
             margin: "auto",
             width: "100%",
             cursor: "pointer",
+            marginTop: "10px",
+            marginLeft: "10px",
           }}
           onClick={handleNavigateHome}
         >
@@ -145,22 +147,22 @@ function NavigationPrakashak(props) {
           <sub>
             v{Version.version}({networkStatus})
           </sub>
+          <div
+            style={{
+              flex: 1,
+              textAlign: "start",
+              marginTop: 6,
+              fontStyle: "italic",
+              width: "90%",
+            }}
+          >
+            Parents' Remote Assistance and Knowledge Support for the Holistic
+            Advancement of Kids
+          </div>
           <div onClick={handleNavigateHome}>
             <HomeTwoToneIcon />
           </div>
         </div>
-      </div>
-      <div
-        style={{
-          flex: 1,
-          textAlign: "start",
-          marginTop: 6,
-          fontStyle: "italic",
-          width: "100%",
-        }}
-      >
-        Parents' Remote Assistance and Knowledge Support for the Holistic
-        Advancement of Kids
       </div>
 
       <Popover

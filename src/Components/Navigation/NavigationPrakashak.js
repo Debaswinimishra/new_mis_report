@@ -88,7 +88,7 @@ function NavigationPrakashak(props) {
   return (
     <Box
       sx={{
-        display: "flex",
+        // display: "flex",
         flexDirection: "column",
         backgroundColor: "#F5F5F5",
         minHeight: "100vh",
@@ -145,45 +145,45 @@ function NavigationPrakashak(props) {
             v{Version.version}({networkStatus})
           </sub>
         </div>
-        <div
-          style={{
-            flex: 1,
-            textAlign: "start",
-            marginTop: 6,
-            fontStyle: "italic",
-            width: "100%",
-          }}
-        >
-          Parents' Remote Assistance and Knowledge Support for the Holistic
-          Advancement of Kids
-        </div>
-
-        <Popover
-          open={Boolean(anchorEl)}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          <span style={{ marginLeft: "18px", fontSize: 18 }}>
-            v{Version.version}
-          </span>
-          <MenuItem onClick={handleLogout}>
-            <Logout fontSize="small" />
-            {usertype === "prakashak" ? (
-              <span style={{ marginLeft: "8px" }}>Logout</span>
-            ) : usertype === "admin" ? (
-              <span style={{ marginLeft: "8px" }}>Back</span>
-            ) : null}
-          </MenuItem>
-        </Popover>
       </div>
+      <div
+        style={{
+          flex: 1,
+          textAlign: "start",
+          marginTop: 6,
+          fontStyle: "italic",
+          width: "100%",
+        }}
+      >
+        Parents' Remote Assistance and Knowledge Support for the Holistic
+        Advancement of Kids
+      </div>
+
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <span style={{ marginLeft: "18px", fontSize: 18 }}>
+          v{Version.version}
+        </span>
+        <MenuItem onClick={handleLogout}>
+          <Logout fontSize="small" />
+          {usertype === "prakashak" ? (
+            <span style={{ marginLeft: "8px" }}>Logout</span>
+          ) : usertype === "admin" ? (
+            <span style={{ marginLeft: "8px" }}>Back</span>
+          ) : null}
+        </MenuItem>
+      </Popover>
 
       <div
         style={{

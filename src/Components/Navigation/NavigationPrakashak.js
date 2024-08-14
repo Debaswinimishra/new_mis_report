@@ -14,6 +14,7 @@ import RemoteInstruction from "../../Pages/Prakashak/RemoteInstruction/RemoteIns
 import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatbot";
 import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
+import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -100,7 +101,7 @@ function NavigationPrakashak(props) {
     >
       <div
         style={{
-          backgroundColor: "#F5F5F5",
+          backgroundColor: "#E8E8E8",
           padding: "1%",
           color: "black",
           display: "flex",
@@ -109,7 +110,7 @@ function NavigationPrakashak(props) {
           flexDirection: "row",
           flexWrap: "wrap",
           width: "100%",
-          borderBottom: "0.5px solid black",
+          // borderBottom: "0.5px solid black",
         }}
       >
         <IconButton
@@ -144,6 +145,9 @@ function NavigationPrakashak(props) {
           <sub>
             v{Version.version}({networkStatus})
           </sub>
+          <div onClick={handleNavigateHome}>
+            <HomeTwoToneIcon />
+          </div>
         </div>
       </div>
       <div

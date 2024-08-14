@@ -629,40 +629,6 @@ const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = (type) => {
     console.log("type------->", type);
-    // if (type === "district") {
-    //   setTableDatas(districtsData);
-    //   setTableData(districtsData);
-    //   setTableHeaders(["District"]);
-    // }
-    // if (type === "block") {
-    //   setTableDatas(blocksData);
-    //   setTableHeaders(["Block"]);
-    // }
-
-    // if (type === "clusters") {
-    //   setTableDatas(clustersData);
-    //   setTableHeaders(["Cluster"]);
-    // }
-
-    // if (type === "schools") {
-    //   setTableDatas(schoolArr);
-    //   setTableHeaders(["Schools"]);
-    // }
-
-    // if (type === "students") {
-    //   setTableDatas(studentsArr);
-    //   setTableHeaders(["Students"]);
-    // }
-
-    // if (type === "girls") {
-    //   setTableDatas(studentsArr);
-    //   setTableHeaders(["Girls"]);
-    // }
-
-    // if (type === "boys") {
-    //   setTableDatas(studentsArr);
-    //   setTableHeaders(["Boys"]);
-    // }
     setOpen(true);
 
     const newModalTitle = getModalTitle(type);
@@ -670,7 +636,9 @@ const Dashboard = () => {
 
     fetchDatas(type);
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const districtsData = [
     {

@@ -36,6 +36,11 @@ const DynamicModal = ({
     setPage(newPage);
   };
 
+  const handleCloseAndReset = () => {
+    setPage(0);
+    handleClose();
+  };
+
   console.log("table daata-------------------------->", tableData);
 
   return (
@@ -79,7 +84,7 @@ const DynamicModal = ({
           <Button
             variant="contained"
             color="primary"
-            onClick={handleClose}
+            onClick={handleCloseAndReset}
             sx={{ mt: -2 }}
           >
             Close
@@ -135,15 +140,19 @@ const DynamicModal = ({
                 </TableBody>
               </Table>
             </TableContainer>
-            <TablePagination
-              component="div"
-              count={tableData.length}
-              page={page}
-              onPageChange={handleChangePage}
-              rowsPerPage={rowsPerPage}
-              rowsPerPageOptions={[]}
-              labelDisplayedRows={({ from, to }) => `${from}-${to}`}
-            />
+
+            {tableData.length >= 15 ? (
+              <TablePagination
+                component="div"
+                count={tableData.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                rowsPerPageOptions={[]}
+                labelDisplayedRows={({ from, to }) => `${from}-${to}`}
+              />
+            ) : null}
+
             {tableData && tableData.length > 0 && (
               <Download csvData={xlData} fileName={fileName} />
             )}

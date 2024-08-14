@@ -539,46 +539,48 @@ const WhatsappChatbot = () => {
                     <h1>{data.chatbot_users}</h1>
                   </div>
                 </div>
-                <div
-                  className="card"
-                  // onClick={handleOpen}
-                  onClick={() => handleOpen("Total No. of New Users")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
+                {selectedMonth ? (
+                  <div
+                    className="card"
+                    // onClick={handleOpen}
+                    onClick={() => handleOpen("Total No. of New Users")}
+                    style={{
+                      width: "255px",
+                      height: "180px",
+                      marginTop: "1.5%",
+                      backgroundColor: "white",
 
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "rgb(214 148 16)",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
+                      borderRadius: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      boxShadow: "1px 1px 4px 3px lightGrey",
                     }}
                   >
-                    <p> Total No. of New Users</p>
+                    <div
+                      style={{
+                        height: "50%",
+                        color: "rgb(214 148 16)",
+                        paddingTop: "20px",
+                        fontSize: "1.2rem",
+                        fontFamily: "Congenial SemiBold",
+                        fontWeight: "600",
+                      }}
+                    >
+                      <p> Total No. of New Users</p>
+                    </div>
+                    <div
+                      style={{
+                        height: "50%",
+                        backgroundColor: "rgb(214 148 16)",
+                        borderEndStartRadius: "10px",
+                        borderEndEndRadius: "10px",
+                        color: "white",
+                      }}
+                    >
+                      <h1>{data.chatbot_new_users}</h1>
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "rgb(214 148 16)",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_new_users}</h1>
-                  </div>
-                </div>
+                ) : null}
                 <div
                   className="card"
                   onClick={() => handleactiveOpen("Total No. of Active Users")}

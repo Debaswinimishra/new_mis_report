@@ -675,80 +675,6 @@ const Dashboard = () => {
   const fileName = "Dashboard.csv";
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          // justifyContent: "space-around",
-          // width: "25%",
-          marginTop: "4%",
-          marginLeft: "60%",
-          // width: "30%",
-          flexWrap: "wrap",
-        }}
-      >
-        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Year</InputLabel>
-          <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedYear}
-            onChange={handleYearChange}
-            label="Year"
-          >
-            {years.map((item, index) => (
-              <MenuItem key={index} value={item}>
-                {item}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Month</InputLabel>
-          <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedMonth}
-            onChange={handleMonthChange}
-            label="Month"
-          >
-            <MenuItem value={null}>None</MenuItem>
-            {monthArr.map((item, index) => (
-              <MenuItem key={index} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Week</InputLabel>
-          <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedWeek}
-            onChange={handleWeekChange}
-            label="Month"
-          >
-            <MenuItem value={null}>None</MenuItem>
-            {weekArr.map((item, index) => (
-              <MenuItem key={index} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Button
-          variant="contained"
-          sx={{
-            height: "40px",
-            width: "120px",
-            marginTop: "1.2%",
-          }}
-          onClick={filterButtonClick}
-        >
-          Filter
-        </Button>
-      </div>
-
       {loading ? (
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Box>
@@ -941,45 +867,6 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
-                // onClick={() => handleOpen("newSchools")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total number of new schools
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_new_schools}</h1>
-                </div>
-              </div>
-              <div
                 onClick={() => handleOpen("students")}
                 style={{
                   width: "255px",
@@ -1018,87 +905,6 @@ const Dashboard = () => {
                   <h1>{dashboardData.total_students}</h1>
                 </div>
               </div>
-
-              <div
-                // onClick={() => handleOpen("newStudents")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#2E8B57",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p> Number of new students</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#2E8B57",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_new_students}</h1>
-                </div>
-              </div>
-
-              <div
-                // onClick={() => handleOpen("smartphoneUsers")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#CD5C5C",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p> Smartphone users</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#CD5C5C",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_chatbot_users}</h1>
-                </div>
-              </div>
-
               <div
                 onClick={() => handleOpen("girls")}
                 style={{
@@ -1138,7 +944,6 @@ const Dashboard = () => {
                   <h1>{dashboardData.total_girl_students}</h1>
                 </div>
               </div>
-
               <div
                 onClick={() => handleOpen("boys")}
                 style={{
@@ -1178,7 +983,323 @@ const Dashboard = () => {
                   <h1>{dashboardData.total_boy_students}</h1>
                 </div>
               </div>
+
+              {/* <div
+                // onClick={() => handleOpen("smartphoneUsers")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p> Smartphone users</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_chatbot_users}</h1>
+                </div>
+              </div> */}
             </div>
+          </div>
+
+          <div>
+            <div
+              style={{
+                display: "flex",
+                // justifyContent: "space-around",
+                // width: "25%",
+                marginTop: "4%",
+                marginLeft: "60%",
+                // width: "30%",
+                flexWrap: "wrap",
+              }}
+            >
+              <FormControl
+                sx={{ m: 1 }}
+                size="small"
+                style={{ width: "120px" }}
+              >
+                <InputLabel id="usertype-label">Year</InputLabel>
+                <Select
+                  labelId="usertype-label"
+                  id="usertype-select"
+                  value={selectedYear}
+                  onChange={handleYearChange}
+                  label="Year"
+                >
+                  {years.map((item, index) => (
+                    <MenuItem key={index} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl
+                sx={{ m: 1 }}
+                size="small"
+                style={{ width: "120px" }}
+              >
+                <InputLabel id="usertype-label">Month</InputLabel>
+                <Select
+                  labelId="usertype-label"
+                  id="usertype-select"
+                  value={selectedMonth}
+                  onChange={handleMonthChange}
+                  label="Month"
+                >
+                  <MenuItem value={null}>None</MenuItem>
+                  {monthArr.map((item, index) => (
+                    <MenuItem key={index} value={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl
+                sx={{ m: 1 }}
+                size="small"
+                style={{ width: "120px" }}
+              >
+                <InputLabel id="usertype-label">Week</InputLabel>
+                <Select
+                  labelId="usertype-label"
+                  id="usertype-select"
+                  value={selectedWeek}
+                  onChange={handleWeekChange}
+                  label="Month"
+                >
+                  <MenuItem value={null}>None</MenuItem>
+                  {weekArr.map((item, index) => (
+                    <MenuItem key={index} value={item.value}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Button
+                variant="contained"
+                sx={{
+                  height: "40px",
+                  width: "120px",
+                  marginTop: "1.2%",
+                }}
+                onClick={filterButtonClick}
+              >
+                Filter
+              </Button>
+            </div>
+            {selectedMonth && (
+              <div
+                style={{
+                  marginTop: "2%",
+                  boxShadow: "2px 1px 5px grey",
+                  padding: "5%",
+                  width: "97%",
+                }}
+              >
+                <h1 style={{ marginTop: "-2%" }}>Number of New details</h1>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    width: "97%",
+                    gap: "2%",
+                    // marginTop: "-2%",
+                  }}
+                >
+                  {selectedMonth ? (
+                    <div
+                      // onClick={() => handleOpen("newSchools")}
+                      style={{
+                        width: "255px",
+                        height: "180px",
+                        marginTop: "1.5%",
+                        backgroundColor: "white",
+                        // // paddingTop: "2%",
+                        // fontFamily: "Arial, sans-serif", // Default font family
+                        borderRadius: "10px",
+                        display: "flex",
+                        flexDirection: "column",
+                        boxShadow: "1px 1px 4px 3px lightGrey",
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: "50%",
+                          color: "#6A5ACD",
+                          paddingTop: "20px",
+                          fontSize: "1.2rem",
+                          fontFamily: "Congenial SemiBold",
+                          fontWeight: "600",
+                        }}
+                      >
+                        Total number of new schools
+                      </div>
+                      <div
+                        style={{
+                          height: "50%",
+                          backgroundColor: "#6A5ACD",
+                          borderEndStartRadius: "10px",
+                          borderEndEndRadius: "10px",
+                          color: "white",
+                        }}
+                      >
+                        <h1>{dashboardData.total_new_schools}</h1>
+                      </div>
+                    </div>
+                  ) : null}
+                  {selectedMonth ? (
+                    <div
+                      // onClick={() => handleOpen("newStudents")}
+                      style={{
+                        width: "255px",
+                        height: "180px",
+                        marginTop: "1.5%",
+                        backgroundColor: "white",
+                        // // paddingTop: "2%",
+                        // fontFamily: "Arial, sans-serif", // Default font family
+                        borderRadius: "10px",
+                        display: "flex",
+                        flexDirection: "column",
+                        boxShadow: "1px 1px 4px 3px lightGrey",
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: "50%",
+                          color: "#2E8B57",
+                          paddingTop: "13px",
+                          fontSize: "1.2rem",
+                          fontFamily: "Congenial SemiBold",
+                          fontWeight: "600",
+                        }}
+                      >
+                        <p> Number of new students</p>
+                      </div>
+                      <div
+                        style={{
+                          height: "50%",
+                          backgroundColor: "#2E8B57",
+                          borderEndStartRadius: "10px",
+                          borderEndEndRadius: "10px",
+                          color: "white",
+                        }}
+                      >
+                        <h1>{dashboardData.total_new_students}</h1>
+                      </div>
+                    </div>
+                  ) : null}
+                  {selectedMonth ? (
+                    <div
+                      onClick={() => handleOpen("girls")}
+                      style={{
+                        width: "255px",
+                        height: "180px",
+                        marginTop: "1.5%",
+                        backgroundColor: "white",
+                        // // paddingTop: "2%",
+                        // fontFamily: "Arial, sans-serif", // Default font family
+                        borderRadius: "10px",
+                        display: "flex",
+                        flexDirection: "column",
+                        boxShadow: "1px 1px 4px 3px lightGrey",
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: "50%",
+                          color: "rgb(153 58 134)",
+                          paddingTop: "13px",
+                          fontSize: "1.2rem",
+                          fontFamily: "Congenial SemiBold",
+                          fontWeight: "600",
+                        }}
+                      >
+                        <p>Number of new girls</p>
+                      </div>
+                      <div
+                        style={{
+                          height: "50%",
+                          backgroundColor: "rgb(153 58 134)",
+                          borderEndStartRadius: "10px",
+                          borderEndEndRadius: "10px",
+                          color: "white",
+                        }}
+                      >
+                        <h1>{dashboardData.total_girl_students}</h1>
+                      </div>
+                    </div>
+                  ) : null}
+                  {selectedMonth ? (
+                    <div
+                      onClick={() => handleOpen("boys")}
+                      style={{
+                        width: "255px",
+                        height: "180px",
+                        marginTop: "1.5%",
+                        backgroundColor: "white",
+                        // // paddingTop: "2%",
+                        // fontFamily: "Arial, sans-serif", // Default font family
+                        borderRadius: "10px",
+                        display: "flex",
+                        flexDirection: "column",
+                        boxShadow: "1px 1px 4px 3px lightGrey",
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: "50%",
+                          color: "rgb(214 148 16)",
+                          paddingTop: "13px",
+                          fontSize: "1.2rem",
+                          fontFamily: "Congenial SemiBold",
+                          fontWeight: "600",
+                        }}
+                      >
+                        <p> Number of new boys</p>
+                      </div>
+                      <div
+                        style={{
+                          height: "50%",
+                          backgroundColor: "rgb(214 148 16)",
+                          borderEndStartRadius: "10px",
+                          borderEndEndRadius: "10px",
+                          color: "white",
+                        }}
+                      >
+                        <h1>{dashboardData.total_boy_students}</h1>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            )}
           </div>
 
           <div

@@ -710,10 +710,8 @@ const Dashboard = () => {
                 // marginLeft: "4%",
               }}
             >
-              <div
+              {/* <div
                 onClick={() => handleOpen("district")}
-                // onMouseEnter={() => setIsHovered(true)}
-                // onMouseLeave={() => setIsHovered(false)}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -727,7 +725,6 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                {/* {isHovered && ( */}
                 <div
                   style={{
                     position: "absolute",
@@ -743,7 +740,7 @@ const Dashboard = () => {
                 >
                   Click Here 👆
                 </div>
-                {/* )} */}
+
                 <div
                   style={{
                     height: "50%",
@@ -767,9 +764,9 @@ const Dashboard = () => {
                 >
                   <h1>{dashboardData.total_districts}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
                 onClick={() => handleOpen("block")}
                 style={{
                   width: "255px",
@@ -822,7 +819,7 @@ const Dashboard = () => {
                 >
                   <h1>{dashboardData.total_blocks}</h1>
                 </div>
-              </div>
+              </div> */}
               <div
                 onClick={() => handleOpen("clusters")}
                 style={{
@@ -1659,7 +1656,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -2019,9 +2016,9 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -2296,7 +2293,7 @@ const Dashboard = () => {
               fileName={fileName}
               loading={modalLoader}
             />
-          </div>
+          </div> */}
         </div>
       ) : dashboardData &&
         Object.keys(dashboardData).length === 0 &&

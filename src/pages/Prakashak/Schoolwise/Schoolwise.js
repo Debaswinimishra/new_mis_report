@@ -400,7 +400,7 @@ const Schoolwise = () => {
         }}
       >
         {/* <SelectYear Year={year} handleYearChange={handleYearChange} /> */}
-        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="usertype-label">Year</InputLabel>
           <Select
             labelId="usertype-label"
@@ -415,7 +415,7 @@ const Schoolwise = () => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="district-label">District</InputLabel>
           <Select

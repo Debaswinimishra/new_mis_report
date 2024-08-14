@@ -185,8 +185,8 @@ const Login = () => {
                 color: "#36454F",
               }}
             >
-              ThinkZone is a social enterprise that works towards improving the
-              learning outcomes of children from under-resourced communities.
+              ଥିଙ୍କଜୋନ୍ ହେଉଛି ଏକ ସାମାଜିକ ସଂସ୍ଥା ଯାହା ୩ ରୁ ୧୦ ବର୍ଷ ମଧ୍ୟରେ ଥିବା
+              ପିଲାଙ୍କ ଶିକ୍ଷଣ ଫଳାଫଳରେ ଉନ୍ନତି ଆଣିବା ଦିଗରେ କାର୍ଯ୍ୟ କରେ ।
             </div>
             <div className="fields" style={{ marginTop: "35px" }}>
               <div

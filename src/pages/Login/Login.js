@@ -125,8 +125,9 @@ const Login = () => {
 
       <div
         style={{
-          background:
-            "linear-gradient(to bottom, #000000, #000000 0%, #0074e4 100%, #0074e4)",
+          // background:
+          //   "linear-gradient(to bottom, #000000, #000000 0%, #0074e4 100%, #0074e4)",
+          background: "white",
           minHeight: "100vh",
           display: "flex",
           justifyContent: "center",
@@ -188,7 +189,10 @@ const Login = () => {
               learning outcomes of children from under-resourced communities.
             </div>
             <div className="fields" style={{ marginTop: "35px" }}>
-              <div className="username" style={{ marginBottom: "15px" }}>
+              <div
+                className="username"
+                style={{ marginBottom: "15px", marginLeft: "-5%" }}
+              >
                 <input
                   type="text"
                   className="user-input"
@@ -198,13 +202,16 @@ const Login = () => {
                   style={{
                     border: "1px solid #ccc",
                     borderRadius: "5px",
-                    width: "100%",
+                    width: "105%",
                     padding: "10px",
                     boxSizing: "border-box",
                   }}
                 />
               </div>
-              <div className="password" style={{ position: "relative" }}>
+              <div
+                className="password"
+                style={{ position: "relative", marginLeft: "-5%" }}
+              >
                 <input
                   autoComplete="off"
                   type={showPassword ? "text" : "password"}
@@ -215,7 +222,7 @@ const Login = () => {
                   style={{
                     border: "1px solid #ccc",
                     borderRadius: "5px",
-                    width: "100%",
+                    width: "105%",
                     padding: "10px",
                     boxSizing: "border-box",
                     paddingRight: "40px", // Add padding to the right to accommodate the button
@@ -258,8 +265,8 @@ const Login = () => {
                 cursor: "pointer",
                 fontWeight: "bold",
                 fontSize: "16px",
-                width: "101%",
-                marginRight: "0%",
+                width: "110%",
+                marginRight: "-5%",
               }}
             >
               Login

@@ -51,8 +51,8 @@ const DynamicModal = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 1450,
-          height: 600,
+          width: "90%",
+          height: "80%",
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
@@ -71,19 +71,22 @@ const DynamicModal = ({
             justifyContent: "space-between",
             alignItems: "flex-start",
             mb: 2,
+            gap: 3,
           }}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {modalTitle}
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleClose}
-            sx={{ mt: -2 }}
-          >
-            Close
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClose}
+              sx={{ width: "40%" }}
+            >
+              Close
+            </Button>
+          </div>
         </Box>
 
         {loading ? (

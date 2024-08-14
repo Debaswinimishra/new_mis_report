@@ -502,7 +502,8 @@ const Schoolwise = () => {
             height: "40px",
             width: "120px",
             marginTop: "1.2%",
-            marginRight: "5.9%",
+            // marginRight: "5.9%",
+            marginLeft: "9px",
           }}
           onClick={filterButtonClick}
         >
@@ -557,14 +558,29 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "98px", // Adjust to position the text at the bottom
+                    right: "70px", // Adjust to position the text at the right
+                    color: "#CD5C5C", // Color of the "Click here" text
+                    // height: "50%",
+                    paddingTop: "13px",
+                    fontSize: "0.9rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -634,14 +650,29 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "98px", // Adjust to position the text at the bottom
+                    right: "70px", // Adjust to position the text at the right
+                    color: "rgb(153 58 134)", // Color of the "Click here" text
+                    // height: "50%",
+                    paddingTop: "13px",
+                    fontSize: "0.9rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -673,14 +704,29 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "98px", // Adjust to position the text at the bottom
+                    right: "70px", // Adjust to position the text at the right
+                    color: "#2E8B57", // Color of the "Click here" text
+                    // height: "50%",
+                    paddingTop: "13px",
+                    fontSize: "0.9rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -713,14 +759,29 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "98px", // Adjust to position the text at the bottom
+                    right: "70px", // Adjust to position the text at the right
+                    color: "rgb(214 148 16)", // Color of the "Click here" text
+                    // height: "50%",
+                    paddingTop: "13px",
+                    fontSize: "0.9rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -752,14 +813,29 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "98px", // Adjust to position the text at the bottom
+                    right: "70px", // Adjust to position the text at the right
+                    color: "#6A5ACD", // Color of the "Click here" text
+                    // height: "50%",
+                    paddingTop: "13px",
+                    fontSize: "0.9rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -791,14 +867,29 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "98px", // Adjust to position the text at the bottom
+                    right: "70px", // Adjust to position the text at the right
+                    color: "#2E8B57", // Color of the "Click here" text
+                    // height: "50%",
+                    paddingTop: "13px",
+                    fontSize: "0.9rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -1377,14 +1468,29 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "98px", // Adjust to position the text at the bottom
+                    right: "70px", // Adjust to position the text at the right
+                    color: "#6A5ACD", // Color of the "Click here" text
+                    // height: "50%",
+                    paddingTop: "13px",
+                    fontSize: "0.9rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",

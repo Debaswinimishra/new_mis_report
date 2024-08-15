@@ -194,7 +194,6 @@ const Dashboard = () => {
 
   const fetchData = () => {
     setLoading(true);
-
     if (!selectedMonth && !selectedWeek) {
       const body = { year: parseInt(selectedYear) };
       console.log("body---------------->", body);
@@ -259,7 +258,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
-  }, [selectedYear, selectedMonth, selectedWeek]);
+  }, []);
 
   //todo----------------------Console logs---------------------------
   const [tableDatas, setTableDatas] = useState([]);
@@ -699,6 +698,22 @@ const Dashboard = () => {
               width: "97%",
             }}
           >
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Total Details Till Now: 1st Week
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -869,7 +884,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Number of clusters</p>
+                  <p>Total number of clusters</p>
                 </div>
                 <div
                   style={{
@@ -926,7 +941,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Number of schools</p>
+                  <p>Total number of schools</p>
                 </div>
                 <div
                   style={{
@@ -960,7 +975,7 @@ const Dashboard = () => {
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
                     right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
+                    color: "	#00CED1", // Text color
                     backgroundColor: "white", // Background color to make it stand out
                     padding: "5px 10px", // Padding to add some space inside the border
                     fontSize: "0.7rem",
@@ -976,19 +991,19 @@ const Dashboard = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#6A5ACD",
+                    color: "	#00CED1",
                     paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  <p>Number of students</p>
+                  <p>Total number of students</p>
                 </div>
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#6A5ACD",
+                    backgroundColor: "	#00CED1",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -1040,7 +1055,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Number of girls</p>
+                  <p>Total number of girls</p>
                 </div>
                 <div
                   style={{
@@ -1097,7 +1112,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Number of boys</p>
+                  <p>Total number of boys</p>
                 </div>
                 <div
                   style={{
@@ -1109,6 +1124,120 @@ const Dashboard = () => {
                   }}
                 >
                   <h1>{dashboardData.total_boy_students}</h1>
+                </div>
+              </div>
+              <div
+                onClick={() => handleOpen("clusters")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#CD5C5C", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Total number of activated student</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_clusters}</h1>
+                </div>
+              </div>
+              <div
+                onClick={() => handleOpen("clusters")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#6A5ACD", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Total number of active student</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_clusters}</h1>
                 </div>
               </div>
 
@@ -1241,230 +1370,340 @@ const Dashboard = () => {
                 Filter
               </Button>
             </div>
-            {selectedMonth && (
+
+            <div
+              style={{
+                marginTop: "2%",
+                boxShadow: "2px 1px 5px grey",
+                padding: "5%",
+                width: "97%",
+              }}
+            >
+              <h1 style={{ marginTop: "-2%" }}>Number of new details</h1>
               <div
                 style={{
-                  marginTop: "2%",
-                  boxShadow: "2px 1px 5px grey",
-                  padding: "5%",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignContent: "center",
+                  justifyContent: "center",
                   width: "97%",
+                  gap: "2%",
+                  // marginTop: "-2%",
                 }}
               >
-                <h1 style={{ marginTop: "-2%" }}>Number of New details</h1>
                 <div
+                  // onClick={() => handleOpen("newSchools")}
                   style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
                     display: "flex",
-                    flexWrap: "wrap",
-                    alignContent: "center",
-                    justifyContent: "center",
-                    width: "97%",
-                    gap: "2%",
-                    // marginTop: "-2%",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
                   }}
                 >
-                  {selectedMonth ? (
-                    <div
-                      // onClick={() => handleOpen("newSchools")}
-                      style={{
-                        width: "255px",
-                        height: "180px",
-                        marginTop: "1.5%",
-                        backgroundColor: "white",
-                        // // paddingTop: "2%",
-                        // fontFamily: "Arial, sans-serif", // Default font family
-                        borderRadius: "10px",
-                        display: "flex",
-                        flexDirection: "column",
-                        boxShadow: "1px 1px 4px 3px lightGrey",
-                      }}
-                    >
-                      <div
-                        style={{
-                          height: "50%",
-                          color: "#6A5ACD",
-                          paddingTop: "20px",
-                          fontSize: "1.2rem",
-                          fontFamily: "Congenial SemiBold",
-                          fontWeight: "600",
-                        }}
-                      >
-                        Total number of new schools
-                      </div>
-                      <div
-                        style={{
-                          height: "50%",
-                          backgroundColor: "#6A5ACD",
-                          borderEndStartRadius: "10px",
-                          borderEndEndRadius: "10px",
-                          color: "white",
-                        }}
-                      >
-                        <h1>{dashboardData.total_new_schools}</h1>
-                      </div>
-                    </div>
-                  ) : null}
-                  {selectedMonth ? (
-                    <div
-                      // onClick={() => handleOpen("newStudents")}
-                      style={{
-                        width: "255px",
-                        height: "180px",
-                        marginTop: "1.5%",
-                        backgroundColor: "white",
-                        // // paddingTop: "2%",
-                        // fontFamily: "Arial, sans-serif", // Default font family
-                        borderRadius: "10px",
-                        display: "flex",
-                        flexDirection: "column",
-                        boxShadow: "1px 1px 4px 3px lightGrey",
-                      }}
-                    >
-                      <div
-                        style={{
-                          height: "50%",
-                          color: "#2E8B57",
-                          paddingTop: "13px",
-                          fontSize: "1.2rem",
-                          fontFamily: "Congenial SemiBold",
-                          fontWeight: "600",
-                        }}
-                      >
-                        <p> Number of new students</p>
-                      </div>
-                      <div
-                        style={{
-                          height: "50%",
-                          backgroundColor: "#2E8B57",
-                          borderEndStartRadius: "10px",
-                          borderEndEndRadius: "10px",
-                          color: "white",
-                        }}
-                      >
-                        <h1>{dashboardData.total_new_students}</h1>
-                      </div>
-                    </div>
-                  ) : null}
-                  {selectedMonth ? (
-                    <div
-                      onClick={() => handleOpen("girls")}
-                      style={{
-                        width: "255px",
-                        height: "180px",
-                        marginTop: "1.5%",
-                        backgroundColor: "white",
-                        borderRadius: "10px",
-                        display: "flex",
-                        flexDirection: "column",
-                        boxShadow: "1px 1px 4px 3px lightGrey",
-                        cursor: "pointer", // Show hand cursor on hover
-                        position: "relative", // Needed for positioning the "Click here" text
-                      }}
-                    >
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "0px", // Adjust to position the text at the top
-                          right: "0px", // Adjust to position the text at the right
-                          color: "rgb(153 58 134)", // Text color
-                          backgroundColor: "white", // Background color to make it stand out
-                          padding: "5px 10px", // Padding to add some space inside the border
-                          fontSize: "0.7rem",
-                          fontFamily: "Congenial SemiBold",
-                          fontWeight: "600",
-                          borderRadius: "5px", // Rounded corners for a smoother look
-                          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                          zIndex: "10", // Ensure it stays on top of other elements
-                        }}
-                      >
-                        Click Here 👆
-                      </div>
-                      <div
-                        style={{
-                          height: "50%",
-                          color: "rgb(153 58 134)",
-                          paddingTop: "13px",
-                          fontSize: "1.2rem",
-                          fontFamily: "Congenial SemiBold",
-                          fontWeight: "600",
-                        }}
-                      >
-                        <p>Number of new girls</p>
-                      </div>
-                      <div
-                        style={{
-                          height: "50%",
-                          backgroundColor: "rgb(153 58 134)",
-                          borderEndStartRadius: "10px",
-                          borderEndEndRadius: "10px",
-                          color: "white",
-                        }}
-                      >
-                        <h1>{dashboardData.total_girl_students}</h1>
-                      </div>
-                    </div>
-                  ) : null}
-                  {selectedMonth ? (
-                    <div
-                      onClick={() => handleOpen("boys")}
-                      style={{
-                        width: "255px",
-                        height: "180px",
-                        marginTop: "1.5%",
-                        backgroundColor: "white",
-                        borderRadius: "10px",
-                        display: "flex",
-                        flexDirection: "column",
-                        boxShadow: "1px 1px 4px 3px lightGrey",
-                        cursor: "pointer", // Show hand cursor on hover
-                        position: "relative", // Needed for positioning the "Click here" text
-                      }}
-                    >
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: "0px", // Adjust to position the text at the top
-                          right: "0px", // Adjust to position the text at the right
-                          color: "rgb(214 148 16)", // Text color
-                          backgroundColor: "white", // Background color to make it stand out
-                          padding: "5px 10px", // Padding to add some space inside the border
-                          fontSize: "0.7rem",
-                          fontFamily: "Congenial SemiBold",
-                          fontWeight: "600",
-                          borderRadius: "5px", // Rounded corners for a smoother look
-                          boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                          zIndex: "10", // Ensure it stays on top of other elements
-                        }}
-                      >
-                        Click Here 👆
-                      </div>
-                      <div
-                        style={{
-                          height: "50%",
-                          color: "rgb(214 148 16)",
-                          paddingTop: "13px",
-                          fontSize: "1.2rem",
-                          fontFamily: "Congenial SemiBold",
-                          fontWeight: "600",
-                        }}
-                      >
-                        <p>Number of new boys</p>
-                      </div>
-                      <div
-                        style={{
-                          height: "50%",
-                          backgroundColor: "rgb(214 148 16)",
-                          borderEndStartRadius: "10px",
-                          borderEndEndRadius: "10px",
-                          color: "white",
-                        }}
-                      >
-                        <h1>{dashboardData.total_boy_students}</h1>
-                      </div>
-                    </div>
-                  ) : null}
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#6A5ACD",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Total number of new schools
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#6A5ACD",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{dashboardData.total_new_schools}</h1>
+                  </div>
+                </div>
+
+                <div
+                  // onClick={() => handleOpen("newStudents")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#2E8B57",
+                      paddingTop: "13px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p> Number of new students</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#2E8B57",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{dashboardData.total_new_students}</h1>
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => handleOpen("girls")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "0px", // Adjust to position the text at the top
+                      right: "0px", // Adjust to position the text at the right
+                      color: "rgb(153 58 134)", // Text color
+                      backgroundColor: "white", // Background color to make it stand out
+                      padding: "5px 10px", // Padding to add some space inside the border
+                      fontSize: "0.7rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                      borderRadius: "5px", // Rounded corners for a smoother look
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                      zIndex: "10", // Ensure it stays on top of other elements
+                    }}
+                  >
+                    Click Here 👆
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "rgb(153 58 134)",
+                      paddingTop: "13px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p>Number of new girls</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "rgb(153 58 134)",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{dashboardData.total_girl_students}</h1>
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => handleOpen("boys")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "0px", // Adjust to position the text at the top
+                      right: "0px", // Adjust to position the text at the right
+                      color: "rgb(214 148 16)", // Text color
+                      backgroundColor: "white", // Background color to make it stand out
+                      padding: "5px 10px", // Padding to add some space inside the border
+                      fontSize: "0.7rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                      borderRadius: "5px", // Rounded corners for a smoother look
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                      zIndex: "10", // Ensure it stays on top of other elements
+                    }}
+                  >
+                    Click Here 👆
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "rgb(214 148 16)",
+                      paddingTop: "13px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p>Number of new boys</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "rgb(214 148 16)",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{dashboardData.total_boy_students}</h1>
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => handleOpen("boys")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "0px", // Adjust to position the text at the top
+                      right: "0px", // Adjust to position the text at the right
+                      color: "#708090", // Text color
+                      backgroundColor: "white", // Background color to make it stand out
+                      padding: "5px 10px", // Padding to add some space inside the border
+                      fontSize: "0.7rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                      borderRadius: "5px", // Rounded corners for a smoother look
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                      zIndex: "10", // Ensure it stays on top of other elements
+                    }}
+                  >
+                    Click Here 👆
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#708090",
+                      paddingTop: "13px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p>Number of new activated student</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#708090",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{dashboardData.total_boy_students}</h1>
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => handleOpen("boys")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "0px", // Adjust to position the text at the top
+                      right: "0px", // Adjust to position the text at the right
+                      color: "#CD5C5C", // Text color
+                      backgroundColor: "white", // Background color to make it stand out
+                      padding: "5px 10px", // Padding to add some space inside the border
+                      fontSize: "0.7rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                      borderRadius: "5px", // Rounded corners for a smoother look
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                      zIndex: "10", // Ensure it stays on top of other elements
+                    }}
+                  >
+                    Click Here 👆
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#CD5C5C",
+                      paddingTop: "13px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p>Number of new active student</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#CD5C5C",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{dashboardData.total_boy_students}</h1>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           <div

@@ -1017,7 +1017,7 @@ const Dashboard = () => {
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
                     right: "0px", // Adjust to position the text at the right
-                    color: "#rgb(153 58 134)", // Text color
+                    color: "rgb(153 58 134)", // Text color
                     backgroundColor: "white", // Background color to make it stand out
                     padding: "5px 10px", // Padding to add some space inside the border
                     fontSize: "0.7rem",

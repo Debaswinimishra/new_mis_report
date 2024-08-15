@@ -2281,19 +2281,19 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <DynamicModal
-              open={open}
-              handleClose={handleClose}
-              modalTitle={modalTitle}
-              tableHeaders={tableHeaders}
-              tableData={tableDatas}
-              // tableHeaders={tableHeaders}
-              // tableData={tableData}
-              xlData={xlData}
-              fileName={fileName}
-              loading={modalLoader}
-            />
-          </div> */}
+           </div>  */}
+          <DynamicModal
+            open={open}
+            handleClose={handleClose}
+            modalTitle={modalTitle}
+            tableHeaders={tableHeaders}
+            tableData={tableDatas}
+            // tableHeaders={tableHeaders}
+            // tableData={tableData}
+            xlData={xlData}
+            fileName={fileName}
+            loading={modalLoader}
+          />
         </div>
       ) : dashboardData &&
         Object.keys(dashboardData).length === 0 &&

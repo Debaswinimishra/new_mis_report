@@ -62,7 +62,9 @@ const DashboardMonthly = () => {
 
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentMonthSelected?.value
+  );
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
@@ -96,71 +98,59 @@ const DashboardMonthly = () => {
     }
   };
 
+  const fetchData = () => {
+    setLoading(true);
+    const body = {
+      year: parseInt(selectedYear),
+      month: parseInt(selectedMonth),
+      ...(selectedWeek && { week: parseInt(selectedWeek) }),
+    };
+    console.log("body---------------->", body);
+
+    PrakashakAPI.post("getDashboardReport", body)
+      .then((res) => {
+        if (res.status === 200) {
+          setDashboardData(res.data);
+        } else {
+          console.log("status code-----", res.status);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(`The Error is-----> ${err}`);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const filterButtonClick = () => {
     setDashboardData([]);
     setLoading(true);
-    if (!selectedMonth && !selectedWeek) {
-      const body = {
-        year: parseInt(selectedYear),
-      };
-      console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-            setLoading(false);
-          } else {
-            setLoading(false);
-            console.log("status code-----", res.status);
-          }
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    } else if (selectedMonth && !selectedWeek) {
-      const body = {
-        year: parseInt(selectedYear),
-        month: parseInt(selectedMonth),
-      };
-      console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-            setLoading(false);
-          } else {
-            setLoading(false);
-            console.log("status code-----", res.status);
-          }
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    } else {
-      const body = {
-        year: parseInt(selectedYear),
-        month: parseInt(selectedMonth),
-        week: selectedWeek,
-      };
-      console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-            setLoading(false);
-          } else {
-            setLoading(false);
-            console.log("status code-----", res.status);
-          }
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    }
+    const body = {
+      year: parseInt(selectedYear),
+      month: parseInt(selectedMonth),
+      ...(selectedWeek && { week: selectedWeek }),
+    };
+    console.log("body---------------->", body);
+
+    PrakashakAPI.post(`getDashboardReport`, body)
+      .then((res) => {
+        if (res.status === 200) {
+          setDashboardData(res.data);
+        } else {
+          console.log("status code-----", res.status);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(`The Error is-----> ${err}`);
+        setLoading(false);
+      });
   };
+
   const [districsArray, setDistrictArr] = useState([]);
   const [blocksArr, setBlocksArr] = useState([]);
 
@@ -173,93 +163,25 @@ const DashboardMonthly = () => {
   // console.log("studentsArr---->", studentsArr);
 
   const [smsArr, setSmsArr] = useState([]);
-  console.log("studentsArr---->", smsArr);
+  // console.log("studentsArr---->", smsArr);
 
   const [callsArr, setCallsArr] = useState([]);
-  console.log("callsArr---->", callsArr);
+  // console.log("callsArr---->", callsArr);
 
   const [receivedCallsArr, setReceivedCallsArr] = useState([]);
-  console.log("receivedCallsArr---->", receivedCallsArr);
+  // console.log("receivedCallsArr---->", receivedCallsArr);
 
   const [callsReceivedIvrArr, setCallsReceivedIvrArr] = useState([]);
-  console.log("callsReceivedIvrArr---->", callsReceivedIvrArr);
+  // console.log("callsReceivedIvrArr---->", callsReceivedIvrArr);
 
   const [uniqueCallsIvrArr, setUniqueCallsIvrArr] = useState([]);
-  console.log("uniqueCallsArr---->", uniqueCallsIvrArr);
+  // console.log("uniqueCallsArr---->", uniqueCallsIvrArr);
 
   const [activeUserChatbotArr, setActiveUserChatbotArr] = useState([]);
-  console.log("activeUserChatbotArr---->", activeUserChatbotArr);
+  // console.log("activeUserChatbotArr---->", activeUserChatbotArr);
 
   const [video, setVideo] = useState([]);
-  console.log("video---->", video);
-
-  const fetchData = () => {
-    setLoading(true);
-    if (!selectedMonth && !selectedWeek) {
-      const body = { year: parseInt(selectedYear) };
-      console.log("body---------------->", body);
-
-      PrakashakAPI.post("getDashboardReport", body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-          } else {
-            console.log("status code-----", res.status);
-          }
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    } else if (selectedMonth && !selectedWeek) {
-      const body = {
-        year: parseInt(selectedYear),
-        month: parseInt(selectedMonth),
-      };
-      console.log("body---------------->", body);
-
-      PrakashakAPI.post("getAllDistricts", body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDistrictArr(res.data);
-            // setDashboardData(res.data); // Uncomment if needed
-          } else {
-            console.log("status code-----", res.status);
-          }
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    } else {
-      const body = {
-        year: parseInt(selectedYear),
-        month: parseInt(selectedMonth),
-        week: parseInt(selectedWeek),
-      };
-      console.log("body---------------->", body);
-
-      PrakashakAPI.post("getDashboardReport", body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-          } else {
-            console.log("status code-----", res.status);
-          }
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // console.log("video---->", video);
 
   //todo----------------------Console logs---------------------------
   const [tableDatas, setTableDatas] = useState([]);
@@ -769,7 +691,7 @@ const DashboardMonthly = () => {
                   textTransform: "capitalize", // Capitalize each word
                 }}
               >
-                Number of new details
+                New student details
               </h1>
               <div
                 style={{

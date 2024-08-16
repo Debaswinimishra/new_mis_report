@@ -689,6 +689,7 @@ const Dashboard = () => {
             paddingBottom: "4%",
             marginLeft: "4%",
             alignContent: "flex-start",
+            height: "95vh",
           }}
         >
           <div
@@ -696,6 +697,7 @@ const Dashboard = () => {
               boxShadow: "2px 1px 5px grey",
               padding: "3%",
               width: "97%",
+              height: "99%",
             }}
           >
             <h1

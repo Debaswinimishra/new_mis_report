@@ -76,7 +76,7 @@ function NavigationPrakashak(props) {
   }, [location.pathname, navigate]);
 
   const listItem = [
-    { text: "Dashboard Weekly", link: "prakashak/dashboard", id: 0 },
+    { text: "Overall Dashboard", link: "prakashak/dashboard", id: 0 },
     { text: "Dashboard Monthly", link: "prakashak/dashboard_monthly", id: 1 },
     {
       text: "Remote Instructions",

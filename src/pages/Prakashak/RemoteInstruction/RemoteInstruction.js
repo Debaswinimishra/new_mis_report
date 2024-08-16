@@ -688,7 +688,22 @@ const RemoteInstruction = () => {
             }}
           >
             <div style={{ marginTop: "-2%" }}>
-              <h2>SMS</h2>
+              <h1
+                style={{
+                  marginTop: "-2%",
+                  color: "#333", // Dark grey color for the text
+                  fontFamily: "Congenial SemiBold", // Font family for a clean look
+                  fontWeight: "700", // Bolder font weight for emphasis
+                  fontSize: "1.8rem", // Larger font size for prominence
+                  textAlign: "center", // Center-align the text
+                  padding: "10px 0", // Add some padding for spacing
+                  borderBottom: "2px solid #000000", // Add a bottom border for separation
+                  letterSpacing: "0.5px", // Slight letter spacing for readability
+                  textTransform: "capitalize", // Capitalize each word
+                }}
+              >
+                SMS
+              </h1>
             </div>
             <div
               style={{
@@ -885,7 +900,22 @@ const RemoteInstruction = () => {
             }}
           >
             <div style={{ marginTop: "-2%" }}>
-              <h2>Automated Calls</h2>
+              <h1
+                style={{
+                  marginTop: "-2%",
+                  color: "#333", // Dark grey color for the text
+                  fontFamily: "Congenial SemiBold", // Font family for a clean look
+                  fontWeight: "700", // Bolder font weight for emphasis
+                  fontSize: "1.8rem", // Larger font size for prominence
+                  textAlign: "center", // Center-align the text
+                  padding: "10px 0", // Add some padding for spacing
+                  borderBottom: "2px solid #000000", // Add a bottom border for separation
+                  letterSpacing: "0.5px", // Slight letter spacing for readability
+                  textTransform: "capitalize", // Capitalize each word
+                }}
+              >
+                Automated Calls
+              </h1>
             </div>
             <div
               style={{
@@ -1082,7 +1112,22 @@ const RemoteInstruction = () => {
             }}
           >
             <div style={{ marginTop: "-2%" }}>
-              <h2>IVR</h2>
+              <h1
+                style={{
+                  marginTop: "-2%",
+                  color: "#333", // Dark grey color for the text
+                  fontFamily: "Congenial SemiBold", // Font family for a clean look
+                  fontWeight: "700", // Bolder font weight for emphasis
+                  fontSize: "1.8rem", // Larger font size for prominence
+                  textAlign: "center", // Center-align the text
+                  padding: "10px 0", // Add some padding for spacing
+                  borderBottom: "2px solid #000000", // Add a bottom border for separation
+                  letterSpacing: "0.5px", // Slight letter spacing for readability
+                  textTransform: "capitalize", // Capitalize each word
+                }}
+              >
+                IVR
+              </h1>
             </div>
             <div
               style={{

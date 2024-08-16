@@ -693,7 +693,6 @@ const DashboardMonthly = () => {
         >
           <div
             style={{
-              marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
               padding: "3%",
               width: "97%",
@@ -713,7 +712,7 @@ const DashboardMonthly = () => {
                 textTransform: "capitalize", // Capitalize each word
               }}
             >
-              Total Details Till Now: 1st Week
+              Details Till Now: 1st Week
             </h1>
             <div
               style={{
@@ -1284,7 +1283,7 @@ const DashboardMonthly = () => {
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <div
               style={{
                 display: "flex",
@@ -1705,9 +1704,9 @@ const DashboardMonthly = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1921,7 +1920,7 @@ const DashboardMonthly = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* <div
             style={{

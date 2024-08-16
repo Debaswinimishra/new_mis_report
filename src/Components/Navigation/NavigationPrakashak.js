@@ -15,6 +15,7 @@ import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatb
 import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
+import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/dashboardMonthly";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -75,15 +76,16 @@ function NavigationPrakashak(props) {
   }, [location.pathname, navigate]);
 
   const listItem = [
-    { text: "Overall Dashboard", link: "prakashak/dashboard", id: 0 },
+    { text: "Dashboard Weekly", link: "prakashak/dashboard", id: 0 },
+    { text: "Dashboard Monthly", link: "prakashak/dashboard_monthly", id: 1 },
     {
       text: "Remote Instructions",
       link: "prakashak/remote_instructions",
-      id: 1,
+      id: 2,
     },
-    { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 2 },
-    { text: "School-wise", link: "prakashak/school_wise", id: 3 },
-    { text: "Class-wise", link: "prakashak/class_wise", id: 4 },
+    { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 3 },
+    { text: "School-wise", link: "prakashak/school_wise", id: 4 },
+    { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
   ];
 
   return (
@@ -239,6 +241,8 @@ function NavigationPrakashak(props) {
       <div>
         {activeLink === "/prakashak/dashboard" ? (
           <Dashboard />
+        ) : activeLink === "/prakashak/dashboard_monthly" ? (
+          <DashboardMonthly />
         ) : activeLink === "/prakashak/remote_instructions" ? (
           <RemoteInstruction />
         ) : activeLink === "/prakashak/whatsapp_chatbot" ? (

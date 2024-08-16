@@ -37,6 +37,7 @@ import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
 // import { TimeSpentReportModuleWise } from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
+import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/dashboardMonthly";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -197,6 +198,7 @@ function RouteRoot() {
               /> */}
               <Route index element={<PrakashakDashboard />} />
               <Route path="dashboard" element={<PrakashakDashboard />} />
+              <Route path="dashboard_monthly" element={<DashboardMonthly />} />
               <Route
                 path="remote_instructions"
                 element={<RemoteInstruction />}

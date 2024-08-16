@@ -25,7 +25,7 @@ import moment from "moment";
 import Nodata from "../../../Assets/Nodata.gif";
 import DynamicModal from "../../../Components/DynamicModal";
 
-const Dashboard = () => {
+const DashboardMonthly = () => {
   //?---------------Month array---------------------------
   const monthArr = [
     { value: 1, label: "January" },
@@ -693,6 +693,7 @@ const Dashboard = () => {
         >
           <div
             style={{
+              marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
               padding: "3%",
               width: "97%",
@@ -712,7 +713,7 @@ const Dashboard = () => {
                 textTransform: "capitalize", // Capitalize each word
               }}
             >
-              Details Till Now: 1st Week
+              Total Details Till Now: 1st Week
             </h1>
             <div
               style={{
@@ -1283,7 +1284,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* <div>
+          <div>
             <div
               style={{
                 display: "flex",
@@ -1704,9 +1705,9 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
-          {/* <div
+          <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1920,7 +1921,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
           {/* <div
             style={{
@@ -2609,4 +2610,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardMonthly;

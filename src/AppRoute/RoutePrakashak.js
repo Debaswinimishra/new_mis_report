@@ -9,7 +9,7 @@ import Classwise from "../Pages/Prakashak/Classwise/Classwise";
 import PrakashakRoot from "../Pages/Prakashak";
 import PrivateRoute from "./PrivateRoute";
 import Route404 from "./Route404";
-import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/dashboardMonthly";
+import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 const RoutePrakashak = () => {
   const location = useLocation();
 

@@ -15,7 +15,7 @@ import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatb
 import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
-import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/dashboardMonthly";
+import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();

@@ -26,7 +26,7 @@ const RoutePrakashak = () => {
         <Route path="remote_instructions" element={<RemoteInstruction />} />
         <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
         <Route path="school_wise" element={<Schoolwise />} />
-        <Route path="class_wise" element={<Classwise />} />
+        {/* <Route path="class_wise" element={<Classwise />} /> */}
       </Route>
       <Route path="*" element={<Route404 />} />
 

@@ -85,7 +85,7 @@ function NavigationPrakashak(props) {
     },
     { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 3 },
     { text: "School-wise", link: "prakashak/school_wise", id: 4 },
-    { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
+    // { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
   ];
 
   return (
@@ -249,9 +249,10 @@ function NavigationPrakashak(props) {
           <WhatsappChatbot />
         ) : activeLink === "/prakashak/school_wise" ? (
           <Schoolwise />
-        ) : activeLink === "/prakashak/class_wise" ? (
-          <Classwise />
-        ) : null}
+        ) : //  activeLink === "/prakashak/class_wise" ? (
+        //   <Classwise />
+        // ) :
+        null}
       </div>
     </Box>
   );

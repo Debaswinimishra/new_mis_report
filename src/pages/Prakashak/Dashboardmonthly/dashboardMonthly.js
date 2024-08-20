@@ -647,7 +647,7 @@ const DashboardMonthly = () => {
                 onChange={handleMonthChange}
                 label="Month"
               >
-                <MenuItem value={null}>None</MenuItem>
+                {/* <MenuItem value={null}>None</MenuItem> */}
                 {monthArr.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
                     {item.label}
@@ -723,7 +723,7 @@ const DashboardMonthly = () => {
                     style={{
                       height: "50%",
                       color: "#6A5ACD",
-                      paddingTop: "20px",
+                      paddingTop: "30px",
                       fontSize: "1.2rem",
                       fontFamily: "Congenial SemiBold",
                       fontWeight: "600",

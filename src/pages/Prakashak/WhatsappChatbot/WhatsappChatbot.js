@@ -76,6 +76,7 @@ const WhatsappChatbot = () => {
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState(false);
   const [modalLoader, setModalLoader] = useState(false);
+  const [show, setShow] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -111,6 +112,7 @@ const WhatsappChatbot = () => {
   // };
 
   const [data, setData] = useState({});
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -151,9 +153,19 @@ const WhatsappChatbot = () => {
   };
 
   const filterButtonClick = () => {
+    // Assuming you have selectedMonth and selectedWeek as state variables or props
+    if (!selectedMonth) {
+      // Show error message
+      alert("Please select both a month .");
+      return; // Exit the function without proceeding further
+    }
+
+    // If both are selected, proceed with loading and fetching data
     setLoading(true);
+    setShow(true);
     fetchData();
   };
+
   const graphData = {
     labels: data.graphData?.classData,
     values1: data.graphData?.numberData,
@@ -420,7 +432,7 @@ const WhatsappChatbot = () => {
             onChange={handleMonthChange}
             label="Month"
           >
-            <MenuItem value={null}>None</MenuItem>
+            <MenuItem value={""}>None</MenuItem>
             {monthArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -559,7 +571,7 @@ const WhatsappChatbot = () => {
                     <h1>{data.chatbot_users}</h1>
                   </div>
                 </div>
-                {selectedMonth ? (
+                {show ? (
                   <div
                     className="card"
                     // onClick={handleOpen}

@@ -737,6 +737,7 @@ const RemoteInstruction = () => {
                   style={{
                     height: "50%",
                     color: "#CD5C5C",
+                    paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",

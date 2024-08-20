@@ -764,7 +764,7 @@ const WhatsappChatbot = () => {
                     style={{
                       height: "50%",
                       color: "#6A5ACD",
-                      paddingTop: "20px",
+                      paddingTop: "30px",
                       fontSize: "1.2rem",
                       fontFamily: "Congenial SemiBold",
                       fontWeight: "600",

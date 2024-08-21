@@ -55,7 +55,7 @@ const RemoteInstruction = () => {
   ];
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
 
   const currentMonth = moment().format("MMMM");
   const currentMonthSelected = monthArr?.filter(

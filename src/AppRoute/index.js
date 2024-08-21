@@ -38,6 +38,7 @@ import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
 import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
+import Schoolwise_performance from "../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -119,6 +120,10 @@ function RouteRoot() {
               />
               <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
               <Route path="school_wise" element={<Schoolwise />} />
+              <Route
+                path="school_wise_performance"
+                element={<Schoolwise_performance />}
+              />
               <Route path="class_wise" element={<Classwise />} />
             </Route>
             <Route
@@ -206,6 +211,10 @@ function RouteRoot() {
               />
               <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
               <Route path="school_wise" element={<Schoolwise />} />
+              <Route
+                path="school_wise_performance"
+                element={<Schoolwise_performance />}
+              />
               <Route path="class_wise" element={<Classwise />} />
             </Route>
             <Route

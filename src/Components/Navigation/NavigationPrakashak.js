@@ -16,6 +16,7 @@ import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
+import Schoolwise_performance from "../../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -26,6 +27,7 @@ function NavigationPrakashak(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const usertype = localStorage.getItem("usertype");
+  console.log("activeLink---------->", activeLink);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -85,6 +87,11 @@ function NavigationPrakashak(props) {
     },
     { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 3 },
     { text: "School-wise", link: "prakashak/school_wise", id: 4 },
+    {
+      text: "School-wise Performance",
+      link: "prakashak/school_wise_performance",
+      id: 5,
+    },
     // { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
   ];
 
@@ -249,10 +256,9 @@ function NavigationPrakashak(props) {
           <WhatsappChatbot />
         ) : activeLink === "/prakashak/school_wise" ? (
           <Schoolwise />
-        ) : //  activeLink === "/prakashak/class_wise" ? (
-        //   <Classwise />
-        // ) :
-        null}
+        ) : activeLink === "/prakashak/school_wise_performance" ? (
+          <Schoolwise_performance />
+        ) : null}
       </div>
     </Box>
   );

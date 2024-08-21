@@ -35,6 +35,8 @@ const Schoolwise_performance = () => {
   // const [year, setYear] = useState("2024");
   const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedWeek, setSelectedWeek] = useState("");
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
   const [blockArr, setBlockArr] = useState([]);
@@ -59,6 +61,30 @@ const Schoolwise_performance = () => {
   ]);
   console.log("tableData", tableData);
   console.log("districtArr", districtArr);
+
+  //?---------------Month array---------------------------
+  const monthArr = [
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
+  ];
+
+  //?-----------------Week array--------------------
+  const weekArr = [
+    { value: 1, label: "1" },
+    { value: 2, label: "2" },
+    { value: 3, label: "3" },
+    { value: 4, label: "4" },
+  ];
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
@@ -234,7 +260,13 @@ const Schoolwise_performance = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
+  const handleWeekChange = (e) => {
+    if (!selectedMonth && e.target.value) {
+      alert("Please select a month before selecting a week !");
+    } else {
+      setSelectedWeek(e.target.value ? parseInt(e.target.value) : "");
+    }
+  };
   const fetchData = () => {
     setLoading(true);
     const body = {
@@ -489,6 +521,40 @@ const Schoolwise_performance = () => {
             ))}
           </Select>
         </FormControl>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Month</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedMonth}
+            // onChange={handleMonthChange}
+            label="Month"
+          >
+            <MenuItem value={null}>None</MenuItem>
+            {monthArr.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Week</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedWeek}
+            onChange={handleWeekChange}
+            label="Month"
+          >
+            <MenuItem value={null}>None</MenuItem>
+            {weekArr.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         {/* <Box
           sx={{
             display: "flex",
@@ -569,7 +635,7 @@ const Schoolwise_performance = () => {
                 gap: "2%",
               }}
             >
-              <div
+              {/* <div
                 onClick={() => handleOpenModal("studentReport")}
                 style={{
                   width: "255px",
@@ -625,7 +691,7 @@ const Schoolwise_performance = () => {
                 >
                   <h1>{data.total_students}</h1>
                 </div>
-              </div>
+              </div> */}
               {/* <div
                 style={{
                   width: "255px",
@@ -664,7 +730,7 @@ const Schoolwise_performance = () => {
                   <h1>{data.total_poc}</h1>
                 </div>
               </div> */}
-              <div
+              {/* <div
                 onClick={() => handleOpenModal("studentReport", 1)}
                 style={{
                   width: "255px",
@@ -988,7 +1054,7 @@ const Schoolwise_performance = () => {
                 >
                   <h1>{data.total_timespent}</h1>
                 </div>
-              </div>
+              </div> */}
               <div
                 style={{
                   width: "255px",

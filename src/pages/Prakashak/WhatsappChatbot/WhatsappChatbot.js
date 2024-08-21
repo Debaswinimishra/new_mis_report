@@ -153,11 +153,11 @@ const WhatsappChatbot = () => {
 
   const filterButtonClick = () => {
     // Assuming you have selectedMonth and selectedWeek as state variables or props
-    if (!selectedMonth) {
-      // Show error message
-      alert("Please select both a month .");
-      return; // Exit the function without proceeding further
-    }
+    // if (!selectedMonth) {
+    //   // Show error message
+    //   alert("Please select both a month .");
+    //   return; // Exit the function without proceeding further
+    // }
 
     // If both are selected, proceed with loading and fetching data
     setLoading(true);

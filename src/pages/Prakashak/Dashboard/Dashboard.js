@@ -1142,7 +1142,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1159,7 +1159,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -1199,7 +1199,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1216,7 +1216,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",

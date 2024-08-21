@@ -654,6 +654,23 @@ const DashboardMonthly = () => {
                 ))}
               </Select>
             </FormControl>
+            <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+              <InputLabel id="usertype-label">Week</InputLabel>
+              <Select
+                labelId="usertype-label"
+                id="usertype-select"
+                value={selectedWeek}
+                onChange={handleWeekChange}
+                label="Month"
+              >
+                <MenuItem value={null}>None</MenuItem>
+                {weekArr.map((item, index) => (
+                  <MenuItem key={index} value={item.value}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <Button
               variant="contained"
               sx={{

@@ -199,6 +199,23 @@ const Schoolwise_performance = () => {
     return () => {};
   }, [districts]);
 
+  const currentMonth = moment().format("MMMM");
+  const currentMonthSelected = monthArr?.filter(
+    (item) => item.label === currentMonth
+  )[0];
+
+  const handleMonthChange = (e) => {
+    if (
+      e.target.value > currentMonthSelected.value &&
+      selectedYear === currentYear
+    ) {
+      alert("You can't select a month greater than the current month !");
+    } else {
+      setSelectedWeek("");
+      setSelectedMonth(e.target.value ? e.target.value : "");
+    }
+  };
+
   const handleBlockChange = (e) => {
     setBlocks(e.target.value);
     setCluseters("");
@@ -527,7 +544,7 @@ const Schoolwise_performance = () => {
             labelId="usertype-label"
             id="usertype-select"
             value={selectedMonth}
-            // onChange={handleMonthChange}
+            onChange={handleMonthChange}
             label="Month"
           >
             <MenuItem value={null}>None</MenuItem>

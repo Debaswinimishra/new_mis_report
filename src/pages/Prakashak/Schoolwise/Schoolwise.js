@@ -425,6 +425,9 @@ const Schoolwise = () => {
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
+            <MenuItem value="Select District" disabled>
+              Select District
+            </MenuItem>
             {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
@@ -442,6 +445,9 @@ const Schoolwise = () => {
             label="Block"
             disabled={loading || !districts}
           >
+            <MenuItem value="Select Month" disabled>
+              Select Month
+            </MenuItem>
             <MenuItem value="">None</MenuItem>
             {blockArr &&
               blockArr?.map((block, index) => (
@@ -461,6 +467,9 @@ const Schoolwise = () => {
             label="Cluster"
             disabled={loading || !blocks}
           >
+            <MenuItem value="Select Cluster" disabled>
+              Select Cluster
+            </MenuItem>
             <MenuItem value="">None</MenuItem>
             {clusterArr?.map((cluster, index) => (
               <MenuItem key={index} value={cluster}>
@@ -481,6 +490,9 @@ const Schoolwise = () => {
             label="School"
             disabled={!clusters}
           >
+            <MenuItem value="Select School" disabled>
+              Select School
+            </MenuItem>
             <MenuItem value="">None</MenuItem>
             {schoolArr?.map((school, index) => (
               <MenuItem key={index} value={school}>
@@ -541,24 +553,6 @@ const Schoolwise = () => {
               width: "97%",
             }}
           >
-            <div style={{ marginTop: "-2%" }}>
-              <h1
-                style={{
-                  marginTop: "-2%",
-                  color: "#333", // Dark grey color for the text
-                  fontFamily: "Congenial SemiBold", // Font family for a clean look
-                  fontWeight: "700", // Bolder font weight for emphasis
-                  fontSize: "1.8rem", // Larger font size for prominence
-                  textAlign: "center", // Center-align the text
-                  padding: "10px 0", // Add some padding for spacing
-                  borderBottom: "2px solid #000000", // Add a bottom border for separation
-                  letterSpacing: "0.5px", // Slight letter spacing for readability
-                  textTransform: "capitalize", // Capitalize each word
-                }}
-              >
-                School-wise Details
-              </h1>
-            </div>
             <div
               style={{
                 display: "flex",
@@ -975,7 +969,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p> Total Time Spent</p>
+                  <p>Total Activated students</p>
                 </div>
                 <div
                   style={{
@@ -1013,7 +1007,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 0-1 mins
+                  Total active students
                 </div>
                 <div
                   style={{
@@ -1051,7 +1045,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 2-15 mins
+                  Total smartphone users
                 </div>
                 <div
                   style={{
@@ -1089,7 +1083,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 16-30 mins
+                  Total non-smartphone users
                 </div>
                 <div
                   style={{
@@ -1103,7 +1097,7 @@ const Schoolwise = () => {
                   <h1>{data.no_of_parents_spent_16to30mins}</h1>
                 </div>
               </div>
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1140,9 +1134,9 @@ const Schoolwise = () => {
                 >
                   <h1>{data.no_of_parents_spent_31to45mins}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1179,7 +1173,7 @@ const Schoolwise = () => {
                 >
                   <h1>{data.no_of_parents_spent_gte45mins}</h1>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 

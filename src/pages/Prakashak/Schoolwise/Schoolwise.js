@@ -1165,7 +1165,7 @@ const Schoolwise = () => {
             </div>
           </div>
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1468,9 +1468,9 @@ const Schoolwise = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1573,8 +1573,7 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
+       
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1606,7 +1605,7 @@ const Schoolwise = () => {
                 </div>
               </div>
 
-              {/* <div
+              <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1643,9 +1642,9 @@ const Schoolwise = () => {
                 >
                   <h1>{data.total_chatbot_assess_taken}</h1>
                 </div>
-              </div> */}
+              </div> 
 
-              {/* <div
+             <div
                 onClick={() => handleOpen()}
                 style={{
                   width: "255px",
@@ -1683,7 +1682,7 @@ const Schoolwise = () => {
                 >
                   <h1>{data.chatbot_avg_mins}</h1>
                 </div>
-              </div> */}
+              </div> 
 
               <div
                 // onClick={() => handleOpen()}
@@ -1725,7 +1724,7 @@ const Schoolwise = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       ) : !loading && filtered && Object.keys(data).length === 0 ? (
         <img src={Nodata} />

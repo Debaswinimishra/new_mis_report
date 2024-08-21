@@ -721,6 +721,45 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       height: "50%",
+                      color: "#708090",
+                      paddingTop: "30px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Total number of new cluster
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#708090",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{dashboardData.total_new_schools}</h1>
+                  </div>
+                </div>
+                <div
+                  // onClick={() => handleOpen("newSchools")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
                       color: "#6A5ACD",
                       paddingTop: "30px",
                       fontSize: "1.2rem",
@@ -990,6 +1029,7 @@ const DashboardMonthly = () => {
                   >
                     Click Here 👆
                   </div>
+
                   <div
                     style={{
                       height: "50%",
@@ -1012,6 +1052,84 @@ const DashboardMonthly = () => {
                     }}
                   >
                     <h1>{dashboardData.total_boy_students}</h1>
+                  </div>
+                </div>
+                <div
+                  // onClick={() => handleOpen("newSchools")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#6A5ACD",
+                      paddingTop: "30px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Active student (Male)
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#6A5ACD",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{dashboardData.total_new_schools}</h1>
+                  </div>
+                </div>
+                <div
+                  // onClick={() => handleOpen("newSchools")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "rgb(153 58 134)",
+                      paddingTop: "30px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Active student (Female)
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "rgb(153 58 134)",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{dashboardData.total_new_schools}</h1>
                   </div>
                 </div>
               </div>

@@ -35,6 +35,11 @@ const DynamicModal = ({
     setPage(newPage);
   };
 
+  const handleModalClose = () => {
+    setSearchname(""); // Reset the search input
+    handleClose(); // Call the original handleClose function
+  };
+
   // Conditionally filter data based on modalTitle
   const filteredTableData =
     modalTitle === "Number of Students"
@@ -48,7 +53,7 @@ const DynamicModal = ({
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={handleModalClose} // Use the new handleModalClose function
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -86,7 +91,7 @@ const DynamicModal = ({
           <Button
             variant="contained"
             color="primary"
-            onClick={handleClose}
+            onClick={handleModalClose} // Use the new handleModalClose function
             sx={{ mt: -2 }}
           >
             Close

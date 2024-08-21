@@ -25,7 +25,7 @@ import moment from "moment";
 import Nodata from "../../../Assets/Nodata.gif";
 import DynamicModal from "../../../Components/DynamicModal";
 
-const Dashboard = () => {
+const DashboardMonthly = () => {
   //?---------------Month array---------------------------
   const monthArr = [
     { value: 1, label: "January" },
@@ -61,7 +61,9 @@ const Dashboard = () => {
 
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentMonthSelected?.value
+  );
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
@@ -95,71 +97,59 @@ const Dashboard = () => {
     }
   };
 
+  const fetchData = () => {
+    setLoading(true);
+    const body = {
+      year: parseInt(selectedYear),
+      month: parseInt(selectedMonth),
+      ...(selectedWeek && { week: parseInt(selectedWeek) }),
+    };
+    console.log("body---------------->", body);
+
+    PrakashakAPI.post("getDashboardReport", body)
+      .then((res) => {
+        if (res.status === 200) {
+          setDashboardData(res.data);
+        } else {
+          console.log("status code-----", res.status);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(`The Error is-----> ${err}`);
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const filterButtonClick = () => {
     setDashboardData([]);
     setLoading(true);
-    if (!selectedMonth && !selectedWeek) {
-      const body = {
-        year: parseInt(selectedYear),
-      };
-      console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-            setLoading(false);
-          } else {
-            setLoading(false);
-            console.log("status code-----", res.status);
-          }
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    } else if (selectedMonth && !selectedWeek) {
-      const body = {
-        year: parseInt(selectedYear),
-        month: parseInt(selectedMonth),
-      };
-      console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-            setLoading(false);
-          } else {
-            setLoading(false);
-            console.log("status code-----", res.status);
-          }
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    } else {
-      const body = {
-        year: parseInt(selectedYear),
-        month: parseInt(selectedMonth),
-        week: selectedWeek,
-      };
-      console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-            setLoading(false);
-          } else {
-            setLoading(false);
-            console.log("status code-----", res.status);
-          }
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    }
+    const body = {
+      year: parseInt(selectedYear),
+      month: parseInt(selectedMonth),
+      ...(selectedWeek && { week: selectedWeek }),
+    };
+    console.log("body---------------->", body);
+
+    PrakashakAPI.post(`getDashboardReport`, body)
+      .then((res) => {
+        if (res.status === 200) {
+          setDashboardData(res.data);
+        } else {
+          console.log("status code-----", res.status);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(`The Error is-----> ${err}`);
+        setLoading(false);
+      });
   };
+
   const [districsArray, setDistrictArr] = useState([]);
   const [blocksArr, setBlocksArr] = useState([]);
 
@@ -172,93 +162,25 @@ const Dashboard = () => {
   // console.log("studentsArr---->", studentsArr);
 
   const [smsArr, setSmsArr] = useState([]);
-  console.log("studentsArr---->", smsArr);
+  // console.log("studentsArr---->", smsArr);
 
   const [callsArr, setCallsArr] = useState([]);
-  console.log("callsArr---->", callsArr);
+  // console.log("callsArr---->", callsArr);
 
   const [receivedCallsArr, setReceivedCallsArr] = useState([]);
-  console.log("receivedCallsArr---->", receivedCallsArr);
+  // console.log("receivedCallsArr---->", receivedCallsArr);
 
   const [callsReceivedIvrArr, setCallsReceivedIvrArr] = useState([]);
-  console.log("callsReceivedIvrArr---->", callsReceivedIvrArr);
+  // console.log("callsReceivedIvrArr---->", callsReceivedIvrArr);
 
   const [uniqueCallsIvrArr, setUniqueCallsIvrArr] = useState([]);
-  console.log("uniqueCallsArr---->", uniqueCallsIvrArr);
+  // console.log("uniqueCallsArr---->", uniqueCallsIvrArr);
 
   const [activeUserChatbotArr, setActiveUserChatbotArr] = useState([]);
-  console.log("activeUserChatbotArr---->", activeUserChatbotArr);
+  // console.log("activeUserChatbotArr---->", activeUserChatbotArr);
 
   const [video, setVideo] = useState([]);
-  console.log("video---->", video);
-
-  const fetchData = () => {
-    setLoading(true);
-    if (!selectedMonth && !selectedWeek) {
-      const body = { year: parseInt(selectedYear) };
-      console.log("body---------------->", body);
-
-      PrakashakAPI.post("getDashboardReport", body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-          } else {
-            console.log("status code-----", res.status);
-          }
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    } else if (selectedMonth && !selectedWeek) {
-      const body = {
-        year: parseInt(selectedYear),
-        month: parseInt(selectedMonth),
-      };
-      console.log("body---------------->", body);
-
-      PrakashakAPI.post("getAllDistricts", body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDistrictArr(res.data);
-            // setDashboardData(res.data); // Uncomment if needed
-          } else {
-            console.log("status code-----", res.status);
-          }
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    } else {
-      const body = {
-        year: parseInt(selectedYear),
-        month: parseInt(selectedMonth),
-        week: parseInt(selectedWeek),
-      };
-      console.log("body---------------->", body);
-
-      PrakashakAPI.post("getDashboardReport", body)
-        .then((res) => {
-          if (res.status === 200) {
-            setDashboardData(res.data);
-          } else {
-            console.log("status code-----", res.status);
-          }
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(`The Error is-----> ${err}`);
-          setLoading(false);
-        });
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // console.log("video---->", video);
 
   //todo----------------------Console logs---------------------------
   const [tableDatas, setTableDatas] = useState([]);
@@ -673,25 +595,6 @@ const Dashboard = () => {
   const xlData = tableDatas;
   // console.log("tableDatas------------>", tableDatas);
   const fileName = "Dashboard.csv";
-
-  const [searchStudent, setSearchStudent] = useState([]);
-
-  const handleNameOnSearch = (searchValue) => {
-    const escapeRegExp = (string) => {
-      return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    };
-
-    // Escape special characters for exact match
-    const escapedSearchValue = escapeRegExp(searchValue);
-    const regexPattern = `^${escapedSearchValue}$`; // Exact match pattern
-    const regex = new RegExp(regexPattern, "i"); // 'i' flag for case-insensitive search
-
-    const matchingObjects = studentData.filter((student) => {
-      return regex.test(student.student_name);
-    });
-
-    setSearchStudent(matchingObjects);
-  };
   return (
     <>
       {loading ? (
@@ -707,690 +610,64 @@ const Dashboard = () => {
             paddingBottom: "4%",
             marginLeft: "4%",
             alignContent: "flex-start",
-            height: "95vh",
           }}
         >
           <div
             style={{
-              boxShadow: "2px 1px 5px grey",
-              padding: "3%",
-              width: "97%",
-              height: "99%",
+              display: "flex",
+              justifyContent: "flex-end", // Aligns content to the right
+              alignItems: "center", // Vertically centers the items within the div
+              marginRight: "5%", // Adjust as needed to create space from the right edge
+              flexWrap: "wrap",
             }}
           >
-            <h1
-              style={{
-                marginTop: "-2%",
-                color: "#333", // Dark grey color for the text
-                fontFamily: "Congenial SemiBold", // Font family for a clean look
-                fontWeight: "700", // Bolder font weight for emphasis
-                fontSize: "1.8rem", // Larger font size for prominence
-                textAlign: "center", // Center-align the text
-                padding: "10px 0", // Add some padding for spacing
-                borderBottom: "2px solid #000000", // Add a bottom border for separation
-                letterSpacing: "0.5px", // Slight letter spacing for readability
-                textTransform: "capitalize", // Capitalize each word
+            <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+              <InputLabel id="usertype-label">Year</InputLabel>
+              <Select
+                labelId="usertype-label"
+                id="usertype-select"
+                value={selectedYear}
+                onChange={handleYearChange}
+                label="Year"
+              >
+                {years.map((item, index) => (
+                  <MenuItem key={index} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+              <InputLabel id="usertype-label">Month</InputLabel>
+              <Select
+                labelId="usertype-label"
+                id="usertype-select"
+                value={selectedMonth}
+                onChange={handleMonthChange}
+                label="Month"
+              >
+                {/* <MenuItem value={null}>None</MenuItem> */}
+                {monthArr.map((item, index) => (
+                  <MenuItem key={index} value={item.value}>
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button
+              variant="contained"
+              sx={{
+                height: "40px",
+                width: "120px",
+                // marginTop: "1.2%",
+                marginLeft: "9px",
               }}
+              onClick={filterButtonClick}
             >
-              Details Till Now: 1st Week
-            </h1>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignContent: "center",
-                justifyContent: "center",
-                width: "97%",
-                gap: "2%",
-                // marginLeft: "4%",
-              }}
-            >
-              {/* <div
-                onClick={() => handleOpen("district")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                    style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#CD5C5C",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Number of districts</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#CD5C5C",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_districts}</h1>
-                </div>
-              </div> */}
-
-              {/* <div
-                onClick={() => handleOpen("block")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                    style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Number of blocks</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_blocks}</h1>
-                </div>
-              </div> */}
-              <div
-                onClick={() => handleOpen("clusters")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#6A5ACD",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Total number of clusters</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#6A5ACD",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_clusters}</h1>
-                </div>
-              </div>
-              <div
-                onClick={() => handleOpen("schools")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#2E8B57", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#2E8B57",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Total number of schools</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#2E8B57",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_schools}</h1>
-                </div>
-              </div>
-              <div
-                onClick={() => handleOpen("students")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "	#00CED1", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "	#00CED1",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Total number of students</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "	#00CED1",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_students}</h1>
-                </div>
-              </div>
-              <div
-                onClick={() => handleOpen("girls")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "rgb(153 58 134)", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Total number of girls</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_girl_students}</h1>
-                </div>
-              </div>
-              <div
-                onClick={() => handleOpen("boys")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "rgb(214 148 16)", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Total number of boys</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_boy_students}</h1>
-                </div>
-              </div>
-              <div
-                onClick={() => handleOpen("clusters")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#CD5C5C", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#CD5C5C",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Total number of activated student</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#CD5C5C",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_clusters}</h1>
-                </div>
-              </div>
-              <div
-                onClick={() => handleOpen("clusters")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#6A5ACD",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Total number of active student</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#6A5ACD",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_clusters}</h1>
-                </div>
-              </div>
-
-              {/* <div
-                // onClick={() => handleOpen("smartphoneUsers")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#CD5C5C",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p> Smartphone users</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#CD5C5C",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_chatbot_users}</h1>
-                </div>
-              </div> */}
-            </div>
+              Filter
+            </Button>
           </div>
-
-          {/* <div>
-            <div
-              style={{
-                display: "flex",
-                // justifyContent: "space-around",
-                // width: "25%",
-                marginTop: "4%",
-                marginLeft: "60%",
-                // width: "30%",
-                flexWrap: "wrap",
-              }}
-            >
-              <FormControl
-                sx={{ m: 1 }}
-                size="small"
-                style={{ width: "120px" }}
-              >
-                <InputLabel id="usertype-label">Year</InputLabel>
-                <Select
-                  labelId="usertype-label"
-                  id="usertype-select"
-                  value={selectedYear}
-                  onChange={handleYearChange}
-                  label="Year"
-                >
-                  {years.map((item, index) => (
-                    <MenuItem key={index} value={item}>
-                      {item}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl
-                sx={{ m: 1 }}
-                size="small"
-                style={{ width: "120px" }}
-              >
-                <InputLabel id="usertype-label">Month</InputLabel>
-                <Select
-                  labelId="usertype-label"
-                  id="usertype-select"
-                  value={selectedMonth}
-                  onChange={handleMonthChange}
-                  label="Month"
-                >
-                  <MenuItem value={null}>None</MenuItem>
-                  {monthArr.map((item, index) => (
-                    <MenuItem key={index} value={item.value}>
-                      {item.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl
-                sx={{ m: 1 }}
-                size="small"
-                style={{ width: "120px" }}
-              >
-                <InputLabel id="usertype-label">Week</InputLabel>
-                <Select
-                  labelId="usertype-label"
-                  id="usertype-select"
-                  value={selectedWeek}
-                  onChange={handleWeekChange}
-                  label="Month"
-                >
-                  <MenuItem value={null}>None</MenuItem>
-                  {weekArr.map((item, index) => (
-                    <MenuItem key={index} value={item.value}>
-                      {item.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <Button
-                variant="contained"
-                sx={{
-                  height: "40px",
-                  width: "120px",
-                  marginTop: "1.2%",
-                  marginLeft: "9px",
-                }}
-                onClick={filterButtonClick}
-              >
-                Filter
-              </Button>
-            </div>
-
+          <div>
             <div
               style={{
                 marginTop: "2%",
@@ -1399,7 +676,22 @@ const Dashboard = () => {
                 width: "97%",
               }}
             >
-              <h1 style={{ marginTop: "-2%" }}>Number of new details</h1>
+              <h1
+                style={{
+                  marginTop: "-2%",
+                  color: "#333", // Dark grey color for the text
+                  fontFamily: "Congenial SemiBold", // Font family for a clean look
+                  fontWeight: "700", // Bolder font weight for emphasis
+                  fontSize: "1.8rem", // Larger font size for prominence
+                  textAlign: "center", // Center-align the text
+                  padding: "10px 0", // Add some padding for spacing
+                  borderBottom: "2px solid #000000", // Add a bottom border for separation
+                  letterSpacing: "0.5px", // Slight letter spacing for readability
+                  textTransform: "capitalize", // Capitalize each word
+                }}
+              >
+                New student details
+              </h1>
               <div
                 style={{
                   display: "flex",
@@ -1430,7 +722,7 @@ const Dashboard = () => {
                     style={{
                       height: "50%",
                       color: "#6A5ACD",
-                      paddingTop: "20px",
+                      paddingTop: "30px",
                       fontSize: "1.2rem",
                       fontFamily: "Congenial SemiBold",
                       fontWeight: "600",
@@ -1724,9 +1016,9 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
-          {/* <div
+          <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1734,7 +1026,22 @@ const Dashboard = () => {
               width: "97%",
             }}
           >
-            <h1 style={{ marginTop: "-2%" }}>Time-Spent details</h1>
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Time-Spent details
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -1940,7 +1247,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
           {/* <div
             style={{
@@ -2629,4 +1936,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardMonthly;

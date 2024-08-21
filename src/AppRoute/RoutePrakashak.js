@@ -9,6 +9,8 @@ import Classwise from "../Pages/Prakashak/Classwise/Classwise";
 import PrakashakRoot from "../Pages/Prakashak";
 import PrivateRoute from "./PrivateRoute";
 import Route404 from "./Route404";
+import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
+
 const RoutePrakashak = () => {
   const location = useLocation();
 
@@ -20,10 +22,11 @@ const RoutePrakashak = () => {
       >
         <Route index element={<Dashboard />} />
         <Route path="dashboard" element={<Dashboard />} />
+        <Route path="dashboard_monthly" element={<DashboardMonthly />} />
         <Route path="remote_instructions" element={<RemoteInstruction />} />
         <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
         <Route path="school_wise" element={<Schoolwise />} />
-        <Route path="class_wise" element={<Classwise />} />
+        {/* <Route path="class_wise" element={<Classwise />} /> */}
       </Route>
       <Route path="*" element={<Route404 />} />
 

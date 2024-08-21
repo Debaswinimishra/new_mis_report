@@ -35,25 +35,17 @@ const DynamicModal = ({
     setPage(newPage);
   };
 
-  const handleModalClose = () => {
-    setSearchname(""); // Reset the search input
-    handleClose(); // Call the original handleClose function
+  const handleCloseAndReset = () => {
+    setPage(0);
+    handleClose();
   };
 
-  // Conditionally filter data based on modalTitle
-  const filteredTableData =
-    modalTitle === "Number of Students"
-      ? tableData.filter(
-          (row) =>
-            row.student_name &&
-            row.student_name.toLowerCase().includes(searchname.toLowerCase())
-        )
-      : tableData;
+  console.log("table daata-------------------------->", tableData);
 
   return (
     <Modal
       open={open}
-      onClose={handleModalClose} // Use the new handleModalClose function
+      onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -63,8 +55,8 @@ const DynamicModal = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 1450,
-          height: 600,
+          width: "90%",
+          height: "80%",
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
@@ -83,6 +75,7 @@ const DynamicModal = ({
             justifyContent: "space-between",
             alignItems: "flex-start",
             mb: 2,
+            gap: 3,
           }}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -91,7 +84,7 @@ const DynamicModal = ({
           <Button
             variant="contained"
             color="primary"
-            onClick={handleModalClose} // Use the new handleModalClose function
+            onClick={handleClose}
             sx={{ mt: -2 }}
           >
             Close
@@ -157,14 +150,14 @@ const DynamicModal = ({
             </TableContainer>
             <TablePagination
               component="div"
-              count={filteredTableData.length}
+              count={tableData.length}
               page={page}
               onPageChange={handleChangePage}
               rowsPerPage={rowsPerPage}
               rowsPerPageOptions={[]}
               labelDisplayedRows={({ from, to }) => `${from}-${to}`}
             />
-            {filteredTableData.length > 0 && (
+            {tableData && tableData.length > 0 && (
               <Download csvData={xlData} fileName={fileName} />
             )}
           </>

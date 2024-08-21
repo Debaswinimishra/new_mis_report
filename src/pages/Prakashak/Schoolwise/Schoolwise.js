@@ -400,7 +400,7 @@ const Schoolwise = () => {
         }}
       >
         {/* <SelectYear Year={year} handleYearChange={handleYearChange} /> */}
-        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="usertype-label">Year</InputLabel>
           <Select
             labelId="usertype-label"
@@ -415,7 +415,7 @@ const Schoolwise = () => {
               </MenuItem>
             ))}
           </Select>
-        </FormControl>
+        </FormControl> */}
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="district-label">District</InputLabel>
           <Select
@@ -502,7 +502,8 @@ const Schoolwise = () => {
             height: "40px",
             width: "120px",
             marginTop: "1.2%",
-            marginRight: "5.9%",
+            // marginRight: "5.9%",
+            marginLeft: "9px",
           }}
           onClick={filterButtonClick}
         >
@@ -557,14 +558,32 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#CD5C5C", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -634,19 +653,37 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "rgb(153 58 134)", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
                     height: "50%",
                     color: "rgb(153 58 134)",
-                    paddingTop: "20px",
+                    paddingTop: "28px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -673,19 +710,37 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#2E8B57", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
+                    paddingTop: "28px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -713,14 +768,32 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "rgb(214 148 16)", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -752,19 +825,37 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#6A5ACD", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
                     height: "50%",
                     color: "#6A5ACD",
-                    paddingTop: "20px",
+                    paddingTop: "28px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -791,19 +882,37 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#2E8B57", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
+                    paddingTop: "28px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -1064,7 +1173,22 @@ const Schoolwise = () => {
               width: "97%",
             }}
           >
-            <h1>Remote Instructions in Brief</h1>
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Remote Instructions in Brief
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -1354,7 +1478,22 @@ const Schoolwise = () => {
               width: "97%",
             }}
           >
-            <h1>Chatbot in Brief</h1>
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Chatbot in Brief
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -1377,19 +1516,37 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#6A5ACD", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
                     height: "50%",
                     color: "#6A5ACD",
-                    paddingTop: "20px",
+                    paddingTop: "26px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",

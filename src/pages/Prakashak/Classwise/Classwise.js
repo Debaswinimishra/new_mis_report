@@ -45,7 +45,6 @@ const Classwise = () => {
     { value: 2, label: "2" },
     { value: 3, label: "3" },
     { value: 4, label: "4" },
-    { value: 5, label: "5" },
   ];
 
   //?----------------Class Array-----------------------
@@ -556,6 +555,7 @@ const Classwise = () => {
             height: "40px",
             width: "120px",
             marginTop: "1.2%",
+            marginLeft: "10px",
           }}
           onClick={filterButtonClick}
         >
@@ -609,14 +609,32 @@ const Classwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#CD5C5C", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -697,7 +715,7 @@ const Classwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "rgb(214 148 16)",
+                    color: "rgb(102 52 91)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
@@ -709,7 +727,7 @@ const Classwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
+                    backgroundColor: "rgb(102 52 91)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -883,7 +901,22 @@ const Classwise = () => {
               width: "97%",
             }}
           >
-            <h1>Remote Instructions in Brief</h1>
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Remote Instructions in Brief
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -901,14 +934,32 @@ const Classwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#2E8B57", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -978,12 +1029,12 @@ const Classwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
@@ -1055,19 +1106,37 @@ const Classwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#CD5C5C", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "3px 3px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
                     height: "50%",
                     color: "#CD5C5C",
-                    paddingTop: "20px",
+                    paddingTop: "25px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -1095,19 +1164,37 @@ const Classwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "rgb(102 52 91)", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "3px 3px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
                     height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "20px",
+                    color: "rgb(102 52 91)",
+                    paddingTop: "25px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -1118,7 +1205,7 @@ const Classwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
+                    backgroundColor: "rgb(102 52 91)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -1177,7 +1264,22 @@ const Classwise = () => {
               width: "97%",
             }}
           >
-            <h1>Chatbot in Brief</h1>
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Chatbot in Brief
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -1195,19 +1297,37 @@ const Classwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#6A5ACD", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 8px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
                     height: "50%",
                     color: "#6A5ACD",
-                    paddingTop: "20px",
+                    paddingTop: "25px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -1235,19 +1355,37 @@ const Classwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
                 <div
                   style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "rgb(153 58 134)", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 8px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
                     height: "50%",
                     color: "rgb(153 58 134)",
-                    paddingTop: "20px",
+                    paddingTop: "28px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -1275,14 +1413,32 @@ const Classwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "rgb(214 148 16)", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
                 <div
                   style={{
                     height: "50%",

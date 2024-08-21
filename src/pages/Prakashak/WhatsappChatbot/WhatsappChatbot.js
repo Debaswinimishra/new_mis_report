@@ -50,7 +50,6 @@ const WhatsappChatbot = () => {
     { value: 2, label: "2" },
     { value: 3, label: "3" },
     { value: 4, label: "4" },
-    { value: 5, label: "5" },
   ];
 
   //?----------------Class Array-----------------------
@@ -62,7 +61,7 @@ const WhatsappChatbot = () => {
   ];
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
 
   const currentMonth = moment().format("MMMM");
   const currentMonthSelected = monthArr?.filter(
@@ -76,6 +75,7 @@ const WhatsappChatbot = () => {
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState(false);
   const [modalLoader, setModalLoader] = useState(false);
+  const [show, setShow] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -111,6 +111,7 @@ const WhatsappChatbot = () => {
   // };
 
   const [data, setData] = useState({});
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -151,9 +152,19 @@ const WhatsappChatbot = () => {
   };
 
   const filterButtonClick = () => {
+    // Assuming you have selectedMonth and selectedWeek as state variables or props
+    // if (!selectedMonth) {
+    //   // Show error message
+    //   alert("Please select both a month .");
+    //   return; // Exit the function without proceeding further
+    // }
+
+    // If both are selected, proceed with loading and fetching data
     setLoading(true);
+    setShow(true);
     fetchData();
   };
+
   const graphData = {
     labels: data.graphData?.classData,
     values1: data.graphData?.numberData,
@@ -389,7 +400,7 @@ const WhatsappChatbot = () => {
           // justifyContent: "space-around",
           // width: "25%",
           marginTop: "4%",
-          marginLeft: "62%",
+          marginLeft: "55%",
           // width: "30%",
           flexWrap: "wrap",
         }}
@@ -420,7 +431,7 @@ const WhatsappChatbot = () => {
             onChange={handleMonthChange}
             label="Month"
           >
-            <MenuItem value={null}>None</MenuItem>
+            <MenuItem value={""}>None</MenuItem>
             {monthArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -452,6 +463,7 @@ const WhatsappChatbot = () => {
             height: "40px",
             width: "120px",
             marginTop: "1.2%",
+            marginLeft: "9px",
           }}
           onClick={filterButtonClick}
         >
@@ -508,13 +520,32 @@ const WhatsappChatbot = () => {
                     height: "180px",
                     marginTop: "1.5%",
                     backgroundColor: "white",
-
                     borderRadius: "10px",
                     display: "flex",
                     flexDirection: "column",
                     boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "0px", // Adjust to position the text at the top
+                      right: "0px", // Adjust to position the text at the right
+                      color: "#CD5C5C", // Text color
+                      backgroundColor: "white", // Background color to make it stand out
+                      padding: "5px 10px", // Padding to add some space inside the border
+                      fontSize: "0.7rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                      borderRadius: "5px", // Rounded corners for a smoother look
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                      zIndex: "10", // Ensure it stays on top of other elements
+                    }}
+                  >
+                    Click Here 👆
+                  </div>
                   <div
                     style={{
                       height: "50%",
@@ -539,46 +570,67 @@ const WhatsappChatbot = () => {
                     <h1>{data.chatbot_users}</h1>
                   </div>
                 </div>
-                <div
-                  className="card"
-                  // onClick={handleOpen}
-                  onClick={() => handleOpen("Total No. of New Users")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
-
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
+                {show ? (
                   <div
+                    className="card"
+                    // onClick={handleOpen}
+                    onClick={() => handleOpen("Total No. of New Users")}
                     style={{
-                      height: "50%",
-                      color: "rgb(214 148 16)",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
+                      width: "255px",
+                      height: "180px",
+                      marginTop: "1.5%",
+                      backgroundColor: "white",
+                      borderRadius: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      boxShadow: "1px 1px 4px 3px lightGrey",
+                      cursor: "pointer", // Show hand cursor on hover
+                      position: "relative", // Needed for positioning the "Click here" text
                     }}
                   >
-                    <p> Total No. of New Users</p>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "0px", // Adjust to position the text at the top
+                        right: "0px", // Adjust to position the text at the right
+                        color: "rgb(214 148 16)", // Text color
+                        backgroundColor: "white", // Background color to make it stand out
+                        padding: "5px 10px", // Padding to add some space inside the border
+                        fontSize: "0.7rem",
+                        fontFamily: "Congenial SemiBold",
+                        fontWeight: "600",
+                        borderRadius: "5px", // Rounded corners for a smoother look
+                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                        zIndex: "10", // Ensure it stays on top of other elements
+                      }}
+                    >
+                      Click Here 👆
+                    </div>
+                    <div
+                      style={{
+                        height: "50%",
+                        color: "rgb(214 148 16)",
+                        paddingTop: "20px",
+                        fontSize: "1.2rem",
+                        fontFamily: "Congenial SemiBold",
+                        fontWeight: "600",
+                      }}
+                    >
+                      <p> Total No. of New Users</p>
+                    </div>
+                    <div
+                      style={{
+                        height: "50%",
+                        backgroundColor: "rgb(214 148 16)",
+                        borderEndStartRadius: "10px",
+                        borderEndEndRadius: "10px",
+                        color: "white",
+                      }}
+                    >
+                      <h1>{data.chatbot_new_users}</h1>
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "rgb(214 148 16)",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_new_users}</h1>
-                  </div>
-                </div>
+                ) : null}
                 <div
                   className="card"
                   onClick={() => handleactiveOpen("Total No. of Active Users")}
@@ -597,7 +649,7 @@ const WhatsappChatbot = () => {
                   <div
                     style={{
                       height: "50%",
-                      color: "#6A5ACD",
+                      color: "rgb(102 52 91)",
                       paddingTop: "20px",
                       fontSize: "1.2rem",
                       fontFamily: "Congenial SemiBold",
@@ -609,7 +661,7 @@ const WhatsappChatbot = () => {
                   <div
                     style={{
                       height: "50%",
-                      backgroundColor: "#6A5ACD",
+                      backgroundColor: "rgb(102 52 91)",
                       borderEndStartRadius: "10px",
                       borderEndEndRadius: "10px",
                       color: "white",
@@ -693,7 +745,7 @@ const WhatsappChatbot = () => {
                   </div>
                 </div> */}
 
-                {/* <div
+                <div
                   className="card"
                   // onClick={() => handleOpen(" Total No. of Minutes Spent")}
                   style={{
@@ -712,7 +764,7 @@ const WhatsappChatbot = () => {
                     style={{
                       height: "50%",
                       color: "#6A5ACD",
-                      paddingTop: "20px",
+                      paddingTop: "30px",
                       fontSize: "1.2rem",
                       fontFamily: "Congenial SemiBold",
                       fontWeight: "600",
@@ -731,8 +783,8 @@ const WhatsappChatbot = () => {
                   >
                     <h1>{data.total_chatbot_mins}</h1>
                   </div>
-                </div> */}
-                {/* <div
+                </div>
+                <div
                   className="card"
                   style={{
                     width: "255px",
@@ -769,7 +821,7 @@ const WhatsappChatbot = () => {
                   >
                     <h1>{data.chatbot_avg_mins}</h1>
                   </div>
-                </div> */}
+                </div>
               </div>
             </div>
           </div>

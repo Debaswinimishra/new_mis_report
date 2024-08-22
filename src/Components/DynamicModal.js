@@ -35,6 +35,16 @@ const DynamicModal = ({
     setPage(newPage);
   };
 
+  const handleCloseAndReset = () => {
+    setPage(0);
+    handleClose();
+  };
+
+  const handleCloseAndReset = () => {
+    setPage(0);
+    handleClose();
+  };
+
   const handleModalClose = () => {
     setSearchname(""); // Reset the search input
     handleClose(); // Call the original handleClose function
@@ -53,7 +63,7 @@ const DynamicModal = ({
   return (
     <Modal
       open={open}
-      onClose={handleModalClose} // Use the new handleModalClose function
+      // onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -63,8 +73,8 @@ const DynamicModal = ({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 1450,
-          height: 600,
+          width: "90%",
+          height: "80%",
           bgcolor: "background.paper",
           border: "2px solid #000",
           boxShadow: 24,
@@ -83,19 +93,22 @@ const DynamicModal = ({
             justifyContent: "space-between",
             alignItems: "flex-start",
             mb: 2,
+            gap: 3,
           }}
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {modalTitle}
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleModalClose} // Use the new handleModalClose function
-            sx={{ mt: -2 }}
-          >
-            Close
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleCloseAndReset}
+              sx={{ width: "40%" }}
+            >
+              Close
+            </Button>
+          </div>
         </Box>
 
         {modalTitle === "Number of Students" && (
@@ -155,16 +168,20 @@ const DynamicModal = ({
                 </TableBody>
               </Table>
             </TableContainer>
-            <TablePagination
-              component="div"
-              count={filteredTableData.length}
-              page={page}
-              onPageChange={handleChangePage}
-              rowsPerPage={rowsPerPage}
-              rowsPerPageOptions={[]}
-              labelDisplayedRows={({ from, to }) => `${from}-${to}`}
-            />
-            {filteredTableData.length > 0 && (
+
+            {tableData.length >= 15 ? (
+              <TablePagination
+                component="div"
+                count={tableData.length}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                rowsPerPageOptions={[]}
+                labelDisplayedRows={({ from, to }) => `${from}-${to}`}
+              />
+            ) : null}
+
+            {tableData && tableData.length > 0 && (
               <Download csvData={xlData} fileName={fileName} />
             )}
           </>

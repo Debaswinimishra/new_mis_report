@@ -29,12 +29,14 @@ import Chart from "chart.js/auto";
 import DynamicModal from "../../../Components/DynamicModal";
 import SelectYear from "../../../ReusableComponents/SelectYear";
 
-const Schoolwise = () => {
+const Schoolwise_performance = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
   const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedWeek, setSelectedWeek] = useState("");
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
   const [blockArr, setBlockArr] = useState([]);
@@ -59,6 +61,30 @@ const Schoolwise = () => {
   ]);
   console.log("tableData", tableData);
   console.log("districtArr", districtArr);
+
+  //?---------------Month array---------------------------
+  const monthArr = [
+    { value: 1, label: "January" },
+    { value: 2, label: "February" },
+    { value: 3, label: "March" },
+    { value: 4, label: "April" },
+    { value: 5, label: "May" },
+    { value: 6, label: "June" },
+    { value: 7, label: "July" },
+    { value: 8, label: "August" },
+    { value: 9, label: "September" },
+    { value: 10, label: "October" },
+    { value: 11, label: "November" },
+    { value: 12, label: "December" },
+  ];
+
+  //?-----------------Week array--------------------
+  const weekArr = [
+    { value: 1, label: "1" },
+    { value: 2, label: "2" },
+    { value: 3, label: "3" },
+    { value: 4, label: "4" },
+  ];
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
@@ -173,6 +199,23 @@ const Schoolwise = () => {
     return () => {};
   }, [districts]);
 
+  const currentMonth = moment().format("MMMM");
+  const currentMonthSelected = monthArr?.filter(
+    (item) => item.label === currentMonth
+  )[0];
+
+  const handleMonthChange = (e) => {
+    if (
+      e.target.value > currentMonthSelected.value &&
+      selectedYear === currentYear
+    ) {
+      alert("You can't select a month greater than the current month !");
+    } else {
+      setSelectedWeek("");
+      setSelectedMonth(e.target.value ? e.target.value : "");
+    }
+  };
+
   const handleBlockChange = (e) => {
     setBlocks(e.target.value);
     setCluseters("");
@@ -234,7 +277,13 @@ const Schoolwise = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
+  const handleWeekChange = (e) => {
+    if (!selectedMonth && e.target.value) {
+      alert("Please select a month before selecting a week !");
+    } else {
+      setSelectedWeek(e.target.value ? parseInt(e.target.value) : "");
+    }
+  };
   const fetchData = () => {
     setLoading(true);
     const body = {
@@ -425,9 +474,6 @@ const Schoolwise = () => {
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
-            <MenuItem value="Select District" disabled>
-              Select District
-            </MenuItem>
             {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
@@ -445,9 +491,6 @@ const Schoolwise = () => {
             label="Block"
             disabled={loading || !districts}
           >
-            <MenuItem value="Select Month" disabled>
-              Select Month
-            </MenuItem>
             <MenuItem value="">None</MenuItem>
             {blockArr &&
               blockArr?.map((block, index) => (
@@ -467,9 +510,6 @@ const Schoolwise = () => {
             label="Cluster"
             disabled={loading || !blocks}
           >
-            <MenuItem value="Select Cluster" disabled>
-              Select Cluster
-            </MenuItem>
             <MenuItem value="">None</MenuItem>
             {clusterArr?.map((cluster, index) => (
               <MenuItem key={index} value={cluster}>
@@ -490,13 +530,44 @@ const Schoolwise = () => {
             label="School"
             disabled={!clusters}
           >
-            <MenuItem value="Select School" disabled>
-              Select School
-            </MenuItem>
             <MenuItem value="">None</MenuItem>
             {schoolArr?.map((school, index) => (
               <MenuItem key={index} value={school}>
                 {school.school_name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Month</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedMonth}
+            onChange={handleMonthChange}
+            label="Month"
+          >
+            <MenuItem value={null}>None</MenuItem>
+            {monthArr.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Week</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedWeek}
+            onChange={handleWeekChange}
+            label="Month"
+          >
+            <MenuItem value={null}>None</MenuItem>
+            {weekArr.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.label}
               </MenuItem>
             ))}
           </Select>
@@ -553,23 +624,24 @@ const Schoolwise = () => {
               width: "97%",
             }}
           >
-            <h1
-              style={{
-                marginTop: "-2%",
-                color: "#333", // Dark grey color for the text
-                fontFamily: "Congenial SemiBold", // Font family for a clean look
-                fontWeight: "700", // Bolder font weight for emphasis
-                fontSize: "1.2rem", // Smaller font size for prominence
-                textAlign: "right", // Align the text to the right
-                padding: "10px 0", // Add some padding for spacing
-                borderBottom: "2px solid #000000", // Add a bottom border for separation
-                letterSpacing: "0.5px", // Slight letter spacing for readability
-                textTransform: "capitalize", // Capitalize each word
-              }}
-            >
-              Data Updated as on -{" "}
-              {data ? data?.data_last_updated : "22/08/2024"}
-            </h1>
+            <div style={{ marginTop: "-2%" }}>
+              <h1
+                style={{
+                  marginTop: "-2%",
+                  color: "#333", // Dark grey color for the text
+                  fontFamily: "Congenial SemiBold", // Font family for a clean look
+                  fontWeight: "700", // Bolder font weight for emphasis
+                  fontSize: "1.8rem", // Larger font size for prominence
+                  textAlign: "center", // Center-align the text
+                  padding: "10px 0", // Add some padding for spacing
+                  borderBottom: "2px solid #000000", // Add a bottom border for separation
+                  letterSpacing: "0.5px", // Slight letter spacing for readability
+                  textTransform: "capitalize", // Capitalize each word
+                }}
+              >
+                School-wise Details
+              </h1>
+            </div>
             <div
               style={{
                 display: "flex",
@@ -580,7 +652,7 @@ const Schoolwise = () => {
                 gap: "2%",
               }}
             >
-              <div
+              {/* <div
                 onClick={() => handleOpenModal("studentReport")}
                 style={{
                   width: "255px",
@@ -636,7 +708,7 @@ const Schoolwise = () => {
                 >
                   <h1>{data.total_students}</h1>
                 </div>
-              </div>
+              </div> */}
               {/* <div
                 style={{
                   width: "255px",
@@ -675,7 +747,7 @@ const Schoolwise = () => {
                   <h1>{data.total_poc}</h1>
                 </div>
               </div> */}
-              <div
+              {/* <div
                 onClick={() => handleOpenModal("studentReport", 1)}
                 style={{
                   width: "255px",
@@ -986,7 +1058,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total Activated students</p>
+                  <p> Total Time Spent</p>
                 </div>
                 <div
                   style={{
@@ -997,162 +1069,417 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.total_activated_students}</h1>
+                  <h1>{data.total_timespent}</h1>
+                </div>
+              </div> */}
+              <div
+                style={{
+                  width: "255px",
+                  height: "220px", // Increased height to accommodate heading
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                {/* Heading */}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    color: "#00CED1",
+                    fontSize: "1.2rem", // Heading font size
+                    fontWeight: "bold",
+                    fontSize: "1rem", // Reduced font size
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  Time Spent 0-1 mins
+                </div>
+
+                {/* User and Avg. Time Spent Section */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
+                    height: "50%",
+                    color: "#00CED1",
+                    fontSize: "1rem", // Reduced font size
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #00CED1", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time (in mins)
+                  </div>
+                </div>
+
+                {/* User count and Avg. Time Spent Values */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
+                    backgroundColor: "#00CED1",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                    padding: "10px",
+                    height: "50%",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{data.no_of_parents_spent_0to1mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "0.7rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{data.avg_tS_0to1mins}</h1>
+                  </div>
                 </div>
               </div>
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "220px", // Increased height to accommodate heading
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
+                {/* Heading */}
                 <div
                   style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    color: "#CD5C5C",
+                    fontSize: "1.2rem", // Heading font size
+                    fontWeight: "bold",
+                    fontSize: "1rem", // Reduced font size
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  Time Spent 2-15 mins
+                </div>
+
+                {/* User and Avg. Time Spent Section */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    color: "#CD5C5C",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Total active students
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #CD5C5C", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time (in mins)
+                  </div>
                 </div>
+
+                {/* User count and Avg. Time Spent Values */}
                 <div
                   style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
+                    backgroundColor: "#CD5C5C",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{data.total_active_students}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{data.no_of_parents_spent_2to5mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "0.7rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{data.avg_tS_2to5mins}</h1>
+                  </div>
                 </div>
               </div>
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "220px", // Increased height to accommodate heading
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
                   boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
+                {/* Heading */}
                 <div
                   style={{
-                    height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    textAlign: "center",
+                    padding: "10px",
+                    color: "#2E8B57",
+                    fontSize: "1.2rem", // Heading font size
+                    fontWeight: "bold",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
                   }}
                 >
-                  Total smartphone users
+                  Time Spent 31-45 mins
                 </div>
+
+                {/* User and Avg. Time Spent Section */}
                 <div
                   style={{
-                    height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{data.remote_instructions_users}</h1>
-                </div>
-              </div>
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total non-smartphone users
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{data.chatbot_users}</h1>
-                </div>
-              </div>
-              {/* <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 31-45 mins
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #2E8B57", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time (in mins)
+                  </div>
                 </div>
+
+                {/* User count and Avg. Time Spent Values */}
                 <div
                   style={{
-                    height: "50%",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
                     backgroundColor: "#2E8B57",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_31to45mins}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{data.no_of_parents_spent_31to45mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "0.7rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{data.avg_tS_31to45mins}</h1>
+                  </div>
                 </div>
-              </div> */}
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "220px", // Increased height to accommodate heading
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                {/* Heading */}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    color: "#6A5ACD",
+                    fontSize: "1.2rem", // Heading font size
+                    fontWeight: "bold",
+                    fontSize: "1rem", // Reduced font size
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  Time Spent 45+ mins
+                </div>
 
+                {/* User and Avg. Time Spent Section */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
+                    height: "50%",
+                    color: "#6A5ACD",
+                    fontSize: "1rem", // Reduced font size
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #6A5ACD", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time (in mins)
+                  </div>
+                </div>
+
+                {/* User count and Avg. Time Spent Values */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                    padding: "10px",
+                    height: "50%",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{data.no_of_parents_spent_gte45mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "0.7rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{data.avg_tS_gte45mins}</h1>
+                  </div>
+                </div>
+              </div>
               {/* <div
                 style={{
                   width: "255px",
@@ -1170,25 +1497,25 @@ const Schoolwise = () => {
                 <div
                   style={{
                     height: "50%",
-                    color: "#6A5ACD",
+                    color: "rgb(153 58 134)",
                     paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 45+ mins
+                  Number of Parents Spent 16-30 mins
                 </div>
                 <div
                   style={{
                     height: "50%",
-                    backgroundColor: "#6A5ACD",
+                    backgroundColor: "rgb(153 58 134)",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_gte45mins}</h1>
+                  <h1>{data.no_of_parents_spent_16to30mins}</h1>
                 </div>
               </div> */}
             </div>
@@ -1779,4 +2106,4 @@ const Schoolwise = () => {
   );
 };
 
-export default Schoolwise;
+export default Schoolwise_performance;

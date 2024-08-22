@@ -14,6 +14,9 @@ import RemoteInstruction from "../../Pages/Prakashak/RemoteInstruction/RemoteIns
 import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatbot";
 import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
+import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
+import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
+import Schoolwise_performance from "../../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -24,6 +27,7 @@ function NavigationPrakashak(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const usertype = localStorage.getItem("usertype");
+  console.log("activeLink---------->", activeLink);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -52,6 +56,10 @@ function NavigationPrakashak(props) {
     handleClose();
   };
 
+  const handleNavigateHome = () => {
+    navigate("/home");
+  };
+
   const handleTabChange = (link) => {
     setActiveLink(link);
     navigate(link);
@@ -71,32 +79,38 @@ function NavigationPrakashak(props) {
 
   const listItem = [
     { text: "Overall Dashboard", link: "prakashak/dashboard", id: 0 },
+    { text: "Dashboard Monthly", link: "prakashak/dashboard_monthly", id: 1 },
     {
       text: "Remote Instructions",
       link: "prakashak/remote_instructions",
-      id: 1,
+      id: 2,
     },
-    { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 2 },
-    { text: "School-wise", link: "prakashak/school_wise", id: 3 },
-    { text: "Class-wise", link: "prakashak/class_wise", id: 4 },
+    { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 3 },
+    { text: "School-wise", link: "prakashak/school_wise", id: 4 },
+    {
+      text: "School-wise Performance",
+      link: "prakashak/school_wise_performance",
+      id: 5,
+    },
+    // { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
   ];
 
   return (
     <Box
       sx={{
-        display: "flex",
+        // display: "flex",
         flexDirection: "column",
-        backgroundColor: "#F5F5F5",
+        backgroundColor: "white",
         minHeight: "100vh",
         width: "100%",
-        padding: "0 16px",
+        padding: "0 0",
 
         boxSizing: "border-box",
       }}
     >
       <div
         style={{
-          backgroundColor: "#F5F5F5",
+          backgroundColor: "#E8E8E8",
           padding: "1%",
           color: "black",
           display: "flex",
@@ -105,11 +119,11 @@ function NavigationPrakashak(props) {
           flexDirection: "row",
           flexWrap: "wrap",
           width: "100%",
-          borderBottom: "0.5px solid black",
+          // borderBottom: "0.5px solid black",
         }}
       >
         <IconButton
-          onClick={handleMenuClick}
+          // onClick={handleMenuClick}
           sx={{
             position: "relative",
             top: 0,
@@ -132,52 +146,59 @@ function NavigationPrakashak(props) {
             textAlign: "start",
             margin: "auto",
             width: "100%",
+            cursor: "pointer",
+            marginTop: "10px",
+            marginLeft: "10px",
           }}
+          onClick={handleNavigateHome}
         >
           <b>PRAKASHAK</b>
           <sub>
             v{Version.version}({networkStatus})
           </sub>
+          <div
+            style={{
+              flex: 1,
+              textAlign: "start",
+              marginTop: 6,
+              fontStyle: "italic",
+              width: "90%",
+            }}
+          >
+            Parents' Remote Assistance and Knowledge Support for the Holistic
+            Advancement of Kids
+          </div>
+          <div onClick={handleNavigateHome}>
+            <HomeTwoToneIcon />
+          </div>
         </div>
-        <div
-          style={{
-            flex: 1,
-            textAlign: "start",
-            marginTop: 6,
-            fontStyle: "italic",
-            width: "100%",
-          }}
-        >
-          Parents' Remote Assistance and Knowledge Support for the Holistic
-          Advancement of Kids
-        </div>
-
-        <Popover
-          open={Boolean(anchorEl)}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          <span style={{ marginLeft: "18px", fontSize: 18 }}>
-            v{Version.version}
-          </span>
-          <MenuItem onClick={handleLogout}>
-            <Logout fontSize="small" />
-            {usertype === "prakashak" ? (
-              <span style={{ marginLeft: "8px" }}>Logout</span>
-            ) : usertype === "admin" ? (
-              <span style={{ marginLeft: "8px" }}>Back</span>
-            ) : null}
-          </MenuItem>
-        </Popover>
       </div>
+
+      <Popover
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <span style={{ marginLeft: "18px", fontSize: 18 }}>
+          v{Version.version}
+        </span>
+        <MenuItem onClick={handleLogout}>
+          <Logout fontSize="small" />
+          {usertype === "prakashak" ? (
+            <span style={{ marginLeft: "8px" }}>Logout</span>
+          ) : usertype === "admin" ? (
+            <span style={{ marginLeft: "8px" }}>Back</span>
+          ) : null}
+        </MenuItem>
+      </Popover>
 
       <div
         style={{
@@ -227,14 +248,16 @@ function NavigationPrakashak(props) {
       <div>
         {activeLink === "/prakashak/dashboard" ? (
           <Dashboard />
+        ) : activeLink === "/prakashak/dashboard_monthly" ? (
+          <DashboardMonthly />
         ) : activeLink === "/prakashak/remote_instructions" ? (
           <RemoteInstruction />
         ) : activeLink === "/prakashak/whatsapp_chatbot" ? (
           <WhatsappChatbot />
         ) : activeLink === "/prakashak/school_wise" ? (
           <Schoolwise />
-        ) : activeLink === "/prakashak/class_wise" ? (
-          <Classwise />
+        ) : activeLink === "/prakashak/school_wise_performance" ? (
+          <Schoolwise_performance />
         ) : null}
       </div>
     </Box>

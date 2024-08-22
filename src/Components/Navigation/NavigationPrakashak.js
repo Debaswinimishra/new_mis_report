@@ -179,7 +179,6 @@ function NavigationPrakashak(props) {
           </div>
         </div>
       </div>
-
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -205,16 +204,15 @@ function NavigationPrakashak(props) {
           ) : null}
         </MenuItem>
       </Popover>
-
       <div
         style={{
           display: "flex",
           flexDirection: "row",
+          flexWrap: "wrap",
           justifyContent: "center",
           margin: "10px 0",
           overflowX: "auto",
-          // whiteSpace: "nowrap",
-          // flexWrap: "nowrap", // Default to nowrap for larger screens
+          whiteSpace: "nowrap",
         }}
       >
         {listItem.map((item, index) => (
@@ -252,33 +250,6 @@ function NavigationPrakashak(props) {
           </div>
         ))}
       </div>
-
-      <style jsx>
-        {`
-          div::-webkit-scrollbar {
-            display: none;
-          }
-
-          div {
-            scrollbar-width: none; /* Firefox */
-          }
-
-          @media (max-width: 768px) {
-            div {
-              flex-wrap: wrap !important; /* Wrap content on smaller screens */
-              overflow-x: hidden; /* Disable horizontal scrolling */
-            }
-          }
-
-          @media (min-width: 769px) {
-            div {
-              flex-wrap: nowrap !important; /* No wrapping on larger screens */
-              overflow-x: auto; /* Enable horizontal scrolling */
-            }
-          }
-        `}
-      </style>
-
       <div>
         {activeLink === "/prakashak/dashboard" ? (
           <Dashboard />
@@ -296,6 +267,8 @@ function NavigationPrakashak(props) {
           <Retention />
         ) : null}
       </div>
+      I want to in laptop desktop the div became scroll horizontally and in
+      mobile view it became wrap
     </Box>
   );
 }

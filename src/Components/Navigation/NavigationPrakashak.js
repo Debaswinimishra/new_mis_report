@@ -154,7 +154,7 @@ function NavigationPrakashak(props) {
         >
           <b>PRAKASHAK</b>
           <sub>
-            v{Version.version}({networkStatus})
+            v{Version.version} ({networkStatus})
           </sub>
           <div
             style={{

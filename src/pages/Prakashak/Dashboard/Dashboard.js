@@ -629,10 +629,6 @@ const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = (type) => {
     console.log("type------->", type);
-<<<<<<< HEAD
-
-=======
->>>>>>> 5f3e12707f9935ff76cf2b5ebd9c5637c02aabf2
     setOpen(true);
 
     const newModalTitle = getModalTitle(type);
@@ -2593,22 +2589,6 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
-            <DynamicModal
-              open={open}
-              handleClose={handleClose}
-              modalTitle={modalTitle}
-              tableHeaders={tableHeaders}
-              tableData={tableDatas}
-              // tableHeaders={tableHeaders}
-              // tableData={tableData}
-
-              xlData={xlData}
-              fileName={fileName}
-              loading={modalLoader}
-            />
-          </div>
-=======
            </div>  */}
           <DynamicModal
             open={open}
@@ -2622,7 +2602,6 @@ const Dashboard = () => {
             fileName={fileName}
             loading={modalLoader}
           />
->>>>>>> 5f3e12707f9935ff76cf2b5ebd9c5637c02aabf2
         </div>
       ) : dashboardData &&
         Object.keys(dashboardData).length === 0 &&

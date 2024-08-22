@@ -17,6 +17,7 @@ import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
+import Retention from "../../Pages/Prakashak/Retention/Retention";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -91,6 +92,11 @@ function NavigationPrakashak(props) {
       text: "School-wise Performance",
       link: "prakashak/school_wise_performance",
       id: 5,
+    },
+    {
+      text: "Retention Metrics",
+      link: "prakashak/retention_metrics",
+      id: 6,
     },
     // { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
   ];
@@ -258,6 +264,8 @@ function NavigationPrakashak(props) {
           <Schoolwise />
         ) : activeLink === "/prakashak/school_wise_performance" ? (
           <Schoolwise_performance />
+        ) : activeLink === "/prakashak/retention_metrics" ? (
+          <Retention />
         ) : null}
       </div>
     </Box>

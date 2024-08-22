@@ -738,7 +738,7 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       height: "50%",
-                      color: "#708090",
+                      color: "#000080",
                       paddingTop: "30px",
                       fontSize: "1.2rem",
                       fontFamily: "Congenial SemiBold",
@@ -750,7 +750,7 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       height: "50%",
-                      backgroundColor: "#708090",
+                      backgroundColor: "#000080",
                       borderEndStartRadius: "10px",
                       borderEndEndRadius: "10px",
                       color: "white",
@@ -1194,8 +1194,6 @@ const DashboardMonthly = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1204,36 +1202,86 @@ const DashboardMonthly = () => {
               >
                 <div
                   style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    color: "#00CED1",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  No. of parents spending 0-1 mins
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #00CED1", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time Spent 0-1 mins
+                  </div>
                 </div>
+
                 <div
                   style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
+                    backgroundColor: "#00CED1",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{dashboardData.no_of_parents_spent_0to1mins}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "left",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{dashboardData.no_of_parents_spent_0to1mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "right",
+                      fontSize: "0.8rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{dashboardData.no_of_parents_spent_0to1mins}</h1>
+                  </div>
                 </div>
               </div>
+
               <div
                 style={{
                   width: "255px",
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1242,26 +1290,77 @@ const DashboardMonthly = () => {
               >
                 <div
                   style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
                     color: "#CD5C5C",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  No. of parents spending 2-15 mins
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #CD5C5C", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time Spent 2-15 mins
+                  </div>
                 </div>
+
                 <div
                   style={{
-                    height: "50%",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
                     backgroundColor: "#CD5C5C",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{dashboardData.no_of_parents_spent_2to5mins}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "left",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{dashboardData.no_of_parents_spent_2to5mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "right",
+                      fontSize: "0.8rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{dashboardData.no_of_parents_spent_2to5mins}</h1>
+                  </div>
                 </div>
               </div>
 
@@ -1271,8 +1370,6 @@ const DashboardMonthly = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1281,65 +1378,77 @@ const DashboardMonthly = () => {
               >
                 <div
                   style={{
-                    height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  No. of parents spending 16-30 mins
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.no_of_parents_spent_16to30mins}</h1>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  No. of parents spending 31-45 mins
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #2E8B57", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time Spent 31-45 mins
+                  </div>
                 </div>
+
                 <div
                   style={{
-                    height: "50%",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
                     backgroundColor: "#2E8B57",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{dashboardData.no_of_parents_spent_31to45mins}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "left",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{dashboardData.no_of_parents_spent_31to45mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "right",
+                      fontSize: "0.8rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{dashboardData.no_of_parents_spent_31to45mins}</h1>
+                  </div>
                 </div>
               </div>
 
@@ -1349,8 +1458,6 @@ const DashboardMonthly = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1359,26 +1466,77 @@ const DashboardMonthly = () => {
               >
                 <div
                   style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
                     color: "#6A5ACD",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  No. of parents spending 45+ mins
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #6A5ACD", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time Spent 45+ mins
+                  </div>
                 </div>
+
                 <div
                   style={{
-                    height: "50%",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
                     backgroundColor: "#6A5ACD",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{dashboardData.no_of_parents_spent_gte45mins}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "left",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{dashboardData.no_of_parents_spent_gte45mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "right",
+                      fontSize: "0.8rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{dashboardData.no_of_parents_spent_gte45mins}</h1>
+                  </div>
                 </div>
               </div>
             </div>

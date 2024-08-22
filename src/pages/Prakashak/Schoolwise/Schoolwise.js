@@ -553,6 +553,22 @@ const Schoolwise = () => {
               width: "97%",
             }}
           >
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.2rem", // Smaller font size for prominence
+                textAlign: "right", // Align the text to the right
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Data Updated as on - 16/08/2024
+            </h1>
             <div
               style={{
                 display: "flex",

@@ -705,15 +705,15 @@ const Dashboard = () => {
                 color: "#333", // Dark grey color for the text
                 fontFamily: "Congenial SemiBold", // Font family for a clean look
                 fontWeight: "700", // Bolder font weight for emphasis
-                fontSize: "1.8rem", // Larger font size for prominence
-                textAlign: "center", // Center-align the text
+                fontSize: "1.2rem", // Smaller font size for prominence
+                textAlign: "right", // Align the text to the right
                 padding: "10px 0", // Add some padding for spacing
                 borderBottom: "2px solid #000000", // Add a bottom border for separation
                 letterSpacing: "0.5px", // Slight letter spacing for readability
                 textTransform: "capitalize", // Capitalize each word
               }}
             >
-              Details Till Now: 1st Week
+              Data Updated as on - 16/08/2024
             </h1>
             <div
               style={{

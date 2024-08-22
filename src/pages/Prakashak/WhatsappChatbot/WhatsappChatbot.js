@@ -396,6 +396,90 @@ const WhatsappChatbot = () => {
     <div>
       <div
         style={{
+          marginTop: "2%",
+          paddingBottom: "4%",
+          marginLeft: "4%",
+          alignContent: "flex-start",
+        }}
+      >
+        <div
+          style={{
+            marginTop: "2%",
+            boxShadow: "2px 1px 5px grey",
+            padding: "3%",
+            width: "95%",
+          }}
+        >
+          <div style={{ marginTop: "-2%" }}>
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.2rem", // Smaller font size for prominence
+                textAlign: "right", // Align the text to the right
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Data Updated as on - 16/08/2024
+            </h1>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignContent: "center",
+              justifyContent: "center",
+              width: "97%",
+              gap: "2%",
+              // marginLeft: "4%",
+            }}
+          >
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#00CED1",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                <p>No. of registered smartphone users</p>
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#00CED1",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                <h1>{data.chatbot_active_users}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
           display: "flex",
           // justifyContent: "space-around",
           // width: "25%",
@@ -511,7 +595,7 @@ const WhatsappChatbot = () => {
                   gap: "2%",
                 }}
               >
-                <div
+                {/* <div
                   className="card"
                   // onClick={() => handleUserOpen()}
                   onClick={() => handleOpen("Total No. of Users")}
@@ -562,6 +646,65 @@ const WhatsappChatbot = () => {
                     style={{
                       height: "50%",
                       backgroundColor: "#CD5C5C",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.chatbot_users}</h1>
+                  </div>
+                </div> */}
+                <div
+                  className="card"
+                  // onClick={() => handleUserOpen()}
+                  onClick={() => handleOpen("Total No. of Users")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "0px", // Adjust to position the text at the top
+                      right: "0px", // Adjust to position the text at the right
+                      color: "#000080", // Text color
+                      backgroundColor: "white", // Background color to make it stand out
+                      padding: "5px 10px", // Padding to add some space inside the border
+                      fontSize: "0.7rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                      borderRadius: "5px", // Rounded corners for a smoother look
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                      zIndex: "10", // Ensure it stays on top of other elements
+                    }}
+                  >
+                    Click Here 👆
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#000080",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p>No of new registered smartphone users</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#000080",
                       borderEndStartRadius: "10px",
                       borderEndEndRadius: "10px",
                       color: "white",
@@ -670,6 +813,45 @@ const WhatsappChatbot = () => {
                     <h1>{data.chatbot_active_users}</h1>
                   </div>
                 </div>
+                <div
+                  className="card"
+                  onClick={() => handleactiveOpen("Total No. of Active Users")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#708090",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p> Total No. new Activated Users</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#708090",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.chatbot_active_users}</h1>
+                  </div>
+                </div>
                 {/* <div
                   style={{
                     width: "255px",
@@ -770,7 +952,7 @@ const WhatsappChatbot = () => {
                       fontWeight: "600",
                     }}
                   >
-                    Total No. of Minutes Spent
+                    Total mins of content consumed
                   </div>
                   <div
                     style={{

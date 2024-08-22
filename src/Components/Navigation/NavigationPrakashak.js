@@ -208,7 +208,7 @@ function NavigationPrakashak(props) {
         style={{
           display: "flex",
           flexDirection: "row",
-          flexWrap: "wrap",
+          // flexWrap: "wrap",
           justifyContent: "center",
           margin: "10px 0",
           overflowX: "auto",
@@ -250,6 +250,33 @@ function NavigationPrakashak(props) {
           </div>
         ))}
       </div>
+      <style jsx>
+        {`
+          /* Hide scrollbar in WebKit browsers (Chrome, Safari) */
+          div::-webkit-scrollbar {
+            display: none;
+          }
+
+          /* Hide scrollbar in Firefox */
+          div {
+            scrollbar-width: none; /* Firefox */
+          }
+
+          @media (max-width: 768px) {
+            div {
+              flex-wrap: wrap !important; /* Wrap content on smaller screens */
+              overflow-x: hidden; /* Disable horizontal scrolling */
+            }
+          }
+
+          @media (min-width: 769px) {
+            div {
+              flex-wrap: nowrap !important; /* No wrapping on larger screens */
+              overflow-x: auto; /* Enable horizontal scrolling */
+            }
+          }
+        `}
+      </style>
       <div>
         {activeLink === "/prakashak/dashboard" ? (
           <Dashboard />
@@ -267,8 +294,6 @@ function NavigationPrakashak(props) {
           <Retention />
         ) : null}
       </div>
-      I want to in laptop desktop the div became scroll horizontally and in
-      mobile view it became wrap
     </Box>
   );
 }

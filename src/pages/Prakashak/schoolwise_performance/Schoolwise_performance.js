@@ -1148,7 +1148,7 @@ const Schoolwise_performance = () => {
                   <h1>{data.no_of_parents_spent_2to5mins}</h1>
                 </div>
               </div>
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1185,7 +1185,7 @@ const Schoolwise_performance = () => {
                 >
                   <h1>{data.no_of_parents_spent_16to30mins}</h1>
                 </div>
-              </div>
+              </div> */}
               <div
                 style={{
                   width: "255px",

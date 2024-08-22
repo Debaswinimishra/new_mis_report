@@ -1268,7 +1268,7 @@ const DashboardMonthly = () => {
                     style={{
                       width: "50%",
                       // textAlign: "right",
-                      fontSize: "0.8rem", // Reduced font size
+                      fontSize: "0.7rem", // Reduced font size
                     }}
                   >
                     <h1>{dashboardData.no_of_parents_spent_0to1mins}</h1>
@@ -1356,7 +1356,7 @@ const DashboardMonthly = () => {
                     style={{
                       width: "50%",
                       // textAlign: "right",
-                      fontSize: "0.8rem", // Reduced font size
+                      fontSize: "0.7rem", // Reduced font size
                     }}
                   >
                     <h1>{dashboardData.no_of_parents_spent_2to5mins}</h1>
@@ -1444,7 +1444,7 @@ const DashboardMonthly = () => {
                     style={{
                       width: "50%",
                       // textAlign: "right",
-                      fontSize: "0.8rem", // Reduced font size
+                      fontSize: "0.7rem", // Reduced font size
                     }}
                   >
                     <h1>{dashboardData.no_of_parents_spent_31to45mins}</h1>
@@ -1532,7 +1532,7 @@ const DashboardMonthly = () => {
                     style={{
                       width: "50%",
                       // textAlign: "right",
-                      fontSize: "0.8rem", // Reduced font size
+                      fontSize: "0.7rem", // Reduced font size
                     }}
                   >
                     <h1>{dashboardData.no_of_parents_spent_gte45mins}</h1>

@@ -623,7 +623,10 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p> Number of students</p>
+                  <p>
+                    Number of students <br />
+                    (including promoted students)
+                  </p>
                 </div>
                 <div
                   style={{

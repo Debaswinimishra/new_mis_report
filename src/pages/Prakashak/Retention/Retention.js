@@ -32,7 +32,7 @@ export default function Retention() {
       activatedUsers: 1346,
       retention: [, , , , , 1346, 1339],
     },
-    { month: "Jul", activatedUsers: 0, retention: [] },
+    { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0] },
     { month: "Aug", activatedUsers: null, retention: [] },
     { month: "Sep", activatedUsers: null, retention: [] },
     { month: "Oct", activatedUsers: null, retention: [] },

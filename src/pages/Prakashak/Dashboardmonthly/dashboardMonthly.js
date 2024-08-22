@@ -772,8 +772,28 @@ const DashboardMonthly = () => {
                     display: "flex",
                     flexDirection: "column",
                     boxShadow: "1px 1px 4px 3px lightGrey",
+                    // cursor: "pointer", // Show hand cursor on hover
+                    // position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
+                  {/* <div
+                    style={{
+                      position: "absolute",
+                      top: "0px", // Adjust to position the text at the top
+                      right: "0px", // Adjust to position the text at the right
+                      color: "#6A5ACD", // Text color
+                      backgroundColor: "white", // Background color to make it stand out
+                      padding: "5px 10px", // Padding to add some space inside the border
+                      fontSize: "0.7rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                      borderRadius: "5px", // Rounded corners for a smoother look
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                      zIndex: "10", // Ensure it stays on top of other elements
+                    }}
+                  >
+                    Click Here 👆
+                  </div> */}
                   <div
                     style={{
                       height: "50%",
@@ -812,8 +832,28 @@ const DashboardMonthly = () => {
                     display: "flex",
                     flexDirection: "column",
                     boxShadow: "1px 1px 4px 3px lightGrey",
+                    // cursor: "pointer", // Show hand cursor on hover
+                    // position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
+                  {/* <div
+                    style={{
+                      position: "absolute",
+                      top: "0px", // Adjust to position the text at the top
+                      right: "0px", // Adjust to position the text at the right
+                      color: "#2E8B57", // Text color
+                      backgroundColor: "white", // Background color to make it stand out
+                      padding: "5px 10px", // Padding to add some space inside the border
+                      fontSize: "0.7rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                      borderRadius: "5px", // Rounded corners for a smoother look
+                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                      zIndex: "10", // Ensure it stays on top of other elements
+                    }}
+                  >
+                    Click Here 👆
+                  </div> */}
                   <div
                     style={{
                       height: "50%",

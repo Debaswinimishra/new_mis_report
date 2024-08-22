@@ -58,10 +58,11 @@ const DashboardMonthly = () => {
   const currentMonthSelected = monthArr?.filter(
     (item) => item.label === currentMonth
   )[0];
+  console.log(currentMonthSelected);
 
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("6");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();

@@ -33,7 +33,7 @@ const Schoolwise = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
-  const [districts, setDistricts] = useState("");
+  const [districts, setDistricts] = useState("PURI");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
@@ -523,7 +523,6 @@ const Schoolwise = () => {
         </Button>
         {/* </Box> */}
       </div>
-
       {/* ---------------------------- content --------------------- */}
       {loading ? (
         <div
@@ -1758,16 +1757,15 @@ const Schoolwise = () => {
             </div>
           </div> */}
         </div>
-      ) : !loading && filtered && Object.keys(data).length === 0 ? (
-        <img src={Nodata} />
+      ) : null}
+      {/* !loading && filtered && Object.keys(data).length === 0 ? (
+      <img src={Nodata} />
       ) : (
-        <img src={defaultImage} width={"20%"} />
-      )}
-
+      <img src={defaultImage} width={"20%"} />
+      )} */}
       <div>
         <canvas ref={chartRef}></canvas>
       </div>
-
       <DynamicModal
         open={open}
         loading={loading}

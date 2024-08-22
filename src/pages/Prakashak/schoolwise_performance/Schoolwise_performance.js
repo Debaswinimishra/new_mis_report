@@ -33,7 +33,7 @@ const Schoolwise_performance = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
-  const [districts, setDistricts] = useState("");
+  const [districts, setDistricts] = useState("PURI");
   const [data, setData] = useState({});
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
@@ -221,6 +221,7 @@ const Schoolwise_performance = () => {
     setCluseters("");
     setSchools("");
   };
+
   useEffect(() => {
     const fetchClusters = async () => {
       try {
@@ -249,15 +250,12 @@ const Schoolwise_performance = () => {
     setCluseters(e.target.value);
     setSchools("");
   };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (clusters) {
           const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-          // console.log(
-          //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
-          //   response.data[0].school_name
-          // );
           setSchoolArr(response?.data);
           setLoading(false);
         }
@@ -274,9 +272,11 @@ const Schoolwise_performance = () => {
   const handleSchoolName = (e) => {
     setSchools(e.target.value);
   };
+
   useEffect(() => {
     fetchData();
   }, []);
+
   const handleWeekChange = (e) => {
     if (!selectedMonth && e.target.value) {
       alert("Please select a month before selecting a week !");
@@ -284,6 +284,7 @@ const Schoolwise_performance = () => {
       setSelectedWeek(e.target.value ? parseInt(e.target.value) : "");
     }
   };
+
   const fetchData = () => {
     setLoading(true);
     const body = {
@@ -291,9 +292,19 @@ const Schoolwise_performance = () => {
       block: blocks,
       cluster: clusters,
       school_name: schools.school_name,
+      month: selectedMonth,
+      week: selectedWeek,
     };
 
-    console.log("check---------->", districts, blocks, clusters, schools);
+    console.log(
+      "check---------->",
+      districts,
+      blocks,
+      clusters,
+      schools,
+      selectedMonth,
+      selectedWeek
+    );
 
     // if ("") {
     //   Api.post(`getSchoolWiseReport`, body)
@@ -594,7 +605,6 @@ const Schoolwise_performance = () => {
         </Button>
         {/* </Box> */}
       </div>
-
       {/* ---------------------------- content --------------------- */}
       {loading ? (
         <div
@@ -2082,16 +2092,15 @@ const Schoolwise_performance = () => {
             </div>
           </div> */}
         </div>
-      ) : !loading && filtered && Object.keys(data).length === 0 ? (
-        <img src={Nodata} />
+      ) : null}
+      {/* !loading && filtered && Object.keys(data).length === 0 ? (
+      <img src={Nodata} />
       ) : (
-        <img src={defaultImage} width={"20%"} />
-      )}
-
+      <img src={defaultImage} width={"20%"} />
+      )} */}
       <div>
         <canvas ref={chartRef}></canvas>
       </div>
-
       <DynamicModal
         open={open}
         loading={loading}

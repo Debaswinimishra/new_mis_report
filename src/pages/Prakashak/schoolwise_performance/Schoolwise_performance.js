@@ -1078,8 +1078,6 @@ const Schoolwise_performance = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1088,26 +1086,77 @@ const Schoolwise_performance = () => {
               >
                 <div
                   style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    color: "#00CED1",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 0-1 mins
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #00CED1", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time Spent 0-1 mins
+                  </div>
                 </div>
+
                 <div
                   style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
+                    backgroundColor: "#00CED1",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "left",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{data.no_of_parents_spent_2to5mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "right",
+                      fontSize: "0.7rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                  </div>
                 </div>
               </div>
               <div
@@ -1116,8 +1165,6 @@ const Schoolwise_performance = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1126,26 +1173,77 @@ const Schoolwise_performance = () => {
               >
                 <div
                   style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    color: "#CD5C5C",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 2-15 mins
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #CD5C5C", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time Spent 2-15 mins
+                  </div>
                 </div>
+
                 <div
                   style={{
-                    height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
+                    backgroundColor: "#CD5C5C",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "left",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{data.no_of_parents_spent_2to5mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "right",
+                      fontSize: "0.7rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                  </div>
                 </div>
               </div>
               {/* <div
@@ -1192,8 +1290,6 @@ const Schoolwise_performance = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1202,26 +1298,77 @@ const Schoolwise_performance = () => {
               >
                 <div
                   style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
                     color: "#2E8B57",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 31-45 mins
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #2E8B57", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time Spent 31-45 mins
+                  </div>
                 </div>
+
                 <div
                   style={{
-                    height: "50%",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
                     backgroundColor: "#2E8B57",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_31to45mins}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "left",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{data.no_of_parents_spent_2to5mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "right",
+                      fontSize: "0.7rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                  </div>
                 </div>
               </div>
 
@@ -1231,8 +1378,6 @@ const Schoolwise_performance = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1241,26 +1386,77 @@ const Schoolwise_performance = () => {
               >
                 <div
                   style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
                     height: "50%",
                     color: "#6A5ACD",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
+                    fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 45+ mins
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #6A5ACD", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time Spent 45+ mins
+                  </div>
                 </div>
+
                 <div
                   style={{
-                    height: "50%",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
                     backgroundColor: "#6A5ACD",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
+                    padding: "10px",
+                    height: "50%",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_gte45mins}</h1>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "left",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{data.no_of_parents_spent_2to5mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      // textAlign: "right",
+                      fontSize: "0.7rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                  </div>
                 </div>
               </div>
             </div>

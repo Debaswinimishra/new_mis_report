@@ -40,11 +40,6 @@ const DynamicModal = ({
     handleClose();
   };
 
-  const handleCloseAndReset = () => {
-    setPage(0);
-    handleClose();
-  };
-
   const handleModalClose = () => {
     setSearchname(""); // Reset the search input
     handleClose(); // Call the original handleClose function

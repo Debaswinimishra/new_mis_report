@@ -76,6 +76,7 @@ const WhatsappChatbot = () => {
   const [loading, setLoading] = useState(false);
   const [modalLoader, setModalLoader] = useState(false);
   const [show, setShow] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -124,12 +125,15 @@ const WhatsappChatbot = () => {
       week: selectedWeek,
     };
 
-    console.log("check---------->", selectedYear, selectedMonth, selectedWeek);
-
     if (selectedYear) {
       Api.post(`getChatbotReport`, body)
         .then((response) => {
           console.log("set=================>", response.data);
+          if (body.month) {
+            setIsFiltered(true);
+          } else {
+            setIsFiltered(false);
+          }
           setData(response.data);
           setLoading(false);
         })
@@ -153,11 +157,6 @@ const WhatsappChatbot = () => {
 
   const filterButtonClick = () => {
     // Assuming you have selectedMonth and selectedWeek as state variables or props
-    if (!selectedMonth) {
-      // Show error message
-      alert("Please select a month .");
-      return; // Exit the function without proceeding further
-    }
 
     // If both are selected, proceed with loading and fetching data
     setLoading(true);
@@ -770,45 +769,47 @@ const WhatsappChatbot = () => {
                     <h1>{data.chatbot_active_users}</h1>
                   </div>
                 </div>
-                <div
-                  className="card"
-                  // onClick={() => handleactiveOpen("Total No. of Active Users")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
+                {isFiltered ? (
+                  <div
+                    className="card"
+                    // onClick={() => handleactiveOpen("Total No. of Active Users")}
+                    style={{
+                      width: "255px",
+                      height: "180px",
+                      marginTop: "1.5%",
+                      backgroundColor: "white",
 
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "#708090",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
+                      borderRadius: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                      boxShadow: "1px 1px 4px 3px lightGrey",
                     }}
                   >
-                    <p> Total No. new Activated Users</p>
+                    <div
+                      style={{
+                        height: "50%",
+                        color: "#708090",
+                        paddingTop: "20px",
+                        fontSize: "1.2rem",
+                        fontFamily: "Congenial SemiBold",
+                        fontWeight: "600",
+                      }}
+                    >
+                      <p> Total No. new Activated Users</p>
+                    </div>
+                    <div
+                      style={{
+                        height: "50%",
+                        backgroundColor: "#708090",
+                        borderEndStartRadius: "10px",
+                        borderEndEndRadius: "10px",
+                        color: "white",
+                      }}
+                    >
+                      <h1>{data.new_activated_students}</h1>
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "#708090",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.new_activated_students}</h1>
-                  </div>
-                </div>
+                ) : null}
                 {/* <div
                   style={{
                     width: "255px",

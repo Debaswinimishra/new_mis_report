@@ -61,9 +61,7 @@ const DashboardMonthly = () => {
 
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState(
-    currentMonthSelected?.value
-  );
+  const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
@@ -646,7 +644,7 @@ const DashboardMonthly = () => {
                 onChange={handleMonthChange}
                 label="Month"
               >
-                {/* <MenuItem value={null}>None</MenuItem> */}
+                <MenuItem value={null}>None</MenuItem>
                 {monthArr.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
                     {item.label}

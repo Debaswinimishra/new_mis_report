@@ -132,6 +132,11 @@ function NavigationFellow(props) {
       icon: <MoreTimeIcon sx={{ color: "#000080" }} />,
     },
     {
+      text: "Vouchers' Redeemed Status",
+      link: "amazon_vouchers_redeemed",
+      icon: <MoreTimeIcon sx={{ color: "#000080" }} />,
+    },
+    {
       text: "Log out",
       link: "/",
       icon: <LogoutIcon sx={{ color: "rgb(255,0,0)" }} />,

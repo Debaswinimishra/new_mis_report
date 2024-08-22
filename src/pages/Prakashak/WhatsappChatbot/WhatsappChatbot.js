@@ -425,7 +425,14 @@ const WhatsappChatbot = () => {
                 textTransform: "capitalize", // Capitalize each word
               }}
             >
-              Data Updated as on - 16/08/2024
+              {loading ? (
+                "Loading..." // Show loader text while fetching data
+              ) : (
+                <>
+                  Data Updated as on -{" "}
+                  {data ? data?.data_last_updated : "22/08/2024"}
+                </>
+              )}
             </h1>
           </div>
           <div
@@ -440,6 +447,8 @@ const WhatsappChatbot = () => {
             }}
           >
             <div
+              className="card"
+              onClick={() => handleOpen("Total No. of Users")}
               style={{
                 width: "255px",
                 height: "180px",
@@ -449,8 +458,28 @@ const WhatsappChatbot = () => {
                 display: "flex",
                 flexDirection: "column",
                 boxShadow: "1px 1px 4px 3px lightGrey",
+                cursor: "pointer", // Show hand cursor on hover
+                position: "relative", // Needed for positioning the "Click here" text
               }}
             >
+              <div
+                style={{
+                  position: "absolute",
+                  top: "0px", // Adjust to position the text at the top
+                  right: "0px", // Adjust to position the text at the right
+                  color: "#00CED1", // Text color
+                  backgroundColor: "white", // Background color to make it stand out
+                  padding: "5px 10px", // Padding to add some space inside the border
+                  fontSize: "0.7rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                  borderRadius: "5px", // Rounded corners for a smoother look
+                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                  zIndex: "10", // Ensure it stays on top of other elements
+                }}
+              >
+                Click Here 👆
+              </div>
               <div
                 style={{
                   height: "50%",
@@ -472,7 +501,13 @@ const WhatsappChatbot = () => {
                   color: "white",
                 }}
               >
-                <h1>{data.chatbot_active_users}</h1>
+                {loading ? (
+                  <CircularProgress
+                    style={{ color: "white", marginTop: "20px" }}
+                  /> // Display CircularProgress when loading
+                ) : (
+                  <h1>{data.chatbot_users}</h1>
+                )}
               </div>
             </div>
           </div>
@@ -654,69 +689,9 @@ const WhatsappChatbot = () => {
                     <h1>{data.chatbot_users}</h1>
                   </div>
                 </div> */}
-                <div
-                  className="card"
-                  // onClick={() => handleUserOpen()}
-                  onClick={() => handleOpen("Total No. of Users")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                    cursor: "pointer", // Show hand cursor on hover
-                    position: "relative", // Needed for positioning the "Click here" text
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "0px", // Adjust to position the text at the top
-                      right: "0px", // Adjust to position the text at the right
-                      color: "#000080", // Text color
-                      backgroundColor: "white", // Background color to make it stand out
-                      padding: "5px 10px", // Padding to add some space inside the border
-                      fontSize: "0.7rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                      borderRadius: "5px", // Rounded corners for a smoother look
-                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                      zIndex: "10", // Ensure it stays on top of other elements
-                    }}
-                  >
-                    Click Here 👆
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "#000080",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    <p>No of new registered smartphone users</p>
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "#000080",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_users}</h1>
-                  </div>
-                </div>
                 {show ? (
                   <div
                     className="card"
-                    // onClick={handleOpen}
                     onClick={() => handleOpen("Total No. of New Users")}
                     style={{
                       width: "255px",
@@ -733,38 +708,20 @@ const WhatsappChatbot = () => {
                   >
                     <div
                       style={{
-                        position: "absolute",
-                        top: "0px", // Adjust to position the text at the top
-                        right: "0px", // Adjust to position the text at the right
-                        color: "rgb(214 148 16)", // Text color
-                        backgroundColor: "white", // Background color to make it stand out
-                        padding: "5px 10px", // Padding to add some space inside the border
-                        fontSize: "0.7rem",
-                        fontFamily: "Congenial SemiBold",
-                        fontWeight: "600",
-                        borderRadius: "5px", // Rounded corners for a smoother look
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                        zIndex: "10", // Ensure it stays on top of other elements
-                      }}
-                    >
-                      Click Here 👆
-                    </div>
-                    <div
-                      style={{
                         height: "50%",
-                        color: "rgb(214 148 16)",
+                        color: "#000080",
                         paddingTop: "20px",
                         fontSize: "1.2rem",
                         fontFamily: "Congenial SemiBold",
                         fontWeight: "600",
                       }}
                     >
-                      <p> Total No. of New Users</p>
+                      <p>No of new registered smartphone users</p>
                     </div>
                     <div
                       style={{
                         height: "50%",
-                        backgroundColor: "rgb(214 148 16)",
+                        backgroundColor: "#000080",
                         borderEndStartRadius: "10px",
                         borderEndEndRadius: "10px",
                         color: "white",
@@ -815,7 +772,7 @@ const WhatsappChatbot = () => {
                 </div>
                 <div
                   className="card"
-                  onClick={() => handleactiveOpen("Total No. of Active Users")}
+                  // onClick={() => handleactiveOpen("Total No. of Active Users")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -849,7 +806,7 @@ const WhatsappChatbot = () => {
                       color: "white",
                     }}
                   >
-                    <h1>{data.chatbot_active_users}</h1>
+                    <h1>{data.new_activated_students}</h1>
                   </div>
                 </div>
                 {/* <div

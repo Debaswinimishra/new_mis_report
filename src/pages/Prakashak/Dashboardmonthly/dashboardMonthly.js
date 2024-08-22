@@ -720,7 +720,7 @@ const DashboardMonthly = () => {
                   // marginTop: "-2%",
                 }}
               >
-                <div
+                {/* <div
                   // onClick={() => handleOpen("newSchools")}
                   style={{
                     width: "255px",
@@ -758,7 +758,7 @@ const DashboardMonthly = () => {
                   >
                     <h1>{dashboardData.total_new_schools}</h1>
                   </div>
-                </div>
+                </div> */}
                 <div
                   // onClick={() => handleOpen("newSchools")}
                   style={{
@@ -1009,7 +1009,7 @@ const DashboardMonthly = () => {
                       color: "white",
                     }}
                   >
-                    <h1>{dashboardData.total_boy_students}</h1>
+                    <h1>{dashboardData.new_activated_students}</h1>
                   </div>
                 </div>
 
@@ -1068,7 +1068,7 @@ const DashboardMonthly = () => {
                       color: "white",
                     }}
                   >
-                    <h1>{dashboardData.total_boy_students}</h1>
+                    <h1>{dashboardData.new_active_students}</h1>
                   </div>
                 </div>
                 <div
@@ -1089,7 +1089,7 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       height: "50%",
-                      color: "#6A5ACD",
+                      color: "#000080",
                       paddingTop: "30px",
                       fontSize: "1.2rem",
                       fontFamily: "Congenial SemiBold",
@@ -1101,13 +1101,13 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       height: "50%",
-                      backgroundColor: "#6A5ACD",
+                      backgroundColor: "#000080",
                       borderEndStartRadius: "10px",
                       borderEndEndRadius: "10px",
                       color: "white",
                     }}
                   >
-                    <h1>{dashboardData.total_new_schools}</h1>
+                    <h1>{dashboardData.active_students_boy}</h1>
                   </div>
                 </div>
                 <div
@@ -1128,7 +1128,7 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       height: "50%",
-                      color: "rgb(153 58 134)",
+                      color: "#008080",
                       paddingTop: "30px",
                       fontSize: "1.2rem",
                       fontFamily: "Congenial SemiBold",
@@ -1140,13 +1140,13 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       height: "50%",
-                      backgroundColor: "rgb(153 58 134)",
+                      backgroundColor: "#008080",
                       borderEndStartRadius: "10px",
                       borderEndEndRadius: "10px",
                       color: "white",
                     }}
                   >
-                    <h1>{dashboardData.total_new_schools}</h1>
+                    <h1>{dashboardData.active_students_girl}</h1>
                   </div>
                 </div>
               </div>
@@ -1191,7 +1191,7 @@ const DashboardMonthly = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "220px", // Increased height to accommodate heading
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -1200,6 +1200,22 @@ const DashboardMonthly = () => {
                   boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
+                {/* Heading */}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    color: "#00CED1",
+                    marginTop: "10px",
+                    fontSize: "1.3rem", // Heading font size
+                    fontWeight: "bold",
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  Time Spent 0-1 mins
+                </div>
+
+                {/* User and Avg. Time Spent Section */}
                 <div
                   style={{
                     display: "flex",
@@ -1236,10 +1252,11 @@ const DashboardMonthly = () => {
                       textAlign: "center",
                     }}
                   >
-                    Avg. Time Spent 0-1 mins
+                    Avg. Time (in mins)
                   </div>
                 </div>
 
+                {/* User count and Avg. Time Spent Values */}
                 <div
                   style={{
                     display: "flex",
@@ -1258,7 +1275,6 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       width: "50%",
-                      // textAlign: "left",
                       fontSize: "1rem", // Reduced font size
                     }}
                   >
@@ -1267,11 +1283,10 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       width: "50%",
-                      // textAlign: "right",
                       fontSize: "0.7rem", // Reduced font size
                     }}
                   >
-                    <h1>{dashboardData.no_of_parents_spent_0to1mins}</h1>
+                    <h1>{dashboardData.avg_tS_0to1mins}</h1>
                   </div>
                 </div>
               </div>
@@ -1279,7 +1294,7 @@ const DashboardMonthly = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "220px", // Increased height to accommodate heading
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -1288,6 +1303,22 @@ const DashboardMonthly = () => {
                   boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
+                {/* Heading */}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    color: "#CD5C5C",
+                    marginTop: "10px",
+                    fontSize: "1.3rem", // Heading font size
+                    fontWeight: "bold",
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  Time Spent 2-15 mins
+                </div>
+
+                {/* User and Avg. Time Spent Section */}
                 <div
                   style={{
                     display: "flex",
@@ -1324,10 +1355,11 @@ const DashboardMonthly = () => {
                       textAlign: "center",
                     }}
                   >
-                    Avg. Time Spent 2-15 mins
+                    Avg. Time (in mins)
                   </div>
                 </div>
 
+                {/* User count and Avg. Time Spent Values */}
                 <div
                   style={{
                     display: "flex",
@@ -1346,7 +1378,6 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       width: "50%",
-                      // textAlign: "left",
                       fontSize: "1rem", // Reduced font size
                     }}
                   >
@@ -1355,11 +1386,10 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       width: "50%",
-                      // textAlign: "right",
                       fontSize: "0.7rem", // Reduced font size
                     }}
                   >
-                    <h1>{dashboardData.no_of_parents_spent_2to5mins}</h1>
+                    <h1>{dashboardData.avg_tS_2to5mins}</h1>
                   </div>
                 </div>
               </div>
@@ -1367,7 +1397,7 @@ const DashboardMonthly = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "220px", // Increased height to accommodate heading
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -1376,6 +1406,22 @@ const DashboardMonthly = () => {
                   boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
+                {/* Heading */}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    color: "#2E8B57",
+                    marginTop: "10px",
+                    fontSize: "1.3rem", // Heading font size
+                    fontWeight: "bold",
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  Time Spent 31-45 mins
+                </div>
+
+                {/* User and Avg. Time Spent Section */}
                 <div
                   style={{
                     display: "flex",
@@ -1412,10 +1458,11 @@ const DashboardMonthly = () => {
                       textAlign: "center",
                     }}
                   >
-                    Avg. Time Spent 31-45 mins
+                    Avg. Time (in mins)
                   </div>
                 </div>
 
+                {/* User count and Avg. Time Spent Values */}
                 <div
                   style={{
                     display: "flex",
@@ -1434,7 +1481,6 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       width: "50%",
-                      // textAlign: "left",
                       fontSize: "1rem", // Reduced font size
                     }}
                   >
@@ -1443,11 +1489,10 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       width: "50%",
-                      // textAlign: "right",
                       fontSize: "0.7rem", // Reduced font size
                     }}
                   >
-                    <h1>{dashboardData.no_of_parents_spent_31to45mins}</h1>
+                    <h1>{dashboardData.avg_tS_31to45mins}</h1>
                   </div>
                 </div>
               </div>
@@ -1455,7 +1500,7 @@ const DashboardMonthly = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "220px", // Increased height to accommodate heading
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -1464,6 +1509,22 @@ const DashboardMonthly = () => {
                   boxShadow: "1px 1px 4px 3px lightGrey",
                 }}
               >
+                {/* Heading */}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
+                    color: "#000080",
+                    marginTop: "10px",
+                    fontSize: "1.3rem", // Heading font size
+                    fontWeight: "bold",
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  Time Spent 45+ mins
+                </div>
+
+                {/* User and Avg. Time Spent Section */}
                 <div
                   style={{
                     display: "flex",
@@ -1472,7 +1533,7 @@ const DashboardMonthly = () => {
                     alignItems: "center",
                     padding: "10px",
                     height: "50%",
-                    color: "#6A5ACD",
+                    color: "#000080",
                     fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -1490,7 +1551,7 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       height: "100%",
-                      borderLeft: "1px solid #6A5ACD", // Line between elements
+                      borderLeft: "1px solid #000080", // Line between elements
                       margin: "0 5px",
                     }}
                   ></div>
@@ -1500,10 +1561,11 @@ const DashboardMonthly = () => {
                       textAlign: "center",
                     }}
                   >
-                    Avg. Time Spent 45+ mins
+                    Avg. Time (in mins)
                   </div>
                 </div>
 
+                {/* User count and Avg. Time Spent Values */}
                 <div
                   style={{
                     display: "flex",
@@ -1511,7 +1573,7 @@ const DashboardMonthly = () => {
                     justifyContent: "center",
                     textAlign: "center",
                     alignItems: "center",
-                    backgroundColor: "#6A5ACD",
+                    backgroundColor: "#000080",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",
@@ -1522,7 +1584,6 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       width: "50%",
-                      // textAlign: "left",
                       fontSize: "1rem", // Reduced font size
                     }}
                   >
@@ -1531,11 +1592,10 @@ const DashboardMonthly = () => {
                   <div
                     style={{
                       width: "50%",
-                      // textAlign: "right",
                       fontSize: "0.7rem", // Reduced font size
                     }}
                   >
-                    <h1>{dashboardData.no_of_parents_spent_gte45mins}</h1>
+                    <h1>{dashboardData.avg_tS_gte45mins}</h1>
                   </div>
                 </div>
               </div>

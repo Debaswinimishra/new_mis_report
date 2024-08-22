@@ -624,7 +624,16 @@ const RemoteInstruction = () => {
                 textTransform: "capitalize", // Capitalize each word
               }}
             >
-              Data Updated as on - 16/08/2024
+              {loading ? (
+                "Loading..." // Show loader text while fetching data
+              ) : (
+                <>
+                  Data Updated as on -{" "}
+                  {remoteInstData
+                    ? remoteInstData?.data_last_updated
+                    : "22/08/2024"}
+                </>
+              )}
             </h1>
           </div>
           <div
@@ -671,7 +680,13 @@ const RemoteInstruction = () => {
                   color: "white",
                 }}
               >
-                <h1>{remoteInstData.total_sms_scheduled}</h1>
+                {loading ? (
+                  <CircularProgress
+                    style={{ color: "white", marginTop: "20px" }}
+                  /> // Display CircularProgress when loading
+                ) : (
+                  <h1>{remoteInstData.total_remote_instructions_users}</h1> // Display data when loaded
+                )}
               </div>
             </div>
           </div>
@@ -814,7 +829,7 @@ const RemoteInstruction = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{remoteInstData.total_sms_scheduled}</h1>
+                  <h1>{remoteInstData.new_remote_instructions_users}</h1>
                 </div>
               </div>
               <div
@@ -850,7 +865,7 @@ const RemoteInstruction = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{remoteInstData.total_sms_scheduled}</h1>
+                  <h1>{remoteInstData.new_active_students}</h1>
                 </div>
               </div>
               <div
@@ -886,7 +901,7 @@ const RemoteInstruction = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{remoteInstData.total_sms_scheduled}</h1>
+                  <h1>{remoteInstData.new_activated_students}</h1>
                 </div>
               </div>
               <div
@@ -911,12 +926,85 @@ const RemoteInstruction = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Calls scheduled</p>
+                  <p>Total SMS scheduled</p>
                 </div>
                 <div
                   style={{
                     height: "50%",
                     backgroundColor: "#008080",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.total_sms_scheduled}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#b9770e",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Total SMS delivered</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#b9770e",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.total_sms_delivered}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#512e5f",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Calls scheduled</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#512e5f",
                     borderEndStartRadius: "10px",
                     borderEndEndRadius: "10px",
                     color: "white",

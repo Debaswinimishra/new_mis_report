@@ -688,7 +688,7 @@ const Dashboard = () => {
             paddingBottom: "4%",
             marginLeft: "4%",
             alignContent: "flex-start",
-            height: "95vh",
+            // height: "95vh",
           }}
         >
           <div
@@ -713,7 +713,8 @@ const Dashboard = () => {
                 textTransform: "capitalize", // Capitalize each word
               }}
             >
-              Data Updated as on - 16/08/2024
+              Data Updated as on -{" "}
+              {dashboardData ? dashboardData?.data_last_updated : "22/08/2024"}
             </h1>
             <div
               style={{
@@ -1181,7 +1182,7 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData.total_activated_students}</h1>
                 </div>
               </div>
               <div
@@ -1238,7 +1239,7 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData.total_active_students}</h1>
                 </div>
               </div>
 

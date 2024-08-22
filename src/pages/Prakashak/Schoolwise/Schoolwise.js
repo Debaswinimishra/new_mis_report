@@ -567,7 +567,8 @@ const Schoolwise = () => {
                 textTransform: "capitalize", // Capitalize each word
               }}
             >
-              Data Updated as on - 16/08/2024
+              Data Updated as on -{" "}
+              {data ? data?.data_last_updated : "22/08/2024"}
             </h1>
             <div
               style={{
@@ -996,7 +997,7 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.total_timespent}</h1>
+                  <h1>{data.total_activated_students}</h1>
                 </div>
               </div>
               <div
@@ -1034,7 +1035,7 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
+                  <h1>{data.total_active_students}</h1>
                 </div>
               </div>
               <div
@@ -1072,7 +1073,7 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                  <h1>{data.remote_instructions_users}</h1>
                 </div>
               </div>
               <div
@@ -1110,7 +1111,7 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_16to30mins}</h1>
+                  <h1>{data.chatbot_users}</h1>
                 </div>
               </div>
               {/* <div

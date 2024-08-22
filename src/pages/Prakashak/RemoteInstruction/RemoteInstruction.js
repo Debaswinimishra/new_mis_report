@@ -73,6 +73,7 @@ const RemoteInstruction = () => {
   const [modalContentTitle, setModalContentTitle] = useState("");
   const [remoteInstructionType, setRemoteInstructionType] = useState("");
   const [modalLoader, setModalLoader] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(false);
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -143,6 +144,8 @@ const RemoteInstruction = () => {
     setRemoteInstData({});
     let body = {};
     setLoading(true);
+    setIsFiltered(false);
+
     if (!selectedMonth && !selectedMonth) {
       body = {
         year: selectedYear,
@@ -159,14 +162,21 @@ const RemoteInstruction = () => {
         week: selectedWeek,
       };
     } else {
-      alert("Please select a month before selecting the week !");
+      alert("Please select a month before selecting the week!");
     }
+
     console.log("body passed------------>", body);
+
     PrakashakAPI.post(`getRemoteInstReport`, body)
       .then((res) => {
         if (res.status === 200) {
           setRemoteInstData(res.data);
           setLoading(false);
+          if (body.month) {
+            setIsFiltered(true);
+          } else {
+            setIsFiltered(false);
+          }
         } else {
           setLoading(false);
           console.log("res status------->", res.status);
@@ -174,7 +184,6 @@ const RemoteInstruction = () => {
       })
       .catch((err) => {
         setLoading(false);
-        // alert("No data available");
         console.log(`The error is---> ${err}`);
       });
   };
@@ -796,78 +805,45 @@ const RemoteInstruction = () => {
                 // marginLeft: "4%",
               }}
             >
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
+              {isFiltered ? (
                 <div
                   style={{
-                    height: "50%",
-                    color: "#CD5C5C",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
                   }}
                 >
-                  <p>No of new registered non-smartphone users</p>
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#6A5ACD",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p>No. of active users</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#6A5ACD",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{remoteInstData.new_active_students}</h1>
+                  </div>
                 </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#CD5C5C",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{remoteInstData.new_remote_instructions_users}</h1>
-                </div>
-              </div>
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#6A5ACD",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>No. of active users</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#6A5ACD",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{remoteInstData.new_active_students}</h1>
-                </div>
-              </div>
+              ) : null}
+
               <div
                 style={{
                   width: "255px",
@@ -904,42 +880,44 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.new_activated_students}</h1>
                 </div>
               </div>
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
+              {isFiltered ? (
                 <div
                   style={{
-                    height: "50%",
-                    color: "#008080",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
                   }}
                 >
-                  <p>Total SMS scheduled</p>
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#008080",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p>Total SMS scheduled</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#008080",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{remoteInstData.total_sms_scheduled}</h1>
+                  </div>
                 </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#008080",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{remoteInstData.total_sms_scheduled}</h1>
-                </div>
-              </div>
+              ) : null}
               <div
                 style={{
                   width: "255px",

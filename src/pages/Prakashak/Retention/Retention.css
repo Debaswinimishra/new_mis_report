@@ -1,0 +1,90 @@
+/* General styles */
+.retention-container {
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Table styles for larger screens */
+.retention-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f9f9f9;
+}
+
+.retention-table th,
+.retention-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+tfoot td {
+  font-weight: bold;
+  background-color: #f1f1f1;
+}
+
+/* Card styles for smaller screens */
+.retention-cards {
+  display: none;
+}
+
+.retention-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.789);
+  transition: transform 0.2s ease;
+}
+
+.retention-card:hover {
+  transform: translateY(-5px);
+}
+
+.retention-card h3 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.retention-card-details {
+  margin-top: 10px;
+}
+
+.retention-card-details p {
+  margin: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #666;
+}
+
+.retention-card-details strong {
+  color: #333;
+}
+
+/* Mobile card styles */
+@media screen and (max-width: 768px) {
+  .retention-table {
+    display: none;
+  }
+
+  .retention-cards {
+    display: block;
+  }
+
+  .retention-card {
+    padding: 15px;
+  }
+
+  .retention-card h3 {
+    font-size: 16px;
+    color: #444;
+  }
+
+  .retention-card-details p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+}

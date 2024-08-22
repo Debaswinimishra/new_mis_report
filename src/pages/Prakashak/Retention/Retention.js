@@ -1,4 +1,5 @@
 import React from "react";
+import "./Retention.css"; // Add this line for external CSS
 
 export default function Retention() {
   const data = [
@@ -10,29 +11,29 @@ export default function Retention() {
     {
       month: "Feb",
       activatedUsers: 2148,
-      retention: [, 2148, 1847, 1812, 1794, 1715, 1695],
+      retention: ["", 2148, 1847, 1812, 1794, 1715, 1695],
     },
     {
       month: "Mar",
       activatedUsers: 2192,
-      retention: [, , 2192, 2175, 1992, 1726, 1693],
+      retention: ["", "", 2192, 2175, 1992, 1726, 1693],
     },
     {
       month: "Apr",
       activatedUsers: 649,
-      retention: [, , , 649, 641, 627, 638],
+      retention: ["", "", "", 649, 641, 627, 638],
     },
     {
       month: "May",
       activatedUsers: 3094,
-      retention: [, , , , 3094, 3083, 3091],
+      retention: ["", "", "", "", 3094, 3083, 3091],
     },
     {
       month: "Jun",
       activatedUsers: 1346,
-      retention: [, , , , , 1346, 1339],
+      retention: ["", "", "", "", "", 1346, 1339],
     },
-    { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0] },
+    { month: "Jul", activatedUsers: 0, retention: [0] },
     { month: "Aug", activatedUsers: null, retention: [] },
     { month: "Sep", activatedUsers: null, retention: [] },
     { month: "Oct", activatedUsers: null, retention: [] },
@@ -45,8 +46,8 @@ export default function Retention() {
   ];
 
   return (
-    <div>
-      <table border="1" cellPadding="5">
+    <div className="retention-container">
+      <table className="retention-table">
         <thead>
           <tr>
             <th>Month</th>
@@ -92,6 +93,26 @@ export default function Retention() {
           </tr>
         </tfoot>
       </table>
+
+      <div className="retention-cards">
+        {data.map((row, index) => (
+          <div key={index} className="retention-card">
+            <h3>{row.month}</h3>
+            <p>
+              Activated Users:{" "}
+              {row.activatedUsers !== null ? row.activatedUsers : "N/A"}
+            </p>
+            <div className="retention-card-details">
+              {row.retention.map((value, i) => (
+                <p key={i}>
+                  <strong>Week {i + 1}: </strong>
+                  {value !== undefined && value !== "" ? value : "N/A"}
+                </p>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

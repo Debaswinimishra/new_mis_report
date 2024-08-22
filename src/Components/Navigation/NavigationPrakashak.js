@@ -210,9 +210,11 @@ function NavigationPrakashak(props) {
         style={{
           display: "flex",
           flexDirection: "row",
-          flexWrap: "wrap",
           justifyContent: "center",
           margin: "10px 0",
+          overflowX: "auto",
+          // whiteSpace: "nowrap",
+          // flexWrap: "nowrap", // Default to nowrap for larger screens
         }}
       >
         {listItem.map((item, index) => (
@@ -250,6 +252,32 @@ function NavigationPrakashak(props) {
           </div>
         ))}
       </div>
+
+      <style jsx>
+        {`
+          div::-webkit-scrollbar {
+            display: none;
+          }
+
+          div {
+            scrollbar-width: none; /* Firefox */
+          }
+
+          @media (max-width: 768px) {
+            div {
+              flex-wrap: wrap !important; /* Wrap content on smaller screens */
+              overflow-x: hidden; /* Disable horizontal scrolling */
+            }
+          }
+
+          @media (min-width: 769px) {
+            div {
+              flex-wrap: nowrap !important; /* No wrapping on larger screens */
+              overflow-x: auto; /* Enable horizontal scrolling */
+            }
+          }
+        `}
+      </style>
 
       <div>
         {activeLink === "/prakashak/dashboard" ? (

@@ -1090,9 +1090,9 @@ const Schoolwise_performance = () => {
                     textAlign: "center",
                     padding: "10px",
                     color: "#00CED1",
-                    fontSize: "1.2rem", // Heading font size
+                    fontSize: "1.3rem", // Heading font size
                     fontWeight: "bold",
-                    fontSize: "1rem", // Reduced font size
+                    // fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                   }}
                 >
@@ -1192,9 +1192,9 @@ const Schoolwise_performance = () => {
                     textAlign: "center",
                     padding: "10px",
                     color: "#CD5C5C",
-                    fontSize: "1.2rem", // Heading font size
+                    fontSize: "1.3rem", // Heading font size
                     fontWeight: "bold",
-                    fontSize: "1rem", // Reduced font size
+                    // fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                   }}
                 >
@@ -1294,9 +1294,9 @@ const Schoolwise_performance = () => {
                     textAlign: "center",
                     padding: "10px",
                     color: "#2E8B57",
-                    fontSize: "1.2rem", // Heading font size
+                    fontSize: "1.3rem", // Heading font size
                     fontWeight: "bold",
-                    fontSize: "1rem", // Reduced font size
+                    // fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                   }}
                 >
@@ -1396,9 +1396,9 @@ const Schoolwise_performance = () => {
                     textAlign: "center",
                     padding: "10px",
                     color: "#6A5ACD",
-                    fontSize: "1.2rem", // Heading font size
+                    fontSize: "1.3rem", // Heading font size
                     fontWeight: "bold",
-                    fontSize: "1rem", // Reduced font size
+                    // fontSize: "1rem", // Reduced font size
                     fontFamily: "Congenial SemiBold",
                   }}
                 >

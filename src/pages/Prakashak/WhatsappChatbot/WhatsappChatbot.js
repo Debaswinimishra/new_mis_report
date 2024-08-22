@@ -964,7 +964,7 @@ const WhatsappChatbot = () => {
               </div>
             </div>
           </div>
-          <div
+          {/* <div
             style={{
               height: "500px",
               display: "flex",
@@ -974,7 +974,7 @@ const WhatsappChatbot = () => {
             }}
           >
             <Graph data={graphData} />
-          </div>
+          </div> */}
           <DynamicModal
             open={open}
             loading={modalLoader}

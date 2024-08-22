@@ -1841,7 +1841,7 @@ const RemoteInstruction = () => {
               </div>
             </div>
           </div> */}
-          <div
+          {/* <div
             style={{
               height: "500px",
               display: "flex",
@@ -1851,7 +1851,7 @@ const RemoteInstruction = () => {
             }}
           >
             <Graph data={graphData} />
-          </div>
+          </div> */}
           <DynamicModal
             open={open}
             handleClose={handleClose}

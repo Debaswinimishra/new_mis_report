@@ -445,8 +445,8 @@ const Schoolwise = () => {
             label="Block"
             disabled={loading || !districts}
           >
-            <MenuItem value="Select Month" disabled>
-              Select Month
+            <MenuItem value="Select Block" disabled>
+              Select Block
             </MenuItem>
             <MenuItem value="">None</MenuItem>
             {blockArr &&

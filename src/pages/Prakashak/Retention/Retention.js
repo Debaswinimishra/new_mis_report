@@ -34,16 +34,14 @@ export default function Retention() {
       retention: [, , , , , 1346, 1339],
     },
     { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0] },
-    { month: "Aug", activatedUsers: null, retention: [] },
-    { month: "Sep", activatedUsers: null, retention: [] },
-    { month: "Oct", activatedUsers: null, retention: [] },
-    { month: "Nov", activatedUsers: null, retention: [] },
-    { month: "Dec", activatedUsers: null, retention: [] },
+    // { month: "Aug", activatedUsers: null, retention: [] },
+    // { month: "Sep", activatedUsers: null, retention: [] },
+    // { month: "Oct", activatedUsers: null, retention: [] },
+    // { month: "Nov", activatedUsers: null, retention: [] },
+    // { month: "Dec", activatedUsers: null, retention: [] },
   ];
 
-  const totalRetention = [
-    665, 2609, 4524, 5147, 8024, 8998, 8962, 0, 0, 0, 0, 0,
-  ];
+  const totalRetention = [665, 2609, 4524, 5147, 8024, 8998, 8962];
 
   return (
     <div className="retention-container">
@@ -59,11 +57,11 @@ export default function Retention() {
             <th>May</th>
             <th>Jun</th>
             <th>Jul</th>
-            <th>Aug</th>
+            {/* <th>Aug</th>
             <th>Sep</th>
             <th>Oct</th>
             <th>Nov</th>
-            <th>Dec</th>
+            <th>Dec</th> */}
           </tr>
         </thead>
         <tbody>
@@ -71,7 +69,7 @@ export default function Retention() {
             <tr key={index}>
               <td>{row.month}</td>
               <td>{row.activatedUsers !== null ? row.activatedUsers : ""}</td>
-              {Array(12)
+              {Array(7)
                 .fill(0)
                 .map((_, i) => (
                   <td key={i}>
@@ -100,13 +98,13 @@ export default function Retention() {
             <h3>{row.month}</h3>
             <p>
               Activated Users:{" "}
-              {row.activatedUsers !== null ? row.activatedUsers : "N/A"}
+              {row.activatedUsers !== null ? row.activatedUsers : "-"}
             </p>
             <div className="retention-card-details">
               {row.retention.map((value, i) => (
                 <p key={i}>
                   <strong>Week {i + 1}: </strong>
-                  {value !== undefined && value !== "" ? value : "N/A"}
+                  {value !== undefined && value !== "" ? value : "-"}
                 </p>
               ))}
             </div>

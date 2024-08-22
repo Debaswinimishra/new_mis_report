@@ -994,7 +994,7 @@ const DashboardMonthly = () => {
                 </div>
 
                 <div
-                  onClick={() => handleOpen("boys")}
+                  // onClick={() => handleOpen("boys")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -1004,11 +1004,11 @@ const DashboardMonthly = () => {
                     display: "flex",
                     flexDirection: "column",
                     boxShadow: "1px 1px 4px 3px lightGrey",
-                    cursor: "pointer", // Show hand cursor on hover
-                    position: "relative", // Needed for positioning the "Click here" text
+                    // cursor: "pointer", // Show hand cursor on hover
+                    // position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
-                  <div
+                  {/* <div
                     style={{
                       position: "absolute",
                       top: "0px", // Adjust to position the text at the top
@@ -1025,7 +1025,7 @@ const DashboardMonthly = () => {
                     }}
                   >
                     Click Here 👆
-                  </div>
+                  </div> */}
                   <div
                     style={{
                       height: "50%",
@@ -1052,7 +1052,7 @@ const DashboardMonthly = () => {
                 </div>
 
                 <div
-                  onClick={() => handleOpen("boys")}
+                  // onClick={() => handleOpen("boys")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -1062,11 +1062,11 @@ const DashboardMonthly = () => {
                     display: "flex",
                     flexDirection: "column",
                     boxShadow: "1px 1px 4px 3px lightGrey",
-                    cursor: "pointer", // Show hand cursor on hover
-                    position: "relative", // Needed for positioning the "Click here" text
+                    // cursor: "pointer", // Show hand cursor on hover
+                    // position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
-                  <div
+                  {/* <div
                     style={{
                       position: "absolute",
                       top: "0px", // Adjust to position the text at the top
@@ -1083,7 +1083,7 @@ const DashboardMonthly = () => {
                     }}
                   >
                     Click Here 👆
-                  </div>
+                  </div> */}
 
                   <div
                     style={{

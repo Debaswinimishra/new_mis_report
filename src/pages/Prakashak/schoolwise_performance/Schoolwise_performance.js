@@ -144,10 +144,10 @@ const Schoolwise_performance = () => {
         } else {
           setDistrictArr([]);
         }
-        setLoading(false);
+        // setLoading(false);
       } catch (error) {
         console.error("Error fetching districts:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -184,10 +184,10 @@ const Schoolwise_performance = () => {
           console.log("No blocks found for the given district.");
           setBlockArr([]); // Setting an empty array if no data is found
         }
-        setLoading(false);
+        // setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -226,19 +226,19 @@ const Schoolwise_performance = () => {
     const fetchClusters = async () => {
       try {
         if (blocks) {
-          setLoading(true);
+          // setLoading(true);
           const response = await Api.get(`getAllClustersByBlock/${blocks}`);
           // console.log("set=================>", response.data);
           const clusters =
             response?.data?.length > 0 &&
             response?.data?.map((item) => item?.cluster);
           setClusterArr(clusters);
-          setLoading(false);
+          // setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Clusters:", error);
         setClusterArr([]); // Reset clusterArr to an empty array if there's an error
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -257,11 +257,11 @@ const Schoolwise_performance = () => {
         if (clusters) {
           const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
           setSchoolArr(response?.data);
-          setLoading(false);
+          // setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 

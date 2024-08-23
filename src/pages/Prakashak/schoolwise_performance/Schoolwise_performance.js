@@ -35,7 +35,7 @@ const Schoolwise_performance = () => {
   // const [year, setYear] = useState("2024");
   const [districts, setDistricts] = useState("PURI");
   const [data, setData] = useState({});
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState(6);
   const [selectedWeek, setSelectedWeek] = useState("");
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
@@ -96,35 +96,6 @@ const Schoolwise_performance = () => {
     setSelectedYear(e.target.value);
   };
 
-  // const tableHeaders =
-  //   modalTitle === "Total Conversations in Chatbot"
-  //     ? [
-  //         "Student Name",
-  //         "Class",
-  //         "Gender",
-  //         "Parents Name",
-  //         "School Name",
-  //         "District",
-  //         "Block",
-  //         "Cluster",
-  //         "Phone Number",
-  //         "Button Clicked",
-  //         "Template Name",
-  //         "Msg Type",
-  //         "Status",
-  //         "Created on",
-  //       ]
-  //     : [
-  //         "student_name",
-  //         "Class",
-  //         "gender",
-  //         "parents_name",
-  //         "parents_phone_number",
-  //         "school_name",
-  //         "district",
-  //         "block",
-  //         "cluster",
-  //       ];
   const xlData = tableData;
   const fileName = "SchoolwiseReport.csv";
 
@@ -602,7 +573,7 @@ const Schoolwise_performance = () => {
             <CircularProgress />
           </Box>
         </div>
-      ) : !loading && Object.keys(data).length > 0 && isShow ? (
+      ) : !loading && Object.keys(data).length > 0 ? (
         <div
           style={{
             display: "flex",

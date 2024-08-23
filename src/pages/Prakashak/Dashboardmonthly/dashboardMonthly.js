@@ -58,12 +58,11 @@ const DashboardMonthly = () => {
   const currentMonthSelected = monthArr?.filter(
     (item) => item.label === currentMonth
   )[0];
+  console.log(currentMonthSelected);
 
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState(
-    currentMonthSelected?.value
-  );
+  const [selectedMonth, setSelectedMonth] = useState("6");
   const [selectedWeek, setSelectedWeek] = useState("");
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
@@ -646,7 +645,7 @@ const DashboardMonthly = () => {
                 onChange={handleMonthChange}
                 label="Month"
               >
-                {/* <MenuItem value={null}>None</MenuItem> */}
+                <MenuItem value={null}>None</MenuItem>
                 {monthArr.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
                     {item.label}
@@ -996,7 +995,7 @@ const DashboardMonthly = () => {
                 </div>
 
                 <div
-                  onClick={() => handleOpen("boys")}
+                  // onClick={() => handleOpen("boys")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -1006,11 +1005,11 @@ const DashboardMonthly = () => {
                     display: "flex",
                     flexDirection: "column",
                     boxShadow: "1px 1px 4px 3px lightGrey",
-                    cursor: "pointer", // Show hand cursor on hover
-                    position: "relative", // Needed for positioning the "Click here" text
+                    // cursor: "pointer", // Show hand cursor on hover
+                    // position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
-                  <div
+                  {/* <div
                     style={{
                       position: "absolute",
                       top: "0px", // Adjust to position the text at the top
@@ -1027,7 +1026,7 @@ const DashboardMonthly = () => {
                     }}
                   >
                     Click Here 👆
-                  </div>
+                  </div> */}
                   <div
                     style={{
                       height: "50%",
@@ -1054,7 +1053,7 @@ const DashboardMonthly = () => {
                 </div>
 
                 <div
-                  onClick={() => handleOpen("boys")}
+                  // onClick={() => handleOpen("boys")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -1064,11 +1063,11 @@ const DashboardMonthly = () => {
                     display: "flex",
                     flexDirection: "column",
                     boxShadow: "1px 1px 4px 3px lightGrey",
-                    cursor: "pointer", // Show hand cursor on hover
-                    position: "relative", // Needed for positioning the "Click here" text
+                    // cursor: "pointer", // Show hand cursor on hover
+                    // position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
-                  <div
+                  {/* <div
                     style={{
                       position: "absolute",
                       top: "0px", // Adjust to position the text at the top
@@ -1085,7 +1084,7 @@ const DashboardMonthly = () => {
                     }}
                   >
                     Click Here 👆
-                  </div>
+                  </div> */}
 
                   <div
                     style={{

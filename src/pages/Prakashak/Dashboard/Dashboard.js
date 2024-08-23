@@ -1129,7 +1129,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("clusters")}
+                // onClick={() => handleOpen("clusters")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1186,7 +1186,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("clusters")}
+                // onClick={() => handleOpen("clusters")}
                 style={{
                   width: "255px",
                   height: "180px",

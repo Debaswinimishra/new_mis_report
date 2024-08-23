@@ -158,10 +158,10 @@ const Schoolwise = () => {
           console.log("No blocks found for the given district.");
           setBlockArr([]); // Setting an empty array if no data is found
         }
-        setLoading(false);
+        // setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -182,19 +182,19 @@ const Schoolwise = () => {
     const fetchClusters = async () => {
       try {
         if (blocks) {
-          setLoading(true);
+          // setLoading(true);
           const response = await Api.get(`getAllClustersByBlock/${blocks}`);
           // console.log("set=================>", response.data);
           const clusters =
             response?.data?.length > 0 &&
             response?.data?.map((item) => item?.cluster);
           setClusterArr(clusters);
-          setLoading(false);
+          // setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Clusters:", error);
         setClusterArr([]); // Reset clusterArr to an empty array if there's an error
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -216,11 +216,11 @@ const Schoolwise = () => {
           //   response.data[0].school_name
           // );
           setSchoolArr(response?.data);
-          setLoading(false);
+          // setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -616,7 +616,7 @@ const Schoolwise = () => {
                   style={{
                     height: "50%",
                     color: "#CD5C5C",
-                    paddingTop: "13px",
+                    // paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",

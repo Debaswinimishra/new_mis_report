@@ -447,7 +447,7 @@ const WhatsappChatbot = () => {
           >
             <div
               className="card"
-              onClick={() => handleOpen("Total No. of Users")}
+              // onClick={() => handleOpen("Total No. of Users")}
               style={{
                 width: "255px",
                 height: "180px",
@@ -457,11 +457,11 @@ const WhatsappChatbot = () => {
                 display: "flex",
                 flexDirection: "column",
                 boxShadow: "1px 1px 4px 3px lightGrey",
-                cursor: "pointer", // Show hand cursor on hover
-                position: "relative", // Needed for positioning the "Click here" text
+                // cursor: "pointer", // Show hand cursor on hover
+                // position: "relative", // Needed for positioning the "Click here" text
               }}
             >
-              <div
+              {/* <div
                 style={{
                   position: "absolute",
                   top: "0px", // Adjust to position the text at the top
@@ -478,7 +478,7 @@ const WhatsappChatbot = () => {
                 }}
               >
                 Click Here 👆
-              </div>
+              </div> */}
               <div
                 style={{
                   height: "50%",
@@ -732,7 +732,7 @@ const WhatsappChatbot = () => {
                 ) : null}
                 <div
                   className="card"
-                  onClick={() => handleactiveOpen("Total No. of Active Users")}
+                  // onClick={() => handleactiveOpen("Total No. of Active Users")}
                   style={{
                     width: "255px",
                     height: "180px",
@@ -965,7 +965,7 @@ const WhatsappChatbot = () => {
               </div>
             </div>
           </div>
-          <div
+          {/* <div
             style={{
               height: "500px",
               display: "flex",
@@ -975,7 +975,7 @@ const WhatsappChatbot = () => {
             }}
           >
             <Graph data={graphData} />
-          </div>
+          </div> */}
           <DynamicModal
             open={open}
             loading={modalLoader}

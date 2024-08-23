@@ -59,6 +59,8 @@ const Schoolwise_performance = () => {
     "block",
     "cluster",
   ]);
+  const [isShow, setIsShow] = useState(false);
+
   console.log("tableData", tableData);
   console.log("districtArr", districtArr);
 
@@ -144,10 +146,10 @@ const Schoolwise_performance = () => {
         } else {
           setDistrictArr([]);
         }
-        setLoading(false);
+        // setLoading(false);
       } catch (error) {
         console.error("Error fetching districts:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -184,10 +186,10 @@ const Schoolwise_performance = () => {
           console.log("No blocks found for the given district.");
           setBlockArr([]); // Setting an empty array if no data is found
         }
-        setLoading(false);
+        // setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -226,19 +228,19 @@ const Schoolwise_performance = () => {
     const fetchClusters = async () => {
       try {
         if (blocks) {
-          setLoading(true);
+          // setLoading(true);
           const response = await Api.get(`getAllClustersByBlock/${blocks}`);
           // console.log("set=================>", response.data);
           const clusters =
             response?.data?.length > 0 &&
             response?.data?.map((item) => item?.cluster);
           setClusterArr(clusters);
-          setLoading(false);
+          // setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Clusters:", error);
         setClusterArr([]); // Reset clusterArr to an empty array if there's an error
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -257,11 +259,11 @@ const Schoolwise_performance = () => {
         if (clusters) {
           const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
           setSchoolArr(response?.data);
-          setLoading(false);
+          // setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -350,8 +352,11 @@ const Schoolwise_performance = () => {
     setFiltered(true);
     if (!districts) {
       alert("Please select a district to proceed.");
+    } else if (!selectedMonth) {
+      alert("Please select a Month to proceed.");
     } else {
       setLoading(true);
+      setIsShow(true);
       fetchData();
     }
   };
@@ -459,23 +464,6 @@ const Schoolwise_performance = () => {
           flexWrap: "wrap",
         }}
       >
-        {/* <SelectYear Year={year} handleYearChange={handleYearChange} /> */}
-        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Year</InputLabel>
-          <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedYear}
-            onChange={handleYearChange}
-            label="Year"
-          >
-            {years.map((item, index) => (
-              <MenuItem key={index} value={item}>
-                {item}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl> */}
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="district-label">District</InputLabel>
           <Select
@@ -614,7 +602,7 @@ const Schoolwise_performance = () => {
             <CircularProgress />
           </Box>
         </div>
-      ) : !loading && Object.keys(data).length > 0 ? (
+      ) : !loading && Object.keys(data).length > 0 && isShow ? (
         <div
           style={{
             display: "flex",
@@ -2092,12 +2080,11 @@ const Schoolwise_performance = () => {
             </div>
           </div> */}
         </div>
-      ) : null}
-      {/* !loading && filtered && Object.keys(data).length === 0 ? (
-      <img src={Nodata} />
+      ) : !loading && filtered && Object.keys(data).length === 0 ? (
+        <img src={Nodata} />
       ) : (
-      <img src={defaultImage} width={"20%"} />
-      )} */}
+        <img src={defaultImage} width={"20%"} />
+      )}
       <div>
         <canvas ref={chartRef}></canvas>
       </div>

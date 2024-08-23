@@ -77,7 +77,7 @@ const RemoteInstruction = () => {
   const [modalContentTitle, setModalContentTitle] = useState("");
   const [remoteInstructionType, setRemoteInstructionType] = useState("");
   const [modalLoader, setModalLoader] = useState(false);
-  const [isFiltered, setIsFiltered] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(true);
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));

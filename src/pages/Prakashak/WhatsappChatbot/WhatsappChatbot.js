@@ -78,7 +78,9 @@ const WhatsappChatbot = () => {
   const [loading, setLoading] = useState(false);
   const [modalLoader, setModalLoader] = useState(false);
   const [show, setShow] = useState(false);
-  const [isFiltered, setIsFiltered] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(true);
+
+  console.log("isFiltered----------->", isFiltered);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -551,7 +553,7 @@ const WhatsappChatbot = () => {
             onChange={handleMonthChange}
             label="Month"
           >
-            <MenuItem value={""}>None</MenuItem>
+            {/* <MenuItem value={""}>None</MenuItem> */}
             {monthArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -690,7 +692,7 @@ const WhatsappChatbot = () => {
                     <h1>{data.chatbot_users}</h1>
                   </div>
                 </div> */}
-                {show ? (
+                {isFiltered ? (
                   <div
                     className="card"
                     onClick={() => handleOpen("Total No. of New Users")}

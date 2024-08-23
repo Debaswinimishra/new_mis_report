@@ -71,7 +71,9 @@ const WhatsappChatbot = () => {
   //&-------------Filter states---------------
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentMonthSelected.value - 2
+  );
   const [selectedWeek, setSelectedWeek] = useState("");
   const [loading, setLoading] = useState(false);
   const [modalLoader, setModalLoader] = useState(false);

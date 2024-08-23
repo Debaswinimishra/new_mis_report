@@ -62,9 +62,13 @@ const RemoteInstruction = () => {
     (item) => item.label === currentMonth
   )[0];
 
+  console.log("currentMonth--------->", currentMonthSelected);
+
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentMonthSelected.value - 2
+  );
   const [selectedWeek, setSelectedWeek] = useState("");
   const [remoteInstData, setRemoteInstData] = useState({});
   const [loading, setLoading] = useState();

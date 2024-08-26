@@ -594,7 +594,7 @@ const Schoolwise = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -611,7 +611,7 @@ const Schoolwise = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "48%",
@@ -690,7 +690,7 @@ const Schoolwise = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -707,7 +707,7 @@ const Schoolwise = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -747,7 +747,7 @@ const Schoolwise = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -764,7 +764,7 @@ const Schoolwise = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -805,7 +805,7 @@ const Schoolwise = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -822,7 +822,7 @@ const Schoolwise = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -862,7 +862,7 @@ const Schoolwise = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -879,7 +879,7 @@ const Schoolwise = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -919,7 +919,7 @@ const Schoolwise = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -936,7 +936,7 @@ const Schoolwise = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",

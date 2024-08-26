@@ -74,7 +74,7 @@ const WhatsappChatbot = () => {
   const [selectedMonth, setSelectedMonth] = useState(
     currentMonthSelected.value - 2
   );
-  const [selectedWeek, setSelectedWeek] = useState("");
+  const [selectedWeek, setSelectedWeek] = useState(1);
   const [loading, setLoading] = useState(false);
   const [modalLoader, setModalLoader] = useState(false);
   const [show, setShow] = useState(false);
@@ -99,7 +99,7 @@ const WhatsappChatbot = () => {
     ) {
       alert("You can't select a month greater than the current month !");
     } else {
-      setSelectedWeek("");
+      setSelectedWeek(1);
       setSelectedMonth(e.target.value ? e.target.value : "");
     }
   };
@@ -570,7 +570,7 @@ const WhatsappChatbot = () => {
             onChange={handleWeekChange}
             label="Month"
           >
-            <MenuItem value={null}>None</MenuItem>
+            {/* <MenuItem value={null}>None</MenuItem> */}
             {weekArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}

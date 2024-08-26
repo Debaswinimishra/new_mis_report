@@ -92,7 +92,7 @@ const RemoteInstruction = () => {
     ) {
       alert("You can't select a month greater than the current month !");
     } else {
-      setSelectedWeek("");
+      setSelectedWeek(1);
       setSelectedMonth(e.target.value ? e.target.value : "");
     }
   };

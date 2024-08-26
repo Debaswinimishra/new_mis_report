@@ -36,7 +36,7 @@ const Schoolwise_performance = () => {
   const [districts, setDistricts] = useState("PURI");
   const [data, setData] = useState({});
   const [selectedMonth, setSelectedMonth] = useState(6);
-  const [selectedWeek, setSelectedWeek] = useState("");
+  const [selectedWeek, setSelectedWeek] = useState(1);
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
   const [blockArr, setBlockArr] = useState([]);
@@ -184,7 +184,7 @@ const Schoolwise_performance = () => {
     ) {
       alert("You can't select a month greater than the current month !");
     } else {
-      setSelectedWeek("");
+      setSelectedWeek(1);
       setSelectedMonth(e.target.value ? e.target.value : "");
     }
   };
@@ -518,7 +518,7 @@ const Schoolwise_performance = () => {
             onChange={handleMonthChange}
             label="Month"
           >
-            <MenuItem value={null}>None</MenuItem>
+            {/* <MenuItem value={null}>None</MenuItem> */}
             {monthArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -535,7 +535,7 @@ const Schoolwise_performance = () => {
             onChange={handleWeekChange}
             label="Month"
           >
-            <MenuItem value={null}>None</MenuItem>
+            {/* <MenuItem value={null}>None</MenuItem> */}
             {weekArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}

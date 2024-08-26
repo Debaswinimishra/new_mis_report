@@ -1450,6 +1450,109 @@ const DashboardMonthly = () => {
                   style={{
                     textAlign: "center",
                     padding: "10px",
+                    color: "#CD5C5C",
+                    marginTop: "10px",
+                    fontSize: "1.3rem", // Heading font size
+                    fontWeight: "bold",
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  Time Spent 16-30 mins
+                </div>
+
+                {/* User and Avg. Time Spent Section */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "10px",
+                    height: "50%",
+                    color: "#CD5C5C",
+                    fontSize: "1rem", // Reduced font size
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Users
+                  </div>
+                  {/* Line divider */}
+                  <div
+                    style={{
+                      height: "100%",
+                      borderLeft: "1px solid #CD5C5C", // Line between elements
+                      margin: "0 5px",
+                    }}
+                  ></div>
+                  <div
+                    style={{
+                      width: "45%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Avg. Time (in mins)
+                  </div>
+                </div>
+
+                {/* User count and Avg. Time Spent Values */}
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    textAlign: "center",
+                    alignItems: "center",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                    padding: "10px",
+                    height: "50%",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "1rem", // Reduced font size
+                    }}
+                  >
+                    <h2>{dashboardData.no_of_parents_spent_16to30mins}</h2>
+                  </div>
+                  <div
+                    style={{
+                      width: "50%",
+                      fontSize: "0.7rem", // Reduced font size
+                    }}
+                  >
+                    <h1>{dashboardData.avg_tS_16to30mins}</h1>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "220px", // Increased height to accommodate heading
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                {/* Heading */}
+                <div
+                  style={{
+                    textAlign: "center",
+                    padding: "10px",
                     color: "#2E8B57",
                     marginTop: "10px",
                     fontSize: "1.3rem", // Heading font size

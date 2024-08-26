@@ -368,11 +368,20 @@ const Dashboard = () => {
         response = await PrakashakAPI.post("getAllSchools", body);
         if (response.status === 200) {
           transformedData = response.data.map((school) => ({
+            district: school.district,
+            block: school.block,
+            cluster: school.cluster,
             school_name: school.school_name,
             udise_code: school.udise_code,
           }));
           setModalLoader(false);
-          setTableHeaders(["School Name", "UDISE Code"]);
+          setTableHeaders([
+            "District",
+            "Block",
+            "Cluster Name",
+            "School Name",
+            "UDISE Code",
+          ]);
         }
       } else if (type === "students" || type === "girls" || type === "boys") {
         response = await PrakashakAPI.post("getAllStudentsReport", body);

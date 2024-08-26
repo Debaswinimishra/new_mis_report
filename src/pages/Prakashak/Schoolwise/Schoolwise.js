@@ -602,7 +602,7 @@ const Schoolwise = () => {
                     color: "#CD5C5C", // Text color
                     backgroundColor: "white", // Background color to make it stand out
                     padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
+                    fontSize: "0.6rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                     borderRadius: "5px", // Rounded corners for a smoother look
@@ -617,7 +617,7 @@ const Schoolwise = () => {
                     height: "50%",
                     color: "#CD5C5C",
                     // paddingTop: "13px",
-                    fontSize: "1.2rem",
+                    fontSize: "1.1rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}

@@ -207,9 +207,9 @@ const DashboardMonthly = () => {
       case "smartphoneUsers":
         return "Total number of Smartphone users";
       case "girls":
-        return "Total Number of girls";
+        return "Total Number of new girls";
       case "boys":
-        return "Total Number of Boys";
+        return "Total Number of new Boys";
 
       case "students":
         return "Number of Students";

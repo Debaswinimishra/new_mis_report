@@ -573,7 +573,7 @@ const Schoolwise_performance = () => {
             <CircularProgress />
           </Box>
         </div>
-      ) : !loading && Object.keys(data).length > 0 ? (
+      ) : !loading && Object.keys(data).length > 0                                 ? (
         <div
           style={{
             display: "flex",

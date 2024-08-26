@@ -40,6 +40,7 @@ import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 import AmazonVouchersRedeemed from "../Pages/Fellow/AmazonVouchersRedeemed/AmazonVouchersRedeemed";
+import Retention from "../Pages/Prakashak/Retention/Retention";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -130,6 +131,7 @@ function RouteRoot() {
                 element={<Schoolwise_performance />}
               />
               <Route path="class_wise" element={<Classwise />} />
+              <Route path="retention_metrics" element={<Retention />} />
             </Route>
             <Route
               path="*"
@@ -224,6 +226,7 @@ function RouteRoot() {
                 path="school_wise_performance"
                 element={<Schoolwise_performance />}
               />
+              <Route path="retention_metrics" element={<Retention />} />
               <Route path="class_wise" element={<Classwise />} />
             </Route>
             <Route

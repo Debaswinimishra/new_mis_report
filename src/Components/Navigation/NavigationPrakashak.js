@@ -17,6 +17,7 @@ import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
+import Retention from "../../Pages/Prakashak/Retention/Retention";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -92,6 +93,11 @@ function NavigationPrakashak(props) {
       link: "prakashak/school_wise_performance",
       id: 5,
     },
+    {
+      text: "Retention Metrics",
+      link: "prakashak/retention_metrics",
+      id: 6,
+    },
     // { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
   ];
 
@@ -154,7 +160,7 @@ function NavigationPrakashak(props) {
         >
           <b>PRAKASHAK</b>
           <sub>
-            v{Version.version}({networkStatus})
+            v{Version.version} ({networkStatus})
           </sub>
           <div
             style={{
@@ -173,7 +179,6 @@ function NavigationPrakashak(props) {
           </div>
         </div>
       </div>
-
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -199,7 +204,6 @@ function NavigationPrakashak(props) {
           ) : null}
         </MenuItem>
       </Popover>
-
       <div
         style={{
           display: "flex",
@@ -207,6 +211,8 @@ function NavigationPrakashak(props) {
           flexWrap: "wrap",
           justifyContent: "center",
           margin: "10px 0",
+          // overflowX: "auto",
+          // whiteSpace: "nowrap",
         }}
       >
         {listItem.map((item, index) => (
@@ -258,6 +264,8 @@ function NavigationPrakashak(props) {
           <Schoolwise />
         ) : activeLink === "/prakashak/school_wise_performance" ? (
           <Schoolwise_performance />
+        ) : activeLink === "/prakashak/retention_metrics" ? (
+          <Retention />
         ) : null}
       </div>
     </Box>

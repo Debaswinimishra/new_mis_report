@@ -368,11 +368,20 @@ const Dashboard = () => {
         response = await PrakashakAPI.post("getAllSchools", body);
         if (response.status === 200) {
           transformedData = response.data.map((school) => ({
+            district: school.district,
+            block: school.block,
+            cluster: school.cluster,
             school_name: school.school_name,
             udise_code: school.udise_code,
           }));
           setModalLoader(false);
-          setTableHeaders(["School Name", "UDISE Code"]);
+          setTableHeaders([
+            "District",
+            "Block",
+            "Cluster Name",
+            "School Name",
+            "UDISE Code",
+          ]);
         }
       } else if (type === "students" || type === "girls" || type === "boys") {
         response = await PrakashakAPI.post("getAllStudentsReport", body);
@@ -688,7 +697,7 @@ const Dashboard = () => {
             paddingBottom: "4%",
             marginLeft: "4%",
             alignContent: "flex-start",
-            height: "95vh",
+            // height: "95vh",
           }}
         >
           <div
@@ -705,15 +714,16 @@ const Dashboard = () => {
                 color: "#333", // Dark grey color for the text
                 fontFamily: "Congenial SemiBold", // Font family for a clean look
                 fontWeight: "700", // Bolder font weight for emphasis
-                fontSize: "1.8rem", // Larger font size for prominence
-                textAlign: "center", // Center-align the text
+                fontSize: "1.2rem", // Smaller font size for prominence
+                textAlign: "right", // Align the text to the right
                 padding: "10px 0", // Add some padding for spacing
                 borderBottom: "2px solid #000000", // Add a bottom border for separation
                 letterSpacing: "0.5px", // Slight letter spacing for readability
                 textTransform: "capitalize", // Capitalize each word
               }}
             >
-              Details Till Now: 1st Week
+              Data Updated as on -{" "}
+              {dashboardData ? dashboardData?.data_last_updated : "22/08/2024"}
             </h1>
             <div
               style={{
@@ -1128,7 +1138,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("clusters")}
+                // onClick={() => handleOpen("clusters")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1142,7 +1152,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1159,7 +1169,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -1181,11 +1191,11 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData.total_activated_students}</h1>
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("clusters")}
+                // onClick={() => handleOpen("clusters")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1199,7 +1209,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1216,7 +1226,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -1238,7 +1248,7 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData.total_active_students}</h1>
                 </div>
               </div>
 

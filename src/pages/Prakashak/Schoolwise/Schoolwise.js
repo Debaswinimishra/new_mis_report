@@ -33,7 +33,7 @@ const Schoolwise = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
-  const [districts, setDistricts] = useState("");
+  const [districts, setDistricts] = useState("PURI");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
@@ -158,10 +158,10 @@ const Schoolwise = () => {
           console.log("No blocks found for the given district.");
           setBlockArr([]); // Setting an empty array if no data is found
         }
-        setLoading(false);
+        // setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -182,19 +182,19 @@ const Schoolwise = () => {
     const fetchClusters = async () => {
       try {
         if (blocks) {
-          setLoading(true);
+          // setLoading(true);
           const response = await Api.get(`getAllClustersByBlock/${blocks}`);
           // console.log("set=================>", response.data);
           const clusters =
             response?.data?.length > 0 &&
             response?.data?.map((item) => item?.cluster);
           setClusterArr(clusters);
-          setLoading(false);
+          // setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Clusters:", error);
         setClusterArr([]); // Reset clusterArr to an empty array if there's an error
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -216,11 +216,11 @@ const Schoolwise = () => {
           //   response.data[0].school_name
           // );
           setSchoolArr(response?.data);
-          setLoading(false);
+          // setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
@@ -445,8 +445,8 @@ const Schoolwise = () => {
             label="Block"
             disabled={loading || !districts}
           >
-            <MenuItem value="Select Month" disabled>
-              Select Month
+            <MenuItem value="Select Block" disabled>
+              Select Block
             </MenuItem>
             <MenuItem value="">None</MenuItem>
             {blockArr &&
@@ -523,7 +523,6 @@ const Schoolwise = () => {
         </Button>
         {/* </Box> */}
       </div>
-
       {/* ---------------------------- content --------------------- */}
       {loading ? (
         <div
@@ -553,6 +552,23 @@ const Schoolwise = () => {
               width: "97%",
             }}
           >
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.2rem", // Smaller font size for prominence
+                textAlign: "right", // Align the text to the right
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Data Updated as on -{" "}
+              {data ? data?.data_last_updated : "22/08/2024"}
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -567,7 +583,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport")}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -598,15 +614,16 @@ const Schoolwise = () => {
                 </div>
                 <div
                   style={{
-                    height: "50%",
+                    height: "48%",
                     color: "#CD5C5C",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
+                    paddingTop: "10px",
+                    fontSize: "1.1rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
+                    width: "100%",
                   }}
                 >
-                  <p> Number of students</p>
+                  <p>Number of students (including promoted students)</p>
                 </div>
                 <div
                   style={{
@@ -623,7 +640,7 @@ const Schoolwise = () => {
               {/* <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -662,7 +679,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 1)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -719,7 +736,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 2)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -777,7 +794,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 3)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -834,7 +851,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 4)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -891,7 +908,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 5)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -948,7 +965,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -980,13 +997,13 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.total_timespent}</h1>
+                  <h1>{data.total_activated_students}</h1>
                 </div>
               </div>
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1007,7 +1024,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Total active students
+                  <p> Total active students</p>
                 </div>
                 <div
                   style={{
@@ -1018,13 +1035,13 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
+                  <h1>{data.total_active_students}</h1>
                 </div>
               </div>
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1045,7 +1062,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Total smartphone users
+                  <p> Total smartphone users</p>
                 </div>
                 <div
                   style={{
@@ -1056,13 +1073,13 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                  <h1>{data.remote_instructions_users}</h1>
                 </div>
               </div>
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1077,13 +1094,13 @@ const Schoolwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(153 58 134)",
-                    paddingTop: "20px",
+                    paddingTop: "14px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Total non-smartphone users
+                  <p>Total non-smartphone users</p>
                 </div>
                 <div
                   style={{
@@ -1094,13 +1111,13 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_16to30mins}</h1>
+                  <h1>{data.chatbot_users}</h1>
                 </div>
               </div>
               {/* <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1139,7 +1156,7 @@ const Schoolwise = () => {
               {/* <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1214,7 +1231,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1252,7 +1269,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1290,7 +1307,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1328,7 +1345,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1366,7 +1383,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1405,7 +1422,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1444,7 +1461,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1525,7 +1542,7 @@ const Schoolwise = () => {
                 }}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -1582,7 +1599,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
        
@@ -1620,7 +1637,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1660,7 +1677,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpen()}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1700,7 +1717,7 @@ const Schoolwise = () => {
                 // onClick={() => handleOpen()}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1738,16 +1755,15 @@ const Schoolwise = () => {
             </div>
           </div> */}
         </div>
-      ) : !loading && filtered && Object.keys(data).length === 0 ? (
-        <img src={Nodata} />
+      ) : null}
+      {/* !loading && filtered && Object.keys(data).length === 0 ? (
+      <img src={Nodata} />
       ) : (
-        <img src={defaultImage} width={"20%"} />
-      )}
-
+      <img src={defaultImage} width={"20%"} />
+      )} */}
       <div>
         <canvas ref={chartRef}></canvas>
       </div>
-
       <DynamicModal
         open={open}
         loading={loading}

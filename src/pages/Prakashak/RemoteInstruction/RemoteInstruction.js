@@ -62,9 +62,13 @@ const RemoteInstruction = () => {
     (item) => item.label === currentMonth
   )[0];
 
+  console.log("currentMonth--------->", currentMonthSelected);
+
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentMonthSelected.value - 2
+  );
   const [selectedWeek, setSelectedWeek] = useState("");
   const [remoteInstData, setRemoteInstData] = useState({});
   const [loading, setLoading] = useState();
@@ -73,6 +77,7 @@ const RemoteInstruction = () => {
   const [modalContentTitle, setModalContentTitle] = useState("");
   const [remoteInstructionType, setRemoteInstructionType] = useState("");
   const [modalLoader, setModalLoader] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(true);
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -143,6 +148,8 @@ const RemoteInstruction = () => {
     setRemoteInstData({});
     let body = {};
     setLoading(true);
+    setIsFiltered(false);
+
     if (!selectedMonth && !selectedMonth) {
       body = {
         year: selectedYear,
@@ -159,14 +166,21 @@ const RemoteInstruction = () => {
         week: selectedWeek,
       };
     } else {
-      alert("Please select a month before selecting the week !");
+      alert("Please select a month before selecting the week!");
     }
+
     console.log("body passed------------>", body);
+
     PrakashakAPI.post(`getRemoteInstReport`, body)
       .then((res) => {
         if (res.status === 200) {
           setRemoteInstData(res.data);
           setLoading(false);
+          if (body.month) {
+            setIsFiltered(true);
+          } else {
+            setIsFiltered(false);
+          }
         } else {
           setLoading(false);
           console.log("res status------->", res.status);
@@ -174,7 +188,6 @@ const RemoteInstruction = () => {
       })
       .catch((err) => {
         setLoading(false);
-        // alert("No data available");
         console.log(`The error is---> ${err}`);
       });
   };
@@ -595,8 +608,107 @@ const RemoteInstruction = () => {
     <div>
       <div
         style={{
+          marginTop: "2%",
+          paddingBottom: "4%",
+          marginLeft: "4%",
+          alignContent: "flex-start",
+        }}
+      >
+        <div
+          style={{
+            marginTop: "2%",
+            boxShadow: "2px 1px 5px grey",
+            padding: "3%",
+            width: "95%",
+          }}
+        >
+          <div style={{ marginTop: "-2%" }}>
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.2rem", // Smaller font size for prominence
+                textAlign: "right", // Align the text to the right
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              {loading ? (
+                "Loading..." // Show loader text while fetching data
+              ) : (
+                <>
+                  Data Updated as on -{" "}
+                  {remoteInstData
+                    ? remoteInstData?.data_last_updated
+                    : "22/08/2024"}
+                </>
+              )}
+            </h1>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignContent: "center",
+              justifyContent: "center",
+              width: "97%",
+              gap: "2%",
+              // marginLeft: "4%",
+            }}
+          >
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#00CED1",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                <p>No. of registered non-smartphone users</p>
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#00CED1",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                {loading ? (
+                  <CircularProgress
+                    style={{ color: "white", marginTop: "20px" }}
+                  /> // Display CircularProgress when loading
+                ) : (
+                  <h1>{remoteInstData.total_remote_instructions_users}</h1> // Display data when loaded
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
           display: "flex",
-          marginTop: "4%",
+          // marginTop: "4%",
           marginLeft: "60%",
           flexWrap: "wrap",
         }}
@@ -679,6 +791,396 @@ const RemoteInstruction = () => {
           }}
         >
           <div
+            style={{
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
+              width: "95%",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "97%",
+                gap: "2%",
+                // marginLeft: "4%",
+              }}
+            >
+              {isFiltered ? (
+                <div
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#CD5C5C",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p>No of new registered non-smartphone users</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#CD5C5C",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{remoteInstData.new_remote_instructions_users}</h1>
+                  </div>
+                </div>
+              ) : null}
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>No. of active users</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.new_active_students}</h1>
+                </div>
+              </div>
+
+              {isFiltered ? (
+                <div
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#2E8B57",
+                      paddingTop: "20px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p>No of new activated users</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#2E8B57",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{remoteInstData.new_activated_students}</h1>
+                  </div>
+                </div>
+              ) : null}
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#008080",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Total SMS scheduled</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#008080",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.total_sms_scheduled}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#b9770e",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Total SMS delivered</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#b9770e",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.total_sms_delivered}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#512e5f",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Calls scheduled</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#512e5f",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.total_calls_made}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#800000",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Calls received</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#800000",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.total_calls_received}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#000080",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Total mins of content consumed</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#000080",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.total_calls_mins}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#40E0D0",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Incoming calls (IVRS)</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#40E0D0",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.total_ivrs_calls_made}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#708090",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Total mins spent (IVRS)</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#708090",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{remoteInstData.total_ivrs_calls_mins}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -889,9 +1391,9 @@ const RemoteInstruction = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -925,7 +1427,6 @@ const RemoteInstruction = () => {
                 justifyContent: "center",
                 width: "97%",
                 gap: "2%",
-                // marginLeft: "4%",
               }}
             >
               <div
@@ -1016,19 +1517,11 @@ const RemoteInstruction = () => {
                 </div>
               </div>
               <div
-                // onClick={() =>
-                //   handleOpen({
-                //     contentTitle: " Total minutes of contents consumed",
-                //     remoteInstruction: "auto_calls",
-                //   })
-                // }
                 style={{
                   width: "255px",
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1058,52 +1551,10 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_calls_mins}</h1>
                 </div>
               </div>
-              {/* <div
-                onClick={() =>
-                  handleOpen({
-                    contentTitle:
-                      "Total no. parents listened to the full content",
-                    remoteInstruction: "auto_calls",
-                  })
-                }
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#2E8B57",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p> Total no. parents listened to the full content</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#2E8B57",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{remoteInstData.calls_parents_listen_full_content}</h1>
-                </div>
-              </div> */}
             </div>
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1393,8 +1844,8 @@ const RemoteInstruction = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             style={{
               height: "500px",
               display: "flex",
@@ -1404,7 +1855,7 @@ const RemoteInstruction = () => {
             }}
           >
             <Graph data={graphData} />
-          </div>
+          </div> */}
           <DynamicModal
             open={open}
             handleClose={handleClose}

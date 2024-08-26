@@ -115,7 +115,8 @@ const WhatsappChatbot = () => {
   //   setSelectedClass(e.target.value);
   // };
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
+  console.log("data--->", data);
 
   useEffect(() => {
     fetchData();
@@ -129,40 +130,26 @@ const WhatsappChatbot = () => {
       week: selectedWeek,
     };
 
+    const filteredData = dataJson.filter((item) => {
+      return item.month === selectedMonth && item.week === selectedWeek;
+    });
+
     if (selectedYear) {
-      Api.post(`getChatbotReport`, body)
-        .then((response) => {
-          console.log("set=================>", response.data);
-          if (body.month) {
-            setIsFiltered(true);
-          } else {
-            setIsFiltered(false);
-          }
-          setData(response.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log("err=================>", err);
-          setLoading(false);
-        });
+      if (filteredData.length > 0) {
+        setData(filteredData);
+      } else {
+        console.log("No matching data found");
+        setData([]);
+      }
+      setIsFiltered(true);
     } else {
-      Api.post(`getChatbotReport`)
-        .then((response) => {
-          console.log("set=================>", response.data);
-          setData(response.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log("err=================>", err);
-          setLoading(false);
-        });
+      setData(dataJson);
+      setIsFiltered(false);
     }
+    setLoading(false);
   };
 
   const filterButtonClick = () => {
-    // Assuming you have selectedMonth and selectedWeek as state variables or props
-
-    // If both are selected, proceed with loading and fetching data
     setLoading(true);
     setShow(true);
     fetchData();
@@ -509,7 +496,8 @@ const WhatsappChatbot = () => {
                     style={{ color: "white", marginTop: "20px" }}
                   /> // Display CircularProgress when loading
                 ) : (
-                  <h1>{data.chatbot_users}</h1>
+                  // <h1>{data.chatbot_users}</h1>
+                  <h1>6672</h1>
                 )}
               </div>
             </div>
@@ -602,7 +590,7 @@ const WhatsappChatbot = () => {
             <CircularProgress />
           </Box>
         </div>
-      ) : !loading && Object.keys(data).length > 0 ? (
+      ) : !loading && data?.length > 0 ? (
         <>
           <div
             style={{
@@ -633,339 +621,212 @@ const WhatsappChatbot = () => {
                   gap: "2%",
                 }}
               >
-                {/* <div
-                  className="card"
-                  // onClick={() => handleUserOpen()}
-                  onClick={() => handleOpen("Total No. of Users")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                    cursor: "pointer", // Show hand cursor on hover
-                    position: "relative", // Needed for positioning the "Click here" text
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "0px", // Adjust to position the text at the top
-                      right: "0px", // Adjust to position the text at the right
-                      color: "#CD5C5C", // Text color
-                      backgroundColor: "white", // Background color to make it stand out
-                      padding: "5px 10px", // Padding to add some space inside the border
-                      fontSize: "0.7rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                      borderRadius: "5px", // Rounded corners for a smoother look
-                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                      zIndex: "10", // Ensure it stays on top of other elements
-                    }}
-                  >
-                    Click Here 👆
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "#CD5C5C",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    <p> Total No. of Users</p>
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "#CD5C5C",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_users}</h1>
-                  </div>
-                </div> */}
-                {isFiltered ? (
-                  <div
-                    className="card"
-                    // onClick={() => handleOpen("Total No. of New Users")}
-                    style={{
-                      width: "255px",
-                      height: "180px",
-                      marginTop: "1.5%",
-                      backgroundColor: "white",
-                      borderRadius: "10px",
-                      display: "flex",
-                      flexDirection: "column",
-                      boxShadow: "1px 1px 4px 3px lightGrey",
-                      cursor: "pointer", // Show hand cursor on hover
-                      position: "relative", // Needed for positioning the "Click here" text
-                    }}
-                  >
-                    <div
-                      style={{
-                        height: "50%",
-                        color: "#000080",
-                        paddingTop: "20px",
-                        fontSize: "1.2rem",
-                        fontFamily: "Congenial SemiBold",
-                        fontWeight: "600",
-                      }}
-                    >
-                      <p>No of new registered smartphone users</p>
-                    </div>
-                    <div
-                      style={{
-                        height: "50%",
-                        backgroundColor: "#000080",
-                        borderEndStartRadius: "10px",
-                        borderEndEndRadius: "10px",
-                        color: "white",
-                      }}
-                    >
-                      <h1>{data.chatbot_new_users}</h1>
-                    </div>
-                  </div>
-                ) : null}
-                <div
-                  className="card"
-                  // onClick={() => handleactiveOpen("Total No. of Active Users")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
+                {data?.map((data) => {
+                  return (
+                    <>
+                      {isFiltered ? (
+                        <div
+                          className="card"
+                          // onClick={() => handleOpen("Total No. of New Users")}
+                          style={{
+                            width: "255px",
+                            height: "180px",
+                            marginTop: "1.5%",
+                            backgroundColor: "white",
+                            borderRadius: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            boxShadow: "1px 1px 4px 3px lightGrey",
+                            cursor: "pointer", // Show hand cursor on hover
+                            position: "relative", // Needed for positioning the "Click here" text
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "50%",
+                              color: "#000080",
+                              paddingTop: "20px",
+                              fontSize: "1.2rem",
+                              fontFamily: "Congenial SemiBold",
+                              fontWeight: "600",
+                            }}
+                          >
+                            <p>No of new registered smartphone users</p>
+                          </div>
+                          <div
+                            style={{
+                              height: "50%",
+                              backgroundColor: "#000080",
+                              borderEndStartRadius: "10px",
+                              borderEndEndRadius: "10px",
+                              color: "white",
+                            }}
+                          >
+                            <h1>{data.chatbot_new_users}</h1>
+                          </div>
+                        </div>
+                      ) : null}
+                      <div
+                        className="card"
+                        // onClick={() => handleactiveOpen("Total No. of Active Users")}
+                        style={{
+                          width: "255px",
+                          height: "180px",
+                          marginTop: "1.5%",
+                          backgroundColor: "white",
 
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "rgb(102 52 91)",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    <p> Total No. of Active Users</p>
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "rgb(102 52 91)",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_active_users}</h1>
-                  </div>
-                </div>
-                {isFiltered ? (
-                  <div
-                    className="card"
-                    // onClick={() => handleactiveOpen("Total No. of Active Users")}
-                    style={{
-                      width: "255px",
-                      height: "180px",
-                      marginTop: "1.5%",
-                      backgroundColor: "white",
+                          borderRadius: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          boxShadow: "1px 1px 4px 3px lightGrey",
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "50%",
+                            color: "rgb(102 52 91)",
+                            paddingTop: "20px",
+                            fontSize: "1.2rem",
+                            fontFamily: "Congenial SemiBold",
+                            fontWeight: "600",
+                          }}
+                        >
+                          <p> Total No. of Active Users</p>
+                        </div>
+                        <div
+                          style={{
+                            height: "50%",
+                            backgroundColor: "rgb(102 52 91)",
+                            borderEndStartRadius: "10px",
+                            borderEndEndRadius: "10px",
+                            color: "white",
+                          }}
+                        >
+                          <h1>{data.chatbot_active_users}</h1>
+                        </div>
+                      </div>
+                      {isFiltered ? (
+                        <div
+                          className="card"
+                          // onClick={() => handleactiveOpen("Total No. of Active Users")}
+                          style={{
+                            width: "255px",
+                            height: "180px",
+                            marginTop: "1.5%",
+                            backgroundColor: "white",
 
-                      borderRadius: "10px",
-                      display: "flex",
-                      flexDirection: "column",
-                      boxShadow: "1px 1px 4px 3px lightGrey",
-                    }}
-                  >
-                    <div
-                      style={{
-                        height: "50%",
-                        color: "#708090",
-                        paddingTop: "20px",
-                        fontSize: "1.2rem",
-                        fontFamily: "Congenial SemiBold",
-                        fontWeight: "600",
-                      }}
-                    >
-                      <p> Total No. new Activated Users</p>
-                    </div>
-                    <div
-                      style={{
-                        height: "50%",
-                        backgroundColor: "#708090",
-                        borderEndStartRadius: "10px",
-                        borderEndEndRadius: "10px",
-                        color: "white",
-                      }}
-                    >
-                      <h1>{data.new_activated_students}</h1>
-                    </div>
-                  </div>
-                ) : null}
-                {/* <div
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
-                  
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "#2E8B57",
-                      paddingTop: "20px",
-                      fontSize: "1.1rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Total No. of Parents completed at least one activity
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "#2E8B57",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_users_completed_one_act}</h1>
-                  </div>
-                </div> */}
-                {/* <div
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
-                  
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "rgb(153 58 134)",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Total No. of parents completed the full thread
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "rgb(153 58 134)",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_users_completed_full_thread}</h1>
-                  </div>
-                </div> */}
+                            borderRadius: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            boxShadow: "1px 1px 4px 3px lightGrey",
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "50%",
+                              color: "#708090",
+                              paddingTop: "20px",
+                              fontSize: "1.2rem",
+                              fontFamily: "Congenial SemiBold",
+                              fontWeight: "600",
+                            }}
+                          >
+                            <p> Total No. new Activated Users</p>
+                          </div>
+                          <div
+                            style={{
+                              height: "50%",
+                              backgroundColor: "#708090",
+                              borderEndStartRadius: "10px",
+                              borderEndEndRadius: "10px",
+                              color: "white",
+                            }}
+                          >
+                            <h1>{data.new_activated_students}</h1>
+                          </div>
+                        </div>
+                      ) : null}
 
-                <div
-                  className="card"
-                  // onClick={() => handleOpen(" Total No. of Minutes Spent")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
+                      <div
+                        className="card"
+                        // onClick={() => handleOpen(" Total No. of Minutes Spent")}
+                        style={{
+                          width: "255px",
+                          height: "180px",
+                          marginTop: "1.5%",
+                          backgroundColor: "white",
 
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "#6A5ACD",
-                      paddingTop: "30px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Total mins of content consumed
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "#6A5ACD",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.total_chatbot_mins}</h1>
-                  </div>
-                </div>
-                <div
-                  className="card"
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
+                          borderRadius: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          boxShadow: "1px 1px 4px 3px lightGrey",
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "50%",
+                            color: "#6A5ACD",
+                            paddingTop: "30px",
+                            fontSize: "1.2rem",
+                            fontFamily: "Congenial SemiBold",
+                            fontWeight: "600",
+                          }}
+                        >
+                          Total mins of content consumed
+                        </div>
+                        <div
+                          style={{
+                            height: "50%",
+                            backgroundColor: "#6A5ACD",
+                            borderEndStartRadius: "10px",
+                            borderEndEndRadius: "10px",
+                            color: "white",
+                          }}
+                        >
+                          <h1>{data.total_chatbot_mins}</h1>
+                        </div>
+                      </div>
+                      <div
+                        className="card"
+                        style={{
+                          width: "255px",
+                          height: "180px",
+                          marginTop: "1.5%",
+                          backgroundColor: "white",
 
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "rgb(153 58 134)",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    <p> Average Minutes Spent</p>
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "rgb(153 58 134)",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_avg_mins}</h1>
-                  </div>
-                </div>
+                          borderRadius: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          boxShadow: "1px 1px 4px 3px lightGrey",
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "50%",
+                            color: "rgb(153 58 134)",
+                            paddingTop: "20px",
+                            fontSize: "1.2rem",
+                            fontFamily: "Congenial SemiBold",
+                            fontWeight: "600",
+                          }}
+                        >
+                          <p> Average Minutes Spent</p>
+                        </div>
+                        <div
+                          style={{
+                            height: "50%",
+                            backgroundColor: "rgb(153 58 134)",
+                            borderEndStartRadius: "10px",
+                            borderEndEndRadius: "10px",
+                            color: "white",
+                          }}
+                        >
+                          <h1>{data.chatbot_avg_mins}</h1>
+                        </div>
+                      </div>
+                    </>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -1019,3 +880,42 @@ const WhatsappChatbot = () => {
 };
 
 export default WhatsappChatbot;
+
+const dataJson = [
+  {
+    month: 1,
+    week: 1,
+    chatbot_new_users: 2356,
+    chatbot_active_users: 324,
+    new_activated_students: 23,
+    total_chatbot_mins: 23,
+    chatbot_avg_mins: 23,
+  },
+  {
+    month: 1,
+    week: 2,
+    chatbot_new_users: 23567,
+    chatbot_active_users: 324,
+    new_activated_students: 23,
+    total_chatbot_mins: 23,
+    chatbot_avg_mins: 23,
+  },
+  {
+    month: 2,
+    week: 1,
+    chatbot_new_users: 23423,
+    chatbot_active_users: 324,
+    new_activated_students: 23,
+    total_chatbot_mins: 23,
+    chatbot_avg_mins: 23,
+  },
+  {
+    month: 2,
+    week: 2,
+    chatbot_new_users: 23098,
+    chatbot_active_users: 324,
+    new_activated_students: 23,
+    total_chatbot_mins: 23,
+    chatbot_avg_mins: 23,
+  },
+];

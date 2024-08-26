@@ -583,7 +583,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport")}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -602,7 +602,7 @@ const Schoolwise = () => {
                     color: "#CD5C5C", // Text color
                     backgroundColor: "white", // Background color to make it stand out
                     padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.6rem",
+                    fontSize: "0.7rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                     borderRadius: "5px", // Rounded corners for a smoother look
@@ -614,18 +614,16 @@ const Schoolwise = () => {
                 </div>
                 <div
                   style={{
-                    height: "50%",
+                    height: "48%",
                     color: "#CD5C5C",
-                    // paddingTop: "13px",
+                    paddingTop: "10px",
                     fontSize: "1.1rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
+                    width: "100%",
                   }}
                 >
-                  <p>
-                    Number of students <br />
-                    (including promoted students)
-                  </p>
+                  <p>Number of students (including promoted students)</p>
                 </div>
                 <div
                   style={{
@@ -642,7 +640,7 @@ const Schoolwise = () => {
               {/* <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -681,7 +679,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 1)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -738,7 +736,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 2)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -796,7 +794,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 3)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -853,7 +851,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 4)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -910,7 +908,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 5)}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -967,7 +965,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1005,7 +1003,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1026,7 +1024,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Total active students
+                  <p> Total active students</p>
                 </div>
                 <div
                   style={{
@@ -1043,7 +1041,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1064,7 +1062,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Total smartphone users
+                  <p> Total smartphone users</p>
                 </div>
                 <div
                   style={{
@@ -1081,7 +1079,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1096,13 +1094,13 @@ const Schoolwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(153 58 134)",
-                    paddingTop: "20px",
+                    paddingTop: "14px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  Total non-smartphone users
+                  <p>Total non-smartphone users</p>
                 </div>
                 <div
                   style={{
@@ -1119,7 +1117,7 @@ const Schoolwise = () => {
               {/* <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1158,7 +1156,7 @@ const Schoolwise = () => {
               {/* <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1233,7 +1231,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1271,7 +1269,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1309,7 +1307,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1347,7 +1345,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1385,7 +1383,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1424,7 +1422,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1463,7 +1461,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1544,7 +1542,7 @@ const Schoolwise = () => {
                 }}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -1601,7 +1599,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
        
@@ -1639,7 +1637,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1679,7 +1677,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpen()}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1719,7 +1717,7 @@ const Schoolwise = () => {
                 // onClick={() => handleOpen()}
                 style={{
                   width: "255px",
-                  height: "180px",
+                  height: "200px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",

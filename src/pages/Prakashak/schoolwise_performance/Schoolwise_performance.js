@@ -261,6 +261,7 @@ const Schoolwise_performance = () => {
   const fetchData = () => {
     setLoading(true);
     const body = {
+      year: 2024,
       district: districts,
       block: blocks,
       cluster: clusters,

@@ -695,7 +695,7 @@ const WhatsappChatbot = () => {
                 {isFiltered ? (
                   <div
                     className="card"
-                    onClick={() => handleOpen("Total No. of New Users")}
+                    // onClick={() => handleOpen("Total No. of New Users")}
                     style={{
                       width: "255px",
                       height: "180px",

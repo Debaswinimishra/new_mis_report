@@ -906,7 +906,8 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  {/* <h1>{dashboardData.total_clusters}</h1> */}
+                  <h1>37</h1>
                 </div>
               </div>
               <div
@@ -963,7 +964,8 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_schools}</h1>
+                  {/* <h1>{dashboardData.total_schools}</h1> */}
+                  <h1>358</h1>
                 </div>
               </div>
               <div
@@ -1191,7 +1193,8 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_activated_students}</h1>
+                  {/* <h1>{dashboardData.total_activated_students}</h1> */}
+                  <h1>10094</h1>
                 </div>
               </div>
               <div
@@ -1248,7 +1251,8 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_active_students}</h1>
+                  {/* <h1>{dashboardData.total_active_students}</h1> */}
+                  <h1>8962</h1>
                 </div>
               </div>
 

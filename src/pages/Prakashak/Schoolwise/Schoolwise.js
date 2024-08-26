@@ -718,7 +718,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Students in Class 1
+                  <p> Number of Students in Class 1</p>
                 </div>
                 <div
                   style={{
@@ -775,7 +775,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Students in Class 2
+                  <p> Number of Students in Class 2</p>
                 </div>
                 <div
                   style={{
@@ -827,7 +827,7 @@ const Schoolwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(214 148 16)",
-                    paddingTop: "13px",
+                    paddingTop: "25px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -890,7 +890,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Students in Class 4
+                  <p> Number of Students in Class 4</p>
                 </div>
                 <div
                   style={{
@@ -947,7 +947,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Students in Class 5
+                  <p>Number of Students in Class 5</p>
                 </div>
                 <div
                   style={{
@@ -980,7 +980,7 @@ const Schoolwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(214 148 16)",
-                    paddingTop: "13px",
+                    paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",

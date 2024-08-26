@@ -69,7 +69,7 @@ const RemoteInstruction = () => {
   const [selectedMonth, setSelectedMonth] = useState(
     currentMonthSelected.value - 2
   );
-  const [selectedWeek, setSelectedWeek] = useState("");
+  const [selectedWeek, setSelectedWeek] = useState(1);
   const [remoteInstData, setRemoteInstData] = useState({});
   const [loading, setLoading] = useState();
   const [open, setOpen] = useState(false);
@@ -165,8 +165,10 @@ const RemoteInstruction = () => {
         month: selectedMonth,
         week: selectedWeek,
       };
-    } else {
+    } else if (!selectedMonth) {
       alert("Please select a month before selecting the week!");
+    } else if (!selectedWeek) {
+      alert("please select a week before proceeding !");
     }
 
     console.log("body passed------------>", body);
@@ -738,7 +740,7 @@ const RemoteInstruction = () => {
             onChange={handleMonthChange}
             label="Month"
           >
-            <MenuItem value={null}>None</MenuItem>
+            {/* <MenuItem value={null}>None</MenuItem> */}
             {monthArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -755,7 +757,7 @@ const RemoteInstruction = () => {
             onChange={handleWeekChange}
             label="Month"
           >
-            <MenuItem value={null}>None</MenuItem>
+            {/* <MenuItem value={null}>None</MenuItem> */}
             {weekArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}

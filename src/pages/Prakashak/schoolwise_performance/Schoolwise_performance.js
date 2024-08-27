@@ -28,6 +28,7 @@ import defaultImage from "../../../Assets/default.jpg";
 import Chart from "chart.js/auto";
 import DynamicModal from "../../../Components/DynamicModal";
 import SelectYear from "../../../ReusableComponents/SelectYear";
+import { filterData } from "../../../downloads/jsonData";
 
 const Schoolwise_performance = () => {
   const chartRef = useRef(null);
@@ -196,54 +197,80 @@ const Schoolwise_performance = () => {
     setBlocks(e.target.value);
     setCluseters("");
     setSchools("");
+    const data = filterData;
+    console.log("data----->", data);
+
+    if (e.target.value?.length > 0) {
+      const res = data.filter((item) => item.block === e.target.value);
+
+      const cluster = res?.map((item) => item.cluster);
+      const uniqueData = Array.from(new Set(cluster.map(JSON.stringify))).map(
+        JSON.parse
+      );
+      // console.log("uniqueData--->", res);
+      setClusterArr(uniqueData);
+    }
   };
 
-  useEffect(() => {
-    const fetchClusters = async () => {
-      try {
-        if (blocks) {
-          // setLoading(true);
-          const response = await Api.get(`getAllClustersByBlock/${blocks}`);
-          // console.log("set=================>", response.data);
-          const clusters =
-            response?.data?.length > 0 &&
-            response?.data?.map((item) => item?.cluster);
-          setClusterArr(clusters);
-          // setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching Clusters:", error);
-        setClusterArr([]); // Reset clusterArr to an empty array if there's an error
-        // setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchClusters = async () => {
+  //     try {
+  //       if (blocks) {
+  //         // setLoading(true);
+  //         const response = await Api.get(`getAllClustersByBlock/${blocks}`);
+  //         // console.log("set=================>", response.data);
+  //         const clusters =
+  //           response?.data?.length > 0 &&
+  //           response?.data?.map((item) => item?.cluster);
+  //         setClusterArr(clusters);
+  //         // setLoading(false);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching Clusters:", error);
+  //       setClusterArr([]); // Reset clusterArr to an empty array if there's an error
+  //       // setLoading(false);
+  //     }
+  //   };
 
-    // Fetch data only if a block is selected
-    fetchClusters();
-  }, [blocks]);
+  //   // Fetch data only if a block is selected
+  //   fetchClusters();
+  // }, [blocks]);
 
   const handleClusterChange = (e) => {
     setCluseters(e.target.value);
+
     setSchools("");
+    const data = filterData;
+    const res = data.filter((item) => item.block === blocks);
+
+    const cluster = res?.filter((item) => item.cluster === e.target.value);
+
+    const school = cluster?.map((item) => item.school_name);
+    const uniqueData = Array.from(new Set(school.map(JSON.stringify))).map(
+      JSON.parse
+    );
+    setSchoolArr(uniqueData);
+    console.log("uniqueData--->", school);
+    console.log("uniqueData1--->", uniqueData);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (clusters) {
-          const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-          setSchoolArr(response?.data);
-          // setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching Blocks:", error);
-        // setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       if (clusters) {
+  //         const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
+  //         setSchoolArr(response?.data);
+  //         // setLoading(false);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching Blocks:", error);
+  //       // setLoading(false);
+  //     }
+  //   };
 
-    // Fetch data only if a district is selected
-    fetchData();
-  }, [clusters]);
+  //   // Fetch data only if a district is selected
+  //   fetchData();
+  // }, [clusters]);
 
   const handleSchoolName = (e) => {
     setSchools(e.target.value);
@@ -283,7 +310,7 @@ const Schoolwise_performance = () => {
         item.week === selectedWeek &&
         item.block === blocks &&
         item.cluster === clusters &&
-        item.school_name === schools?.school_name
+        item.school_name === schools
         // &&
         // item.block == blocks &&
         // item.cluster == clusters &&
@@ -559,8 +586,8 @@ const Schoolwise_performance = () => {
           >
             {/* <MenuItem value="">None</MenuItem> */}
             {schoolArr?.map((school, index) => (
-              <MenuItem key={index} value={school.school_name}>
-                {school.school_name}
+              <MenuItem key={index} value={school}>
+                {school}
               </MenuItem>
             ))}
           </Select>

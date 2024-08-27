@@ -37,11 +37,11 @@ const Schoolwise = () => {
   const [districts, setDistricts] = useState("PURI");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
-  const [blocks, setBlocks] = useState("");
+  const [blocks, setBlocks] = useState("NIMAPADA");
   const [blockArr, setBlockArr] = useState([]);
-  const [clusters, setCluseters] = useState("");
+  const [clusters, setCluseters] = useState("AMARANG UGUPS");
   const [clusterArr, setClusterArr] = useState([]);
-  const [schools, setSchools] = useState("");
+  const [schools, setSchools] = useState("BAMADEIPUR PROJECT PS");
   const [schoolArr, setSchoolArr] = useState([]);
   const [filtered, setFiltered] = useState(false);
   const [open, setOpen] = useState(false);
@@ -238,7 +238,7 @@ const Schoolwise = () => {
 
   const fetchData = () => {
     setLoading(true);
-    
+
     const filteredData = dataJson.filter((item) => {
       return (
         item.district === districts &&
@@ -503,7 +503,7 @@ const Schoolwise = () => {
             </MenuItem>
             <MenuItem value="">None</MenuItem>
             {schoolArr?.map((school, index) => (
-              <MenuItem key={index} value={school}>
+              <MenuItem key={index} value={school.school_name}>
                 {school.school_name}
               </MenuItem>
             ))}

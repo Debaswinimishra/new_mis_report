@@ -380,6 +380,14 @@ const Schoolwise_performance = () => {
       alert("Please select a district to proceed.");
     } else if (!selectedMonth) {
       alert("Please select a Month to proceed.");
+    } else if (!selectedWeek) {
+      alert("Please select a week to proceed.");
+    } else if (districts && blocks && !clusters) {
+      alert("Please select a cluster to proceed.");
+    } else if (districts && blocks && clusters && !schools) {
+      alert("Please select a school to proceed.");
+    } else if (!blocks && !clusters && !schools) {
+      alert("Please select block, cluster and school to proceed.");
     } else {
       setLoading(true);
       setIsShow(true);
@@ -549,9 +557,9 @@ const Schoolwise_performance = () => {
             label="School"
             disabled={!clusters}
           >
-            <MenuItem value="">None</MenuItem>
+            {/* <MenuItem value="">None</MenuItem> */}
             {schoolArr?.map((school, index) => (
-              <MenuItem key={index} value={school}>
+              <MenuItem key={index} value={school.school_name}>
                 {school.school_name}
               </MenuItem>
             ))}

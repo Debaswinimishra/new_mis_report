@@ -837,7 +837,7 @@ const RemoteInstruction = () => {
               {remoteInstData?.map((remoteInstData) => {
                 return (
                   <>
-                    {isFiltered ? (
+                    {selectedMonth ? (
                       <div
                         style={{
                           width: "255px",

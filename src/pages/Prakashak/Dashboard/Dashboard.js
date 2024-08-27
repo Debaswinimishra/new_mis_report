@@ -907,7 +907,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_clusters}</h1> */}
-                  <h1>37</h1>
+                  <h1>36</h1>
                 </div>
               </div>
               <div

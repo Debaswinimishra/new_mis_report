@@ -51,6 +51,8 @@ export default function Retention() {
           display: "flex",
           justifyContent: "flex-end",
           marginRight: "2%",
+          color: "red",
+          fontFamily: "Congenial SemiBold",
         }}
       >
         <u> Data Updated as on - 31/07/2024</u>

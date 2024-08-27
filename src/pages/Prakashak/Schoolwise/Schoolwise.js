@@ -592,7 +592,8 @@ const Schoolwise = () => {
                 color: "#333", // Dark grey color for the text
                 fontFamily: "Congenial SemiBold", // Font family for a clean look
                 fontWeight: "700", // Bolder font weight for emphasis
-                fontSize: "1.2rem", // Smaller font size for prominence
+                // fontSize: "1.2rem", // Smaller font size for prominence
+                color: "red",
                 textAlign: "right", // Align the text to the right
                 padding: "10px 0", // Add some padding for spacing
                 borderBottom: "2px solid #000000", // Add a bottom border for separation

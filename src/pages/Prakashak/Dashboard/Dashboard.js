@@ -1022,7 +1022,8 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_students}</h1>
+                  {/* <h1>{dashboardData.total_students}</h1> */}
+                  <h1>11024</h1>
                 </div>
               </div>
               <div
@@ -1079,7 +1080,8 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_girl_students}</h1>
+                  {/* <h1>{dashboardData.total_girl_students}</h1> */}
+                  <h1>5432</h1>
                 </div>
               </div>
               <div
@@ -1136,7 +1138,8 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_boy_students}</h1>
+                  {/* <h1>{dashboardData.total_boy_students}</h1> */}
+                  <h1>5592</h1>
                 </div>
               </div>
               <div

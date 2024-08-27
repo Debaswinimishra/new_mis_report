@@ -1230,7 +1230,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",
@@ -1337,7 +1337,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",
@@ -1444,7 +1444,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",
@@ -1551,7 +1551,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",
@@ -1658,7 +1658,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",

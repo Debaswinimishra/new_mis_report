@@ -753,7 +753,7 @@ const DashboardMonthly = () => {
                 onChange={handleMonthChange}
                 label="Month"
               >
-                <MenuItem value={null}>None</MenuItem>
+                {/* <MenuItem value={null}>None</MenuItem> */}
                 {monthArr.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
                     {item.label}
@@ -770,7 +770,7 @@ const DashboardMonthly = () => {
                 onChange={handleWeekChange}
                 label="Month"
               >
-                <MenuItem value={null}>None</MenuItem>
+                {/* <MenuItem value={null}>None</MenuItem> */}
                 {weekArr.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
                     {item.label}
@@ -1192,16 +1192,16 @@ const DashboardMonthly = () => {
                           </div>
 
                           <div
-                            style={{
-                              marginTop: "2%",
-                              boxShadow: "2px 1px 5px grey",
-                              padding: "5%",
-                              width: "97%",
-                            }}
+                          // style={{
+                          //   marginTop: "2%",
+                          //   boxShadow: "2px 1px 5px grey",
+                          //   padding: "5%",
+                          //   width: "97%",
+                          // }}
                           >
                             <h1
                               style={{
-                                marginTop: "-2%",
+                                marginTop: "2%",
                                 color: "#333", // Dark grey color for the text
                                 fontFamily: "Congenial SemiBold", // Font family for a clean look
                                 fontWeight: "700", // Bolder font weight for emphasis
@@ -1230,7 +1230,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",
@@ -1337,7 +1337,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",
@@ -1444,7 +1444,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",
@@ -1551,7 +1551,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",
@@ -1658,7 +1658,7 @@ const DashboardMonthly = () => {
                                 <div
                                   style={{
                                     width: "255px",
-                                    height: "220px", // Increased height to accommodate heading
+                                    height: "240px", // Increased height to accommodate heading
                                     marginTop: "1.5%",
                                     backgroundColor: "white",
                                     borderRadius: "10px",

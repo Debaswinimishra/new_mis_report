@@ -753,7 +753,7 @@ const DashboardMonthly = () => {
                 onChange={handleMonthChange}
                 label="Month"
               >
-                <MenuItem value={null}>None</MenuItem>
+                {/* <MenuItem value={null}>None</MenuItem> */}
                 {monthArr.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
                     {item.label}
@@ -770,7 +770,7 @@ const DashboardMonthly = () => {
                 onChange={handleWeekChange}
                 label="Month"
               >
-                <MenuItem value={null}>None</MenuItem>
+                {/* <MenuItem value={null}>None</MenuItem> */}
                 {weekArr.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
                     {item.label}

@@ -63,7 +63,7 @@ const DashboardMonthly = () => {
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("6");
-  const [selectedWeek, setSelectedWeek] = useState("");
+  const [selectedWeek, setSelectedWeek] = useState(1);
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
   const [tableData, setTableData] = useState([]);
@@ -83,7 +83,7 @@ const DashboardMonthly = () => {
     ) {
       alert("You can't select a month greater than the current month !");
     } else {
-      setSelectedWeek("");
+      setSelectedWeek(1);
       setSelectedMonth(e.target.value ? e.target.value : "");
     }
   };
@@ -652,7 +652,7 @@ const DashboardMonthly = () => {
                 onChange={handleMonthChange}
                 label="Month"
               >
-                <MenuItem value={null}>None</MenuItem>
+                {/* <MenuItem value={null}>None</MenuItem> */}
                 {monthArr.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
                     {item.label}
@@ -669,7 +669,7 @@ const DashboardMonthly = () => {
                 onChange={handleWeekChange}
                 label="Month"
               >
-                <MenuItem value={null}>None</MenuItem>
+                {/* <MenuItem value={null}>None</MenuItem> */}
                 {weekArr.map((item, index) => (
                   <MenuItem key={index} value={item.value}>
                     {item.label}

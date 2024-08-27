@@ -126,22 +126,31 @@ const RemoteInstruction = () => {
     } else {
       alert("Please select a month before selecting the week !");
     }
-    console.log("body passed------------>", body);
-    PrakashakAPI.post(`getRemoteInstReport`, body)
-      .then((res) => {
-        if (res.status === 200) {
-          setRemoteInstData(res.data);
-          setLoading(false);
-        } else {
-          setLoading(false);
-          console.log("res status------->", res.status);
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        // alert("No data available");
-        console.log(`The error is---> ${err}`);
-      });
+    const filteredData = dataJson.filter((item) => {
+      return item.month === selectedMonth && item.week === selectedWeek;
+    });
+    if (filteredData?.length > 0) {
+      setRemoteInstData(filteredData);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+    // PrakashakAPI.post(`getRemoteInstReport`, body)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       setRemoteInstData(res.data); //Currently I have done this with dummy
+    //       console.log("remoteInstructionData---------->", res.data);
+    //       setLoading(false);
+    //     } else {
+    //       setLoading(false);
+    //       console.log("res status------->", res.status);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     // alert("No data available");
+    //     console.log(`The error is---> ${err}`);
+    //   });
   }, []);
 
   const filterButtonClick = () => {
@@ -615,6 +624,9 @@ const RemoteInstruction = () => {
     //   values3: [remoteInstData.total_ivrs_calls_made],
   };
 
+  console.log("remoteInstData--------->", remoteInstData);
+  console.log("loading------------->", loading);
+
   return (
     <div>
       <div
@@ -653,9 +665,10 @@ const RemoteInstruction = () => {
               ) : (
                 <>
                   Data Updated as on -{" "}
-                  {remoteInstData
+                  {/* {remoteInstData   //? commented for now
                     ? remoteInstData?.data_last_updated
-                    : "22/08/2024"}
+                    : "31/07/2024"} */}
+                  31/07/2024
                 </>
               )}
             </h1>

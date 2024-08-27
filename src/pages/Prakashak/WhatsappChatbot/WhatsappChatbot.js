@@ -122,7 +122,7 @@ const WhatsappChatbot = () => {
     fetchData();
   }, []);
 
-  const fetchData = () => {
+  const fetchData = () => { //
     setLoading(true);
     const body = {
       year: selectedYear,
@@ -420,7 +420,9 @@ const WhatsappChatbot = () => {
               ) : (
                 <>
                   Data Updated as on -{" "}
-                  {data ? data?.data_last_updated : "22/08/2024"}
+                  {/* {data ? data?.data_last_updated  //? commented for emergency purpose
+                  : "22/08/2024"} */}
+                  31/07/2024
                 </>
               )}
             </h1>

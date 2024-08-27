@@ -835,24 +835,6 @@ const DashboardMonthly = () => {
                     // position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
-                  {/* <div
-                    style={{
-                      position: "absolute",
-                      top: "0px", // Adjust to position the text at the top
-                      right: "0px", // Adjust to position the text at the right
-                      color: "#2E8B57", // Text color
-                      backgroundColor: "white", // Background color to make it stand out
-                      padding: "5px 10px", // Padding to add some space inside the border
-                      fontSize: "0.7rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                      borderRadius: "5px", // Rounded corners for a smoother look
-                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                      zIndex: "10", // Ensure it stays on top of other elements
-                    }}
-                  >
-                    Click Here 👆
-                  </div> */}
                   <div
                     style={{
                       height: "50%",
@@ -893,24 +875,6 @@ const DashboardMonthly = () => {
                     position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
-                  {/* <div
-                    style={{
-                      position: "absolute",
-                      top: "0px", // Adjust to position the text at the top
-                      right: "0px", // Adjust to position the text at the right
-                      color: "rgb(153 58 134)", // Text color
-                      backgroundColor: "white", // Background color to make it stand out
-                      padding: "5px 10px", // Padding to add some space inside the border
-                      fontSize: "0.7rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                      borderRadius: "5px", // Rounded corners for a smoother look
-                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                      zIndex: "10", // Ensure it stays on top of other elements
-                    }}
-                  >
-                    Click Here 👆
-                  </div> */}
                   <div
                     style={{
                       height: "50%",
@@ -951,24 +915,6 @@ const DashboardMonthly = () => {
                     position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
-                  {/* <div
-                    style={{
-                      position: "absolute",
-                      top: "0px", // Adjust to position the text at the top
-                      right: "0px", // Adjust to position the text at the right
-                      color: "rgb(214 148 16)", // Text color
-                      backgroundColor: "white", // Background color to make it stand out
-                      padding: "5px 10px", // Padding to add some space inside the border
-                      fontSize: "0.7rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                      borderRadius: "5px", // Rounded corners for a smoother look
-                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                      zIndex: "10", // Ensure it stays on top of other elements
-                    }}
-                  >
-                    Click Here 👆
-                  </div> */}
                   <div
                     style={{
                       height: "50%",
@@ -1009,24 +955,6 @@ const DashboardMonthly = () => {
                     // position: "relative", // Needed for positioning the "Click here" text
                   }}
                 >
-                  {/* <div
-                    style={{
-                      position: "absolute",
-                      top: "0px", // Adjust to position the text at the top
-                      right: "0px", // Adjust to position the text at the right
-                      color: "#708090", // Text color
-                      backgroundColor: "white", // Background color to make it stand out
-                      padding: "5px 10px", // Padding to add some space inside the border
-                      fontSize: "0.7rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                      borderRadius: "5px", // Rounded corners for a smoother look
-                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                      zIndex: "10", // Ensure it stays on top of other elements
-                    }}
-                  >
-                    Click Here 👆
-                  </div> */}
                   <div
                     style={{
                       height: "50%",
@@ -1744,653 +1672,6 @@ const DashboardMonthly = () => {
             </div>
           </div>
 
-          {/* <div
-            style={{
-              marginTop: "2%",
-              boxShadow: "2px 1px 5px grey",
-              padding: "5%",
-              width: "97%",
-            }}
-          >
-            <h1 style={{ marginTop: "-2%" }}>Remote instructions in brief</h1>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignContent: "center",
-                justifyContent: "center",
-                width: "97%",
-                gap: "2%",
-                // marginTop: "-1.5%",
-              }}
-            >
-              <div
-                onClick={() => handleOpen("calls")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                    style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(102 52 91)",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Number of calls received</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(102 52 91)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_calls_received}</h1>
-                </div>
-              </div>
-
-              <div
-                // onClick={() => handleOpen("receivedAutocalls")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#2E8B57",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Avg. minutes of calls received
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#2E8B57",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.calls_avg_mins}</h1>
-                </div>
-              </div>
-
-              <div
-                onClick={() => handleOpen("sms")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                   style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#6A5ACD",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Numbers of SMS delivered
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#6A5ACD",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_sms_received}</h1>
-                </div>
-              </div>
-
-              <div
-                // onClick={() => handleOpen("")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Avg. minutes spent on IVRs
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.ivrs_avg_mins}</h1>
-                </div>
-              </div>
-
-              <div
-                onClick={() => handleOpen("receivedIvrs")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                   style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#CD5C5C",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p>Calls received in IVRs</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#CD5C5C",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_ivrs_calls_received}</h1>
-                </div>
-              </div>
-
-              <div
-                onClick={() => handleOpen("uniqueIvrs")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                   style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Unique calls received in IVRs
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_unique_ivrs_calls_received}</h1>
-                </div>
-              </div>
-
-              <div
-                // onClick={() => handleOpen("activeUsers")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "13px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  <p> Number of active users</p>
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.calls_active_users}</h1>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
-          {/* <div
-            style={{
-              marginTop: "2%",
-              boxShadow: "2px 1px 5px grey",
-              padding: "5%",
-              width: "97%",
-            }}
-          >
-            <h1 style={{ marginTop: "-2%" }}>Chatbot in brief</h1>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                alignContent: "center",
-                justifyContent: "center",
-                width: "97%",
-                gap: "2%",
-                // marginTop: "-1.5%",
-              }}
-            >
-              <div
-                onClick={() => handleOpen("chatbot")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                    style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#CD5C5C",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Conversations in Chatbot
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#CD5C5C",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_chatbot_convo}</h1>
-                </div>
-              </div>
-
-              <div
-                onClick={() => handleOpen("video")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                   style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#2E8B57",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total number of videos watched
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#2E8B57",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_chatbot_videos}</h1>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#6A5ACD",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Number of assessments taken
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#6A5ACD",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.total_chatbot_assess_taken}</h1>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(214 148 16)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Avg. minutes spent on WhatsApp
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(214 148 16)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.chatbot_avg_mins}</h1>
-                </div>
-              </div>
-
-              <div
-                onClick={() => handleOpen("chatbotActive")}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                  cursor: "pointer", // Show hand cursor on hover
-                  position: "relative", // Needed for positioning the "Click here" text
-                }}
-              >
-                <div
-                   style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#6A5ACD", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
-                  }}
-                >
-                  Click Here 👆
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    color: "rgb(153 58 134)",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total number of active users
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "rgb(153 58 134)",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{dashboardData.chatbot_active_users}</h1>
-                </div>
-              </div>
-            </div>
-           </div>  */}
           <DynamicModal
             open={open}
             handleClose={handleClose}
@@ -2432,3 +1713,575 @@ const DashboardMonthly = () => {
 };
 
 export default DashboardMonthly;
+const dataJson = [
+  {
+    month: 1,
+    week: 4,
+    active_students_girl: 560,
+    total_new_schools: 80,
+    total_new_students: 1143,
+    total_girl_students: 560,
+    total_boy_students: 583,
+    new_activated_students: 665,
+    new_active_students: 1143,
+    active_students_boy: 583,
+    no_of_parents_spent_0to1mins: 0,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 206,
+    avg_tS_2to5mins: 13.5,
+    no_of_parents_spent_16to30mins: 459,
+    avg_tS_16to30mins: 26.5,
+    no_of_parents_spent_31to45mins: 0,
+    avg_tS_31to45mins: 0,
+    no_of_parents_spent_gte45mins: 0,
+    avg_tS_gte45mins: 0,
+  },
+  {
+    month: 2,
+    week: 1,
+    active_students_girl: 340,
+    total_new_schools: 30,
+    total_new_students: 767,
+    total_girl_students: 374,
+    total_boy_students: 393,
+    new_activated_students: 944,
+    new_active_students: 736,
+    active_students_boy: 396,
+    no_of_parents_spent_0to1mins: 302,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 719,
+    avg_tS_2to5mins: 11,
+    no_of_parents_spent_16to30mins: 567,
+    avg_tS_16to30mins: 24.5,
+    no_of_parents_spent_31to45mins: 685,
+    avg_tS_31to45mins: 40,
+    no_of_parents_spent_gte45mins: 540,
+    avg_tS_gte45mins: 61,
+  },
+  {
+    month: 2,
+    week: 2,
+    active_students_girl: 337,
+    total_new_schools: 22,
+    total_new_students: 575,
+    total_girl_students: 421,
+    total_boy_students: 154,
+    new_activated_students: 279,
+    new_active_students: 919,
+    active_students_boy: 582,
+    no_of_parents_spent_0to1mins: 298,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 738,
+    avg_tS_2to5mins: 10.5,
+    no_of_parents_spent_16to30mins: 562,
+    avg_tS_16to30mins: 26.5,
+    no_of_parents_spent_31to45mins: 704,
+    avg_tS_31to45mins: 43,
+    no_of_parents_spent_gte45mins: 511,
+    avg_tS_gte45mins: 64,
+  },
+  {
+    month: 2,
+    week: 3,
+    active_students_girl: 557,
+    total_new_schools: 16,
+    total_new_students: 799,
+    total_girl_students: 250,
+    total_boy_students: 549,
+    new_activated_students: 321,
+    new_active_students: 758,
+    active_students_boy: 201,
+    no_of_parents_spent_0to1mins: 291,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 727,
+    avg_tS_2to5mins: 10,
+    no_of_parents_spent_16to30mins: 572,
+    avg_tS_16to30mins: 25,
+    no_of_parents_spent_31to45mins: 713,
+    avg_tS_31to45mins: 39.5,
+    no_of_parents_spent_gte45mins: 510,
+    avg_tS_gte45mins: 58,
+  },
+  {
+    month: 2,
+    week: 4,
+    active_students_girl: 187,
+    total_new_schools: 10,
+    total_new_students: 931,
+    total_girl_students: 453,
+    total_boy_students: 478,
+    new_activated_students: 400,
+    new_active_students: 463,
+    active_students_boy: 276,
+    no_of_parents_spent_0to1mins: 204,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 713,
+    avg_tS_2to5mins: 13,
+    no_of_parents_spent_16to30mins: 601,
+    avg_tS_16to30mins: 28,
+    no_of_parents_spent_31to45mins: 762,
+    avg_tS_31to45mins: 37,
+    no_of_parents_spent_gte45mins: 533,
+    avg_tS_gte45mins: 63.5,
+  },
+  {
+    month: 3,
+    week: 1,
+    active_students_girl: 154,
+    total_new_schools: 7,
+    total_new_students: 307,
+    total_girl_students: 127,
+    total_boy_students: 180,
+    new_activated_students: 850,
+    new_active_students: 252,
+    active_students_boy: 98,
+    no_of_parents_spent_0to1mins: 487,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 778,
+    avg_tS_2to5mins: 14,
+    no_of_parents_spent_16to30mins: 663,
+    avg_tS_16to30mins: 27,
+    no_of_parents_spent_31to45mins: 1784,
+    avg_tS_31to45mins: 43,
+    no_of_parents_spent_gte45mins: 1293,
+    avg_tS_gte45mins: 64.5,
+  },
+  {
+    month: 3,
+    week: 2,
+    active_students_girl: 78,
+    total_new_schools: 9,
+    total_new_students: 351,
+    total_girl_students: 245,
+    total_boy_students: 106,
+    new_activated_students: 444,
+    new_active_students: 216,
+    active_students_boy: 138,
+    no_of_parents_spent_0to1mins: 503,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 812,
+    avg_tS_2to5mins: 13.5,
+    no_of_parents_spent_16to30mins: 608,
+    avg_tS_16to30mins: 25,
+    no_of_parents_spent_31to45mins: 1791,
+    avg_tS_31to45mins: 41,
+    no_of_parents_spent_gte45mins: 1291,
+    avg_tS_gte45mins: 62,
+  },
+  {
+    month: 3,
+    week: 3,
+    active_students_girl: 260,
+    total_new_schools: 7,
+    total_new_students: 331,
+    total_girl_students: 132,
+    total_boy_students: 199,
+    new_activated_students: 221,
+    new_active_students: 369,
+    active_students_boy: 109,
+    no_of_parents_spent_0to1mins: 493,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 737,
+    avg_tS_2to5mins: 13,
+    no_of_parents_spent_16to30mins: 709,
+    avg_tS_16to30mins: 26.5,
+    no_of_parents_spent_31to45mins: 1782,
+    avg_tS_31to45mins: 42.5,
+    no_of_parents_spent_gte45mins: 1284,
+    avg_tS_gte45mins: 67,
+  },
+  {
+    month: 3,
+    week: 4,
+    active_students_girl: 62,
+    total_new_schools: 8,
+    total_new_students: 227,
+    total_girl_students: 126,
+    total_boy_students: 101,
+    new_activated_students: 400,
+    new_active_students: 205,
+    active_students_boy: 143,
+    no_of_parents_spent_0to1mins: 481,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 709,
+    avg_tS_2to5mins: 11,
+    no_of_parents_spent_16to30mins: 779,
+    avg_tS_16to30mins: 27.5,
+    no_of_parents_spent_31to45mins: 1798,
+    avg_tS_31to45mins: 40.5,
+    no_of_parents_spent_gte45mins: 1238,
+    avg_tS_gte45mins: 68.5,
+  },
+  {
+    month: 4,
+    week: 1,
+    active_students_girl: 156,
+    total_new_schools: 12,
+    total_new_students: 505,
+    total_girl_students: 239,
+    total_boy_students: 266,
+    new_activated_students: 255,
+    new_active_students: 326,
+    active_students_boy: 170,
+    no_of_parents_spent_0to1mins: 547,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 741,
+    avg_tS_2to5mins: 14,
+    no_of_parents_spent_16to30mins: 813,
+    avg_tS_16to30mins: 27.5,
+    no_of_parents_spent_31to45mins: 2181,
+    avg_tS_31to45mins: 43,
+    no_of_parents_spent_gte45mins: 1372,
+    avg_tS_gte45mins: 69,
+  },
+  {
+    month: 4,
+    week: 2,
+    active_students_girl: 179,
+    total_new_schools: 10,
+    total_new_students: 299,
+    total_girl_students: 145,
+    total_boy_students: 154,
+    new_activated_students: 136,
+    new_active_students: 409,
+    active_students_boy: 230,
+    no_of_parents_spent_0to1mins: 545,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 736,
+    avg_tS_2to5mins: 13,
+    no_of_parents_spent_16to30mins: 829,
+    avg_tS_16to30mins: 28,
+    no_of_parents_spent_31to45mins: 2146,
+    avg_tS_31to45mins: 42.5,
+    no_of_parents_spent_gte45mins: 1398,
+    avg_tS_gte45mins: 72,
+  },
+  {
+    month: 4,
+    week: 3,
+    active_students_girl: 241,
+    total_new_schools: 15,
+    total_new_students: 344,
+    total_girl_students: 157,
+    total_boy_students: 187,
+    new_activated_students: 109,
+    new_active_students: 362,
+    active_students_boy: 121,
+    no_of_parents_spent_0to1mins: 519,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 744,
+    avg_tS_2to5mins: 11.5,
+    no_of_parents_spent_16to30mins: 816,
+    avg_tS_16to30mins: 27,
+    no_of_parents_spent_31to45mins: 2161,
+    avg_tS_31to45mins: 44,
+    no_of_parents_spent_gte45mins: 1414,
+    avg_tS_gte45mins: 67.5,
+  },
+  {
+    month: 4,
+    week: 4,
+    active_students_girl: 100,
+    total_new_schools: 10,
+    total_new_students: 400,
+    total_girl_students: 210,
+    total_boy_students: 190,
+    new_activated_students: 123,
+    new_active_students: 281,
+    active_students_boy: 181,
+    no_of_parents_spent_0to1mins: 507,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 720,
+    avg_tS_2to5mins: 13,
+    no_of_parents_spent_16to30mins: 826,
+    avg_tS_16to30mins: 26,
+    no_of_parents_spent_31to45mins: 2199,
+    avg_tS_31to45mins: 43.5,
+    no_of_parents_spent_gte45mins: 1402,
+    avg_tS_gte45mins: 68,
+  },
+  {
+    month: 5,
+    week: 1,
+    active_students_girl: 367,
+    total_new_schools: 15,
+    total_new_students: 847,
+    total_girl_students: 407,
+    total_boy_students: 440,
+    new_activated_students: 877,
+    new_active_students: 646,
+    active_students_boy: 279,
+    no_of_parents_spent_0to1mins: 721,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1197,
+    avg_tS_2to5mins: 14.5,
+    no_of_parents_spent_16to30mins: 1125,
+    avg_tS_16to30mins: 28,
+    no_of_parents_spent_31to45mins: 2579,
+    avg_tS_31to45mins: 42,
+    no_of_parents_spent_gte45mins: 3126,
+    avg_tS_gte45mins: 71,
+  },
+  {
+    month: 5,
+    week: 2,
+    active_students_girl: 390,
+    total_new_schools: 23,
+    total_new_students: 860,
+    total_girl_students: 462,
+    total_boy_students: 398,
+    new_activated_students: 589,
+    new_active_students: 860,
+    active_students_boy: 470,
+    no_of_parents_spent_0to1mins: 734,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1180,
+    avg_tS_2to5mins: 14,
+    no_of_parents_spent_16to30mins: 1186,
+    avg_tS_16to30mins: 24,
+    no_of_parents_spent_31to45mins: 2617,
+    avg_tS_31to45mins: 44,
+    no_of_parents_spent_gte45mins: 3031,
+    avg_tS_gte45mins: 70.5,
+  },
+  {
+    month: 5,
+    week: 3,
+    active_students_girl: 286,
+    total_new_schools: 27,
+    total_new_students: 559,
+    total_girl_students: 229,
+    total_boy_students: 330,
+    new_activated_students: 876,
+    new_active_students: 676,
+    active_students_boy: 390,
+    no_of_parents_spent_0to1mins: 719,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1203,
+    avg_tS_2to5mins: 13,
+    no_of_parents_spent_16to30mins: 1198,
+    avg_tS_16to30mins: 27,
+    no_of_parents_spent_31to45mins: 2581,
+    avg_tS_31to45mins: 42.5,
+    no_of_parents_spent_gte45mins: 3047,
+    avg_tS_gte45mins: 67,
+  },
+  {
+    month: 5,
+    week: 4,
+    active_students_girl: 190,
+    total_new_schools: 20,
+    total_new_students: 605,
+    total_girl_students: 309,
+    total_boy_students: 296,
+    new_activated_students: 535,
+    new_active_students: 330,
+    active_students_boy: 140,
+    no_of_parents_spent_0to1mins: 724,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1194,
+    avg_tS_2to5mins: 14,
+    no_of_parents_spent_16to30mins: 1185,
+    avg_tS_16to30mins: 28.5,
+    no_of_parents_spent_31to45mins: 2579,
+    avg_tS_31to45mins: 43,
+    no_of_parents_spent_gte45mins: 3066,
+    avg_tS_gte45mins: 72,
+  },
+  {
+    month: 6,
+    week: 1,
+    active_students_girl: 123,
+    total_new_schools: 11,
+    total_new_students: 303,
+    total_girl_students: 133,
+    total_boy_students: 170,
+    new_activated_students: 274,
+    new_active_students: 292,
+    active_students_boy: 169,
+    no_of_parents_spent_0to1mins: 1098,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1095,
+    avg_tS_2to5mins: 13,
+    no_of_parents_spent_16to30mins: 1017,
+    avg_tS_16to30mins: 23,
+    no_of_parents_spent_31to45mins: 3171,
+    avg_tS_31to45mins: 39,
+    no_of_parents_spent_gte45mins: 3713,
+    avg_tS_gte45mins: 73,
+  },
+  {
+    month: 6,
+    week: 2,
+    active_students_girl: 154,
+    total_new_schools: 9,
+    total_new_students: 247,
+    total_girl_students: 155,
+    total_boy_students: 92,
+    new_activated_students: 300,
+    new_active_students: 232,
+    active_students_boy: 78,
+    no_of_parents_spent_0to1mins: 1091,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1121,
+    avg_tS_2to5mins: 14,
+    no_of_parents_spent_16to30mins: 1039,
+    avg_tS_16to30mins: 27,
+    no_of_parents_spent_31to45mins: 3119,
+    avg_tS_31to45mins: 36,
+    no_of_parents_spent_gte45mins: 3724,
+    avg_tS_gte45mins: 77,
+  },
+  {
+    month: 6,
+    week: 3,
+    active_students_girl: 200,
+    total_new_schools: 7,
+    total_new_students: 355,
+    total_girl_students: 210,
+    total_boy_students: 145,
+    new_activated_students: 230,
+    new_active_students: 343,
+    active_students_boy: 143,
+    no_of_parents_spent_0to1mins: 1103,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1114,
+    avg_tS_2to5mins: 12,
+    no_of_parents_spent_16to30mins: 1046,
+    avg_tS_16to30mins: 25,
+    no_of_parents_spent_31to45mins: 3138,
+    avg_tS_31to45mins: 41,
+    no_of_parents_spent_gte45mins: 3693,
+    avg_tS_gte45mins: 75,
+  },
+  {
+    month: 6,
+    week: 4,
+    active_students_girl: 97,
+    total_new_schools: 8,
+    total_new_students: 269,
+    total_girl_students: 89,
+    total_boy_students: 180,
+    new_activated_students: 170,
+    new_active_students: 276,
+    active_students_boy: 179,
+    no_of_parents_spent_0to1mins: 1096,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1117,
+    avg_tS_2to5mins: 11,
+    no_of_parents_spent_16to30mins: 1053,
+    avg_tS_16to30mins: 26,
+    no_of_parents_spent_31to45mins: 3125,
+    avg_tS_31to45mins: 38,
+    no_of_parents_spent_gte45mins: 3703,
+    avg_tS_gte45mins: 72,
+  },
+  {
+    month: 7,
+    week: 1,
+    active_students_girl: 0,
+    total_new_schools: 0,
+    total_new_students: 0,
+    total_girl_students: 0,
+    total_boy_students: 0,
+    new_activated_students: 0,
+    new_active_students: 0,
+    active_students_boy: 0,
+    no_of_parents_spent_0to1mins: 1127,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 995,
+    avg_tS_2to5mins: 11,
+    no_of_parents_spent_16to30mins: 1172,
+    avg_tS_16to30mins: 26,
+    no_of_parents_spent_31to45mins: 3094,
+    avg_tS_31to45mins: 37,
+    no_of_parents_spent_gte45mins: 3706,
+    avg_tS_gte45mins: 75,
+  },
+  {
+    month: 7,
+    week: 2,
+    active_students_girl: 0,
+    total_new_schools: 0,
+    total_new_students: 0,
+    total_girl_students: 0,
+    total_boy_students: 0,
+    new_activated_students: 0,
+    new_active_students: 0,
+    active_students_boy: 0,
+    no_of_parents_spent_0to1mins: 1135,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 943,
+    avg_tS_2to5mins: 13,
+    no_of_parents_spent_16to30mins: 1179,
+    avg_tS_16to30mins: 25,
+    no_of_parents_spent_31to45mins: 3146,
+    avg_tS_31to45mins: 41,
+    no_of_parents_spent_gte45mins: 3691,
+    avg_tS_gte45mins: 72,
+  },
+  {
+    month: 7,
+    week: 3,
+    active_students_girl: 0,
+    total_new_schools: 0,
+    total_new_students: 0,
+    total_girl_students: 0,
+    total_boy_students: 0,
+    new_activated_students: 0,
+    new_active_students: 0,
+    active_students_boy: 0,
+    no_of_parents_spent_0to1mins: 1139,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1008,
+    avg_tS_2to5mins: 10,
+    no_of_parents_spent_16to30mins: 1153,
+    avg_tS_16to30mins: 28,
+    no_of_parents_spent_31to45mins: 3097,
+    avg_tS_31to45mins: 35,
+    no_of_parents_spent_gte45mins: 3697,
+    avg_tS_gte45mins: 70,
+  },
+  {
+    month: 7,
+    week: 4,
+    active_students_girl: 0,
+    total_new_schools: 0,
+    total_new_students: 0,
+    total_girl_students: 0,
+    total_boy_students: 0,
+    new_activated_students: 0,
+    new_active_students: 0,
+    active_students_boy: 0,
+    no_of_parents_spent_0to1mins: 1132,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 1022,
+    avg_tS_2to5mins: 15,
+    no_of_parents_spent_16to30mins: 1176,
+    avg_tS_16to30mins: 24,
+    no_of_parents_spent_31to45mins: 3081,
+    avg_tS_31to45mins: 40,
+    no_of_parents_spent_gte45mins: 3683,
+    avg_tS_gte45mins: 78,
+  },
+  {
+    active_students_girl: 5018,
+    total_new_schools: 356,
+    total_new_students: 11024,
+    total_girl_students: 5433,
+    total_boy_students: 5591,
+    new_activated_students: 8998,
+    new_active_students: 10094,
+    active_students_boy: 5076,
+    no_of_parents_spent_0to1mins: 16996,
+    avg_tS_0to1mins: 0,
+    no_of_parents_spent_2to5mins: 22269,
+    avg_tS_2to5mins: 315.5,
+    no_of_parents_spent_16to30mins: 22333,
+    avg_tS_16to30mins: 656.5,
+    no_of_parents_spent_31to45mins: 54033,
+    avg_tS_31to45mins: 978,
+    no_of_parents_spent_gte45mins: 54666,
+    avg_tS_gte45mins: 1657.5,
+  },
+];

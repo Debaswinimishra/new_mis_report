@@ -238,7 +238,7 @@ const Schoolwise = () => {
 
   const fetchData = () => {
     setLoading(true);
-    
+
     const filteredData = dataJson.filter((item) => {
       return (
         item.district === districts &&
@@ -326,7 +326,7 @@ const Schoolwise = () => {
 
   const handleOpenModal = async (type, param) => {
     setOpen(true);
-    setLoading(true);
+    // setLoading(true);
     setTableData([]); // Reset table data before fetching new data
     setTableHeaders([]);
     setModalTitle("");
@@ -999,7 +999,7 @@ const Schoolwise = () => {
       <div>
         <canvas ref={chartRef}></canvas>
       </div>
-      <DynamicModal
+      {/* <DynamicModal
         open={open}
         loading={loading}
         handleClose={handleClose}
@@ -1008,7 +1008,7 @@ const Schoolwise = () => {
         tableData={tableData}
         xlData={xlData}
         fileName={fileName}
-      />
+      /> */}
     </div>
   );
 };

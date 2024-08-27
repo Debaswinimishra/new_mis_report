@@ -1214,7 +1214,7 @@ const RemoteInstruction = () => {
             </div>
           </div>
 
-          <DynamicModal
+          {/* <DynamicModal
             open={open}
             handleClose={handleClose}
             modalTitle={modalContentTitle}
@@ -1223,7 +1223,7 @@ const RemoteInstruction = () => {
             xlData={xlData}
             fileName={fileName}
             loading={modalLoader}
-          />
+          /> */}
         </div>
       ) : Object.keys(remoteInstData).length === 0 && loading === false ? (
         <div

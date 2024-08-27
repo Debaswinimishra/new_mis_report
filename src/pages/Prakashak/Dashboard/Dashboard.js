@@ -2584,7 +2584,7 @@ const Dashboard = () => {
               </div>
             </div>
            </div>  */}
-          <DynamicModal
+          {/* <DynamicModal   //? Commented for now since don't have to show
             open={open}
             handleClose={handleClose}
             modalTitle={modalTitle}
@@ -2595,7 +2595,7 @@ const Dashboard = () => {
             xlData={xlData}
             fileName={fileName}
             loading={modalLoader}
-          />
+          /> */}
         </div>
       ) : dashboardData &&
         Object.keys(dashboardData).length === 0 &&

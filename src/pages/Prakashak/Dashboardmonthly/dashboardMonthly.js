@@ -1772,7 +1772,7 @@ const DashboardMonthly = () => {
             </div>
           </div>
 
-          <DynamicModal
+          {/* <DynamicModal //? commented for now for emergency purpose
             open={open}
             handleClose={handleClose}
             modalTitle={modalTitle}
@@ -1783,7 +1783,7 @@ const DashboardMonthly = () => {
             xlData={xlData}
             fileName={fileName}
             loading={modalLoader}
-          />
+          /> */}
         </div>
       )}
     </>

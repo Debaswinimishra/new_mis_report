@@ -2176,7 +2176,7 @@ const Schoolwise_performance = () => {
       <div>
         <canvas ref={chartRef}></canvas>
       </div>
-      <DynamicModal
+      {/* <DynamicModal
         open={open}
         loading={loading}
         handleClose={handleClose}
@@ -2185,7 +2185,7 @@ const Schoolwise_performance = () => {
         tableData={tableData}
         xlData={xlData}
         fileName={fileName}
-      />
+      /> */}
     </div>
   );
 };

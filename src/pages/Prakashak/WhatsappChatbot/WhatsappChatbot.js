@@ -122,7 +122,8 @@ const WhatsappChatbot = () => {
     fetchData();
   }, []);
 
-  const fetchData = () => { //
+  const fetchData = () => {
+    //
     setLoading(true);
     const body = {
       year: selectedYear,
@@ -843,7 +844,7 @@ const WhatsappChatbot = () => {
           >
             <Graph data={graphData} />
           </div> */}
-          <DynamicModal
+          {/* <DynamicModal  //? commented for now for emergency purpose
             open={open}
             loading={modalLoader}
             handleClose={handleClose}
@@ -853,7 +854,7 @@ const WhatsappChatbot = () => {
             xlData={xlData}
             fileName={fileName}
           />
-          <DynamicModal
+          <DynamicModal //? commented for now for emergency purpose
             open={newuserModal}
             loading={modalLoader}
             handleClose={handlenewClose}
@@ -863,7 +864,7 @@ const WhatsappChatbot = () => {
             xlData={xlDatas}
             fileName={fileNames}
           />
-          <DynamicModal
+          <DynamicModal //? commented for now for emergency purpose
             open={activeuserModal}
             loading={modalLoader}
             handleClose={handleactiveClose}
@@ -872,7 +873,7 @@ const WhatsappChatbot = () => {
             tableData={activeusertableData}
             xlData={xlDatass}
             fileName={fileNamess}
-          />
+          /> */}
         </>
       ) : !loading && Object.keys(data).length === 0 ? (
         <img src={Nodata} />

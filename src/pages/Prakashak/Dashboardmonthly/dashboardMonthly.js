@@ -1192,16 +1192,16 @@ const DashboardMonthly = () => {
                           </div>
 
                           <div
-                            style={{
-                              marginTop: "2%",
-                              boxShadow: "2px 1px 5px grey",
-                              padding: "5%",
-                              width: "97%",
-                            }}
+                          // style={{
+                          //   marginTop: "2%",
+                          //   boxShadow: "2px 1px 5px grey",
+                          //   padding: "5%",
+                          //   width: "97%",
+                          // }}
                           >
                             <h1
                               style={{
-                                marginTop: "-2%",
+                                marginTop: "2%",
                                 color: "#333", // Dark grey color for the text
                                 fontFamily: "Congenial SemiBold", // Font family for a clean look
                                 fontWeight: "700", // Bolder font weight for emphasis

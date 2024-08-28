@@ -38,11 +38,11 @@ const Schoolwise = () => {
   const [districts, setDistricts] = useState("PURI");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
-  const [blocks, setBlocks] = useState("NIMAPADA");
+  const [blocks, setBlocks] = useState("");
   const [blockArr, setBlockArr] = useState([]);
-  const [clusters, setCluseters] = useState("AMARANG UGUPS");
+  const [clusters, setCluseters] = useState("");
   const [clusterArr, setClusterArr] = useState([]);
-  const [schools, setSchools] = useState("BAMADEIPUR PROJECT PS");
+  const [schools, setSchools] = useState("");
   const [schoolArr, setSchoolArr] = useState([]);
   const [filtered, setFiltered] = useState(false);
   const [open, setOpen] = useState(false);
@@ -154,7 +154,7 @@ const Schoolwise = () => {
           const blocks =
             response?.data.length > 0 &&
             response?.data?.map((item) => item?.block);
-          console.log("Blocks:", blocks);
+          // console.log("Blocks:", blocks);
           setBlockArr(blocks); // Setting the block array with the array of block names
         } else {
           console.log("No blocks found for the given district.");
@@ -193,6 +193,7 @@ const Schoolwise = () => {
       setClusterArr(uniqueData);
     }
   };
+
   // useEffect(() => {
   //   const fetchClusters = async () => {
   //     try {
@@ -230,24 +231,20 @@ const Schoolwise = () => {
       JSON.parse
     );
     setSchoolArr(uniqueData);
-    console.log("uniqueData--->", school);
-    console.log("uniqueData1--->", uniqueData);
+    console.log("uniqueData---------->", school);
+    console.log("uniqueData1--------->", uniqueData);
   };
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
   //       if (clusters) {
   //         const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-  //         // console.log(
-  //         //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
-  //         //   response.data[0].school_name
-  //         // );
   //         setSchoolArr(response?.data);
-  //         // setLoading(false);
+  //         setLoading(false);
   //       }
   //     } catch (error) {
   //       console.error("Error fetching Blocks:", error);
-  //       // setLoading(false);
+  //       setLoading(false);
   //     }
   //   };
 
@@ -344,6 +341,12 @@ const Schoolwise = () => {
     setFiltered(true);
     if (!districts) {
       alert("Please select a district to proceed.");
+    } else if (districts && !blocks && !clusters && !schools) {
+      alert("Please select a block, cluster and school to proceed.");
+    } else if (districts && blocks && !clusters && !schools) {
+      alert("Please select a cluster and school to proceed.");
+    } else if (districts && blocks && clusters && !schools) {
+      alert("Please select a school to proceed.");
     } else {
       setLoading(true);
       fetchData();
@@ -437,8 +440,7 @@ const Schoolwise = () => {
 
   const handleClose = () => setOpen(false);
 
-  console.log("data---------->", data);
-  console.log("loading---------->", loading);
+  console.log("schoolArr-------------->", schoolArr);
 
   return (
     <div>
@@ -482,7 +484,7 @@ const Schoolwise = () => {
             <MenuItem value="Select Block" disabled>
               Select Block
             </MenuItem>
-            <MenuItem value="">None</MenuItem>
+            {/* <MenuItem value="">None</MenuItem> */}
             {blockArr &&
               blockArr?.map((block, index) => (
                 <MenuItem key={index} value={block}>
@@ -504,7 +506,7 @@ const Schoolwise = () => {
             <MenuItem value="Select Cluster" disabled>
               Select Cluster
             </MenuItem>
-            <MenuItem value="">None</MenuItem>
+            {/* <MenuItem value="">None</MenuItem> */}
             {clusterArr?.map((cluster, index) => (
               <MenuItem key={index} value={cluster}>
                 {cluster}
@@ -527,7 +529,7 @@ const Schoolwise = () => {
             <MenuItem value="Select School" disabled>
               Select School
             </MenuItem>
-            <MenuItem value="">None</MenuItem>
+            {/* <MenuItem value="">None</MenuItem> */}
             {schoolArr?.map((school, index) => (
               <MenuItem key={index} value={school}>
                 {school}

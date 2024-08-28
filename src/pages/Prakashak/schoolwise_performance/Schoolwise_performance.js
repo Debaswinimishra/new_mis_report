@@ -545,7 +545,7 @@ const Schoolwise_performance = () => {
             label="Block"
             disabled={loading || !districts}
           >
-            <MenuItem value="">None</MenuItem>
+            {/* <MenuItem value="">None</MenuItem> */}
             {blockArr &&
               blockArr?.map((block, index) => (
                 <MenuItem key={index} value={block}>
@@ -564,7 +564,7 @@ const Schoolwise_performance = () => {
             label="Cluster"
             disabled={loading || !blocks}
           >
-            <MenuItem value="">None</MenuItem>
+            {/* <MenuItem value="">None</MenuItem> */}
             {clusterArr?.map((cluster, index) => (
               <MenuItem key={index} value={cluster}>
                 {cluster}

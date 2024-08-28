@@ -974,7 +974,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.remote_instructions_users}</h1>
+                          <h1>{data.chatbot_users}</h1>
                         </div>
                       </div>
                       <div
@@ -1012,7 +1012,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.chatbot_users}</h1>
+                          <h1>{data.remote_instructions_users}</h1>
                         </div>
                       </div>
                     </>
@@ -1284,7 +1284,7 @@ const dataJson = [
     total_activated_students: 16,
     total_active_students: 14,
     remote_instructions_users: 5,
-    chatbot_users: 15,
+    chatbot_users: 12,
   },
   {
     district: "PURI",

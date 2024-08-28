@@ -341,19 +341,19 @@ const Schoolwise = () => {
 
   const filterButtonClick = () => {
     setFiltered(true);
-    fetchData();
-    // if (!districts) {
-    //   alert("Please select a district to proceed.");
-    // } else if (districts && !blocks && !clusters && !schools) {
-    //   alert("Please select a block, cluster and school to proceed.");
-    // } else if (districts && blocks && !clusters && !schools) {
-    //   alert("Please select a cluster and school to proceed.");
-    // } else if (districts && blocks && clusters && !schools) {
-    //   alert("Please select a school to proceed.");
-    // } else {
-    //   setLoading(true);
-    //   fetchData();
-    // }
+    // fetchData();
+    if (!districts) {
+      alert("Please select a district to proceed.");
+    } else if (districts && !blocks && !clusters && !schools) {
+      alert("Please select a block, cluster and school to proceed.");
+    } else if (districts && blocks && !clusters && !schools) {
+      alert("Please select a cluster and school to proceed.");
+    } else if (districts && blocks && clusters && !schools) {
+      alert("Please select a school to proceed.");
+    } else {
+      setLoading(true);
+      fetchData();
+    }
   };
 
   const handleOpenModal = async (type, param) => {

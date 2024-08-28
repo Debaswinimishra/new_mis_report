@@ -59,8 +59,8 @@ const Schoolwise = () => {
     "block",
     "cluster",
   ]);
-  console.log("tableData", tableData);
-  console.log("districtArr", districtArr);
+  // console.log("tableData", tableData);
+  // console.log("districtArr", districtArr);
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
@@ -112,7 +112,7 @@ const Schoolwise = () => {
           response?.data?.length > 0 &&
           response?.data
         ) {
-          console.log("set=================>", response?.data);
+          // console.log("set=================>", response?.data);
           const districts =
             response?.data.length > 0 &&
             response?.data?.map((item) => item?.district);
@@ -148,7 +148,7 @@ const Schoolwise = () => {
     const fetchData = async () => {
       try {
         const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
-        console.log("set=================>", response.data);
+        // console.log("set=================>", response.data);
         if (response?.data && response?.data?.length > 0) {
           // Extracting the blocks from the response data
           const blocks =
@@ -157,7 +157,7 @@ const Schoolwise = () => {
           // console.log("Blocks:", blocks);
           setBlockArr(blocks); // Setting the block array with the array of block names
         } else {
-          console.log("No blocks found for the given district.");
+          // console.log("No blocks found for the given district.");
           setBlockArr([]); // Setting an empty array if no data is found
         }
         // setLoading(false);
@@ -231,8 +231,8 @@ const Schoolwise = () => {
       JSON.parse
     );
     setSchoolArr(uniqueData);
-    console.log("uniqueData---------->", school);
-    console.log("uniqueData1--------->", uniqueData);
+    // console.log("uniqueData---------->", school);
+    // console.log("uniqueData1--------->", uniqueData);
   };
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -271,7 +271,7 @@ const Schoolwise = () => {
       );
     });
 
-    console.log("filteredData----->", filteredData);
+    // console.log("filteredData----->", filteredData);
 
     if (filteredData?.length > 0) {
       setData(filteredData);
@@ -289,14 +289,14 @@ const Schoolwise = () => {
       // month: month,
     };
 
-    console.log(
-      "check---------->",
-      districts,
-      blocks,
-      clusters,
-      schools
-      // month
-    );
+    // console.log(
+    //   "check---------->",
+    //   districts,
+    //   blocks,
+    //   clusters,
+    //   schools
+    //   // month
+    // );
 
     // if ("") {
     //   Api.post(`getSchoolWiseReport`, body)
@@ -433,7 +433,7 @@ const Schoolwise = () => {
           "cluster",
         ]);
       } catch (error) {
-        console.error("Error fetching student report:", error);
+        // console.error("Error fetching student report:", error);
       }
     }
 
@@ -443,7 +443,7 @@ const Schoolwise = () => {
 
   const handleClose = () => setOpen(false);
 
-  console.log("schoolArr-------------->", schoolArr);
+  // console.log("schoolArr-------------->", schoolArr);
 
   return (
     <div>
@@ -644,16 +644,14 @@ const Schoolwise = () => {
                           style={{
                             height: "48%",
                             color: "#CD5C5C",
-                            paddingTop: "10px",
+                            paddingTop: "28px",
                             fontSize: "1.1rem",
                             fontFamily: "Congenial SemiBold",
                             fontWeight: "600",
                             width: "100%",
                           }}
                         >
-                          <p>
-                            Number of students (including promoted students)
-                          </p>
+                          <p>Number of students</p>
                         </div>
                         <div
                           style={{

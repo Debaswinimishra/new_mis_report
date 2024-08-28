@@ -38,11 +38,11 @@ const Schoolwise = () => {
   const [districts, setDistricts] = useState("PURI");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
-  const [blocks, setBlocks] = useState("NIMAPADA");
+  const [blocks, setBlocks] = useState("");
   const [blockArr, setBlockArr] = useState([]);
-  const [clusters, setCluseters] = useState("AMARANG UGUPS");
+  const [clusters, setCluseters] = useState("");
   const [clusterArr, setClusterArr] = useState([]);
-  const [schools, setSchools] = useState("BAMADEIPUR PROJECT PS");
+  const [schools, setSchools] = useState("");
   const [schoolArr, setSchoolArr] = useState([]);
   const [filtered, setFiltered] = useState(false);
   const [open, setOpen] = useState(false);
@@ -194,29 +194,29 @@ const Schoolwise = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchClusters = async () => {
-      try {
-        if (blocks) {
-          // setLoading(true);
-          const response = await Api.get(`getAllClustersByBlock/${blocks}`);
-          // console.log("set=================>", response.data);
-          const clusters =
-            response?.data?.length > 0 &&
-            response?.data?.map((item) => item?.cluster);
-          setClusterArr(clusters);
-          // setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching Clusters:", error);
-        setClusterArr([]); // Reset clusterArr to an empty array if there's an error
-        // setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchClusters = async () => {
+  //     try {
+  //       if (blocks) {
+  //         // setLoading(true);
+  //         const response = await Api.get(`getAllClustersByBlock/${blocks}`);
+  //         // console.log("set=================>", response.data);
+  //         const clusters =
+  //           response?.data?.length > 0 &&
+  //           response?.data?.map((item) => item?.cluster);
+  //         setClusterArr(clusters);
+  //         // setLoading(false);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching Clusters:", error);
+  //       setClusterArr([]); // Reset clusterArr to an empty array if there's an error
+  //       // setLoading(false);
+  //     }
+  //   };
 
-    // Fetch data only if a block is selected
-    fetchClusters();
-  }, [blocks]);
+  //   // Fetch data only if a block is selected
+  //   fetchClusters();
+  // }, [blocks]);
 
   const handleClusterChange = (e) => {
     setCluseters(e.target.value);
@@ -234,23 +234,23 @@ const Schoolwise = () => {
     console.log("uniqueData---------->", school);
     console.log("uniqueData1--------->", uniqueData);
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (clusters) {
-          const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-          setSchoolArr(response?.data);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching Blocks:", error);
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       if (clusters) {
+  //         const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
+  //         setSchoolArr(response?.data);
+  //         setLoading(false);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching Blocks:", error);
+  //       setLoading(false);
+  //     }
+  //   };
 
-    // Fetch data only if a district is selected
-    fetchData();
-  }, [clusters]);
+  //   // Fetch data only if a district is selected
+  //   fetchData();
+  // }, [clusters]);
 
   const handleSchoolName = (e) => {
     setSchools(e.target.value);
@@ -341,6 +341,12 @@ const Schoolwise = () => {
     setFiltered(true);
     if (!districts) {
       alert("Please select a district to proceed.");
+    } else if (districts && !blocks && !clusters && !schools) {
+      alert("Please select a block, cluster and school to proceed.");
+    } else if (districts && blocks && !clusters && !schools) {
+      alert("Please select a cluster and school to proceed.");
+    } else if (districts && blocks && clusters && !schools) {
+      alert("Please select a school to proceed.");
     } else {
       setLoading(true);
       fetchData();
@@ -478,7 +484,7 @@ const Schoolwise = () => {
             <MenuItem value="Select Block" disabled>
               Select Block
             </MenuItem>
-            <MenuItem value="">None</MenuItem>
+            {/* <MenuItem value="">None</MenuItem> */}
             {blockArr &&
               blockArr?.map((block, index) => (
                 <MenuItem key={index} value={block}>
@@ -500,7 +506,7 @@ const Schoolwise = () => {
             <MenuItem value="Select Cluster" disabled>
               Select Cluster
             </MenuItem>
-            <MenuItem value="">None</MenuItem>
+            {/* <MenuItem value="">None</MenuItem> */}
             {clusterArr?.map((cluster, index) => (
               <MenuItem key={index} value={cluster}>
                 {cluster}
@@ -523,10 +529,10 @@ const Schoolwise = () => {
             <MenuItem value="Select School" disabled>
               Select School
             </MenuItem>
-            <MenuItem value="">None</MenuItem>
+            {/* <MenuItem value="">None</MenuItem> */}
             {schoolArr?.map((school, index) => (
-              <MenuItem key={index} value={school.school_name}>
-                {school.school_name}
+              <MenuItem key={index} value={school}>
+                {school}
               </MenuItem>
             ))}
           </Select>

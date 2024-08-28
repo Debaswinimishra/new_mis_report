@@ -154,7 +154,7 @@ const Schoolwise = () => {
           const blocks =
             response?.data.length > 0 &&
             response?.data?.map((item) => item?.block);
-          console.log("Blocks:", blocks);
+          // console.log("Blocks:", blocks);
           setBlockArr(blocks); // Setting the block array with the array of block names
         } else {
           console.log("No blocks found for the given district.");
@@ -193,29 +193,30 @@ const Schoolwise = () => {
       setClusterArr(uniqueData);
     }
   };
-  // useEffect(() => {
-  //   const fetchClusters = async () => {
-  //     try {
-  //       if (blocks) {
-  //         // setLoading(true);
-  //         const response = await Api.get(`getAllClustersByBlock/${blocks}`);
-  //         // console.log("set=================>", response.data);
-  //         const clusters =
-  //           response?.data?.length > 0 &&
-  //           response?.data?.map((item) => item?.cluster);
-  //         setClusterArr(clusters);
-  //         // setLoading(false);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching Clusters:", error);
-  //       setClusterArr([]); // Reset clusterArr to an empty array if there's an error
-  //       // setLoading(false);
-  //     }
-  //   };
 
-  //   // Fetch data only if a block is selected
-  //   fetchClusters();
-  // }, [blocks]);
+  useEffect(() => {
+    const fetchClusters = async () => {
+      try {
+        if (blocks) {
+          // setLoading(true);
+          const response = await Api.get(`getAllClustersByBlock/${blocks}`);
+          // console.log("set=================>", response.data);
+          const clusters =
+            response?.data?.length > 0 &&
+            response?.data?.map((item) => item?.cluster);
+          setClusterArr(clusters);
+          // setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching Clusters:", error);
+        setClusterArr([]); // Reset clusterArr to an empty array if there's an error
+        // setLoading(false);
+      }
+    };
+
+    // Fetch data only if a block is selected
+    fetchClusters();
+  }, [blocks]);
 
   const handleClusterChange = (e) => {
     setCluseters(e.target.value);
@@ -230,30 +231,26 @@ const Schoolwise = () => {
       JSON.parse
     );
     setSchoolArr(uniqueData);
-    console.log("uniqueData--->", school);
-    console.log("uniqueData1--->", uniqueData);
+    console.log("uniqueData---------->", school);
+    console.log("uniqueData1--------->", uniqueData);
   };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       if (clusters) {
-  //         const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-  //         // console.log(
-  //         //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
-  //         //   response.data[0].school_name
-  //         // );
-  //         setSchoolArr(response?.data);
-  //         // setLoading(false);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching Blocks:", error);
-  //       // setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (clusters) {
+          const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
+          setSchoolArr(response?.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching Blocks:", error);
+        setLoading(false);
+      }
+    };
 
-  //   // Fetch data only if a district is selected
-  //   fetchData();
-  // }, [clusters]);
+    // Fetch data only if a district is selected
+    fetchData();
+  }, [clusters]);
 
   const handleSchoolName = (e) => {
     setSchools(e.target.value);
@@ -437,8 +434,7 @@ const Schoolwise = () => {
 
   const handleClose = () => setOpen(false);
 
-  console.log("data---------->", data);
-  console.log("loading---------->", loading);
+  console.log("schoolArr-------------->", schoolArr);
 
   return (
     <div>
@@ -529,8 +525,8 @@ const Schoolwise = () => {
             </MenuItem>
             <MenuItem value="">None</MenuItem>
             {schoolArr?.map((school, index) => (
-              <MenuItem key={index} value={school}>
-                {school}
+              <MenuItem key={index} value={school.school_name}>
+                {school.school_name}
               </MenuItem>
             ))}
           </Select>

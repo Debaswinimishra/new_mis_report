@@ -538,6 +538,24 @@ const Schoolwise_performance = () => {
             ))}
           </Select>
         </FormControl>
+
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Year</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedYear}
+            onChange={handleYearChange}
+            label="Year"
+          >
+            {years.map((item, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="usertype-label">Month</InputLabel>
           <Select

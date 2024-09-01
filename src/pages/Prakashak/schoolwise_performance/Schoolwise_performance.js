@@ -292,6 +292,8 @@ const Schoolwise_performance = () => {
       cluster: clusters,
       school_name: schools.school_name,
       year: selectedYear,
+      month: selectedMonth,
+      week: selectedWeek,
     };
 
     console.log("check---------->", districts, blocks, clusters, schools);

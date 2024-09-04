@@ -736,7 +736,7 @@ const WhatsappChatbot = () => {
                         </div>
                       ) : null}
 
-                      <div
+                      {/* <div
                         className="card"
                         // onClick={() => handleOpen(" Total No. of Minutes Spent")}
                         style={{
@@ -774,7 +774,7 @@ const WhatsappChatbot = () => {
                         >
                           <h1>{data.total_chatbot_mins}</h1>
                         </div>
-                      </div>
+                      </div> */}
                       {/* <div
                         className="card"
                         style={{

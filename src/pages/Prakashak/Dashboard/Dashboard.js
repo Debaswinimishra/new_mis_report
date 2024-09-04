@@ -889,7 +889,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of clusters</p>
+                  <p>Clusters</p>
                 </div>
                 <div
                   style={{
@@ -947,7 +947,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of schools</p>
+                  <p>Schools</p>
                 </div>
                 <div
                   style={{
@@ -1005,7 +1005,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of students</p>
+                  <p>Registered Students</p>
                 </div>
                 <div
                   style={{
@@ -1063,7 +1063,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of girls</p>
+                  <p>Registered Girls</p>
                 </div>
                 <div
                   style={{
@@ -1121,7 +1121,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of boys</p>
+                  <p>Registered Boys</p>
                 </div>
                 <div
                   style={{
@@ -1179,7 +1179,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of activated student</p>
+                  <p>Activated Students</p>
                 </div>
                 <div
                   style={{
@@ -1237,7 +1237,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of active student</p>
+                  <p>Total Active Students</p>
                 </div>
                 <div
                   style={{

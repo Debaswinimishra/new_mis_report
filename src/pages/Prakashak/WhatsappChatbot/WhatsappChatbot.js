@@ -680,7 +680,7 @@ const WhatsappChatbot = () => {
                             fontWeight: "600",
                           }}
                         >
-                          <p> Total No. of Active Users</p>
+                          <p>No of Active Users</p>
                         </div>
                         <div
                           style={{
@@ -720,7 +720,7 @@ const WhatsappChatbot = () => {
                               fontWeight: "600",
                             }}
                           >
-                            <p> Total No. new Activated Users</p>
+                            <p>No of new Activated Users</p>
                           </div>
                           <div
                             style={{

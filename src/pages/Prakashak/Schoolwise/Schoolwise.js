@@ -651,7 +651,7 @@ const Schoolwise = () => {
                             width: "100%",
                           }}
                         >
-                          <p>Number of students</p>
+                          <p>Number of students (1-5)</p>
                         </div>
                         <div
                           style={{
@@ -881,7 +881,7 @@ const Schoolwise = () => {
                           style={{
                             height: "50%",
                             color: "rgb(214 148 16)",
-                            paddingTop: "20px",
+                            paddingTop: "25px",
                             fontSize: "1.2rem",
                             fontFamily: "Congenial SemiBold",
                             fontWeight: "600",
@@ -919,7 +919,7 @@ const Schoolwise = () => {
                           style={{
                             height: "50%",
                             color: "rgb(153 58 134)",
-                            paddingTop: "20px",
+                            paddingTop: "25px",
                             fontSize: "1.2rem",
                             fontFamily: "Congenial SemiBold",
                             fontWeight: "600",
@@ -957,7 +957,7 @@ const Schoolwise = () => {
                           style={{
                             height: "50%",
                             color: "rgb(214 148 16)",
-                            paddingTop: "20px",
+                            paddingTop: "25px",
                             fontSize: "1.2rem",
                             fontFamily: "Congenial SemiBold",
                             fontWeight: "600",
@@ -995,7 +995,7 @@ const Schoolwise = () => {
                           style={{
                             height: "50%",
                             color: "rgb(153 58 134)",
-                            paddingTop: "14px",
+                            paddingTop: "25px",
                             fontSize: "1.2rem",
                             fontFamily: "Congenial SemiBold",
                             fontWeight: "600",

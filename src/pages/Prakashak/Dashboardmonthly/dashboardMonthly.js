@@ -877,7 +877,7 @@ const DashboardMonthly = () => {
                                 fontWeight: "600",
                               }}
                             >
-                              Total number of new schools
+                              New schools added
                             </div>
                             <div
                               style={{
@@ -919,7 +919,7 @@ const DashboardMonthly = () => {
                                 fontWeight: "600",
                               }}
                             >
-                              <p> Number of new students</p>
+                              <p>New students</p>
                             </div>
                             <div
                               style={{
@@ -959,7 +959,7 @@ const DashboardMonthly = () => {
                                 fontWeight: "600",
                               }}
                             >
-                              <p>Number of new girls</p>
+                              <p>New students (female)</p>
                             </div>
                             <div
                               style={{
@@ -999,7 +999,7 @@ const DashboardMonthly = () => {
                                 fontWeight: "600",
                               }}
                             >
-                              <p>Number of new boys</p>
+                              <p>New students (male)</p>
                             </div>
                             <div
                               style={{
@@ -1039,7 +1039,7 @@ const DashboardMonthly = () => {
                                 fontWeight: "600",
                               }}
                             >
-                              <p>Number of new activated student</p>
+                              <p>Activated students (new)</p>
                             </div>
                             <div
                               style={{
@@ -1098,7 +1098,7 @@ const DashboardMonthly = () => {
                                 fontWeight: "600",
                               }}
                             >
-                              <p>Number of new active student</p>
+                              <p>Total Active students</p>
                             </div>
                             <div
                               style={{
@@ -1137,7 +1137,7 @@ const DashboardMonthly = () => {
                                 fontWeight: "600",
                               }}
                             >
-                              Active student (Male)
+                              Active students (male)
                             </div>
                             <div
                               style={{
@@ -1176,7 +1176,7 @@ const DashboardMonthly = () => {
                                 fontWeight: "600",
                               }}
                             >
-                              Active student (Female)
+                              Active students (female)
                             </div>
                             <div
                               style={{

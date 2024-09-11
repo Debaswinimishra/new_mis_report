@@ -72,6 +72,8 @@ const moduleColumn = [
 ];
 
 const FellowDetails = () => {
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [managerArr, setManagerArr] = useState([]);
   const [managerName, setManagerName] = useState([]);
@@ -139,7 +141,8 @@ const FellowDetails = () => {
     const response = await getAllCommunityEducatiorFilter(selectedYear);
     setManagerArr(response?.data?.resData);
   };
-
+  const handleFromDateChange = (value) => setFromDate(value);
+  const handleToDateChange = (value) => setToDate(value);
   const handleManagerChange = (event) => {
     setPasscode("");
     setDistrictName("");
@@ -187,12 +190,30 @@ const FellowDetails = () => {
       }
 
       setLoaded(true);
+
+      const fromDateObj = new Date(fromDate);
+      const toDateObj = new Date(toDate);
+
+      if (isNaN(fromDateObj.getTime()) || isNaN(toDateObj.getTime())) {
+        alert(
+          "Invalid date format. Please select valid 'From' and 'To' dates."
+        );
+        return;
+      }
+
+      setLoaded(true);
+
+      // Convert valid fromDate and toDate to "YYYY-MM-DD" format
+      const startDt = fromDateObj.toISOString().slice(0, 10); // "YYYY-MM-DD"
+      const endDt = toDateObj.toISOString().slice(0, 10); // "YYYY-MM-DD"
       const filterCriteriaWithBlockAndDistrict = {
         year: selectedYear,
         managerid: managerName,
         passcode: passcode,
         districtid: districtName,
         blockid: blockName,
+        startDt: startDt,
+        endDt: endDt,
       };
 
       const data = await FellowDetailsForManager(
@@ -200,7 +221,6 @@ const FellowDetails = () => {
       );
 
       setLoaded(false);
-      // console.log("data", data);
 
       if (data.length === 0) {
         setFilteredData([]);
@@ -212,7 +232,6 @@ const FellowDetails = () => {
     } catch (error) {
       setLoaded(false);
       console.error("Error:", error);
-      // Handle the error, e.g., show an error message to the user
       alert("An error occurred while fetching data");
     } finally {
       setLoaded(false);
@@ -345,6 +364,29 @@ const FellowDetails = () => {
               : null}
           </TextField>
 
+          {/* Add Date Filters Here */}
+          <TextField
+            id="from-date"
+            label="From Date"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={fromDate}
+            onChange={(e) => handleFromDateChange(e.target.value)}
+          />
+
+          <TextField
+            id="to-date"
+            label="To Date"
+            type="date"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={toDate}
+            onChange={(e) => handleToDateChange(e.target.value)}
+          />
+
           <Stack spacing={2} direction="row">
             <Button
               variant="contained"
@@ -356,6 +398,7 @@ const FellowDetails = () => {
           </Stack>
         </div>
       </div>
+
       {loaded ? (
         <Loader />
       ) : selectedYear && modifiedData && modifiedData.length > 0 ? (

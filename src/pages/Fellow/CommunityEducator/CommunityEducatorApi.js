@@ -15,7 +15,7 @@ export const getCommunityEducator1 = async (body) =>
 export const getCommunityEducator2 = async (body) =>
   await Api.post(`getDashboardCounts/`, body);
 
-// useEffect(() => {
+// useEffect(() => {s
 //   Api.get(`getManagerIdsWidPasscode`).then((response) => {
 //     setManagerArr(response.data.resData);
 //   });

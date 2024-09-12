@@ -101,7 +101,7 @@ const AmazonVouchersRedeemed = () => {
           month: parseInt(month),
         };
 
-        const data = await AmazonVouchersRedeemedThunk(dataForFilter);
+        const data = await AmazonVouchersRedeemedThunk(dataForFilter); 
 
         setLoaded(false);
         if (data.data.length === 0) {

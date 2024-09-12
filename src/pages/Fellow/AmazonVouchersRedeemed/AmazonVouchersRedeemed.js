@@ -22,6 +22,7 @@ import Logo from "../../../ReusableComponents/Logo";
 import Loader from "../../../ReusableComponents/Loader";
 import IconButton from "@mui/material/IconButton";
 import ClearIcon from "@mui/icons-material/Clear";
+import { AmazonVouchersRedeemedThunk } from "./AmazonVouchersRedeemed.thunk";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -93,26 +94,22 @@ const AmazonVouchersRedeemed = () => {
       } else if (!month) {
         alert("Please select a month before filtering");
         return;
-      }
+      } else {
+        setLoaded(true);
+        const dataForFilter = {
+          year: parseInt(selectedYear),
+          month: parseInt(month),
+        };
 
-      setLoaded(true);
-      const filterCriteriaWithBlockAndDistrict = {
-        year: parseInt(selectedYear),
-        month: parseInt(month),
-      };
+        const data = await AmazonVouchersRedeemedThunk(dataForFilter);
 
-      //* Here the API will be called ---
-      //   const data = await getAllTimespentData(
-      //     filterCriteriaWithBlockAndDistrict
-      //   );
-
-      setLoaded(false);
-      if (data.data.length === 0) {
-        setFilteredData([]);
-        alert("No data found");
-      } else if (data.data.length > 0) {
-        setFilteredData(data.data);
-        setTotalDataLength(data.length);
+        setLoaded(false);
+        if (data.data.length === 0) {
+          setFilteredData([]);
+          alert("No data found");
+        } else if (data.data.length > 0) {
+          setFilteredData(data.data);
+        }
       }
     } catch (error) {
       setLoaded(false);
@@ -123,7 +120,41 @@ const AmazonVouchersRedeemed = () => {
     }
   };
 
-  const fileName = "OverallTimespent";
+  const moduleColumn = [
+    "Serial No",
+    "User Name",
+    "Manager Name",
+    "Passcode",
+    "Coupon code",
+    "Redeem Date",
+    "Coins used",
+    "Coins amount",
+  ];
+
+  const getCellValue = (row, column, index) => {
+    switch (column) {
+      case "Serial No":
+        return index + 1;
+      case "User Name":
+        return row.username;
+      case "Manager Name":
+        return row.managername;
+      case "Passcode":
+        return row.passcode;
+      case "Coupon code":
+        return row.couponCode;
+      case "Redeem Date":
+        return moment(row.redeemedOn).format("DD/MM/YYYY");
+      case "Coins used":
+        return row.coinsUsed;
+      case "Coins amount":
+        return "Rs. " + row.amount;
+      default:
+        return "";
+    }
+  };
+
+  const fileName = "amazon_vouchers_redeemed";
 
   const xlData = filteredData.map((x) => {
     const { ...exceptBoth } = x;
@@ -187,22 +218,19 @@ const AmazonVouchersRedeemed = () => {
 
       {loaded ? (
         <Loader />
-      ) : selectedYear && filteredData && filteredData.length > 0 ? (
+      ) : selectedYear && month && filteredData.length > 0 ? (
         <>
           <TableContainer
             component={Paper}
             sx={{
               marginLeft: 2,
               marginTop: 3,
-              // width: "82%",
               borderRadius: "6px",
               maxHeight: "100%",
             }}
           >
             <Table>
-              {filteredData.length > 0 &&
-              searchQuery.length === 0 &&
-              searchedStudents.length === 0 ? (
+              {filteredData.length > 0 ? (
                 <>
                   <TableHead>
                     <TableRow>
@@ -212,92 +240,25 @@ const AmazonVouchersRedeemed = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {Array.isArray(filteredData) &&
-                      filteredData
-                        .slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage
-                        )
-                        .map((row, index) => (
-                          <StyledTableRow key={index}>
-                            {moduleColumn.map((column, columnIndex) => (
-                              <StyledTableCell key={columnIndex}>
-                                {getCellValue(row, column, index)}
-                              </StyledTableCell>
-                            ))}
-                          </StyledTableRow>
+                    {filteredData.map((row, index) => (
+                      <StyledTableRow key={index}>
+                        {moduleColumn.map((column, columnIndex) => (
+                          <StyledTableCell key={columnIndex}>
+                            {getCellValue(row, column, index)}
+                          </StyledTableCell>
                         ))}
+                      </StyledTableRow>
+                    ))}
                   </TableBody>
                 </>
-              ) : filteredData.length > 0 &&
-                searchQuery &&
-                searchedStudents.length > 0 ? (
-                <>
-                  <TableHead>
-                    <TableRow>
-                      {moduleColumn.map((column) => (
-                        <StyledTableCell key={column}>{column}</StyledTableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {Array.isArray(searchedStudents) &&
-                      searchedStudents
-                        .slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage
-                        )
-                        .map((row, index) => (
-                          <StyledTableRow key={index}>
-                            {moduleColumn.map((column, columnIndex) => (
-                              <StyledTableCell key={columnIndex}>
-                                {getCellValue(row, column, index)}
-                              </StyledTableCell>
-                            ))}
-                          </StyledTableRow>
-                        ))}
-                  </TableBody>
-                </>
-              ) : filteredData.length > 0 &&
-                searchQuery &&
-                searchedStudents.length === 0 ? (
-                <h2>Sorry, coudn't find an user with the search value</h2>
-              ) : null}
+              ) : (
+                <h1>Sorry, No student found</h1>
+              )}
             </Table>
-            {filteredData && !searchQuery && searchedStudents.length === 0 ? (
-              <>
-                <TablePagination
-                  component="div"
-                  count={
-                    searchQuery ? searchedStudents.length : filteredData.length
-                  }
-                  page={page}
-                  onPageChange={handleChangePage}
-                  rowsPerPage={rowsPerPage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-                <Download csvData={xlData} fileName={fileName} />
-              </>
-            ) : filteredData && searchQuery && searchedStudents.length > 0 ? (
-              <>
-                <TablePagination
-                  component="div"
-                  count={
-                    searchQuery ? searchedStudents.length : filteredData.length
-                  }
-                  page={page}
-                  onPageChange={handleChangePage}
-                  rowsPerPage={rowsPerPage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-                <Download csvData={xlData} fileName={fileName} />
-              </>
-            ) : null}
+            <Download csvData={xlData} fileName={fileName} />
           </TableContainer>
         </>
-      ) : (
-        ""
-      )}
+      ) : null}
     </Box>
   );
 };

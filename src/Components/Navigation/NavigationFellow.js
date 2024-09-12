@@ -35,6 +35,7 @@ import QuizIcon from "@mui/icons-material/Quiz";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MoreTimeIcon from "@mui/icons-material/MoreTime";
+import MoneyIcon from "@mui/icons-material/Money";
 import { Version } from "../../Environment/Api";
 const drawerWidth = 240;
 
@@ -134,7 +135,7 @@ function NavigationFellow(props) {
     {
       text: "Vouchers' Redeemed Status",
       link: "amazon_vouchers_redeemed",
-      icon: <MoreTimeIcon sx={{ color: "#000080" }} />,
+      icon: <MoneyIcon sx={{ color: "#000080" }} />,
     },
     {
       text: "Log out",

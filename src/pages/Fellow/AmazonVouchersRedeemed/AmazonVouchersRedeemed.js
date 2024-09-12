@@ -72,6 +72,7 @@ const AmazonVouchersRedeemed = () => {
   const handleYearChange = async (selectedYear) => {
     setSelectedYear(selectedYear);
     setMonth("");
+    setFilteredData([]);
   };
 
   //~-----------On changing the month---------------
@@ -83,6 +84,7 @@ const AmazonVouchersRedeemed = () => {
       alert("You can't select a month beyond the current month");
     } else {
       setMonth(event.target.value);
+      setFilteredData([]); 
     }
   };
 
@@ -101,7 +103,7 @@ const AmazonVouchersRedeemed = () => {
           month: parseInt(month),
         };
 
-        const data = await AmazonVouchersRedeemedThunk(dataForFilter); 
+        const data = await AmazonVouchersRedeemedThunk(dataForFilter);
 
         setLoaded(false);
         if (data.data.length === 0) {

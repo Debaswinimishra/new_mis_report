@@ -939,7 +939,7 @@ const RemoteInstruction = () => {
                       </div>
                     ) : null}
 
-                    <div
+                    {/* <div
                       style={{
                         width: "255px",
                         height: "180px",
@@ -974,9 +974,9 @@ const RemoteInstruction = () => {
                       >
                         <h1>{remoteInstData.total_sms_scheduled}</h1>
                       </div>
-                    </div>
+                    </div> */}
 
-                    <div
+                    {/* <div
                       style={{
                         width: "255px",
                         height: "180px",
@@ -1011,9 +1011,9 @@ const RemoteInstruction = () => {
                       >
                         <h1>{remoteInstData.total_sms_delivered}</h1>
                       </div>
-                    </div>
+                    </div> */}
 
-                    <div
+                    {/* <div
                       style={{
                         width: "255px",
                         height: "180px",
@@ -1048,8 +1048,8 @@ const RemoteInstruction = () => {
                       >
                         <h1>{remoteInstData.total_calls_made}</h1>
                       </div>
-                    </div>
-                    <div
+                    </div> */}
+                    {/* <div
                       style={{
                         width: "255px",
                         height: "180px",
@@ -1084,7 +1084,7 @@ const RemoteInstruction = () => {
                       >
                         <h1>{remoteInstData.total_calls_received}</h1>
                       </div>
-                    </div>
+                    </div> */}
                     {/* <div
                       style={{
                         width: "255px",
@@ -1121,7 +1121,7 @@ const RemoteInstruction = () => {
                         <h1>{remoteInstData.total_calls_mins}</h1>
                       </div>
                     </div> */}
-                    <div
+                    {/* <div
                       style={{
                         width: "255px",
                         height: "180px",
@@ -1156,7 +1156,7 @@ const RemoteInstruction = () => {
                       >
                         <h1>{remoteInstData.total_ivrs_calls_made}</h1>
                       </div>
-                    </div>
+                    </div> */}
                     {/* <div
                       style={{
                         width: "255px",
@@ -1202,7 +1202,7 @@ const RemoteInstruction = () => {
           {/* <DynamicModal
             open={open}
             handleClose={handleClose}
-            modalTitle={modalContentTitle}
+            modalTitle={modalContentTitle}T
             tableHeaders={tableHeaders}
             tableData={modalContentData}
             xlData={xlData}

@@ -1017,7 +1017,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_students}</h1> */}
-                  <h1>11024</h1>
+                  <h1>12855</h1>
                 </div>
               </div>
               <div
@@ -1075,7 +1075,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_girl_students}</h1> */}
-                  <h1>5432</h1>
+                  <h1>6034</h1>
                 </div>
               </div>
               <div
@@ -1133,7 +1133,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_boy_students}</h1> */}
-                  <h1>5592</h1>
+                  <h1>6821</h1>
                 </div>
               </div>
               <div
@@ -1191,7 +1191,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_activated_students}</h1> */}
-                  <h1>10094</h1>
+                  <h1>11631</h1>
                 </div>
               </div>
               <div
@@ -1249,7 +1249,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_active_students}</h1> */}
-                  <h1>8962</h1>
+                  <h1>9977</h1>
                 </div>
               </div>
 

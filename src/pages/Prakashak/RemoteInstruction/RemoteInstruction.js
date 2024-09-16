@@ -182,6 +182,10 @@ const RemoteInstruction = () => {
 
     console.log("body passed------------>", body);
     const filteredData = dataJson.filter((item) => {
+      console.log(`item.month--${item.month} && item.week--${item.week}`);
+      console.log(
+        `SelectedMonth--${selectedMonth} && selectedWeek--${selectedWeek}`
+      );
       return item.month === selectedMonth && item.week === selectedWeek;
     });
     if (filteredData?.length > 0) {
@@ -625,7 +629,6 @@ const RemoteInstruction = () => {
   };
 
   console.log("remoteInstData--------->", remoteInstData);
-  console.log("loading------------->", loading);
 
   return (
     <div>
@@ -819,7 +822,7 @@ const RemoteInstruction = () => {
                 // marginLeft: "4%",
               }}
             >
-              {remoteInstData?.map((remoteInstData) => {
+              {remoteInstData?.map((item) => {
                 return (
                   <>
                     {selectedMonth ? (
@@ -856,9 +859,7 @@ const RemoteInstruction = () => {
                             color: "white",
                           }}
                         >
-                          <h1>
-                            {remoteInstData.new_remote_instructions_users}
-                          </h1>
+                          <h1>{item.new_remote_instructions_users}</h1>
                         </div>
                       </div>
                     ) : null}
@@ -896,7 +897,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.new_active_students}</h1>
+                        <h1>{item.new_active_students}</h1>
                       </div>
                     </div>
 
@@ -934,7 +935,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.new_activated_students}</h1>
+                        <h1>{item.new_activated_students}</h1>
                       </div>
                     </div>
                     {/* ) : null} */}
@@ -972,7 +973,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_sms_scheduled}</h1>
+                        <h1>{item.total_sms_scheduled}</h1>
                       </div>
                     </div> */}
 
@@ -1009,7 +1010,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_sms_delivered}</h1>
+                        <h1>{item.total_sms_delivered}</h1>
                       </div>
                     </div> */}
 
@@ -1046,7 +1047,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_calls_made}</h1>
+                        <h1>{item.total_calls_made}</h1>
                       </div>
                     </div> */}
                     {/* <div
@@ -1082,7 +1083,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_calls_received}</h1>
+                        <h1>{item.total_calls_received}</h1>
                       </div>
                     </div> */}
                     {/* <div
@@ -1118,7 +1119,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_calls_mins}</h1>
+                        <h1>{item.total_calls_mins}</h1>
                       </div>
                     </div> */}
                     {/* <div
@@ -1154,7 +1155,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_ivrs_calls_made}</h1>
+                        <h1>{item.total_ivrs_calls_made}</h1>
                       </div>
                     </div> */}
                     {/* <div
@@ -1190,7 +1191,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_ivrs_calls_mins}</h1>
+                        <h1>{item.total_ivrs_calls_mins}</h1>
                       </div>
                     </div> */}
                   </>
@@ -1618,7 +1619,7 @@ const dataJson = [
   },
   {
     month: 8,
-    week: 1,
+    week: 2,
     new_remote_instructions_users: 0,
     new_active_students: 3617,
     new_activated_students: 0,
@@ -1632,7 +1633,7 @@ const dataJson = [
   },
   {
     month: 8,
-    week: 1,
+    week: 3,
     new_remote_instructions_users: 0,
     new_active_students: 3650,
     new_activated_students: 0,
@@ -1646,7 +1647,7 @@ const dataJson = [
   },
   {
     month: 8,
-    week: 1,
+    week: 4,
     new_remote_instructions_users: 0,
     new_active_students: 3604,
     new_activated_students: 0,

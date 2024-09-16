@@ -5,35 +5,39 @@ export default function Retention() {
     {
       month: "Jan",
       activatedUsers: 665,
-      retention: [665, 461, 485, 511, 503, 501, 506],
+      retention: [665, 461, 485, 511, 503, 501, 506, 472],
     },
     {
       month: "Feb",
       activatedUsers: 2148,
-      retention: [, 2148, 1847, 1812, 1794, 1715, 1695],
+      retention: [, 2148, 1847, 1812, 1794, 1715, 1695, 1578],
     },
     {
       month: "Mar",
       activatedUsers: 2192,
-      retention: [, , 2192, 2175, 1992, 1726, 1693],
+      retention: [, , 2192, 2175, 1992, 1726, 1693, 1644],
     },
     {
       month: "Apr",
       activatedUsers: 649,
-      retention: [, , , 649, 641, 627, 638],
+      retention: [, , , 649, 641, 627, 638, 532],
     },
     {
       month: "May",
       activatedUsers: 3094,
-      retention: [, , , , 3094, 3083, 3091],
+      retention: [, , , , 3094, 3083, 3091, 2951],
     },
     {
       month: "Jun",
       activatedUsers: 1346,
-      retention: [, , , , , 1346, 1339],
+      retention: [, , , , , 1346, 1339, 1263],
     },
-    { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0] },
-    { month: "Aug", retention: [, , , , , , , , , , , ,] },
+    { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0, 0] },
+    {
+      month: "Aug",
+      activatedUsers: 1537,
+      retention: [, , , , , , , 1537],
+    },
     { month: "Sep", retention: [, , , , , , , , , , , ,] },
     { month: "Oct", retention: [, , , , , , , , , , , ,] },
     { month: "Nov", retention: [, , , , , , , , , , , ,] },
@@ -41,7 +45,7 @@ export default function Retention() {
   ];
 
   const totalRetention = [
-    665, 2609, 4524, 5147, 8024, 8998, 8962, 0, 0, 0, 0, 0,
+    665, 2609, 4524, 5147, 8024, 8998, 8962, 9977, 0, 0, 0, 0,
   ];
 
   return (

@@ -2368,7 +2368,7 @@ const dataJson = [
     month: 8,
     week: 1,
     active_students_girl: 4917,
-    total_new_schools: 36,
+    total_new_schools: 0,
     total_new_students: 1831,
     total_girl_students: 821,
     total_boy_students: 1010,

@@ -182,10 +182,6 @@ const RemoteInstruction = () => {
 
     console.log("body passed------------>", body);
     const filteredData = dataJson.filter((item) => {
-      console.log(`item.month--${item.month} && item.week--${item.week}`);
-      console.log(
-        `SelectedMonth--${selectedMonth} && selectedWeek--${selectedWeek}`
-      );
       return item.month === selectedMonth && item.week === selectedWeek;
     });
     if (filteredData?.length > 0) {

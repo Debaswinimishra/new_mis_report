@@ -383,11 +383,7 @@ const Schoolwise = () => {
 
   const handleClose = () => setOpen(false);
 
-  console.log("schoolArr--------------------->", schoolArr, typeof schoolArr);
-  console.log("districts--------->", districts);
-  console.log("blocks--------->", blocks);
-  console.log("clusters--------->", clusters);
-  console.log("schools--------->", schools);
+  console.log("district array-------------->", districtArr);
 
   return (
     <div>

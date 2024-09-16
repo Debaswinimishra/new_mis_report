@@ -900,44 +900,44 @@ const RemoteInstruction = () => {
                       </div>
                     </div>
 
-                    {isFiltered ? (
+                    {/* {isFiltered ? ( */}
+                    <div
+                      style={{
+                        width: "255px",
+                        height: "180px",
+                        marginTop: "1.5%",
+                        backgroundColor: "white",
+                        borderRadius: "10px",
+                        display: "flex",
+                        flexDirection: "column",
+                        boxShadow: "1px 1px 4px 3px lightGrey",
+                      }}
+                    >
                       <div
                         style={{
-                          width: "255px",
-                          height: "180px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
+                          height: "50%",
+                          color: "#2E8B57",
+                          paddingTop: "20px",
+                          fontSize: "1.2rem",
+                          fontFamily: "Congenial SemiBold",
+                          fontWeight: "600",
                         }}
                       >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "#2E8B57",
-                            paddingTop: "20px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p>No of new activated users</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "#2E8B57",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{remoteInstData.new_activated_students}</h1>
-                        </div>
+                        <p>No of new activated users</p>
                       </div>
-                    ) : null}
+                      <div
+                        style={{
+                          height: "50%",
+                          backgroundColor: "#2E8B57",
+                          borderEndStartRadius: "10px",
+                          borderEndEndRadius: "10px",
+                          color: "white",
+                        }}
+                      >
+                        <h1>{remoteInstData.new_activated_students}</h1>
+                      </div>
+                    </div>
+                    {/* ) : null} */}
 
                     {/* <div
                       style={{

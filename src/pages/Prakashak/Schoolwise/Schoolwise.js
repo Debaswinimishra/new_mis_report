@@ -467,11 +467,12 @@ const Schoolwise = () => {
             <MenuItem value="Select District" disabled>
               Select District
             </MenuItem>
-            {districtArr?.map((district, index) => (
+            {/* {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
               </MenuItem>
-            ))}
+            ))} */}
+            <MenuItem value="PURI">PURI</MenuItem>
           </Select>
         </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>

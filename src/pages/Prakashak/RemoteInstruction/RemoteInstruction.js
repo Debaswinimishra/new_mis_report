@@ -1490,7 +1490,7 @@ const dataJson = [
   {
     month: 6,
     week: 1,
-    new_remote_instructions_users: 947,
+    new_remote_instructions_users: 282,
     new_active_students: 3642,
     new_activated_students: 1186,
     total_sms_scheduled: 6118,
@@ -1546,7 +1546,7 @@ const dataJson = [
   {
     month: 7,
     week: 1,
-    new_remote_instructions_users: 348,
+    new_remote_instructions_users: 0,
     new_active_students: 3572,
     new_activated_students: 492,
     total_sms_scheduled: 5284,

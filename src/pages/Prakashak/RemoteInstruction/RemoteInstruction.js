@@ -706,7 +706,7 @@ const RemoteInstruction = () => {
                     style={{ color: "white", marginTop: "20px" }}
                   /> // Display CircularProgress when loading
                 ) : (
-                  <h1>3422</h1>
+                  <h1>4394</h1>
                   // <h1>{remoteInstData.total_remote_instructions_users}</h1> // Display data when loaded
                 )}
               </div>

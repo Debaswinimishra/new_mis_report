@@ -191,29 +191,47 @@ const FellowDetails = () => {
 
       setLoaded(true);
 
-      const fromDateObj = new Date(fromDate);
-      const toDateObj = new Date(toDate);
+      // Initialize date variables
+      let startDt = null;
+      let endDt = null;
 
-      if (isNaN(fromDateObj.getTime()) || isNaN(toDateObj.getTime())) {
-        alert(
-          "Invalid date format. Please select valid 'From' and 'To' dates."
-        );
+      // Convert fromDate and toDate if they are provided
+      if (fromDate) {
+        const fromDateObj = new Date(fromDate);
+        if (isNaN(fromDateObj.getTime())) {
+          alert("Invalid 'From' date format. Please select a valid date.");
+          setLoaded(false);
+          return;
+        }
+        startDt = fromDateObj.toISOString().slice(0, 10); // "YYYY-MM-DD"
+      }
+
+      if (toDate) {
+        const toDateObj = new Date(toDate);
+        if (isNaN(toDateObj.getTime())) {
+          alert("Invalid 'To' date format. Please select a valid date.");
+          setLoaded(false);
+          return;
+        }
+        endDt = toDateObj.toISOString().slice(0, 10); // "YYYY-MM-DD"
+      }
+
+      // Validate that endDt is not less than startDt
+      if (startDt && endDt && new Date(endDt) < new Date(startDt)) {
+        alert("'To' date cannot be less than 'From' date.");
+        setLoaded(false);
         return;
       }
 
-      setLoaded(true);
-
-      // Convert valid fromDate and toDate to "YYYY-MM-DD" format
-      const startDt = fromDateObj.toISOString().slice(0, 10); // "YYYY-MM-DD"
-      const endDt = toDateObj.toISOString().slice(0, 10); // "YYYY-MM-DD"
+      // Prepare the filter criteria, dates are optional
       const filterCriteriaWithBlockAndDistrict = {
         year: selectedYear,
         managerid: managerName,
         passcode: passcode,
         districtid: districtName,
         blockid: blockName,
-        startDt: startDt,
-        endDt: endDt,
+        ...(startDt && { startDt }), // Add only if startDt exists
+        ...(endDt && { endDt }), // Add only if endDt exists
       };
 
       const data = await FellowDetailsForManager(
@@ -225,7 +243,7 @@ const FellowDetails = () => {
       if (data.length === 0) {
         setFilteredData([]);
         alert("No data found");
-      } else if (data.length > 0) {
+      } else {
         setFilteredData(data);
         setTotalDataLength(data.length);
       }

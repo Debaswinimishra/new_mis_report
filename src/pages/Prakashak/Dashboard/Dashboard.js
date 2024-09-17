@@ -1075,7 +1075,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_girl_students}</h1> */}
-                  <h1>6034</h1>
+                  <h1>6418</h1>
                 </div>
               </div>
               <div
@@ -1133,7 +1133,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_boy_students}</h1> */}
-                  <h1>6821</h1>
+                  <h1>6437</h1>
                 </div>
               </div>
               <div

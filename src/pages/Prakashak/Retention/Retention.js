@@ -314,8 +314,7 @@ export default function Retention() {
                   border: "1px solid #ddd",
                 }}
               >
-                TOTAL ACTIVE USERS (Level 1 and above) - 4th week data of every
-                month
+                TOTAL ACTIVE USERS (Level 1 and above)
               </td>
               {totalRetention.map((value, index) => (
                 <td

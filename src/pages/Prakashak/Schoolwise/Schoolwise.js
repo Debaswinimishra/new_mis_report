@@ -28,14 +28,12 @@ import defaultImage from "../../../Assets/default.jpg";
 import Chart from "chart.js/auto";
 import DynamicModal from "../../../Components/DynamicModal";
 import SelectYear from "../../../ReusableComponents/SelectYear";
-import NoData from "../../../Assets/Nodata.gif";
-import { filterData } from "../../../downloads/jsonData";
 
 const Schoolwise = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
-  const [districts, setDistricts] = useState("PURI");
+  const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
@@ -59,8 +57,8 @@ const Schoolwise = () => {
     "block",
     "cluster",
   ]);
-  // console.log("tableData", tableData);
-  // console.log("districtArr", districtArr);
+  console.log("tableData", tableData);
+  console.log("districtArr", districtArr);
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
@@ -112,7 +110,7 @@ const Schoolwise = () => {
           response?.data?.length > 0 &&
           response?.data
         ) {
-          // console.log("set=================>", response?.data);
+          console.log("set=================>", response?.data);
           const districts =
             response?.data.length > 0 &&
             response?.data?.map((item) => item?.district);
@@ -148,22 +146,22 @@ const Schoolwise = () => {
     const fetchData = async () => {
       try {
         const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
-        // console.log("set=================>", response.data);
+        console.log("set=================>", response.data);
         if (response?.data && response?.data?.length > 0) {
           // Extracting the blocks from the response data
           const blocks =
             response?.data.length > 0 &&
             response?.data?.map((item) => item?.block);
-          // console.log("Blocks:", blocks);
+          console.log("Blocks:", blocks);
           setBlockArr(blocks); // Setting the block array with the array of block names
         } else {
-          // console.log("No blocks found for the given district.");
+          console.log("No blocks found for the given district.");
           setBlockArr([]); // Setting an empty array if no data is found
         }
-        // setLoading(false);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        // setLoading(false);
+        setLoading(false);
       }
     };
 
@@ -179,124 +177,74 @@ const Schoolwise = () => {
     setBlocks(e.target.value);
     setCluseters("");
     setSchools("");
-
-    const data = filterData;
-
-    if (e.target.value?.length > 0) {
-      const res = data.filter((item) => item.block === e.target.value);
-
-      const cluster = res?.map((item) => item.cluster);
-      const uniqueData = Array.from(new Set(cluster.map(JSON.stringify))).map(
-        JSON.parse
-      );
-      // console.log("uniqueData--->", res);
-      setClusterArr(uniqueData);
-    }
   };
+  useEffect(() => {
+    const fetchClusters = async () => {
+      try {
+        if (blocks) {
+          setLoading(true);
+          const response = await Api.get(`getAllClustersByBlock/${blocks}`);
+          // console.log("set=================>", response.data);
+          const clusters =
+            response?.data?.length > 0 &&
+            response?.data?.map((item) => item?.cluster);
+          setClusterArr(clusters);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching Clusters:", error);
+        setClusterArr([]); // Reset clusterArr to an empty array if there's an error
+        setLoading(false);
+      }
+    };
 
-  // useEffect(() => {
-  //   const fetchClusters = async () => {
-  //     try {
-  //       if (blocks) {
-  //         // setLoading(true);
-  //         const response = await Api.get(`getAllClustersByBlock/${blocks}`);
-  //         // console.log("set=================>", response.data);
-  //         const clusters =
-  //           response?.data?.length > 0 &&
-  //           response?.data?.map((item) => item?.cluster);
-  //         setClusterArr(clusters);
-  //         // setLoading(false);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching Clusters:", error);
-  //       setClusterArr([]); // Reset clusterArr to an empty array if there's an error
-  //       // setLoading(false);
-  //     }
-  //   };
-
-  //   // Fetch data only if a block is selected
-  //   fetchClusters();
-  // }, [blocks]);
+    // Fetch data only if a block is selected
+    fetchClusters();
+  }, [blocks]);
 
   const handleClusterChange = (e) => {
     setCluseters(e.target.value);
     setSchools("");
-    const data = filterData;
-    const res = data.filter((item) => item.block === blocks);
-
-    const cluster = res?.filter((item) => item.cluster === e.target.value);
-
-    const school = cluster?.map((item) => item.school_name);
-    const uniqueData = Array.from(new Set(school.map(JSON.stringify))).map(
-      JSON.parse
-    );
-    setSchoolArr(uniqueData);
-    // console.log("uniqueData---------->", school);
-    // console.log("uniqueData1--------->", uniqueData);
   };
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       if (clusters) {
-  //         const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-  //         setSchoolArr(response?.data);
-  //         setLoading(false);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching Blocks:", error);
-  //       setLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (clusters) {
+          const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
+          // console.log(
+          //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
+          //   response.data[0].school_name
+          // );
+          setSchoolArr(response?.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching Blocks:", error);
+        setLoading(false);
+      }
+    };
 
-  //   // Fetch data only if a district is selected
-  //   fetchData();
-  // }, [clusters]);
+    // Fetch data only if a district is selected
+    fetchData();
+  }, [clusters]);
 
   const handleSchoolName = (e) => {
     setSchools(e.target.value);
   };
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = () => {
     setLoading(true);
-
-    const filteredData = dataJson.filter((item) => {
-      return (
-        item.district === districts &&
-        item.block === blocks &&
-        item.cluster === clusters &&
-        item.school_name === schools
-      );
-    });
-
-    // console.log("filteredData----->", filteredData);
-
-    if (filteredData?.length > 0) {
-      setData(filteredData);
-      setLoading(false);
-    } else {
-      setData([]);
-      setLoading(false);
-    }
-
     const body = {
       district: districts,
       block: blocks,
       cluster: clusters,
       school_name: schools.school_name,
-      // month: month,
     };
 
-    // console.log(
-    //   "check---------->",
-    //   districts,
-    //   blocks,
-    //   clusters,
-    //   schools
-    //   // month
-    // );
+    console.log("check---------->", districts, blocks, clusters, schools);
 
     // if ("") {
     //   Api.post(`getSchoolWiseReport`, body)
@@ -321,35 +269,27 @@ const Schoolwise = () => {
     //       setLoading(false);
     //     });
     // }
-    //?the below codes are commented for now-
-    // if (districts) {
-    //   Api.post(`getSchoolWiseReport`, body)
-    //     .then((response) => {
-    //       console.log("set=================>", response.data);
-    //       setData(response.data);
-    //       setLoading(false);
-    //     })
-    //     .catch((err) => {
-    //       console.log("err=================>", err);
-    //       // if (err.response.status === 406) {
-    //       //   alert("something went wrong", err.response.status);
-    //       // }
-    //       setLoading(false);
-    //     });
-    // }
+    if (districts) {
+      Api.post(`getSchoolWiseReport`, body)
+        .then((response) => {
+          console.log("set=================>", response.data);
+          setData(response.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log("err=================>", err);
+          // if (err.response.status === 406) {
+          //   alert("something went wrong", err.response.status);
+          // }
+          setLoading(false);
+        });
+    }
   };
 
   const filterButtonClick = () => {
     setFiltered(true);
-    // fetchData();
     if (!districts) {
       alert("Please select a district to proceed.");
-    } else if (districts && !blocks && !clusters && !schools) {
-      alert("Please select a block, cluster and school to proceed.");
-    } else if (districts && blocks && !clusters && !schools) {
-      alert("Please select a cluster and school to proceed.");
-    } else if (districts && blocks && clusters && !schools) {
-      alert("Please select a school to proceed.");
     } else {
       setLoading(true);
       fetchData();
@@ -358,7 +298,7 @@ const Schoolwise = () => {
 
   const handleOpenModal = async (type, param) => {
     setOpen(true);
-    // setLoading(true);
+    setLoading(true);
     setTableData([]); // Reset table data before fetching new data
     setTableHeaders([]);
     setModalTitle("");
@@ -433,7 +373,7 @@ const Schoolwise = () => {
           "cluster",
         ]);
       } catch (error) {
-        // console.error("Error fetching student report:", error);
+        console.error("Error fetching student report:", error);
       }
     }
 
@@ -443,7 +383,11 @@ const Schoolwise = () => {
 
   const handleClose = () => setOpen(false);
 
-  // console.log("schoolArr-------------->", schoolArr);
+  console.log("schoolArr--------------------->", schoolArr, typeof schoolArr);
+  console.log("districts--------->", districts);
+  console.log("blocks--------->", blocks);
+  console.log("clusters--------->", clusters);
+  console.log("schools--------->", schools);
 
   return (
     <div>
@@ -455,6 +399,23 @@ const Schoolwise = () => {
           flexWrap: "wrap",
         }}
       >
+        {/* <SelectYear Year={year} handleYearChange={handleYearChange} /> */}
+        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Year</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedYear}
+            onChange={handleYearChange}
+            label="Year"
+          >
+            {years.map((item, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl> */}
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="district-label">District</InputLabel>
           <Select
@@ -464,15 +425,11 @@ const Schoolwise = () => {
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
-            <MenuItem value="Select District" disabled>
-              Select District
-            </MenuItem>
-            {/* {districtArr?.map((district, index) => (
+            {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
               </MenuItem>
-            ))} */}
-            <MenuItem value="PURI">PURI</MenuItem>
+            ))}
           </Select>
         </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
@@ -485,10 +442,7 @@ const Schoolwise = () => {
             label="Block"
             disabled={loading || !districts}
           >
-            <MenuItem value="Select Block" disabled>
-              Select Block
-            </MenuItem>
-            {/* <MenuItem value="">None</MenuItem> */}
+            <MenuItem value="">None</MenuItem>
             {blockArr &&
               blockArr?.map((block, index) => (
                 <MenuItem key={index} value={block}>
@@ -507,10 +461,7 @@ const Schoolwise = () => {
             label="Cluster"
             disabled={loading || !blocks}
           >
-            <MenuItem value="Select Cluster" disabled>
-              Select Cluster
-            </MenuItem>
-            {/* <MenuItem value="">None</MenuItem> */}
+            <MenuItem value="">None</MenuItem>
             {clusterArr?.map((cluster, index) => (
               <MenuItem key={index} value={cluster}>
                 {cluster}
@@ -530,13 +481,10 @@ const Schoolwise = () => {
             label="School"
             disabled={!clusters}
           >
-            <MenuItem value="Select School" disabled>
-              Select School
-            </MenuItem>
-            {/* <MenuItem value="">None</MenuItem> */}
+            <MenuItem value="">None</MenuItem>
             {schoolArr?.map((school, index) => (
               <MenuItem key={index} value={school}>
-                {school}
+                {school.school_name}
               </MenuItem>
             ))}
           </Select>
@@ -563,6 +511,7 @@ const Schoolwise = () => {
         </Button>
         {/* </Box> */}
       </div>
+
       {/* ---------------------------- content --------------------- */}
       {loading ? (
         <div
@@ -572,7 +521,7 @@ const Schoolwise = () => {
             <CircularProgress />
           </Box>
         </div>
-      ) : !loading && data?.length > 0 ? (
+      ) : !loading && Object.keys(data).length > 0 ? (
         <div
           style={{
             display: "flex",
@@ -592,19 +541,6 @@ const Schoolwise = () => {
               width: "97%",
             }}
           >
-            <h2
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                marginRight: "2%",
-                color: "red",
-                fontFamily: "Congenial SemiBold",
-              }}
-            >
-              <u> Data Updated as on - 31/08/2024</u>
-              {/* {data ? data?.data_last_updated  //? commented for now only
-               : "22/08/2024"} */}
-            </h2>
             <div
               style={{
                 display: "flex",
@@ -615,415 +551,1193 @@ const Schoolwise = () => {
                 gap: "2%",
               }}
             >
-              {!loading && data.length > 0 ? (
-                data?.map((data) => {
-                  return (
-                    <>
-                      <div
-                        onClick={() => handleOpenModal("studentReport")}
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                          cursor: "pointer", // Show hand cursor on hover
-                          position: "relative", // Needed for positioning the "Click here" text
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "48%",
-                            color: "#CD5C5C",
-                            paddingTop: "28px",
-                            fontSize: "1.1rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                            width: "100%",
-                          }}
-                        >
-                          <p>Number of students (1-5)</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "#CD5C5C",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.total_students}</h1>
-                        </div>
-                      </div>
+              <div
+                onClick={() => handleOpenModal("studentReport")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#CD5C5C", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p> Number of students</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_students}</h1>
+                </div>
+              </div>
+              {/* <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "18px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of Parents PoC Identified
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_poc}</h1>
+                </div>
+              </div> */}
+              <div
+                onClick={() => handleOpenModal("studentReport", 1)}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "rgb(153 58 134)", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "28px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Students in Class 1
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.class_one_students}</h1>
+                </div>
+              </div>
+              <div
+                onClick={() => handleOpenModal("studentReport", 2)}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#2E8B57", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "28px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Students in Class 2
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.class_two_students}</h1>
+                </div>
+              </div>
 
-                      <div
-                        onClick={() => handleOpenModal("studentReport", 1)}
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                          cursor: "pointer", // Show hand cursor on hover
-                          position: "relative", // Needed for positioning the "Click here" text
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "rgb(153 58 134)",
-                            paddingTop: "28px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p> Number of Students in Class 1</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "rgb(153 58 134)",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.class_one_students}</h1>
-                        </div>
-                      </div>
-                      <div
-                        onClick={() => handleOpenModal("studentReport", 2)}
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                          cursor: "pointer", // Show hand cursor on hover
-                          position: "relative", // Needed for positioning the "Click here" text
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "#2E8B57",
-                            paddingTop: "28px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p> Number of Students in Class 2</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "#2E8B57",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.class_two_students}</h1>
-                        </div>
-                      </div>
+              <div
+                onClick={() => handleOpenModal("studentReport", 3)}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "rgb(214 148 16)", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p> Number of Students in Class 3</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.class_three_students}</h1>
+                </div>
+              </div>
+              <div
+                onClick={() => handleOpenModal("studentReport", 4)}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#6A5ACD", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "28px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Students in Class 4
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.class_four_students}</h1>
+                </div>
+              </div>
+              <div
+                onClick={() => handleOpenModal("studentReport", 5)}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#2E8B57", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "28px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Students in Class 5
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.class_five_students}</h1>
+                </div>
+              </div>
 
-                      <div
-                        onClick={() => handleOpenModal("studentReport", 3)}
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                          cursor: "pointer", // Show hand cursor on hover
-                          position: "relative", // Needed for positioning the "Click here" text
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "rgb(214 148 16)",
-                            paddingTop: "25px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p> Number of Students in Class 3</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "rgb(214 148 16)",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.class_three_students}</h1>
-                        </div>
-                      </div>
-                      <div
-                        onClick={() => handleOpenModal("studentReport", 4)}
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                          cursor: "pointer", // Show hand cursor on hover
-                          position: "relative", // Needed for positioning the "Click here" text
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "#6A5ACD",
-                            paddingTop: "28px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p> Number of Students in Class 4</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "#6A5ACD",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.class_four_students}</h1>
-                        </div>
-                      </div>
-                      <div
-                        onClick={() => handleOpenModal("studentReport", 5)}
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                          cursor: "pointer", // Show hand cursor on hover
-                          position: "relative", // Needed for positioning the "Click here" text
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "#2E8B57",
-                            paddingTop: "28px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p>Number of Students in Class 5</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "#2E8B57",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.class_five_students}</h1>
-                        </div>
-                      </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p> Total Time Spent</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_timespent}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Parents Spent 0-1 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Parents Spent 2-15 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Parents Spent 16-30 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_16to30mins}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Parents Spent 31-45 mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_31to45mins}</h1>
+                </div>
+              </div>
 
-                      <div
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          // // paddingTop: "2%",
-                          // fontFamily: "Arial, sans-serif", // Default font family
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "rgb(214 148 16)",
-                            paddingTop: "25px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p>Total Activated students</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "rgb(214 148 16)",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.total_activated_students}</h1>
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          // // paddingTop: "2%",
-                          // fontFamily: "Arial, sans-serif", // Default font family
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "rgb(153 58 134)",
-                            paddingTop: "25px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p> Total active students</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "rgb(153 58 134)",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.total_active_students}</h1>
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          // // paddingTop: "2%",
-                          // fontFamily: "Arial, sans-serif", // Default font family
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "rgb(214 148 16)",
-                            paddingTop: "25px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p> Total smartphone users</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "rgb(214 148 16)",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.chatbot_users}</h1>
-                        </div>
-                      </div>
-                      <div
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          // // paddingTop: "2%",
-                          // fontFamily: "Arial, sans-serif", // Default font family
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "rgb(153 58 134)",
-                            paddingTop: "25px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p>Total non-smartphone users</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "rgb(153 58 134)",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.remote_instructions_users}</h1>
-                        </div>
-                      </div>
-                    </>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Number of Parents Spent 45+ mins
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.no_of_parents_spent_gte45mins}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
+              width: "97%",
+            }}
+          >
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Remote Instructions in Brief
+            </h1>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "97%",
+                gap: "2%",
+              }}
+            >
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p> Total No. of Calls received</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_calls_received}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Average minutes of calls received
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.calls_avg_mins}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of SMS delivered
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_sms_received}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Average minutes spent in IVRS
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.ivrs_avg_mins}</h1>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#CD5C5C",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of calls received in IVRs
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#CD5C5C",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_ivrs_calls_received}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Unique Calls Received in IVR
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_unique_ivrs_calls_received}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p> Number of Active Users</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.calls_active_users}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style={{
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
+              width: "97%",
+            }}
+          >
+            <h1
+              style={{
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Chatbot in Brief
+            </h1>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                alignContent: "center",
+                justifyContent: "center",
+                width: "100%",
+                gap: "2%",
+              }}
+            >
+              <div
+                onClick={() => {
+                  handleOpenModal(
+                    "chatbotConvo",
+                    "Total Conversations in Chatbot"
                   );
-                })
-              ) : !loading && data.length === 0 ? (
-                <img src={Nodata} />
-              ) : null}
+                }}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#6A5ACD", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "26px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total Conversations in Chatbot
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_chatbot_convo}</h1>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of Videos Watched
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_chatbot_videos}</h1>
+                </div>
+              </div>
+
+              {/* <div
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Total No. of Assessment Taken
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.total_chatbot_assess_taken}</h1>
+                </div>
+              </div> */}
+
+              {/* <div
+                onClick={() => handleOpen()}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#6A5ACD",
+                    paddingTop: "20px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  Average minutes spent in WhatsApp
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#6A5ACD",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.chatbot_avg_mins}</h1>
+                </div>
+              </div> */}
+
+              <div
+                // onClick={() => handleOpen()}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(214 148 16)",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p> Number of Active Users</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "rgb(214 148 16)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{data.chatbot_active_users}</h1>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      ) : null}
+      ) : !loading && filtered && Object.keys(data).length === 0 ? (
+        <img src={Nodata} />
+      ) : (
+        <img src={defaultImage} width={"20%"} />
+      )}
 
       <div>
         <canvas ref={chartRef}></canvas>
       </div>
-      {/* <DynamicModal
+
+      <DynamicModal
         open={open}
         loading={loading}
         handleClose={handleClose}
@@ -1032,5739 +1746,9 @@ const Schoolwise = () => {
         tableData={tableData}
         xlData={xlData}
         fileName={fileName}
-      /> */}
+      />
     </div>
   );
 };
 
 export default Schoolwise;
-
-const dataJson = [
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "TARENI PS",
-    total_students: 33,
-    class_one_students: 5,
-    class_two_students: 4,
-    class_three_students: 6,
-    class_four_students: 9,
-    class_five_students: 9,
-    total_activated_students: 32,
-    total_active_students: 32,
-    remote_instructions_users: 12,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "BAINSIBADI PS",
-    total_students: 47,
-    class_one_students: 9,
-    class_two_students: 7,
-    class_three_students: 11,
-    class_four_students: 10,
-    class_five_students: 10,
-    total_activated_students: 42,
-    total_active_students: 41,
-    remote_instructions_users: 17,
-    chatbot_users: 30,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "BAISHNAVASAHI PPS",
-    total_students: 12,
-    class_one_students: 1,
-    class_two_students: 5,
-    class_three_students: 1,
-    class_four_students: 5,
-    class_five_students: 0,
-    total_activated_students: 10,
-    total_active_students: 8,
-    remote_instructions_users: 3,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "BAMPAL PS",
-    total_students: 46,
-    class_one_students: 7,
-    class_two_students: 10,
-    class_three_students: 5,
-    class_four_students: 18,
-    class_five_students: 6,
-    total_activated_students: 39,
-    total_active_students: 36,
-    remote_instructions_users: 15,
-    chatbot_users: 31,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "KUSUMESWAR PS",
-    total_students: 72,
-    class_one_students: 10,
-    class_two_students: 14,
-    class_three_students: 20,
-    class_four_students: 13,
-    class_five_students: 15,
-    total_activated_students: 72,
-    total_active_students: 69,
-    remote_instructions_users: 21,
-    chatbot_users: 51,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "BALAPUR NODAL HS",
-    total_students: 70,
-    class_one_students: 10,
-    class_two_students: 11,
-    class_three_students: 10,
-    class_four_students: 19,
-    class_five_students: 20,
-    total_activated_students: 62,
-    total_active_students: 58,
-    remote_instructions_users: 18,
-    chatbot_users: 52,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "GOPABANDHU JANMAPITH NODAL HS",
-    total_students: 25,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 4,
-    class_four_students: 9,
-    class_five_students: 8,
-    total_activated_students: 22,
-    total_active_students: 18,
-    remote_instructions_users: 7,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "SARANGAJODI UGUPS",
-    total_students: 58,
-    class_one_students: 7,
-    class_two_students: 7,
-    class_three_students: 15,
-    class_four_students: 13,
-    class_five_students: 16,
-    total_activated_students: 53,
-    total_active_students: 50,
-    remote_instructions_users: 19,
-    chatbot_users: 39,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "RAICHAKRADHARPUR PS",
-    total_students: 49,
-    class_one_students: 13,
-    class_two_students: 5,
-    class_three_students: 10,
-    class_four_students: 11,
-    class_five_students: 10,
-    total_activated_students: 46,
-    total_active_students: 43,
-    remote_instructions_users: 17,
-    chatbot_users: 32,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BAINSIBADI",
-    school_name: "BIDYADHARPUR NUPS",
-    total_students: 59,
-    class_one_students: 6,
-    class_two_students: 16,
-    class_three_students: 16,
-    class_four_students: 16,
-    class_five_students: 5,
-    total_activated_students: 55,
-    total_active_students: 53,
-    remote_instructions_users: 21,
-    chatbot_users: 38,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BALIHUDA",
-    school_name: "BALIHUDA PS",
-    total_students: 7,
-    class_one_students: 1,
-    class_two_students: 0,
-    class_three_students: 2,
-    class_four_students: 3,
-    class_five_students: 1,
-    total_activated_students: 7,
-    total_active_students: 6,
-    remote_instructions_users: 2,
-    chatbot_users: 5,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BALIHUDA",
-    school_name: "NUASAHI PS",
-    total_students: 23,
-    class_one_students: 5,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 5,
-    class_five_students: 4,
-    total_activated_students: 20,
-    total_active_students: 19,
-    remote_instructions_users: 6,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BALIHUDA",
-    school_name: "BADABHIMADASPUR PPS",
-    total_students: 9,
-    class_one_students: 2,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 1,
-    class_five_students: 0,
-    total_activated_students: 9,
-    total_active_students: 7,
-    remote_instructions_users: 2,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BALIHUDA",
-    school_name: "GAUDAHAT PPS",
-    total_students: 11,
-    class_one_students: 1,
-    class_two_students: 3,
-    class_three_students: 3,
-    class_four_students: 3,
-    class_five_students: 1,
-    total_activated_students: 10,
-    total_active_students: 8,
-    remote_instructions_users: 2,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BALIHUDA",
-    school_name: "ICHHAPUR SAHI PUPS",
-    total_students: 17,
-    class_one_students: 0,
-    class_two_students: 3,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 3,
-    total_activated_students: 16,
-    total_active_students: 14,
-    remote_instructions_users: 5,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BALIHUDA",
-    school_name: "OTARAKERA UGUPS",
-    total_students: 54,
-    class_one_students: 8,
-    class_two_students: 8,
-    class_three_students: 5,
-    class_four_students: 15,
-    class_five_students: 18,
-    total_activated_students: 52,
-    total_active_students: 49,
-    remote_instructions_users: 15,
-    chatbot_users: 39,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BALIHUDA",
-    school_name: "SAMANTARAPUR PUPS",
-    total_students: 33,
-    class_one_students: 5,
-    class_two_students: 7,
-    class_three_students: 5,
-    class_four_students: 9,
-    class_five_students: 7,
-    total_activated_students: 28,
-    total_active_students: 25,
-    remote_instructions_users: 8,
-    chatbot_users: 25,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BALIHUDA",
-    school_name: "SOLAHALA PS",
-    total_students: 49,
-    class_one_students: 4,
-    class_two_students: 10,
-    class_three_students: 9,
-    class_four_students: 13,
-    class_five_students: 13,
-    total_activated_students: 45,
-    total_active_students: 41,
-    remote_instructions_users: 10,
-    chatbot_users: 39,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BALIHUDA",
-    school_name: "JAYRAMPUR UGUPS",
-    total_students: 65,
-    class_one_students: 12,
-    class_two_students: 11,
-    class_three_students: 12,
-    class_four_students: 12,
-    class_five_students: 18,
-    total_activated_students: 61,
-    total_active_students: 57,
-    remote_instructions_users: 19,
-    chatbot_users: 46,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BHIMPUR",
-    school_name: "BHANDARIDANDA PS",
-    total_students: 15,
-    class_one_students: 4,
-    class_two_students: 0,
-    class_three_students: 2,
-    class_four_students: 4,
-    class_five_students: 5,
-    total_activated_students: 11,
-    total_active_students: 9,
-    remote_instructions_users: 5,
-    chatbot_users: 10,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BHIMPUR",
-    school_name: "DIHAPUR PS",
-    total_students: 7,
-    class_one_students: 1,
-    class_two_students: 2,
-    class_three_students: 2,
-    class_four_students: 0,
-    class_five_students: 2,
-    total_activated_students: 7,
-    total_active_students: 5,
-    remote_instructions_users: 2,
-    chatbot_users: 5,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BHIMPUR",
-    school_name: "LUNIADIHAPADA PS",
-    total_students: 20,
-    class_one_students: 6,
-    class_two_students: 0,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 3,
-    total_activated_students: 14,
-    total_active_students: 12,
-    remote_instructions_users: 4,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BHIMPUR",
-    school_name: "BHIMAPUR PUPS",
-    total_students: 33,
-    class_one_students: 0,
-    class_two_students: 5,
-    class_three_students: 7,
-    class_four_students: 9,
-    class_five_students: 12,
-    total_activated_students: 32,
-    total_active_students: 29,
-    remote_instructions_users: 8,
-    chatbot_users: 25,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BHIMPUR",
-    school_name: "PAKHIMUNDA PUPS",
-    total_students: 81,
-    class_one_students: 10,
-    class_two_students: 24,
-    class_three_students: 17,
-    class_four_students: 15,
-    class_five_students: 15,
-    total_activated_students: 72,
-    total_active_students: 69,
-    remote_instructions_users: 16,
-    chatbot_users: 65,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BHIMPUR",
-    school_name: "SINGHAKUDA PS",
-    total_students: 26,
-    class_one_students: 7,
-    class_two_students: 5,
-    class_three_students: 4,
-    class_four_students: 4,
-    class_five_students: 6,
-    total_activated_students: 21,
-    total_active_students: 18,
-    remote_instructions_users: 7,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BHIMPUR",
-    school_name: "MADHUBAN NODAL HS",
-    total_students: 72,
-    class_one_students: 5,
-    class_two_students: 13,
-    class_three_students: 15,
-    class_four_students: 18,
-    class_five_students: 21,
-    total_activated_students: 70,
-    total_active_students: 68,
-    remote_instructions_users: 15,
-    chatbot_users: 57,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BHIMPUR",
-    school_name: "DAHANKUMBHARAPADA PUPS",
-    total_students: 76,
-    class_one_students: 19,
-    class_two_students: 12,
-    class_three_students: 12,
-    class_four_students: 16,
-    class_five_students: 17,
-    total_activated_students: 68,
-    total_active_students: 63,
-    remote_instructions_users: 20,
-    chatbot_users: 56,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BHIMPUR",
-    school_name: "GOVT.DASBIDYADHARPUR UGHS",
-    total_students: 88,
-    class_one_students: 27,
-    class_two_students: 18,
-    class_three_students: 17,
-    class_four_students: 9,
-    class_five_students: 17,
-    total_activated_students: 88,
-    total_active_students: 83,
-    remote_instructions_users: 23,
-    chatbot_users: 65,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BIRARAMACHANDRAPUR",
-    school_name: "MAHABALAPADA PS",
-    total_students: 18,
-    class_one_students: 2,
-    class_two_students: 5,
-    class_three_students: 3,
-    class_four_students: 6,
-    class_five_students: 2,
-    total_activated_students: 17,
-    total_active_students: 17,
-    remote_instructions_users: 5,
-    chatbot_users: 13,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BIRARAMACHANDRAPUR",
-    school_name: "BASTAPADA PS",
-    total_students: 9,
-    class_one_students: 1,
-    class_two_students: 3,
-    class_three_students: 1,
-    class_four_students: 3,
-    class_five_students: 1,
-    total_activated_students: 9,
-    total_active_students: 9,
-    remote_instructions_users: 2,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BIRARAMACHANDRAPUR",
-    school_name: "KABIRAJPUR PPS",
-    total_students: 15,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 3,
-    class_four_students: 5,
-    class_five_students: 3,
-    total_activated_students: 14,
-    total_active_students: 12,
-    remote_instructions_users: 5,
-    chatbot_users: 10,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BIRARAMACHANDRAPUR",
-    school_name: "BALISAHI CHANDRAKOTE UGUPS",
-    total_students: 53,
-    class_one_students: 8,
-    class_two_students: 22,
-    class_three_students: 0,
-    class_four_students: 14,
-    class_five_students: 9,
-    total_activated_students: 51,
-    total_active_students: 48,
-    remote_instructions_users: 11,
-    chatbot_users: 42,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BIRARAMACHANDRAPUR",
-    school_name: "HARISANKARPUR NPS",
-    total_students: 32,
-    class_one_students: 4,
-    class_two_students: 5,
-    class_three_students: 5,
-    class_four_students: 9,
-    class_five_students: 9,
-    total_activated_students: 31,
-    total_active_students: 28,
-    remote_instructions_users: 9,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BIRARAMACHANDRAPUR",
-    school_name: "BANAPUR PS",
-    total_students: 39,
-    class_one_students: 9,
-    class_two_students: 9,
-    class_three_students: 5,
-    class_four_students: 7,
-    class_five_students: 9,
-    total_activated_students: 39,
-    total_active_students: 35,
-    remote_instructions_users: 12,
-    chatbot_users: 27,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BIRARAMACHANDRAPUR",
-    school_name: "DUNGAR PS",
-    total_students: 29,
-    class_one_students: 3,
-    class_two_students: 3,
-    class_three_students: 6,
-    class_four_students: 10,
-    class_five_students: 7,
-    total_activated_students: 29,
-    total_active_students: 25,
-    remote_instructions_users: 7,
-    chatbot_users: 22,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BIRARAMACHANDRAPUR",
-    school_name: "BIRA RAMCHANDRPUR PS",
-    total_students: 64,
-    class_one_students: 1,
-    class_two_students: 15,
-    class_three_students: 16,
-    class_four_students: 14,
-    class_five_students: 18,
-    total_activated_students: 58,
-    total_active_students: 53,
-    remote_instructions_users: 15,
-    chatbot_users: 49,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BIRARAMACHANDRAPUR",
-    school_name: "TALAPADA PS",
-    total_students: 45,
-    class_one_students: 14,
-    class_two_students: 8,
-    class_three_students: 11,
-    class_four_students: 12,
-    class_five_students: 0,
-    total_activated_students: 43,
-    total_active_students: 39,
-    remote_instructions_users: 10,
-    chatbot_users: 35,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "BISWANATHPUR PS",
-    total_students: 35,
-    class_one_students: 5,
-    class_two_students: 8,
-    class_three_students: 8,
-    class_four_students: 9,
-    class_five_students: 5,
-    total_activated_students: 34,
-    total_active_students: 29,
-    remote_instructions_users: 12,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "BIRAGOBINDPUR NUPS",
-    total_students: 70,
-    class_one_students: 11,
-    class_two_students: 15,
-    class_three_students: 19,
-    class_four_students: 14,
-    class_five_students: 11,
-    total_activated_students: 69,
-    total_active_students: 62,
-    remote_instructions_users: 29,
-    chatbot_users: 41,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "BRAHMANANDA PUPS",
-    total_students: 17,
-    class_one_students: 2,
-    class_two_students: 2,
-    class_three_students: 3,
-    class_four_students: 3,
-    class_five_students: 7,
-    total_activated_students: 15,
-    total_active_students: 12,
-    remote_instructions_users: 6,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "BASUDEIPUR PS",
-    total_students: 24,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 6,
-    class_four_students: 7,
-    class_five_students: 7,
-    total_activated_students: 24,
-    total_active_students: 19,
-    remote_instructions_users: 6,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "UTTAN SAHI PPS",
-    total_students: 18,
-    class_one_students: 3,
-    class_two_students: 7,
-    class_three_students: 2,
-    class_four_students: 3,
-    class_five_students: 3,
-    total_activated_students: 16,
-    total_active_students: 14,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "ATHAISH PS",
-    total_students: 45,
-    class_one_students: 0,
-    class_two_students: 7,
-    class_three_students: 14,
-    class_four_students: 16,
-    class_five_students: 8,
-    total_activated_students: 41,
-    total_active_students: 39,
-    remote_instructions_users: 12,
-    chatbot_users: 33,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "NUAGAON PS",
-    total_students: 10,
-    class_one_students: 0,
-    class_two_students: 3,
-    class_three_students: 2,
-    class_four_students: 3,
-    class_five_students: 2,
-    total_activated_students: 8,
-    total_active_students: 6,
-    remote_instructions_users: 3,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "PANIVANDAR PS",
-    total_students: 38,
-    class_one_students: 6,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 8,
-    class_five_students: 11,
-    total_activated_students: 37,
-    total_active_students: 35,
-    remote_instructions_users: 12,
-    chatbot_users: 26,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "PATNASAHI PS",
-    total_students: 33,
-    class_one_students: 4,
-    class_two_students: 5,
-    class_three_students: 9,
-    class_four_students: 4,
-    class_five_students: 11,
-    total_activated_students: 32,
-    total_active_students: 29,
-    remote_instructions_users: 12,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "DUGAL UGUPS",
-    total_students: 82,
-    class_one_students: 10,
-    class_two_students: 19,
-    class_three_students: 18,
-    class_four_students: 17,
-    class_five_students: 18,
-    total_activated_students: 79,
-    total_active_students: 75,
-    remote_instructions_users: 23,
-    chatbot_users: 59,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "BISWANATHAPUR",
-    school_name: "BADAHAT PS",
-    total_students: 61,
-    class_one_students: 6,
-    class_two_students: 14,
-    class_three_students: 19,
-    class_four_students: 10,
-    class_five_students: 12,
-    total_activated_students: 61,
-    total_active_students: 52,
-    remote_instructions_users: 17,
-    chatbot_users: 44,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "MUNIDA PPS",
-    total_students: 16,
-    class_one_students: 0,
-    class_two_students: 3,
-    class_three_students: 4,
-    class_four_students: 6,
-    class_five_students: 3,
-    total_activated_students: 16,
-    total_active_students: 16,
-    remote_instructions_users: 8,
-    chatbot_users: 8,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "BADAKANJIA PS",
-    total_students: 15,
-    class_one_students: 1,
-    class_two_students: 1,
-    class_three_students: 4,
-    class_four_students: 5,
-    class_five_students: 4,
-    total_activated_students: 13,
-    total_active_students: 10,
-    remote_instructions_users: 3,
-    chatbot_users: 12,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "BHATTAPUR PS",
-    total_students: 51,
-    class_one_students: 6,
-    class_two_students: 9,
-    class_three_students: 11,
-    class_four_students: 14,
-    class_five_students: 11,
-    total_activated_students: 49,
-    total_active_students: 42,
-    remote_instructions_users: 23,
-    chatbot_users: 28,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "HARISARANPUR PS",
-    total_students: 10,
-    class_one_students: 1,
-    class_two_students: 1,
-    class_three_students: 3,
-    class_four_students: 3,
-    class_five_students: 2,
-    total_activated_students: 9,
-    total_active_students: 9,
-    remote_instructions_users: 0,
-    chatbot_users: 10,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "AHAMADPUR PUPS",
-    total_students: 92,
-    class_one_students: 12,
-    class_two_students: 16,
-    class_three_students: 21,
-    class_four_students: 23,
-    class_five_students: 20,
-    total_activated_students: 87,
-    total_active_students: 85,
-    remote_instructions_users: 25,
-    chatbot_users: 67,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "CHAUDABATIA UGUPS",
-    total_students: 41,
-    class_one_students: 0,
-    class_two_students: 5,
-    class_three_students: 9,
-    class_four_students: 13,
-    class_five_students: 14,
-    total_activated_students: 41,
-    total_active_students: 39,
-    remote_instructions_users: 12,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "JAYAPUR PPS",
-    total_students: 73,
-    class_one_students: 12,
-    class_two_students: 20,
-    class_three_students: 16,
-    class_four_students: 10,
-    class_five_students: 15,
-    total_activated_students: 71,
-    total_active_students: 69,
-    remote_instructions_users: 17,
-    chatbot_users: 56,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "KADUA PS",
-    total_students: 31,
-    class_one_students: 2,
-    class_two_students: 10,
-    class_three_students: 6,
-    class_four_students: 7,
-    class_five_students: 6,
-    total_activated_students: 30,
-    total_active_students: 28,
-    remote_instructions_users: 9,
-    chatbot_users: 22,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "PANCHASAKHA PPS",
-    total_students: 14,
-    class_one_students: 4,
-    class_two_students: 5,
-    class_three_students: 0,
-    class_four_students: 3,
-    class_five_students: 2,
-    total_activated_students: 14,
-    total_active_students: 12,
-    remote_instructions_users: 3,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KADUA",
-    school_name: "BARAL UGUPS",
-    total_students: 106,
-    class_one_students: 16,
-    class_two_students: 17,
-    class_three_students: 27,
-    class_four_students: 21,
-    class_five_students: 25,
-    total_activated_students: 102,
-    total_active_students: 93,
-    remote_instructions_users: 28,
-    chatbot_users: 78,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "NILAKANTHESWAR NUPS",
-    total_students: 58,
-    class_one_students: 0,
-    class_two_students: 12,
-    class_three_students: 15,
-    class_four_students: 17,
-    class_five_students: 14,
-    total_activated_students: 56,
-    total_active_students: 52,
-    remote_instructions_users: 14,
-    chatbot_users: 44,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "ALANDAPADA PS",
-    total_students: 19,
-    class_one_students: 2,
-    class_two_students: 6,
-    class_three_students: 2,
-    class_four_students: 3,
-    class_five_students: 6,
-    total_activated_students: 15,
-    total_active_students: 13,
-    remote_instructions_users: 7,
-    chatbot_users: 12,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "PADMAPUR PS",
-    total_students: 39,
-    class_one_students: 7,
-    class_two_students: 10,
-    class_three_students: 4,
-    class_four_students: 12,
-    class_five_students: 6,
-    total_activated_students: 35,
-    total_active_students: 33,
-    remote_instructions_users: 10,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "BISWANATHDEULI PS",
-    total_students: 17,
-    class_one_students: 1,
-    class_two_students: 1,
-    class_three_students: 8,
-    class_four_students: 4,
-    class_five_students: 3,
-    total_activated_students: 14,
-    total_active_students: 11,
-    remote_instructions_users: 5,
-    chatbot_users: 12,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "DEULIPARI HARIZANSAHI PS",
-    total_students: 14,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 3,
-    class_five_students: 2,
-    total_activated_students: 14,
-    total_active_students: 9,
-    remote_instructions_users: 5,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "BAGALPUR PUPS",
-    total_students: 39,
-    class_one_students: 6,
-    class_two_students: 5,
-    class_three_students: 10,
-    class_four_students: 8,
-    class_five_students: 10,
-    total_activated_students: 39,
-    total_active_students: 36,
-    remote_instructions_users: 16,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "DUBAIPUR PS",
-    total_students: 32,
-    class_one_students: 6,
-    class_two_students: 8,
-    class_three_students: 8,
-    class_four_students: 1,
-    class_five_students: 9,
-    total_activated_students: 29,
-    total_active_students: 26,
-    remote_instructions_users: 10,
-    chatbot_users: 22,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "DUBAPATNA PPS",
-    total_students: 18,
-    class_one_students: 4,
-    class_two_students: 4,
-    class_three_students: 6,
-    class_four_students: 4,
-    class_five_students: 0,
-    total_activated_students: 16,
-    total_active_students: 13,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "PANICHATRAPUR PUPS",
-    total_students: 65,
-    class_one_students: 9,
-    class_two_students: 9,
-    class_three_students: 17,
-    class_four_students: 15,
-    class_five_students: 15,
-    total_activated_students: 62,
-    total_active_students: 53,
-    remote_instructions_users: 20,
-    chatbot_users: 45,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "KETAKIPATNA NODAL HS",
-    total_students: 75,
-    class_one_students: 9,
-    class_two_students: 7,
-    class_three_students: 15,
-    class_four_students: 24,
-    class_five_students: 20,
-    total_activated_students: 73,
-    total_active_students: 65,
-    remote_instructions_users: 20,
-    chatbot_users: 55,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "KETAKIPATNA",
-    school_name: "BADATOTA PS",
-    total_students: 21,
-    class_one_students: 5,
-    class_two_students: 2,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 3,
-    total_activated_students: 21,
-    total_active_students: 16,
-    remote_instructions_users: 8,
-    chatbot_users: 13,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "HIRANYAPADA PS",
-    total_students: 28,
-    class_one_students: 2,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 6,
-    class_five_students: 7,
-    total_activated_students: 23,
-    total_active_students: 21,
-    remote_instructions_users: 9,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "KANHAPUR PS",
-    total_students: 26,
-    class_one_students: 3,
-    class_two_students: 6,
-    class_three_students: 3,
-    class_four_students: 8,
-    class_five_students: 6,
-    total_activated_students: 25,
-    total_active_students: 23,
-    remote_instructions_users: 7,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "BATULIPADA PS",
-    total_students: 48,
-    class_one_students: 11,
-    class_two_students: 9,
-    class_three_students: 11,
-    class_four_students: 11,
-    class_five_students: 6,
-    total_activated_students: 39,
-    total_active_students: 32,
-    remote_instructions_users: 18,
-    chatbot_users: 30,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "BASANTAMALA PPS",
-    total_students: 23,
-    class_one_students: 4,
-    class_two_students: 8,
-    class_three_students: 4,
-    class_four_students: 3,
-    class_five_students: 4,
-    total_activated_students: 23,
-    total_active_students: 14,
-    remote_instructions_users: 8,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "BANAPUR RATNACHIRA PUPS",
-    total_students: 45,
-    class_one_students: 8,
-    class_two_students: 5,
-    class_three_students: 13,
-    class_four_students: 9,
-    class_five_students: 10,
-    total_activated_students: 42,
-    total_active_students: 34,
-    remote_instructions_users: 12,
-    chatbot_users: 33,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "KHANDAYAT PS",
-    total_students: 45,
-    class_one_students: 5,
-    class_two_students: 8,
-    class_three_students: 13,
-    class_four_students: 10,
-    class_five_students: 9,
-    total_activated_students: 42,
-    total_active_students: 38,
-    remote_instructions_users: 10,
-    chatbot_users: 35,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "L.N. NODAL UPS",
-    total_students: 34,
-    class_one_students: 5,
-    class_two_students: 4,
-    class_three_students: 8,
-    class_four_students: 8,
-    class_five_students: 9,
-    total_activated_students: 34,
-    total_active_students: 32,
-    remote_instructions_users: 14,
-    chatbot_users: 20,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "CHURALI PUPS",
-    total_students: 53,
-    class_one_students: 10,
-    class_two_students: 6,
-    class_three_students: 14,
-    class_four_students: 10,
-    class_five_students: 13,
-    total_activated_students: 49,
-    total_active_students: 44,
-    remote_instructions_users: 14,
-    chatbot_users: 39,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "GOVT ME,ALGUM",
-    total_students: 35,
-    class_one_students: 22,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 5,
-    class_five_students: 2,
-    total_activated_students: 33,
-    total_active_students: 31,
-    remote_instructions_users: 15,
-    chatbot_users: 20,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "MALISAHI",
-    school_name: "MALISAHI PUPS",
-    total_students: 76,
-    class_one_students: 15,
-    class_two_students: 12,
-    class_three_students: 16,
-    class_four_students: 18,
-    class_five_students: 15,
-    total_activated_students: 71,
-    total_active_students: 69,
-    remote_instructions_users: 27,
-    chatbot_users: 49,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "NUA SOMESWARPUR",
-    school_name: "ATHABATIA PS",
-    total_students: 23,
-    class_one_students: 5,
-    class_two_students: 4,
-    class_three_students: 4,
-    class_four_students: 3,
-    class_five_students: 7,
-    total_activated_students: 21,
-    total_active_students: 19,
-    remote_instructions_users: 6,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "NUA SOMESWARPUR",
-    school_name: "NUASOMESWARPUR PS",
-    total_students: 28,
-    class_one_students: 4,
-    class_two_students: 2,
-    class_three_students: 5,
-    class_four_students: 9,
-    class_five_students: 8,
-    total_activated_students: 27,
-    total_active_students: 25,
-    remote_instructions_users: 10,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "NUA SOMESWARPUR",
-    school_name: "BENAKERA PUPS",
-    total_students: 39,
-    class_one_students: 9,
-    class_two_students: 6,
-    class_three_students: 9,
-    class_four_students: 9,
-    class_five_students: 6,
-    total_activated_students: 35,
-    total_active_students: 32,
-    remote_instructions_users: 10,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "NUA SOMESWARPUR",
-    school_name: "GHASIBHABANIPUR PS",
-    total_students: 23,
-    class_one_students: 0,
-    class_two_students: 8,
-    class_three_students: 6,
-    class_four_students: 3,
-    class_five_students: 6,
-    total_activated_students: 21,
-    total_active_students: 18,
-    remote_instructions_users: 5,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "NUA SOMESWARPUR",
-    school_name: "NAHALA PUPS",
-    total_students: 53,
-    class_one_students: 0,
-    class_two_students: 12,
-    class_three_students: 12,
-    class_four_students: 15,
-    class_five_students: 14,
-    total_activated_students: 51,
-    total_active_students: 48,
-    remote_instructions_users: 14,
-    chatbot_users: 39,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "NUA SOMESWARPUR",
-    school_name: "NARENDRAPUR PUPS",
-    total_students: 70,
-    class_one_students: 8,
-    class_two_students: 14,
-    class_three_students: 20,
-    class_four_students: 18,
-    class_five_students: 10,
-    total_activated_students: 68,
-    total_active_students: 61,
-    remote_instructions_users: 20,
-    chatbot_users: 50,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "NUA SOMESWARPUR",
-    school_name: "PURUNASOMESWARPUR PS",
-    total_students: 27,
-    class_one_students: 4,
-    class_two_students: 4,
-    class_three_students: 9,
-    class_four_students: 4,
-    class_five_students: 6,
-    total_activated_students: 21,
-    total_active_students: 17,
-    remote_instructions_users: 9,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "NUA SOMESWARPUR",
-    school_name: "BARAGHARIASAHI PPS",
-    total_students: 18,
-    class_one_students: 7,
-    class_two_students: 3,
-    class_three_students: 1,
-    class_four_students: 4,
-    class_five_students: 3,
-    total_activated_students: 18,
-    total_active_students: 16,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "PANCHASAKHA NUPS",
-    total_students: 21,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 4,
-    class_five_students: 8,
-    total_activated_students: 21,
-    total_active_students: 18,
-    remote_instructions_users: 8,
-    chatbot_users: 13,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "BALARAMPUR GARH PS",
-    total_students: 24,
-    class_one_students: 0,
-    class_two_students: 7,
-    class_three_students: 7,
-    class_four_students: 8,
-    class_five_students: 2,
-    total_activated_students: 23,
-    total_active_students: 23,
-    remote_instructions_users: 2,
-    chatbot_users: 22,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "DIPIDEULI PS",
-    total_students: 21,
-    class_one_students: 0,
-    class_two_students: 0,
-    class_three_students: 2,
-    class_four_students: 11,
-    class_five_students: 8,
-    total_activated_students: 18,
-    total_active_students: 16,
-    remote_instructions_users: 5,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "GENDAMALI PS",
-    total_students: 14,
-    class_one_students: 1,
-    class_two_students: 1,
-    class_three_students: 4,
-    class_four_students: 5,
-    class_five_students: 3,
-    total_activated_students: 10,
-    total_active_students: 8,
-    remote_instructions_users: 5,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "NUABUDHAKERA PS",
-    total_students: 33,
-    class_one_students: 4,
-    class_two_students: 2,
-    class_three_students: 11,
-    class_four_students: 10,
-    class_five_students: 6,
-    total_activated_students: 26,
-    total_active_students: 24,
-    remote_instructions_users: 12,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "PATNASAHI PPS",
-    total_students: 16,
-    class_one_students: 0,
-    class_two_students: 2,
-    class_three_students: 5,
-    class_four_students: 4,
-    class_five_students: 5,
-    total_activated_students: 14,
-    total_active_students: 12,
-    remote_instructions_users: 5,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "PURUNABUDHAKERA PUPS",
-    total_students: 35,
-    class_one_students: 0,
-    class_two_students: 9,
-    class_three_students: 5,
-    class_four_students: 11,
-    class_five_students: 10,
-    total_activated_students: 34,
-    total_active_students: 32,
-    remote_instructions_users: 12,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "MADHIPUR PPS",
-    total_students: 5,
-    class_one_students: 0,
-    class_two_students: 1,
-    class_three_students: 2,
-    class_four_students: 2,
-    class_five_students: 0,
-    total_activated_students: 5,
-    total_active_students: 2,
-    remote_instructions_users: 1,
-    chatbot_users: 4,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "MAHURA BALISAHI PS",
-    total_students: 32,
-    class_one_students: 5,
-    class_two_students: 5,
-    class_three_students: 7,
-    class_four_students: 7,
-    class_five_students: 8,
-    total_activated_students: 32,
-    total_active_students: 25,
-    remote_instructions_users: 13,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "PURUNABUDHAKERA",
-    school_name: "BASUDEV NUPS",
-    total_students: 31,
-    class_one_students: 6,
-    class_two_students: 8,
-    class_three_students: 4,
-    class_four_students: 7,
-    class_five_students: 6,
-    total_activated_students: 26,
-    total_active_students: 21,
-    remote_instructions_users: 8,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SEVAKSAHI",
-    school_name: "MATHASAHI PS",
-    total_students: 30,
-    class_one_students: 1,
-    class_two_students: 5,
-    class_three_students: 8,
-    class_four_students: 4,
-    class_five_students: 12,
-    total_activated_students: 30,
-    total_active_students: 24,
-    remote_instructions_users: 12,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SEVAKSAHI",
-    school_name: "MANITIRA SAHI PANASAPATNA PS",
-    total_students: 24,
-    class_one_students: 4,
-    class_two_students: 3,
-    class_three_students: 5,
-    class_four_students: 8,
-    class_five_students: 4,
-    total_activated_students: 20,
-    total_active_students: 19,
-    remote_instructions_users: 9,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SEVAKSAHI",
-    school_name: "GOVT UPGRADED HS,SATYABADI",
-    total_students: 25,
-    class_one_students: 0,
-    class_two_students: 6,
-    class_three_students: 4,
-    class_four_students: 9,
-    class_five_students: 6,
-    total_activated_students: 19,
-    total_active_students: 16,
-    remote_instructions_users: 7,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SEVAKSAHI",
-    school_name: "SATYABADI HS",
-    total_students: 60,
-    class_one_students: 4,
-    class_two_students: 9,
-    class_three_students: 12,
-    class_four_students: 22,
-    class_five_students: 13,
-    total_activated_students: 58,
-    total_active_students: 53,
-    remote_instructions_users: 15,
-    chatbot_users: 45,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SEVAKSAHI",
-    school_name: "GOPALPUR PATNA UGUPS",
-    total_students: 80,
-    class_one_students: 7,
-    class_two_students: 19,
-    class_three_students: 12,
-    class_four_students: 20,
-    class_five_students: 22,
-    total_activated_students: 74,
-    total_active_students: 70,
-    remote_instructions_users: 11,
-    chatbot_users: 69,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SEVAKSAHI",
-    school_name: "BAGULAPARI PPS",
-    total_students: 16,
-    class_one_students: 3,
-    class_two_students: 3,
-    class_three_students: 3,
-    class_four_students: 1,
-    class_five_students: 6,
-    total_activated_students: 16,
-    total_active_students: 11,
-    remote_instructions_users: 5,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SEVAKSAHI",
-    school_name: "UGHS MULA ALASA",
-    total_students: 49,
-    class_one_students: 0,
-    class_two_students: 10,
-    class_three_students: 10,
-    class_four_students: 13,
-    class_five_students: 16,
-    total_activated_students: 42,
-    total_active_students: 38,
-    remote_instructions_users: 20,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SEVAKSAHI",
-    school_name: "TENTULIA PS",
-    total_students: 46,
-    class_one_students: 7,
-    class_two_students: 7,
-    class_three_students: 13,
-    class_four_students: 11,
-    class_five_students: 8,
-    total_activated_students: 45,
-    total_active_students: 38,
-    remote_instructions_users: 17,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SRI RAMACHANDRAPUR",
-    school_name: "PARAHAT UGUPS",
-    total_students: 36,
-    class_one_students: 5,
-    class_two_students: 5,
-    class_three_students: 9,
-    class_four_students: 11,
-    class_five_students: 6,
-    total_activated_students: 33,
-    total_active_students: 25,
-    remote_instructions_users: 17,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SRI RAMACHANDRAPUR",
-    school_name: "MATHASAHI PS",
-    total_students: 28,
-    class_one_students: 0,
-    class_two_students: 6,
-    class_three_students: 3,
-    class_four_students: 15,
-    class_five_students: 4,
-    total_activated_students: 28,
-    total_active_students: 24,
-    remote_instructions_users: 10,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SRI RAMACHANDRAPUR",
-    school_name: "BADABILASAHI PS",
-    total_students: 22,
-    class_one_students: 5,
-    class_two_students: 2,
-    class_three_students: 2,
-    class_four_students: 6,
-    class_five_students: 7,
-    total_activated_students: 22,
-    total_active_students: 20,
-    remote_instructions_users: 6,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SRI RAMACHANDRAPUR",
-    school_name: "SRIRAMCHANDRAPUR NUPS",
-    total_students: 13,
-    class_one_students: 0,
-    class_two_students: 2,
-    class_three_students: 7,
-    class_four_students: 3,
-    class_five_students: 1,
-    total_activated_students: 12,
-    total_active_students: 9,
-    remote_instructions_users: 4,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SRI RAMACHANDRAPUR",
-    school_name: "TIKIBILASAHI PPS",
-    total_students: 21,
-    class_one_students: 0,
-    class_two_students: 5,
-    class_three_students: 4,
-    class_four_students: 6,
-    class_five_students: 6,
-    total_activated_students: 21,
-    total_active_students: 18,
-    remote_instructions_users: 3,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SRI RAMACHANDRAPUR",
-    school_name: "BALUNKESWAR PS",
-    total_students: 32,
-    class_one_students: 4,
-    class_two_students: 4,
-    class_three_students: 7,
-    class_four_students: 10,
-    class_five_students: 7,
-    total_activated_students: 28,
-    total_active_students: 24,
-    remote_instructions_users: 11,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SRI RAMACHANDRAPUR",
-    school_name: "CHANDRABRAHMAPUR PUPS",
-    total_students: 50,
-    class_one_students: 5,
-    class_two_students: 7,
-    class_three_students: 12,
-    class_four_students: 9,
-    class_five_students: 17,
-    total_activated_students: 50,
-    total_active_students: 46,
-    remote_instructions_users: 15,
-    chatbot_users: 35,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SRI RAMACHANDRAPUR",
-    school_name: "BHUTUPADA PS",
-    total_students: 13,
-    class_one_students: 4,
-    class_two_students: 1,
-    class_three_students: 3,
-    class_four_students: 2,
-    class_five_students: 3,
-    total_activated_students: 13,
-    total_active_students: 8,
-    remote_instructions_users: 4,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SRI RAMACHANDRAPUR",
-    school_name: "NARAKOLIGORADA PPS",
-    total_students: 18,
-    class_one_students: 3,
-    class_two_students: 6,
-    class_three_students: 2,
-    class_four_students: 7,
-    class_five_students: 0,
-    total_activated_students: 18,
-    total_active_students: 11,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "GOVT. UGHS,PARAKENA",
-    total_students: 34,
-    class_one_students: 2,
-    class_two_students: 9,
-    class_three_students: 11,
-    class_four_students: 11,
-    class_five_students: 1,
-    total_activated_students: 28,
-    total_active_students: 25,
-    remote_instructions_users: 11,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "CHAKRAPADA PS",
-    total_students: 15,
-    class_one_students: 0,
-    class_two_students: 3,
-    class_three_students: 8,
-    class_four_students: 1,
-    class_five_students: 3,
-    total_activated_students: 15,
-    total_active_students: 9,
-    remote_instructions_users: 7,
-    chatbot_users: 8,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "BADABASANTA PS",
-    total_students: 46,
-    class_one_students: 8,
-    class_two_students: 9,
-    class_three_students: 6,
-    class_four_students: 15,
-    class_five_students: 8,
-    total_activated_students: 40,
-    total_active_students: 38,
-    remote_instructions_users: 17,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "BADHEIKERA PS",
-    total_students: 23,
-    class_one_students: 0,
-    class_two_students: 10,
-    class_three_students: 2,
-    class_four_students: 8,
-    class_five_students: 3,
-    total_activated_students: 18,
-    total_active_students: 16,
-    remote_instructions_users: 5,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "KALAPAHAD PS",
-    total_students: 14,
-    class_one_students: 3,
-    class_two_students: 0,
-    class_three_students: 6,
-    class_four_students: 2,
-    class_five_students: 3,
-    total_activated_students: 12,
-    total_active_students: 10,
-    remote_instructions_users: 3,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "KANLAPADA PS",
-    total_students: 26,
-    class_one_students: 6,
-    class_two_students: 2,
-    class_three_students: 1,
-    class_four_students: 9,
-    class_five_students: 8,
-    total_activated_students: 22,
-    total_active_students: 20,
-    remote_instructions_users: 7,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "SUANLO PS",
-    total_students: 15,
-    class_one_students: 5,
-    class_two_students: 2,
-    class_three_students: 2,
-    class_four_students: 3,
-    class_five_students: 3,
-    total_activated_students: 12,
-    total_active_students: 8,
-    remote_instructions_users: 5,
-    chatbot_users: 10,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "BILIPADA PS",
-    total_students: 23,
-    class_one_students: 0,
-    class_two_students: 6,
-    class_three_students: 3,
-    class_four_students: 5,
-    class_five_students: 9,
-    total_activated_students: 19,
-    total_active_students: 14,
-    remote_instructions_users: 6,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "JAYADURGA NODAL HS",
-    total_students: 46,
-    class_one_students: 10,
-    class_two_students: 8,
-    class_three_students: 6,
-    class_four_students: 9,
-    class_five_students: 13,
-    total_activated_students: 44,
-    total_active_students: 41,
-    remote_instructions_users: 11,
-    chatbot_users: 35,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "DIHASAHI PPS",
-    total_students: 32,
-    class_one_students: 4,
-    class_two_students: 6,
-    class_three_students: 5,
-    class_four_students: 5,
-    class_five_students: 12,
-    total_activated_students: 29,
-    total_active_students: 24,
-    remote_instructions_users: 9,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "SUANDO PS",
-    total_students: 21,
-    class_one_students: 7,
-    class_two_students: 4,
-    class_three_students: 2,
-    class_four_students: 4,
-    class_five_students: 4,
-    total_activated_students: 17,
-    total_active_students: 17,
-    remote_instructions_users: 7,
-    chatbot_users: 14,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUANLO",
-    school_name: "PARAJAPADA PUPS",
-    total_students: 52,
-    class_one_students: 8,
-    class_two_students: 9,
-    class_three_students: 6,
-    class_four_students: 17,
-    class_five_students: 12,
-    total_activated_students: 51,
-    total_active_students: 49,
-    remote_instructions_users: 15,
-    chatbot_users: 37,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUKAL",
-    school_name: "ALISH PS",
-    total_students: 78,
-    class_one_students: 0,
-    class_two_students: 15,
-    class_three_students: 22,
-    class_four_students: 19,
-    class_five_students: 22,
-    total_activated_students: 76,
-    total_active_students: 70,
-    remote_instructions_users: 29,
-    chatbot_users: 49,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUKAL",
-    school_name: "GUALIPARI PUPS",
-    total_students: 26,
-    class_one_students: 5,
-    class_two_students: 7,
-    class_three_students: 2,
-    class_four_students: 8,
-    class_five_students: 4,
-    total_activated_students: 25,
-    total_active_students: 23,
-    remote_instructions_users: 8,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUKAL",
-    school_name: "ALISHPATNA PPS",
-    total_students: 35,
-    class_one_students: 0,
-    class_two_students: 9,
-    class_three_students: 10,
-    class_four_students: 7,
-    class_five_students: 9,
-    total_activated_students: 35,
-    total_active_students: 32,
-    remote_instructions_users: 11,
-    chatbot_users: 24,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUKAL",
-    school_name: "SUKALPADA PPS",
-    total_students: 33,
-    class_one_students: 0,
-    class_two_students: 6,
-    class_three_students: 10,
-    class_four_students: 7,
-    class_five_students: 10,
-    total_activated_students: 33,
-    total_active_students: 31,
-    remote_instructions_users: 10,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUKAL",
-    school_name: "DOKHANDAPUR PS",
-    total_students: 33,
-    class_one_students: 7,
-    class_two_students: 5,
-    class_three_students: 10,
-    class_four_students: 1,
-    class_five_students: 10,
-    total_activated_students: 31,
-    total_active_students: 29,
-    remote_instructions_users: 9,
-    chatbot_users: 24,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUKAL",
-    school_name: "DAKHINAKERA PS",
-    total_students: 48,
-    class_one_students: 9,
-    class_two_students: 4,
-    class_three_students: 9,
-    class_four_students: 8,
-    class_five_students: 18,
-    total_activated_students: 45,
-    total_active_students: 42,
-    remote_instructions_users: 16,
-    chatbot_users: 32,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUKAL",
-    school_name: "MARKANDAPADA PUPS",
-    total_students: 45,
-    class_one_students: 5,
-    class_two_students: 9,
-    class_three_students: 14,
-    class_four_students: 8,
-    class_five_students: 9,
-    total_activated_students: 41,
-    total_active_students: 39,
-    remote_instructions_users: 11,
-    chatbot_users: 34,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUKAL",
-    school_name: "BAMBARADA PUPS",
-    total_students: 46,
-    class_one_students: 10,
-    class_two_students: 14,
-    class_three_students: 12,
-    class_four_students: 10,
-    class_five_students: 0,
-    total_activated_students: 42,
-    total_active_students: 39,
-    remote_instructions_users: 9,
-    chatbot_users: 37,
-  },
-  {
-    district: "PURI",
-    block: "SATYABADI",
-    cluster: "SUKAL",
-    school_name: "SUKAL CPS",
-    total_students: 104,
-    class_one_students: 11,
-    class_two_students: 20,
-    class_three_students: 28,
-    class_four_students: 17,
-    class_five_students: 28,
-    total_activated_students: 99,
-    total_active_students: 94,
-    remote_instructions_users: 19,
-    chatbot_users: 85,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "SRC NHS BHANTIGRAMA",
-    total_students: 12,
-    class_one_students: 3,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 3,
-    class_five_students: 0,
-    total_activated_students: 12,
-    total_active_students: 10,
-    remote_instructions_users: 4,
-    chatbot_users: 8,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "ODUAL PS",
-    total_students: 18,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 6,
-    class_four_students: 8,
-    class_five_students: 0,
-    total_activated_students: 16,
-    total_active_students: 16,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "GOVT. PRIMARY SCHOOL , CHHABATIA",
-    total_students: 13,
-    class_one_students: 0,
-    class_two_students: 3,
-    class_three_students: 4,
-    class_four_students: 2,
-    class_five_students: 4,
-    total_activated_students: 13,
-    total_active_students: 10,
-    remote_instructions_users: 4,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "PATAPUR DEULI PS",
-    total_students: 16,
-    class_one_students: 2,
-    class_two_students: 5,
-    class_three_students: 3,
-    class_four_students: 3,
-    class_five_students: 3,
-    total_activated_students: 14,
-    total_active_students: 11,
-    remote_instructions_users: 5,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "PAIKSAHI PS",
-    total_students: 23,
-    class_one_students: 3,
-    class_two_students: 8,
-    class_three_students: 3,
-    class_four_students: 1,
-    class_five_students: 8,
-    total_activated_students: 21,
-    total_active_students: 17,
-    remote_instructions_users: 7,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "OHALA NODAL UPS",
-    total_students: 11,
-    class_one_students: 2,
-    class_two_students: 2,
-    class_three_students: 0,
-    class_four_students: 1,
-    class_five_students: 6,
-    total_activated_students: 9,
-    total_active_students: 7,
-    remote_instructions_users: 4,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "TIHULA PS",
-    total_students: 20,
-    class_one_students: 5,
-    class_two_students: 3,
-    class_three_students: 5,
-    class_four_students: 3,
-    class_five_students: 4,
-    total_activated_students: 18,
-    total_active_students: 16,
-    remote_instructions_users: 9,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "DEULIATHENGA PS",
-    total_students: 22,
-    class_one_students: 3,
-    class_two_students: 4,
-    class_three_students: 7,
-    class_four_students: 5,
-    class_five_students: 3,
-    total_activated_students: 21,
-    total_active_students: 18,
-    remote_instructions_users: 6,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "AMARANGA UGUPS",
-    total_students: 30,
-    class_one_students: 3,
-    class_two_students: 4,
-    class_three_students: 6,
-    class_four_students: 8,
-    class_five_students: 9,
-    total_activated_students: 25,
-    total_active_students: 18,
-    remote_instructions_users: 9,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "AMARANG UGUPS",
-    school_name: "BAMADEIPUR PROJECT PS",
-    total_students: 25,
-    class_one_students: 2,
-    class_two_students: 5,
-    class_three_students: 3,
-    class_four_students: 11,
-    class_five_students: 4,
-    total_activated_students: 25,
-    total_active_students: 19,
-    remote_instructions_users: 10,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BALANGA GOVT. UPS",
-    school_name: "LAXMINRUSINGH ADARSHA PS",
-    total_students: 28,
-    class_one_students: 4,
-    class_two_students: 7,
-    class_three_students: 4,
-    class_four_students: 5,
-    class_five_students: 8,
-    total_activated_students: 26,
-    total_active_students: 19,
-    remote_instructions_users: 9,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BALANGA GOVT. UPS",
-    school_name: "DANDIPUR NODAL UPS",
-    total_students: 20,
-    class_one_students: 0,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 7,
-    class_five_students: 0,
-    total_activated_students: 19,
-    total_active_students: 14,
-    remote_instructions_users: 8,
-    chatbot_users: 12,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BALANGA GOVT. UPS",
-    school_name: "BALANGA ADARSH CPS",
-    total_students: 39,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 14,
-    class_four_students: 9,
-    class_five_students: 10,
-    total_activated_students: 39,
-    total_active_students: 35,
-    remote_instructions_users: 16,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BALANGA GOVT. UPS",
-    school_name: "BAYABAR PROJECT UPS",
-    total_students: 57,
-    class_one_students: 5,
-    class_two_students: 12,
-    class_three_students: 13,
-    class_four_students: 13,
-    class_five_students: 14,
-    total_activated_students: 53,
-    total_active_students: 49,
-    remote_instructions_users: 31,
-    chatbot_users: 26,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BALANGA GOVT. UPS",
-    school_name: "RESINGA UGUPS",
-    total_students: 36,
-    class_one_students: 0,
-    class_two_students: 11,
-    class_three_students: 8,
-    class_four_students: 9,
-    class_five_students: 8,
-    total_activated_students: 34,
-    total_active_students: 31,
-    remote_instructions_users: 11,
-    chatbot_users: 25,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BALANGA GOVT. UPS",
-    school_name: "GOPINATHPUR UGUPS",
-    total_students: 38,
-    class_one_students: 0,
-    class_two_students: 9,
-    class_three_students: 9,
-    class_four_students: 9,
-    class_five_students: 11,
-    total_activated_students: 34,
-    total_active_students: 32,
-    remote_instructions_users: 15,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BALANGA GOVT. UPS",
-    school_name: "TOTASAHI PROJECT PS",
-    total_students: 20,
-    class_one_students: 3,
-    class_two_students: 1,
-    class_three_students: 5,
-    class_four_students: 7,
-    class_five_students: 4,
-    total_activated_students: 18,
-    total_active_students: 17,
-    remote_instructions_users: 9,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BALANGA GOVT. UPS",
-    school_name: "KASIASASAN PS",
-    total_students: 20,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 5,
-    total_activated_students: 18,
-    total_active_students: 14,
-    remote_instructions_users: 9,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BALANGA GOVT. UPS",
-    school_name: "SAMBHU BHARATIPATNA PS",
-    total_students: 34,
-    class_one_students: 8,
-    class_two_students: 8,
-    class_three_students: 8,
-    class_four_students: 4,
-    class_five_students: 6,
-    total_activated_students: 32,
-    total_active_students: 26,
-    remote_instructions_users: 13,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAMANAL PS",
-    school_name: "GOVT. HIGH SCHOOL , BAMANAL",
-    total_students: 22,
-    class_one_students: 2,
-    class_two_students: 8,
-    class_three_students: 2,
-    class_four_students: 4,
-    class_five_students: 6,
-    total_activated_students: 19,
-    total_active_students: 14,
-    remote_instructions_users: 6,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAMANAL PS",
-    school_name: "AMBILIHANA PS",
-    total_students: 11,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 0,
-    class_four_students: 7,
-    class_five_students: 0,
-    total_activated_students: 7,
-    total_active_students: 5,
-    remote_instructions_users: 4,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAMANAL PS",
-    school_name: "KAMADARI PS",
-    total_students: 29,
-    class_one_students: 9,
-    class_two_students: 4,
-    class_three_students: 2,
-    class_four_students: 6,
-    class_five_students: 8,
-    total_activated_students: 24,
-    total_active_students: 21,
-    remote_instructions_users: 8,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAMANAL PS",
-    school_name: "BARIMUNDAI PS",
-    total_students: 25,
-    class_one_students: 1,
-    class_two_students: 3,
-    class_three_students: 8,
-    class_four_students: 6,
-    class_five_students: 7,
-    total_activated_students: 25,
-    total_active_students: 22,
-    remote_instructions_users: 9,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAMANAL PS",
-    school_name: "SALANGA PS",
-    total_students: 11,
-    class_one_students: 2,
-    class_two_students: 2,
-    class_three_students: 0,
-    class_four_students: 5,
-    class_five_students: 2,
-    total_activated_students: 8,
-    total_active_students: 5,
-    remote_instructions_users: 4,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAMANAL PS",
-    school_name: "SADERIA PS",
-    total_students: 20,
-    class_one_students: 3,
-    class_two_students: 3,
-    class_three_students: 2,
-    class_four_students: 9,
-    class_five_students: 3,
-    total_activated_students: 19,
-    total_active_students: 17,
-    remote_instructions_users: 8,
-    chatbot_users: 12,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAMANAL PS",
-    school_name: "PIPALIA PS",
-    total_students: 30,
-    class_one_students: 4,
-    class_two_students: 4,
-    class_three_students: 9,
-    class_four_students: 8,
-    class_five_students: 5,
-    total_activated_students: 25,
-    total_active_students: 21,
-    remote_instructions_users: 8,
-    chatbot_users: 22,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAMANAL PS",
-    school_name: "OLAMARA PROJECT PS",
-    total_students: 20,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 3,
-    class_four_students: 7,
-    class_five_students: 5,
-    total_activated_students: 16,
-    total_active_students: 11,
-    remote_instructions_users: 9,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAMANAL PS",
-    school_name: "GANESWAR NODAL UP SCHOOL",
-    total_students: 56,
-    class_one_students: 8,
-    class_two_students: 7,
-    class_three_students: 12,
-    class_four_students: 14,
-    class_five_students: 15,
-    total_activated_students: 52,
-    total_active_students: 48,
-    remote_instructions_users: 17,
-    chatbot_users: 39,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "RATILO UGUPS",
-    total_students: 27,
-    class_one_students: 3,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 8,
-    class_five_students: 3,
-    total_activated_students: 21,
-    total_active_students: 15,
-    remote_instructions_users: 8,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "MUKTESWAR PS",
-    total_students: 23,
-    class_one_students: 7,
-    class_two_students: 2,
-    class_three_students: 3,
-    class_four_students: 2,
-    class_five_students: 9,
-    total_activated_students: 21,
-    total_active_students: 17,
-    remote_instructions_users: 7,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "HANSAPADA UGUPS",
-    total_students: 30,
-    class_one_students: 5,
-    class_two_students: 3,
-    class_three_students: 8,
-    class_four_students: 7,
-    class_five_students: 7,
-    total_activated_students: 30,
-    total_active_students: 28,
-    remote_instructions_users: 7,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "NAGABASTA NHS",
-    total_students: 35,
-    class_one_students: 5,
-    class_two_students: 6,
-    class_three_students: 3,
-    class_four_students: 9,
-    class_five_students: 12,
-    total_activated_students: 35,
-    total_active_students: 31,
-    remote_instructions_users: 12,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "TALAANDHIA PROJECT UP SCHOOL",
-    total_students: 23,
-    class_one_students: 3,
-    class_two_students: 5,
-    class_three_students: 7,
-    class_four_students: 5,
-    class_five_students: 3,
-    total_activated_students: 19,
-    total_active_students: 14,
-    remote_instructions_users: 8,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "DIHABARI PS",
-    total_students: 24,
-    class_one_students: 3,
-    class_two_students: 3,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 7,
-    total_activated_students: 18,
-    total_active_students: 17,
-    remote_instructions_users: 7,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "ARILO PS",
-    total_students: 15,
-    class_one_students: 2,
-    class_two_students: 1,
-    class_three_students: 4,
-    class_four_students: 3,
-    class_five_students: 5,
-    total_activated_students: 11,
-    total_active_students: 9,
-    remote_instructions_users: 4,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "DAHIJANGA PROJECT UPS",
-    total_students: 39,
-    class_one_students: 9,
-    class_two_students: 6,
-    class_three_students: 8,
-    class_four_students: 7,
-    class_five_students: 9,
-    total_activated_students: 32,
-    total_active_students: 29,
-    remote_instructions_users: 15,
-    chatbot_users: 24,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "TALATANALA PS",
-    total_students: 18,
-    class_one_students: 5,
-    class_two_students: 1,
-    class_three_students: 5,
-    class_four_students: 3,
-    class_five_students: 4,
-    total_activated_students: 12,
-    total_active_students: 8,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "LAMBILO PS",
-    total_students: 26,
-    class_one_students: 5,
-    class_two_students: 5,
-    class_three_students: 5,
-    class_four_students: 4,
-    class_five_students: 7,
-    total_activated_students: 18,
-    total_active_students: 12,
-    remote_instructions_users: 8,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BAPUJI NODAL UPS, NAGABASTA",
-    school_name: "SRIMUKHA PS",
-    total_students: 22,
-    class_one_students: 3,
-    class_two_students: 3,
-    class_three_students: 4,
-    class_four_students: 6,
-    class_five_students: 6,
-    total_activated_students: 19,
-    total_active_students: 15,
-    remote_instructions_users: 6,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "THAKURPATNA CPS",
-    total_students: 26,
-    class_one_students: 3,
-    class_two_students: 5,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 7,
-    total_activated_students: 25,
-    total_active_students: 23,
-    remote_instructions_users: 8,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "BARADIHA PS",
-    total_students: 29,
-    class_one_students: 9,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 5,
-    class_five_students: 6,
-    total_activated_students: 21,
-    total_active_students: 19,
-    remote_instructions_users: 10,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "SANKHAPADA PS",
-    total_students: 16,
-    class_one_students: 0,
-    class_two_students: 2,
-    class_three_students: 2,
-    class_four_students: 6,
-    class_five_students: 6,
-    total_activated_students: 10,
-    total_active_students: 8,
-    remote_instructions_users: 5,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "KALAPANCHANA URDU PS",
-    total_students: 32,
-    class_one_students: 3,
-    class_two_students: 4,
-    class_three_students: 8,
-    class_four_students: 5,
-    class_five_students: 12,
-    total_activated_students: 23,
-    total_active_students: 20,
-    remote_instructions_users: 9,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "GUNDIA LENKASAHI PROJECT PS",
-    total_students: 15,
-    class_one_students: 4,
-    class_two_students: 3,
-    class_three_students: 3,
-    class_four_students: 5,
-    class_five_students: 0,
-    total_activated_students: 11,
-    total_active_students: 8,
-    remote_instructions_users: 4,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "SANDHAPUR PROJECT UPS",
-    total_students: 30,
-    class_one_students: 2,
-    class_two_students: 7,
-    class_three_students: 8,
-    class_four_students: 8,
-    class_five_students: 5,
-    total_activated_students: 29,
-    total_active_students: 26,
-    remote_instructions_users: 9,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "PURUSOTTAM NODAL UPS",
-    total_students: 28,
-    class_one_students: 6,
-    class_two_students: 4,
-    class_three_students: 4,
-    class_four_students: 6,
-    class_five_students: 8,
-    total_activated_students: 24,
-    total_active_students: 20,
-    remote_instructions_users: 11,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "BISIMATRI PS",
-    total_students: 11,
-    class_one_students: 2,
-    class_two_students: 1,
-    class_three_students: 1,
-    class_four_students: 5,
-    class_five_students: 2,
-    total_activated_students: 8,
-    total_active_students: 3,
-    remote_instructions_users: 2,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "UMAMAHESWARPUR PS",
-    total_students: 12,
-    class_one_students: 3,
-    class_two_students: 1,
-    class_three_students: 2,
-    class_four_students: 2,
-    class_five_students: 4,
-    total_activated_students: 9,
-    total_active_students: 9,
-    remote_instructions_users: 4,
-    chatbot_users: 8,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "ASHRAM SCHOOL, GARHITAPOKHARI",
-    total_students: 53,
-    class_one_students: 4,
-    class_two_students: 13,
-    class_three_students: 17,
-    class_four_students: 9,
-    class_five_students: 10,
-    total_activated_students: 48,
-    total_active_students: 44,
-    remote_instructions_users: 17,
-    chatbot_users: 36,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "JAYADURGA NODAL UPS",
-    total_students: 33,
-    class_one_students: 6,
-    class_two_students: 8,
-    class_three_students: 7,
-    class_four_students: 7,
-    class_five_students: 5,
-    total_activated_students: 28,
-    total_active_students: 21,
-    remote_instructions_users: 8,
-    chatbot_users: 25,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHADARO PS",
-    school_name: "BHADARO CPS",
-    total_students: 66,
-    class_one_students: 12,
-    class_two_students: 11,
-    class_three_students: 16,
-    class_four_students: 17,
-    class_five_students: 10,
-    total_activated_students: 62,
-    total_active_students: 57,
-    remote_instructions_users: 25,
-    chatbot_users: 41,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "BHAGABATIPUR NODAL UPS",
-    total_students: 24,
-    class_one_students: 4,
-    class_two_students: 5,
-    class_three_students: 9,
-    class_four_students: 6,
-    class_five_students: 0,
-    total_activated_students: 18,
-    total_active_students: 16,
-    remote_instructions_users: 9,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "TORIHANBANDHA PS",
-    total_students: 6,
-    class_one_students: 0,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 6,
-    total_active_students: 6,
-    remote_instructions_users: 2,
-    chatbot_users: 4,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "KUANARPUR PS",
-    total_students: 21,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 6,
-    class_four_students: 9,
-    class_five_students: 0,
-    total_activated_students: 21,
-    total_active_students: 21,
-    remote_instructions_users: 6,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "DURGAPUR PS",
-    total_students: 32,
-    class_one_students: 2,
-    class_two_students: 6,
-    class_three_students: 9,
-    class_four_students: 6,
-    class_five_students: 9,
-    total_activated_students: 27,
-    total_active_students: 26,
-    remote_instructions_users: 9,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "KALIAPADA PS",
-    total_students: 21,
-    class_one_students: 2,
-    class_two_students: 8,
-    class_three_students: 1,
-    class_four_students: 7,
-    class_five_students: 3,
-    total_activated_students: 15,
-    total_active_students: 12,
-    remote_instructions_users: 5,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "CHINGUDIAKANTA PROJECT PS",
-    total_students: 15,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 4,
-    class_four_students: 6,
-    class_five_students: 0,
-    total_activated_students: 12,
-    total_active_students: 9,
-    remote_instructions_users: 6,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "KASIPUR PS",
-    total_students: 20,
-    class_one_students: 4,
-    class_two_students: 4,
-    class_three_students: 8,
-    class_four_students: 1,
-    class_five_students: 3,
-    total_activated_students: 12,
-    total_active_students: 8,
-    remote_instructions_users: 9,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "BILAGORADA PROJECT PS",
-    total_students: 26,
-    class_one_students: 6,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 5,
-    total_activated_students: 18,
-    total_active_students: 14,
-    remote_instructions_users: 9,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "TELISAHI PPS",
-    total_students: 33,
-    class_one_students: 8,
-    class_two_students: 6,
-    class_three_students: 5,
-    class_four_students: 7,
-    class_five_students: 7,
-    total_activated_students: 31,
-    total_active_students: 29,
-    remote_instructions_users: 11,
-    chatbot_users: 22,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHAGABATIPUR NODAL UPS",
-    school_name: "SAINSA SASAN CPS",
-    total_students: 43,
-    class_one_students: 7,
-    class_two_students: 7,
-    class_three_students: 8,
-    class_four_students: 10,
-    class_five_students: 11,
-    total_activated_students: 39,
-    total_active_students: 34,
-    remote_instructions_users: 10,
-    chatbot_users: 33,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "HARIPUR NODAL UPS",
-    total_students: 36,
-    class_one_students: 0,
-    class_two_students: 6,
-    class_three_students: 18,
-    class_four_students: 12,
-    class_five_students: 0,
-    total_activated_students: 33,
-    total_active_students: 26,
-    remote_instructions_users: 10,
-    chatbot_users: 26,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "DALABHANAPUR PROJECT UPS",
-    total_students: 17,
-    class_one_students: 4,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 15,
-    total_active_students: 8,
-    remote_instructions_users: 6,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "GARHPADANPUR NODAL UPS",
-    total_students: 19,
-    class_one_students: 0,
-    class_two_students: 19,
-    class_three_students: 0,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 17,
-    total_active_students: 12,
-    remote_instructions_users: 8,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "KHELAR PS",
-    total_students: 20,
-    class_one_students: 2,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 6,
-    class_five_students: 6,
-    total_activated_students: 18,
-    total_active_students: 16,
-    remote_instructions_users: 9,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "PURUSANDHA PS",
-    total_students: 28,
-    class_one_students: 10,
-    class_two_students: 3,
-    class_three_students: 5,
-    class_four_students: 5,
-    class_five_students: 5,
-    total_activated_students: 23,
-    total_active_students: 23,
-    remote_instructions_users: 11,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "BISWALSAHI PROJECT PS",
-    total_students: 19,
-    class_one_students: 5,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 5,
-    class_five_students: 3,
-    total_activated_students: 16,
-    total_active_students: 12,
-    remote_instructions_users: 8,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "BANGURUSH PS",
-    total_students: 34,
-    class_one_students: 10,
-    class_two_students: 4,
-    class_three_students: 6,
-    class_four_students: 9,
-    class_five_students: 5,
-    total_activated_students: 31,
-    total_active_students: 27,
-    remote_instructions_users: 7,
-    chatbot_users: 27,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "SALAJANGA PS",
-    total_students: 30,
-    class_one_students: 7,
-    class_two_students: 2,
-    class_three_students: 9,
-    class_four_students: 7,
-    class_five_students: 5,
-    total_activated_students: 27,
-    total_active_students: 24,
-    remote_instructions_users: 13,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "BIANLA PS",
-    total_students: 69,
-    class_one_students: 9,
-    class_two_students: 7,
-    class_three_students: 22,
-    class_four_students: 12,
-    class_five_students: 19,
-    total_activated_students: 64,
-    total_active_students: 59,
-    remote_instructions_users: 14,
-    chatbot_users: 55,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "SAMARAISHASAN PS",
-    total_students: 66,
-    class_one_students: 12,
-    class_two_students: 12,
-    class_three_students: 17,
-    class_four_students: 13,
-    class_five_students: 12,
-    total_activated_students: 62,
-    total_active_students: 59,
-    remote_instructions_users: 22,
-    chatbot_users: 44,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHANAPUR UGUPS",
-    school_name: "BHANAPUR UGUPS",
-    total_students: 70,
-    class_one_students: 7,
-    class_two_students: 10,
-    class_three_students: 18,
-    class_four_students: 18,
-    class_five_students: 17,
-    total_activated_students: 69,
-    total_active_students: 64,
-    remote_instructions_users: 25,
-    chatbot_users: 45,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "CHHENUA PS",
-    total_students: 34,
-    class_one_students: 4,
-    class_two_students: 8,
-    class_three_students: 8,
-    class_four_students: 9,
-    class_five_students: 5,
-    total_activated_students: 34,
-    total_active_students: 27,
-    remote_instructions_users: 11,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "DENUABASTA PROJECT UPS",
-    total_students: 10,
-    class_one_students: 1,
-    class_two_students: 3,
-    class_three_students: 2,
-    class_four_students: 4,
-    class_five_students: 0,
-    total_activated_students: 10,
-    total_active_students: 10,
-    remote_instructions_users: 3,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "DENUA CPS",
-    total_students: 15,
-    class_one_students: 8,
-    class_two_students: 3,
-    class_three_students: 4,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 12,
-    total_active_students: 6,
-    remote_instructions_users: 6,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "CHANARPADA PROJECT PS",
-    total_students: 12,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 7,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 12,
-    total_active_students: 12,
-    remote_instructions_users: 3,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "CHHATAHARA PROJECT PS",
-    total_students: 22,
-    class_one_students: 1,
-    class_two_students: 5,
-    class_three_students: 7,
-    class_four_students: 4,
-    class_five_students: 5,
-    total_activated_students: 20,
-    total_active_students: 16,
-    remote_instructions_users: 7,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "NAKADIHA PS",
-    total_students: 14,
-    class_one_students: 2,
-    class_two_students: 1,
-    class_three_students: 3,
-    class_four_students: 3,
-    class_five_students: 5,
-    total_activated_students: 14,
-    total_active_students: 12,
-    remote_instructions_users: 5,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "MURUDI PROJECT PS",
-    total_students: 23,
-    class_one_students: 3,
-    class_two_students: 2,
-    class_three_students: 8,
-    class_four_students: 5,
-    class_five_students: 5,
-    total_activated_students: 23,
-    total_active_students: 19,
-    remote_instructions_users: 6,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "DHAMANTIRA PS",
-    total_students: 16,
-    class_one_students: 2,
-    class_two_students: 5,
-    class_three_students: 4,
-    class_four_students: 2,
-    class_five_students: 3,
-    total_activated_students: 16,
-    total_active_students: 14,
-    remote_instructions_users: 7,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "NUAPATNA PROJECT PS",
-    total_students: 27,
-    class_one_students: 4,
-    class_two_students: 7,
-    class_three_students: 8,
-    class_four_students: 8,
-    class_five_students: 0,
-    total_activated_students: 26,
-    total_active_students: 24,
-    remote_instructions_users: 9,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BHATABANDHA NODAL UPS",
-    school_name: "ALIPINGAL PROJECT UPS",
-    total_students: 56,
-    class_one_students: 7,
-    class_two_students: 16,
-    class_three_students: 15,
-    class_four_students: 3,
-    class_five_students: 15,
-    total_activated_students: 53,
-    total_active_students: 49,
-    remote_instructions_users: 17,
-    chatbot_users: 39,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BISHNUPUR NODAL UPS",
-    school_name: "KHEDARAPUR PS",
-    total_students: 22,
-    class_one_students: 4,
-    class_two_students: 7,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 0,
-    total_activated_students: 20,
-    total_active_students: 20,
-    remote_instructions_users: 6,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BISHNUPUR NODAL UPS",
-    school_name: "BISHNUPUR PS",
-    total_students: 82,
-    class_one_students: 22,
-    class_two_students: 24,
-    class_three_students: 17,
-    class_four_students: 19,
-    class_five_students: 0,
-    total_activated_students: 79,
-    total_active_students: 74,
-    remote_instructions_users: 17,
-    chatbot_users: 65,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BISHNUPUR NODAL UPS",
-    school_name: "VILLIGRAM PS",
-    total_students: 45,
-    class_one_students: 9,
-    class_two_students: 12,
-    class_three_students: 13,
-    class_four_students: 11,
-    class_five_students: 0,
-    total_activated_students: 42,
-    total_active_students: 41,
-    remote_instructions_users: 16,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BISHNUPUR NODAL UPS",
-    school_name: "BHILIDEULI PS",
-    total_students: 25,
-    class_one_students: 7,
-    class_two_students: 5,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 2,
-    total_activated_students: 21,
-    total_active_students: 19,
-    remote_instructions_users: 6,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BISHNUPUR NODAL UPS",
-    school_name: "JHAMPULAKUDA PROJECT UPS",
-    total_students: 27,
-    class_one_students: 4,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 5,
-    class_five_students: 5,
-    total_activated_students: 22,
-    total_active_students: 18,
-    remote_instructions_users: 8,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BISHNUPUR NODAL UPS",
-    school_name: "KARANJISAHI PROJECT PS",
-    total_students: 44,
-    class_one_students: 14,
-    class_two_students: 13,
-    class_three_students: 17,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 42,
-    total_active_students: 36,
-    remote_instructions_users: 15,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BISHNUPUR NODAL UPS",
-    school_name: "BADARIKILO PROJECT UPS",
-    total_students: 44,
-    class_one_students: 9,
-    class_two_students: 9,
-    class_three_students: 8,
-    class_four_students: 10,
-    class_five_students: 8,
-    total_activated_students: 37,
-    total_active_students: 34,
-    remote_instructions_users: 15,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BISHNUPUR NODAL UPS",
-    school_name: "MOHANDAS PROJECT PS",
-    total_students: 17,
-    class_one_students: 2,
-    class_two_students: 1,
-    class_three_students: 4,
-    class_four_students: 4,
-    class_five_students: 6,
-    total_activated_students: 17,
-    total_active_students: 14,
-    remote_instructions_users: 6,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "BISHNUPUR NODAL UPS",
-    school_name: "SARBAPADA PRADHANSAHI PROJECT PS",
-    total_students: 36,
-    class_one_students: 6,
-    class_two_students: 2,
-    class_three_students: 12,
-    class_four_students: 6,
-    class_five_students: 10,
-    total_activated_students: 35,
-    total_active_students: 33,
-    remote_instructions_users: 13,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "PODANA TUANSAHI PS",
-    total_students: 11,
-    class_one_students: 3,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 2,
-    class_five_students: 0,
-    total_activated_students: 11,
-    total_active_students: 9,
-    remote_instructions_users: 4,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "JANARA PS",
-    total_students: 26,
-    class_one_students: 6,
-    class_two_students: 6,
-    class_three_students: 4,
-    class_four_students: 5,
-    class_five_students: 5,
-    total_activated_students: 24,
-    total_active_students: 21,
-    remote_instructions_users: 7,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "CHADHEIGAON NODAL UPS",
-    total_students: 47,
-    class_one_students: 3,
-    class_two_students: 8,
-    class_three_students: 13,
-    class_four_students: 14,
-    class_five_students: 9,
-    total_activated_students: 45,
-    total_active_students: 42,
-    remote_instructions_users: 13,
-    chatbot_users: 34,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "ASHAPURANA PS",
-    total_students: 17,
-    class_one_students: 3,
-    class_two_students: 3,
-    class_three_students: 3,
-    class_four_students: 6,
-    class_five_students: 2,
-    total_activated_students: 17,
-    total_active_students: 15,
-    remote_instructions_users: 7,
-    chatbot_users: 10,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "BILASAHI PROJECT PS",
-    total_students: 34,
-    class_one_students: 7,
-    class_two_students: 3,
-    class_three_students: 5,
-    class_four_students: 11,
-    class_five_students: 8,
-    total_activated_students: 32,
-    total_active_students: 26,
-    remote_instructions_users: 6,
-    chatbot_users: 28,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "ALAKUNDA PS",
-    total_students: 21,
-    class_one_students: 1,
-    class_two_students: 2,
-    class_three_students: 7,
-    class_four_students: 5,
-    class_five_students: 6,
-    total_activated_students: 21,
-    total_active_students: 16,
-    remote_instructions_users: 6,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "CHHANIJANGA NODAL UPS",
-    total_students: 55,
-    class_one_students: 7,
-    class_two_students: 11,
-    class_three_students: 14,
-    class_four_students: 10,
-    class_five_students: 13,
-    total_activated_students: 52,
-    total_active_students: 49,
-    remote_instructions_users: 18,
-    chatbot_users: 37,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "NILAKANTHESWAR NODAL UP SCHOOL",
-    total_students: 26,
-    class_one_students: 5,
-    class_two_students: 4,
-    class_three_students: 2,
-    class_four_students: 8,
-    class_five_students: 7,
-    total_activated_students: 24,
-    total_active_students: 21,
-    remote_instructions_users: 7,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "ANANTABASUDEV UPS",
-    total_students: 61,
-    class_one_students: 11,
-    class_two_students: 11,
-    class_three_students: 13,
-    class_four_students: 11,
-    class_five_students: 15,
-    total_activated_students: 59,
-    total_active_students: 56,
-    remote_instructions_users: 27,
-    chatbot_users: 34,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "CHHANIJANGA NODAL UPS",
-    school_name: "AMPORA PS",
-    total_students: 33,
-    class_one_students: 9,
-    class_two_students: 5,
-    class_three_students: 8,
-    class_four_students: 3,
-    class_five_students: 8,
-    total_activated_students: 31,
-    total_active_students: 28,
-    remote_instructions_users: 8,
-    chatbot_users: 25,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DHALESWAR UG UPS",
-    school_name: "NAHANTARA CPS",
-    total_students: 25,
-    class_one_students: 4,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 8,
-    class_five_students: 0,
-    total_activated_students: 24,
-    total_active_students: 21,
-    remote_instructions_users: 10,
-    chatbot_users: 15,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DHALESWAR UG UPS",
-    school_name: "NILAKANTHA PS",
-    total_students: 18,
-    class_one_students: 4,
-    class_two_students: 6,
-    class_three_students: 1,
-    class_four_students: 2,
-    class_five_students: 5,
-    total_activated_students: 18,
-    total_active_students: 18,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DHALESWAR UG UPS",
-    school_name: "TARADPADA PS",
-    total_students: 24,
-    class_one_students: 3,
-    class_two_students: 4,
-    class_three_students: 2,
-    class_four_students: 11,
-    class_five_students: 4,
-    total_activated_students: 20,
-    total_active_students: 19,
-    remote_instructions_users: 7,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DHALESWAR UG UPS",
-    school_name: "UHANGA PS",
-    total_students: 26,
-    class_one_students: 2,
-    class_two_students: 0,
-    class_three_students: 8,
-    class_four_students: 9,
-    class_five_students: 7,
-    total_activated_students: 25,
-    total_active_students: 21,
-    remote_instructions_users: 7,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DHALESWAR UG UPS",
-    school_name: "ANGARAPADA PROJECT PS",
-    total_students: 14,
-    class_one_students: 4,
-    class_two_students: 0,
-    class_three_students: 6,
-    class_four_students: 4,
-    class_five_students: 0,
-    total_activated_students: 10,
-    total_active_students: 10,
-    remote_instructions_users: 5,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DHALESWAR UG UPS",
-    school_name: "GARH ANTUR PS",
-    total_students: 17,
-    class_one_students: 0,
-    class_two_students: 2,
-    class_three_students: 5,
-    class_four_students: 4,
-    class_five_students: 6,
-    total_activated_students: 17,
-    total_active_students: 15,
-    remote_instructions_users: 6,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DHALESWAR UG UPS",
-    school_name: "KOPINDAPATALIGRAM PS",
-    total_students: 32,
-    class_one_students: 9,
-    class_two_students: 9,
-    class_three_students: 5,
-    class_four_students: 9,
-    class_five_students: 0,
-    total_activated_students: 29,
-    total_active_students: 25,
-    remote_instructions_users: 11,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DHALESWAR UG UPS",
-    school_name: "BUDHEI PS",
-    total_students: 19,
-    class_one_students: 5,
-    class_two_students: 1,
-    class_three_students: 7,
-    class_four_students: 0,
-    class_five_students: 6,
-    total_activated_students: 19,
-    total_active_students: 16,
-    remote_instructions_users: 8,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DHALESWAR UG UPS",
-    school_name: "DHALESWAR UGUPS",
-    total_students: 38,
-    class_one_students: 6,
-    class_two_students: 5,
-    class_three_students: 8,
-    class_four_students: 16,
-    class_five_students: 3,
-    total_activated_students: 38,
-    total_active_students: 32,
-    remote_instructions_users: 10,
-    chatbot_users: 28,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "ARISANDHA CPS",
-    total_students: 33,
-    class_one_students: 3,
-    class_two_students: 2,
-    class_three_students: 11,
-    class_four_students: 17,
-    class_five_students: 0,
-    total_activated_students: 31,
-    total_active_students: 28,
-    remote_instructions_users: 10,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "TERUNDIA PS",
-    total_students: 37,
-    class_one_students: 5,
-    class_two_students: 3,
-    class_three_students: 4,
-    class_four_students: 9,
-    class_five_students: 16,
-    total_activated_students: 35,
-    total_active_students: 31,
-    remote_instructions_users: 13,
-    chatbot_users: 24,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "HARIATHENGA PUPS",
-    total_students: 14,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 3,
-    class_five_students: 0,
-    total_activated_students: 12,
-    total_active_students: 10,
-    remote_instructions_users: 5,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "DIGHALO URDU PS",
-    total_students: 20,
-    class_one_students: 4,
-    class_two_students: 1,
-    class_three_students: 3,
-    class_four_students: 7,
-    class_five_students: 5,
-    total_activated_students: 18,
-    total_active_students: 15,
-    remote_instructions_users: 7,
-    chatbot_users: 13,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "BAMJHATI PS",
-    total_students: 20,
-    class_one_students: 3,
-    class_two_students: 4,
-    class_three_students: 4,
-    class_four_students: 9,
-    class_five_students: 0,
-    total_activated_students: 18,
-    total_active_students: 14,
-    remote_instructions_users: 8,
-    chatbot_users: 12,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "BASANTAL PROJECT PS",
-    total_students: 18,
-    class_one_students: 4,
-    class_two_students: 2,
-    class_three_students: 3,
-    class_four_students: 7,
-    class_five_students: 2,
-    total_activated_students: 16,
-    total_active_students: 12,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "DHIRAPUR PUPS",
-    total_students: 53,
-    class_one_students: 13,
-    class_two_students: 6,
-    class_three_students: 13,
-    class_four_students: 10,
-    class_five_students: 11,
-    total_activated_students: 50,
-    total_active_students: 48,
-    remote_instructions_users: 12,
-    chatbot_users: 41,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "RAJARASI PROJECT PS",
-    total_students: 23,
-    class_one_students: 5,
-    class_two_students: 6,
-    class_three_students: 4,
-    class_four_students: 2,
-    class_five_students: 6,
-    total_activated_students: 20,
-    total_active_students: 18,
-    remote_instructions_users: 10,
-    chatbot_users: 13,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "JAGABANDHU UPS",
-    total_students: 9,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 3,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 9,
-    total_active_students: 9,
-    remote_instructions_users: 4,
-    chatbot_users: 5,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "KURUKUNDA PROJECT PS",
-    total_students: 32,
-    class_one_students: 4,
-    class_two_students: 7,
-    class_three_students: 8,
-    class_four_students: 8,
-    class_five_students: 5,
-    total_activated_students: 28,
-    total_active_students: 25,
-    remote_instructions_users: 9,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "PADA GUATIRA PROJECT PS",
-    total_students: 18,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 2,
-    class_four_students: 6,
-    class_five_students: 4,
-    total_activated_students: 18,
-    total_active_students: 17,
-    remote_instructions_users: 5,
-    chatbot_users: 13,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "DIGHALO NODAL UPS",
-    school_name: "BIJIPUR PROJECT UPS",
-    total_students: 49,
-    class_one_students: 5,
-    class_two_students: 6,
-    class_three_students: 17,
-    class_four_students: 14,
-    class_five_students: 7,
-    total_activated_students: 46,
-    total_active_students: 41,
-    remote_instructions_users: 17,
-    chatbot_users: 32,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "JAINABAD CPS",
-    total_students: 5,
-    class_one_students: 0,
-    class_two_students: 1,
-    class_three_students: 2,
-    class_four_students: 2,
-    total_activated_students: 5,
-    total_active_students: 3,
-    remote_instructions_users: 1,
-    chatbot_users: 4,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "GARH ANDHIA PS",
-    total_students: 14,
-    class_one_students: 4,
-    class_two_students: 0,
-    class_three_students: 5,
-    class_four_students: 3,
-    class_five_students: 2,
-    total_activated_students: 9,
-    total_active_students: 5,
-    remote_instructions_users: 3,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "GOPINATHPATANA PS",
-    total_students: 33,
-    class_one_students: 0,
-    class_two_students: 6,
-    class_three_students: 8,
-    class_four_students: 10,
-    class_five_students: 9,
-    total_activated_students: 30,
-    total_active_students: 26,
-    remote_instructions_users: 10,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "NIMAPARA BAZAR PS",
-    total_students: 10,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 4,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 10,
-    total_active_students: 9,
-    remote_instructions_users: 3,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "PANCHAYAT NODAL UP SCHOOL, PATAPUR",
-    total_students: 40,
-    class_one_students: 7,
-    class_two_students: 10,
-    class_three_students: 10,
-    class_four_students: 9,
-    class_five_students: 4,
-    total_activated_students: 37,
-    total_active_students: 36,
-    remote_instructions_users: 11,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "PRACTISING UGUPS",
-    total_students: 23,
-    class_one_students: 9,
-    class_two_students: 14,
-    class_three_students: 0,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 21,
-    total_active_students: 19,
-    remote_instructions_users: 6,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "AMUNIAPATANA PROJECT PS",
-    total_students: 8,
-    class_one_students: 1,
-    class_two_students: 4,
-    class_three_students: 2,
-    class_four_students: 0,
-    class_five_students: 1,
-    total_activated_students: 8,
-    total_active_students: 8,
-    remote_instructions_users: 3,
-    chatbot_users: 5,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "BHUBANPUR PS",
-    total_students: 23,
-    class_one_students: 5,
-    class_two_students: 1,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 6,
-    total_activated_students: 21,
-    total_active_students: 18,
-    remote_instructions_users: 4,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "JANATA NODAL UP SCHOOL",
-    total_students: 43,
-    class_one_students: 4,
-    class_two_students: 5,
-    class_three_students: 9,
-    class_four_students: 15,
-    class_five_students: 10,
-    total_activated_students: 40,
-    total_active_students: 37,
-    remote_instructions_users: 9,
-    chatbot_users: 34,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "GOPINATHPATNA PS",
-    school_name: "ANDHIASAHI PS",
-    total_students: 39,
-    class_one_students: 4,
-    class_two_students: 4,
-    class_three_students: 9,
-    class_four_students: 13,
-    class_five_students: 9,
-    total_activated_students: 34,
-    total_active_students: 31,
-    remote_instructions_users: 16,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "BERABOI PROJECT UPS",
-    total_students: 23,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 5,
-    class_five_students: 7,
-    total_activated_students: 21,
-    total_active_students: 17,
-    remote_instructions_users: 6,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "BANDHAMUNDA PROJECT UPS",
-    total_students: 18,
-    class_one_students: 0,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 6,
-    class_five_students: 6,
-    total_activated_students: 11,
-    total_active_students: 10,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "DASPURUSOTTAMPUR PS",
-    total_students: 20,
-    class_one_students: 2,
-    class_two_students: 8,
-    class_three_students: 5,
-    class_four_students: 5,
-    class_five_students: 0,
-    total_activated_students: 20,
-    total_active_students: 18,
-    remote_instructions_users: 8,
-    chatbot_users: 12,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "SUNINDA PS",
-    total_students: 32,
-    class_one_students: 3,
-    class_two_students: 4,
-    class_three_students: 8,
-    class_four_students: 9,
-    class_five_students: 8,
-    total_activated_students: 28,
-    total_active_students: 25,
-    remote_instructions_users: 7,
-    chatbot_users: 25,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "BALIPADA PS",
-    total_students: 15,
-    class_one_students: 1,
-    class_two_students: 5,
-    class_three_students: 3,
-    class_four_students: 2,
-    class_five_students: 4,
-    total_activated_students: 12,
-    total_active_students: 12,
-    remote_instructions_users: 4,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "KOLHANA PS",
-    total_students: 15,
-    class_one_students: 6,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 15,
-    total_active_students: 13,
-    remote_instructions_users: 6,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "JAYADURGA NODAL UPS, CHAKRAKUDA",
-    total_students: 17,
-    class_one_students: 6,
-    class_two_students: 6,
-    class_three_students: 5,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 15,
-    total_active_students: 12,
-    remote_instructions_users: 6,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "KOTHAKUSANGA CPS",
-    total_students: 46,
-    class_one_students: 4,
-    class_two_students: 13,
-    class_three_students: 9,
-    class_four_students: 10,
-    class_five_students: 10,
-    total_activated_students: 43,
-    total_active_students: 42,
-    remote_instructions_users: 17,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "GARHCHANDPUR UGUPS",
-    total_students: 95,
-    class_one_students: 16,
-    class_two_students: 22,
-    class_three_students: 13,
-    class_four_students: 23,
-    class_five_students: 21,
-    total_activated_students: 93,
-    total_active_students: 89,
-    remote_instructions_users: 17,
-    chatbot_users: 78,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "KOTHAKUSANGA PS",
-    school_name: "BAKU PS",
-    total_students: 62,
-    class_one_students: 8,
-    class_two_students: 10,
-    class_three_students: 13,
-    class_four_students: 14,
-    class_five_students: 17,
-    total_activated_students: 58,
-    total_active_students: 52,
-    remote_instructions_users: 23,
-    chatbot_users: 39,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "PALASUDHA PROJECT PS",
-    total_students: 13,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 2,
-    class_four_students: 4,
-    class_five_students: 2,
-    total_activated_students: 13,
-    total_active_students: 11,
-    remote_instructions_users: 4,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "SATKABAD PS",
-    total_students: 10,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 2,
-    class_four_students: 4,
-    class_five_students: 0,
-    total_activated_students: 10,
-    total_active_students: 6,
-    remote_instructions_users: 3,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "SATAPURI PS",
-    total_students: 14,
-    class_one_students: 3,
-    class_two_students: 3,
-    class_three_students: 2,
-    class_four_students: 6,
-    class_five_students: 0,
-    total_activated_students: 14,
-    total_active_students: 6,
-    remote_instructions_users: 5,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "VILISASAN PS",
-    total_students: 9,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 2,
-    class_four_students: 3,
-    class_five_students: 0,
-    total_activated_students: 9,
-    total_active_students: 9,
-    remote_instructions_users: 3,
-    chatbot_users: 6,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "CHHITIKANA PS",
-    total_students: 30,
-    class_one_students: 8,
-    class_two_students: 11,
-    class_three_students: 11,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 30,
-    total_active_students: 27,
-    remote_instructions_users: 7,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "MITEIPUR PROJECT UPS",
-    total_students: 13,
-    class_one_students: 3,
-    class_two_students: 1,
-    class_three_students: 2,
-    class_four_students: 6,
-    class_five_students: 1,
-    total_activated_students: 9,
-    total_active_students: 7,
-    remote_instructions_users: 2,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "MAHALO PS",
-    total_students: 35,
-    class_one_students: 5,
-    class_two_students: 9,
-    class_three_students: 12,
-    class_four_students: 9,
-    class_five_students: 0,
-    total_activated_students: 35,
-    total_active_students: 32,
-    remote_instructions_users: 12,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "ANDHOTI PROJECT PS",
-    total_students: 24,
-    class_one_students: 4,
-    class_two_students: 5,
-    class_three_students: 4,
-    class_four_students: 5,
-    class_five_students: 6,
-    total_activated_students: 21,
-    total_active_students: 17,
-    remote_instructions_users: 8,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "MALIASAHI PS",
-    total_students: 20,
-    class_one_students: 5,
-    class_two_students: 6,
-    class_three_students: 2,
-    class_four_students: 4,
-    class_five_students: 3,
-    total_activated_students: 18,
-    total_active_students: 14,
-    remote_instructions_users: 9,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "TADHANA PS",
-    total_students: 13,
-    class_one_students: 3,
-    class_two_students: 1,
-    class_three_students: 2,
-    class_four_students: 6,
-    class_five_students: 1,
-    total_activated_students: 9,
-    total_active_students: 5,
-    remote_instructions_users: 4,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "MANIADIHA UGUPS",
-    total_students: 15,
-    class_one_students: 3,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 3,
-    class_five_students: 3,
-    total_activated_students: 11,
-    total_active_students: 6,
-    remote_instructions_users: 4,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "MITEIPUR PROJECT UPS",
-    school_name: "BANTUGRAM UPS",
-    total_students: 57,
-    class_one_students: 6,
-    class_two_students: 8,
-    class_three_students: 11,
-    class_four_students: 12,
-    class_five_students: 20,
-    total_activated_students: 53,
-    total_active_students: 51,
-    remote_instructions_users: 18,
-    chatbot_users: 39,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "TENTULIGUAN UGUPS",
-    total_students: 32,
-    class_one_students: 4,
-    class_two_students: 9,
-    class_three_students: 8,
-    class_four_students: 6,
-    class_five_students: 5,
-    total_activated_students: 27,
-    total_active_students: 24,
-    remote_instructions_users: 8,
-    chatbot_users: 24,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "BISEISAHI PROJECT PS",
-    total_students: 13,
-    class_one_students: 0,
-    class_two_students: 2,
-    class_three_students: 7,
-    class_four_students: 4,
-    class_five_students: 0,
-    total_activated_students: 13,
-    total_active_students: 13,
-    remote_instructions_users: 4,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "BALUNKA PS",
-    total_students: 6,
-    class_one_students: 0,
-    class_two_students: 1,
-    class_three_students: 3,
-    class_four_students: 2,
-    class_five_students: 0,
-    total_activated_students: 6,
-    total_active_students: 4,
-    remote_instructions_users: 2,
-    chatbot_users: 4,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "JORAKULA PROJECT UPS",
-    total_students: 34,
-    class_one_students: 4,
-    class_two_students: 6,
-    class_three_students: 8,
-    class_four_students: 7,
-    class_five_students: 9,
-    total_activated_students: 34,
-    total_active_students: 32,
-    remote_instructions_users: 9,
-    chatbot_users: 25,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "BARUNEI PS",
-    total_students: 15,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 4,
-    class_five_students: 0,
-    total_activated_students: 15,
-    total_active_students: 12,
-    remote_instructions_users: 6,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "DINAILO PS",
-    total_students: 11,
-    class_one_students: 0,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 3,
-    class_five_students: 2,
-    total_activated_students: 11,
-    total_active_students: 7,
-    remote_instructions_users: 4,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "ATEIHUDA PROJECT UPS",
-    total_students: 18,
-    class_one_students: 3,
-    class_two_students: 2,
-    class_three_students: 2,
-    class_four_students: 4,
-    class_five_students: 7,
-    total_activated_students: 16,
-    total_active_students: 14,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "GOVT. U.P. SCHOOL , ODAGUAN",
-    total_students: 23,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 4,
-    class_four_students: 7,
-    class_five_students: 6,
-    total_activated_students: 18,
-    total_active_students: 16,
-    remote_instructions_users: 6,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "ODAGUAN PROJECT PS",
-    total_students: 14,
-    class_one_students: 1,
-    class_two_students: 1,
-    class_three_students: 1,
-    class_four_students: 3,
-    class_five_students: 8,
-    total_activated_students: 12,
-    total_active_students: 10,
-    remote_instructions_users: 5,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "ODAGUAN PROJECT UPS",
-    school_name: "BAHARANA NODAL UPS",
-    total_students: 40,
-    class_one_students: 7,
-    class_two_students: 3,
-    class_three_students: 9,
-    class_four_students: 14,
-    class_five_students: 7,
-    total_activated_students: 38,
-    total_active_students: 36,
-    remote_instructions_users: 12,
-    chatbot_users: 28,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "PANCHAYAT NODAL UPS, RENGHALO",
-    total_students: 35,
-    class_one_students: 5,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 8,
-    class_five_students: 9,
-    total_activated_students: 33,
-    total_active_students: 29,
-    remote_instructions_users: 12,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "JAINABAD PS",
-    total_students: 23,
-    class_one_students: 5,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 3,
-    class_five_students: 6,
-    total_activated_students: 18,
-    total_active_students: 17,
-    remote_instructions_users: 6,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "KERENDIABINDHA PS",
-    total_students: 13,
-    class_one_students: 3,
-    class_two_students: 3,
-    class_three_students: 3,
-    class_four_students: 2,
-    class_five_students: 2,
-    total_activated_students: 12,
-    total_active_students: 10,
-    remote_instructions_users: 5,
-    chatbot_users: 8,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "RENGHALO HINDU PS",
-    total_students: 18,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 3,
-    class_four_students: 5,
-    class_five_students: 4,
-    total_activated_students: 16,
-    total_active_students: 13,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "OLIKANA UGUPS",
-    total_students: 23,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 4,
-    class_four_students: 6,
-    class_five_students: 7,
-    total_activated_students: 21,
-    total_active_students: 20,
-    remote_instructions_users: 4,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "SAGADA PS",
-    total_students: 25,
-    class_one_students: 4,
-    class_two_students: 7,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 3,
-    total_activated_students: 21,
-    total_active_students: 21,
-    remote_instructions_users: 6,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "BADAMACHHAPUR PROJECT UPS",
-    total_students: 55,
-    class_one_students: 4,
-    class_two_students: 9,
-    class_three_students: 14,
-    class_four_students: 17,
-    class_five_students: 11,
-    total_activated_students: 53,
-    total_active_students: 42,
-    remote_instructions_users: 17,
-    chatbot_users: 38,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "EKAMKANA PS",
-    total_students: 18,
-    class_one_students: 4,
-    class_two_students: 3,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 0,
-    total_activated_students: 17,
-    total_active_students: 16,
-    remote_instructions_users: 4,
-    chatbot_users: 14,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "SAGADADEULI PS",
-    total_students: 46,
-    class_one_students: 4,
-    class_two_students: 3,
-    class_three_students: 10,
-    class_four_students: 19,
-    class_five_students: 10,
-    total_activated_students: 44,
-    total_active_students: 39,
-    remote_instructions_users: 8,
-    chatbot_users: 38,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "OILIKANA UG UPS",
-    school_name: "KANAPUR NODAL UPS",
-    total_students: 55,
-    class_one_students: 5,
-    class_two_students: 13,
-    class_three_students: 8,
-    class_four_students: 15,
-    class_five_students: 14,
-    total_activated_students: 51,
-    total_active_students: 48,
-    remote_instructions_users: 17,
-    chatbot_users: 38,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "PABITRA HIGH SCHOOL",
-    total_students: 27,
-    class_one_students: 7,
-    class_two_students: 2,
-    class_three_students: 5,
-    class_four_students: 6,
-    class_five_students: 7,
-    total_activated_students: 22,
-    total_active_students: 14,
-    remote_instructions_users: 9,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "KUMARPADA NODAL UPS",
-    total_students: 23,
-    class_one_students: 0,
-    class_two_students: 8,
-    class_three_students: 4,
-    class_four_students: 7,
-    class_five_students: 4,
-    total_activated_students: 21,
-    total_active_students: 21,
-    remote_instructions_users: 9,
-    chatbot_users: 14,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "JUANLA BADHEISAHI PROJECT PS",
-    total_students: 36,
-    class_one_students: 10,
-    class_two_students: 4,
-    class_three_students: 9,
-    class_four_students: 9,
-    class_five_students: 4,
-    total_activated_students: 24,
-    total_active_students: 23,
-    remote_instructions_users: 13,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "ALANDA HARIZAN PS",
-    total_students: 28,
-    class_one_students: 2,
-    class_two_students: 7,
-    class_three_students: 2,
-    class_four_students: 10,
-    class_five_students: 7,
-    total_activated_students: 21,
-    total_active_students: 18,
-    remote_instructions_users: 7,
-    chatbot_users: 21,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "BHAGABAN SUNDARA UGUPS",
-    total_students: 47,
-    class_one_students: 6,
-    class_two_students: 12,
-    class_three_students: 8,
-    class_four_students: 9,
-    class_five_students: 12,
-    total_activated_students: 34,
-    total_active_students: 31,
-    remote_instructions_users: 16,
-    chatbot_users: 31,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "KAJIPATANA PROJECT PS",
-    total_students: 18,
-    class_one_students: 3,
-    class_two_students: 2,
-    class_three_students: 4,
-    class_four_students: 0,
-    class_five_students: 9,
-    total_activated_students: 16,
-    total_active_students: 12,
-    remote_instructions_users: 5,
-    chatbot_users: 13,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "GARHSAHI PS",
-    total_students: 21,
-    class_one_students: 4,
-    class_two_students: 2,
-    class_three_students: 6,
-    class_four_students: 4,
-    class_five_students: 5,
-    total_activated_students: 21,
-    total_active_students: 18,
-    remote_instructions_users: 4,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "NIJOGAKASHOTI PS",
-    total_students: 14,
-    class_one_students: 2,
-    class_two_students: 5,
-    class_three_students: 2,
-    class_four_students: 1,
-    class_five_students: 4,
-    total_activated_students: 14,
-    total_active_students: 12,
-    remote_instructions_users: 5,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "KUSIKONA CPS",
-    total_students: 25,
-    class_one_students: 3,
-    class_two_students: 2,
-    class_three_students: 5,
-    class_four_students: 8,
-    class_five_students: 7,
-    total_activated_students: 19,
-    total_active_students: 16,
-    remote_instructions_users: 8,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PABITRA GOVT. HIGH SCHOOL , MANIJANG",
-    school_name: "GARHTORIHAN PUPS",
-    total_students: 30,
-    class_one_students: 0,
-    class_two_students: 6,
-    class_three_students: 11,
-    class_four_students: 6,
-    class_five_students: 7,
-    total_activated_students: 29,
-    total_active_students: 25,
-    remote_instructions_users: 11,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PANCHAYAT UPS, UCHHUPUR",
-    school_name: "BINAPANI MILITA BIDYAPITHA, PARBATIPUR",
-    total_students: 47,
-    class_one_students: 4,
-    class_two_students: 9,
-    class_three_students: 12,
-    class_four_students: 10,
-    class_five_students: 12,
-    total_activated_students: 47,
-    total_active_students: 42,
-    remote_instructions_users: 12,
-    chatbot_users: 35,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PANCHAYAT UPS, UCHHUPUR",
-    school_name: "KHARIKUDA MADHYASAHI PROJECT PS",
-    total_students: 13,
-    class_one_students: 3,
-    class_two_students: 7,
-    class_three_students: 3,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 13,
-    total_active_students: 13,
-    remote_instructions_users: 4,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PANCHAYAT UPS, UCHHUPUR",
-    school_name: "NUASANTHA PS",
-    total_students: 49,
-    class_one_students: 5,
-    class_two_students: 7,
-    class_three_students: 6,
-    class_four_students: 13,
-    class_five_students: 18,
-    total_activated_students: 45,
-    total_active_students: 45,
-    remote_instructions_users: 16,
-    chatbot_users: 33,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PANCHAYAT UPS, UCHHUPUR",
-    school_name: "SANDHAGORADA PS",
-    total_students: 18,
-    class_one_students: 1,
-    class_two_students: 2,
-    class_three_students: 3,
-    class_four_students: 3,
-    class_five_students: 9,
-    total_activated_students: 10,
-    total_active_students: 8,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PANCHAYAT UPS, UCHHUPUR",
-    school_name: "SAHADAPADA PS",
-    total_students: 25,
-    class_one_students: 5,
-    class_two_students: 8,
-    class_three_students: 12,
-    class_four_students: 0,
-    class_five_students: 0,
-    total_activated_students: 20,
-    total_active_students: 17,
-    remote_instructions_users: 9,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PANCHAYAT UPS, UCHHUPUR",
-    school_name: "UCHHUPUR PS",
-    total_students: 29,
-    class_one_students: 3,
-    class_two_students: 5,
-    class_three_students: 1,
-    class_four_students: 5,
-    class_five_students: 15,
-    total_activated_students: 24,
-    total_active_students: 22,
-    remote_instructions_users: 10,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PANCHAYAT UPS, UCHHUPUR",
-    school_name: "BRAHMANACHANDAPUR PROJECT PS",
-    total_students: 16,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 2,
-    class_four_students: 4,
-    class_five_students: 5,
-    total_activated_students: 11,
-    total_active_students: 9,
-    remote_instructions_users: 5,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PANCHAYAT UPS, UCHHUPUR",
-    school_name: "BRAHMANAKHANDI PS",
-    total_students: 15,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 3,
-    class_four_students: 6,
-    class_five_students: 1,
-    total_activated_students: 11,
-    total_active_students: 10,
-    remote_instructions_users: 4,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "PANCHAYAT UPS, UCHHUPUR",
-    school_name: "SERAGARH BASTI PROJECT PS",
-    total_students: 29,
-    class_one_students: 3,
-    class_two_students: 5,
-    class_three_students: 6,
-    class_four_students: 9,
-    class_five_students: 6,
-    total_activated_students: 29,
-    total_active_students: 20,
-    remote_instructions_users: 9,
-    chatbot_users: 20,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "SUNUGORADI NODAL UPS",
-    total_students: 17,
-    class_one_students: 2,
-    class_two_students: 6,
-    class_three_students: 3,
-    class_four_students: 2,
-    class_five_students: 4,
-    total_activated_students: 12,
-    total_active_students: 11,
-    remote_instructions_users: 6,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "RENCH SASAN CPS",
-    total_students: 35,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 4,
-    class_four_students: 11,
-    class_five_students: 14,
-    total_activated_students: 33,
-    total_active_students: 26,
-    remote_instructions_users: 8,
-    chatbot_users: 27,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "RAIDBAZAR PS",
-    total_students: 22,
-    class_one_students: 2,
-    class_two_students: 4,
-    class_three_students: 3,
-    class_four_students: 5,
-    class_five_students: 8,
-    total_activated_students: 16,
-    total_active_students: 13,
-    remote_instructions_users: 6,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "LOKEIGORADA PS",
-    total_students: 17,
-    class_one_students: 1,
-    class_two_students: 2,
-    class_three_students: 6,
-    class_four_students: 4,
-    class_five_students: 4,
-    total_activated_students: 14,
-    total_active_students: 12,
-    remote_instructions_users: 6,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "DEKHATA PS",
-    total_students: 25,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 4,
-    class_four_students: 9,
-    class_five_students: 7,
-    total_activated_students: 21,
-    total_active_students: 18,
-    remote_instructions_users: 6,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "KHAJAPUR PROJECT PS",
-    total_students: 23,
-    class_one_students: 6,
-    class_two_students: 5,
-    class_three_students: 3,
-    class_four_students: 6,
-    class_five_students: 3,
-    total_activated_students: 19,
-    total_active_students: 15,
-    remote_instructions_users: 5,
-    chatbot_users: 18,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "MATHASAHI PS",
-    total_students: 29,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 11,
-    class_four_students: 6,
-    class_five_students: 7,
-    total_activated_students: 24,
-    total_active_students: 22,
-    remote_instructions_users: 12,
-    chatbot_users: 17,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "KAJIPUR PROJECT PS",
-    total_students: 34,
-    class_one_students: 4,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 8,
-    class_five_students: 9,
-    total_activated_students: 31,
-    total_active_students: 28,
-    remote_instructions_users: 11,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "BAULPADA PS",
-    total_students: 39,
-    class_one_students: 6,
-    class_two_students: 9,
-    class_three_students: 7,
-    class_four_students: 9,
-    class_five_students: 8,
-    total_activated_students: 35,
-    total_active_students: 29,
-    remote_instructions_users: 10,
-    chatbot_users: 29,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "RENCH SASAN PS",
-    school_name: "HARISPUR PS",
-    total_students: 35,
-    class_one_students: 7,
-    class_two_students: 4,
-    class_three_students: 6,
-    class_four_students: 9,
-    class_five_students: 9,
-    total_activated_students: 32,
-    total_active_students: 29,
-    remote_instructions_users: 8,
-    chatbot_users: 27,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "ANSALO CPS",
-    total_students: 15,
-    class_one_students: 4,
-    class_two_students: 1,
-    class_three_students: 4,
-    class_four_students: 6,
-    class_five_students: 0,
-    total_activated_students: 15,
-    total_active_students: 13,
-    remote_instructions_users: 4,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "GARHJHINKIRA JUNUPUR PS",
-    total_students: 28,
-    class_one_students: 4,
-    class_two_students: 4,
-    class_three_students: 6,
-    class_four_students: 6,
-    class_five_students: 8,
-    total_activated_students: 26,
-    total_active_students: 24,
-    remote_instructions_users: 9,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "NARAYANI PS",
-    total_students: 10,
-    class_one_students: 2,
-    class_two_students: 1,
-    class_three_students: 2,
-    class_four_students: 3,
-    class_five_students: 2,
-    total_activated_students: 10,
-    total_active_students: 8,
-    remote_instructions_users: 3,
-    chatbot_users: 7,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "OLANSHA PS",
-    total_students: 19,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 5,
-    class_four_students: 5,
-    class_five_students: 4,
-    total_activated_students: 19,
-    total_active_students: 17,
-    remote_instructions_users: 8,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "KAHNAPUR PS",
-    total_students: 23,
-    class_one_students: 7,
-    class_two_students: 4,
-    class_three_students: 1,
-    class_four_students: 2,
-    class_five_students: 9,
-    total_activated_students: 21,
-    total_active_students: 19,
-    remote_instructions_users: 7,
-    chatbot_users: 16,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "GADIBRAHMA PS",
-    total_students: 20,
-    class_one_students: 2,
-    class_two_students: 3,
-    class_three_students: 6,
-    class_four_students: 3,
-    class_five_students: 6,
-    total_activated_students: 18,
-    total_active_students: 16,
-    remote_instructions_users: 9,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "KANTIA PS",
-    total_students: 19,
-    class_one_students: 8,
-    class_two_students: 5,
-    class_three_students: 3,
-    class_four_students: 3,
-    class_five_students: 0,
-    total_activated_students: 19,
-    total_active_students: 17,
-    remote_instructions_users: 8,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "GOVT SAILO NODAL UP SCHOOL",
-    total_students: 29,
-    class_one_students: 1,
-    class_two_students: 6,
-    class_three_students: 8,
-    class_four_students: 9,
-    class_five_students: 5,
-    total_activated_students: 26,
-    total_active_students: 22,
-    remote_instructions_users: 10,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "BHOGASALADA PROJECT UPS",
-    total_students: 34,
-    class_one_students: 5,
-    class_two_students: 6,
-    class_three_students: 7,
-    class_four_students: 9,
-    class_five_students: 7,
-    total_activated_students: 31,
-    total_active_students: 31,
-    remote_instructions_users: 6,
-    chatbot_users: 28,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "SAILO NODAL UPS",
-    school_name: "JAJALPUR PROJECT PS",
-    total_students: 25,
-    class_one_students: 0,
-    class_two_students: 3,
-    class_three_students: 6,
-    class_four_students: 7,
-    class_five_students: 9,
-    total_activated_students: 23,
-    total_active_students: 18,
-    remote_instructions_users: 6,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "AMARESWAR GOVT. HIGH SCHOOL",
-    total_students: 18,
-    class_one_students: 1,
-    class_two_students: 2,
-    class_three_students: 7,
-    class_four_students: 3,
-    class_five_students: 5,
-    total_activated_students: 18,
-    total_active_students: 15,
-    remote_instructions_users: 7,
-    chatbot_users: 11,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "KUSUMATHENGA PS",
-    total_students: 37,
-    class_one_students: 4,
-    class_two_students: 7,
-    class_three_students: 8,
-    class_four_students: 9,
-    class_five_students: 9,
-    total_activated_students: 31,
-    total_active_students: 27,
-    remote_instructions_users: 14,
-    chatbot_users: 23,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "NUAGAON PROJECT PS",
-    total_students: 8,
-    class_one_students: 2,
-    class_two_students: 1,
-    class_three_students: 1,
-    class_four_students: 2,
-    class_five_students: 2,
-    total_activated_students: 6,
-    total_active_students: 5,
-    remote_instructions_users: 2,
-    chatbot_users: 6,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "ORAPAT PS",
-    total_students: 28,
-    class_one_students: 4,
-    class_two_students: 6,
-    class_three_students: 9,
-    class_four_students: 7,
-    class_five_students: 2,
-    total_activated_students: 19,
-    total_active_students: 17,
-    remote_instructions_users: 9,
-    chatbot_users: 19,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "TULASIPUR CPS",
-    total_students: 15,
-    class_one_students: 3,
-    class_two_students: 3,
-    class_three_students: 3,
-    class_four_students: 1,
-    class_five_students: 5,
-    total_activated_students: 10,
-    total_active_students: 8,
-    remote_instructions_users: 5,
-    chatbot_users: 10,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "HIRAPATANA PS",
-    total_students: 15,
-    class_one_students: 2,
-    class_two_students: 1,
-    class_three_students: 1,
-    class_four_students: 6,
-    class_five_students: 5,
-    total_activated_students: 15,
-    total_active_students: 13,
-    remote_instructions_users: 6,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "GARHAMARPRASAD PS",
-    total_students: 13,
-    class_one_students: 0,
-    class_two_students: 4,
-    class_three_students: 5,
-    class_four_students: 3,
-    class_five_students: 1,
-    total_activated_students: 13,
-    total_active_students: 10,
-    remote_instructions_users: 4,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "CHAHATA PROJECT PS",
-    total_students: 15,
-    class_one_students: 3,
-    class_two_students: 4,
-    class_three_students: 0,
-    class_four_students: 2,
-    class_five_students: 6,
-    total_activated_students: 15,
-    total_active_students: 12,
-    remote_instructions_users: 6,
-    chatbot_users: 9,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "BASUDEV PS",
-    total_students: 33,
-    class_one_students: 5,
-    class_two_students: 6,
-    class_three_students: 10,
-    class_four_students: 6,
-    class_five_students: 6,
-    total_activated_students: 31,
-    total_active_students: 29,
-    remote_instructions_users: 6,
-    chatbot_users: 27,
-  },
-  {
-    district: "PURI",
-    block: "NIMAPADA",
-    cluster: "TULASIPUR PS",
-    school_name: "CHHABATIA PROJECT PS",
-    total_students: 30,
-    class_one_students: 5,
-    class_two_students: 6,
-    class_three_students: 6,
-    class_four_students: 5,
-    class_five_students: 8,
-    total_activated_students: 27,
-    total_active_students: 22,
-    remote_instructions_users: 8,
-    chatbot_users: 22,
-  },
-];

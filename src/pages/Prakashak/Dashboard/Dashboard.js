@@ -48,6 +48,7 @@ const Dashboard = () => {
     { value: 2, label: "2" },
     { value: 3, label: "3" },
     { value: 4, label: "4" },
+    { value: 5, label: "5" },
   ];
 
   const currentYear = new Date().getFullYear();
@@ -368,20 +369,11 @@ const Dashboard = () => {
         response = await PrakashakAPI.post("getAllSchools", body);
         if (response.status === 200) {
           transformedData = response.data.map((school) => ({
-            district: school.district,
-            block: school.block,
-            cluster: school.cluster,
             school_name: school.school_name,
             udise_code: school.udise_code,
           }));
           setModalLoader(false);
-          setTableHeaders([
-            "District",
-            "Block",
-            "Cluster Name",
-            "School Name",
-            "UDISE Code",
-          ]);
+          setTableHeaders(["School Name", "UDISE Code"]);
         }
       } else if (type === "students" || type === "girls" || type === "boys") {
         response = await PrakashakAPI.post("getAllStudentsReport", body);
@@ -697,7 +689,7 @@ const Dashboard = () => {
             paddingBottom: "4%",
             marginLeft: "4%",
             alignContent: "flex-start",
-            // height: "95vh",
+            height: "95vh",
           }}
         >
           <div
@@ -708,17 +700,22 @@ const Dashboard = () => {
               height: "99%",
             }}
           >
-            <h2
+            <h1
               style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                marginRight: "2%",
-                color: "red",
-                fontFamily: "Congenial SemiBold",
+                marginTop: "-2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
               }}
             >
-              <u> Data Updated as on - 31/08/2024</u>
-            </h2>
+              Details Till Now: 1st Week
+            </h1>
             <div
               style={{
                 display: "flex",
@@ -861,7 +858,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                {/* <div
+                <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -878,7 +875,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div> */}
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -889,7 +886,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Clusters</p>
+                  <p>Total number of clusters</p>
                 </div>
                 <div
                   style={{
@@ -900,8 +897,7 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  {/* <h1>{dashboardData.total_clusters}</h1> */}
-                  <h1>36</h1>
+                  <h1>{dashboardData.total_clusters}</h1>
                 </div>
               </div>
               <div
@@ -919,7 +915,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                {/* <div
+                <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -936,7 +932,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div> */}
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -947,7 +943,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Schools</p>
+                  <p>Total number of schools</p>
                 </div>
                 <div
                   style={{
@@ -958,8 +954,7 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  {/* <h1>{dashboardData.total_schools}</h1> */}
-                  <h1>358</h1>
+                  <h1>{dashboardData.total_schools}</h1>
                 </div>
               </div>
               <div
@@ -977,7 +972,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                {/* <div
+                <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -994,7 +989,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div> */}
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -1005,7 +1000,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Registered Students</p>
+                  <p>Total number of students</p>
                 </div>
                 <div
                   style={{
@@ -1016,8 +1011,7 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  {/* <h1>{dashboardData.total_students}</h1> */}
-                  <h1>12855</h1>
+                  <h1>{dashboardData.total_students}</h1>
                 </div>
               </div>
               <div
@@ -1035,7 +1029,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                {/* <div
+                <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1052,7 +1046,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div> */}
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -1063,7 +1057,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Registered Girls</p>
+                  <p>Total number of girls</p>
                 </div>
                 <div
                   style={{
@@ -1074,8 +1068,7 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  {/* <h1>{dashboardData.total_girl_students}</h1> */}
-                  <h1>6418</h1>
+                  <h1>{dashboardData.total_girl_students}</h1>
                 </div>
               </div>
               <div
@@ -1093,7 +1086,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                {/* <div
+                <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1110,7 +1103,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div> */}
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -1121,7 +1114,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Registered Boys</p>
+                  <p>Total number of boys</p>
                 </div>
                 <div
                   style={{
@@ -1132,12 +1125,11 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  {/* <h1>{dashboardData.total_boy_students}</h1> */}
-                  <h1>6437</h1>
+                  <h1>{dashboardData.total_boy_students}</h1>
                 </div>
               </div>
               <div
-                // onClick={() => handleOpen("clusters")}
+                onClick={() => handleOpen("clusters")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1151,7 +1143,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                {/* <div
+                <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1168,7 +1160,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div> */}
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -1179,7 +1171,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Activated Students</p>
+                  <p>Total number of activated student</p>
                 </div>
                 <div
                   style={{
@@ -1190,12 +1182,11 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  {/* <h1>{dashboardData.total_activated_students}</h1> */}
-                  <h1>11631</h1>
+                  <h1>{dashboardData.total_clusters}</h1>
                 </div>
               </div>
               <div
-                // onClick={() => handleOpen("clusters")}
+                onClick={() => handleOpen("clusters")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1209,7 +1200,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                {/* <div
+                <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1226,7 +1217,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div> */}
+                </div>
                 <div
                   style={{
                     height: "50%",
@@ -1237,7 +1228,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total Active Students</p>
+                  <p>Total number of active student</p>
                 </div>
                 <div
                   style={{
@@ -1248,8 +1239,7 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  {/* <h1>{dashboardData.total_active_students}</h1> */}
-                  <h1>9977</h1>
+                  <h1>{dashboardData.total_clusters}</h1>
                 </div>
               </div>
 
@@ -2581,7 +2571,7 @@ const Dashboard = () => {
               </div>
             </div>
            </div>  */}
-          {/* <DynamicModal   //? Commented for now since don't have to show
+          <DynamicModal
             open={open}
             handleClose={handleClose}
             modalTitle={modalTitle}
@@ -2592,7 +2582,7 @@ const Dashboard = () => {
             xlData={xlData}
             fileName={fileName}
             loading={modalLoader}
-          /> */}
+          />
         </div>
       ) : dashboardData &&
         Object.keys(dashboardData).length === 0 &&

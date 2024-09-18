@@ -803,7 +803,7 @@ const RemoteInstruction = () => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 // onClick={() =>
                 //   handleOpen({
                 //     contentTitle: "Total no. of SMS scheduled for Maths",
@@ -845,9 +845,9 @@ const RemoteInstruction = () => {
                 >
                   <h1>{remoteInstData.total_sms_scheduled_maths}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
                 // onClick={() =>
                 //   handleOpen({
                 //     contentTitle: "Total no. of SMS scheduled for Odia",
@@ -887,7 +887,7 @@ const RemoteInstruction = () => {
                 >
                   <h1>{remoteInstData.total_sms_scheduled_odia}</h1>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -1182,7 +1182,7 @@ const RemoteInstruction = () => {
                   <h1>{remoteInstData.total_ivrs_calls_made}</h1>
                 </div>
               </div>
-
+              {/* 
               <div
                 onClick={() =>
                   remoteInstData.total_unique_ivrs_calls_received > 0 &&
@@ -1225,7 +1225,7 @@ const RemoteInstruction = () => {
                 >
                   <h1>{remoteInstData.total_unique_ivrs_calls_received}</h1>
                 </div>
-              </div>
+              </div> */}
 
               <div
                 style={{
@@ -1263,7 +1263,7 @@ const RemoteInstruction = () => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 onClick={() =>
                   remoteInstData.total_ivrs_calls_maths > 0 &&
                   handleOpen({
@@ -1305,9 +1305,9 @@ const RemoteInstruction = () => {
                 >
                   <h1>{remoteInstData.total_ivrs_calls_maths}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
                 onClick={() =>
                   remoteInstData.total_ivrs_calls_odia > 0 &&
                   handleOpen({
@@ -1348,9 +1348,9 @@ const RemoteInstruction = () => {
                 >
                   <h1>{remoteInstData.total_ivrs_calls_odia}</h1>
                 </div>
-              </div>
+              </div> */}
 
-              <div
+              {/* <div
                 onClick={() =>
                   remoteInstData.total_ivrs_calls_diverted_expert > 0 &&
                   handleOpen({
@@ -1391,7 +1391,7 @@ const RemoteInstruction = () => {
                 >
                   <h1>{remoteInstData.total_ivrs_calls_diverted_expert}</h1>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div

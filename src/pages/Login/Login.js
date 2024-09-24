@@ -26,6 +26,7 @@ const Login = () => {
         if (approvalStatus === "approved") {
           localStorage.setItem("login", true);
           localStorage.setItem("usertype", usertype);
+          //Also have to store the district and the districtId in the localStorage
           Swal.fire({
             icon: "success",
             title: "Login Successful",

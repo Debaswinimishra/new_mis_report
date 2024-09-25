@@ -61,6 +61,8 @@ const Schoolwise = () => {
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
+  const districtname = localStorage.getItem("districtname");
+  console.log("districtname-------------->", districtname);
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const handleYearChange = (e) => {
@@ -120,9 +122,16 @@ const Schoolwise = () => {
           response?.data?.length > 0 &&
           response?.data
         ) {
+          console.log("response?.data---------->", response?.data);
           const districts =
             response?.data.length > 0 &&
-            response?.data?.map((item) => item?.district);
+            response?.data
+              .filter(
+                (item) =>
+                  item?.district.toLowerCase() === districtname.toLowerCase()
+              )
+              .map((item) => item?.district);
+
           setDistrictArr(districts);
         } else {
           setDistrictArr([]);
@@ -142,6 +151,7 @@ const Schoolwise = () => {
   // const handleYearChange = (e) => {
   //   setYear(e.target.value);
   // };
+  console.log("district array---------->", districtArr);
 
   const handleDistrictChange = (e) => {
     setDistricts(e.target.value);

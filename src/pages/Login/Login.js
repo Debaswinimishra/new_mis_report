@@ -17,7 +17,10 @@ const Login = () => {
     try {
       const response = await getAuthenticateUser(userId, password);
       console.log("response--->", response?.data, response?.status);
-      const { usertype, approvalStatus } = response?.data;
+      const { usertype, approvalStatus, districtname, districtid } =
+        response?.data;
+
+      console.log("usertype----------->", usertype);
 
       console.log("response--------->", response.status);
 
@@ -26,7 +29,8 @@ const Login = () => {
         if (approvalStatus === "approved") {
           localStorage.setItem("login", true);
           localStorage.setItem("usertype", usertype);
-          //Also have to store the district and the districtId in the localStorage
+          localStorage.setItem("districtname", districtname);
+          localStorage.setItem("districtid", districtid);
           Swal.fire({
             icon: "success",
             title: "Login Successful",

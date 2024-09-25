@@ -34,7 +34,7 @@ const Schoolwise_performance = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
-  const [districts, setDistricts] = useState("PURI");
+  const [districts, setDistricts] = useState("");
   const [data, setData] = useState([]);
 
   console.log("data--->", data);
@@ -67,6 +67,7 @@ const Schoolwise_performance = () => {
 
   console.log("tableData", tableData);
   console.log("districtArr", districtArr);
+  const districtname = localStorage.getItem("districtname");
 
   //?---------------Month array---------------------------
   const monthArr = [
@@ -116,8 +117,12 @@ const Schoolwise_performance = () => {
           console.log("set=================>", response?.data);
           const districts =
             response?.data.length > 0 &&
-            response?.data?.map((item) => item?.district);
-          setDistrictArr(districts);
+            response?.data
+              .filter(
+                (item) =>
+                  item?.district.toLowerCase() === districtname.toLowerCase()
+              )
+              .map((item) => item?.district);
         } else {
           setDistrictArr([]);
         }
@@ -528,11 +533,11 @@ const Schoolwise_performance = () => {
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
-            {/* {districtArr?.map((district, index) => (
+            {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
               </MenuItem>
-            ))} */}
+            ))}
             <MenuItem value="PURI">PURI</MenuItem>
           </Select>
         </FormControl>

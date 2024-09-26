@@ -40,8 +40,10 @@ const Login = () => {
 
           if (usertype === "admin" || usertype === "mis") {
             navigate("/home");
-          } else if (usertype === "prakashak") {
+          } else if (usertype === "prakashak" && !districtname) {
             navigate("/prakashak/dashboard"); // Here I have modified the path for the prakashak to directly move to dashboard
+          } else if (usertype === "prakashak" && districtname) {
+            navigate("/prakashak/overall_details"); // Here I have modified the path for the prakashak to directly move to dashboard
           } else {
             navigate("/");
           }

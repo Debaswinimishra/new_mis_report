@@ -12,6 +12,8 @@ import Route404 from "./Route404";
 import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 import Retention from "../Pages/Prakashak/Retention/Retention";
+import OverallDetails from "../Pages/Prakashak/Overall Details/OverallDetails";
+import MonthlyPerformance from "../Pages/Prakashak/Monthly Performance/MonthlyPerformance";
 
 const RoutePrakashak = () => {
   const location = useLocation();
@@ -32,6 +34,8 @@ const RoutePrakashak = () => {
           path="school_wise_performance"
           element={<Schoolwise_performance />}
         />
+        <Route path="overall_details" element={<OverallDetails />} />
+        <Route path="monthly_performance" element={<MonthlyPerformance />} />
         <Route path="retention_metrics" element={<Retention />} />
 
         {/* <Route path="class_wise" element={<Classwise />} /> */}

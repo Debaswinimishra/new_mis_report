@@ -18,6 +18,8 @@ import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 import Retention from "../../Pages/Prakashak/Retention/Retention";
+import OverallDetails from "../../Pages/Prakashak/Overall Details/OverallDetails";
+import MonthlyPerformance from "../../Pages/Prakashak/Monthly Performance/MonthlyPerformance";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -86,17 +88,23 @@ function NavigationPrakashak(props) {
       link: "prakashak/remote_instructions",
       id: 2,
     },
-    { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 3 },
-    { text: "School-wise", link: "prakashak/school_wise", id: 4 },
+    { text: "Overall Details", link: "prakashak/overall_details", id: 3 },
+    {
+      text: "Monthly Performance",
+      link: "prakashak/monthly_performance",
+      id: 4,
+    },
+    { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 5 },
+    { text: "School-wise", link: "prakashak/school_wise", id: 6 },
     {
       text: "School-wise Performance",
       link: "prakashak/school_wise_performance",
-      id: 5,
+      id: 7,
     },
     {
       text: "Retention Metrics",
       link: "prakashak/retention_metrics",
-      id: 6,
+      id: 8,
     },
     // { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
   ];
@@ -260,6 +268,10 @@ function NavigationPrakashak(props) {
           <RemoteInstruction />
         ) : activeLink === "/prakashak/whatsapp_chatbot" ? (
           <WhatsappChatbot />
+        ) : activeLink === "/prakashak/overall_details" ? (
+          <OverallDetails />
+        ) : activeLink === "/prakashak/monthly_performance" ? (
+          <MonthlyPerformance />
         ) : activeLink === "/prakashak/school_wise" ? (
           <Schoolwise />
         ) : activeLink === "/prakashak/school_wise_performance" ? (

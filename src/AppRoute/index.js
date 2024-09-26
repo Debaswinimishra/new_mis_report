@@ -41,6 +41,8 @@ import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonth
 import Schoolwise_performance from "../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 import AmazonVouchersRedeemed from "../Pages/Fellow/AmazonVouchersRedeemed/AmazonVouchersRedeemed";
 import Retention from "../Pages/Prakashak/Retention/Retention";
+import OverallDetails from "../Pages/Prakashak/Overall Details/OverallDetails";
+import MonthlyPerformance from "../Pages/Prakashak/Monthly Performance/MonthlyPerformance";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -126,6 +128,11 @@ function RouteRoot() {
               />
               <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
               <Route path="school_wise" element={<Schoolwise />} />
+              <Route path="overall_details" element={<OverallDetails />} />
+              <Route
+                path="monthly_performance"
+                element={<MonthlyPerformance />}
+              />
               <Route
                 path="school_wise_performance"
                 element={<Schoolwise_performance />}
@@ -222,6 +229,11 @@ function RouteRoot() {
               />
               <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
               <Route path="school_wise" element={<Schoolwise />} />
+              <Route path="overall_details" element={<OverallDetails />} />
+              <Route
+                path="monthly_performance"
+                element={<MonthlyPerformance />}
+              />
               <Route
                 path="school_wise_performance"
                 element={<Schoolwise_performance />}

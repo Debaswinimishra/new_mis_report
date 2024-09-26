@@ -75,6 +75,24 @@ function Home() {
       path: "/anganwadi/dashboard",
     },
     {
+      type: "passcode",
+      name: "Educators",
+      icon: <PeopleIcon fontSize="large" />,
+      path: "/fellow/dashboard",
+    },
+    {
+      type: "passcode",
+      name: "School",
+      icon: <SchoolIcon fontSize="large" />,
+      path: "/school/dashboard",
+    },
+    {
+      type: "passcode",
+      name: "Anganwadi",
+      icon: <GiteIcon fontSize="large" />,
+      path: "/anganwadi/dashboard",
+    },
+    {
       type: "prakashak",
       name: "Prakashak",
       icon: <AccountBalanceIcon fontSize="large" />,

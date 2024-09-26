@@ -33,6 +33,7 @@ const Login = () => {
           if (
             usertype === "admin" ||
             usertype === "mis" ||
+            usertype === "passcode" ||
             usertype === "prakashak"
           ) {
             navigate("/home");

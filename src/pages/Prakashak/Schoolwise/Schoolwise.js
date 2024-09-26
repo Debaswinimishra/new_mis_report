@@ -28,12 +28,13 @@ import defaultImage from "../../../Assets/default.jpg";
 import Chart from "chart.js/auto";
 import DynamicModal from "../../../Components/DynamicModal";
 import SelectYear from "../../../ReusableComponents/SelectYear";
+import { EightK } from "@mui/icons-material";
 
 const Schoolwise = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
-  const [districts, setDistricts] = useState("PURI");
+  const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
@@ -57,15 +58,26 @@ const Schoolwise = () => {
     "block",
     "cluster",
   ]);
-  console.log("tableData", tableData);
-  console.log("districtArr", districtArr);
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
+  const districtname = localStorage?.getItem("districtname");
+  console.log("districtname-------------->", districtname);
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
+    setSelectedMonth("");
+  };
+
+  const currentMonth = new Date().getMonth();
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const handleMonthChange = (e) => {
+    if (selectedYear === currentYear && e.target.value > currentMonth + 1) {
+      alert("You can't choose a month greater than the current month !");
+    } else {
+      setSelectedMonth(e.target.value);
+    }
   };
 
   // const tableHeaders =
@@ -110,10 +122,16 @@ const Schoolwise = () => {
           response?.data?.length > 0 &&
           response?.data
         ) {
-          console.log("set=================>", response?.data);
+          console.log("response?.data---------->", response?.data);
           const districts =
             response?.data.length > 0 &&
-            response?.data?.map((item) => item?.district);
+            response?.data
+              .filter(
+                (item) =>
+                  item?.district.toLowerCase() === districtname.toLowerCase()
+              )
+              .map((item) => item?.district);
+
           setDistrictArr(districts);
         } else {
           setDistrictArr([]);
@@ -133,6 +151,7 @@ const Schoolwise = () => {
   // const handleYearChange = (e) => {
   //   setYear(e.target.value);
   // };
+  console.log("district array---------->", districtArr);
 
   const handleDistrictChange = (e) => {
     setDistricts(e.target.value);
@@ -146,22 +165,20 @@ const Schoolwise = () => {
     const fetchData = async () => {
       try {
         const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
-        console.log("set=================>", response.data);
         if (response?.data && response?.data?.length > 0) {
-          // Extracting the blocks from the response data
           const blocks =
             response?.data.length > 0 &&
             response?.data?.map((item) => item?.block);
           console.log("Blocks:", blocks);
-          setBlockArr(blocks); // Setting the block array with the array of block names
+          setBlockArr(blocks);
         } else {
           console.log("No blocks found for the given district.");
-          setBlockArr([]); // Setting an empty array if no data is found
+          setBlockArr([]);
         }
-        // setLoading(false);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        // setLoading(false);
+        setLoading(false);
       }
     };
 
@@ -182,19 +199,18 @@ const Schoolwise = () => {
     const fetchClusters = async () => {
       try {
         if (blocks) {
-          // setLoading(true);
+          setLoading(true);
           const response = await Api.get(`getAllClustersByBlock/${blocks}`);
-          // console.log("set=================>", response.data);
           const clusters =
             response?.data?.length > 0 &&
             response?.data?.map((item) => item?.cluster);
           setClusterArr(clusters);
-          // setLoading(false);
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Clusters:", error);
-        setClusterArr([]); // Reset clusterArr to an empty array if there's an error
-        // setLoading(false);
+        setClusterArr([]);
+        setLoading(false);
       }
     };
 
@@ -211,16 +227,12 @@ const Schoolwise = () => {
       try {
         if (clusters) {
           const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-          // console.log(
-          //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
-          //   response.data[0].school_name
-          // );
           setSchoolArr(response?.data);
-          // setLoading(false);
+          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching Blocks:", error);
-        // setLoading(false);
+        setLoading(false);
       }
     };
 
@@ -242,9 +254,9 @@ const Schoolwise = () => {
       block: blocks,
       cluster: clusters,
       school_name: schools.school_name,
+      year: selectedYear,
+      month: selectedMonth,
     };
-
-    console.log("check---------->", districts, blocks, clusters, schools);
 
     // if ("") {
     //   Api.post(`getSchoolWiseReport`, body)
@@ -272,7 +284,6 @@ const Schoolwise = () => {
     if (districts) {
       Api.post(`getSchoolWiseReport`, body)
         .then((response) => {
-          console.log("set=================>", response.data);
           setData(response.data);
           setLoading(false);
         })
@@ -383,8 +394,6 @@ const Schoolwise = () => {
 
   const handleClose = () => setOpen(false);
 
-  console.log("district array-------------->", districtArr);
-
   return (
     <div>
       <div
@@ -395,23 +404,23 @@ const Schoolwise = () => {
           flexWrap: "wrap",
         }}
       >
-        {/* <SelectYear Year={year} handleYearChange={handleYearChange} /> */}
-        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Year</InputLabel>
+        <SelectYear Year={selectedYear} handleYearChange={handleYearChange} />
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="district-label">Month</InputLabel>
           <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedYear}
-            onChange={handleYearChange}
-            label="Year"
+            labelId="month-label"
+            id="month-select"
+            value={selectedMonth}
+            onChange={handleMonthChange}
+            label="Month"
           >
-            {years.map((item, index) => (
-              <MenuItem key={index} value={item}>
-                {item}
+            {monthArr?.map((month, index) => (
+              <MenuItem key={index} value={month.value}>
+                {month.label}
               </MenuItem>
             ))}
           </Select>
-        </FormControl> */}
+        </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="district-label">District</InputLabel>
           <Select
@@ -421,9 +430,6 @@ const Schoolwise = () => {
             onChange={(e) => handleDistrictChange(e)}
             label="District"
           >
-            <MenuItem value="Select District" disabled>
-              Select District
-            </MenuItem>
             {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
@@ -441,9 +447,6 @@ const Schoolwise = () => {
             label="Block"
             disabled={loading || !districts}
           >
-            <MenuItem value="Select Block" disabled>
-              Select Block
-            </MenuItem>
             <MenuItem value="">None</MenuItem>
             {blockArr &&
               blockArr?.map((block, index) => (
@@ -463,9 +466,6 @@ const Schoolwise = () => {
             label="Cluster"
             disabled={loading || !blocks}
           >
-            <MenuItem value="Select Cluster" disabled>
-              Select Cluster
-            </MenuItem>
             <MenuItem value="">None</MenuItem>
             {clusterArr?.map((cluster, index) => (
               <MenuItem key={index} value={cluster}>
@@ -486,9 +486,6 @@ const Schoolwise = () => {
             label="School"
             disabled={!clusters}
           >
-            <MenuItem value="Select School" disabled>
-              Select School
-            </MenuItem>
             <MenuItem value="">None</MenuItem>
             {schoolArr?.map((school, index) => (
               <MenuItem key={index} value={school}>
@@ -519,6 +516,7 @@ const Schoolwise = () => {
         </Button>
         {/* </Box> */}
       </div>
+
       {/* ---------------------------- content --------------------- */}
       {loading ? (
         <div
@@ -548,23 +546,6 @@ const Schoolwise = () => {
               width: "97%",
             }}
           >
-            <h1
-              style={{
-                marginTop: "-2%",
-                color: "#333", // Dark grey color for the text
-                fontFamily: "Congenial SemiBold", // Font family for a clean look
-                fontWeight: "700", // Bolder font weight for emphasis
-                fontSize: "1.2rem", // Smaller font size for prominence
-                textAlign: "right", // Align the text to the right
-                padding: "10px 0", // Add some padding for spacing
-                borderBottom: "2px solid #000000", // Add a bottom border for separation
-                letterSpacing: "0.5px", // Slight letter spacing for readability
-                textTransform: "capitalize", // Capitalize each word
-              }}
-            >
-              Data Updated as on -{" "}
-              {data ? data?.data_last_updated : "22/08/2024"}
-            </h1>
             <div
               style={{
                 display: "flex",
@@ -579,7 +560,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport")}
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -610,16 +591,15 @@ const Schoolwise = () => {
                 </div>
                 <div
                   style={{
-                    height: "48%",
+                    height: "50%",
                     color: "#CD5C5C",
-                    paddingTop: "10px",
-                    fontSize: "1.1rem",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
-                    width: "100%",
                   }}
                 >
-                  <p>Number of students (including promoted students)</p>
+                  <p> Number of students</p>
                 </div>
                 <div
                   style={{
@@ -636,7 +616,7 @@ const Schoolwise = () => {
               {/* <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -675,7 +655,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 1)}
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -714,7 +694,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p> Number of Students in Class 1</p>
+                  Number of Students in Class 1
                 </div>
                 <div
                   style={{
@@ -732,7 +712,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 2)}
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -771,7 +751,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p> Number of Students in Class 2</p>
+                  Number of Students in Class 2
                 </div>
                 <div
                   style={{
@@ -790,7 +770,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 3)}
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -823,7 +803,7 @@ const Schoolwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(214 148 16)",
-                    paddingTop: "25px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
@@ -847,7 +827,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 4)}
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -886,7 +866,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p> Number of Students in Class 4</p>
+                  Number of Students in Class 4
                 </div>
                 <div
                   style={{
@@ -904,7 +884,7 @@ const Schoolwise = () => {
                 onClick={() => handleOpenModal("studentReport", 5)}
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -943,7 +923,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Number of Students in Class 5</p>
+                  Number of Students in Class 5
                 </div>
                 <div
                   style={{
@@ -961,7 +941,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -976,13 +956,13 @@ const Schoolwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(214 148 16)",
-                    paddingTop: "20px",
+                    paddingTop: "13px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total Activated students</p>
+                  <p> Total Time Spent</p>
                 </div>
                 <div
                   style={{
@@ -993,13 +973,13 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.total_activated_students}</h1>
+                  <h1>{data.total_timespent}</h1>
                 </div>
               </div>
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1020,7 +1000,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p> Total active students</p>
+                  Number of Parents Spent 0-1 mins
                 </div>
                 <div
                   style={{
@@ -1031,13 +1011,13 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.total_active_students}</h1>
+                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
                 </div>
               </div>
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1058,7 +1038,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p> Total smartphone users</p>
+                  Number of Parents Spent 2-15 mins
                 </div>
                 <div
                   style={{
@@ -1069,13 +1049,13 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.remote_instructions_users}</h1>
+                  <h1>{data.no_of_parents_spent_2to5mins}</h1>
                 </div>
               </div>
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1090,13 +1070,13 @@ const Schoolwise = () => {
                   style={{
                     height: "50%",
                     color: "rgb(153 58 134)",
-                    paddingTop: "14px",
+                    paddingTop: "20px",
                     fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total non-smartphone users</p>
+                  Number of Parents Spent 16-30 mins
                 </div>
                 <div
                   style={{
@@ -1107,13 +1087,13 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.chatbot_users}</h1>
+                  <h1>{data.no_of_parents_spent_16to30mins}</h1>
                 </div>
               </div>
-              {/* <div
+              <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1147,12 +1127,12 @@ const Schoolwise = () => {
                 >
                   <h1>{data.no_of_parents_spent_31to45mins}</h1>
                 </div>
-              </div> */}
+              </div>
 
-              {/* <div
+              <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1186,11 +1166,11 @@ const Schoolwise = () => {
                 >
                   <h1>{data.no_of_parents_spent_gte45mins}</h1>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
 
-          {/* <div
+          <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1227,7 +1207,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1265,7 +1245,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1303,7 +1283,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1341,7 +1321,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1379,7 +1359,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1418,7 +1398,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1457,7 +1437,7 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1493,9 +1473,9 @@ const Schoolwise = () => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
 
-          {/* <div
+          <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1538,7 +1518,7 @@ const Schoolwise = () => {
                 }}
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   borderRadius: "10px",
@@ -1595,10 +1575,11 @@ const Schoolwise = () => {
               <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-       
+                  // // paddingTop: "2%",
+                  // fontFamily: "Arial, sans-serif", // Default font family
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1630,10 +1611,10 @@ const Schoolwise = () => {
                 </div>
               </div>
 
-              <div
+              {/* <div
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1667,13 +1648,13 @@ const Schoolwise = () => {
                 >
                   <h1>{data.total_chatbot_assess_taken}</h1>
                 </div>
-              </div> 
+              </div> */}
 
-             <div
+              {/* <div
                 onClick={() => handleOpen()}
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1707,13 +1688,13 @@ const Schoolwise = () => {
                 >
                   <h1>{data.chatbot_avg_mins}</h1>
                 </div>
-              </div> 
+              </div> */}
 
               <div
                 // onClick={() => handleOpen()}
                 style={{
                   width: "255px",
-                  height: "200px",
+                  height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
                   // // paddingTop: "2%",
@@ -1749,17 +1730,18 @@ const Schoolwise = () => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
-      ) : null}
-      {/* !loading && filtered && Object.keys(data).length === 0 ? (
-      <img src={Nodata} />
+      ) : !loading && filtered && Object.keys(data).length === 0 ? (
+        <img src={Nodata} />
       ) : (
-      <img src={defaultImage} width={"20%"} />
-      )} */}
+        <img src={defaultImage} width={"20%"} />
+      )}
+
       <div>
         <canvas ref={chartRef}></canvas>
       </div>
+
       <DynamicModal
         open={open}
         loading={loading}
@@ -1775,3 +1757,18 @@ const Schoolwise = () => {
 };
 
 export default Schoolwise;
+
+const monthArr = [
+  { value: 1, label: "January" },
+  { value: 2, label: "February" },
+  { value: 3, label: "March" },
+  { value: 4, label: "April" },
+  { value: 5, label: "May" },
+  { value: 6, label: "June" },
+  { value: 7, label: "July" },
+  { value: 8, label: "August" },
+  { value: 9, label: "September" },
+  { value: 10, label: "October" },
+  { value: 11, label: "November" },
+  { value: 12, label: "December" },
+];

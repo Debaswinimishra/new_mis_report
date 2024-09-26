@@ -29,7 +29,7 @@ const Login = () => {
             "districtname",
             districtname ? districtname : ""
           );
-          localStorage.setItem("districtid", districtid);
+          localStorage.setItem("districtid", districtid ? districtid : "");
           Swal.fire({
             icon: "success",
             title: "Login Successful",

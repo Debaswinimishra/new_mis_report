@@ -20,16 +20,15 @@ const Login = () => {
       const { usertype, approvalStatus, districtname, districtid } =
         response?.data;
 
-      console.log("usertype----------->", usertype);
-
-      console.log("response--------->", response.status);
-
       if (response.status === 200) {
         console.log("success block");
         if (approvalStatus === "approved") {
           localStorage.setItem("login", true);
           localStorage.setItem("usertype", usertype);
-          localStorage.setItem("districtname", districtname);
+          localStorage.setItem(
+            "districtname",
+            districtname ? districtname : ""
+          );
           localStorage.setItem("districtid", districtid);
           Swal.fire({
             icon: "success",

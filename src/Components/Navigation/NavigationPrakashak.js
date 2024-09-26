@@ -76,50 +76,61 @@ function NavigationPrakashak(props) {
     }
   }, [location.pathname, navigate, districtname]);
 
-  const listItem = !districtname
-    ? [
-        { text: "Overall Dashboard", link: "/prakashak/dashboard", id: 0 },
-        {
-          text: "Dashboard Monthly",
-          link: "/prakashak/dashboard_monthly",
-          id: 1,
-        },
-        {
-          text: "Remote Instructions",
-          link: "/prakashak/remote_instructions",
-          id: 2,
-        },
-        { text: "Overall Details", link: "/prakashak/overall_details", id: 3 },
-        {
-          text: "Monthly Performance",
-          link: "/prakashak/monthly_performance",
-          id: 4,
-        },
-        {
-          text: "Whatsapp Chatbot",
-          link: "/prakashak/whatsapp_chatbot",
-          id: 5,
-        },
-        { text: "School-wise", link: "/prakashak/school_wise", id: 6 },
-        {
-          text: "School-wise Performance",
-          link: "/prakashak/school_wise_performance",
-          id: 7,
-        },
-        {
-          text: "Retention Metrics",
-          link: "/prakashak/retention_metrics",
-          id: 8,
-        },
-      ]
-    : [
-        { text: "Overall Details", link: "/prakashak/overall_details", id: 3 },
-        {
-          text: "Monthly Performance",
-          link: "/prakashak/monthly_performance",
-          id: 4,
-        },
-      ];
+  const listItem =
+    !districtname && (usertype === "admin" || usertype === "prakashak")
+      ? [
+          { text: "Overall Dashboard", link: "/prakashak/dashboard", id: 0 },
+          {
+            text: "Dashboard Monthly",
+            link: "/prakashak/dashboard_monthly",
+            id: 1,
+          },
+          {
+            text: "Remote Instructions",
+            link: "/prakashak/remote_instructions",
+            id: 2,
+          },
+          // {
+          //   text: "Overall Details",
+          //   link: "/prakashak/overall_details",
+          //   id: 3,
+          // },
+          // {
+          //   text: "Monthly Performance",
+          //   link: "/prakashak/monthly_performance",
+          //   id: 4,
+          // },
+          {
+            text: "Whatsapp Chatbot",
+            link: "/prakashak/whatsapp_chatbot",
+            id: 5,
+          },
+          { text: "School-wise", link: "/prakashak/school_wise", id: 6 },
+          {
+            text: "School-wise Performance",
+            link: "/prakashak/school_wise_performance",
+            id: 7,
+          },
+          {
+            text: "Retention Metrics",
+            link: "/prakashak/retention_metrics",
+            id: 8,
+          },
+        ]
+      : districtname && (usertype === "admin" || usertype === "prakashak")
+      ? [
+          {
+            text: "Overall Details",
+            link: "/prakashak/overall_details",
+            id: 3,
+          },
+          {
+            text: "Monthly Performance",
+            link: "/prakashak/monthly_performance",
+            id: 4,
+          },
+        ]
+      : null;
 
   return (
     <Box

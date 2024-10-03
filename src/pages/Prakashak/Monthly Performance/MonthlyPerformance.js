@@ -363,7 +363,7 @@ const MonthlyPerformance = () => {
                 backgroundColor: "rgba(54, 162, 235, 0.6)", // Adjust as needed
                 borderColor: "rgba(54, 162, 235, 1)", // Adjust as needed
                 borderWidth: 2,
-                barThickness: 180,
+                barThickness: 140,
               },
             ],
           },
@@ -941,7 +941,7 @@ const MonthlyPerformance = () => {
 
       <div>
         <div style={{ width: "75%", marginLeft: "15%" }}>
-          <h2>Actve Students</h2>
+          <h2>Active Students</h2>
           <BarGraph blocks={blocks} />
         </div>
 

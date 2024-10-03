@@ -785,8 +785,8 @@ const OverallDetails = () => {
                             // padding: "10px", // Add padding for better spacing inside the card
                           }}
                         >
-                          <h3 style={{ marginLeft: "15x" }}>{index + 1}.</h3>{" "}
-                          <p style={{ marginLeft: "30px" }}>
+                          <h3 style={{ marginLeft: "8px" }}>{index + 1}.</h3>
+                          <p style={{ marginLeft: "25px" }}>
                             {schoolsArray[index]}
                           </p>
                         </div>

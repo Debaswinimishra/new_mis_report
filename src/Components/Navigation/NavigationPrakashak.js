@@ -183,7 +183,7 @@ function NavigationPrakashak(props) {
             marginTop: "10px",
             marginLeft: "10px",
           }}
-          onClick={handleNavigateHome}
+          // onClick={handleNavigateHome}
         >
           <b>PRAKASHAK</b>
           <sub>

@@ -715,7 +715,7 @@ const Dashboard = () => {
 
             datasets: [
               {
-                label: "Number",
+                label: "Total Students",
                 data: [665, 2613, 4528, 5149, 8031, 9005, 8969, 10115, 9853],
                 backgroundColor: "rgba(54, 162, 235, 0.6)", // Adjust as needed
                 borderColor: "rgba(54, 162, 235, 1)", // Adjust as needed
@@ -784,7 +784,10 @@ const Dashboard = () => {
                 fontFamily: "Congenial SemiBold",
               }}
             >
-              <u> Data Updated as on - 31/08/2024</u>
+              <i>
+                {" "}
+                <u> Data Updated as on - 31/08/2024</u>
+              </i>
             </h2>
             <div
               style={{
@@ -2693,8 +2696,26 @@ const Dashboard = () => {
               width: "93%",
               height: "99%",
               marginLeft: "4%",
+              borderBottom: "2px solid black`",
             }}
           >
+            <h1
+              style={{
+                marginTop: "2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Monthly Unique Users
+            </h1>
+
             <h2
               style={{
                 display: "flex",
@@ -2702,9 +2723,12 @@ const Dashboard = () => {
                 // marginRight: "2%",
                 color: "red",
                 fontFamily: "Congenial SemiBold",
+                marginTop: "2%",
               }}
             >
-              <u> Data Updated as on - 30/09/2024</u>
+              <i>
+                <u> Data Updated as on - 30/09/2024</u>
+              </i>
             </h2>
             <div
               style={{
@@ -2715,7 +2739,11 @@ const Dashboard = () => {
             >
               <FormControl
                 sx={{ m: 1 }}
-                style={{ width: "150px", marginRight: "40px" }}
+                style={{
+                  width: "150px",
+                  marginRight: "40px",
+                  marginTop: "30px",
+                }}
               >
                 <InputLabel id="usertype-label">Year</InputLabel>
                 <Select
@@ -2734,7 +2762,6 @@ const Dashboard = () => {
               </FormControl>
             </div>
             <div>
-              {" "}
               <BarGraph />
             </div>
           </div>

@@ -59,7 +59,9 @@ export default function Retention() {
           fontFamily: "Congenial SemiBold",
         }}
       >
-        <u> Data Updated as on - 31/08/2024</u>
+        <i>
+          <u> Data Updated as on - 31/08/2024</u>
+        </i>
       </h2>
       <div
         style={{

@@ -715,7 +715,7 @@ const Dashboard = () => {
 
             datasets: [
               {
-                label: "Total Students",
+                label: "unique users",
                 data: [665, 2613, 4528, 5149, 8031, 9005, 8969, 10115, 9853],
                 backgroundColor: "rgba(54, 162, 235, 0.6)", // Adjust as needed
                 borderColor: "rgba(54, 162, 235, 1)", // Adjust as needed

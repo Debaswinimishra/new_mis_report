@@ -411,7 +411,9 @@ const WhatsappChatbot = () => {
                 fontFamily: "Congenial SemiBold",
               }}
             >
-              <u> Data Updated as on - 31/08/2024</u>
+              <i>
+                <u> Data Updated as on - 31/08/2024</u>
+              </i>
             </h2>
           </div>
           <div
@@ -486,7 +488,7 @@ const WhatsappChatbot = () => {
                   /> // Display CircularProgress when loading
                 ) : (
                   // <h1>{data.chatbot_users}</h1>
-                  <h1>6672</h1>
+                  <h1>8461</h1>
                 )}
               </div>
             </div>
@@ -1078,5 +1080,37 @@ const dataJson = [
     chatbot_active_users: 5672,
     new_activated_students: 0,
     total_chatbot_mins: 93456,
+  },
+  {
+    month: 8,
+    week: 1,
+    chatbot_new_users: 1179,
+    chatbot_active_users: 6404,
+    new_activated_students: 1008,
+    total_chatbot_mins: 0,
+  },
+  {
+    month: 8,
+    week: 2,
+    chatbot_new_users: 0,
+    chatbot_active_users: 6382,
+    new_activated_students: 0,
+    total_chatbot_mins: 0,
+  },
+  {
+    month: 8,
+    week: 3,
+    chatbot_new_users: 0,
+    chatbot_active_users: 6374,
+    new_activated_students: 0,
+    total_chatbot_mins: 0,
+  },
+  {
+    month: 8,
+    week: 4,
+    chatbot_new_users: 0,
+    chatbot_active_users: 6373,
+    new_activated_students: 0,
+    total_chatbot_mins: 0,
   },
 ];

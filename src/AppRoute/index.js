@@ -135,7 +135,7 @@ function RouteRoot() {
             {/* <Route path="*" element={<Route404 />} /> */}
           </>
         )}
-        {userType === "mis" && (
+        {(userType === "mis" || "passcode") && (
           <>
             <Route
               path="/fellow"

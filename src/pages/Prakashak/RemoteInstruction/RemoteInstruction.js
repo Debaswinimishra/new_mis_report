@@ -625,7 +625,6 @@ const RemoteInstruction = () => {
   };
 
   console.log("remoteInstData--------->", remoteInstData);
-  console.log("loading------------->", loading);
 
   return (
     <div>
@@ -655,7 +654,9 @@ const RemoteInstruction = () => {
                 fontFamily: "Congenial SemiBold",
               }}
             >
-              <u> Data Updated as on - 31/08/2024</u>
+              <i>
+                <u> Data Updated as on - 31/08/2024</u>
+              </i>
             </h2>
           </div>
           <div
@@ -707,7 +708,7 @@ const RemoteInstruction = () => {
                     style={{ color: "white", marginTop: "20px" }}
                   /> // Display CircularProgress when loading
                 ) : (
-                  <h1>3422</h1>
+                  <h1>4394</h1>
                   // <h1>{remoteInstData.total_remote_instructions_users}</h1> // Display data when loaded
                 )}
               </div>
@@ -819,7 +820,7 @@ const RemoteInstruction = () => {
                 // marginLeft: "4%",
               }}
             >
-              {remoteInstData?.map((remoteInstData) => {
+              {remoteInstData?.map((item) => {
                 return (
                   <>
                     {selectedMonth ? (
@@ -856,9 +857,7 @@ const RemoteInstruction = () => {
                             color: "white",
                           }}
                         >
-                          <h1>
-                            {remoteInstData.new_remote_instructions_users}
-                          </h1>
+                          <h1>{item.new_remote_instructions_users}</h1>
                         </div>
                       </div>
                     ) : null}
@@ -896,48 +895,48 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.new_active_students}</h1>
+                        <h1>{item.new_active_students}</h1>
                       </div>
                     </div>
 
-                    {isFiltered ? (
+                    {/* {isFiltered ? ( */}
+                    <div
+                      style={{
+                        width: "255px",
+                        height: "180px",
+                        marginTop: "1.5%",
+                        backgroundColor: "white",
+                        borderRadius: "10px",
+                        display: "flex",
+                        flexDirection: "column",
+                        boxShadow: "1px 1px 4px 3px lightGrey",
+                      }}
+                    >
                       <div
                         style={{
-                          width: "255px",
-                          height: "180px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
+                          height: "50%",
+                          color: "#2E8B57",
+                          paddingTop: "20px",
+                          fontSize: "1.2rem",
+                          fontFamily: "Congenial SemiBold",
+                          fontWeight: "600",
                         }}
                       >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "#2E8B57",
-                            paddingTop: "20px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p>No of new activated users</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "#2E8B57",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{remoteInstData.new_activated_students}</h1>
-                        </div>
+                        <p>No of new activated users</p>
                       </div>
-                    ) : null}
+                      <div
+                        style={{
+                          height: "50%",
+                          backgroundColor: "#2E8B57",
+                          borderEndStartRadius: "10px",
+                          borderEndEndRadius: "10px",
+                          color: "white",
+                        }}
+                      >
+                        <h1>{item.new_activated_students}</h1>
+                      </div>
+                    </div>
+                    {/* ) : null} */}
 
                     {/* <div
                       style={{
@@ -972,7 +971,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_sms_scheduled}</h1>
+                        <h1>{item.total_sms_scheduled}</h1>
                       </div>
                     </div> */}
 
@@ -1009,7 +1008,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_sms_delivered}</h1>
+                        <h1>{item.total_sms_delivered}</h1>
                       </div>
                     </div> */}
 
@@ -1046,7 +1045,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_calls_made}</h1>
+                        <h1>{item.total_calls_made}</h1>
                       </div>
                     </div> */}
                     {/* <div
@@ -1082,7 +1081,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_calls_received}</h1>
+                        <h1>{item.total_calls_received}</h1>
                       </div>
                     </div> */}
                     {/* <div
@@ -1118,7 +1117,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_calls_mins}</h1>
+                        <h1>{item.total_calls_mins}</h1>
                       </div>
                     </div> */}
                     {/* <div
@@ -1154,7 +1153,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_ivrs_calls_made}</h1>
+                        <h1>{item.total_ivrs_calls_made}</h1>
                       </div>
                     </div> */}
                     {/* <div
@@ -1190,7 +1189,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{remoteInstData.total_ivrs_calls_mins}</h1>
+                        <h1>{item.total_ivrs_calls_mins}</h1>
                       </div>
                     </div> */}
                   </>

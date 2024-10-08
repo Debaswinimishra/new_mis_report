@@ -467,11 +467,12 @@ const Schoolwise = () => {
             <MenuItem value="Select District" disabled>
               Select District
             </MenuItem>
-            {districtArr?.map((district, index) => (
+            {/* {districtArr?.map((district, index) => (
               <MenuItem key={index} value={district}>
                 {district}
               </MenuItem>
-            ))}
+            ))} */}
+            <MenuItem value="PURI">PURI</MenuItem>
           </Select>
         </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
@@ -600,7 +601,9 @@ const Schoolwise = () => {
                 fontFamily: "Congenial SemiBold",
               }}
             >
-              <u> Data Updated as on - 31/08/2024</u>
+              <i>
+                <u> Data Updated as on - 31/08/2024</u>
+              </i>
               {/* {data ? data?.data_last_updated  //? commented for now only
                : "22/08/2024"} */}
             </h2>

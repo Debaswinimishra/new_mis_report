@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { TextField } from "@mui/material";
+import Chart from "chart.js/auto";
 import {
   FormControl,
   InputLabel,
@@ -71,8 +72,6 @@ const Dashboard = () => {
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
-    setSelectedMonth("");
-    setSelectedWeek("");
   };
 
   const handleMonthChange = (e) => {
@@ -682,6 +681,74 @@ const Dashboard = () => {
   const xlData = tableDatas;
   // console.log("tableDatas------------>", tableDatas);
   const fileName = "Dashboard.csv";
+
+  const BarGraph = ({ blocks }) => {
+    const chartRef = useRef(null);
+
+    useEffect(() => {
+      if (chartRef && chartRef.current) {
+        const chartContext = chartRef.current.getContext("2d");
+
+        // Destroy existing chart if it exists
+        if (window.myBarChart instanceof Chart) {
+          window.myBarChart.destroy();
+        }
+
+        // Create new bar chart instance
+        const chartInstance = new Chart(chartContext, {
+          type: "bar",
+          data: {
+            labels: [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December",
+            ],
+
+            datasets: [
+              {
+                label: "unique users",
+                data: [665, 2613, 4528, 5149, 8031, 9005, 8969, 10115, 9853],
+                backgroundColor: "rgba(54, 162, 235, 0.6)", // Adjust as needed
+                borderColor: "rgba(54, 162, 235, 1)", // Adjust as needed
+                borderWidth: 2,
+                barThickness: 80,
+              },
+            ],
+          },
+          options: {
+            layout: {
+              padding: {
+                top: 20,
+                bottom: 40,
+                left: 20,
+                right: 5,
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+
+        // Store chart instance in window object for Bar Graph
+        window.myBarChart = chartInstance;
+      }
+    }, [blocks]);
+
+    return <canvas ref={chartRef} />;
+  };
+
   return (
     <>
       {loading ? (
@@ -717,7 +784,10 @@ const Dashboard = () => {
                 fontFamily: "Congenial SemiBold",
               }}
             >
-              <u> Data Updated as on - 31/08/2024</u>
+              <i>
+                {" "}
+                <u> Data Updated as on - 31/08/2024</u>
+              </i>
             </h2>
             <div
               style={{
@@ -1017,7 +1087,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_students}</h1> */}
-                  <h1>11024</h1>
+                  <h1>12855</h1>
                 </div>
               </div>
               <div
@@ -1075,7 +1145,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_girl_students}</h1> */}
-                  <h1>5432</h1>
+                  <h1>6418</h1>
                 </div>
               </div>
               <div
@@ -1133,7 +1203,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_boy_students}</h1> */}
-                  <h1>5592</h1>
+                  <h1>6437</h1>
                 </div>
               </div>
               <div
@@ -1191,7 +1261,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_activated_students}</h1> */}
-                  <h1>10094</h1>
+                  <h1>11631</h1>
                 </div>
               </div>
               <div
@@ -1249,7 +1319,7 @@ const Dashboard = () => {
                   }}
                 >
                   {/* <h1>{dashboardData.total_active_students}</h1> */}
-                  <h1>8962</h1>
+                  <h1>9977</h1>
                 </div>
               </div>
 
@@ -2617,6 +2687,86 @@ const Dashboard = () => {
           />
         </div>
       ) : null}
+      {loading ? null : (
+        <>
+          <div
+            style={{
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
+              width: "93%",
+              height: "99%",
+              marginLeft: "4%",
+              borderBottom: "2px solid black`",
+            }}
+          >
+            <h1
+              style={{
+                marginTop: "2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Monthly Unique Users
+            </h1>
+
+            <h2
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                // marginRight: "2%",
+                color: "red",
+                fontFamily: "Congenial SemiBold",
+                marginTop: "2%",
+              }}
+            >
+              <i>
+                <u> Data Updated as on - 30/09/2024</u>
+              </i>
+            </h2>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                width: "100%",
+              }}
+            >
+              <FormControl
+                sx={{ m: 1 }}
+                style={{
+                  width: "150px",
+                  marginRight: "40px",
+                  marginTop: "30px",
+                }}
+              >
+                <InputLabel id="usertype-label">Year</InputLabel>
+                <Select
+                  labelId="usertype-label"
+                  id="usertype-select"
+                  value={selectedYear}
+                  onChange={handleYearChange}
+                  label="Year"
+                >
+                  {years.map((item, index) => (
+                    <MenuItem key={index} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+            <div>
+              <BarGraph />
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

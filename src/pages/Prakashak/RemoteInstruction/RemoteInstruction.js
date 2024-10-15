@@ -655,7 +655,7 @@ const RemoteInstruction = () => {
               }}
             >
               <i>
-                <u> Data Updated as on - 31/08/2024</u>
+                <u> Data Updated as on - 30/09/2024</u>
               </i>
             </h2>
           </div>

@@ -602,7 +602,7 @@ const Schoolwise = () => {
               }}
             >
               <i>
-                <u> Data Updated as on - 31/08/2024</u>
+                <u> Data Updated as on - 30/09/2024</u>
               </i>
               {/* {data ? data?.data_last_updated  //? commented for now only
                : "22/08/2024"} */}

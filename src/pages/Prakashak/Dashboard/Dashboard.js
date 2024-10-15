@@ -69,6 +69,11 @@ const Dashboard = () => {
   const [tableData, setTableData] = useState([]);
   const [modalLoader, setModalLoader] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [smartphone, setSmartphone] = useState("smartphone");
+
+  const handleUserChange = (e) => {
+    setSmartphone(e.target.value);
+  };
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -682,7 +687,7 @@ const Dashboard = () => {
   // console.log("tableDatas------------>", tableDatas);
   const fileName = "Dashboard.csv";
 
-  const BarGraph = ({ blocks }) => {
+  const BarGraph = ({ blocks, mySmartphone }) => {
     const chartRef = useRef(null);
 
     useEffect(() => {
@@ -694,7 +699,14 @@ const Dashboard = () => {
           window.myBarChart.destroy();
         }
 
-        // Create new bar chart instance
+        // Conditional data based on smartphone status
+        const smartphoneBoysData = [400, 900, 400, 600, 1000, 400, 0, 600, 0];
+        const smartphoneGirlsData = [347, 830, 463, 498, 952, 492, 0, 579, 0];
+
+        const nonSmartphoneBoysData = [250, 700, 200, 300, 500, 200, 0, 300, 0];
+        const nonSmartphoneGirlsData = [146, 642, 153, 150, 419, 82, 0, 352, 0];
+
+        // Create new stacked bar chart instance
         const chartInstance = new Chart(chartContext, {
           type: "bar",
           data: {
@@ -712,13 +724,26 @@ const Dashboard = () => {
               "November",
               "December",
             ],
-
             datasets: [
               {
-                label: "unique users",
-                data: [665, 2613, 4528, 5149, 8031, 9005, 8969, 10115, 9853],
-                backgroundColor: "rgba(54, 162, 235, 0.6)", // Adjust as needed
-                borderColor: "rgba(54, 162, 235, 1)", // Adjust as needed
+                label: "Boys",
+                data:
+                  smartphone === "smartphone"
+                    ? smartphoneBoysData
+                    : nonSmartphoneBoysData,
+                backgroundColor: "rgba(75, 192, 192, 0.6)", // Adjust color for boys
+                borderColor: "rgba(75, 192, 192, 1)", // Adjust color for boys
+                borderWidth: 2,
+                barThickness: 80,
+              },
+              {
+                label: "Girls",
+                data:
+                  smartphone === "smartphone"
+                    ? smartphoneGirlsData
+                    : nonSmartphoneGirlsData,
+                backgroundColor: "rgba(255, 99, 132, 0.6)", // Adjust color for girls
+                borderColor: "rgba(255, 99, 132, 1)", // Adjust color for girls
                 borderWidth: 2,
                 barThickness: 80,
               },
@@ -736,6 +761,10 @@ const Dashboard = () => {
             scales: {
               y: {
                 beginAtZero: true,
+                stacked: true, // Enable stacking for the y-axis
+              },
+              x: {
+                stacked: true, // Enable stacking for the x-axis
               },
             },
           },
@@ -744,7 +773,7 @@ const Dashboard = () => {
         // Store chart instance in window object for Bar Graph
         window.myBarChart = chartInstance;
       }
-    }, [blocks]);
+    }, [blocks, mySmartphone]); // Add mySmartphone to the dependency array
 
     return <canvas ref={chartRef} />;
   };
@@ -2758,6 +2787,30 @@ const Dashboard = () => {
                       {item}
                     </MenuItem>
                   ))}
+                </Select>
+              </FormControl>
+              <FormControl
+                sx={{ m: 1 }}
+                style={{
+                  width: "180px",
+                  marginRight: "40px",
+                  marginTop: "30px",
+                }}
+              >
+                <InputLabel id="usertype-label">Usertype</InputLabel>
+                <Select
+                  labelId="usertype-label"
+                  id="usertype-select"
+                  value={smartphone}
+                  onChange={handleUserChange}
+                  label="Usertype"
+                >
+                  <MenuItem key={1} value={"smartphone"}>
+                    Smartphone
+                  </MenuItem>
+                  <MenuItem key={2} value={"non-smartphone"}>
+                    Non-Smartphone
+                  </MenuItem>
                 </Select>
               </FormControl>
             </div>

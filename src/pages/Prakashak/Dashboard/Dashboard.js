@@ -699,17 +699,26 @@ const Dashboard = () => {
           window.myBarChart.destroy();
         }
 
-        // Conditional data based on smartphone status
-        const smartphoneBoysData = [400, 900, 400, 600, 1000, 400, 0, 600, 0];
-        const smartphoneGirlsData = [347, 830, 463, 498, 952, 492, 0, 579, 0];
+        const smartphoneBoysData = [
+          231, 1002, 1728, 1960, 2845, 3232, 3181, 3598, 3536,
+        ];
+        const smartphoneGirlsData = [
+          238, 1019, 1746, 1973, 2853, 3226, 3193, 3594, 3549,
+        ];
 
-        const nonSmartphoneBoysData = [250, 700, 200, 300, 500, 200, 0, 300, 0];
-        const nonSmartphoneGirlsData = [146, 642, 153, 150, 419, 82, 0, 352, 0];
+        const nonSmartphoneBoysData = [
+          93, 328, 533, 637, 1195, 1409, 1371, 1523, 1503,
+        ];
+        const nonSmartphoneGirlsData = [
+          103, 264, 543, 612, 1203, 1407, 1365, 1535, 1505,
+        ];
 
-        // Data for total condition (without separating boys and girls)
-        // const totalData = [1143, 3072, 1216, 1548, 2871, 1174, 0, 1831, 0];
-        const totalBoysData = [650, 1600, 600, 900, 1500, 600, 0, 900, 0];
-        const totalGirlsData = [493, 1472, 616, 648, 1371, 574, 0, 931, 0];
+        const totalBoysData = [
+          324, 1330, 2261, 2597, 4040, 4641, 4552, 5121, 5039,
+        ];
+        const totalGirlsData = [
+          341, 1283, 2289, 2585, 4056, 4633, 4558, 5129, 5054,
+        ];
 
         // Create new stacked bar chart instance
         const chartInstance = new Chart(chartContext, {

@@ -62,7 +62,9 @@ const DashboardMonthly = () => {
 
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState("6");
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentMonthSelected.value - 1
+  );
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();

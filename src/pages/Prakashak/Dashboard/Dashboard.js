@@ -1196,7 +1196,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Registered Girls</p>
+                  <p>Registered Boys</p>
                 </div>
                 <div
                   style={{
@@ -1254,7 +1254,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Registered Boys</p>
+                  <p>Registered Girls</p>
                 </div>
                 <div
                   style={{

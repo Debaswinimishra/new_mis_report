@@ -69,7 +69,7 @@ const Dashboard = () => {
   const [tableData, setTableData] = useState([]);
   const [modalLoader, setModalLoader] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [smartphone, setSmartphone] = useState("smartphone");
+  const [smartphone, setSmartphone] = useState("total");
 
   const handleUserChange = (e) => {
     setSmartphone(e.target.value);
@@ -706,6 +706,11 @@ const Dashboard = () => {
         const nonSmartphoneBoysData = [250, 700, 200, 300, 500, 200, 0, 300, 0];
         const nonSmartphoneGirlsData = [146, 642, 153, 150, 419, 82, 0, 352, 0];
 
+        // Data for total condition (without separating boys and girls)
+        // const totalData = [1143, 3072, 1216, 1548, 2871, 1174, 0, 1831, 0];
+        const totalBoysData = [650, 1600, 600, 900, 1500, 600, 0, 900, 0];
+        const totalGirlsData = [493, 1472, 616, 648, 1371, 574, 0, 931, 0];
+
         // Create new stacked bar chart instance
         const chartInstance = new Chart(chartContext, {
           type: "bar",
@@ -724,30 +729,50 @@ const Dashboard = () => {
               "November",
               "December",
             ],
-            datasets: [
-              {
-                label: "Boys",
-                data:
-                  smartphone === "smartphone"
-                    ? smartphoneBoysData
-                    : nonSmartphoneBoysData,
-                backgroundColor: "rgba(75, 192, 192, 0.6)", // Adjust color for boys
-                borderColor: "rgba(75, 192, 192, 1)", // Adjust color for boys
-                borderWidth: 2,
-                barThickness: 80,
-              },
-              {
-                label: "Girls",
-                data:
-                  smartphone === "smartphone"
-                    ? smartphoneGirlsData
-                    : nonSmartphoneGirlsData,
-                backgroundColor: "rgba(255, 99, 132, 0.6)", // Adjust color for girls
-                borderColor: "rgba(255, 99, 132, 1)", // Adjust color for girls
-                borderWidth: 2,
-                barThickness: 80,
-              },
-            ],
+            datasets:
+              smartphone === "total"
+                ? [
+                    {
+                      label: "Boys",
+                      data: totalBoysData,
+                      backgroundColor: "rgba(54, 162, 235, 0.6)", // Adjust color for total
+                      borderColor: "rgba(54, 162, 235, 1)", // Adjust color for total
+                      borderWidth: 2,
+                      barThickness: 80,
+                    },
+                    {
+                      label: "Girls",
+                      data: totalGirlsData,
+                      backgroundColor: "rgba(255, 99, 132, 0.6)", // Adjust color for girls
+                      borderColor: "rgba(255, 99, 132, 1)", // Adjust color for girls
+                      borderWidth: 2,
+                      barThickness: 80,
+                    },
+                  ]
+                : [
+                    {
+                      label: "Boys",
+                      data:
+                        smartphone === "smartphone"
+                          ? smartphoneBoysData
+                          : nonSmartphoneBoysData,
+                      backgroundColor: "rgba(75, 192, 192, 0.6)", // Adjust color for boys
+                      borderColor: "rgba(75, 192, 192, 1)", // Adjust color for boys
+                      borderWidth: 2,
+                      barThickness: 80,
+                    },
+                    {
+                      label: "Girls",
+                      data:
+                        smartphone === "smartphone"
+                          ? smartphoneGirlsData
+                          : nonSmartphoneGirlsData,
+                      backgroundColor: "rgba(255, 99, 132, 0.6)", // Adjust color for girls
+                      borderColor: "rgba(255, 99, 132, 1)", // Adjust color for girls
+                      borderWidth: 2,
+                      barThickness: 80,
+                    },
+                  ],
           },
           options: {
             layout: {
@@ -2805,10 +2830,13 @@ const Dashboard = () => {
                   onChange={handleUserChange}
                   label="Usertype"
                 >
-                  <MenuItem key={1} value={"smartphone"}>
+                  <MenuItem key={1} value={"total"}>
+                    Overall
+                  </MenuItem>
+                  <MenuItem key={2} value={"smartphone"}>
                     Smartphone
                   </MenuItem>
-                  <MenuItem key={2} value={"non-smartphone"}>
+                  <MenuItem key={3} value={"non-smartphone"}>
                     Non-Smartphone
                   </MenuItem>
                 </Select>

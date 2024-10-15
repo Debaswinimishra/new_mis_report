@@ -5,47 +5,51 @@ export default function Retention() {
     {
       month: "Jan",
       activatedUsers: 665,
-      retention: [665, 461, 485, 511, 503, 501, 506, 472],
+      retention: [665, 461, 485, 511, 503, 501, 506, 472, 483],
     },
     {
       month: "Feb",
       activatedUsers: 2148,
-      retention: [, 2148, 1847, 1812, 1794, 1715, 1695, 1578],
+      retention: [, 2148, 1847, 1812, 1794, 1715, 1695, 1578, 1629],
     },
     {
       month: "Mar",
       activatedUsers: 2192,
-      retention: [, , 2192, 2175, 1992, 1726, 1693, 1644],
+      retention: [, , 2192, 2175, 1992, 1726, 1693, 1644, 1718],
     },
     {
       month: "Apr",
       activatedUsers: 649,
-      retention: [, , , 649, 641, 627, 638, 532],
+      retention: [, , , 649, 641, 627, 638, 532, 431],
     },
     {
       month: "May",
       activatedUsers: 3094,
-      retention: [, , , , 3094, 3083, 3091, 2951],
+      retention: [, , , , 3094, 3083, 3091, 2951, 2824],
     },
     {
       month: "Jun",
       activatedUsers: 1346,
-      retention: [, , , , , 1346, 1339, 1263],
+      retention: [, , , , , 1346, 1339, 1263, 1278],
     },
-    { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0, 0] },
+    { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0, 0, 0] },
     {
       month: "Aug",
       activatedUsers: 1537,
-      retention: [, , , , , , , 1537],
+      retention: [, , , , , , , 1537, 1475],
     },
-    { month: "Sep", retention: [, , , , , , , , , , , ,] },
+    {
+      month: "Sep",
+      activatedUsers: 0,
+      retention: [, , , , , , , , 0],
+    },
     { month: "Oct", retention: [, , , , , , , , , , , ,] },
     { month: "Nov", retention: [, , , , , , , , , , , ,] },
     { month: "Dec", retention: [, , , , , , , , , , , ,] },
   ];
 
   const totalRetention = [
-    665, 2609, 4524, 5147, 8024, 8998, 8962, 9977, 0, 0, 0, 0,
+    665, 2609, 4524, 5147, 8024, 8998, 8962, 9977, 9838, 0, 0, 0,
   ];
 
   return (
@@ -316,7 +320,8 @@ export default function Retention() {
                   border: "1px solid #ddd",
                 }}
               >
-                TOTAL ACTIVE USERS (Level 1 and above)
+                TOTAL ACTIVE USERS (Level 1 and above) - 4th week data of every
+                month
               </td>
               {totalRetention.map((value, index) => (
                 <td

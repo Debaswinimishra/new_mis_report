@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 export default function Retention() {
   const data = [
@@ -52,8 +53,39 @@ export default function Retention() {
     665, 2609, 4524, 5147, 8024, 8998, 8962, 9977, 9838, 0, 0, 0,
   ];
 
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const handleYearChange = (e) => {
+    setSelectedYear(parseInt(e.target.value));
+  };
+
   return (
     <>
+      <div
+        style={{
+          display: "flex",
+          marginLeft: "89%",
+          flexWrap: "wrap",
+        }}
+      >
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Year</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedYear}
+            onChange={handleYearChange}
+            label="Year"
+          >
+            {years.map((item, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
       <h2
         style={{
           display: "flex",

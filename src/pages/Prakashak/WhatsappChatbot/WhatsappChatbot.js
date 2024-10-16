@@ -138,6 +138,7 @@ const WhatsappChatbot = () => {
 
   useEffect(() => {
     fetchData();
+    fetchData2();
   }, []);
 
   const fetchData = () => {
@@ -168,10 +169,43 @@ const WhatsappChatbot = () => {
     setLoading(false);
   };
 
+  const fetchData2 = () => {
+    //
+    setLoading(true);
+    const body = {
+      year: selectedYear,
+      month: selectedMonth,
+    };
+
+    const filteredData = dataJson2.filter((item) => {
+      return item.month === selectedMonth;
+    });
+
+    if (selectedYear) {
+      if (filteredData.length > 0) {
+        setData(filteredData);
+      } else {
+        console.log("No matching data found");
+        setData([]);
+      }
+      setIsFiltered(true);
+    } else {
+      setData(dataJson);
+      setIsFiltered(false);
+    }
+    setLoading(false);
+  };
+
   const filterButtonClick = () => {
     setLoading(true);
     setShow(true);
     fetchData();
+  };
+
+  const filterButtonClick2 = () => {
+    setLoading(true);
+    setShow(true);
+    fetchData2();
   };
 
   const graphData = {
@@ -444,22 +478,6 @@ const WhatsappChatbot = () => {
             ))}
           </Select>
         </FormControl>
-        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Week</InputLabel>
-          <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedWeek}
-            onChange={handleWeekChange}
-            label="Month"
-          >
-            {weekArr.map((item, index) => (
-              <MenuItem key={index} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl> */}
         <Button
           variant="contained"
           sx={{
@@ -530,24 +548,6 @@ const WhatsappChatbot = () => {
                 // position: "relative", // Needed for positioning the "Click here" text
               }}
             >
-              {/* <div
-                style={{
-                  position: "absolute",
-                  top: "0px", // Adjust to position the text at the top
-                  right: "0px", // Adjust to position the text at the right
-                  color: "#00CED1", // Text color
-                  backgroundColor: "white", // Background color to make it stand out
-                  padding: "5px 10px", // Padding to add some space inside the border
-                  fontSize: "0.7rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                  borderRadius: "5px", // Rounded corners for a smoother look
-                  boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                  zIndex: "10", // Ensure it stays on top of other elements
-                }}
-              >
-                Click Here 👆
-              </div> */}
               <div
                 style={{
                   height: "50%",
@@ -564,6 +564,100 @@ const WhatsappChatbot = () => {
                 style={{
                   height: "50%",
                   backgroundColor: "#00CED1",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                {loading ? (
+                  <CircularProgress
+                    style={{ color: "white", marginTop: "20px" }}
+                  /> // Display CircularProgress when loading
+                ) : (
+                  // <h1>{data.chatbot_users}</h1>
+                  <h1>8461</h1>
+                )}
+              </div>
+            </div>
+            <div
+              className="card"
+              // onClick={() => handleOpen("Total No. of Users")}
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+                // cursor: "pointer", // Show hand cursor on hover
+                // position: "relative", // Needed for positioning the "Click here" text
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#000080",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                <p>No. of registered smartphone users(Male)</p>
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#000080",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                {loading ? (
+                  <CircularProgress
+                    style={{ color: "white", marginTop: "20px" }}
+                  /> // Display CircularProgress when loading
+                ) : (
+                  // <h1>{data.chatbot_users}</h1>
+                  <h1>8461</h1>
+                )}
+              </div>
+            </div>
+            <div
+              className="card"
+              // onClick={() => handleOpen("Total No. of Users")}
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+                // cursor: "pointer", // Show hand cursor on hover
+                // position: "relative", // Needed for positioning the "Click here" text
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#708090",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                <p>No. of registered smartphone users(Female)</p>
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#708090",
                   borderEndStartRadius: "10px",
                   borderEndEndRadius: "10px",
                   color: "white",
@@ -958,6 +1052,21 @@ const WhatsappChatbot = () => {
 };
 
 export default WhatsappChatbot;
+
+const dataJson2 = [
+  {
+    month: 1,
+    registered_smartphone_users: 565,
+    registered_smartphone_users_male: 500,
+    registered_smartphone_users_female: 65,
+  },
+  {
+    month: 2,
+    no_of_registered_smartphone_users: 231,
+    registered_smartphone_users_male: 100,
+    registered_smartphone_users_female: 131,
+  },
+];
 
 const dataJson = [
   {

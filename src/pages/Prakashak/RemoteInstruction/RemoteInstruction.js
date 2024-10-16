@@ -232,6 +232,57 @@ const RemoteInstruction = () => {
     //   });
   };
 
+  const filterButtonClick2 = () => {
+    setRemoteInstData({});
+    let body = {};
+    setLoading(true);
+    setIsFiltered(false);
+
+    if (!selectedMonth && !selectedMonth) {
+      body = {
+        year: selectedYear,
+      };
+    } else if (selectedMonth) {
+      body = {
+        year: selectedYear,
+        month: selectedMonth,
+      };
+    } else if (!selectedMonth) {
+      alert("Please select a month before selecting the week!");
+    }
+
+    console.log("body passed------------>", body);
+    const filteredData = dataJson2.filter((item) => {
+      return item.month === selectedMonth;
+    });
+    if (filteredData?.length > 0) {
+      setRemoteInstData(filteredData);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+
+    // PrakashakAPI.post(`getRemoteInstReport`, body)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       setRemoteInstData(res.data);
+    //       setLoading(false);
+    //       if (body.month) {
+    //         setIsFiltered(true);
+    //       } else {
+    //         setIsFiltered(false);
+    //       }
+    //     } else {
+    //       setLoading(false);
+    //       console.log("res status------->", res.status);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     console.log(`The error is---> ${err}`);
+    //   });
+  };
+
   let tableHeaders;
 
   //!---------------this function handles various api calls which will handle the data retrived through modal popup--------------
@@ -689,22 +740,6 @@ const RemoteInstruction = () => {
             ))}
           </Select>
         </FormControl>
-        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Week</InputLabel>
-          <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedWeek}
-            onChange={handleWeekChange}
-            label="Month"
-          >
-            {weekArr.map((item, index) => (
-              <MenuItem key={index} value={item.value}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl> */}
         <Button
           variant="contained"
           sx={{
@@ -712,7 +747,7 @@ const RemoteInstruction = () => {
             width: "120px",
             marginTop: "1.2%",
           }}
-          onClick={filterButtonClick}
+          onClick={filterButtonClick2}
         >
           Filter
         </Button>
@@ -787,6 +822,92 @@ const RemoteInstruction = () => {
                 style={{
                   height: "50%",
                   backgroundColor: "#00CED1",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                {loading ? (
+                  <CircularProgress
+                    style={{ color: "white", marginTop: "20px" }}
+                  /> // Display CircularProgress when loading
+                ) : (
+                  <h1>4394</h1>
+                  // <h1>{remoteInstData.total_remote_instructions_users}</h1> // Display data when loaded
+                )}
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#000080",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                <p>No. of registered non-smartphone users(Male)</p>
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#000080",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                {loading ? (
+                  <CircularProgress
+                    style={{ color: "white", marginTop: "20px" }}
+                  /> // Display CircularProgress when loading
+                ) : (
+                  <h1>4394</h1>
+                  // <h1>{remoteInstData.total_remote_instructions_users}</h1> // Display data when loaded
+                )}
+              </div>
+            </div>
+            <div
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#708090",
+                  paddingTop: "20px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                <p>No. of registered non-smartphone users(Female)</p>
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#708090",
                   borderEndStartRadius: "10px",
                   borderEndEndRadius: "10px",
                   color: "white",
@@ -1324,6 +1445,21 @@ const RemoteInstruction = () => {
 };
 
 export default RemoteInstruction;
+
+const dataJson2 = [
+  {
+    month: 1,
+    registered_nonsmartphone_users: 565,
+    registered_nonsmartphone_users_male: 500,
+    registered_nonsmartphone_users_female: 65,
+  },
+  {
+    month: 2,
+    no_of_registered_nonsmartphone_users: 231,
+    registered_nonsmartphone_users_male: 100,
+    registered_nonsmartphone_users_female: 131,
+  },
+];
 
 const dataJson = [
   {

@@ -1133,6 +1133,12 @@ const dataJson2 = [
     registered_smartphone_users_male: 100,
     registered_smartphone_users_female: 131,
   },
+  {
+    month: 10,
+    registered_smartphone_users: 0,
+    registered_smartphone_users_male: 0,
+    registered_smartphone_users_female: 0,
+  },
 ];
 
 const dataJson = [

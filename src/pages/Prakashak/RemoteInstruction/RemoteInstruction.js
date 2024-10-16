@@ -157,6 +157,16 @@ const RemoteInstruction = () => {
     } else {
       setLoading(false);
     }
+    const filteredData2 = dataJson2.filter((item) => {
+      return item.month === selectedMonth2;
+    });
+    if (filteredData2?.length > 0) {
+      setRemoteInstData2(filteredData2);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
+
     // PrakashakAPI.post(`getRemoteInstReport`, body)
     //   .then((res) => {
     //     if (res.status === 200) {
@@ -1498,9 +1508,9 @@ const dataJson2 = [
   },
   {
     month: 9,
-    registered_nonsmartphone_users: 231,
-    registered_nonsmartphone_users_male: 100,
-    registered_nonsmartphone_users_female: 131,
+    registered_nonsmartphone_users: 1,
+    registered_nonsmartphone_users_male: 10,
+    registered_nonsmartphone_users_female: 31,
   },
 ];
 

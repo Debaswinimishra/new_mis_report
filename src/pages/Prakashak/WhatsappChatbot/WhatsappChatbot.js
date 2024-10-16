@@ -1091,6 +1091,48 @@ const dataJson2 = [
     registered_smartphone_users_male: 100,
     registered_smartphone_users_female: 131,
   },
+  {
+    month: 3,
+    registered_smartphone_users: 231,
+    registered_smartphone_users_male: 100,
+    registered_smartphone_users_female: 131,
+  },
+  {
+    month: 4,
+    registered_smartphone_users: 231,
+    registered_smartphone_users_male: 100,
+    registered_smartphone_users_female: 131,
+  },
+  {
+    month: 5,
+    registered_smartphone_users: 231,
+    registered_smartphone_users_male: 100,
+    registered_smartphone_users_female: 131,
+  },
+  {
+    month: 6,
+    registered_smartphone_users: 231,
+    registered_smartphone_users_male: 100,
+    registered_smartphone_users_female: 131,
+  },
+  {
+    month: 7,
+    registered_smartphone_users: 231,
+    registered_smartphone_users_male: 100,
+    registered_smartphone_users_female: 131,
+  },
+  {
+    month: 8,
+    registered_smartphone_users: 231,
+    registered_smartphone_users_male: 100,
+    registered_smartphone_users_female: 131,
+  },
+  {
+    month: 9,
+    registered_smartphone_users: 231,
+    registered_smartphone_users_male: 100,
+    registered_smartphone_users_female: 131,
+  },
 ];
 
 const dataJson = [

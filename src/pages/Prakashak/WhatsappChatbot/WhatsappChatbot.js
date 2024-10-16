@@ -140,7 +140,7 @@ const WhatsappChatbot = () => {
 
   useEffect(() => {
     fetchData();
-    // fetchData2();
+    fetchData2();
   }, []);
 
   const fetchData = () => {

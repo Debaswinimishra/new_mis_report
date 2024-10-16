@@ -75,6 +75,8 @@ const RemoteInstruction = () => {
   );
   const [selectedWeek, setSelectedWeek] = useState(4);
   const [remoteInstData, setRemoteInstData] = useState([]);
+  const [remoteInstData2, setRemoteInstData2] = useState([]);
+
   const [loading, setLoading] = useState();
   const [open, setOpen] = useState(false);
   const [modalContentData, setModalContentData] = useState([]);
@@ -210,78 +212,39 @@ const RemoteInstruction = () => {
     } else {
       setLoading(false);
     }
-
-    // PrakashakAPI.post(`getRemoteInstReport`, body)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       setRemoteInstData(res.data);
-    //       setLoading(false);
-    //       if (body.month) {
-    //         setIsFiltered(true);
-    //       } else {
-    //         setIsFiltered(false);
-    //       }
-    //     } else {
-    //       setLoading(false);
-    //       console.log("res status------->", res.status);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setLoading(false);
-    //     console.log(`The error is---> ${err}`);
-    //   });
   };
 
   const filterButtonClick2 = () => {
-    setRemoteInstData({});
+    setRemoteInstData2({});
     let body = {};
     setLoading(true);
     setIsFiltered(false);
 
     if (!selectedMonth && !selectedMonth) {
       body = {
-        year: selectedYear,
+        year: selectedYear2,
       };
     } else if (selectedMonth) {
       body = {
-        year: selectedYear,
-        month: selectedMonth,
+        year: selectedYear2,
+        month: selectedMonth2,
       };
-    } else if (!selectedMonth) {
+    } else if (!selectedMonth2) {
       alert("Please select a month before selecting the week!");
     }
 
-    console.log("body passed------------>", body);
-    const filteredData = dataJson2.filter((item) => {
-      return item.month === selectedMonth;
+    const filteredData2 = dataJson2.filter((item) => {
+      return item.month === selectedMonth2;
     });
-    if (filteredData?.length > 0) {
-      setRemoteInstData(filteredData);
+    if (filteredData2?.length > 0) {
+      setRemoteInstData2(filteredData2);
       setLoading(false);
     } else {
       setLoading(false);
     }
-
-    // PrakashakAPI.post(`getRemoteInstReport`, body)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       setRemoteInstData(res.data);
-    //       setLoading(false);
-    //       if (body.month) {
-    //         setIsFiltered(true);
-    //       } else {
-    //         setIsFiltered(false);
-    //       }
-    //     } else {
-    //       setLoading(false);
-    //       console.log("res status------->", res.status);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     setLoading(false);
-    //     console.log(`The error is---> ${err}`);
-    //   });
   };
+
+  console.log("remoteInstData 2----------->", remoteInstData2);
 
   let tableHeaders;
 
@@ -783,147 +746,185 @@ const RemoteInstruction = () => {
               </i>
             </h2>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignContent: "center",
-              justifyContent: "center",
-              width: "97%",
-              gap: "2%",
-              // marginLeft: "4%",
-            }}
-          >
+          {loading ? (
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Box>
+                <CircularProgress />
+              </Box>
+            </div>
+          ) : !loading && remoteInstData2.length > 0 ? (
             <div
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
+                marginTop: "2%",
+                paddingBottom: "4%",
+                marginLeft: "4%",
+                alignContent: "flex-start",
               }}
             >
               <div
                 style={{
-                  height: "50%",
-                  color: "#00CED1",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  marginTop: "2%",
+                  boxShadow: "2px 1px 5px grey",
+                  padding: "3%",
+                  width: "95%",
                 }}
               >
-                <p>No. of registered non-smartphone users</p>
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#00CED1",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                {loading ? (
-                  <CircularProgress
-                    style={{ color: "white", marginTop: "20px" }}
-                  /> // Display CircularProgress when loading
-                ) : (
-                  <h1>4394</h1>
-                  // <h1>{remoteInstData.total_remote_instructions_users}</h1> // Display data when loaded
-                )}
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    width: "97%",
+                    gap: "2%",
+                    // marginLeft: "4%",
+                  }}
+                >
+                  {remoteInstData2?.map((item) => {
+                    return (
+                      <>
+                        {selectedMonth2 ? (
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "180px",
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            <div
+                              style={{
+                                height: "50%",
+                                color: "#CD5C5C",
+                                paddingTop: "20px",
+                                fontSize: "1.2rem",
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <p>No of registered non-smartphone users</p>
+                            </div>
+                            <div
+                              style={{
+                                height: "50%",
+                                backgroundColor: "#CD5C5C",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                              }}
+                            >
+                              <h1>{item.registered_nonsmartphone_users}</h1>
+                            </div>
+                          </div>
+                        ) : null}
+
+                        <div
+                          style={{
+                            width: "255px",
+                            height: "180px",
+                            marginTop: "1.5%",
+                            backgroundColor: "white",
+                            borderRadius: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            boxShadow: "1px 1px 4px 3px lightGrey",
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "50%",
+                              color: "#6A5ACD",
+                              paddingTop: "20px",
+                              fontSize: "1.2rem",
+                              fontFamily: "Congenial SemiBold",
+                              fontWeight: "600",
+                            }}
+                          >
+                            <p>No of registered non-smartphone users(male)</p>
+                          </div>
+                          <div
+                            style={{
+                              height: "50%",
+                              backgroundColor: "#6A5ACD",
+                              borderEndStartRadius: "10px",
+                              borderEndEndRadius: "10px",
+                              color: "white",
+                            }}
+                          >
+                            <h1>{item.registered_nonsmartphone_users_male}</h1>
+                          </div>
+                        </div>
+
+                        {/* {isFiltered ? ( */}
+                        <div
+                          style={{
+                            width: "255px",
+                            height: "180px",
+                            marginTop: "1.5%",
+                            backgroundColor: "white",
+                            borderRadius: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            boxShadow: "1px 1px 4px 3px lightGrey",
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "50%",
+                              color: "#2E8B57",
+                              paddingTop: "20px",
+                              fontSize: "1.2rem",
+                              fontFamily: "Congenial SemiBold",
+                              fontWeight: "600",
+                            }}
+                          >
+                            <p>No of registered non-smartphone users(female)</p>
+                          </div>
+                          <div
+                            style={{
+                              height: "50%",
+                              backgroundColor: "#2E8B57",
+                              borderEndStartRadius: "10px",
+                              borderEndEndRadius: "10px",
+                              color: "white",
+                            }}
+                          >
+                            <h1>
+                              {item.registered_nonsmartphone_users_female}
+                            </h1>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
+                </div>
               </div>
             </div>
+          ) : Object.keys(remoteInstData2).length === 0 && loading === false ? (
             <div
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                borderRadius: "10px",
                 display: "flex",
                 flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: "90vh",
               }}
             >
-              <div
+              <img
+                src={Nodata}
+                alt="No Data"
                 style={{
-                  height: "50%",
-                  color: "#000080",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  maxWidth: "100%",
+                  maxHeight: "80vh",
+                  marginBottom: "20px",
                 }}
-              >
-                <p>No. of registered non-smartphone users(Male)</p>
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#000080",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                {loading ? (
-                  <CircularProgress
-                    style={{ color: "white", marginTop: "20px" }}
-                  /> // Display CircularProgress when loading
-                ) : (
-                  <h1>4394</h1>
-                  // <h1>{remoteInstData.total_remote_instructions_users}</h1> // Display data when loaded
-                )}
-              </div>
+              />
             </div>
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#708090",
-                  paddingTop: "20px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                <p>No. of registered non-smartphone users(Female)</p>
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#708090",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                {loading ? (
-                  <CircularProgress
-                    style={{ color: "white", marginTop: "20px" }}
-                  /> // Display CircularProgress when loading
-                ) : (
-                  <h1>4394</h1>
-                  // <h1>{remoteInstData.total_remote_instructions_users}</h1> // Display data when loaded
-                )}
-              </div>
-            </div>
-          </div>
+          ) : null}
         </div>
       </div>
       <div
@@ -1455,7 +1456,7 @@ const dataJson2 = [
   },
   {
     month: 2,
-    no_of_registered_nonsmartphone_users: 231,
+    registered_nonsmartphone_users: 231,
     registered_nonsmartphone_users_male: 100,
     registered_nonsmartphone_users_female: 131,
   },

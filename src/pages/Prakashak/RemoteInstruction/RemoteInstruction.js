@@ -66,7 +66,11 @@ const RemoteInstruction = () => {
 
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedYear2, setSelectedYear2] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(
+    currentMonthSelected.value - 1
+  );
+  const [selectedMonth2, setSelectedMonth2] = useState(
     currentMonthSelected.value - 1
   );
   const [selectedWeek, setSelectedWeek] = useState(4);
@@ -84,6 +88,10 @@ const RemoteInstruction = () => {
     setSelectedMonth("");
     setSelectedWeek("");
   };
+  const handleYearChange2 = (e) => {
+    setSelectedYear2(parseInt(e.target.value));
+    setSelectedMonth2("");
+  };
 
   const handleMonthChange = (e) => {
     if (
@@ -94,6 +102,18 @@ const RemoteInstruction = () => {
     } else {
       setSelectedWeek(1);
       setSelectedMonth(e.target.value ? e.target.value : "");
+    }
+  };
+
+  const handleMonthChange2 = (e) => {
+    if (
+      e.target.value > currentMonthSelected.value &&
+      selectedYear2 === currentYear
+    ) {
+      alert("You can't select a month greater than the current month !");
+    } else {
+      // setSelectedWeek(1);
+      setSelectedMonth2(e.target.value ? e.target.value : "");
     }
   };
 
@@ -641,8 +661,8 @@ const RemoteInstruction = () => {
           <Select
             labelId="usertype-label"
             id="usertype-select"
-            value={selectedYear}
-            onChange={handleYearChange}
+            value={selectedYear2}
+            onChange={handleYearChange2}
             label="Year"
           >
             {years.map((item, index) => (
@@ -657,8 +677,8 @@ const RemoteInstruction = () => {
           <Select
             labelId="usertype-label"
             id="usertype-select"
-            value={selectedMonth}
-            onChange={handleMonthChange}
+            value={selectedMonth2}
+            onChange={handleMonthChange2}
             label="Month"
           >
             {/* <MenuItem value={null}>None</MenuItem> */}

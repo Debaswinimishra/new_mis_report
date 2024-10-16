@@ -387,6 +387,75 @@ const WhatsappChatbot = () => {
     <div>
       <div
         style={{
+          display: "flex",
+          // marginTop: "4%",
+          marginLeft: "69%",
+          flexWrap: "wrap",
+        }}
+      >
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Year</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedYear}
+            onChange={handleYearChange}
+            label="Year"
+          >
+            {years.map((item, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Month</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedMonth}
+            onChange={handleMonthChange}
+            label="Month"
+          >
+            {/* <MenuItem value={null}>None</MenuItem> */}
+            {monthArr.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Week</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedWeek}
+            onChange={handleWeekChange}
+            label="Month"
+          >
+            {weekArr.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl> */}
+        <Button
+          variant="contained"
+          sx={{
+            height: "40px",
+            width: "120px",
+            marginTop: "1.2%",
+          }}
+          onClick={filterButtonClick}
+        >
+          Filter
+        </Button>
+      </div>
+      <div
+        style={{
           marginTop: "2%",
           paddingBottom: "4%",
           marginLeft: "4%",
@@ -501,7 +570,7 @@ const WhatsappChatbot = () => {
           // justifyContent: "space-around",
           // width: "25%",
           marginTop: "4%",
-          marginLeft: "55%",
+          marginLeft: "60%",
           // width: "30%",
           flexWrap: "wrap",
         }}
@@ -588,8 +657,8 @@ const WhatsappChatbot = () => {
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              width: "96%",
-              marginLeft: "3%",
+              width: "95%",
+              marginLeft: "2.2%",
               marginBottom: "2%",
               marginTop: "2%",
             }}

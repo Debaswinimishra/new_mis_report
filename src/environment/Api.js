@@ -3,7 +3,7 @@ import axios from "axios";
 const baseURL = "https://thinkzone.co/thinkzone"; //Prod
 
 export const Version = {
-  version: "1.4.0",
+  version: "1.4.1",
 };
 export default axios.create({
   baseURL,

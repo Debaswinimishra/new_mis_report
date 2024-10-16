@@ -38,8 +38,8 @@ const Schoolwise_performance = () => {
   const [data, setData] = useState([]);
 
   console.log("data--->", data);
-  const [selectedMonth, setSelectedMonth] = useState(6);
-  const [selectedWeek, setSelectedWeek] = useState(1);
+  const [selectedMonth, setSelectedMonth] = useState(9);
+  const [selectedWeek, setSelectedWeek] = useState(4);
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
   console.log("blocks---->", blocks);
@@ -188,8 +188,8 @@ const Schoolwise_performance = () => {
     ) {
       alert("You can't select a month greater than the current month !");
     } else {
-      setSelectedWeek(1);
       setSelectedMonth(e.target.value ? e.target.value : "");
+      setSelectedWeek(1);
     }
   };
 

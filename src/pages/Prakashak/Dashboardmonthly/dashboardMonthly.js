@@ -65,7 +65,7 @@ const DashboardMonthly = () => {
   const [selectedMonth, setSelectedMonth] = useState(
     currentMonthSelected.value - 1
   );
-  const [selectedWeek, setSelectedWeek] = useState(1);
+  const [selectedWeek, setSelectedWeek] = useState(4);
   const [dashboardData, setDashboardData] = useState({});
   const [loading, setLoading] = useState();
   const [tableData, setTableData] = useState([]);

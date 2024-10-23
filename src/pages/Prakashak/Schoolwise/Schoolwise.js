@@ -61,7 +61,7 @@ const Schoolwise = () => {
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
-  const districtname = localStorage.getItem("districtname");
+  const districtname = localStorage?.getItem("districtname");
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const handleYearChange = (e) => {
@@ -115,28 +115,28 @@ const Schoolwise = () => {
     const fetchData = async () => {
       try {
         const response = await Api.get("getAllDistricts");
-        if (
-          response &&
-          response?.data &&
-          response?.data?.length > 0 &&
-          response?.data
-        ) {
-          console.log("response?.data---------->", response?.data);
-          const districts =
-            response?.data.length > 0 && districtname
-              ? response?.data
-                  .filter(
-                    (item) =>
-                      item?.district.toLowerCase() ===
-                      districtname.toLowerCase()
-                  )
-                  .map((item) => item?.district)
-              : response?.data;
+        if (response?.data) {
+          // Fetch districtname from localStorage
+          const districtname = localStorage?.getItem("districtname");
 
-          setDistrictArr(districts);
+          // Check if districtname is not null, an empty string, or "undefined"
+          const isDistrictNameValid =
+            districtname && districtname !== "undefined";
+
+          const districts = isDistrictNameValid
+            ? response.data
+                .filter(
+                  (item) =>
+                    item?.district.toLowerCase() === districtname.toLowerCase()
+                )
+                .map((item) => item?.district)
+            : response.data;
+
+          setDistrictArr(districts); // Set the filtered or full data
         } else {
-          setDistrictArr([]);
+          setDistrictArr([]); // Set an empty array if no data
         }
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching districts:", error);
@@ -145,7 +145,6 @@ const Schoolwise = () => {
     };
 
     fetchData();
-
     return () => {};
   }, []);
 

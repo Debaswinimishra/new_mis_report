@@ -962,7 +962,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p> Total Time Spent</p>
+                  <p> Total Activated students</p>
                 </div>
                 <div
                   style={{
@@ -973,7 +973,7 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.total_timespent}</h1>
+                  <h1>{data.total_activated_students}</h1>
                 </div>
               </div>
               <div
@@ -1000,7 +1000,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 0-1 mins
+                  Total active students
                 </div>
                 <div
                   style={{
@@ -1011,7 +1011,7 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_0to1mins}</h1>
+                  <h1>{data.total_active_students}</h1>
                 </div>
               </div>
               <div
@@ -1038,7 +1038,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 2-15 mins
+                  Total smartphone users
                 </div>
                 <div
                   style={{
@@ -1049,7 +1049,7 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_2to5mins}</h1>
+                  {/* <h1>{data.no_of_parents_spent_2to5mins}</h1> */}
                 </div>
               </div>
               <div
@@ -1076,7 +1076,7 @@ const Schoolwise = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Number of Parents Spent 16-30 mins
+                  Total non-smartphone users
                 </div>
                 <div
                   style={{
@@ -1087,10 +1087,10 @@ const Schoolwise = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{data.no_of_parents_spent_16to30mins}</h1>
+                  {/* <h1>{data.no_of_parents_spent_16to30mins}</h1> */}
                 </div>
               </div>
-              <div
+              {/* <div
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1166,11 +1166,11 @@ const Schoolwise = () => {
                 >
                   <h1>{data.no_of_parents_spent_gte45mins}</h1>
                 </div>
-              </div>
+              </div>  */}
             </div>
           </div>
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1473,9 +1473,9 @@ const Schoolwise = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1578,8 +1578,7 @@ const Schoolwise = () => {
                   height: "180px",
                   marginTop: "1.5%",
                   backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
+                 
                   borderRadius: "10px",
                   display: "flex",
                   flexDirection: "column",
@@ -1611,84 +1610,7 @@ const Schoolwise = () => {
                 </div>
               </div>
 
-              {/* <div
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#2E8B57",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Total No. of Assessment Taken
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#2E8B57",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{data.total_chatbot_assess_taken}</h1>
-                </div>
-              </div> */}
-
-              {/* <div
-                onClick={() => handleOpen()}
-                style={{
-                  width: "255px",
-                  height: "180px",
-                  marginTop: "1.5%",
-                  backgroundColor: "white",
-                  // // paddingTop: "2%",
-                  // fontFamily: "Arial, sans-serif", // Default font family
-                  borderRadius: "10px",
-                  display: "flex",
-                  flexDirection: "column",
-                  boxShadow: "1px 1px 4px 3px lightGrey",
-                }}
-              >
-                <div
-                  style={{
-                    height: "50%",
-                    color: "#6A5ACD",
-                    paddingTop: "20px",
-                    fontSize: "1.2rem",
-                    fontFamily: "Congenial SemiBold",
-                    fontWeight: "600",
-                  }}
-                >
-                  Average minutes spent in WhatsApp
-                </div>
-                <div
-                  style={{
-                    height: "50%",
-                    backgroundColor: "#6A5ACD",
-                    borderEndStartRadius: "10px",
-                    borderEndEndRadius: "10px",
-                    color: "white",
-                  }}
-                >
-                  <h1>{data.chatbot_avg_mins}</h1>
-                </div>
-              </div> */}
+              
 
               <div
                 // onClick={() => handleOpen()}
@@ -1730,7 +1652,7 @@ const Schoolwise = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       ) : !loading && filtered && Object.keys(data).length === 0 ? (
         <img src={Nodata} />

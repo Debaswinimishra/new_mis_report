@@ -15,7 +15,8 @@ import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatb
 import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
-import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
+import ActiveParent from "../../Pages/Prakashak/ActiveParent/ActiveParent";
+// import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -85,7 +86,7 @@ function NavigationPrakashak(props) {
     },
     { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 3 },
     { text: "School-wise", link: "prakashak/school_wise", id: 4 },
-    // { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
+    { text: "Active Parents", link: "prakashak/active_parents", id: 5 },
   ];
 
   return (
@@ -241,18 +242,17 @@ function NavigationPrakashak(props) {
       <div>
         {activeLink === "/prakashak/dashboard" ? (
           <Dashboard />
-        ) : activeLink === "/prakashak/dashboard_monthly" ? (
-          <DashboardMonthly />
-        ) : activeLink === "/prakashak/remote_instructions" ? (
+        ) : // ) : activeLink === "/prakashak/dashboard_monthly" ? (
+        //   <DashboardMonthly />
+        activeLink === "/prakashak/remote_instructions" ? (
           <RemoteInstruction />
         ) : activeLink === "/prakashak/whatsapp_chatbot" ? (
           <WhatsappChatbot />
         ) : activeLink === "/prakashak/school_wise" ? (
           <Schoolwise />
-        ) : //  activeLink === "/prakashak/class_wise" ? (
-        //   <Classwise />
-        // ) :
-        null}
+        ) : activeLink === "/prakashak/active_parents" ? (
+          <ActiveParent />
+        ) : null}
       </div>
     </Box>
   );

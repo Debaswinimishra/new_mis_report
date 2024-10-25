@@ -169,9 +169,9 @@ const ActiveParent = () => {
                   <TableCell sx={{ fontWeight: "bold", fontSize: "16px" }}>
                     School Name
                   </TableCell>
-                  {/* <TableCell sx={{ fontWeight: "bold", fontSize: "16px" }}>
+                   <TableCell sx={{ fontWeight: "bold", fontSize: "16px" }}>
                     Anganwadi Name
-                  </TableCell> */}
+                  </TableCell> 
                   <TableCell sx={{ fontWeight: "bold", fontSize: "16px" }}>
                     Cluster
                   </TableCell>

@@ -4,7 +4,7 @@ import MenuItem from "@mui/material/MenuItem"; // Correct import path
 
 const Select1 = ({ selectedYear, onChange }) => {
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 5 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 3 }, (_, index) => currentYear - index);
   const handleYearChange = (event) => {
     // const selectedYear = parseInt(event.target.value);
     const selectedYear = event.target.value.toString();

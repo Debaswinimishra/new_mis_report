@@ -29,8 +29,11 @@ const Login = () => {
         if (approvalStatus === "approved") {
           localStorage.setItem("login", true);
           localStorage.setItem("usertype", usertype);
-          localStorage.setItem("districtname", districtname);
-          localStorage.setItem("districtid", districtid);
+          localStorage.setItem(
+            "districtname",
+            districtname ? districtname : ""
+          );
+          localStorage.setItem("districtid", districtid ? districtid : "");
           Swal.fire({
             icon: "success",
             title: "Login Successful",
@@ -40,8 +43,10 @@ const Login = () => {
 
           if (usertype === "admin" || usertype === "mis") {
             navigate("/home");
-          } else if (usertype === "prakashak") {
+          } else if (usertype === "prakashak" && !districtname) {
             navigate("/prakashak/dashboard"); // Here I have modified the path for the prakashak to directly move to dashboard
+          } else if (usertype === "prakashak" && districtname) {
+            navigate("/prakashak/overall_details"); // Here I have modified the path for the prakashak to directly move to dashboard
           } else {
             navigate("/");
           }

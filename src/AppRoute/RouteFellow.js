@@ -20,6 +20,7 @@ import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
 // import { TimeSpentReportModuleWise } from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
+import AmazonVouchersRedeemed from "../Pages/Fellow/AmazonVouchersRedeemed/AmazonVouchersRedeemed";
 
 const RouteFellow = () => {
   const Navigate = useNavigate();
@@ -57,6 +58,10 @@ const RouteFellow = () => {
           element={<TimeSpentReportModuleWise />}
         />
         <Route path="timespent_report" element={<TimespentReport />} />
+        <Route
+          path="amazon_vouchers_redeemed"
+          element={<AmazonVouchersRedeemed />}
+        />
       </Route>
       {/* <Route path="*" element={<Route404 />} /> */}
       {/* <Route path="*" element={<Navigate to="/fellow/dashboard" />} /> */}

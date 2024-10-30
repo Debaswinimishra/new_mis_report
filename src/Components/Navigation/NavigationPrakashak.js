@@ -15,9 +15,8 @@ import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatb
 import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
 import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
-import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
-import Schoolwise_performance from "../../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
-import Retention from "../../Pages/Prakashak/Retention/Retention";
+import ActiveParent from "../../Pages/Prakashak/ActiveParent/ActiveParent";
+// import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 
 function NavigationPrakashak(props) {
   const { pathname } = useLocation();
@@ -28,7 +27,6 @@ function NavigationPrakashak(props) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const usertype = localStorage.getItem("usertype");
-  console.log("activeLink---------->", activeLink);
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -88,17 +86,7 @@ function NavigationPrakashak(props) {
     },
     { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 3 },
     { text: "School-wise", link: "prakashak/school_wise", id: 4 },
-    {
-      text: "School-wise Performance",
-      link: "prakashak/school_wise_performance",
-      id: 5,
-    },
-    {
-      text: "Retention Metrics",
-      link: "prakashak/retention_metrics",
-      id: 6,
-    },
-    // { text: "Class-wise", link: "prakashak/class_wise", id: 5 },
+    { text: "Active Parents", link: "prakashak/active_parents", id: 5 },
   ];
 
   return (
@@ -160,7 +148,7 @@ function NavigationPrakashak(props) {
         >
           <b>PRAKASHAK</b>
           <sub>
-            v{Version.version} ({networkStatus})
+            v{Version.version}({networkStatus})
           </sub>
           <div
             style={{
@@ -179,6 +167,7 @@ function NavigationPrakashak(props) {
           </div>
         </div>
       </div>
+
       <Popover
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
@@ -204,6 +193,7 @@ function NavigationPrakashak(props) {
           ) : null}
         </MenuItem>
       </Popover>
+
       <div
         style={{
           display: "flex",
@@ -211,8 +201,6 @@ function NavigationPrakashak(props) {
           flexWrap: "wrap",
           justifyContent: "center",
           margin: "10px 0",
-          // overflowX: "auto",
-          // whiteSpace: "nowrap",
         }}
       >
         {listItem.map((item, index) => (
@@ -254,18 +242,16 @@ function NavigationPrakashak(props) {
       <div>
         {activeLink === "/prakashak/dashboard" ? (
           <Dashboard />
-        ) : activeLink === "/prakashak/dashboard_monthly" ? (
-          <DashboardMonthly />
-        ) : activeLink === "/prakashak/remote_instructions" ? (
+        ) : // ) : activeLink === "/prakashak/dashboard_monthly" ? (
+        //   <DashboardMonthly />
+        activeLink === "/prakashak/remote_instructions" ? (
           <RemoteInstruction />
         ) : activeLink === "/prakashak/whatsapp_chatbot" ? (
           <WhatsappChatbot />
         ) : activeLink === "/prakashak/school_wise" ? (
           <Schoolwise />
-        ) : activeLink === "/prakashak/school_wise_performance" ? (
-          <Schoolwise_performance />
-        ) : activeLink === "/prakashak/retention_metrics" ? (
-          <Retention />
+        ) : activeLink === "/prakashak/active_parents" ? (
+          <ActiveParent />
         ) : null}
       </div>
     </Box>

@@ -138,7 +138,7 @@ function NavigationFellow(props) {
       icon: <MoneyIcon sx={{ color: "#000080" }} />,
     },
     {
-      text: "Leaderboard",
+      text: "Leaderboard Status",
       link: "leaderboard",
       icon: <MoneyIcon sx={{ color: "#000080" }} />,
     },

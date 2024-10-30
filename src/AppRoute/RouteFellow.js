@@ -21,6 +21,7 @@ import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
 import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 import AmazonVouchersRedeemed from "../Pages/Fellow/AmazonVouchersRedeemed/AmazonVouchersRedeemed";
+import Leaderboard from "../Pages/Fellow/LeaderboardStatus/Leaderboard";
 
 const RouteFellow = () => {
   const Navigate = useNavigate();
@@ -46,6 +47,7 @@ const RouteFellow = () => {
           path="student_progress_report"
           element={<StudentProgressReport />}
         />
+        <Route path="leaderboard" element={<Leaderboard />} />
         <Route path="details_c.e" element={<EducatorsDetails />} />
         <Route path="feedback" element={<Feedback />} />
         <Route path="training_details_c.e" element={<TrainingDetails />} />

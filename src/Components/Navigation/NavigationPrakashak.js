@@ -12,6 +12,8 @@ import { Version, networkStatus } from "../../Environment/PrakashakAPI";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
+import ActiveParent from "../../Pages/Prakashak/ActiveParent/ActiveParent";
+// import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 
 function NavigationPrakashak(props) {
   const location = useLocation();
@@ -114,9 +116,15 @@ function NavigationPrakashak(props) {
             id: 7,
           },
           {
+            text: "Active Parent",
+            link: "/prakashak/active_parents",
+            id: 8,
+          },
+
+          {
             text: "Retention Metrics",
             link: "/prakashak/retention_metrics",
-            id: 8,
+            id: 9,
           },
         ]
       : districtname && (usertype === "admin" || usertype === "prakashak")

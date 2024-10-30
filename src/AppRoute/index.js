@@ -37,12 +37,15 @@ import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
 // import { TimeSpentReportModuleWise } from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
-import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
+// import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 import AmazonVouchersRedeemed from "../Pages/Fellow/AmazonVouchersRedeemed/AmazonVouchersRedeemed";
 import Retention from "../Pages/Prakashak/Retention/Retention";
 import OverallDetails from "../Pages/Prakashak/Overall Details/OverallDetails";
 import MonthlyPerformance from "../Pages/Prakashak/Monthly Performance/MonthlyPerformance";
+import ActiveParent from "../Pages/Prakashak/ActiveParent/ActiveParent";
+import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
+import Leaderboard from "../Pages/Fellow/LeaderboardStatus/Leaderboard";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -78,6 +81,7 @@ function RouteRoot() {
                 path="training_details_c.e"
                 element={<TrainingDetails />}
               />
+              <Route path="leaderboard" element={<Leaderboard />} />
               <Route path="assessments_c.e" element={<Assessments />} />
               <Route
                 path="overall_timespent_c.e"
@@ -137,6 +141,8 @@ function RouteRoot() {
                 path="school_wise_performance"
                 element={<Schoolwise_performance />}
               />
+              <Route path="active_parents" element={<ActiveParent />} />
+
               <Route path="class_wise" element={<Classwise />} />
               <Route path="retention_metrics" element={<Retention />} />
             </Route>
@@ -172,6 +178,7 @@ function RouteRoot() {
                 path="training_details_c.e"
                 element={<TrainingDetails />}
               />
+              <Route path="leaderboard" element={<Leaderboard />} />
               <Route path="assessments_c.e" element={<Assessments />} />
               <Route
                 path="overall_timespent_c.e"
@@ -234,6 +241,8 @@ function RouteRoot() {
                 path="monthly_performance"
                 element={<MonthlyPerformance />}
               />
+              <Route path="active_parents" element={<ActiveParent />} />
+              <Route path="dashboard_monthly" element={<DashboardMonthly />} />
               <Route
                 path="school_wise_performance"
                 element={<Schoolwise_performance />}

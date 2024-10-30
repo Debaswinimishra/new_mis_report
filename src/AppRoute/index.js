@@ -44,6 +44,7 @@ import Retention from "../Pages/Prakashak/Retention/Retention";
 import ActiveParent from "../Pages/Prakashak/ActiveParent/ActiveParent";
 import OverallDetails from "../Pages/Prakashak/Overall Details/OverallDetails";
 import MonthlyPerformance from "../Pages/Prakashak/Monthly Performance/MonthlyPerformance";
+import Leaderboard from "../Pages/Fellow/Leaderboard/Leaderboard";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -142,6 +143,7 @@ function RouteRoot() {
 
               <Route path="class_wise" element={<Classwise />} />
               <Route path="retention_metrics" element={<Retention />} />
+              <Route path="leaderboard" element={<Leaderboard />} />
             </Route>
             <Route
               path="*"
@@ -171,6 +173,7 @@ function RouteRoot() {
               />
               <Route path="details_c.e" element={<EducatorsDetails />} />
               <Route path="feedback" element={<Feedback />} />
+              <Route path="leaderboard" element={<Leaderboard />} />
               <Route
                 path="training_details_c.e"
                 element={<TrainingDetails />}

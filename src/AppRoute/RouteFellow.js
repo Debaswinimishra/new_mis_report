@@ -21,6 +21,9 @@ import OnlineReport from "../Pages/Fellow/OnlineReport/OnlineReport";
 import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise/TimeSpentReportModuleWise";
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 import AmazonVouchersRedeemed from "../Pages/Fellow/AmazonVouchersRedeemed/AmazonVouchersRedeemed";
+import Leaderboard from "../Pages/Fellow/Leaderboard/Leaderboard";
+// import { Leaderboard } from "@mui/icons-material";
+// import { Leaderboard } from "../Pages/Fellow/Leaderboard/Leaderboard";
 
 const RouteFellow = () => {
   const Navigate = useNavigate();
@@ -62,6 +65,7 @@ const RouteFellow = () => {
           path="amazon_vouchers_redeemed"
           element={<AmazonVouchersRedeemed />}
         />
+        <Route path="leaderboard" element={<Leaderboard />} />
       </Route>
       {/* <Route path="*" element={<Route404 />} /> */}
       {/* <Route path="*" element={<Navigate to="/fellow/dashboard" />} /> */}

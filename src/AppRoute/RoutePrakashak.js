@@ -13,9 +13,12 @@ import Route404 from "./Route404";
 import Schoolwise_performance from "../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 import Retention from "../Pages/Prakashak/Retention/Retention";
 import ActiveParent from "../Pages/Prakashak/ActiveParent/ActiveParent";
+import OverallDetails from "../Pages/Prakashak/Overall Details/OverallDetails";
+import MonthlyPerformance from "../Pages/Prakashak/Monthly Performance/MonthlyPerformance";
 
 const RoutePrakashak = () => {
   const location = useLocation();
+  const districtname = localStorage.getItem("districtname");
 
   return (
     <Routes>
@@ -35,27 +38,14 @@ const RoutePrakashak = () => {
           path="school_wise_performance"
           element={<Schoolwise_performance />}
         />
+        <Route path="overall_details" element={<OverallDetails />} />
+        <Route path="monthly_performance" element={<MonthlyPerformance />} />
         <Route path="retention_metrics" element={<Retention />} />
 
         {/* <Route path="class_wise" element={<Classwise />} /> */}
       </Route>
+
       <Route path="*" element={<Route404 />} />
-
-      {/* <Route>
-        <Route path="/prakashak/dashboard" element={<PrakashakRoot />} />
-        <Route
-          path="/prakashak/remote_instructions"
-          element={<RemoteInstruction />}
-        />
-        <Route
-          path="/prakashak/whatsapp_chatbot"
-          element={<WhatsappChatbot />}
-        />
-        <Route path="/prakashak/school_wise" element={<Schoolwise />} />
-        <Route path="/prakashak/class_wise" element={<Classwise />} />
-
-        <Route path="*" element={<Navigate to="/prakashak/dashboard" />} />
-      </Route> */}
     </Routes>
   );
 };

@@ -39,8 +39,11 @@ import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 // import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
+import AmazonVouchersRedeemed from "../Pages/Fellow/AmazonVouchersRedeemed/AmazonVouchersRedeemed";
 import Retention from "../Pages/Prakashak/Retention/Retention";
 import ActiveParent from "../Pages/Prakashak/ActiveParent/ActiveParent";
+import OverallDetails from "../Pages/Prakashak/Overall Details/OverallDetails";
+import MonthlyPerformance from "../Pages/Prakashak/Monthly Performance/MonthlyPerformance";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -92,6 +95,10 @@ function RouteRoot() {
                 path="timespent_report_modulewise"
                 element={<TimeSpentReportModuleWise />}
               />
+              <Route
+                path="amazon_vouchers_redeemed"
+                element={<AmazonVouchersRedeemed />}
+              />
             </Route>
             <Route
               path="/anganwadi"
@@ -122,6 +129,11 @@ function RouteRoot() {
               />
               <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
               <Route path="school_wise" element={<Schoolwise />} />
+              <Route path="overall_details" element={<OverallDetails />} />
+              <Route
+                path="monthly_performance"
+                element={<MonthlyPerformance />}
+              />
               <Route
                 path="school_wise_performance"
                 element={<Schoolwise_performance />}
@@ -176,6 +188,10 @@ function RouteRoot() {
                 path="timespent_details_c.e"
                 element={<TimespentDetails />}
               />
+              <Route
+                path="amazon_vouchers_redeemed"
+                element={<AmazonVouchersRedeemed />}
+              />
             </Route>
             <Route path="timespent_report" element={<TimespentReport />} />
             <Route
@@ -217,6 +233,11 @@ function RouteRoot() {
               <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
               <Route path="school_wise" element={<Schoolwise />} />
               <Route path="active_parents" element={<ActiveParent />} />
+              <Route path="overall_details" element={<OverallDetails />} />
+              <Route
+                path="monthly_performance"
+                element={<MonthlyPerformance />}
+              />
               <Route
                 path="school_wise_performance"
                 element={<Schoolwise_performance />}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
@@ -9,23 +9,18 @@ import MenuItem from "@mui/material/MenuItem";
 import Logout from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
 import { Version, networkStatus } from "../../Environment/PrakashakAPI";
-import Dashboard from "../../Pages/Prakashak/Dashboard/Dashboard";
-import RemoteInstruction from "../../Pages/Prakashak/RemoteInstruction/RemoteInstruction";
-import WhatsappChatbot from "../../Pages/Prakashak/WhatsappChatbot/WhatsappChatbot";
-import Schoolwise from "../../Pages/Prakashak/Schoolwise/Schoolwise";
-import Classwise from "../../Pages/Prakashak/Classwise/Classwise";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import ActiveParent from "../../Pages/Prakashak/ActiveParent/ActiveParent";
 // import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 
 function NavigationPrakashak(props) {
-  const { pathname } = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [activeLink, setActiveLink] = React.useState("dashboard");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const districtname = localStorage.getItem("districtname");
+  const [activeLink, setActiveLink] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
-
   const usertype = localStorage.getItem("usertype");
 
   const handleMenuClick = (event) => {
@@ -64,41 +59,89 @@ function NavigationPrakashak(props) {
     navigate(link);
   };
 
-  useEffect(() => {
-    console.log("location.pathname------------->", location.pathname);
-    if (
-      location.pathname === "/prakashak" ||
-      location.pathname === "/prakashak/"
-    ) {
-      navigate("/prakashak/dashboard", { replace: true });
+  // Use useLayoutEffect for synchronous navigation before the component renders
+  useLayoutEffect(() => {
+    // If the current pathname is "/prakashak", navigate based on districtname
+    if (location.pathname === "/prakashak") {
+      if (districtname) {
+        // Navigate to overall_details if districtname is present
+        navigate("/prakashak/overall_details", { replace: true });
+        setActiveLink("/prakashak/overall_details");
+      } else {
+        // Navigate to dashboard if districtname is not found
+        navigate("/prakashak/dashboard", { replace: true });
+        setActiveLink("/prakashak/dashboard");
+      }
     } else {
+      // Update the activeLink based on the current location pathname
       setActiveLink(location.pathname);
     }
-  }, [location.pathname, navigate]);
+  }, [location.pathname, navigate, districtname]);
 
-  const listItem = [
-    { text: "Overall Dashboard", link: "prakashak/dashboard", id: 0 },
-    { text: "Dashboard Monthly", link: "prakashak/dashboard_monthly", id: 1 },
-    {
-      text: "Remote Instructions",
-      link: "prakashak/remote_instructions",
-      id: 2,
-    },
-    { text: "Whatsapp Chatbot", link: "prakashak/whatsapp_chatbot", id: 3 },
-    { text: "School-wise", link: "prakashak/school_wise", id: 4 },
-    { text: "Active Parents", link: "prakashak/active_parents", id: 5 },
-  ];
+  const listItem =
+    !districtname && (usertype === "admin" || usertype === "prakashak")
+      ? [
+          { text: "Overall Dashboard", link: "/prakashak/dashboard", id: 0 },
+          {
+            text: "Dashboard Monthly",
+            link: "/prakashak/dashboard_monthly",
+            id: 1,
+          },
+          {
+            text: "Remote Instructions",
+            link: "/prakashak/remote_instructions",
+            id: 2,
+          },
+          // {
+          //   text: "Overall Details",
+          //   link: "/prakashak/overall_details",
+          //   id: 3,
+          // },
+          // {
+          //   text: "Monthly Performance",
+          //   link: "/prakashak/monthly_performance",
+          //   id: 4,
+          // },
+          {
+            text: "Whatsapp Chatbot",
+            link: "/prakashak/whatsapp_chatbot",
+            id: 5,
+          },
+          { text: "School-wise", link: "/prakashak/school_wise", id: 6 },
+          {
+            text: "School-wise Performance",
+            link: "/prakashak/school_wise_performance",
+            id: 7,
+          },
+          {
+            text: "Retention Metrics",
+            link: "/prakashak/retention_metrics",
+            id: 8,
+          },
+        ]
+      : districtname && (usertype === "admin" || usertype === "prakashak")
+      ? [
+          {
+            text: "Overall Details",
+            link: "/prakashak/overall_details",
+            id: 3,
+          },
+          {
+            text: "Monthly Performance",
+            link: "/prakashak/monthly_performance",
+            id: 4,
+          },
+        ]
+      : null;
 
   return (
     <Box
       sx={{
-        // display: "flex",
         flexDirection: "column",
         backgroundColor: "white",
         minHeight: "100vh",
         width: "100%",
         padding: "0 0",
-
         boxSizing: "border-box",
       }}
     >
@@ -113,11 +156,9 @@ function NavigationPrakashak(props) {
           flexDirection: "row",
           flexWrap: "wrap",
           width: "100%",
-          // borderBottom: "0.5px solid black",
         }}
       >
         <IconButton
-          // onClick={handleMenuClick}
           sx={{
             position: "relative",
             top: 0,
@@ -144,7 +185,7 @@ function NavigationPrakashak(props) {
             marginTop: "10px",
             marginLeft: "10px",
           }}
-          onClick={handleNavigateHome}
+          // onClick={handleNavigateHome}
         >
           <b>PRAKASHAK</b>
           <sub>
@@ -203,7 +244,7 @@ function NavigationPrakashak(props) {
           margin: "10px 0",
         }}
       >
-        {listItem.map((item, index) => (
+        {listItem.map((item) => (
           <div
             key={item.id}
             style={{
@@ -211,7 +252,7 @@ function NavigationPrakashak(props) {
               cursor: "pointer",
               borderRadius: "5px",
               backgroundColor:
-                item.link.split("/")[1] === pathname.split("/")[2]
+                item.link.split("/")[2] === location.pathname.split("/")[2]
                   ? "rgb(90 81 221)"
                   : "white",
               width: "200px",
@@ -220,17 +261,17 @@ function NavigationPrakashak(props) {
               boxShadow: "2px 3px 6px grey",
               textAlign: "center",
             }}
-            onClick={() => handleTabChange(`/${item.link}`)}
+            onClick={() => handleTabChange(`${item.link}`)}
           >
             <span
               style={{
                 color:
-                  item.link.split("/")[1] === pathname.split("/")[2]
+                  item.link.split("/")[2] === location.pathname.split("/")[2]
                     ? "white"
                     : "black",
                 fontFamily: "Congenial SemiBold",
                 fontSize: 19,
-                fontWeight: "500",
+                fontWeight: "bolder",
               }}
             >
               {item.text}
@@ -238,21 +279,8 @@ function NavigationPrakashak(props) {
           </div>
         ))}
       </div>
-
-      <div>
-        {activeLink === "/prakashak/dashboard" ? (
-          <Dashboard />
-        ) : // ) : activeLink === "/prakashak/dashboard_monthly" ? (
-        //   <DashboardMonthly />
-        activeLink === "/prakashak/remote_instructions" ? (
-          <RemoteInstruction />
-        ) : activeLink === "/prakashak/whatsapp_chatbot" ? (
-          <WhatsappChatbot />
-        ) : activeLink === "/prakashak/school_wise" ? (
-          <Schoolwise />
-        ) : activeLink === "/prakashak/active_parents" ? (
-          <ActiveParent />
-        ) : null}
+      <div style={{ margin: "1% 3%" }}>
+        <Outlet />
       </div>
     </Box>
   );

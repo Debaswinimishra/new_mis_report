@@ -28,6 +28,7 @@ import defaultImage from "../../../Assets/default.jpg";
 import Chart from "chart.js/auto";
 import DynamicModal from "../../../Components/DynamicModal";
 import SelectYear from "../../../ReusableComponents/SelectYear";
+import { EightK } from "@mui/icons-material";
 
 const Schoolwise = () => {
   const chartRef = useRef(null);
@@ -57,15 +58,26 @@ const Schoolwise = () => {
     "block",
     "cluster",
   ]);
-  console.log("tableData", tableData);
-  console.log("districtArr", districtArr);
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
+  const districtname = localStorage?.getItem("districtname");
+  console.log("districtname-------------->", districtname);
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
+    setSelectedMonth("");
+  };
+
+  const currentMonth = new Date().getMonth();
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const handleMonthChange = (e) => {
+    if (selectedYear === currentYear && e.target.value > currentMonth + 1) {
+      alert("You can't choose a month greater than the current month !");
+    } else {
+      setSelectedMonth(e.target.value);
+    }
   };
 
   // const tableHeaders =
@@ -110,14 +122,21 @@ const Schoolwise = () => {
           response?.data?.length > 0 &&
           response?.data
         ) {
-          console.log("set=================>", response?.data);
+          console.log("response?.data---------->", response?.data);
           const districts =
             response?.data.length > 0 &&
-            response?.data?.map((item) => item?.district);
+            response?.data
+              .filter(
+                (item) =>
+                  item?.district.toLowerCase() === districtname.toLowerCase()
+              )
+              .map((item) => item?.district);
+
           setDistrictArr(districts);
         } else {
-          setDistrictArr([]);
+          setDistrictArr([]); // Set an empty array if no data
         }
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching districts:", error);
@@ -126,13 +145,13 @@ const Schoolwise = () => {
     };
 
     fetchData();
-
     return () => {};
   }, []);
 
   // const handleYearChange = (e) => {
   //   setYear(e.target.value);
   // };
+  console.log("district array---------->", districtArr);
 
   const handleDistrictChange = (e) => {
     setDistricts(e.target.value);
@@ -146,17 +165,15 @@ const Schoolwise = () => {
     const fetchData = async () => {
       try {
         const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
-        console.log("set=================>", response.data);
         if (response?.data && response?.data?.length > 0) {
-          // Extracting the blocks from the response data
           const blocks =
             response?.data.length > 0 &&
             response?.data?.map((item) => item?.block);
           console.log("Blocks:", blocks);
-          setBlockArr(blocks); // Setting the block array with the array of block names
+          setBlockArr(blocks);
         } else {
           console.log("No blocks found for the given district.");
-          setBlockArr([]); // Setting an empty array if no data is found
+          setBlockArr([]);
         }
         setLoading(false);
       } catch (error) {
@@ -184,7 +201,6 @@ const Schoolwise = () => {
         if (blocks) {
           setLoading(true);
           const response = await Api.get(`getAllClustersByBlock/${blocks}`);
-          // console.log("set=================>", response.data);
           const clusters =
             response?.data?.length > 0 &&
             response?.data?.map((item) => item?.cluster);
@@ -193,7 +209,7 @@ const Schoolwise = () => {
         }
       } catch (error) {
         console.error("Error fetching Clusters:", error);
-        setClusterArr([]); // Reset clusterArr to an empty array if there's an error
+        setClusterArr([]);
         setLoading(false);
       }
     };
@@ -211,10 +227,6 @@ const Schoolwise = () => {
       try {
         if (clusters) {
           const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-          // console.log(
-          //   "setsCHIOOOKKKKKsssssssssssssssssssssssssssssssssssssss=================>",
-          //   response.data[0].school_name
-          // );
           setSchoolArr(response?.data);
           setLoading(false);
         }
@@ -242,9 +254,9 @@ const Schoolwise = () => {
       block: blocks,
       cluster: clusters,
       school_name: schools.school_name,
+      year: selectedYear,
+      month: selectedMonth,
     };
-
-    console.log("check---------->", districts, blocks, clusters, schools);
 
     // if ("") {
     //   Api.post(`getSchoolWiseReport`, body)
@@ -272,7 +284,6 @@ const Schoolwise = () => {
     if (districts) {
       Api.post(`getSchoolWiseReport`, body)
         .then((response) => {
-          console.log("set=================>", response.data);
           setData(response.data);
           setLoading(false);
         })
@@ -383,12 +394,6 @@ const Schoolwise = () => {
 
   const handleClose = () => setOpen(false);
 
-  console.log("schoolArr--------------------->", schoolArr, typeof schoolArr);
-  console.log("districts--------->", districts);
-  console.log("blocks--------->", blocks);
-  console.log("clusters--------->", clusters);
-  console.log("schools--------->", schools);
-
   return (
     <div>
       <div
@@ -399,23 +404,23 @@ const Schoolwise = () => {
           flexWrap: "wrap",
         }}
       >
-        {/* <SelectYear Year={year} handleYearChange={handleYearChange} /> */}
-        {/* <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="usertype-label">Year</InputLabel>
+        <SelectYear Year={selectedYear} handleYearChange={handleYearChange} />
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="district-label">Month</InputLabel>
           <Select
-            labelId="usertype-label"
-            id="usertype-select"
-            value={selectedYear}
-            onChange={handleYearChange}
-            label="Year"
+            labelId="month-label"
+            id="month-select"
+            value={selectedMonth}
+            onChange={handleMonthChange}
+            label="Month"
           >
-            {years.map((item, index) => (
-              <MenuItem key={index} value={item}>
-                {item}
+            {monthArr?.map((month, index) => (
+              <MenuItem key={index} value={month.value}>
+                {month.label}
               </MenuItem>
             ))}
           </Select>
-        </FormControl> */}
+        </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="district-label">District</InputLabel>
           <Select
@@ -426,8 +431,8 @@ const Schoolwise = () => {
             label="District"
           >
             {districtArr?.map((district, index) => (
-              <MenuItem key={index} value={district}>
-                {district}
+              <MenuItem key={index} value={district.district}>
+                {district.district}
               </MenuItem>
             ))}
           </Select>
@@ -1752,3 +1757,18 @@ const Schoolwise = () => {
 };
 
 export default Schoolwise;
+
+const monthArr = [
+  { value: 1, label: "January" },
+  { value: 2, label: "February" },
+  { value: 3, label: "March" },
+  { value: 4, label: "April" },
+  { value: 5, label: "May" },
+  { value: 6, label: "June" },
+  { value: 7, label: "July" },
+  { value: 8, label: "August" },
+  { value: 9, label: "September" },
+  { value: 10, label: "October" },
+  { value: 11, label: "November" },
+  { value: 12, label: "December" },
+];

@@ -54,6 +54,7 @@ const RemoteInstruction = () => {
     { value: 4, label: "4" },
   ];
 
+  const fetchType = "static";
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
 
@@ -148,24 +149,43 @@ const RemoteInstruction = () => {
     } else {
       alert("Please select a month before selecting the week !");
     }
-    const filteredData = dataJson.filter((item) => {
-      return item.month === selectedMonth && item.week === selectedWeek;
-    });
-    if (filteredData?.length > 0) {
-      setRemoteInstData(filteredData);
-      setLoading(false);
-    } else {
-      setLoading(false);
-    }
-    const filteredData2 = dataJson2.filter((item) => {
-      return item.month === selectedMonth2;
-    });
-    if (filteredData2?.length > 0) {
-      setRemoteInstData2(filteredData2);
-      setLoading(false);
-    } else {
-      setLoading(false);
-    }
+
+    PrakashakAPI.post(`getRemoteInst/${fetchType}`, body)
+      .then((res) => {
+        console.log("response", res);
+        if (res.status === 200) {
+          setRemoteInstData(res.data); //Currently I have done this with dummy
+          console.log("remoteInstructionData---------->", res.data);
+          setLoading(false);
+        } else {
+          setLoading(false);
+          console.log("res status------->", res.status);
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        // alert("No data available");
+        console.log(`The error is---> ${err}`);
+      });
+
+    // const filteredData = dataJson.filter((item) => {
+    //   return item.month === selectedMonth && item.week === selectedWeek;
+    // });
+    // if (filteredData?.length > 0) {
+    //   setRemoteInstData(filteredData);
+    //   setLoading(false);
+    // } else {
+    //   setLoading(false);
+    // }
+    // const filteredData2 = dataJson2.filter((item) => {
+    //   return item.month === selectedMonth2;
+    // });
+    // if (filteredData2?.length > 0) {
+    //   setRemoteInstData2(filteredData2);
+    //   setLoading(false);
+    // } else {
+    //   setLoading(false);
+    // }
 
     // PrakashakAPI.post(`getRemoteInstReport`, body)
     //   .then((res) => {
@@ -213,15 +233,32 @@ const RemoteInstruction = () => {
     }
 
     console.log("body passed------------>", body);
-    const filteredData = dataJson.filter((item) => {
-      return item.month === selectedMonth && item.week === selectedWeek;
-    });
-    if (filteredData?.length > 0) {
-      setRemoteInstData(filteredData);
-      setLoading(false);
-    } else {
-      setLoading(false);
-    }
+    // const filteredData = dataJson.filter((item) => {
+    //   return item.month === selectedMonth && item.week === selectedWeek;
+    // });
+    // if (filteredData?.length > 0) {
+    //   setRemoteInstData(filteredData);
+    //   setLoading(false);
+    // } else {
+    //   setLoading(false);
+    // }
+    PrakashakAPI.post(`getRemoteInst/${fetchType}`, body)
+      .then((res) => {
+        console.log("response", res);
+        if (res.status === 200) {
+          setRemoteInstData(res.data); //Currently I have done this with dummy
+          console.log("remoteInstructionData---------->", res.data);
+          setLoading(false);
+        } else {
+          setLoading(false);
+          console.log("res status------->", res.status);
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        // alert("No data available");
+        console.log(`The error is---> ${err}`);
+      });
   };
 
   const filterButtonClick2 = () => {
@@ -243,15 +280,32 @@ const RemoteInstruction = () => {
       alert("Please select a month before selecting the week!");
     }
 
-    const filteredData2 = dataJson2.filter((item) => {
-      return item.month === selectedMonth2;
-    });
-    if (filteredData2?.length > 0) {
-      setRemoteInstData2(filteredData2);
-      setLoading(false);
-    } else {
-      setLoading(false);
-    }
+    // const filteredData2 = dataJson2.filter((item) => {
+    //   return item.month === selectedMonth2;
+    // });
+    // if (filteredData2?.length > 0) {
+    //   setRemoteInstData2(filteredData2);
+    //   setLoading(false);
+    // } else {
+    //   setLoading(false);
+    // }
+    PrakashakAPI.post(`getRemoteInstMonthly/${fetchType}`, body)
+      .then((res) => {
+        console.log("response", res);
+        if (res.status === 200) {
+          setRemoteInstData2(res.data); //Currently I have done this with dummy
+          console.log("setRemoteInstData2---------->", res.data);
+          setLoading(false);
+        } else {
+          setLoading(false);
+          console.log("res status------->", res.status);
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        // alert("No data available");
+        console.log(`The error is---> ${err}`);
+      });
   };
 
   console.log("remoteInstData 2----------->", remoteInstData2);

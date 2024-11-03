@@ -50,6 +50,7 @@ const DashboardMonthly = () => {
     { value: 4, label: "4" },
   ];
 
+  const fetchType = "static";
   const currentYear = new Date().getFullYear();
   // if 2025 then increase the lengtjh it will show 2024 and 2025
   const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
@@ -98,42 +99,30 @@ const DashboardMonthly = () => {
     }
   };
 
-  const fetchData = () => {
+  const fetchData = (isFilter = false) => {
     setLoading(true);
+
     const body = {
       year: parseInt(selectedYear),
       month: parseInt(selectedMonth),
       ...(selectedWeek && { week: parseInt(selectedWeek) }),
     };
+
     console.log("body---------------->", body);
 
-    const filteredData = dataJson.filter((item) => {
-      return (
-        item.month === parseInt(selectedMonth) &&
-        item.week === parseInt(selectedWeek)
-      );
-    });
-    console.log("filteredData--->", filteredData);
-    if (filteredData?.length > 0) {
-      setDashboardData(filteredData);
-      setLoading(false);
-    } else {
-      setLoading(false);
-    }
-
-    // PrakashakAPI.post("getDashboardReport", body)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       setDashboardData(res.data);
-    //     } else {
-    //       console.log("status code-----", res.status);
-    //     }
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(`The Error is-----> ${err}`);
-    //     setLoading(false);
-    //   });
+    PrakashakAPI.post(`getDashboardMonthly/${fetchType}`, body)
+      .then((res) => {
+        if (res.status === 200) {
+          setDashboardData(res.data);
+        } else {
+          console.log("status code-----", res.status);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(`The Error is-----> ${err}`);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -142,27 +131,7 @@ const DashboardMonthly = () => {
 
   const filterButtonClick = () => {
     setDashboardData([]);
-    setLoading(true);
-    const body = {
-      year: parseInt(selectedYear),
-      month: parseInt(selectedMonth),
-      ...(selectedWeek && { week: selectedWeek }),
-    };
-    console.log("body---------------->", body);
-    fetchData();
-    // PrakashakAPI.post(`getDashboardReport`, body)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       setDashboardData(res.data);
-    //     } else {
-    //       console.log("status code-----", res.status);
-    //     }
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     console.log(`The Error is-----> ${err}`);
-    //     setLoading(false);
-    //   });
+    fetchData(true);
   };
 
   const [districsArray, setDistrictArr] = useState([]);
@@ -890,7 +859,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData.total_new_schools}</h1>
+                              <h1>{dashboardData?.total_new_schools}</h1>
                             </div>
                           </div>
 
@@ -932,7 +901,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData.total_new_students}</h1>
+                              <h1>{dashboardData?.total_new_students}</h1>
                             </div>
                           </div>
 
@@ -972,7 +941,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData.total_girl_students}</h1>
+                              <h1>{dashboardData?.total_girl_students}</h1>
                             </div>
                           </div>
 
@@ -1012,7 +981,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData.total_boy_students}</h1>
+                              <h1>{dashboardData?.total_boy_students}</h1>
                             </div>
                           </div>
 
@@ -1052,7 +1021,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData.new_activated_students}</h1>
+                              <h1>{dashboardData?.new_activated_students}</h1>
                             </div>
                           </div>
 
@@ -1111,7 +1080,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData.new_active_students}</h1>
+                              <h1>{dashboardData?.new_active_students}</h1>
                             </div>
                           </div>
                           <div
@@ -1150,7 +1119,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData.active_students_boy}</h1>
+                              <h1>{dashboardData?.active_students_boy}</h1>
                             </div>
                           </div>
                           <div
@@ -1189,7 +1158,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData.active_students_girl}</h1>
+                              <h1>{dashboardData?.active_students_girl}</h1>
                             </div>
                           </div>
 
@@ -1321,7 +1290,7 @@ const DashboardMonthly = () => {
                                     >
                                       <h2>
                                         {
-                                          dashboardData.no_of_parents_spent_0to1mins
+                                          dashboardData?.no_of_parents_spent_0to1mins
                                         }
                                       </h2>
                                     </div>
@@ -1331,7 +1300,7 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>{dashboardData.avg_tS_0to1mins}</h1>
+                                      <h1>{dashboardData?.avg_tS_0to1mins}</h1>
                                     </div>
                                   </div>
                                 </div>
@@ -1428,7 +1397,7 @@ const DashboardMonthly = () => {
                                     >
                                       <h2>
                                         {
-                                          dashboardData.no_of_parents_spent_2to5mins
+                                          dashboardData?.no_of_parents_spent_2to5mins
                                         }
                                       </h2>
                                     </div>
@@ -1438,7 +1407,7 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>{dashboardData.avg_tS_2to5mins}</h1>
+                                      <h1>{dashboardData?.avg_tS_2to5mins}</h1>
                                     </div>
                                   </div>
                                 </div>
@@ -1535,7 +1504,7 @@ const DashboardMonthly = () => {
                                     >
                                       <h2>
                                         {
-                                          dashboardData.no_of_parents_spent_16to30mins
+                                          dashboardData?.no_of_parents_spent_16to30mins
                                         }
                                       </h2>
                                     </div>
@@ -1545,7 +1514,9 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>{dashboardData.avg_tS_16to30mins}</h1>
+                                      <h1>
+                                        {dashboardData?.avg_tS_16to30mins}
+                                      </h1>
                                     </div>
                                   </div>
                                 </div>
@@ -1642,7 +1613,7 @@ const DashboardMonthly = () => {
                                     >
                                       <h2>
                                         {
-                                          dashboardData.no_of_parents_spent_31to45mins
+                                          dashboardData?.no_of_parents_spent_31to45mins
                                         }
                                       </h2>
                                     </div>
@@ -1652,7 +1623,9 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>{dashboardData.avg_tS_31to45mins}</h1>
+                                      <h1>
+                                        {dashboardData?.avg_tS_31to45mins}
+                                      </h1>
                                     </div>
                                   </div>
                                 </div>
@@ -1749,7 +1722,7 @@ const DashboardMonthly = () => {
                                     >
                                       <h2>
                                         {
-                                          dashboardData.no_of_parents_spent_gte45mins
+                                          dashboardData?.no_of_parents_spent_gte45mins
                                         }
                                       </h2>
                                     </div>
@@ -1759,7 +1732,7 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>{dashboardData.avg_tS_gte45mins}</h1>
+                                      <h1>{dashboardData?.avg_tS_gte45mins}</h1>
                                     </div>
                                   </div>
                                 </div>

@@ -242,12 +242,12 @@ const RemoteInstruction = () => {
     // } else {
     //   setLoading(false);
     // }
-    PrakashakAPI.post(`getRemoteInst/${fetchType}`, body)
+    PrakashakAPI.post(`getRemoteInstMonthly/${fetchType}`, body)
       .then((res) => {
         console.log("response", res);
         if (res.status === 200) {
-          setRemoteInstData(res.data); //Currently I have done this with dummy
-          console.log("remoteInstructionData---------->", res.data);
+          setRemoteInstData2(res.data); //Currently I have done this with dummy
+          console.log("setRemoteInstData2---------->", res.data);
           setLoading(false);
         } else {
           setLoading(false);
@@ -289,12 +289,12 @@ const RemoteInstruction = () => {
     // } else {
     //   setLoading(false);
     // }
-    PrakashakAPI.post(`getRemoteInstMonthly/${fetchType}`, body)
+    PrakashakAPI.post(`getRemoteInst/${fetchType}`, body)
       .then((res) => {
         console.log("response", res);
         if (res.status === 200) {
-          setRemoteInstData2(res.data); //Currently I have done this with dummy
-          console.log("setRemoteInstData2---------->", res.data);
+          setRemoteInstData(res.data); //Currently I have done this with dummy
+          console.log("remoteInstructionData---------->", res.data);
           setLoading(false);
         } else {
           setLoading(false);
@@ -806,7 +806,19 @@ const RemoteInstruction = () => {
               }}
             >
               <i>
-                <u> Data Updated as on - 30/09/2024</u>
+                <u>
+                  {" "}
+                  Data Updated as on -{" "}
+                  {remoteInstData[0]?.lastUpdated &&
+                    new Date(remoteInstData[0]?.lastUpdated).toLocaleDateString(
+                      "en-GB",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )}{" "}
+                </u>
               </i>
             </h2>
           </div>
@@ -816,7 +828,7 @@ const RemoteInstruction = () => {
                 <CircularProgress />
               </Box>
             </div>
-          ) : !loading && remoteInstData2.length > 0 ? (
+          ) : !loading && remoteInstData.length > 0 ? (
             <div
               style={{
                 marginTop: "2%",
@@ -844,7 +856,7 @@ const RemoteInstruction = () => {
                     // marginLeft: "4%",
                   }}
                 >
-                  {remoteInstData2?.map((item) => {
+                  {remoteInstData?.map((item) => {
                     return (
                       <>
                         {selectedMonth2 ? (
@@ -881,7 +893,7 @@ const RemoteInstruction = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{item.registered_nonsmartphone_users}</h1>
+                              <h1>{item?.non_smartphone_users}</h1>
                             </div>
                           </div>
                         ) : null}
@@ -919,7 +931,7 @@ const RemoteInstruction = () => {
                               color: "white",
                             }}
                           >
-                            <h1>{item.registered_nonsmartphone_users_male}</h1>
+                            <h1>{item?.non_smartphone_boys}</h1>
                           </div>
                         </div>
 
@@ -957,9 +969,7 @@ const RemoteInstruction = () => {
                               color: "white",
                             }}
                           >
-                            <h1>
-                              {item.registered_nonsmartphone_users_female}
-                            </h1>
+                            <h1>{item?.non_smartphone__girls}</h1>
                           </div>
                         </div>
                       </>
@@ -968,7 +978,7 @@ const RemoteInstruction = () => {
                 </div>
               </div>
             </div>
-          ) : Object.keys(remoteInstData2).length === 0 && loading === false ? (
+          ) : Object.keys(remoteInstData).length === 0 && loading === false ? (
             <div
               style={{
                 display: "flex",
@@ -1061,13 +1071,14 @@ const RemoteInstruction = () => {
           Filter
         </Button>
       </div>
+
       {loading ? (
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Box>
             <CircularProgress />
           </Box>
         </div>
-      ) : !loading && remoteInstData.length > 0 ? (
+      ) : !loading && remoteInstData2.length > 0 ? (
         <div
           style={{
             marginTop: "2%",
@@ -1084,6 +1095,32 @@ const RemoteInstruction = () => {
               width: "95%",
             }}
           >
+            <div style={{ marginTop: "-2%" }}>
+              <h2
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginRight: "2%",
+                  color: "red",
+                  fontFamily: "Congenial SemiBold",
+                }}
+              >
+                <i>
+                  <u>
+                    {" "}
+                    Data Updated as on -{" "}
+                    {remoteInstData2[0]?.lastUpdated &&
+                      new Date(
+                        remoteInstData2[0]?.lastUpdated
+                      ).toLocaleDateString("en-GB", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}{" "}
+                  </u>
+                </i>
+              </h2>
+            </div>
             <div
               style={{
                 display: "flex",
@@ -1095,7 +1132,7 @@ const RemoteInstruction = () => {
                 // marginLeft: "4%",
               }}
             >
-              {remoteInstData?.map((item) => {
+              {remoteInstData2?.map((item) => {
                 return (
                   <>
                     {selectedMonth ? (
@@ -1132,7 +1169,7 @@ const RemoteInstruction = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{item.new_remote_instructions_users}</h1>
+                          <h1>{item.new_non_smartphone_users}</h1>
                         </div>
                       </div>
                     ) : null}
@@ -1170,7 +1207,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{item.new_active_students}</h1>
+                        <h1>{item.active_non_smartphone_users}</h1>
                       </div>
                     </div>
 
@@ -1208,7 +1245,7 @@ const RemoteInstruction = () => {
                           color: "white",
                         }}
                       >
-                        <h1>{item.new_activated_students}</h1>
+                        <h1>{item.new_activated_non_smartphone_users}</h1>
                       </div>
                     </div>
                     {/* ) : null} */}
@@ -1484,7 +1521,7 @@ const RemoteInstruction = () => {
             loading={modalLoader}
           /> */}
         </div>
-      ) : Object.keys(remoteInstData).length === 0 && loading === false ? (
+      ) : Object.keys(remoteInstData2).length === 0 && loading === false ? (
         <div
           style={{
             display: "flex",

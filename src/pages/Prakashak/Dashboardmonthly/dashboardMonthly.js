@@ -772,6 +772,32 @@ const DashboardMonthly = () => {
                 width: "97%",
               }}
             >
+              <div style={{ marginTop: "-2%" }}>
+                <h2
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginRight: "2%",
+                    color: "red",
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  <i>
+                    <u>
+                      {" "}
+                      Data Updated as on -{" "}
+                      {dashboardData[0]?.lastUpdated &&
+                        new Date(
+                          dashboardData[0]?.lastUpdated
+                        ).toLocaleDateString("en-GB", {
+                          year: "numeric",
+                          month: "2-digit",
+                          day: "2-digit",
+                        })}{" "}
+                    </u>
+                  </i>
+                </h2>
+              </div>
               <h1
                 style={{
                   marginTop: "-2%",
@@ -859,7 +885,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData?.total_new_schools}</h1>
+                              <h1>{dashboardData?.new_schools}</h1>
                             </div>
                           </div>
 
@@ -901,7 +927,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData?.total_new_students}</h1>
+                              <h1>{dashboardData?.new_students}</h1>
                             </div>
                           </div>
 
@@ -941,7 +967,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData?.total_girl_students}</h1>
+                              <h1>{dashboardData?.new_girls}</h1>
                             </div>
                           </div>
 
@@ -981,7 +1007,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData?.total_boy_students}</h1>
+                              <h1>{dashboardData?.new_boys}</h1>
                             </div>
                           </div>
 
@@ -1080,7 +1106,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData?.new_active_students}</h1>
+                              <h1>{dashboardData?.total_active_students}</h1>
                             </div>
                           </div>
                           <div
@@ -1119,7 +1145,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData?.active_students_boy}</h1>
+                              <h1>{dashboardData?.active_students_boys}</h1>
                             </div>
                           </div>
                           <div
@@ -1158,7 +1184,7 @@ const DashboardMonthly = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{dashboardData?.active_students_girl}</h1>
+                              <h1>{dashboardData?.active_students_girls}</h1>
                             </div>
                           </div>
 
@@ -1288,11 +1314,7 @@ const DashboardMonthly = () => {
                                         fontSize: "1rem", // Reduced font size
                                       }}
                                     >
-                                      <h2>
-                                        {
-                                          dashboardData?.no_of_parents_spent_0to1mins
-                                        }
-                                      </h2>
+                                      <h2>{dashboardData?.ts_0to1_users}</h2>
                                     </div>
                                     <div
                                       style={{
@@ -1300,7 +1322,7 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>{dashboardData?.avg_tS_0to1mins}</h1>
+                                      <h1>{dashboardData?.ts_0to1_avgTs}</h1>
                                     </div>
                                   </div>
                                 </div>
@@ -1395,11 +1417,7 @@ const DashboardMonthly = () => {
                                         fontSize: "1rem", // Reduced font size
                                       }}
                                     >
-                                      <h2>
-                                        {
-                                          dashboardData?.no_of_parents_spent_2to5mins
-                                        }
-                                      </h2>
+                                      <h2>{dashboardData?.ts_2to15_users}</h2>
                                     </div>
                                     <div
                                       style={{
@@ -1407,7 +1425,7 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>{dashboardData?.avg_tS_2to5mins}</h1>
+                                      <h1>{dashboardData?.ts_2to15_avgTs}</h1>
                                     </div>
                                   </div>
                                 </div>
@@ -1502,11 +1520,7 @@ const DashboardMonthly = () => {
                                         fontSize: "1rem", // Reduced font size
                                       }}
                                     >
-                                      <h2>
-                                        {
-                                          dashboardData?.no_of_parents_spent_16to30mins
-                                        }
-                                      </h2>
+                                      <h2>{dashboardData?.ts_16to30_users}</h2>
                                     </div>
                                     <div
                                       style={{
@@ -1514,9 +1528,7 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>
-                                        {dashboardData?.avg_tS_16to30mins}
-                                      </h1>
+                                      <h1>{dashboardData?.ts_16to30_avgTs}</h1>
                                     </div>
                                   </div>
                                 </div>
@@ -1611,11 +1623,7 @@ const DashboardMonthly = () => {
                                         fontSize: "1rem", // Reduced font size
                                       }}
                                     >
-                                      <h2>
-                                        {
-                                          dashboardData?.no_of_parents_spent_31to45mins
-                                        }
-                                      </h2>
+                                      <h2>{dashboardData?.ts_31to45_users}</h2>
                                     </div>
                                     <div
                                       style={{
@@ -1623,9 +1631,7 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>
-                                        {dashboardData?.avg_tS_31to45mins}
-                                      </h1>
+                                      <h1>{dashboardData?.ts_31to45_avgTs}</h1>
                                     </div>
                                   </div>
                                 </div>
@@ -1720,11 +1726,7 @@ const DashboardMonthly = () => {
                                         fontSize: "1rem", // Reduced font size
                                       }}
                                     >
-                                      <h2>
-                                        {
-                                          dashboardData?.no_of_parents_spent_gte45mins
-                                        }
-                                      </h2>
+                                      <h2>{dashboardData?.ts_45plus_users}</h2>
                                     </div>
                                     <div
                                       style={{
@@ -1732,7 +1734,7 @@ const DashboardMonthly = () => {
                                         fontSize: "0.7rem", // Reduced font size
                                       }}
                                     >
-                                      <h1>{dashboardData?.avg_tS_gte45mins}</h1>
+                                      <h1>{dashboardData?.ts_45plus_avgTs}</h1>
                                     </div>
                                   </div>
                                 </div>

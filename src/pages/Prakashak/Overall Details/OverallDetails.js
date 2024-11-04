@@ -1005,7 +1005,7 @@ const OverallDetails = () => {
                                 {index + 1}.
                               </h3>
                               <p style={{ marginLeft: "25px" }}>
-                                {item.top_schools}
+                                {item.school_name}
                               </p>
                             </div>
                           </div>

@@ -116,7 +116,7 @@ function NavigationPrakashak(props) {
             id: 7,
           },
           {
-            text: "Active Parent",
+            text: "Top Parent",
             link: "/prakashak/active_parents",
             id: 8,
           },

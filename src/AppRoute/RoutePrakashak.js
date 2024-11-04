@@ -9,12 +9,17 @@ import Classwise from "../Pages/Prakashak/Classwise/Classwise";
 import PrakashakRoot from "../Pages/Prakashak";
 import PrivateRoute from "./PrivateRoute";
 import Route404 from "./Route404";
-import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
+// import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 import Retention from "../Pages/Prakashak/Retention/Retention";
+import OverallDetails from "../Pages/Prakashak/Overall Details/OverallDetails";
+import MonthlyPerformance from "../Pages/Prakashak/Monthly Performance/MonthlyPerformance";
+import ActiveParent from "../Pages/Prakashak/ActiveParent/ActiveParent";
+import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 
 const RoutePrakashak = () => {
   const location = useLocation();
+  const districtname = localStorage.getItem("districtname");
 
   return (
     <Routes>
@@ -22,37 +27,25 @@ const RoutePrakashak = () => {
         path="/prakashak"
         element={<PrivateRoute element={<PrakashakRoot />} />}
       >
-        <Route index element={<Dashboard />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="dashboard_monthly" element={<DashboardMonthly />} />
         <Route path="remote_instructions" element={<RemoteInstruction />} />
         <Route path="whatsapp_chatbot" element={<WhatsappChatbot />} />
         <Route path="school_wise" element={<Schoolwise />} />
+        <Route path="active_parents" element={<ActiveParent />} />
+
         <Route
           path="school_wise_performance"
           element={<Schoolwise_performance />}
         />
+        <Route path="overall_details" element={<OverallDetails />} />
+        <Route path="monthly_performance" element={<MonthlyPerformance />} />
         <Route path="retention_metrics" element={<Retention />} />
 
         {/* <Route path="class_wise" element={<Classwise />} /> */}
       </Route>
+
       <Route path="*" element={<Route404 />} />
-
-      {/* <Route>
-        <Route path="/prakashak/dashboard" element={<PrakashakRoot />} />
-        <Route
-          path="/prakashak/remote_instructions"
-          element={<RemoteInstruction />}
-        />
-        <Route
-          path="/prakashak/whatsapp_chatbot"
-          element={<WhatsappChatbot />}
-        />
-        <Route path="/prakashak/school_wise" element={<Schoolwise />} />
-        <Route path="/prakashak/class_wise" element={<Classwise />} />
-
-        <Route path="*" element={<Navigate to="/prakashak/dashboard" />} />
-      </Route> */}
     </Routes>
   );
 };

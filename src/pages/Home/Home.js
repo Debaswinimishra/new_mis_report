@@ -23,6 +23,7 @@ function Home() {
   const location = useLocation();
   const userType = localStorage.getItem("usertype");
   console.log("userType", userType);
+  const districtname = localStorage.getItem("districtname");
 
   if (!userType) {
     // Handle the case when userType is not set
@@ -54,7 +55,9 @@ function Home() {
       type: "admin",
       name: "Prakashak",
       icon: <AccountBalanceIcon fontSize="large" />,
-      path: "/prakashak/dashboard",
+      path: !districtname
+        ? "/prakashak/dashboard"
+        : "/prakashak/overall_details",
     },
     {
       type: "mis",
@@ -96,7 +99,9 @@ function Home() {
       type: "prakashak",
       name: "Prakashak",
       icon: <AccountBalanceIcon fontSize="large" />,
-      path: "/prakashak/dashboard",
+      path: !districtname
+        ? "/prakashak/dashboard"
+        : "/prakashak/overall_details",
     },
   ];
 

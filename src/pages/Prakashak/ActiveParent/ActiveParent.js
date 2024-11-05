@@ -169,9 +169,9 @@ const ActiveParent = () => {
                   <TableCell sx={{ fontWeight: "bold", fontSize: "16px" }}>
                     School Name
                   </TableCell>
-                   <TableCell sx={{ fontWeight: "bold", fontSize: "16px" }}>
+                  <TableCell sx={{ fontWeight: "bold", fontSize: "16px" }}>
                     Anganwadi Name
-                  </TableCell> 
+                  </TableCell>
                   <TableCell sx={{ fontWeight: "bold", fontSize: "16px" }}>
                     Cluster
                   </TableCell>
@@ -194,7 +194,7 @@ const ActiveParent = () => {
                       <TableCell>{parent.parents_name || "N/A"}</TableCell>
                       <TableCell>{parent.phone_number || "N/A"}</TableCell>
                       <TableCell>{parent.school_name || "N/A"}</TableCell>
-                      {/* <TableCell>{parent.anganwadi_name || "N/A"}</TableCell> */}
+                      <TableCell>{parent.anganwadi_name || "N/A"}</TableCell>
                       <TableCell>{parent.cluster || "N/A"}</TableCell>
                       <TableCell>{parent.block || "N/A"}</TableCell>
                       <TableCell>{parent.district || "N/A"}</TableCell>
@@ -203,14 +203,14 @@ const ActiveParent = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <TablePagination
+          {/* <TablePagination
             component="div"
             count={parentsData.length}
             page={page}
             onPageChange={handleChangePage}
             rowsPerPage={rowsPerPage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          /> */}
         </Paper>
       ) : (
         <div

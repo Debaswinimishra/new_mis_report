@@ -25,6 +25,8 @@ import Box from "@mui/material/Box";
 import moment from "moment";
 import Nodata from "../../../Assets/Nodata.gif";
 import DynamicModal from "../../../Components/DynamicModal";
+import BarGraph from "../../../Components/BarGraph";
+// import BarGraph from "../../../Components/BarGraph";
 
 const Dashboard = () => {
   //?---------------Month array---------------------------
@@ -51,7 +53,7 @@ const Dashboard = () => {
     { value: 4, label: "4" },
     { value: 5, label: "5" },
   ];
-
+  const fetchType = "static";
   const currentYear = new Date().getFullYear();
   // if 2025 then increase the lengtjh it will show 2024 and 2025
   const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
@@ -65,19 +67,47 @@ const Dashboard = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
-  const [dashboardData, setDashboardData] = useState({});
+  const [dashboardData, setDashboardData] = useState([]);
   const [loading, setLoading] = useState();
   const [tableData, setTableData] = useState([]);
   const [modalLoader, setModalLoader] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [smartphone, setSmartphone] = useState("total");
+  const [smartphone, setSmartphone] = useState("overall");
+  const [uniqueUsers, setUniqueUsers] = useState({});
+  console.log("uniqueUsers=======>", uniqueUsers);
 
-  const handleUserChange = (e) => {
-    setSmartphone(e.target.value);
-  };
+  console.log("dashboardData", dashboardData);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
+  };
+
+  const handleUserChange = async (e) => {
+    setSmartphone(e.target.value);
+
+    // Define the request body
+    const body = {
+      year: parseInt(selectedYear),
+      userType: e.target.value,
+    };
+    console.log("Request body:", body);
+
+    try {
+      // Call the API and await the response
+      const response = await PrakashakAPI.post(
+        `getMonthlyUniqueUsers/${fetchType}`,
+        body
+      );
+      console.log("API response data:", response.data);
+      setUniqueUsers(response.data);
+    } catch (error) {
+      // Handle errors here
+      console.error("Error fetching dashboard report:", error);
+      // Optional: Display an error message to the user
+      alert(
+        "An error occurred while fetching the dashboard report. Please try again later."
+      );
+    }
   };
 
   const handleMonthChange = (e) => {
@@ -108,10 +138,10 @@ const Dashboard = () => {
         year: parseInt(selectedYear),
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
             setLoading(false);
           } else {
             setLoading(false);
@@ -128,10 +158,10 @@ const Dashboard = () => {
         month: parseInt(selectedMonth),
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
             setLoading(false);
           } else {
             setLoading(false);
@@ -149,10 +179,10 @@ const Dashboard = () => {
         week: selectedWeek,
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
             setLoading(false);
           } else {
             setLoading(false);
@@ -167,33 +197,23 @@ const Dashboard = () => {
   };
   const [districsArray, setDistrictArr] = useState([]);
   const [blocksArr, setBlocksArr] = useState([]);
-
   const [clusterArr, setClusterArr] = useState([]);
   // console.log("clusterArr--->", clusterArr);
-
   const [schoolArr, setSchoolArr] = useState([]);
-
   const [studentsArr, setStudentsArr] = useState([]);
   // console.log("studentsArr---->", studentsArr);
-
   const [smsArr, setSmsArr] = useState([]);
   console.log("studentsArr---->", smsArr);
-
   const [callsArr, setCallsArr] = useState([]);
   console.log("callsArr---->", callsArr);
-
   const [receivedCallsArr, setReceivedCallsArr] = useState([]);
   console.log("receivedCallsArr---->", receivedCallsArr);
-
   const [callsReceivedIvrArr, setCallsReceivedIvrArr] = useState([]);
   console.log("callsReceivedIvrArr---->", callsReceivedIvrArr);
-
   const [uniqueCallsIvrArr, setUniqueCallsIvrArr] = useState([]);
   console.log("uniqueCallsArr---->", uniqueCallsIvrArr);
-
   const [activeUserChatbotArr, setActiveUserChatbotArr] = useState([]);
   console.log("activeUserChatbotArr---->", activeUserChatbotArr);
-
   const [video, setVideo] = useState([]);
   console.log("video---->", video);
 
@@ -203,10 +223,10 @@ const Dashboard = () => {
       const body = { year: parseInt(selectedYear) };
       console.log("body---------------->", body);
 
-      PrakashakAPI.post("getDashboardReport", body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
           } else {
             console.log("status code-----", res.status);
           }
@@ -245,10 +265,10 @@ const Dashboard = () => {
       };
       console.log("body---------------->", body);
 
-      PrakashakAPI.post("getDashboardReport", body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
           } else {
             console.log("status code-----", res.status);
           }
@@ -265,10 +285,35 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const body = {
+        year: parseInt(selectedYear),
+        userType: smartphone,
+      };
+      console.log("Request body:", body);
+
+      try {
+        const response = await PrakashakAPI.post(
+          `getMonthlyUniqueUsers/${fetchType}`,
+          body
+        );
+        console.log("API response data:", response.data);
+        setUniqueUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching dashboard report:", error);
+        // alert(
+        //   "An error occurred while fetching the dashboard report. Please try again later."
+        // );
+      }
+    };
+
+    fetchData();
+  }, []); // Dependencies to re-fetch on change
+
   //todo----------------------Console logs---------------------------
   const [tableDatas, setTableDatas] = useState([]);
   console.log("tableHeaders----->", tableDatas);
-  let body;
   const [tableHeaders, setTableHeaders] = useState([]);
   const [modalTitle, setModalTitle] = useState("");
 
@@ -679,131 +724,6 @@ const Dashboard = () => {
   // console.log("tableDatas------------>", tableDatas);
   const fileName = "Dashboard.csv";
 
-  const BarGraph = ({ blocks, mySmartphone }) => {
-    const chartRef = useRef(null);
-
-    useEffect(() => {
-      if (chartRef && chartRef.current) {
-        const chartContext = chartRef.current.getContext("2d");
-
-        // Destroy existing chart if it exists
-        if (window.myBarChart instanceof Chart) {
-          window.myBarChart.destroy();
-        }
-
-        const smartphoneBoysData = [
-          231, 1002, 1728, 1960, 2845, 3232, 3181, 3598, 3536,
-        ];
-        const smartphoneGirlsData = [
-          238, 1019, 1746, 1973, 2853, 3226, 3193, 3594, 3549,
-        ];
-
-        const nonSmartphoneBoysData = [
-          93, 328, 533, 637, 1195, 1409, 1371, 1523, 1503,
-        ];
-        const nonSmartphoneGirlsData = [
-          103, 264, 543, 612, 1203, 1407, 1365, 1535, 1505,
-        ];
-
-        const totalBoysData = [
-          324, 1330, 2261, 2597, 4040, 4641, 4552, 5121, 5039,
-        ];
-        const totalGirlsData = [
-          341, 1283, 2289, 2585, 4056, 4633, 4558, 5129, 5054,
-        ];
-
-        // Create new stacked bar chart instance
-        const chartInstance = new Chart(chartContext, {
-          type: "bar",
-          data: {
-            labels: [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ],
-            datasets:
-              smartphone === "total"
-                ? [
-                    {
-                      label: "Boys",
-                      data: totalBoysData,
-                      backgroundColor: "rgba(54, 162, 235, 0.6)", // Adjust color for total
-                      borderColor: "rgba(54, 162, 235, 1)", // Adjust color for total
-                      borderWidth: 2,
-                      barThickness: 80,
-                    },
-                    {
-                      label: "Girls",
-                      data: totalGirlsData,
-                      backgroundColor: "rgba(255, 99, 132, 0.6)", // Adjust color for girls
-                      borderColor: "rgba(255, 99, 132, 1)", // Adjust color for girls
-                      borderWidth: 2,
-                      barThickness: 80,
-                    },
-                  ]
-                : [
-                    {
-                      label: "Boys",
-                      data:
-                        smartphone === "smartphone"
-                          ? smartphoneBoysData
-                          : nonSmartphoneBoysData,
-                      backgroundColor: "rgba(75, 192, 192, 0.6)", // Adjust color for boys
-                      borderColor: "rgba(75, 192, 192, 1)", // Adjust color for boys
-                      borderWidth: 2,
-                      barThickness: 80,
-                    },
-                    {
-                      label: "Girls",
-                      data:
-                        smartphone === "smartphone"
-                          ? smartphoneGirlsData
-                          : nonSmartphoneGirlsData,
-                      backgroundColor: "rgba(255, 99, 132, 0.6)", // Adjust color for girls
-                      borderColor: "rgba(255, 99, 132, 1)", // Adjust color for girls
-                      borderWidth: 2,
-                      barThickness: 80,
-                    },
-                  ],
-          },
-          options: {
-            layout: {
-              padding: {
-                top: 20,
-                bottom: 40,
-                left: 20,
-                right: 5,
-              },
-            },
-            scales: {
-              y: {
-                beginAtZero: true,
-                stacked: true, // Enable stacking for the y-axis
-              },
-              x: {
-                stacked: true, // Enable stacking for the x-axis
-              },
-            },
-          },
-        });
-
-        // Store chart instance in window object for Bar Graph
-        window.myBarChart = chartInstance;
-      }
-    }, [blocks, mySmartphone]); // Add mySmartphone to the dependency array
-
-    return <canvas ref={chartRef} />;
-  };
-
   return (
     <>
       {loading ? (
@@ -830,7 +750,7 @@ const Dashboard = () => {
               height: "99%",
             }}
           >
-            <h1
+            <h2
               style={{
                 marginTop: "-2%",
                 color: "#333", // Dark grey color for the text
@@ -844,8 +764,24 @@ const Dashboard = () => {
                 textTransform: "capitalize", // Capitalize each word
               }}
             >
-              Details Till Now: 1st Week
-            </h1>
+              <i>
+                {" "}
+                {/* <u> Data Updated as on - 30/09/2024</u> */}
+                <u>
+                  {" "}
+                  Data Updated as on -{" "}
+                  {dashboardData?.lastUpdated &&
+                    new Date(dashboardData.lastUpdated).toLocaleDateString(
+                      "en-GB",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )}{" "}
+                </u>
+              </i>
+            </h2>
             <div
               style={{
                 display: "flex",
@@ -1027,7 +963,8 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData?.total_clusters}</h1>
+                  {/* <h1>36</h1> */}
                 </div>
               </div>
               <div
@@ -1085,6 +1022,7 @@ const Dashboard = () => {
                   }}
                 >
                   <h1>{dashboardData.total_schools}</h1>
+                  {/* <h1>358</h1> */}
                 </div>
               </div>
               <div
@@ -1141,7 +1079,9 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_students}</h1>
+                  <h1>{dashboardData.registered_students}</h1>
+                  {/* <h1>{dashboardData.total_students}</h1> */}
+                  {/* <h1>12855</h1> */}
                 </div>
               </div>
               <div
@@ -1198,7 +1138,9 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_girl_students}</h1>
+                  <h1>{dashboardData.registered_girls}</h1>
+                  {/* <h1>{dashboardData.total_girl_students}</h1> */}
+                  {/* <h1>6418</h1> */}
                 </div>
               </div>
               <div
@@ -1255,7 +1197,9 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_boy_students}</h1>
+                  <h1>{dashboardData.registered_boys}</h1>
+                  {/* <h1>{dashboardData.total_boy_students}</h1> */}
+                  {/* <h1>6437</h1> */}
                 </div>
               </div>
               <div
@@ -1312,7 +1256,9 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData.activated_students}</h1>
+                  {/* <h1>{dashboardData.total_activated_students}</h1> */}
+                  {/* <h1>11631</h1> */}
                 </div>
               </div>
               <div
@@ -1369,7 +1315,9 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData.active_students}</h1>
+                  {/* <h1>{dashboardData.total_active_students}</h1> */}
+                  {/* <h1>9838</h1> */}
                 </div>
               </div>
 
@@ -2777,7 +2725,21 @@ const Dashboard = () => {
               }}
             >
               <i>
-                <u> Data Updated as on - 30/09/2024</u>
+                <u>
+                  {" "}
+                  Data Updated as on -{" "}
+                  {uniqueUsers &&
+                    uniqueUsers.length > 0 &&
+                    uniqueUsers[0].lastUpdated &&
+                    new Date(uniqueUsers[0].lastUpdated).toLocaleDateString(
+                      "en-GB",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )}{" "}
+                </u>
               </i>
             </h2>
             <div
@@ -2826,20 +2788,20 @@ const Dashboard = () => {
                   onChange={handleUserChange}
                   label="Usertype"
                 >
-                  <MenuItem key={1} value={"total"}>
+                  <MenuItem key={1} value={"overall"}>
                     Overall
                   </MenuItem>
-                  <MenuItem key={2} value={"smartphone"}>
+                  <MenuItem key={2} value={"smartPhone"}>
                     Smartphone
                   </MenuItem>
-                  <MenuItem key={3} value={"non-smartphone"}>
+                  <MenuItem key={3} value={"nonSmartPhone"}>
                     Non-Smartphone
                   </MenuItem>
                 </Select>
               </FormControl>
             </div>
             <div>
-              <BarGraph />
+              <BarGraph uniqueUsers={uniqueUsers} smartphone={smartphone} />
             </div>
           </div>
         </>

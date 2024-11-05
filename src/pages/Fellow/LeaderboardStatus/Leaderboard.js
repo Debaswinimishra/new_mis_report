@@ -41,7 +41,17 @@ const Leaderboard = () => {
     const fetchData = async () => {
       try {
         const leaderboardData = await getLeaderboardReport();
-        setData(leaderboardData);
+        console.log("leaderboardData", leaderboardData);
+
+        // Assuming leaderboardData contains an array of objects with a structure like:
+        // [{ year: "2024", month: "7", leaderboarddata: [...] }]
+        const formattedData = leaderboardData.map((item) => ({
+          ...item,
+          year: item.year.toString(),
+          month: item.month.toString(),
+        }));
+
+        setData(formattedData);
       } catch (error) {
         console.error("Failed to fetch leaderboard data", error);
       }
@@ -49,6 +59,7 @@ const Leaderboard = () => {
     fetchData();
   }, [year, month]);
 
+  // Filter data based on selected year and month
   const filteredData = data.filter(
     (item) => item.year === year.toString() && item.month === month.toString()
   );
@@ -59,16 +70,16 @@ const Leaderboard = () => {
       sx={{
         mt: 4,
         mb: 4,
-        backgroundColor: "#fafafa", // Changed to a lighter background
+        backgroundColor: "#fafafa",
         borderRadius: "12px",
         boxShadow: 3,
         padding: 3,
       }}
     >
       <Typography
-        variant="h4" // Made the heading slightly larger
+        variant="h4"
         align="center"
-        sx={{ mb: 4, fontWeight: "bold", color: "#3f51b5" }} // Darker primary color for the title
+        sx={{ mb: 4, fontWeight: "bold", color: "#3f51b5" }}
       >
         LEADERBOARD REPORT
       </Typography>
@@ -83,9 +94,9 @@ const Leaderboard = () => {
               value={year}
               onChange={(e) => setYear(e.target.value)}
               sx={{
-                backgroundColor: "#e8f0fe", // Changed background color
+                backgroundColor: "#e8f0fe",
                 borderRadius: "8px",
-                "& .MuiSelect-icon": { color: "#3f51b5" }, // Changed icon color
+                "& .MuiSelect-icon": { color: "#3f51b5" },
               }}
             >
               {[2024, 2025].map((y) => (
@@ -104,7 +115,7 @@ const Leaderboard = () => {
               value={month}
               onChange={(e) => setMonth(e.target.value)}
               sx={{
-                backgroundColor: "#e8f0fe", // Changed background color
+                backgroundColor: "#e8f0fe",
                 borderRadius: "8px",
                 "& .MuiSelect-icon": { color: "#3f51b5" },
               }}
@@ -130,7 +141,7 @@ const Leaderboard = () => {
                 fontWeight: "bold",
                 textAlign: "center",
                 color: "#3f51b5",
-              }} // Title color update
+              }}
             >
               Leaderboard for {months[item.month - 1]} {item.year}
             </Typography>
@@ -138,12 +149,12 @@ const Leaderboard = () => {
               <Accordion
                 key={i}
                 sx={{
-                  backgroundColor: "#e3f2fd", // Changed background color
+                  backgroundColor: "#e3f2fd",
                   mb: 2,
                   borderRadius: "8px",
                   boxShadow: 2,
                   "&:hover": {
-                    boxShadow: 5, // Shadow on hover
+                    boxShadow: 5,
                   },
                 }}
               >
@@ -154,10 +165,9 @@ const Leaderboard = () => {
                   sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    justifyItems: "flex-start",
                     alignItems: "center",
-                    padding: "12px 16px", // Increased padding for better spacing
-                    backgroundColor: "#e3f2fd", // Maintain consistent background color
+                    padding: "12px 16px",
+                    backgroundColor: "#e3f2fd",
                   }}
                 >
                   <Typography
@@ -165,7 +175,7 @@ const Leaderboard = () => {
                       fontWeight: "bold",
                       textTransform: "uppercase",
                       flexGrow: 1,
-                      color: "#3f51b5", // Change color of username
+                      color: "#3f51b5",
                     }}
                   >
                     {i + 1}. {user?.username}
@@ -175,7 +185,7 @@ const Leaderboard = () => {
                       fontWeight: "bold",
                       color: "black",
                       ml: 3,
-                      backgroundColor: "#ffffff", // Contrasting background for rank
+                      backgroundColor: "#ffffff",
                       padding: "5px 10px",
                       borderRadius: "4px",
                       boxShadow: 1,

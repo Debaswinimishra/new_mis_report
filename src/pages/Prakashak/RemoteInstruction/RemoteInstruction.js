@@ -68,10 +68,10 @@ const RemoteInstruction = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedYear2, setSelectedYear2] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(
-    currentMonthSelected.value - 2
+    currentMonthSelected.value - 1
   );
   const [selectedMonth2, setSelectedMonth2] = useState(
-    currentMonthSelected.value - 2
+    currentMonthSelected.value - 1
   );
   const [selectedWeek, setSelectedWeek] = useState(4);
   const [remoteInstData, setRemoteInstData] = useState([]);

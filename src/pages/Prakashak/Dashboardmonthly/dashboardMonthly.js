@@ -120,6 +120,7 @@ const DashboardMonthly = () => {
       setLoading(false);
     } else {
       setLoading(false);
+      setDashboardData([]);
     }
 
     // PrakashakAPI.post("getDashboardReport", body)
@@ -796,43 +797,44 @@ const DashboardMonthly = () => {
           </div>
 
           <div>
-            <div
-              style={{
-                marginTop: "2%",
-                boxShadow: "2px 1px 5px grey",
-                padding: "5%",
-                width: "97%",
-              }}
-            >
-              <h1
-                style={{
-                  marginTop: "-2%",
-                  color: "#333", // Dark grey color for the text
-                  fontFamily: "Congenial SemiBold", // Font family for a clean look
-                  fontWeight: "700", // Bolder font weight for emphasis
-                  fontSize: "1.8rem", // Larger font size for prominence
-                  textAlign: "center", // Center-align the text
-                  padding: "10px 0", // Add some padding for spacing
-                  borderBottom: "2px solid #000000", // Add a bottom border for separation
-                  letterSpacing: "0.5px", // Slight letter spacing for readability
-                  textTransform: "capitalize", // Capitalize each word
-                }}
-              >
-                New student details
-              </h1>
+            {dashboardData?.length > 0 ? (
               <div
                 style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  alignContent: "center",
-                  justifyContent: "center",
+                  marginTop: "2%",
+                  boxShadow: "2px 1px 5px grey",
+                  padding: "5%",
                   width: "97%",
-                  gap: "2%",
-                  // marginTop: "-2%",
                 }}
               >
-                {dashboardData?.length > 0
-                  ? dashboardData?.map((dashboardData) => {
+                <h1
+                  style={{
+                    marginTop: "-2%",
+                    color: "#333", // Dark grey color for the text
+                    fontFamily: "Congenial SemiBold", // Font family for a clean look
+                    fontWeight: "700", // Bolder font weight for emphasis
+                    fontSize: "1.8rem", // Larger font size for prominence
+                    textAlign: "center", // Center-align the text
+                    padding: "10px 0", // Add some padding for spacing
+                    borderBottom: "2px solid #000000", // Add a bottom border for separation
+                    letterSpacing: "0.5px", // Slight letter spacing for readability
+                    textTransform: "capitalize", // Capitalize each word
+                  }}
+                >
+                  New student details
+                </h1>
+                <div
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    alignContent: "center",
+                    justifyContent: "center",
+                    width: "97%",
+                    gap: "2%",
+                    // marginTop: "-2%",
+                  }}
+                >
+                  {dashboardData?.length > 0 ? (
+                    dashboardData?.map((dashboardData) => {
                       return (
                         <>
                           <div
@@ -1770,9 +1772,30 @@ const DashboardMonthly = () => {
                         </>
                       );
                     })
-                  : null}
+                  ) : (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        minHeight: "90vh",
+                      }}
+                    >
+                      <img
+                        src={Nodata}
+                        alt="No Data"
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "80vh",
+                          marginBottom: "20px",
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
 
           {/* <DynamicModal //? commented for now for emergency purpose

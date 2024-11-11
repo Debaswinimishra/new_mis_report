@@ -488,165 +488,126 @@ const WhatsappChatbot = () => {
           Filter
         </Button>
       </div>
-      <div
-        style={{
-          marginTop: "2%",
-          paddingBottom: "4%",
-          marginLeft: "4%",
-          alignContent: "flex-start",
-        }}
-      >
+      {data?.length > 0 ? (
         <div
           style={{
             marginTop: "2%",
-            boxShadow: "2px 1px 5px grey",
-            padding: "3%",
-            width: "95%",
+            paddingBottom: "4%",
+            marginLeft: "4%",
+            alignContent: "flex-start",
           }}
         >
-          <div style={{ marginTop: "-2%" }}>
-            <h2
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                marginRight: "2%",
-                color: "red",
-                fontFamily: "Congenial SemiBold",
-              }}
-            >
-              <i>
-                <u> Data Updated as on - 30/09/2024</u>
-              </i>
-            </h2>
-          </div>
-          {loading ? (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                marginTop: "5%",
-              }}
-            >
-              <Box>
-                <CircularProgress />
-              </Box>
+          <div
+            style={{
+              marginTop: "2%",
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
+              width: "95%",
+            }}
+          >
+            <div style={{ marginTop: "-2%" }}>
+              <h2
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  marginRight: "2%",
+                  color: "red",
+                  fontFamily: "Congenial SemiBold",
+                }}
+              >
+                <i>
+                  <u> Data Updated as on - 30/09/2024</u>
+                </i>
+              </h2>
             </div>
-          ) : !loading && data?.length > 0 ? (
-            <>
+            {loading ? (
               <div
                 style={{
                   display: "flex",
-                  flexWrap: "wrap",
                   justifyContent: "center",
-                  width: "95%",
-                  marginLeft: "2.2%",
-                  marginBottom: "2%",
-                  marginTop: "2%",
+                  marginTop: "5%",
                 }}
               >
+                <Box>
+                  <CircularProgress />
+                </Box>
+              </div>
+            ) : !loading && data?.length > 0 ? (
+              <>
                 <div
                   style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center",
+                    width: "95%",
+                    marginLeft: "2.2%",
+                    marginBottom: "2%",
                     marginTop: "2%",
-                    boxShadow: "2px 1px 5px grey",
-                    padding: "3%",
-                    width: "97%",
                   }}
                 >
                   <div
                     style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      alignContent: "center",
-                      justifyContent: "center",
+                      marginTop: "2%",
+                      boxShadow: "2px 1px 5px grey",
+                      padding: "3%",
                       width: "97%",
-                      gap: "2%",
                     }}
                   >
-                    {data2?.map((data) => {
-                      return (
-                        <>
-                          {isFiltered ? (
-                            <div
-                              className="card"
-                              // onClick={() => handleOpen("Total No. of New Users")}
-                              style={{
-                                width: "255px",
-                                height: "180px",
-                                marginTop: "1.5%",
-                                backgroundColor: "white",
-                                borderRadius: "10px",
-                                display: "flex",
-                                flexDirection: "column",
-                                boxShadow: "1px 1px 4px 3px lightGrey",
-                                cursor: "pointer", // Show hand cursor on hover
-                                position: "relative", // Needed for positioning the "Click here" text
-                              }}
-                            >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        alignContent: "center",
+                        justifyContent: "center",
+                        width: "97%",
+                        gap: "2%",
+                      }}
+                    >
+                      {data2?.map((data) => {
+                        return (
+                          <>
+                            {isFiltered ? (
                               <div
+                                className="card"
+                                // onClick={() => handleOpen("Total No. of New Users")}
                                 style={{
-                                  height: "50%",
-                                  color: "#000080",
-                                  paddingTop: "20px",
-                                  fontSize: "1.2rem",
-                                  fontFamily: "Congenial SemiBold",
-                                  fontWeight: "600",
+                                  width: "255px",
+                                  height: "180px",
+                                  marginTop: "1.5%",
+                                  backgroundColor: "white",
+                                  borderRadius: "10px",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  boxShadow: "1px 1px 4px 3px lightGrey",
+                                  cursor: "pointer", // Show hand cursor on hover
+                                  position: "relative", // Needed for positioning the "Click here" text
                                 }}
                               >
-                                <p>No of registered smartphone users</p>
+                                <div
+                                  style={{
+                                    height: "50%",
+                                    color: "#000080",
+                                    paddingTop: "20px",
+                                    fontSize: "1.2rem",
+                                    fontFamily: "Congenial SemiBold",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  <p>No of registered smartphone users</p>
+                                </div>
+                                <div
+                                  style={{
+                                    height: "50%",
+                                    backgroundColor: "#000080",
+                                    borderEndStartRadius: "10px",
+                                    borderEndEndRadius: "10px",
+                                    color: "white",
+                                  }}
+                                >
+                                  <h1>{data.registered_smartphone_users}</h1>
+                                </div>
                               </div>
-                              <div
-                                style={{
-                                  height: "50%",
-                                  backgroundColor: "#000080",
-                                  borderEndStartRadius: "10px",
-                                  borderEndEndRadius: "10px",
-                                  color: "white",
-                                }}
-                              >
-                                <h1>{data.registered_smartphone_users}</h1>
-                              </div>
-                            </div>
-                          ) : null}
-                          <div
-                            className="card"
-                            // onClick={() => handleactiveOpen("Total No. of Active Users")}
-                            style={{
-                              width: "255px",
-                              height: "180px",
-                              marginTop: "1.5%",
-                              backgroundColor: "white",
-
-                              borderRadius: "10px",
-                              display: "flex",
-                              flexDirection: "column",
-                              boxShadow: "1px 1px 4px 3px lightGrey",
-                            }}
-                          >
-                            <div
-                              style={{
-                                height: "50%",
-                                color: "rgb(102 52 91)",
-                                paddingTop: "20px",
-                                fontSize: "1.2rem",
-                                fontFamily: "Congenial SemiBold",
-                                fontWeight: "600",
-                              }}
-                            >
-                              <p>No of registered smartphone users(males)</p>
-                            </div>
-                            <div
-                              style={{
-                                height: "50%",
-                                backgroundColor: "rgb(102 52 91)",
-                                borderEndStartRadius: "10px",
-                                borderEndEndRadius: "10px",
-                                color: "white",
-                              }}
-                            >
-                              <h1>{data.registered_smartphone_users_male}</h1>
-                            </div>
-                          </div>
-                          {isFiltered ? (
+                            ) : null}
                             <div
                               className="card"
                               // onClick={() => handleactiveOpen("Total No. of Active Users")}
@@ -665,42 +626,87 @@ const WhatsappChatbot = () => {
                               <div
                                 style={{
                                   height: "50%",
-                                  color: "#708090",
+                                  color: "rgb(102 52 91)",
                                   paddingTop: "20px",
                                   fontSize: "1.2rem",
                                   fontFamily: "Congenial SemiBold",
                                   fontWeight: "600",
                                 }}
                               >
-                                <p>No of registered smartphone users(female)</p>
+                                <p>No of registered smartphone users(males)</p>
                               </div>
                               <div
                                 style={{
                                   height: "50%",
-                                  backgroundColor: "#708090",
+                                  backgroundColor: "rgb(102 52 91)",
                                   borderEndStartRadius: "10px",
                                   borderEndEndRadius: "10px",
                                   color: "white",
                                 }}
                               >
-                                <h1>
-                                  {data.registered_smartphone_users_female}
-                                </h1>
+                                <h1>{data.registered_smartphone_users_male}</h1>
                               </div>
                             </div>
-                          ) : null}
-                        </>
-                      );
-                    })}
+                            {isFiltered ? (
+                              <div
+                                className="card"
+                                // onClick={() => handleactiveOpen("Total No. of Active Users")}
+                                style={{
+                                  width: "255px",
+                                  height: "180px",
+                                  marginTop: "1.5%",
+                                  backgroundColor: "white",
+
+                                  borderRadius: "10px",
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  boxShadow: "1px 1px 4px 3px lightGrey",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    height: "50%",
+                                    color: "#708090",
+                                    paddingTop: "20px",
+                                    fontSize: "1.2rem",
+                                    fontFamily: "Congenial SemiBold",
+                                    fontWeight: "600",
+                                  }}
+                                >
+                                  <p>
+                                    No of registered smartphone users(female)
+                                  </p>
+                                </div>
+                                <div
+                                  style={{
+                                    height: "50%",
+                                    backgroundColor: "#708090",
+                                    borderEndStartRadius: "10px",
+                                    borderEndEndRadius: "10px",
+                                    color: "white",
+                                  }}
+                                >
+                                  <h1>
+                                    {data.registered_smartphone_users_female}
+                                  </h1>
+                                </div>
+                              </div>
+                            ) : null}
+                          </>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </>
-          ) : !loading && Object.keys(data2).length === 0 ? (
-            <img src={Nodata} />
-          ) : null}
+              </>
+            ) : !loading && Object.keys(data2).length === 0 ? (
+              <img src={Nodata} />
+            ) : null}
+          </div>
         </div>
-      </div>
+      ) : (
+        <img src={Nodata} />
+      )}
       <div
         style={{
           display: "flex",

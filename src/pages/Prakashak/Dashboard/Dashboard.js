@@ -849,7 +849,7 @@ const Dashboard = () => {
           >
             <i>
               {" "}
-              <u> Data Updated as on - 30/09/2024</u>
+              <u> Data Updated as on - 30/10/2024</u>
             </i>
           </h2>
           <div
@@ -940,7 +940,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_schools}</h1> */}
-                <h1>358</h1>
+                <h1>379</h1>
               </div>
             </div>
             <div
@@ -980,7 +980,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_students}</h1> */}
-                <h1>12855</h1>
+                <h1>14767</h1>
               </div>
             </div>
             <div
@@ -1020,7 +1020,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_girl_students}</h1> */}
-                <h1>6418</h1>
+                <h1>7355</h1>
               </div>
             </div>
             <div
@@ -1060,7 +1060,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_boy_students}</h1> */}
-                <h1>6437</h1>
+                <h1>7412</h1>
               </div>
             </div>
             <div
@@ -1100,7 +1100,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_activated_students}</h1> */}
-                <h1>11631</h1>
+                <h1>13313</h1>
               </div>
             </div>
             <div
@@ -1140,7 +1140,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_active_students}</h1> */}
-                <h1>9838</h1>
+                <h1>12097</h1>
               </div>
             </div>
           </div>

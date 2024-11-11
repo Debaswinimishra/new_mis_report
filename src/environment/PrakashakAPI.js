@@ -3,7 +3,7 @@ export const baseURL = "https://tatvagyan.co.in/prakashak/";
 // export const baseURL = "https://tatvagyan.in/prakashak";
 
 export const Version = {
-  version: "1.4.1",
+  version: "1.4.2",
 };
 
 export const networkStatus =

@@ -65,6 +65,10 @@ const Schoolwise = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
 
+  const allBlocks = filterData?.map((item) => item?.block);
+  const blocksArray = [...new Set(allBlocks)];
+  console.log("blocks arrayt-------------------->", blocksArray);
+
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
@@ -489,8 +493,8 @@ const Schoolwise = () => {
               Select Block
             </MenuItem>
             {/* <MenuItem value="">None</MenuItem> */}
-            {blockArr &&
-              blockArr?.map((block, index) => (
+            {blocksArray &&
+              blocksArray?.map((block, index) => (
                 <MenuItem key={index} value={block}>
                   {block}
                 </MenuItem>

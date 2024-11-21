@@ -25,6 +25,7 @@ import Chart from "chart.js/auto";
 import Graph from "../../../ReusableComponents/Graphs";
 import moment from "moment";
 import DynamicModal from "../../../Components/DynamicModal";
+import PrakashakAPI from "../../../Environment/PrakashakAPI";
 const WhatsappChatbot = () => {
   const chartRef = useRef(null);
   //?---------------Month array---------------------------
@@ -60,6 +61,7 @@ const WhatsappChatbot = () => {
     { value: 4, label: "4" },
   ];
 
+  const fetchType = "static";
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
 
@@ -84,8 +86,6 @@ const WhatsappChatbot = () => {
   const [show, setShow] = useState(false);
   const [isFiltered, setIsFiltered] = useState(true);
 
-  console.log("isFiltered----------->", isFiltered);
-
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
     setSelectedMonth("");
@@ -95,10 +95,12 @@ const WhatsappChatbot = () => {
     setSelectedYear2(parseInt(e.target.value));
     setSelectedMonth2("");
   };
+
   // const handleMonthChange = (e) => {
   //   setSelectedWeek("");
   //   setSelectedMonth(e.target.value);
   // };
+
   const handleMonthChange = (e) => {
     if (
       e.target.value > currentMonthSelected.value &&
@@ -129,6 +131,7 @@ const WhatsappChatbot = () => {
       setSelectedWeek(e.target.value);
     }
   };
+
   // const handleClassChange = (e) => {
   //   setSelectedClass(e.target.value);
   // };
@@ -139,75 +142,107 @@ const WhatsappChatbot = () => {
   console.log("data--->", data);
 
   useEffect(() => {
-    fetchData();
-    fetchData2();
+    fetchDataMonthly();
+    fetchDataWeekly();
   }, []);
 
-  const fetchData = () => {
-    //
+  const fetchDataMonthly = () => {
     setLoading(true);
     const body = {
-      year: selectedYear,
-      month: selectedMonth,
-      week: selectedWeek,
+      year: parseInt(selectedYear2),
+      month: parseInt(selectedMonth2),
     };
+    console.log("body---------------->", body);
+    PrakashakAPI.post(`getWhatsAppMonthly/${fetchType}`, body)
+      .then((res) => {
+        if (res.status === 200) {
+          setData2(res.data);
+        } else {
+          console.log("status code-----", res.status);
+          // console.log("No matching data found");
+          setData2([]);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(`The Error is-----> ${err}`);
+        setLoading(false);
+      });
 
-    const filteredData = dataJson.filter((item) => {
-      return item.month === selectedMonth && item.week === selectedWeek;
-    });
+    // const filteredData2 = dataJson2.filter((item) => {
+    //   return item.month === selectedMonth2;
+    // });
 
-    if (selectedYear) {
-      if (filteredData.length > 0) {
-        setData(filteredData);
-      } else {
-        console.log("No matching data found");
-        setData([]);
-      }
-      setIsFiltered(true);
-    } else {
-      setData(dataJson);
-      setIsFiltered(false);
-    }
-    setLoading(false);
+    // if (selectedYear2) {
+    //   if (filteredData2.length > 0) {
+    //     setData2(filteredData2);
+    //   } else {
+    //     console.log("No matching data found");
+    //     setData2([]);
+    //   }
+    //   setIsFiltered(true);
+    // } else {
+    //   setData2(dataJson2);
+    //   setIsFiltered(false);
+    // }
+    // setLoading(false);
   };
 
-  const fetchData2 = () => {
-    //
+  const fetchDataWeekly = () => {
     setLoading(true);
+
     const body = {
-      year: selectedYear2,
-      month: selectedMonth2,
+      year: parseInt(selectedYear),
+      month: parseInt(selectedMonth),
+      week: parseInt(selectedWeek),
     };
 
-    const filteredData2 = dataJson2.filter((item) => {
-      return item.month === selectedMonth2;
-    });
+    console.log("body---------------->", body);
+    PrakashakAPI.post(`getWhatsAppWeekly/${fetchType}`, body)
+      .then((res) => {
+        if (res?.status === 200) {
+          setData(res?.data);
+        } else {
+          console.log("status code-----", res.status);
+          // console.log("No matching data found");
+          setData([]);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(`The Error is-----> ${err}`);
+        setLoading(false);
+      });
 
-    if (selectedYear2) {
-      if (filteredData2.length > 0) {
-        setData2(filteredData2);
-      } else {
-        console.log("No matching data found");
-        setData2([]);
-      }
-      setIsFiltered(true);
-    } else {
-      setData2(dataJson2);
-      setIsFiltered(false);
-    }
-    setLoading(false);
+    // const filteredData = dataJson.filter((item) => {
+    //   return item.month === selectedMonth && item.week === selectedWeek;
+    // });
+
+    // if (selectedYear) {
+    //   if (filteredData.length > 0) {
+    //     setData(filteredData);
+    //   } else {
+    //     console.log("No matching data found");
+    //     setData([]);
+    //   }
+    //   setIsFiltered(true);
+    // } else {
+    //   setData(dataJson);
+    //   setIsFiltered(false);
+    // }
+    // setLoading(false);
   };
 
-  const filterButtonClick = () => {
+  const filterButtonClickMonthly = () => {
     setLoading(true);
     setShow(true);
-    fetchData();
+    fetchDataMonthly();
   };
 
-  const filterButtonClick2 = () => {
+  const filterButtonClickWeekly = () => {
     setLoading(true);
     setShow(true);
-    fetchData2();
+    fetchDataWeekly();
   };
 
   const graphData = {
@@ -483,7 +518,7 @@ const WhatsappChatbot = () => {
             width: "120px",
             marginTop: "1.2%",
           }}
-          onClick={filterButtonClick2}
+          onClick={filterButtonClickMonthly}
         >
           Filter
         </Button>
@@ -515,7 +550,19 @@ const WhatsappChatbot = () => {
               }}
             >
               <i>
-                <u> Data Updated as on - 30/09/2024</u>
+                <u>
+                  {" "}
+                  Data Updated as on -{" "}
+                  {data2[0]?.lastUpdated &&
+                    new Date(data2[0]?.lastUpdated).toLocaleDateString(
+                      "en-GB",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )}{" "}
+                </u>
               </i>
             </h2>
           </div>
@@ -531,7 +578,7 @@ const WhatsappChatbot = () => {
                 <CircularProgress />
               </Box>
             </div>
-          ) : !loading && data?.length > 0 ? (
+          ) : !loading && data2?.length > 0 ? (
             <>
               <div
                 style={{
@@ -603,7 +650,7 @@ const WhatsappChatbot = () => {
                                   color: "white",
                                 }}
                               >
-                                <h1>{data.registered_smartphone_users}</h1>
+                                <h1>{data?.smartphone_users}</h1>
                               </div>
                             </div>
                           ) : null}
@@ -643,7 +690,7 @@ const WhatsappChatbot = () => {
                                 color: "white",
                               }}
                             >
-                              <h1>{data.registered_smartphone_users_male}</h1>
+                              <h1>{data?.smartphone_boys}</h1>
                             </div>
                           </div>
                           {isFiltered ? (
@@ -683,9 +730,7 @@ const WhatsappChatbot = () => {
                                   color: "white",
                                 }}
                               >
-                                <h1>
-                                  {data.registered_smartphone_users_female}
-                                </h1>
+                                <h1>{data?.smartphone__girls}</h1>
                               </div>
                             </div>
                           ) : null}
@@ -772,7 +817,7 @@ const WhatsappChatbot = () => {
             marginTop: "1.2%",
             marginLeft: "9px",
           }}
-          onClick={filterButtonClick}
+          onClick={filterButtonClickWeekly}
         >
           Filter
         </Button>
@@ -808,6 +853,33 @@ const WhatsappChatbot = () => {
                 width: "97%",
               }}
             >
+              <div style={{ marginTop: "-2%" }}>
+                <h2
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginRight: "2%",
+                    color: "red",
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  <i>
+                    <u>
+                      {" "}
+                      Data Updated as on -{" "}
+                      {data2[0]?.lastUpdated &&
+                        new Date(data2[0]?.lastUpdated).toLocaleDateString(
+                          "en-GB",
+                          {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                          }
+                        )}{" "}
+                    </u>
+                  </i>
+                </h2>
+              </div>
               <div
                 style={{
                   display: "flex",
@@ -859,7 +931,7 @@ const WhatsappChatbot = () => {
                               color: "white",
                             }}
                           >
-                            <h1>{data.chatbot_new_users}</h1>
+                            <h1>{data.new_smartphone_users}</h1>
                           </div>
                         </div>
                       ) : null}
@@ -899,7 +971,7 @@ const WhatsappChatbot = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.chatbot_active_users}</h1>
+                          <h1>{data.active_smartphone_users}</h1>
                         </div>
                       </div>
                       {isFiltered ? (
@@ -939,7 +1011,7 @@ const WhatsappChatbot = () => {
                               color: "white",
                             }}
                           >
-                            <h1>{data.new_activated_students}</h1>
+                            <h1>{data.new_activated_smartphone_users}</h1>
                           </div>
                         </div>
                       ) : null}

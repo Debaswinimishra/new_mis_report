@@ -62,6 +62,7 @@ const Schoolwise = () => {
   // console.log("tableData", tableData);
   // console.log("districtArr", districtArr);
 
+  const fetchType = "static";
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
 

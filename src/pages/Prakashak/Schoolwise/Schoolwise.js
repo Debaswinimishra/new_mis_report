@@ -224,9 +224,7 @@ const Schoolwise = () => {
     setSchools("");
     const data = filterData;
     const res = data.filter((item) => item.block === blocks);
-
     const cluster = res?.filter((item) => item.cluster === e.target.value);
-
     const school = cluster?.map((item) => item.school_name);
     const uniqueData = Array.from(new Set(school.map(JSON.stringify))).map(
       JSON.parse

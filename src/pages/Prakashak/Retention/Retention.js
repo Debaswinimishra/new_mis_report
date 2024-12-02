@@ -1,64 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import PrakashakAPI from "../../../Environment/PrakashakAPI";
 
 export default function Retention() {
-  const data = [
-    {
-      month: "Jan",
-      activatedUsers: 665,
-      retention: [665, 461, 485, 511, 503, 501, 506, 472, 483],
-    },
-    {
-      month: "Feb",
-      activatedUsers: 2148,
-      retention: [, 2148, 1847, 1812, 1794, 1715, 1695, 1578, 1629],
-    },
-    {
-      month: "Mar",
-      activatedUsers: 2192,
-      retention: [, , 2192, 2175, 1992, 1726, 1693, 1644, 1718],
-    },
-    {
-      month: "Apr",
-      activatedUsers: 649,
-      retention: [, , , 649, 641, 627, 638, 532, 431],
-    },
-    {
-      month: "May",
-      activatedUsers: 3094,
-      retention: [, , , , 3094, 3083, 3091, 2951, 2824],
-    },
-    {
-      month: "Jun",
-      activatedUsers: 1346,
-      retention: [, , , , , 1346, 1339, 1263, 1278],
-    },
-    { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0, 0, 0] },
-    {
-      month: "Aug",
-      activatedUsers: 1537,
-      retention: [, , , , , , , 1537, 1475],
-    },
-    {
-      month: "Sep",
-      activatedUsers: 0,
-      retention: [, , , , , , , , 0],
-    },
-    { month: "Oct", retention: [, , , , , , , , , , , ,] },
-    { month: "Nov", retention: [, , , , , , , , , , , ,] },
-    { month: "Dec", retention: [, , , , , , , , , , , ,] },
-  ];
-
-  const totalRetention = [
-    665, 2609, 4524, 5147, 8024, 8998, 8962, 9977, 9838, 0, 0, 0,
-  ];
-
+  const fetchType = "static";
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
   const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [totalRetention, setTotalRetention] = useState([]);
+
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
   };
+
+  const fetchData = async () => {
+    setLoading(true);
+
+    const body = {
+      year: parseInt(selectedYear),
+    };
+
+    PrakashakAPI.post(`getRetentionMetrics/${fetchType}`, body)
+      .then((res) => {
+        const result = res.data;
+        const activatedUsersArray = Array(12).fill(0);
+
+        result.forEach((item) => {
+          const monthIndex = item.month - 1;
+          activatedUsersArray[monthIndex] = item.activated_users || 0;
+        });
+        setData(result);
+        setTotalRetention(activatedUsersArray);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(`Error fetching data: ${err}`);
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    fetchData();
+  }, [selectedYear]);
+
+  console.log("data---------------->", data);
 
   return (
     <>
@@ -145,201 +131,76 @@ export default function Retention() {
               >
                 Activated Users
               </th>
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Jan
-              </th>
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Feb
-              </th>
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Mar
-              </th>
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Apr
-              </th>
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                May
-              </th>
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Jun
-              </th>
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Jul
-              </th>
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Aug
-              </th>{" "}
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Sept
-              </th>{" "}
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Oct
-              </th>{" "}
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Nov
-              </th>{" "}
-              <th
-                style={{
-                  position: "sticky",
-                  top: 0,
-                  backgroundColor: "#f3f3f3",
-                  zIndex: 1,
-                  border: "1px solid #ddd",
-                  padding: "8px 12px",
-                  textAlign: "center", // Center align header text
-                }}
-              >
-                Dec
-              </th>
+              <th>Jan</th>
+              <th>Feb</th>
+              <th>Mar</th>
+              <th>Apr</th>
+              <th>May</th>
+              <th>Jun</th>
+              <th>Jul</th>
+              <th>Aug</th>
+              <th>Sept</th>
+              <th>Oct</th>
+              <th>Nov</th>
+              <th>Dec</th>
             </tr>
           </thead>
           <tbody>
-            {data.map((row, index) => (
-              <tr key={index}>
-                <td
-                  style={{
-                    padding: "8px 12px",
-                    textAlign: "center", // Center align body text
-                    border: "1px solid #ddd",
-                  }}
-                >
-                  {row.month}
-                </td>
-                <td
-                  style={{
-                    padding: "8px 12px",
-                    textAlign: "center", // Center align body text
-                    border: "1px solid #ddd",
-                  }}
-                >
-                  {row.activatedUsers !== null ? row.activatedUsers : ""}
-                </td>
-                {Array(12)
-                  .fill(0)
-                  .map((_, i) => (
-                    <td
-                      key={i}
-                      style={{
-                        padding: "8px 12px",
-                        textAlign: "center", // Center align body text
-                        border: "1px solid #ddd",
-                      }}
-                    >
-                      {row.retention[i] !== undefined ? row.retention[i] : ""}
-                    </td>
-                  ))}
-              </tr>
-            ))}
+            {data &&
+              data.length > 0 &&
+              data.map((row, index) => (
+                <tr key={index}>
+                  <td
+                    style={{
+                      padding: "8px 12px",
+                      textAlign: "center", // Center align body text
+                      border: "1px solid #ddd",
+                    }}
+                  >
+                    {row.month}
+                  </td>
+                  <td
+                    style={{
+                      padding: "8px 12px",
+                      textAlign: "center", // Center align body text
+                      border: "1px solid #ddd",
+                    }}
+                  >
+                    {row.activeUsers !== null ? row.activeUsers : ""}
+                  </td>
+
+                  {/* Render retention values based on month order */}
+                  {[
+                    "jan",
+                    "feb",
+                    "mar",
+                    "apr",
+                    "may",
+                    "jun",
+                    "jul",
+                    "aug",
+                    "sep",
+                    "oct",
+                    "nov",
+                    "dec",
+                  ].map((month, monthIndex) => {
+                    return (
+                      <td
+                        key={monthIndex}
+                        style={{
+                          padding: "8px 12px",
+                          textAlign: "center",
+                          border: "1px solid #ddd",
+                        }}
+                      >
+                        {row.retention && row.retention[month] !== undefined
+                          ? row.retention[month]
+                          : "-"}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
           </tbody>
           <tfoot style={{ backgroundColor: "#7FFFD4" }}>
             <tr>

@@ -304,6 +304,29 @@ const Schoolwise_performance = () => {
   const [fourtyFiveCountAvg, setFourtyFiveCountAvg] = useState("");
 
   const fetchData = () => {
+    body = {
+      district: districts,
+      block: blocks,
+      cluster: clusters,
+      school_name: schools,
+      month: selectedMonth,
+      week: selectedWeek,
+    };
+    Api.post(`/getSchoolwisePerformance/static`, body)
+      .then((res) => {
+        if (res.status === 200) {
+          setData(res.data);
+          setLoading(false);
+        } else {
+          console.log("The response got-------->", res.status);
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.error("The error is---->", error);
+        setLoading(false);
+      });
+
     const filteredData = dataJson.filter((item) => {
       return (
         item.month === selectedMonth &&
@@ -317,54 +340,52 @@ const Schoolwise_performance = () => {
         // item.school_name == schools?.school_name
       );
     });
-
-    console.log("filteredData---->", filteredData);
-    const zeroToOneCount = filteredData.reduce(
-      (acc, item) => acc + item.no_of_parents_spent_0to1mins,
+    const zeroToOneCount = data.reduce(
+      (acc, item) => acc + item.ts_0to1_users,
       0
     );
 
-    const twoToFiveCount = filteredData.reduce(
-      (acc, item) => acc + item.no_of_parents_spent_2to5mins,
+    const twoToFiveCount = data.reduce(
+      (acc, item) => acc + item.ts_2to15_users,
       0
     );
-    const sixteenToThirtyCount = filteredData.reduce(
-      (acc, item) => acc + item.no_of_parents_spent_16to30mins,
+    const sixteenToThirtyCount = data.reduce(
+      (acc, item) => acc + item.ts_16to30_users,
 
       0
     );
-    const thirtyOneToFourtyFiveCount = filteredData.reduce(
-      (acc, item) => acc + item.no_of_parents_spent_31to45mins,
+    const thirtyOneToFourtyFiveCount = data.reduce(
+      (acc, item) => acc + item.ts_31to45_users,
 
       0
     );
-    const FourtyFiveCount = filteredData.reduce(
-      (acc, item) => acc + item.no_of_parents_spent_gte45mins,
+    const FourtyFiveCount = data.reduce(
+      (acc, item) => acc + item.ts_45plus_users,
 
       0
     );
 
-    const zeroToOneAvg = filteredData.reduce(
-      (acc, item) => acc + item.avg_tS_0to1mins,
+    const zeroToOneAvg = data.reduce(
+      (acc, item) => acc + item.ts_0to1_avgTs,
       0
     );
 
-    const twoToFiveAvg = filteredData.reduce(
-      (acc, item) => acc + item.avg_tS_2to5mins,
+    const twoToFiveAvg = data.reduce(
+      (acc, item) => acc + item.ts_2to15_avgTs,
       0
     );
-    const sixteenToThirtyAvg = filteredData.reduce(
-      (acc, item) => acc + item.avg_tS_16to30mins,
+    const sixteenToThirtyAvg = data.reduce(
+      (acc, item) => acc + item.ts_16to30_avgTs,
 
       0
     );
-    const thirtyOneToFourtyFiveAvg = filteredData.reduce(
-      (acc, item) => acc + item.avg_tS_31to45mins,
+    const thirtyOneToFourtyFiveAvg = data.reduce(
+      (acc, item) => acc + item.ts_31to45_avgTs,
 
       0
     );
-    const FourtyFiveAvg = filteredData.reduce(
-      (acc, item) => acc + item.avg_tS_gte45mins,
+    const FourtyFiveAvg = data.reduce(
+      (acc, item) => acc + item.ts_45plus_avgTs,
 
       0
     );
@@ -381,23 +402,6 @@ const Schoolwise_performance = () => {
     setSixteenToThirtyCountSum(sixteenToThirtyCount);
     setThirtyOneToThirtyFiveCountSum(thirtyOneToFourtyFiveCount);
     setTwoToFiveCountSum(twoToFiveCount);
-    if (filteredData?.length > 0) {
-      setData(filteredData);
-      setLoading(false);
-    } else {
-      setLoading(false);
-      setData([]);
-    }
-    // 1 4 KADUA PS {school_name: 'AHAMADPUR PUPS'} SATYABADI
-
-    console.log(
-      "check---------->",
-      selectedMonth,
-      selectedWeek,
-      clusters,
-      schools,
-      blocks
-    );
   };
 
   console.log("zeroToOneCountSum--->", zeroToOneCountSum);

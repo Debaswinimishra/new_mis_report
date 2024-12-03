@@ -30,13 +30,14 @@ import DynamicModal from "../../../Components/DynamicModal";
 import SelectYear from "../../../ReusableComponents/SelectYear";
 import NoData from "../../../Assets/Nodata.gif";
 import { filterData } from "../../../downloads/jsonData";
+import PrakashakAPI from "../../../Environment/PrakashakAPI";
 
 const Schoolwise = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
   const [districts, setDistricts] = useState("PURI");
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
   const [blockArr, setBlockArr] = useState([]);
@@ -261,81 +262,29 @@ const Schoolwise = () => {
   const fetchData = () => {
     setLoading(true);
 
-    const filteredData = dataJson.filter((item) => {
-      return (
-        item.district === districts &&
-        item.block === blocks &&
-        item.cluster === clusters &&
-        item.school_name === schools
-      );
-    });
-
-    // console.log("filteredData----->", filteredData);
-
-    if (filteredData?.length > 0) {
-      setData(filteredData);
-      setLoading(false);
-    } else {
-      setData([]);
-      setLoading(false);
-    }
-
     const body = {
       district: districts,
       block: blocks,
       cluster: clusters,
-      school_name: schools.school_name,
-      // month: month,
+      school_name: schools,
     };
 
-    // console.log(
-    //   "check---------->",
-    //   districts,
-    //   blocks,
-    //   clusters,
-    //   schools
-    //   // month
-    // );
-
-    // if ("") {
-    //   Api.post(`getSchoolWiseReport`, body)
-    //     .then((response) => {
-    //       console.log("set=================>", response.data);
-    //       setData(response.data);
-    //       setLoading(false);
-    //     })
-    //     .catch((err) => {
-    //       console.log("err=================>", err);
-    //       setLoading(false);
-    //     });
-    // } else {
-    //   Api.post(`getSchoolWiseReport`)
-    //     .then((response) => {
-    //       console.log("set=================>", response.data);
-    //       setData(response.data);
-    //       setLoading(false);
-    //     })
-    //     .catch((err) => {
-    //       console.log("err=================>", err);
-    //       setLoading(false);
-    //     });
-    // }
-    //?the below codes are commented for now-
-    // if (districts) {
-    //   Api.post(`getSchoolWiseReport`, body)
-    //     .then((response) => {
-    //       console.log("set=================>", response.data);
-    //       setData(response.data);
-    //       setLoading(false);
-    //     })
-    //     .catch((err) => {
-    //       console.log("err=================>", err);
-    //       // if (err.response.status === 406) {
-    //       //   alert("something went wrong", err.response.status);
-    //       // }
-    //       setLoading(false);
-    //     });
-    // }
+    PrakashakAPI?.post(`/getSchoolwise/static`, body)
+      .then((res) => {
+        if (res.status === 200) {
+          setData(res.data);
+          setLoading(false);
+          console.log("response data----->", res.data);
+          setLoading(false);
+        } else {
+          console.log("Status code----->", res.status);
+          setLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.error("Error while filtering data---------->", error);
+        setLoading(false);
+      });
   };
 
   const filterButtonClick = () => {
@@ -442,7 +391,7 @@ const Schoolwise = () => {
 
   const handleClose = () => setOpen(false);
 
-  // console.log("schoolArr-------------->", schoolArr);
+  console.log("data to be shown------->", data);
 
   return (
     <div>
@@ -697,7 +646,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.class_one_students}</h1>
+                          <h1>{data.class1_students}</h1>
                         </div>
                       </div>
                       <div
@@ -736,7 +685,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.class_two_students}</h1>
+                          <h1>{data.class2_students}</h1>
                         </div>
                       </div>
 
@@ -776,7 +725,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.class_three_students}</h1>
+                          <h1>{data.class3_students}</h1>
                         </div>
                       </div>
                       <div
@@ -815,7 +764,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.class_four_students}</h1>
+                          <h1>{data.class4_students}</h1>
                         </div>
                       </div>
                       <div
@@ -854,7 +803,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.class_five_students}</h1>
+                          <h1>{data.class5_students}</h1>
                         </div>
                       </div>
 
@@ -893,7 +842,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.total_activated_students}</h1>
+                          <h1>{data.activated_users}</h1>
                         </div>
                       </div>
                       <div
@@ -931,7 +880,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.total_active_students}</h1>
+                          <h1>{data.active_users}</h1>
                         </div>
                       </div>
                       <div
@@ -969,7 +918,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.chatbot_users}</h1>
+                          <h1>{data.smartphone_users}</h1>
                         </div>
                       </div>
                       <div
@@ -1007,7 +956,7 @@ const Schoolwise = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.remote_instructions_users}</h1>
+                          <h1>{data.non_smartphone_users}</h1>
                         </div>
                       </div>
                     </>

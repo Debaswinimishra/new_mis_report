@@ -10,7 +10,7 @@ import Logout from "@mui/icons-material/Logout";
 import Swal from "sweetalert2";
 import { Version, networkStatus } from "../../Environment/PrakashakAPI";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
-import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
+// import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Schoolwise_performance from "../../Pages/Prakashak/schoolwise_performance/Schoolwise_performance";
 import ActiveParent from "../../Pages/Prakashak/ActiveParent/ActiveParent";
 // import DashboardMonthly from "../../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
@@ -115,11 +115,11 @@ function NavigationPrakashak(props) {
             link: "/prakashak/school_wise_performance",
             id: 7,
           },
-          {
-            text: "Top Parent",
-            link: "/prakashak/active_parents",
-            id: 8,
-          },
+          // {
+          //   text: "Top Parent",
+          //   link: "/prakashak/active_parents",
+          //   id: 8,
+          // },
 
           {
             text: "Retention Metrics",
@@ -256,18 +256,30 @@ function NavigationPrakashak(props) {
           <div
             key={item.id}
             style={{
-              padding: "1%",
+              padding: "10px",
               cursor: "pointer",
-              borderRadius: "5px",
-              backgroundColor:
+              borderRadius: "10px",
+              background:
                 item.link.split("/")[2] === location.pathname.split("/")[2]
-                  ? "rgb(90 81 221)"
-                  : "white",
-              width: "200px",
-              height: "60px",
-              margin: "1.5%",
-              boxShadow: "2px 3px 6px grey",
+                  ? "linear-gradient(135deg, #6C63FF, #4D4CFF)"
+                  : "#ffffff",
+              width: "100%",
+              maxWidth: "250px",
+              height: "70px",
+              margin: "10px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               textAlign: "center",
+              transition: "transform 0.2s ease-in-out, background-color 0.3s",
+              hover: {
+                transform: "scale(1.05)",
+                background:
+                  item.link.split("/")[2] === location.pathname.split("/")[2]
+                    ? "linear-gradient(135deg, #4D4CFF, #3938FF)"
+                    : "#f9f9f9",
+              },
             }}
             onClick={() => handleTabChange(`${item.link}`)}
           >
@@ -275,11 +287,11 @@ function NavigationPrakashak(props) {
               style={{
                 color:
                   item.link.split("/")[2] === location.pathname.split("/")[2]
-                    ? "white"
-                    : "black",
-                fontFamily: "Congenial SemiBold",
-                fontSize: 19,
-                fontWeight: "bolder",
+                    ? "#ffffff"
+                    : "#333333",
+                fontFamily: "Arial, sans-serif",
+                fontSize: "18px",
+                fontWeight: "bold",
               }}
             >
               {item.text}

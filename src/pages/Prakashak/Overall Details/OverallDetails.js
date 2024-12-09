@@ -35,6 +35,8 @@ import {
   getAllDashboardData,
   getAllTopPerformersClusters,
   getAllTopPerformersSchools,
+  getLowPerformersSchools,
+  getLowPerformersClusters,
 } from "./OverallDetailsApi";
 import Nodata from "../../../Assets/Nodata.gif";
 
@@ -51,6 +53,8 @@ const OverallDetails = () => {
   const [topPerformerSchools, setTopPerformerSchools] = useState([]);
   const [dashboardLoading, setDashboardLoading] = useState(false);
   const [topPerformerLoading, setTopPerformerLoading] = useState(false);
+  const [lowPerformersSchools, setLowPerformersSchools] = useState([]);
+  const [lowPerformersClusters, setLowPerformersClusters] = useState([]);
 
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
@@ -63,6 +67,13 @@ const OverallDetails = () => {
     } else {
       setSelectedMonth(e.target.value);
     }
+  };
+
+  const catchPerformanceErrors = (error) => {
+    console.error("The error received while fetching performance=---->", error);
+    setTimeout(() => {
+      setTopPerformerLoading(false);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -109,13 +120,7 @@ const OverallDetails = () => {
           }
         })
         .catch((error) => {
-          console.error(
-            "The error while getting clusters performers data------>",
-            error
-          );
-          setTimeout(() => {
-            setTopPerformerLoading(false);
-          }, 1000);
+          catchPerformanceErrors(error);
         });
       getAllTopPerformersSchools(data)
         .then((res) => {
@@ -132,14 +137,26 @@ const OverallDetails = () => {
           }
         })
         .catch((error) => {
-          console.error(
-            "The error while getting school performers data------>",
-            error
-          );
-          setTimeout(() => {
-            setTopPerformerLoading(false);
-          }, 1000);
+          catchPerformanceErrors(error);
         });
+      getLowPerformersSchools(data)
+        .then((res) => {
+          if (res.status === 200) {
+            setLowPerformersSchools(res.data);
+          } else {
+            console.log("response--------->", res.status);
+          }
+        })
+        .catch((error) => catchPerformanceErrors(error));
+      getLowPerformersClusters(data)
+        .then((res) => {
+          if (res.status === 200) {
+            setLowPerformersClusters(res.data);
+          } else {
+            console.log("response--------->", res.status);
+          }
+        })
+        .catch((error) => catchPerformanceErrors(error));
     }
   }, []);
 
@@ -750,8 +767,9 @@ const OverallDetails = () => {
           <Box sx={{ width: "100%", marginTop: "20%" }}>
             <LinearProgress />
           </Box>
-        ) : (!topPerformerLoading && topPerformerClusters) ||
-          (!topPerformerLoading && topPerformerSchools) ? (
+        ) : //  (!topPerformerLoading && topPerformerClusters) ||
+        //   (!topPerformerLoading && topPerformerSchools)
+        !topPerformerLoading ? (
           <div>
             <div
               style={{
@@ -1036,9 +1054,227 @@ const OverallDetails = () => {
                 </div>
               </div>
             </div>
+
+            <div
+              style={{
+                marginTop: "2%",
+                boxShadow: "2px 1px 5px grey",
+                padding: "5%",
+              }}
+            >
+              <h1 style={{ marginTop: "-2%" }}>
+                <u>Least Performers</u>
+              </h1>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  flexWrap: "wrap", // Allow items to wrap for responsiveness
+                  justifyContent: "space-between", // Separate Top Clusters and Top Schools
+                  gap: "20px", // Add space between the two sections
+                }}
+              >
+                {/*//^ Least Clusters Section */}
+                <div className="clusters" style={{ flex: "1 1 45%" }}>
+                  {/* Responsive width */}
+                  <h1
+                    style={{
+                      textAlign: "center",
+                      fontSize: "1.7rem",
+                      fontWeight: "bold",
+                      color: "#2c3e50",
+                      marginBottom: "20px",
+                      letterSpacing: "1.5px",
+                      // textTransform: "uppercase",
+                      fontFamily: "Congenial SemiBold", // Use a custom font like Poppins
+                    }}
+                  >
+                    Clusters
+                  </h1>
+                  {dummyClusterNames && dummyClusterNames?.length > 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "20px",
+                      }}
+                    >
+                      {dummyClusterNames.map((label, index) => {
+                        const colors = [
+                          "rgb(214, 148, 16)", // Color 1
+                          "rgb(52, 152, 219)", // Color 2
+                          "rgb(231, 76, 60)", // Color 3
+                          "rgb(46, 204, 113)", // Color 4
+                          "rgb(155, 89, 182)", // Color 5
+                        ];
+
+                        return (
+                          <div
+                            key={index}
+                            style={{
+                              width: "50%",
+                              height: "auto",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                              cursor: "pointer",
+                              alignSelf: "center",
+                            }}
+                          >
+                            <div
+                              style={{
+                                backgroundColor: colors[index],
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between", // Add space between number and school name
+                                padding: "5px", // Add padding for better spacing inside the card
+                              }}
+                            >
+                              <h3 style={{ marginLeft: "8px" }}>
+                                {index + 1}.
+                              </h3>{" "}
+                              <p
+                                style={{
+                                  position: "absolute",
+                                  marginLeft: "3%",
+                                }}
+                              >
+                                {dummyClusterNames[index]}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        minHeight: "90vh",
+                      }}
+                    >
+                      <img
+                        src={Nodata}
+                        alt="No Data"
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "80vh",
+                          marginBottom: "20px",
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* //^ Least Schools Section */}
+                <div className="schools" style={{ flex: "1 1 45%" }}>
+                  <h1
+                    style={{
+                      textAlign: "center",
+                      fontSize: "1.7rem",
+                      fontWeight: "bold",
+                      color: "#2c3e50",
+                      marginBottom: "20px",
+                      letterSpacing: "1.5px",
+                      fontFamily: "Congenial SemiBold",
+                    }}
+                  >
+                    Schools
+                  </h1>
+
+                  {dummySchoolNames && dummySchoolNames.length > 0 ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "20px",
+                      }}
+                    >
+                      {dummySchoolNames.map((item, index) => {
+                        const colors = [
+                          "rgb(214, 148, 16)",
+                          "rgb(52, 152, 219)",
+                          "rgb(231, 76, 60)",
+                          "rgb(46, 204, 113)",
+                          "rgb(155, 89, 182)",
+                          "rgb(241, 196, 15)",
+                          "rgb(230, 126, 34)",
+                          "rgb(26, 188, 156)",
+                          "rgb(192, 57, 43)",
+                          "rgb(52, 73, 94)",
+                        ];
+
+                        return (
+                          <div
+                            key={index}
+                            style={{
+                              width: "50%",
+                              height: "auto",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                              cursor: "pointer",
+                              alignSelf: "center",
+                            }}
+                          >
+                            <div
+                              style={{
+                                backgroundColor: colors[index],
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                display: "flex",
+                                alignItems: "center",
+                              }}
+                            >
+                              <h3 style={{ marginLeft: "8px" }}>
+                                {index + 1}.
+                              </h3>
+                              <p style={{ marginLeft: "25px" }}>{item}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        minHeight: "90vh",
+                      }}
+                    >
+                      <img
+                        src={Nodata}
+                        alt="No Data"
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "80vh",
+                          marginBottom: "20px",
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         ) : null //This will be changed into no data
       }
+
+      {}
     </div>
   );
 };
@@ -1059,3 +1295,13 @@ const monthArr = [
   { value: 2, label: "February" },
   { value: 3, label: "March" },
 ];
+
+const dummySchoolNames = [
+  "Green Valley High School",
+  "Bright Future Academy",
+  "Riverdale Public School",
+  "Harmony International School",
+  "Sunrise Elementary School",
+];
+
+const dummyClusterNames = ["Sarankul", "Suando", "Barabati", "Sukal", "Ranpur"];

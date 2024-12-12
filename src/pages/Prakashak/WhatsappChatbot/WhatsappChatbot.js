@@ -136,7 +136,9 @@ const WhatsappChatbot = () => {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
 
-  console.log("data--->", data);
+  console.log("selectedMonth2--->", selectedMonth2);
+
+  console.log("data2------->", data2);
 
   useEffect(() => {
     fetchData();
@@ -172,7 +174,6 @@ const WhatsappChatbot = () => {
   };
 
   const fetchData2 = () => {
-    //
     setLoading(true);
     const body = {
       year: selectedYear2,
@@ -485,10 +486,10 @@ const WhatsappChatbot = () => {
           }}
           onClick={filterButtonClick2}
         >
-          Filter
+          Filter Month
         </Button>
       </div>
-      {data?.length > 0 ? (
+      {data2?.length > 0 ? (
         <div
           style={{
             marginTop: "2%",
@@ -532,7 +533,7 @@ const WhatsappChatbot = () => {
                   <CircularProgress />
                 </Box>
               </div>
-            ) : !loading && data?.length > 0 ? (
+            ) : !loading && data2?.length > 0 ? (
               <>
                 <div
                   style={{
@@ -604,7 +605,7 @@ const WhatsappChatbot = () => {
                                     color: "white",
                                   }}
                                 >
-                                  <h1>{data.registered_smartphone_users}</h1>
+                                  <h1>{data.smartphone_users}</h1>
                                 </div>
                               </div>
                             ) : null}
@@ -644,7 +645,7 @@ const WhatsappChatbot = () => {
                                   color: "white",
                                 }}
                               >
-                                <h1>{data.registered_smartphone_users_male}</h1>
+                                <h1>{data.smartphone_boys}</h1>
                               </div>
                             </div>
                             {isFiltered ? (
@@ -686,9 +687,7 @@ const WhatsappChatbot = () => {
                                     color: "white",
                                   }}
                                 >
-                                  <h1>
-                                    {data.registered_smartphone_users_female}
-                                  </h1>
+                                  <h1>{data.smartphone__girls}</h1>
                                 </div>
                               </div>
                             ) : null}
@@ -865,7 +864,7 @@ const WhatsappChatbot = () => {
                               color: "white",
                             }}
                           >
-                            <h1>{data.chatbot_new_users}</h1>
+                            <h1>{data.new_smartphone_users}</h1>
                           </div>
                         </div>
                       ) : null}
@@ -905,7 +904,7 @@ const WhatsappChatbot = () => {
                             color: "white",
                           }}
                         >
-                          <h1>{data.chatbot_active_users}</h1>
+                          <h1>{data.active_smartphone_users}</h1>
                         </div>
                       </div>
                       {isFiltered ? (
@@ -945,7 +944,7 @@ const WhatsappChatbot = () => {
                               color: "white",
                             }}
                           >
-                            <h1>{data.new_activated_students}</h1>
+                            <h1>{data.new_activated_smartphone_users}</h1>
                           </div>
                         </div>
                       ) : null}
@@ -1086,362 +1085,463 @@ export default WhatsappChatbot;
 
 const dataJson2 = [
   {
+    year: 2024,
     month: 1,
-    registered_smartphone_users: 469,
-    registered_smartphone_users_male: 231,
-    registered_smartphone_users_female: 238,
+    smartphone_users: 469,
+    smartphone_boys: 231,
+    smartphone__girls: 238,
+    lastUpdated: '"31-01-2024"',
   },
   {
+    year: 2024,
     month: 2,
-    registered_smartphone_users: 2021,
-    registered_smartphone_users_male: 1002,
-    registered_smartphone_users_female: 1019,
+    smartphone_users: 2021,
+    smartphone_boys: 1002,
+    smartphone__girls: 1019,
+    lastUpdated: "29-02-2024",
   },
   {
+    year: 2024,
     month: 3,
-    registered_smartphone_users: 3474,
-    registered_smartphone_users_male: 1728,
-    registered_smartphone_users_female: 1746,
+    smartphone_users: 3474,
+    smartphone_boys: 1728,
+    smartphone__girls: 1746,
+    lastUpdated: "31-03-2024",
   },
   {
+    year: 2024,
     month: 4,
-    registered_smartphone_users: 3933,
-    registered_smartphone_users_male: 1960,
-    registered_smartphone_users_female: 1973,
+    smartphone_users: 3933,
+    smartphone_boys: 1960,
+    smartphone__girls: 1973,
+    lastUpdated: "30-04-2024",
   },
   {
+    year: 2024,
     month: 5,
-    registered_smartphone_users: 5698,
-    registered_smartphone_users_male: 2845,
-    registered_smartphone_users_female: 2853,
+    smartphone_users: 5698,
+    smartphone_boys: 2845,
+    smartphone__girls: 2853,
+    lastUpdated: "31-05-2025",
   },
   {
+    year: 2024,
     month: 6,
-    registered_smartphone_users: 6458,
-    registered_smartphone_users_male: 3232,
-    registered_smartphone_users_female: 3226,
+    smartphone_users: 6458,
+    smartphone_boys: 3232,
+    smartphone__girls: 3226,
+    lastUpdated: "30-06-2024",
   },
   {
+    year: 2024,
     month: 7,
-    registered_smartphone_users: 6347,
-    registered_smartphone_users_male: 3181,
-    registered_smartphone_users_female: 3193,
+    smartphone_users: 6347,
+    smartphone_boys: 3181,
+    smartphone__girls: 3193,
+    lastUpdated: "31-07-2024",
   },
   {
+    year: 2024,
     month: 8,
-    registered_smartphone_users: 7192,
-    registered_smartphone_users_male: 3598,
-    registered_smartphone_users_female: 3595,
+    smartphone_users: 7192,
+    smartphone_boys: 3598,
+    smartphone__girls: 3595,
+    lastUpdated: "31-08-2024",
   },
   {
+    year: 2024,
     month: 9,
-    registered_smartphone_users: 7085,
-    registered_smartphone_users_male: 3536,
-    registered_smartphone_users_female: 3549,
+    smartphone_users: 7085,
+    smartphone_boys: 3536,
+    smartphone__girls: 3549,
+    lastUpdated: "30-09-2024",
   },
   {
+    year: 2024,
     month: 10,
-    registered_smartphone_users: 8702,
-    registered_smartphone_users_male: 4380,
-    registered_smartphone_users_female: 4322,
+    smartphone_users: 8702,
+    smartphone_boys: 4380,
+    smartphone__girls: 4322,
+    lastUpdated: "31-10-2024",
+  },
+  {
+    year: 2024,
+    month: 11,
+    smartphone_users: 16604,
+    smartphone_boys: 8721,
+    smartphone__girls: 7883,
+    lastUpdated: "31-11-2024",
   },
 ];
 
 const dataJson = [
   {
+    year: 2024,
     month: 1,
     week: 4,
-    chatbot_new_users: 747,
-    chatbot_active_users: 469,
-    new_activated_students: 469,
-    total_chatbot_mins: 469,
+    new_smartphone_users: 747,
+    new_activated_smartphone_users: 469,
+    active_smartphone_users: 469,
+    lastUpdated: "31-01-2024",
   },
   {
+    year: 2024,
     month: 2,
     week: 1,
-    chatbot_new_users: 1730,
-    chatbot_active_users: 1975,
-    new_activated_students: 1624,
-    total_chatbot_mins: 2093,
+    new_smartphone_users: 1342,
+    new_activated_smartphone_users: 1624,
+    active_smartphone_users: 1975,
+    lastUpdated: "29-02-2024",
   },
   {
+    year: 2024,
     month: 2,
     week: 2,
-    chatbot_new_users: 0,
-    chatbot_active_users: 2000,
-    new_activated_students: 0,
-    total_chatbot_mins: 2093,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 2000,
+    lastUpdated: "29-02-2024",
   },
   {
+    year: 2024,
     month: 2,
     week: 3,
-    chatbot_new_users: 0,
-    chatbot_active_users: 2012,
-    new_activated_students: 0,
-    total_chatbot_mins: 2093,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 2012,
+    lastUpdated: "29-02-2024",
   },
   {
+    year: 2024,
     month: 2,
     week: 4,
-    chatbot_new_users: 0,
-    chatbot_active_users: 2018,
-    new_activated_students: 0,
-    total_chatbot_mins: 2093,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 2018,
+    lastUpdated: "29-02-2024",
   },
   {
+    year: 2024,
     month: 3,
     week: 1,
-    chatbot_new_users: 863,
-    chatbot_active_users: 3469,
-    new_activated_students: 1744,
-    total_chatbot_mins: 3837,
+    new_smartphone_users: 863,
+    new_activated_smartphone_users: 1744,
+    active_smartphone_users: 3469,
+    lastUpdated: "31-03-2024",
   },
   {
+    year: 2024,
     month: 3,
     week: 2,
-    chatbot_new_users: 0,
-    chatbot_active_users: 3428,
-    new_activated_students: 0,
-    total_chatbot_mins: 3837,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 3428,
+    lastUpdated: "31-03-2024",
   },
   {
+    year: 2024,
     month: 3,
     week: 3,
-    chatbot_new_users: 0,
-    chatbot_active_users: 3466,
-    new_activated_students: 0,
-    total_chatbot_mins: 3837,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 3466,
+    lastUpdated: "31-03-2024",
   },
   {
+    year: 2024,
     month: 3,
     week: 4,
-    chatbot_new_users: 0,
-    chatbot_active_users: 3424,
-    new_activated_students: 0,
-    total_chatbot_mins: 3837,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 3424,
+    lastUpdated: "31-03-2024",
   },
   {
+    year: 2024,
     month: 4,
     week: 1,
-    chatbot_new_users: 1098,
-    chatbot_active_users: 3927,
-    new_activated_students: 451,
-    total_chatbot_mins: 4288,
+    new_smartphone_users: 1098,
+    new_activated_smartphone_users: 451,
+    active_smartphone_users: 3927,
+    lastUpdated: "30-04-2024",
   },
   {
+    year: 2024,
     month: 4,
     week: 2,
-    chatbot_new_users: 0,
-    chatbot_active_users: 3871,
-    new_activated_students: 0,
-    total_chatbot_mins: 4288,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 3871,
+    lastUpdated: "30-04-2024",
   },
   {
+    year: 2024,
     month: 4,
     week: 3,
-    chatbot_new_users: 0,
-    chatbot_active_users: 3890,
-    new_activated_students: 0,
-    total_chatbot_mins: 4288,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 3890,
+    lastUpdated: "30-04-2024",
   },
   {
+    year: 2024,
     month: 4,
     week: 4,
-    chatbot_new_users: 0,
-    chatbot_active_users: 3908,
-    new_activated_students: 0,
-    total_chatbot_mins: 4288,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 3908,
+    lastUpdated: "30-04-2024",
   },
   {
+    year: 2024,
     month: 5,
     week: 1,
-    chatbot_new_users: 1952,
-    chatbot_active_users: 5647,
-    new_activated_students: 1952,
-    total_chatbot_mins: 6240,
+    new_smartphone_users: 1952,
+    new_activated_smartphone_users: 1952,
+    active_smartphone_users: 5647,
+    lastUpdated: "31-05-2025",
   },
   {
+    year: 2024,
     month: 5,
     week: 2,
-    chatbot_new_users: 0,
-    chatbot_active_users: 5679,
-    new_activated_students: 0,
-    total_chatbot_mins: 6240,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 5679,
+    lastUpdated: "31-05-2025",
   },
   {
+    year: 2024,
     month: 5,
     week: 3,
-    chatbot_new_users: 0,
-    chatbot_active_users: 5696,
-    new_activated_students: 0,
-    total_chatbot_mins: 6240,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 5696,
+    lastUpdated: "31-05-2025",
   },
   {
+    year: 2024,
     month: 5,
     week: 4,
-    chatbot_new_users: 0,
-    chatbot_active_users: 5631,
-    new_activated_students: 0,
-    total_chatbot_mins: 6240,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 5631,
+    lastUpdated: "31-05-2025",
   },
   {
+    year: 2024,
     month: 6,
     week: 1,
-    chatbot_new_users: 892,
-    chatbot_active_users: 6203,
-    new_activated_students: 892,
-    total_chatbot_mins: 7132,
+    new_smartphone_users: 892,
+    new_activated_smartphone_users: 892,
+    active_smartphone_users: 6203,
+    lastUpdated: "30-06-2024",
   },
   {
+    year: 2024,
     month: 6,
     week: 2,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6448,
-    new_activated_students: 0,
-    total_chatbot_mins: 7132,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6448,
+    lastUpdated: "30-06-2024",
   },
   {
+    year: 2024,
     month: 6,
     week: 3,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6421,
-    new_activated_students: 0,
-    total_chatbot_mins: 7132,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6421,
+    lastUpdated: "30-06-2024",
   },
   {
+    year: 2024,
     month: 6,
     week: 4,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6185,
-    new_activated_students: 0,
-    total_chatbot_mins: 7132,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6185,
+    lastUpdated: "30-06-2024",
   },
   {
+    year: 2024,
     month: 7,
     week: 1,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6267,
-    new_activated_students: 0,
-    total_chatbot_mins: 7132,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6267,
+    lastUpdated: "31-07-2024",
   },
   {
+    year: 2024,
     month: 7,
     week: 2,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6340,
-    new_activated_students: 0,
-    total_chatbot_mins: 7132,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6340,
+    lastUpdated: "31-07-2024",
   },
   {
+    year: 2024,
     month: 7,
     week: 3,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6226,
-    new_activated_students: 0,
-    total_chatbot_mins: 7132,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6226,
+    lastUpdated: "31-07-2024",
   },
   {
+    year: 2024,
     month: 7,
     week: 4,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6370,
-    new_activated_students: 0,
-    total_chatbot_mins: 7132,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6370,
+    lastUpdated: "31-07-2024",
   },
   {
+    year: 2024,
     month: 8,
     week: 1,
-    chatbot_new_users: 1179,
-    chatbot_active_users: 7047,
-    new_activated_students: 1008,
-    total_chatbot_mins: 8140,
+    new_smartphone_users: 1179,
+    new_activated_smartphone_users: 1008,
+    active_smartphone_users: 7047,
+    lastUpdated: "31-08-2024",
   },
   {
+    year: 2024,
     month: 8,
     week: 2,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6991,
-    new_activated_students: 0,
-    total_chatbot_mins: 8140,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6991,
+    lastUpdated: "31-08-2024",
   },
   {
+    year: 2024,
     month: 8,
     week: 3,
-    chatbot_new_users: 0,
-    chatbot_active_users: 7189,
-    new_activated_students: 0,
-    total_chatbot_mins: 8140,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 7189,
+    lastUpdated: "31-08-2024",
   },
   {
+    year: 2024,
     month: 8,
     week: 4,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6923,
-    new_activated_students: 0,
-    total_chatbot_mins: 8140,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6923,
+    lastUpdated: "31-08-2024",
   },
   {
+    year: 2024,
     month: 9,
     week: 1,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6901,
-    new_activated_students: 0,
-    total_chatbot_mins: 8140,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6901,
+    lastUpdated: "30-09-2024",
   },
   {
+    year: 2024,
     month: 9,
     week: 2,
-    chatbot_new_users: 0,
-    chatbot_active_users: 7079,
-    new_activated_students: 0,
-    total_chatbot_mins: 8140,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 7079,
+    lastUpdated: "30-09-2024",
   },
   {
+    year: 2024,
     month: 9,
     week: 3,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6824,
-    new_activated_students: 0,
-    total_chatbot_mins: 8140,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6824,
+    lastUpdated: "30-09-2024",
   },
   {
+    year: 2024,
     month: 9,
     week: 4,
-    chatbot_new_users: 0,
-    chatbot_active_users: 6948,
-    new_activated_students: 0,
-    total_chatbot_mins: 8140,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 6948,
+    lastUpdated: "30-09-2024",
   },
   {
+    year: 2024,
     month: 10,
     week: 1,
-    chatbot_new_users: 1297,
-    chatbot_active_users: 7835,
-    new_activated_students: 1178,
-    total_chatbot_mins: 9318,
+    new_smartphone_users: 1297,
+    new_activated_smartphone_users: 1178,
+    active_smartphone_users: 7835,
+    lastUpdated: "31-10-2024",
   },
   {
+    year: 2024,
     month: 10,
     week: 2,
-    chatbot_new_users: 0,
-    chatbot_active_users: 7969,
-    new_activated_students: 0,
-    total_chatbot_mins: 9318,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 7969,
+    lastUpdated: "31-10-2024",
   },
   {
+    year: 2024,
     month: 10,
     week: 3,
-    chatbot_new_users: 0,
-    chatbot_active_users: 7804,
-    new_activated_students: 0,
-    total_chatbot_mins: 9318,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 7804,
+    lastUpdated: "31-10-2024",
   },
   {
+    year: 2024,
     month: 10,
     week: 4,
-    chatbot_new_users: 0,
-    chatbot_active_users: 8661,
-    new_activated_students: 0,
-    total_chatbot_mins: 9318,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 8611,
+    lastUpdated: "31-10-2024",
+  },
+  {
+    year: 2024,
+    month: 11,
+    week: 1,
+    new_smartphone_users: 10248,
+    new_activated_smartphone_users: 8316,
+    active_smartphone_users: 14566,
+    lastUpdated: "31-11-2024",
+  },
+  {
+    year: 2024,
+    month: 11,
+    week: 2,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 14726,
+    lastUpdated: "31-11-2024",
+  },
+  {
+    year: 2024,
+    month: 11,
+    week: 3,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 15252,
+    lastUpdated: "31-11-2024",
+  },
+  {
+    year: 2024,
+    month: 11,
+    week: 4,
+    new_smartphone_users: 0,
+    new_activated_smartphone_users: 0,
+    active_smartphone_users: 16533,
+    lastUpdated: "31-11-2024",
   },
 ];

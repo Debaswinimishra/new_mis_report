@@ -6,51 +6,51 @@ export default function Retention() {
     {
       month: "Jan",
       activatedUsers: 665,
-      retention: [665, 461, 485, 511, 503, 501, 506, 472, 483, 469],
+      retention: [665, 461, 485, 511, 503, 501, 506, 472, 483, 469, 428],
     },
     {
       month: "Feb",
       activatedUsers: 2148,
-      retention: [, 2148, 1847, 1812, 1794, 1715, 1695, 1578, 1629, 1826],
+      retention: [, 2148, 1847, 1812, 1794, 1715, 1695, 1578, 1629, 1826, 1564],
     },
     {
       month: "Mar",
       activatedUsers: 2192,
-      retention: [, , 2192, 2175, 1992, 1726, 1693, 1644, 1718, 1795],
+      retention: [, , 2192, 2175, 1992, 1726, 1693, 1644, 1718, 1795, 1618],
     },
     {
       month: "Apr",
       activatedUsers: 649,
-      retention: [, , , 649, 641, 627, 638, 532, 431, 590],
+      retention: [, , , 649, 641, 627, 638, 532, 431, 590, 362],
     },
     {
       month: "May",
       activatedUsers: 3094,
-      retention: [, , , , 3094, 3083, 3091, 2951, 2824, 2926],
+      retention: [, , , , 3094, 3083, 3091, 2951, 2824, 2926, 1605],
     },
     {
       month: "Jun",
       activatedUsers: 1346,
-      retention: [, , , , , 1346, 1339, 1263, 1278, 1313],
+      retention: [, , , , , 1346, 1339, 1263, 1278, 1313, 1161],
     },
-    { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0, 0, 0, 0] },
+    { month: "Jul", activatedUsers: 0, retention: [, , , , , , 0, 0, 0, 0, 0] },
     {
       month: "Aug",
       activatedUsers: 1537,
-      retention: [, , , , , , , 1537, 1475, 1496],
+      retention: [, , , , , , , 1537, 1475, 1496, 1117],
     },
     {
       month: "Sep",
       activatedUsers: 0,
-      retention: [, , , , , , , , 0, 0],
+      retention: [, , , , , , , , 0, 0, 0],
     },
-    { month: "Oct", retention: [, , , , , , , , , 1682, ,] },
-    { month: "Nov", retention: [, , , , , , , , , , , ,] },
+    { month: "Oct", retention: [, , , , , , , , , 1682, 1449] },
+    { month: "Nov", retention: [, , , , , , , , , , 11847] },
     { month: "Dec", retention: [, , , , , , , , , , , ,] },
   ];
 
   const totalRetention = [
-    665, 2609, 4524, 5147, 8024, 8998, 8962, 9977, 9838, 12097, 0, 0,
+    665, 2609, 4524, 5147, 8024, 8998, 8962, 9977, 9838, 12097, 21151, 0,
   ];
 
   const currentYear = new Date().getFullYear();

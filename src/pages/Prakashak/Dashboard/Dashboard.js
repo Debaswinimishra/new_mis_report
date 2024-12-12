@@ -900,7 +900,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_clusters}</h1> */}
-                <h1>36</h1>
+                <h1>57</h1>
               </div>
             </div>
             <div
@@ -940,7 +940,88 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_schools}</h1> */}
-                <h1>379</h1>
+                <h1>576</h1>
+              </div>
+            </div>
+            <div
+              onClick={() => handleOpen("schools")}
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+                cursor: "pointer", // Show hand cursor on hover
+                position: "relative", // Needed for positioning the "Click here" text
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "13px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                <p>Sectors</p>
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  // backgroundColor: "#2E8B57",
+                  backgroundColor: "rgb(153 58 134)",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                {/* <h1>{dashboardData.total_schools}</h1> */}
+                <h1>0</h1>
+              </div>
+            </div>
+            <div
+              onClick={() => handleOpen("schools")}
+              style={{
+                width: "255px",
+                height: "180px",
+                marginTop: "1.5%",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                display: "flex",
+                flexDirection: "column",
+                boxShadow: "1px 1px 4px 3px lightGrey",
+                cursor: "pointer", // Show hand cursor on hover
+                position: "relative", // Needed for positioning the "Click here" text
+              }}
+            >
+              <div
+                style={{
+                  height: "50%",
+                  color: "#2E8B57",
+                  paddingTop: "13px",
+                  fontSize: "1.2rem",
+                  fontFamily: "Congenial SemiBold",
+                  fontWeight: "600",
+                }}
+              >
+                <p>Anganwadis</p>
+              </div>
+              <div
+                style={{
+                  height: "50%",
+                  backgroundColor: "#2E8B57",
+                  borderEndStartRadius: "10px",
+                  borderEndEndRadius: "10px",
+                  color: "white",
+                }}
+              >
+                {/* <h1>{dashboardData.total_schools}</h1> */}
+                <h1>0</h1>
               </div>
             </div>
             <div
@@ -980,7 +1061,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_students}</h1> */}
-                <h1>14767</h1>
+                <h1>30779</h1>
               </div>
             </div>
             <div
@@ -1020,7 +1101,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_girl_students}</h1> */}
-                <h1>7355</h1>
+                <h1>15298</h1>
               </div>
             </div>
             <div
@@ -1060,7 +1141,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_boy_students}</h1> */}
-                <h1>7412</h1>
+                <h1>15481</h1>
               </div>
             </div>
             <div
@@ -1100,7 +1181,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_activated_students}</h1> */}
-                <h1>13313</h1>
+                <h1>25160</h1>
               </div>
             </div>
             <div
@@ -1140,7 +1221,7 @@ const Dashboard = () => {
                 }}
               >
                 {/* <h1>{dashboardData.total_active_students}</h1> */}
-                <h1>12097</h1>
+                <h1>21151</h1>
               </div>
             </div>
           </div>

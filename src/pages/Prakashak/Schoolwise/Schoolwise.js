@@ -480,6 +480,8 @@ const Schoolwise = () => {
               </MenuItem>
             ))} */}
             <MenuItem value="PURI">PURI</MenuItem>
+            <MenuItem value="CUTTACK">CUTTACK</MenuItem>
+            <MenuItem value="JAJPUR">JAJPUR</MenuItem>
           </Select>
         </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>

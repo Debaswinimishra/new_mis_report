@@ -961,7 +961,7 @@ const Dashboard = () => {
               <div
                 style={{
                   height: "50%",
-                  color: "#2E8B57",
+                  color: "rgb(153 58 134)",
                   paddingTop: "13px",
                   fontSize: "1.2rem",
                   fontFamily: "Congenial SemiBold",

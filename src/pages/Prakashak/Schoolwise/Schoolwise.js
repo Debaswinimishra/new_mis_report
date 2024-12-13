@@ -35,7 +35,7 @@ const Schoolwise = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
-  const [districts, setDistricts] = useState("PURI");
+  const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
   const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
@@ -65,9 +65,9 @@ const Schoolwise = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
 
-  const allBlocks = filterData?.map((item) => item?.block);
-  const blocksArray = [...new Set(allBlocks)];
-  console.log("blocks arrayt-------------------->", blocksArray);
+  // const allBlocks = filterData?.map((item) => item?.block);
+  // const blocksArray = [...new Set(allBlocks)];
+  // console.log("blocks arrayt-------------------->", blocksArray);
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const handleYearChange = (e) => {
@@ -141,43 +141,55 @@ const Schoolwise = () => {
   // };
 
   const handleDistrictChange = (e) => {
-    setDistricts(e.target.value);
-    setBlocks("");
-    setCluseters("");
-    setSchools("");
-    // Other logic related to district change
+    const selectedDistrict = e.target.value;
+    setDistricts(selectedDistrict);
+    setBlocks(""); // Reset blocks
+    setCluseters(""); // Reset clusters
+    setSchools(""); // Reset schools
+
+    // Extract unique blocks from the data for the selected district
+    const uniqueBlocks = [
+      ...new Set(
+        filterData
+          .filter((item) => item.district === selectedDistrict) // Match district
+          .map((item) => item.block) // Get all blocks
+      ),
+    ];
+
+    // Set the blocks state
+    setBlockArr(uniqueBlocks);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
-        // console.log("set=================>", response.data);
-        if (response?.data && response?.data?.length > 0) {
-          // Extracting the blocks from the response data
-          const blocks =
-            response?.data.length > 0 &&
-            response?.data?.map((item) => item?.block);
-          // console.log("Blocks:", blocks);
-          setBlockArr(blocks); // Setting the block array with the array of block names
-        } else {
-          // console.log("No blocks found for the given district.");
-          setBlockArr([]); // Setting an empty array if no data is found
-        }
-        // setLoading(false);
-      } catch (error) {
-        console.error("Error fetching Blocks:", error);
-        // setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
+  //       // console.log("set=================>", response.data);
+  //       if (response?.data && response?.data?.length > 0) {
+  //         // Extracting the blocks from the response data
+  //         const blocks =
+  //           response?.data.length > 0 &&
+  //           response?.data?.map((item) => item?.block);
+  //         // console.log("Blocks:", blocks);
+  //         setBlockArr(blocks); // Setting the block array with the array of block names
+  //       } else {
+  //         // console.log("No blocks found for the given district.");
+  //         setBlockArr([]); // Setting an empty array if no data is found
+  //       }
+  //       // setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching Blocks:", error);
+  //       // setLoading(false);
+  //     }
+  //   };
 
-    // Fetch data only if a district is selected
-    if (districts) {
-      fetchData();
-    }
+  //   // Fetch data only if a district is selected
+  //   if (districts) {
+  //     fetchData();
+  //   }
 
-    return () => {};
-  }, [districts]);
+  //   return () => {};
+  // }, [districts]);
 
   const handleBlockChange = (e) => {
     setBlocks(e.target.value);
@@ -498,8 +510,8 @@ const Schoolwise = () => {
               Select Block
             </MenuItem>
             {/* <MenuItem value="">None</MenuItem> */}
-            {blocksArray &&
-              blocksArray?.map((block, index) => (
+            {blockArr &&
+              blockArr?.map((block, index) => (
                 <MenuItem key={index} value={block}>
                   {block}
                 </MenuItem>

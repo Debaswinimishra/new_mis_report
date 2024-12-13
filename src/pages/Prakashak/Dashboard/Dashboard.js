@@ -849,7 +849,7 @@ const Dashboard = () => {
           >
             <i>
               {" "}
-              <u> Data Updated as on - 30/10/2024</u>
+              <u> Data Updated as on - 30/11/2024</u>
             </i>
           </h2>
           <div

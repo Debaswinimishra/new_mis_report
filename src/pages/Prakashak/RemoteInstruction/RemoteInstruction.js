@@ -73,7 +73,7 @@ const RemoteInstruction = () => {
   const [selectedMonth2, setSelectedMonth2] = useState(
     currentMonthSelected.value - 1
   );
-  const [selectedWeek, setSelectedWeek] = useState(4);
+  const [selectedWeek, setSelectedWeek] = useState(1);
   const [remoteInstData, setRemoteInstData] = useState([]);
   const [remoteInstData2, setRemoteInstData2] = useState([]);
 

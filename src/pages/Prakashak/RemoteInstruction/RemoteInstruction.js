@@ -1156,6 +1156,559 @@ const RemoteInstruction = () => {
                       </div>
                     </div>
                     {/* ) : null} */}
+                    <div
+                    // style={{
+                    //   marginTop: "2%",
+                    //   boxShadow: "2px 1px 5px grey",
+                    //   padding: "5%",
+                    //   width: "97%",
+                    // }}
+                    >
+                      <h1
+                        style={{
+                          marginTop: "2%",
+                          color: "#333", // Dark grey color for the text
+                          fontFamily: "Congenial SemiBold", // Font family for a clean look
+                          fontWeight: "700", // Bolder font weight for emphasis
+                          fontSize: "1.8rem", // Larger font size for prominence
+                          textAlign: "center", // Center-align the text
+                          padding: "10px 0", // Add some padding for spacing
+                          borderBottom: "2px solid #000000", // Add a bottom border for separation
+                          letterSpacing: "0.5px", // Slight letter spacing for readability
+                          textTransform: "capitalize", // Capitalize each word
+                        }}
+                      >
+                        Time-Spent details
+                      </h1>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          alignContent: "center",
+                          justifyContent: "center",
+                          width: "97%",
+                          gap: "2%",
+                          // marginTop: "-2%",
+                        }}
+                      >
+                        <>
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#00CED1",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 0-1 mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#00CED1",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #00CED1", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#00CED1",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_0to1_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_0to1_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#CD5C5C",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 2-15 mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#CD5C5C",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #CD5C5C", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#CD5C5C",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_2to15_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_2to15_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#CD5C5C",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 16-30 mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#CD5C5C",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #CD5C5C", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#CD5C5C",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_16to30_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_16to30_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#2E8B57",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 31-45 mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#2E8B57",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #2E8B57", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#2E8B57",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_31to45_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_31to45_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#000080",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 45+ mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#000080",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #000080", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#000080",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_45plus_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_45plus_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      </div>
+                    </div>
 
                     {/* <div
                       style={{
@@ -1554,7 +2107,17 @@ const dataJson = [
     new_non_smartphone_users: 396,
     new_activated_non_smartphone_users: 196,
     active_non_smartphone_users: 196,
-    lastUpdated: "31-01-2024",
+    lastUpdated: '"31-01-2024"',
+    ts_0to1_users: 0,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 59,
+    ts_2to15_avgTs: 10.3,
+    ts_16to30_users: 137,
+    ts_16to30_avgTs: 16.4,
+    ts_31to45_users: 0,
+    ts_31to45_avgTs: 0,
+    ts_45plus_users: 0,
+    ts_45plus_avgTs: 0,
   },
   {
     year: 2024,
@@ -1563,7 +2126,17 @@ const dataJson = [
     new_non_smartphone_users: 1342,
     new_activated_non_smartphone_users: 524,
     active_non_smartphone_users: 536,
-    lastUpdated: "29-02-2024",
+    lastUpdated: '"29-02-2024"',
+    ts_0to1_users: 184,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 70,
+    ts_2to15_avgTs: 12.9,
+    ts_16to30_users: 327,
+    ts_16to30_avgTs: 22.7,
+    ts_31to45_users: 108,
+    ts_31to45_avgTs: 32.5,
+    ts_45plus_users: 31,
+    ts_45plus_avgTs: 69.2,
   },
   {
     year: 2024,
@@ -1572,7 +2145,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 515,
-    lastUpdated: "29-02-2024",
+    lastUpdated: '"29-02-2024"',
+    ts_0to1_users: 205,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 57,
+    ts_2to15_avgTs: 4.5,
+    ts_16to30_users: 277,
+    ts_16to30_avgTs: 24.5,
+    ts_31to45_users: 164,
+    ts_31to45_avgTs: 37.7,
+    ts_45plus_users: 17,
+    ts_45plus_avgTs: 78.5,
   },
   {
     year: 2024,
@@ -1581,7 +2164,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 510,
-    lastUpdated: "29-02-2024",
+    lastUpdated: '"29-02-2024"',
+    ts_0to1_users: 210,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 31,
+    ts_2to15_avgTs: 5.5,
+    ts_16to30_users: 253,
+    ts_16to30_avgTs: 27.3,
+    ts_31to45_users: 177,
+    ts_31to45_avgTs: 31.9,
+    ts_45plus_users: 49,
+    ts_45plus_avgTs: 48.6,
   },
   {
     year: 2024,
@@ -1590,7 +2183,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 591,
-    lastUpdated: "29-02-2024",
+    lastUpdated: '"29-02-2024"',
+    ts_0to1_users: 129,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 59,
+    ts_2to15_avgTs: 6.3,
+    ts_16to30_users: 345,
+    ts_16to30_avgTs: 26.7,
+    ts_31to45_users: 145,
+    ts_31to45_avgTs: 43.4,
+    ts_45plus_users: 42,
+    ts_45plus_avgTs: 56.5,
   },
   {
     year: 2024,
@@ -1599,7 +2202,17 @@ const dataJson = [
     new_non_smartphone_users: 353,
     new_activated_non_smartphone_users: 448,
     active_non_smartphone_users: 1049,
-    lastUpdated: "31-03-2024",
+    lastUpdated: '"31-03-2024"',
+    ts_0to1_users: 119,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 218,
+    ts_2to15_avgTs: 13.2,
+    ts_16to30_users: 250,
+    ts_16to30_avgTs: 29.6,
+    ts_31to45_users: 346,
+    ts_31to45_avgTs: 36.4,
+    ts_45plus_users: 235,
+    ts_45plus_avgTs: 46.5,
   },
   {
     year: 2024,
@@ -1608,7 +2221,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 1079,
-    lastUpdated: "31-03-2024",
+    lastUpdated: '"31-03-2024"',
+    ts_0to1_users: 94,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 201,
+    ts_2to15_avgTs: 12,
+    ts_16to30_users: 267,
+    ts_16to30_avgTs: 21.4,
+    ts_31to45_users: 330,
+    ts_31to45_avgTs: 41.9,
+    ts_45plus_users: 276,
+    ts_45plus_avgTs: 54.6,
   },
   {
     year: 2024,
@@ -1617,7 +2240,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 1046,
-    lastUpdated: "31-03-2024",
+    lastUpdated: '"31-03-2024"',
+    ts_0to1_users: 122,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 145,
+    ts_2to15_avgTs: 6.9,
+    ts_16to30_users: 198,
+    ts_16to30_avgTs: 18.8,
+    ts_31to45_users: 103,
+    ts_31to45_avgTs: 44.1,
+    ts_45plus_users: 600,
+    ts_45plus_avgTs: 53.5,
   },
   {
     year: 2024,
@@ -1626,7 +2259,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 1100,
-    lastUpdated: "31-03-2024",
+    lastUpdated: '"31-03-2024"',
+    ts_0to1_users: 68,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 207,
+    ts_2to15_avgTs: 6.4,
+    ts_16to30_users: 156,
+    ts_16to30_avgTs: 25.5,
+    ts_31to45_users: 94,
+    ts_31to45_avgTs: 31.4,
+    ts_45plus_users: 643,
+    ts_45plus_avgTs: 56.6,
   },
   {
     year: 2024,
@@ -1635,7 +2278,17 @@ const dataJson = [
     new_non_smartphone_users: 450,
     new_activated_non_smartphone_users: 198,
     active_non_smartphone_users: 1180,
-    lastUpdated: "30-04-2024",
+    lastUpdated: '"30-04-2024"',
+    ts_0to1_users: 186,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 146,
+    ts_2to15_avgTs: 11.6,
+    ts_16to30_users: 327,
+    ts_16to30_avgTs: 20.8,
+    ts_31to45_users: 494,
+    ts_31to45_avgTs: 44.4,
+    ts_45plus_users: 213,
+    ts_45plus_avgTs: 46.1,
   },
   {
     year: 2024,
@@ -1644,7 +2297,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 1238,
-    lastUpdated: "30-04-2024",
+    lastUpdated: '"30-04-2024"',
+    ts_0to1_users: 128,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 169,
+    ts_2to15_avgTs: 13.7,
+    ts_16to30_users: 310,
+    ts_16to30_avgTs: 17.1,
+    ts_31to45_users: 354,
+    ts_31to45_avgTs: 41,
+    ts_45plus_users: 405,
+    ts_45plus_avgTs: 49.9,
   },
   {
     year: 2024,
@@ -1653,7 +2316,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 1245,
-    lastUpdated: "30-04-2024",
+    lastUpdated: '"30-04-2024"',
+    ts_0to1_users: 121,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 193,
+    ts_2to15_avgTs: 14.1,
+    ts_16to30_users: 284,
+    ts_16to30_avgTs: 20.1,
+    ts_31to45_users: 460,
+    ts_31to45_avgTs: 41.8,
+    ts_45plus_users: 308,
+    ts_45plus_avgTs: 46,
   },
   {
     year: 2024,
@@ -1662,7 +2335,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 1239,
-    lastUpdated: "30-04-2024",
+    lastUpdated: '"30-04-2024"',
+    ts_0to1_users: 127,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 109,
+    ts_2to15_avgTs: 6.3,
+    ts_16to30_users: 336,
+    ts_16to30_avgTs: 22.9,
+    ts_31to45_users: 423,
+    ts_31to45_avgTs: 41.4,
+    ts_45plus_users: 371,
+    ts_45plus_avgTs: 49.4,
   },
   {
     year: 2024,
@@ -1671,7 +2354,17 @@ const dataJson = [
     new_non_smartphone_users: 919,
     new_activated_non_smartphone_users: 1142,
     active_non_smartphone_users: 2380,
-    lastUpdated: "31-05-2024",
+    lastUpdated: '"31-05-2024"',
+    ts_0to1_users: 128,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 510,
+    ts_2to15_avgTs: 14.9,
+    ts_16to30_users: 272,
+    ts_16to30_avgTs: 23.6,
+    ts_31to45_users: 617,
+    ts_31to45_avgTs: 36.3,
+    ts_45plus_users: 981,
+    ts_45plus_avgTs: 45.9,
   },
   {
     year: 2024,
@@ -1680,7 +2373,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2335,
-    lastUpdated: "31-05-2024",
+    lastUpdated: '"31-05-2024"',
+    ts_0to1_users: 173,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 467,
+    ts_2to15_avgTs: 13.1,
+    ts_16to30_users: 485,
+    ts_16to30_avgTs: 27.5,
+    ts_31to45_users: 604,
+    ts_31to45_avgTs: 42,
+    ts_45plus_users: 779,
+    ts_45plus_avgTs: 52.6,
   },
   {
     year: 2024,
@@ -1689,7 +2392,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2333,
-    lastUpdated: "31-05-2024",
+    lastUpdated: '"31-05-2024"',
+    ts_0to1_users: 175,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 431,
+    ts_2to15_avgTs: 13.4,
+    ts_16to30_users: 287,
+    ts_16to30_avgTs: 30.8,
+    ts_31to45_users: 712,
+    ts_31to45_avgTs: 41.2,
+    ts_45plus_users: 903,
+    ts_45plus_avgTs: 56.8,
   },
   {
     year: 2024,
@@ -1698,7 +2411,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2393,
-    lastUpdated: "31-05-2024",
+    lastUpdated: '"31-05-2024"',
+    ts_0to1_users: 115,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 493,
+    ts_2to15_avgTs: 14.7,
+    ts_16to30_users: 258,
+    ts_16to30_avgTs: 26,
+    ts_31to45_users: 462,
+    ts_31to45_avgTs: 37.5,
+    ts_45plus_users: 1180,
+    ts_45plus_avgTs: 58.9,
   },
   {
     year: 2024,
@@ -1707,7 +2430,17 @@ const dataJson = [
     new_non_smartphone_users: 282,
     new_activated_non_smartphone_users: 454,
     active_non_smartphone_users: 2793,
-    lastUpdated: "30-06-2024",
+    lastUpdated: '"30-06-2024"',
+    ts_0to1_users: 169,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 468,
+    ts_2to15_avgTs: 13.3,
+    ts_16to30_users: 222,
+    ts_16to30_avgTs: 18.7,
+    ts_31to45_users: 1241,
+    ts_31to45_avgTs: 32.2,
+    ts_45plus_users: 862,
+    ts_45plus_avgTs: 53.2,
   },
   {
     year: 2024,
@@ -1716,7 +2449,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2555,
-    lastUpdated: "30-06-2024",
+    lastUpdated: '"30-06-2024"',
+    ts_0to1_users: 407,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 580,
+    ts_2to15_avgTs: 13.8,
+    ts_16to30_users: 321,
+    ts_16to30_avgTs: 23.9,
+    ts_31to45_users: 1247,
+    ts_31to45_avgTs: 41.1,
+    ts_45plus_users: 407,
+    ts_45plus_avgTs: 46,
   },
   {
     year: 2024,
@@ -1725,7 +2468,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2570,
-    lastUpdated: "30-06-2024",
+    lastUpdated: '"30-06-2024"',
+    ts_0to1_users: 392,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 401,
+    ts_2to15_avgTs: 9.3,
+    ts_16to30_users: 549,
+    ts_16to30_avgTs: 27.9,
+    ts_31to45_users: 1070,
+    ts_31to45_avgTs: 44.5,
+    ts_45plus_users: 550,
+    ts_45plus_avgTs: 68.1,
   },
   {
     year: 2024,
@@ -1734,7 +2487,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2813,
-    lastUpdated: "30-06-2024",
+    lastUpdated: '"30-06-2024"',
+    ts_0to1_users: 149,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 291,
+    ts_2to15_avgTs: 7,
+    ts_16to30_users: 55,
+    ts_16to30_avgTs: 22.8,
+    ts_31to45_users: 878,
+    ts_31to45_avgTs: 31.6,
+    ts_45plus_users: 1094,
+    ts_45plus_avgTs: 47.2,
   },
   {
     year: 2024,
@@ -1743,7 +2506,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2700,
-    lastUpdated: "31-07-2024",
+    lastUpdated: '"31-07-2024"',
+    ts_0to1_users: 262,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 371,
+    ts_2to15_avgTs: 7,
+    ts_16to30_users: 287,
+    ts_16to30_avgTs: 21.7,
+    ts_31to45_users: 953,
+    ts_31to45_avgTs: 31.4,
+    ts_45plus_users: 1089,
+    ts_45plus_avgTs: 54.6,
   },
   {
     year: 2024,
@@ -1752,7 +2525,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2619,
-    lastUpdated: "31-07-2024",
+    lastUpdated: '"31-07-2024"',
+    ts_0to1_users: 343,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 519,
+    ts_2to15_avgTs: 11.6,
+    ts_16to30_users: 387,
+    ts_16to30_avgTs: 29.5,
+    ts_31to45_users: 830,
+    ts_31to45_avgTs: 35.4,
+    ts_45plus_users: 883,
+    ts_45plus_avgTs: 80.9,
   },
   {
     year: 2024,
@@ -1761,7 +2544,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2729,
-    lastUpdated: "31-07-2024",
+    lastUpdated: '"31-07-2024"',
+    ts_0to1_users: 233,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 641,
+    ts_2to15_avgTs: 10.9,
+    ts_16to30_users: 126,
+    ts_16to30_avgTs: 19.8,
+    ts_31to45_users: 605,
+    ts_31to45_avgTs: 32.9,
+    ts_45plus_users: 1357,
+    ts_45plus_avgTs: 61.7,
   },
   {
     year: 2024,
@@ -1770,7 +2563,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2592,
-    lastUpdated: "31-07-2024",
+    lastUpdated: '"31-07-2024"',
+    ts_0to1_users: 370,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 171,
+    ts_2to15_avgTs: 15,
+    ts_16to30_users: 218,
+    ts_16to30_avgTs: 26.2,
+    ts_31to45_users: 1089,
+    ts_31to45_avgTs: 44.6,
+    ts_45plus_users: 1114,
+    ts_45plus_avgTs: 59.1,
   },
   {
     year: 2024,
@@ -1779,7 +2582,17 @@ const dataJson = [
     new_non_smartphone_users: 652,
     new_activated_non_smartphone_users: 529,
     active_non_smartphone_users: 3066,
-    lastUpdated: "31-08-2024",
+    lastUpdated: '"31-08-2024"',
+    ts_0to1_users: 425,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 1124,
+    ts_2to15_avgTs: 11,
+    ts_16to30_users: 366,
+    ts_16to30_avgTs: 27.1,
+    ts_31to45_users: 653,
+    ts_31to45_avgTs: 44.4,
+    ts_45plus_users: 923,
+    ts_45plus_avgTs: 49.8,
   },
   {
     year: 2024,
@@ -1788,7 +2601,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 3008,
-    lastUpdated: "31-08-2024",
+    lastUpdated: '"31-08-2024"',
+    ts_0to1_users: 483,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 640,
+    ts_2to15_avgTs: 4.4,
+    ts_16to30_users: 556,
+    ts_16to30_avgTs: 19.9,
+    ts_31to45_users: 990,
+    ts_31to45_avgTs: 36.8,
+    ts_45plus_users: 822,
+    ts_45plus_avgTs: 47,
   },
   {
     year: 2024,
@@ -1797,7 +2620,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2835,
-    lastUpdated: "31-08-2024",
+    lastUpdated: '"31-08-2024"',
+    ts_0to1_users: 656,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 877,
+    ts_2to15_avgTs: 13.9,
+    ts_16to30_users: 230,
+    ts_16to30_avgTs: 15.4,
+    ts_31to45_users: 679,
+    ts_31to45_avgTs: 30.7,
+    ts_45plus_users: 1049,
+    ts_45plus_avgTs: 63.5,
   },
   {
     year: 2024,
@@ -1806,7 +2639,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 3054,
-    lastUpdated: "31-08-2024",
+    lastUpdated: '"31-08-2024"',
+    ts_0to1_users: 437,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 1202,
+    ts_2to15_avgTs: 9.4,
+    ts_16to30_users: 323,
+    ts_16to30_avgTs: 17.7,
+    ts_31to45_users: 975,
+    ts_31to45_avgTs: 36.8,
+    ts_45plus_users: 554,
+    ts_45plus_avgTs: 46.5,
   },
   {
     year: 2024,
@@ -1815,7 +2658,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2946,
-    lastUpdated: "30-09-2024",
+    lastUpdated: '"30-09-2024"',
+    ts_0to1_users: 545,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 171,
+    ts_2to15_avgTs: 5.1,
+    ts_16to30_users: 242,
+    ts_16to30_avgTs: 22.3,
+    ts_31to45_users: 426,
+    ts_31to45_avgTs: 32.1,
+    ts_45plus_users: 2107,
+    ts_45plus_avgTs: 59.4,
   },
   {
     year: 2024,
@@ -1824,7 +2677,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2751,
-    lastUpdated: "30-09-2024",
+    lastUpdated: '"30-09-2024"',
+    ts_0to1_users: 740,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 78,
+    ts_2to15_avgTs: 8.6,
+    ts_16to30_users: 77,
+    ts_16to30_avgTs: 28.1,
+    ts_31to45_users: 507,
+    ts_31to45_avgTs: 44.7,
+    ts_45plus_users: 2089,
+    ts_45plus_avgTs: 54.8,
   },
   {
     year: 2024,
@@ -1833,7 +2696,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 3001,
-    lastUpdated: "30-09-2024",
+    lastUpdated: '"30-09-2024"',
+    ts_0to1_users: 490,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 334,
+    ts_2to15_avgTs: 6.8,
+    ts_16to30_users: 447,
+    ts_16to30_avgTs: 16.2,
+    ts_31to45_users: 418,
+    ts_31to45_avgTs: 40.2,
+    ts_45plus_users: 1802,
+    ts_45plus_avgTs: 63.3,
   },
   {
     year: 2024,
@@ -1842,7 +2715,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 2890,
-    lastUpdated: "30-09-2024",
+    lastUpdated: '"30-09-2024"',
+    ts_0to1_users: 601,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 179,
+    ts_2to15_avgTs: 11.7,
+    ts_16to30_users: 535,
+    ts_16to30_avgTs: 18.6,
+    ts_31to45_users: 194,
+    ts_31to45_avgTs: 31.4,
+    ts_45plus_users: 1982,
+    ts_45plus_avgTs: 56.7,
   },
   {
     year: 2024,
@@ -1851,7 +2734,17 @@ const dataJson = [
     new_non_smartphone_users: 615,
     new_activated_non_smartphone_users: 504,
     active_non_smartphone_users: 3459,
-    lastUpdated: "31-10-2024",
+    lastUpdated: '"31-10-2024"',
+    ts_0to1_users: 536,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 363,
+    ts_2to15_avgTs: 3.3,
+    ts_16to30_users: 227,
+    ts_16to30_avgTs: 27.2,
+    ts_31to45_users: 616,
+    ts_31to45_avgTs: 35.3,
+    ts_45plus_users: 2253,
+    ts_45plus_avgTs: 46.8,
   },
   {
     year: 2024,
@@ -1860,7 +2753,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 3575,
-    lastUpdated: "31-10-2024",
+    lastUpdated: '"31-10-2024"',
+    ts_0to1_users: 422,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 333,
+    ts_2to15_avgTs: 14.5,
+    ts_16to30_users: 1574,
+    ts_16to30_avgTs: 28.6,
+    ts_31to45_users: 437,
+    ts_31to45_avgTs: 33.3,
+    ts_45plus_users: 1229,
+    ts_45plus_avgTs: 60.4,
   },
   {
     year: 2024,
@@ -1869,7 +2772,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 3564,
-    lastUpdated: "31-10-2024",
+    lastUpdated: '"31-10-2024"',
+    ts_0to1_users: 431,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 284,
+    ts_2to15_avgTs: 2.4,
+    ts_16to30_users: 1653,
+    ts_16to30_avgTs: 29.2,
+    ts_31to45_users: 588,
+    ts_31to45_avgTs: 37.1,
+    ts_45plus_users: 1039,
+    ts_45plus_avgTs: 51.5,
   },
   {
     year: 2024,
@@ -1878,7 +2791,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 3486,
-    lastUpdated: "31-10-2024",
+    lastUpdated: '"31-10-2024"',
+    ts_0to1_users: 509,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 295,
+    ts_2to15_avgTs: 4.3,
+    ts_16to30_users: 1521,
+    ts_16to30_avgTs: 25.5,
+    ts_31to45_users: 587,
+    ts_31to45_avgTs: 38.2,
+    ts_45plus_users: 1083,
+    ts_45plus_avgTs: 58.2,
   },
   {
     year: 2024,
@@ -1887,7 +2810,17 @@ const dataJson = [
     new_non_smartphone_users: 5764,
     new_activated_non_smartphone_users: 3531,
     active_non_smartphone_users: 5683,
-    lastUpdated: "31-11-2024",
+    lastUpdated: '"31-11-2024"',
+    ts_0to1_users: 1843,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 478,
+    ts_2to15_avgTs: 3.6,
+    ts_16to30_users: 1302,
+    ts_16to30_avgTs: 25.1,
+    ts_31to45_users: 1428,
+    ts_31to45_avgTs: 38.3,
+    ts_45plus_users: 2475,
+    ts_45plus_avgTs: 58.1,
   },
   {
     year: 2024,
@@ -1896,7 +2829,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 5756,
-    lastUpdated: "31-11-2024",
+    lastUpdated: '"31-11-2024"',
+    ts_0to1_users: 1770,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 256,
+    ts_2to15_avgTs: 8,
+    ts_16to30_users: 1572,
+    ts_16to30_avgTs: 29.2,
+    ts_31to45_users: 1108,
+    ts_31to45_avgTs: 33.9,
+    ts_45plus_users: 2820,
+    ts_45plus_avgTs: 67.3,
   },
   {
     year: 2024,
@@ -1905,7 +2848,17 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 5606,
-    lastUpdated: "31-11-2024",
+    lastUpdated: '"31-11-2024"',
+    ts_0to1_users: 1920,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 498,
+    ts_2to15_avgTs: 6.4,
+    ts_16to30_users: 1061,
+    ts_16to30_avgTs: 27,
+    ts_31to45_users: 1247,
+    ts_31to45_avgTs: 42.6,
+    ts_45plus_users: 2800,
+    ts_45plus_avgTs: 52.1,
   },
   {
     year: 2024,
@@ -1914,6 +2867,16 @@ const dataJson = [
     new_non_smartphone_users: 0,
     new_activated_non_smartphone_users: 0,
     active_non_smartphone_users: 4618,
-    lastUpdated: "31-11-2024",
+    lastUpdated: '"31-11-2024"',
+    ts_0to1_users: 2908,
+    ts_0to1_avgTs: 0,
+    ts_2to15_users: 397,
+    ts_2to15_avgTs: 11.4,
+    ts_16to30_users: 1104,
+    ts_16to30_avgTs: 23.7,
+    ts_31to45_users: 1073,
+    ts_31to45_avgTs: 42.9,
+    ts_45plus_users: 2044,
+    ts_45plus_avgTs: 49.8,
   },
 ];

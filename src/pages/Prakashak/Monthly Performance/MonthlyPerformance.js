@@ -404,6 +404,62 @@ const MonthlyPerformance = () => {
           window.myStackedChart.destroy();
         }
 
+        // Data for each dataset
+        const rawData = [
+          [20, 40, 30, 25, 15, 30, 20, 30, 25, 30], // "< 30 mins/month"
+          [30, 50, 40, 30, 20, 30, 25, 35, 30, 20], // "30min-1 hour/month"
+          [50, 90, 60, 70, 80, 90, 70, 60, 80, 75], // "1-2 hours/month"
+          [80, 120, 100, 140, 130, 110, 90, 100, 130, 120], // "2-3 hours/month"
+          [100, 200, 150, 175, 225, 150, 200, 180, 220, 190], // "> 3 hours/month"
+        ];
+
+        // Calculate percentages
+        const percentages = rawData.map((dataset) =>
+          dataset.map((value, index) => {
+            const columnTotal = rawData.reduce((sum, d) => sum + d[index], 0);
+            return ((value / columnTotal) * 100).toFixed(2); // Percentage
+          })
+        );
+
+        // Define datasets with both raw data and calculated percentages
+        const datasets = [
+          {
+            label: "< 30 mins/month",
+            data: rawData[0],
+            backgroundColor: "#353130",
+            borderColor: "#0a0310",
+            borderWidth: 1,
+          },
+          {
+            label: "30min-1 hour/month",
+            data: rawData[1],
+            backgroundColor: "#002D62",
+            borderColor: "#0a0310",
+            borderWidth: 1,
+          },
+          {
+            label: "1-2 hours/month",
+            data: rawData[2],
+            backgroundColor: "#008c9e",
+            borderColor: "#0a0310",
+            borderWidth: 1,
+          },
+          {
+            label: "2-3 hours/month",
+            data: rawData[3],
+            backgroundColor: "#00b4cc",
+            borderColor: "#0a0310",
+            borderWidth: 1,
+          },
+          {
+            label: "> 3 hours/month",
+            data: rawData[4],
+            backgroundColor: "#9fd6d2",
+            borderColor: "#0a0310",
+            borderWidth: 1,
+          },
+        ];
+
         // Create new stacked bar chart instance
         const chartInstance = new Chart(chartContext, {
           type: "bar",
@@ -422,43 +478,7 @@ const MonthlyPerformance = () => {
               "November",
               "December",
             ],
-            datasets: [
-              {
-                label: " > 3 hours/month",
-                data: [100, 200, 150, 175, 225, 150, 200, 180, 220, 190], // Example data for the first stack up to October
-                backgroundColor: "#2f3542",
-                borderColor: "#2f3542",
-                borderWidth: 1,
-              },
-              {
-                label: "2-3 hours/month",
-                data: [80, 120, 100, 140, 130, 110, 90, 100, 130, 120], // Example data for the second stack up to October
-                backgroundColor: "#227093",
-                borderColor: "#227093",
-                borderWidth: 1,
-              },
-              {
-                label: "1-2 hours/month",
-                data: [50, 90, 60, 70, 80, 90, 70, 60, 80, 75], // Example data for the third stack up to October
-                backgroundColor: "#fd9644",
-                borderColor: "#fd9644",
-                borderWidth: 1,
-              },
-              {
-                label: "30min-1 hour/month",
-                data: [30, 50, 40, 30, 20, 30, 25, 35, 30, 20], // Example data for the fourth stack up to October
-                backgroundColor: "#20bf6b", // Yellow
-                borderColor: "#20bf6b",
-                borderWidth: 1,
-              },
-              {
-                label: "< 30 mins/month",
-                data: [20, 40, 30, 25, 15, 30, 20, 30, 25, 30], // Example data for the fifth stack up to October
-                backgroundColor: "#fed330",
-                borderColor: "#fed330",
-                borderWidth: 1,
-              },
-            ],
+            datasets,
           },
           options: {
             layout: {
@@ -469,6 +489,19 @@ const MonthlyPerformance = () => {
                 right: 20,
               },
             },
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: function (context) {
+                    const datasetIndex = context.datasetIndex;
+                    const dataIndex = context.dataIndex;
+                    const value = context.raw;
+                    const percentage = percentages[datasetIndex][dataIndex];
+                    return `${context.dataset.label}: ${value} (${percentage}%)`;
+                  },
+                },
+              },
+            },
             scales: {
               x: {
                 stacked: true, // Enable stacked bars on x-axis
@@ -476,6 +509,10 @@ const MonthlyPerformance = () => {
               y: {
                 beginAtZero: true,
                 stacked: true, // Enable stacked bars on y-axis
+                title: {
+                  display: true,
+                  text: "Value",
+                },
               },
             },
           },

@@ -33,10 +33,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
   getAllDashboardData,
-  getAllTopPerformersClusters,
-  getAllTopPerformersSchools,
-  getLowPerformersSchools,
-  getLowPerformersClusters,
+  getPerformance,
 } from "./OverallDetailsApi";
 import Nodata from "../../../Assets/Nodata.gif";
 
@@ -100,12 +97,14 @@ const OverallDetails = () => {
         }, 1000);
       });
     if (selectedMonth) {
-      const data = {
+      //^----Top clusters-----------
+      const top_clusters_body = {
         district: districtname,
         year: selectedYear,
         month: selectedMonth,
+        prefKey: "top_clusters",
       };
-      getAllTopPerformersClusters(data)
+      getPerformance(top_clusters_body)
         .then((res) => {
           if (res.status === 200) {
             setTopPerformerClusters(res?.data.top_clusters);
@@ -122,7 +121,14 @@ const OverallDetails = () => {
         .catch((error) => {
           catchPerformanceErrors(error);
         });
-      getAllTopPerformersSchools(data)
+      //^-------Top schools----------
+      const top_schools_body = {
+        district: districtname,
+        year: selectedYear,
+        month: selectedMonth,
+        prefKey: "top_schools",
+      };
+      getPerformance(top_schools_body)
         .then((res) => {
           if (res.status === 200) {
             setTopPerformerSchools(res?.data.top_schools);
@@ -139,19 +145,43 @@ const OverallDetails = () => {
         .catch((error) => {
           catchPerformanceErrors(error);
         });
-      getLowPerformersSchools(data)
+
+      //^-----Low schools-------
+      const low_schools_body = {
+        district: districtname,
+        year: selectedYear,
+        month: selectedMonth,
+        prefKey: "low_schools",
+      };
+
+      getPerformance(low_schools_body)
         .then((res) => {
           if (res.status === 200) {
-            setLowPerformersSchools(res.data);
+            setLowPerformersSchools(res?.data.low_schools);
+            setTimeout(() => {
+              setTopPerformerLoading(false);
+            }, 1000);
           } else {
-            console.log("response--------->", res.status);
+            console.log("status code found:", res.status);
+            setTimeout(() => {
+              setTopPerformerLoading(false);
+            }, 1000);
           }
         })
         .catch((error) => catchPerformanceErrors(error));
-      getLowPerformersClusters(data)
+
+      //^------Low clusters--------
+      const low_clusters_body = {
+        district: districtname,
+        year: selectedYear,
+        month: selectedMonth,
+        prefKey: "low_clusters",
+      };
+
+      getPerformance(low_clusters_body)
         .then((res) => {
           if (res.status === 200) {
-            setLowPerformersClusters(res.data);
+            setLowPerformersClusters(res.data.low_clusters);
           } else {
             console.log("response--------->", res.status);
           }
@@ -161,48 +191,109 @@ const OverallDetails = () => {
   }, []);
 
   const filterButtonClick = async () => {
+    if (!selectedYear) {
+      toast.error("Please select a year");
+      return;
+    }
+
+    if (!selectedMonth) {
+      toast.error("Please select a month");
+      return;
+    }
+
     try {
-      if (!selectedYear) {
-        toast.error("Please select a year");
-      } else if (!selectedMonth) {
-        toast.error("Please select a month");
-      } else {
-        const data = {
-          district: districtname,
-          year: selectedYear,
-          month: selectedMonth,
-        };
+      setTopPerformerLoading(true);
 
-        const [clusterRes, schoolRes] = await Promise.all([
-          getAllTopPerformersClusters(data),
-          getAllTopPerformersSchools(data),
-        ]);
+      // Top Clusters
+      const top_clusters_body = {
+        district: districtname,
+        year: selectedYear,
+        month: selectedMonth,
+        prefKey: "top_clusters",
+      };
+      getPerformance(top_clusters_body)
+        .then((res) => {
+          if (res.status === 200) {
+            setTopPerformerClusters(res?.data.top_clusters);
+          } else {
+            console.log("status code found:", res.status);
+          }
+          setTimeout(() => {
+            setTopPerformerLoading(false);
+          }, 1000);
+        })
+        .catch((error) => catchPerformanceErrors(error));
 
-        if (clusterRes?.data?.top_clusters) {
-          setTopPerformerClusters(clusterRes.data.top_clusters);
-        } else {
-          console.warn("Cluster data is undefined or empty:", clusterRes);
-          setTopPerformerClusters([]);
-          toast.warning("No cluster data available");
-        }
+      // Top Schools
+      const top_schools_body = {
+        district: districtname,
+        year: selectedYear,
+        month: selectedMonth,
+        prefKey: "top_schools",
+      };
+      getPerformance(top_schools_body)
+        .then((res) => {
+          if (res.status === 200) {
+            setTopPerformerSchools(res?.data.top_schools);
+          } else {
+            console.log("status code found:", res.status);
+          }
+          setTimeout(() => {
+            setTopPerformerLoading(false);
+          }, 1000);
+        })
+        .catch((error) => catchPerformanceErrors(error));
 
-        if (schoolRes?.data?.top_schools) {
-          setTopPerformerSchools(schoolRes.data.top_schools);
-        } else {
-          console.warn("School data is undefined or empty:", schoolRes);
-          setTopPerformerSchools([]);
-          toast.warning("No school data available");
-        }
-      }
+      // Low Schools
+      const low_schools_body = {
+        district: districtname,
+        year: selectedYear,
+        month: selectedMonth,
+        prefKey: "low_schools",
+      };
+      getPerformance(low_schools_body)
+        .then((res) => {
+          if (res.status === 200) {
+            setLowPerformersSchools(res?.data.top_schools);
+          } else {
+            console.log("status code found:", res.status);
+          }
+          setTimeout(() => {
+            setTopPerformerLoading(false);
+          }, 1000);
+        })
+        .catch((error) => catchPerformanceErrors(error));
+
+      // Low Clusters
+      const low_clusters_body = {
+        district: districtname,
+        year: selectedYear,
+        month: selectedMonth,
+        prefKey: "low_clusters",
+      };
+      getPerformance(low_clusters_body)
+        .then((res) => {
+          if (res.status === 200) {
+            setLowPerformersClusters(res.data);
+          } else {
+            console.log("response--------->", res.status);
+          }
+          setTimeout(() => {
+            setTopPerformerLoading(false);
+          }, 1000);
+        })
+        .catch((error) => catchPerformanceErrors(error));
     } catch (error) {
-      console.error("Error fetching top performers data:", error);
+      console.error("Error while fetching performance data:", error);
       toast.error("Failed to fetch data. Please try again.");
+      setTopPerformerLoading(false);
     }
   };
 
-  console.log("dashboard data---------->", dashboardData);
   console.log("Top performers clusters---------->", topPerformerClusters);
   console.log("Top performers schools---------->", topPerformerSchools);
+  console.log("Low performers clusters---------->", lowPerformersClusters);
+  console.log("low performers schools---------->", lowPerformersSchools);
 
   //------------------------------------------------------------------------------
   return (
@@ -1091,7 +1182,8 @@ const OverallDetails = () => {
                   >
                     Clusters
                   </h1>
-                  {dummyClusterNames && dummyClusterNames?.length > 0 ? (
+                  {lowPerformersClusters &&
+                  lowPerformersClusters?.length > 0 ? (
                     <div
                       style={{
                         display: "flex",
@@ -1099,7 +1191,7 @@ const OverallDetails = () => {
                         gap: "20px",
                       }}
                     >
-                      {dummyClusterNames.map((label, index) => {
+                      {lowPerformersClusters.map((label, index) => {
                         const colors = [
                           "rgb(214, 148, 16)", // Color 1
                           "rgb(52, 152, 219)", // Color 2
@@ -1144,7 +1236,7 @@ const OverallDetails = () => {
                                   marginLeft: "3%",
                                 }}
                               >
-                                {dummyClusterNames[index]}
+                                {lowPerformersClusters[index].cluster}
                               </p>
                             </div>
                           </div>
@@ -1190,7 +1282,7 @@ const OverallDetails = () => {
                     Schools
                   </h1>
 
-                  {dummySchoolNames && dummySchoolNames.length > 0 ? (
+                  {lowPerformersSchools && lowPerformersSchools.length > 0 ? (
                     <div
                       style={{
                         display: "flex",
@@ -1198,7 +1290,7 @@ const OverallDetails = () => {
                         gap: "20px",
                       }}
                     >
-                      {dummySchoolNames.map((item, index) => {
+                      {lowPerformersSchools.map((item, index) => {
                         const colors = [
                           "rgb(214, 148, 16)",
                           "rgb(52, 152, 219)",
@@ -1240,7 +1332,9 @@ const OverallDetails = () => {
                               <h3 style={{ marginLeft: "8px" }}>
                                 {index + 1}.
                               </h3>
-                              <p style={{ marginLeft: "25px" }}>{item}</p>
+                              <p style={{ marginLeft: "25px" }}>
+                                {item.school_name}
+                              </p>
                             </div>
                           </div>
                         );

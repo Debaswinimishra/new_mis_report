@@ -55,7 +55,7 @@ const Dashboard = () => {
   const fetchType = "static";
   const currentYear = new Date().getFullYear();
   // if 2025 then increase the lengtjh it will show 2024 and 2025
-  const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 3 }, (_, index) => currentYear - index);
 
   const currentMonth = moment().format("MMMM");
   const currentMonthSelected = monthArr?.filter(

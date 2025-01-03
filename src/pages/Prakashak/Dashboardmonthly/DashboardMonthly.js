@@ -53,7 +53,7 @@ const DashboardMonthly = () => {
   const fetchType = "static";
   const currentYear = new Date().getFullYear();
   // if 2025 then increase the lengtjh it will show 2024 and 2025
-  const years = Array.from({ length: 3 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
 
   const currentMonth = moment().format("MMMM");
   const currentMonthSelected = monthArr?.filter(
@@ -64,7 +64,7 @@ const DashboardMonthly = () => {
   //&-------------Filter states---------------
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(
-    currentMonthSelected.value - 1
+    currentMonthSelected.value
   );
   const [selectedWeek, setSelectedWeek] = useState(4);
   const [dashboardData, setDashboardData] = useState({});
@@ -886,6 +886,48 @@ const DashboardMonthly = () => {
                               }}
                             >
                               <h1>{dashboardData?.new_schools}</h1>
+                            </div>
+                          </div>
+
+                          <div
+                            // onClick={() => handleOpen("newSchools")}
+                            style={{
+                              width: "255px",
+                              height: "180px",
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              // // paddingTop: "2%",
+                              // fontFamily: "Arial, sans-serif", // Default font family
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                              // cursor: "pointer", // Show hand cursor on hover
+                              // position: "relative", // Needed for positioning the "Click here" text
+                            }}
+                          >
+                            <div
+                              style={{
+                                height: "50%",
+                                color: "#6A5ACD",
+                                paddingTop: "30px",
+                                fontSize: "1.2rem",
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              New Anganwadis added
+                            </div>
+                            <div
+                              style={{
+                                height: "50%",
+                                backgroundColor: "#000080",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                              }}
+                            >
+                              <h1>{dashboardData.new_anganwadis}</h1>
                             </div>
                           </div>
 

@@ -5,7 +5,7 @@ import PrakashakAPI from "../../../Environment/PrakashakAPI";
 export default function Retention() {
   const fetchType = "static";
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 3 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);

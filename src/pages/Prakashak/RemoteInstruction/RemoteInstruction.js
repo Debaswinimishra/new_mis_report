@@ -69,10 +69,10 @@ const RemoteInstruction = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedYear2, setSelectedYear2] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState(
-    currentMonthSelected.value - 1
+    currentMonthSelected.value
   );
   const [selectedMonth2, setSelectedMonth2] = useState(
-    currentMonthSelected.value - 1
+    currentMonthSelected.value
   );
   const [selectedWeek, setSelectedWeek] = useState(4);
   const [remoteInstData, setRemoteInstData] = useState([]);
@@ -1249,6 +1249,560 @@ const RemoteInstruction = () => {
                       </div>
                     </div>
                     {/* ) : null} */}
+
+                    <div
+                    // style={{
+                    //   marginTop: "2%",
+                    //   boxShadow: "2px 1px 5px grey",
+                    //   padding: "5%",
+                    //   width: "97%",
+                    // }}
+                    >
+                      <h1
+                        style={{
+                          marginTop: "2%",
+                          color: "#333", // Dark grey color for the text
+                          fontFamily: "Congenial SemiBold", // Font family for a clean look
+                          fontWeight: "700", // Bolder font weight for emphasis
+                          fontSize: "1.8rem", // Larger font size for prominence
+                          textAlign: "center", // Center-align the text
+                          padding: "10px 0", // Add some padding for spacing
+                          borderBottom: "2px solid #000000", // Add a bottom border for separation
+                          letterSpacing: "0.5px", // Slight letter spacing for readability
+                          textTransform: "capitalize", // Capitalize each word
+                        }}
+                      >
+                        Time-Spent details
+                      </h1>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          alignContent: "center",
+                          justifyContent: "center",
+                          width: "97%",
+                          gap: "2%",
+                          // marginTop: "-2%",
+                        }}
+                      >
+                        <>
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#00CED1",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 0-1 mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#00CED1",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #00CED1", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#00CED1",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_0to1_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_0to1_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#CD5C5C",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 2-15 mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#CD5C5C",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #CD5C5C", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#CD5C5C",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_2to15_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_2to15_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#CD5C5C",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 16-30 mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#CD5C5C",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #CD5C5C", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#CD5C5C",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_16to30_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_16to30_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#2E8B57",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 31-45 mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#2E8B57",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #2E8B57", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#2E8B57",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_31to45_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_31to45_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            style={{
+                              width: "255px",
+                              height: "240px", // Increased height to accommodate heading
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            {/* Heading */}
+                            <div
+                              style={{
+                                textAlign: "center",
+                                padding: "10px",
+                                color: "#000080",
+                                marginTop: "10px",
+                                fontSize: "1.3rem", // Heading font size
+                                fontWeight: "bold",
+                                fontFamily: "Congenial SemiBold",
+                              }}
+                            >
+                              Time Spent 45+ mins
+                            </div>
+
+                            {/* User and Avg. Time Spent Section */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                padding: "10px",
+                                height: "50%",
+                                color: "#000080",
+                                fontSize: "1rem", // Reduced font size
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Users
+                              </div>
+                              {/* Line divider */}
+                              <div
+                                style={{
+                                  height: "100%",
+                                  borderLeft: "1px solid #000080", // Line between elements
+                                  margin: "0 5px",
+                                }}
+                              ></div>
+                              <div
+                                style={{
+                                  width: "45%",
+                                  textAlign: "center",
+                                }}
+                              >
+                                Avg. Time (in mins)
+                              </div>
+                            </div>
+
+                            {/* User count and Avg. Time Spent Values */}
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                textAlign: "center",
+                                alignItems: "center",
+                                backgroundColor: "#000080",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                                padding: "10px",
+                                height: "50%",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "1rem", // Reduced font size
+                                }}
+                              >
+                                <h2>{item.ts_45plus_users}</h2>
+                              </div>
+                              <div
+                                style={{
+                                  width: "50%",
+                                  fontSize: "0.7rem", // Reduced font size
+                                }}
+                              >
+                                <h1>{item.ts_45plus_avgTs}</h1>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      </div>
+                    </div>
 
                     {/* <div
                       style={{

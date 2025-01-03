@@ -54,8 +54,13 @@ const Dashboard = () => {
   ];
   const fetchType = "static";
   const currentYear = new Date().getFullYear();
-  // if 2025 then increase the lengtjh it will show 2024 and 2025
-  const years = Array.from({ length: 3 }, (_, index) => currentYear - index);
+  // Adjust the length to show the current year and 1 prior years
+  const years = Array.from(
+    { length: 2 },
+    (_, index) => currentYear - (1 - index)
+  );
+
+  console.log(years); // [2025, 2024] if the current year is 2025
 
   const currentMonth = moment().format("MMMM");
   const currentMonthSelected = monthArr?.filter(
@@ -1026,6 +1031,87 @@ const Dashboard = () => {
                 >
                   <h1>{dashboardData.total_schools}</h1>
                   {/* <h1>358</h1> */}
+                </div>
+              </div>
+              <div
+                onClick={() => handleOpen("schools")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Sectors</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    // backgroundColor: "#2E8B57",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  {/* <h1>{dashboardData.total_schools}</h1> */}
+                  <h1>{dashboardData.total_sectors}</h1>
+                </div>
+              </div>
+              <div
+                onClick={() => handleOpen("schools")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Anganwadis</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  {/* <h1>{dashboardData.total_schools}</h1> */}
+                  <h1>{dashboardData.total_anganwadis}</h1>
                 </div>
               </div>
               <div

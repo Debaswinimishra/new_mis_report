@@ -54,8 +54,8 @@ export default function Retention() {
   ];
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 1 }, (_, index) => currentYear - index);                                                                        
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
+  const [selectedYear, setSelectedYear] = useState(currentYear - 1);
   const handleYearChange = (e) => {
     setSelectedYear(parseInt(e.target.value));
   };

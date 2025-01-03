@@ -55,7 +55,7 @@ const RemoteInstruction = () => {
   ];
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
 
   const currentMonth = moment().format("MMMM");
   const currentMonthSelected = monthArr?.filter(
@@ -65,13 +65,13 @@ const RemoteInstruction = () => {
   console.log("currentMonth--------->", currentMonthSelected);
 
   //&-------------Filter states---------------
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedYear2, setSelectedYear2] = useState(currentYear);
+  const [selectedYear, setSelectedYear] = useState(currentYear - 1);
+  const [selectedYear2, setSelectedYear2] = useState(currentYear - 1);
   const [selectedMonth, setSelectedMonth] = useState(
-    currentMonthSelected.value - 1
+    currentMonthSelected.value + 11
   );
   const [selectedMonth2, setSelectedMonth2] = useState(
-    currentMonthSelected.value - 1
+    currentMonthSelected.value + 11
   );
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [remoteInstData, setRemoteInstData] = useState([]);

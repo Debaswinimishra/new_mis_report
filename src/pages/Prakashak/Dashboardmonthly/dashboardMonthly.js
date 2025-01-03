@@ -52,7 +52,7 @@ const DashboardMonthly = () => {
 
   const currentYear = new Date().getFullYear();
   // if 2025 then increase the lengtjh it will show 2024 and 2025
-  const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
+  const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
 
   const currentMonth = moment().format("MMMM");
   const currentMonthSelected = monthArr?.filter(
@@ -61,10 +61,9 @@ const DashboardMonthly = () => {
   console.log(currentMonthSelected);
 
   //&-------------Filter states---------------
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedYear, setSelectedYear] = useState(currentYear - 1);
   const [selectedMonth, setSelectedMonth] = useState(
-    currentMonthSelected.value - 1
-    // 9
+    currentMonthSelected.value + 11
   );
   const [selectedWeek, setSelectedWeek] = useState(1);
   const [dashboardData, setDashboardData] = useState({});

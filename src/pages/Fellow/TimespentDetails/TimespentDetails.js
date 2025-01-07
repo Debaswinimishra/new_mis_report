@@ -221,9 +221,22 @@ const TimespentDetails = () => {
     setDistrictName(e.target.value);
     console.log("Selected value:", e);
     // setLoaded(true);
-    const response = await getDistrictsWiseBlocks(e.target.value);
-    console.log("block response---->", response.data);
-    setAllBlocks(response.data);
+    if (e.target.value) {
+      try {
+        const response = await getDistrictsWiseBlocks(e.target.value);
+        if (response.status === 200) {
+          console.log("block response---->", response.data);
+          setAllBlocks(response.data);
+        } else {
+          alert("Sorry, couldn't fetch data at the moment!");
+        }
+      } catch (error) {
+        console.error("The error found is----->", error);
+        alert(
+          "Sorry, couldn't fetch data at the moment! Please try again later."
+        );
+      }
+    }
     // setLoaded(false);
   };
 
@@ -387,8 +400,9 @@ const TimespentDetails = () => {
     setOpenModal(false);
   };
 
-  const disableDateRangeSelection = !!month;
-  const disableMonthSelection = !!selectedStartDate || !!selectedEndDate;
+  const disableDateRangeSelection = !!month || !selectedYear;
+  const disableMonthSelection =
+    !!selectedStartDate || !!selectedEndDate || !selectedYear;
 
   return (
     <Box>

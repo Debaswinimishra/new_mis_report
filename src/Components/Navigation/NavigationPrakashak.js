@@ -109,12 +109,17 @@ function NavigationPrakashak(props) {
             link: "/prakashak/whatsapp_chatbot",
             id: 5,
           },
-          { text: "School-wise", link: "/prakashak/school_wise", id: 6 },
           {
-            text: "School-wise Performance",
-            link: "/prakashak/school_wise_performance",
-            id: 7,
+            text: "Schoolwise",
+            link: "/prakashak/schoolwiseNew",
+            id: 10,
           },
+          // { text: "School-wise", link: "/prakashak/school_wise", id: 6 },
+          // {
+          //   text: "School-wise Performance",
+          //   link: "/prakashak/school_wise_performance",
+          //   id: 7,
+          // },
           // {
           //   text: "Top Parent",
           //   link: "/prakashak/active_parents",

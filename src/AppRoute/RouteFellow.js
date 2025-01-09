@@ -22,7 +22,6 @@ import TimeSpentReportModuleWise from "../Pages/Fellow/TimeSpentReportModuleWise
 import TimespentReport from "../Pages/Fellow/TimespentReport/TimespentReport";
 import AmazonVouchersRedeemed from "../Pages/Fellow/AmazonVouchersRedeemed/AmazonVouchersRedeemed";
 import Leaderboard from "../Pages/Fellow/LeaderboardStatus/Leaderboard";
-import TrainingStatus from "../Pages/Fellow/TrainingStatus/TrainingStatus";
 
 const RouteFellow = () => {
   const Navigate = useNavigate();
@@ -44,7 +43,6 @@ const RouteFellow = () => {
         <Route path="common_monthly_quiz" element={<CommonMonthlyQuiz />} />
         <Route path="overall_c.e" element={<CommunityEducator />} />
         <Route path="training_module" element={<NewTraining />} />
-        <Route path="trainingStatus" element={<TrainingStatus />} />
         <Route
           path="student_progress_report"
           element={<StudentProgressReport />}

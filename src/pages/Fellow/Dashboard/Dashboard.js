@@ -273,7 +273,7 @@ const Dashboard = () => {
               Icon={PeopleIcon}
             />
           </div>
-          <div style={{ width: "97%" }}>
+          <div style={{ width: "97.5%" }}>
             <Box>
               <div
                 style={{

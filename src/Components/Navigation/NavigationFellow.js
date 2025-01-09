@@ -143,11 +143,6 @@ function NavigationFellow(props) {
       icon: <AccessTimeIcon sx={{ color: "#000080" }} />,
     },
     {
-      text: "Training Status",
-      link: "trainingStatus",
-      icon: <AccessTimeIcon sx={{ color: "#000080" }} />,
-    },
-    {
       text: "Log out",
       link: "/",
       icon: <LogoutIcon sx={{ color: "rgb(255,0,0)" }} />,

@@ -1125,7 +1125,7 @@ const OverallDetails = () => {
             </div>
           </div>
 
-          <div
+          {/* <div
             style={{
               marginTop: "2%",
               boxShadow: "2px 1px 5px grey",
@@ -1144,10 +1144,8 @@ const OverallDetails = () => {
                 gap: "20px", // Add space between the two sections
               }}
             >
-              {/*//^ Least Clusters Section */}
-              <div className="clusters" style={{ flex: "1 1 45%" }}>
-                {/* Responsive width */}
-                <h1
+              <div className="clusters" style={{ flex: "1 1 45%" }}>          
+               <h1
                   style={{
                     textAlign: "center",
                     fontSize: "1.7rem",
@@ -1241,8 +1239,6 @@ const OverallDetails = () => {
                   </div>
                 )}
               </div>
-
-              {/* //^ Least Schools Section */}
               <div className="schools" style={{ flex: "1 1 45%" }}>
                 <h1
                   style={{
@@ -1337,11 +1333,9 @@ const OverallDetails = () => {
                 )}
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       ) : null}
-
-      {}
     </div>
   );
 };

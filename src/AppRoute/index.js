@@ -46,6 +46,7 @@ import MonthlyPerformance from "../Pages/Prakashak/Monthly Performance/MonthlyPe
 import ActiveParent from "../Pages/Prakashak/ActiveParent/ActiveParent";
 import DashboardMonthly from "../Pages/Prakashak/Dashboardmonthly/DashboardMonthly";
 import Leaderboard from "../Pages/Fellow/LeaderboardStatus/Leaderboard";
+import SchoolwiseNew from "../Pages/Prakashak/Schoolwise/SchoolwiseNew";
 
 function RouteRoot() {
   const userType = localStorage.getItem("usertype");
@@ -141,6 +142,7 @@ function RouteRoot() {
                 path="school_wise_performance"
                 element={<Schoolwise_performance />}
               />
+              <Route path="schoolwiseNew" element={<SchoolwiseNew />} />
               <Route path="active_parents" element={<ActiveParent />} />
 
               <Route path="class_wise" element={<Classwise />} />
@@ -247,6 +249,7 @@ function RouteRoot() {
                 path="school_wise_performance"
                 element={<Schoolwise_performance />}
               />
+              <Route path="schoolwiseNew" element={<SchoolwiseNew />} />
               <Route path="retention_metrics" element={<Retention />} />
               <Route path="class_wise" element={<Classwise />} />
             </Route>

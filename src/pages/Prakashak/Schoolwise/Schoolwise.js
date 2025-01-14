@@ -35,7 +35,6 @@ import PrakashakAPI from "../../../Environment/PrakashakAPI";
 const Schoolwise = () => {
   const chartRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  // const [year, setYear] = useState("2024");
   const [districts, setDistricts] = useState("PURI");
   const [data, setData] = useState([]);
   const [districtArr, setDistrictArr] = useState([]);

@@ -114,6 +114,11 @@ function NavigationPrakashak(props) {
             link: "/prakashak/schoolwiseNew",
             id: 10,
           },
+          {
+            text: "Anganwadiwise",
+            link: "/prakashak/anganwadiwise",
+            id: 10,
+          },
           // { text: "School-wise", link: "/prakashak/school_wise", id: 6 },
           // {
           //   text: "School-wise Performance",

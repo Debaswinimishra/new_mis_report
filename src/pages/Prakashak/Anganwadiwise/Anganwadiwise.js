@@ -368,7 +368,7 @@ const AnganwadiWise = () => {
           </Select>
         </FormControl>
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="block-label">Block</InputLabel>
+          <InputLabel id="block-label">Project</InputLabel>
           <Select
             labelId="block-label"
             id="block-select"
@@ -405,8 +405,8 @@ const AnganwadiWise = () => {
           </Select>
         </FormControl>
 
-        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="school-label">Project</InputLabel>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "140px" }}>
+          <InputLabel id="school-label">Anganwadi</InputLabel>
           <Select
             labelId="school-label"
             id="school-select"
@@ -438,7 +438,7 @@ const AnganwadiWise = () => {
         </Button>
         {/* </Box> */}
       </div>
-      {/* ---------------------------- Overall Schoolwise Data --------------------- */}
+      {/* ---------------------------- Overall Anganwadi Data --------------------- */}
       {loading ? (
         <div
           style={{ display: "flex", justifyContent: "center", marginTop: "5%" }}
@@ -497,7 +497,7 @@ const AnganwadiWise = () => {
                   return (
                     <>
                       <div
-                        onClick={() => handleOpenModal("studentReport")}
+                        // onClick={() => handleOpenModal("studentReport")}
                         style={{
                           width: "255px",
                           height: "200px",
@@ -522,7 +522,7 @@ const AnganwadiWise = () => {
                             width: "100%",
                           }}
                         >
-                          <p>Number of students (1-5)</p>
+                          <p>Total No. of students</p>
                         </div>
                         <div
                           style={{
@@ -538,7 +538,7 @@ const AnganwadiWise = () => {
                       </div>
 
                       <div
-                        onClick={() => handleOpenModal("studentReport", 1)}
+                        // onClick={() => handleOpenModal("studentReport", 1)}
                         style={{
                           width: "255px",
                           height: "200px",
@@ -556,13 +556,13 @@ const AnganwadiWise = () => {
                           style={{
                             height: "50%",
                             color: "rgb(153 58 134)",
-                            paddingTop: "28px",
+                            paddingTop: "10px",
                             fontSize: "1.2rem",
                             fontFamily: "Congenial SemiBold",
                             fontWeight: "600",
                           }}
                         >
-                          <p> Number of Students in Class 1</p>
+                          <p> Number of Students in Level 1 (3-4 years)</p>
                         </div>
                         <div
                           style={{
@@ -577,7 +577,7 @@ const AnganwadiWise = () => {
                         </div>
                       </div>
                       <div
-                        onClick={() => handleOpenModal("studentReport", 2)}
+                        // onClick={() => handleOpenModal("studentReport", 2)}
                         style={{
                           width: "255px",
                           height: "200px",
@@ -595,13 +595,13 @@ const AnganwadiWise = () => {
                           style={{
                             height: "50%",
                             color: "#2E8B57",
-                            paddingTop: "28px",
+                            paddingTop: "10px",
                             fontSize: "1.2rem",
                             fontFamily: "Congenial SemiBold",
                             fontWeight: "600",
                           }}
                         >
-                          <p> Number of Students in Class 2</p>
+                          <p> Number of Students in Level 2 (4-5 years)</p>
                         </div>
                         <div
                           style={{
@@ -617,7 +617,7 @@ const AnganwadiWise = () => {
                       </div>
 
                       <div
-                        onClick={() => handleOpenModal("studentReport", 3)}
+                        // onClick={() => handleOpenModal("studentReport", 3)}
                         style={{
                           width: "255px",
                           height: "200px",
@@ -635,13 +635,13 @@ const AnganwadiWise = () => {
                           style={{
                             height: "50%",
                             color: "rgb(214 148 16)",
-                            paddingTop: "25px",
+                            paddingTop: "10px",
                             fontSize: "1.2rem",
                             fontFamily: "Congenial SemiBold",
                             fontWeight: "600",
                           }}
                         >
-                          <p> Number of Students in Class 3</p>
+                          <p> Number of Students in Level 3 (5-6 years)</p>
                         </div>
                         <div
                           style={{
@@ -653,84 +653,6 @@ const AnganwadiWise = () => {
                           }}
                         >
                           <h1>{data.class3_students}</h1>
-                        </div>
-                      </div>
-                      <div
-                        onClick={() => handleOpenModal("studentReport", 4)}
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                          cursor: "pointer", // Show hand cursor on hover
-                          position: "relative", // Needed for positioning the "Click here" text
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "#6A5ACD",
-                            paddingTop: "28px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p> Number of Students in Class 4</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "#6A5ACD",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.class4_students}</h1>
-                        </div>
-                      </div>
-                      <div
-                        onClick={() => handleOpenModal("studentReport", 5)}
-                        style={{
-                          width: "255px",
-                          height: "200px",
-                          marginTop: "1.5%",
-                          backgroundColor: "white",
-                          borderRadius: "10px",
-                          display: "flex",
-                          flexDirection: "column",
-                          boxShadow: "1px 1px 4px 3px lightGrey",
-                          cursor: "pointer", // Show hand cursor on hover
-                          position: "relative", // Needed for positioning the "Click here" text
-                        }}
-                      >
-                        <div
-                          style={{
-                            height: "50%",
-                            color: "#2E8B57",
-                            paddingTop: "28px",
-                            fontSize: "1.2rem",
-                            fontFamily: "Congenial SemiBold",
-                            fontWeight: "600",
-                          }}
-                        >
-                          <p>Number of Students in Class 5</p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50%",
-                            backgroundColor: "#2E8B57",
-                            borderEndStartRadius: "10px",
-                            borderEndEndRadius: "10px",
-                            color: "white",
-                          }}
-                        >
-                          <h1>{data.class5_students}</h1>
                         </div>
                       </div>
 
@@ -901,7 +823,7 @@ const AnganwadiWise = () => {
         <img src={defaultImage} width={"48%"} />
       )}
 
-      {/*------------------------------Schoolwise Performance------------------------ */}
+      {/*------------------------------Anganwadi Performance------------------------ */}
 
       <div
         style={{

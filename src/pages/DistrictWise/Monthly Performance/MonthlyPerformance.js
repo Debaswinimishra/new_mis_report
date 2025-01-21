@@ -54,89 +54,7 @@ const MonthlyPerformance = () => {
   const districtname = localStorage?.getItem("districtname");
   console.log("districtname-------------->", districtname);
 
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await Api.get(
-  //         `getAllBlocksByDistrict/${districtname}`
-  //       );
-  //       if (response?.data && response?.data?.length > 0) {
-  //         const blocks =
-  //           response?.data.length > 0 &&
-  //           response?.data?.map((item) => item?.block);
-  //         console.log("Blocks:", blocks);
-  //         setBlockArr(blocks);
-  //       } else {
-  //         console.log("No blocks found for the given district.");
-  //         setBlockArr([]);
-  //       }
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Error fetching Blocks:", error);
-  //       setLoading(false);
-  //     }
-  //   };
-  //   if (districtname) {
-  //     fetchData();
-  //   }
-
-  //   return () => {};
-  // }, []);
-
-  // const handleBlockChange = async (e) => {
-  //   const selectedBlock = e.target.value;
-  //   setBlocks(selectedBlock);
-  //   setCluseters(""); // Assuming you meant setClusters instead of setCluseters
-  //   setSchools("");
-
-  //   const fetchClusters = async (block) => {
-  //     try {
-  //       if (block) {
-  //         setLoading(true);
-  //         const response = await Api.get(`getAllClustersByBlock/${block}`);
-  //         const clusters =
-  //           response?.data?.length > 0 &&
-  //           response?.data?.map((item) => item?.cluster);
-  //         setClusterArr(clusters || []);
-  //         setLoading(false);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching Clusters:", error);
-  //       setClusterArr([]);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   // Fetch clusters for the selected block
-  //   await fetchClusters(selectedBlock);
-  // };
-
-  // const handleClusterChange = async (e) => {
-  //   const selectedCluster = e.target.value;
-  //   setCluseters(selectedCluster);
-  //   setSchools("");
-
-  //   if (selectedCluster) {
-  //     try {
-  //       setLoading(true);
-  //       const response = await Api.get(
-  //         `getAllSchoolsByCluster/${selectedCluster}`
-  //       );
-  //       setSchoolArr(response?.data || []);
-  //     } catch (error) {
-  //       console.error("Error fetching Schools:", error);
-  //       setSchoolArr([]);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  // };
-
-  // const handleSchoolName = (e) => {
-  //   setSchools(e.target.value);
-  // };
+  const [selectedYear, setSelectedYear] = useState("");
 
   useEffect(() => {
     const fetchDataDistrict = async () => {
@@ -179,7 +97,7 @@ const MonthlyPerformance = () => {
     setSelectedBlock(e.target.value);
     setSelectedCluster("");
     setSelectedSchool("");
-    setSelectedYear(currentYear);
+    setSelectedYear("");
     // setSelectedMonth(currentMonth + 1);
     // setSelectedWeek(1);
     const allClusters = overallDistrictBlock
@@ -195,7 +113,7 @@ const MonthlyPerformance = () => {
   const handleClusterChange = (e) => {
     setSelectedCluster(e.target.value);
     setSelectedSchool("");
-    setSelectedYear(currentYear);
+    setSelectedYear("");
     // setSelectedMonth(currentMonth + 1);
     // setSelectedWeek(1);
     const allSchools = overallDistrictBlock?.filter((item) => {
@@ -214,7 +132,7 @@ const MonthlyPerformance = () => {
 
   const handleSchoolName = (e) => {
     setSelectedSchool(e.target.value);
-    setSelectedYear(currentYear);
+    setSelectedYear("");
     // setSelectedMonth(currentMonth + 1);
     // setSelectedWeek(1);
   };
@@ -434,7 +352,7 @@ const MonthlyPerformance = () => {
                 stacked: true, // Enable stacked bars for the x-axis
                 title: {
                   display: true,
-                  text: "Month",
+                  // text: "Month",
                   font: {
                     size: 14,
                   },
@@ -870,42 +788,46 @@ const MonthlyPerformance = () => {
               </div>
             </div>
           </div>
+          <div style={{ width: "75%", marginLeft: "15%" }}>
+            <h2>Active Students</h2>
+            <BarGraph blocks={blocks} />
+          </div>
         </>
       ) : (
         <h1>No Data</h1>
       )}
       <div>
-        <div style={{ width: "75%", marginLeft: "15%" }}>
-          <h2>Active Students</h2>
-          <BarGraph blocks={blocks} />
-        </div>
-
-        <div>
-          {" "}
-          <h2>Time-spent</h2>
-          <FormControl
-            sx={{ m: 1 }}
-            size="small"
-            style={{ width: "150px", marginLeft: "80%" }}
-          >
-            <InputLabel id="year-label">Year</InputLabel>
-            <Select
-              labelId="year-label"
-              id="year-select"
-              value={selectedYear}
-              onChange={handleYearChange}
-              label="Year"
-            >
-              <MenuItem value="">None</MenuItem>
-              {yearOptions.map((year) => (
-                <MenuItem key={year} value={year}>
-                  {year}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <StackedBarGraph data={data} />
-        </div>
+        {selectedBlock &&
+          selectedCluster &&
+          selectedSchool &&
+          filterButtonClick && (
+            <div>
+              {" "}
+              <h2>Time-spent</h2>
+              <FormControl
+                sx={{ m: 1 }}
+                size="small"
+                style={{ width: "150px", marginLeft: "80%" }}
+              >
+                <InputLabel id="year-label">Year</InputLabel>
+                <Select
+                  labelId="year-label"
+                  id="year-select"
+                  value={selectedYear}
+                  onChange={handleYearChange}
+                  label="Year"
+                >
+                  <MenuItem value="">None</MenuItem>
+                  {yearOptions.map((year) => (
+                    <MenuItem key={year} value={year}>
+                      {year}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {selectedYear && <StackedBarGraph data={data} />}
+            </div>
+          )}
       </div>
     </div>
   );

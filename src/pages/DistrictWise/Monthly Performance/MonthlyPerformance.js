@@ -37,7 +37,7 @@ const MonthlyPerformance = () => {
   // const [year, setYear] = useState("2024");
   const [data, setData] = useState({});
   const [blocks, setBlocks] = useState("");
-  console.log("blocks", blocks);
+  console.log("blocks------------------", blocks);
   const [blockArr, setBlockArr] = useState([]);
   console.log("blockArr", blockArr);
   const [clusters, setCluseters] = useState("");
@@ -347,11 +347,11 @@ const MonthlyPerformance = () => {
     return <canvas ref={chartRef} />;
   };
 
-  const StackedBarGraph = ({ blocks }) => {
+  const StackedBarGraph = ({ data }) => {
     const chartRefStack = useRef(null);
 
     useEffect(() => {
-      if (chartRefStack && chartRefStack.current) {
+      if (chartRefStack && chartRefStack.current && data) {
         const chartContext = chartRefStack.current.getContext("2d");
 
         // Destroy existing chart if it exists
@@ -359,124 +359,106 @@ const MonthlyPerformance = () => {
           window.myStackedChart.destroy();
         }
 
-        // Data for each dataset
-        const rawData = [
-          [20, 40, 30, 25, 15, 30, 20, 30, 25, 30], // "< 30 mins/month"
-          [30, 50, 40, 30, 20, 30, 25, 35, 30, 20], // "30min-1 hour/month"
-          [50, 90, 60, 70, 80, 90, 70, 60, 80, 75], // "1-2 hours/month"
-          [80, 120, 100, 140, 130, 110, 90, 100, 130, 120], // "2-3 hours/month"
-          [100, 200, 150, 175, 225, 150, 200, 180, 220, 190], // "> 3 hours/month"
+        // Define months for the x-axis (January to December)
+        const months = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
         ];
 
-        // Calculate percentages
-        const percentages = rawData.map((dataset) =>
-          dataset.map((value, index) => {
-            const columnTotal = rawData.reduce((sum, d) => sum + d[index], 0);
-            return ((value / columnTotal) * 100).toFixed(2); // Percentage
-          })
-        );
-
-        // Define datasets with both raw data and calculated percentages
-        const datasets = [
+        // Define categories and their colors
+        const categories = [
+          { key: "users_lt_30min", label: "< 30 mins/month", color: "#FFC107" },
           {
-            label: "< 30 mins/month",
-            data: rawData[0],
-            backgroundColor: "#353130",
-            borderColor: "#0a0310",
-            borderWidth: 1,
+            key: "users_30min_to_1hr",
+            label: "30min-1hr/month",
+            color: "#FF5722",
           },
-          {
-            label: "30min-1 hour/month",
-            data: rawData[1],
-            backgroundColor: "#002D62",
-            borderColor: "#0a0310",
-            borderWidth: 1,
-          },
-          {
-            label: "1-2 hours/month",
-            data: rawData[2],
-            backgroundColor: "#008c9e",
-            borderColor: "#0a0310",
-            borderWidth: 1,
-          },
-          {
-            label: "2-3 hours/month",
-            data: rawData[3],
-            backgroundColor: "#00b4cc",
-            borderColor: "#0a0310",
-            borderWidth: 1,
-          },
-          {
-            label: "> 3 hours/month",
-            data: rawData[4],
-            backgroundColor: "#9fd6d2",
-            borderColor: "#0a0310",
-            borderWidth: 1,
-          },
+          { key: "users_1to2hr", label: "1-2 hours/month", color: "#4CAF50" },
+          { key: "users_2to3hr", label: "2-3 hours/month", color: "#2196F3" },
+          { key: "users_gt_3hr", label: "> 3 hours/month", color: "#3F51B5" },
         ];
 
-        // Create new stacked bar chart instance
+        // Generate datasets for the stacked bar chart with December data
+        const datasets = categories.map((category) => ({
+          label: category.label,
+          data: [
+            data[category.key] || 0, // Use the data for December (fallback to 0 if not available)
+          ],
+          backgroundColor: category.color,
+          borderColor: "#000000",
+          borderWidth: 1,
+        }));
+
+        // Create the chart
         const chartInstance = new Chart(chartContext, {
           type: "bar",
           data: {
-            labels: [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ],
+            labels: months, // Full list of months
             datasets,
           },
           options: {
-            layout: {
-              padding: {
-                top: 20,
-                bottom: 20,
-                left: 20,
-                right: 20,
-              },
-            },
+            responsive: true,
             plugins: {
+              legend: {
+                display: true,
+                position: "top",
+                labels: {
+                  font: {
+                    size: 12,
+                  },
+                },
+              },
               tooltip: {
                 callbacks: {
                   label: function (context) {
-                    const datasetIndex = context.datasetIndex;
-                    const dataIndex = context.dataIndex;
-                    const value = context.raw;
-                    const percentage = percentages[datasetIndex][dataIndex];
-                    return `${context.dataset.label}: ${value} (${percentage}%)`;
+                    return `${context.dataset.label}: ${context.raw}`;
                   },
                 },
               },
             },
+            layout: {
+              padding: 20, // Add padding for a cleaner look
+            },
             scales: {
               x: {
-                stacked: true, // Enable stacked bars on x-axis
+                stacked: true, // Enable stacked bars for the x-axis
+                title: {
+                  display: true,
+                  text: "Month",
+                  font: {
+                    size: 14,
+                  },
+                },
               },
               y: {
                 beginAtZero: true,
-                stacked: true, // Enable stacked bars on y-axis
+                stacked: true, // Enable stacking for the y-axis
                 title: {
                   display: true,
-                  text: "Value",
+                  text: "Number of Users",
+                  font: {
+                    size: 14,
+                  },
                 },
               },
             },
           },
         });
 
-        // Store chart instance in window object for Stacked Bar Graph
+        // Store chart instance
         window.myStackedChart = chartInstance;
       }
-    }, [blocks]);
+    }, [data]);
 
     return <canvas ref={chartRefStack} />;
   };
@@ -922,7 +904,7 @@ const MonthlyPerformance = () => {
               ))}
             </Select>
           </FormControl>
-          <StackedBarGraph blocks={blocks} />
+          <StackedBarGraph data={data} />
         </div>
       </div>
     </div>
@@ -930,18 +912,3 @@ const MonthlyPerformance = () => {
 };
 
 export default MonthlyPerformance;
-
-const monthArr = [
-  { value: 1, label: "January" },
-  { value: 2, label: "February" },
-  { value: 3, label: "March" },
-  { value: 4, label: "April" },
-  { value: 5, label: "May" },
-  { value: 6, label: "June" },
-  { value: 7, label: "July" },
-  { value: 8, label: "August" },
-  { value: 9, label: "September" },
-  { value: 10, label: "October" },
-  { value: 11, label: "November" },
-  { value: 12, label: "December" },
-];

@@ -143,7 +143,6 @@ const Dashboard = () => {
   const handleCallAPI = async () => {
     try {
       const response = await Api.post(`getDashboardCounts`);
-
       if (response.data.status === 200) {
         setTotalUsersCount(response.data.resData);
         setFemaleCount(response.data.resData);
@@ -308,7 +307,7 @@ const Dashboard = () => {
                       name="startDate"
                       id="startDate"
                       value={startDate}
-                      min={`${currentYear - 1}-01-01`} // Restrict start date to 2024 or current year
+                      min={`${currentYear - 4}-01-01`} // Restrict start date to 2024 or current year
                       max={todayDate} // Restrict start date to today
                       onChange={startDateOnChange}
                       style={{
@@ -408,7 +407,7 @@ const Dashboard = () => {
                         target="fellowdropout"
                       >
                         <Card
-                          name="Total Modules completed till date"
+                          name="Total training modules completed by teachers"
                           number={filteredData[0]?.count || "NA"}
                           Icon={PeopleIcon}
                         />

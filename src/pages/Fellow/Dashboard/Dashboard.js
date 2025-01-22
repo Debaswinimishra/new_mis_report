@@ -204,7 +204,10 @@ const Dashboard = () => {
               gap: "20px",
               justifyContent: "center",
               maxWidth: "100%",
-              padding: "20px",
+              padding: "30px",
+              boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
+              borderRadius: "12px",
+              marginTop: "10px",
             }}
           >
             <Card
@@ -278,7 +281,7 @@ const Dashboard = () => {
               <div
                 style={{
                   boxShadow:
-                    "rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px",
+                    "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
                   borderRadius: "12px",
                 }}
               >

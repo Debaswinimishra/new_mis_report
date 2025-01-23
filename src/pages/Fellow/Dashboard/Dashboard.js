@@ -28,6 +28,7 @@ import {
   Radio,
   LinearProgress,
 } from "@mui/material";
+import { toast } from "react-toastify";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -56,6 +57,7 @@ const Dashboard = () => {
   const [loaded, setLoaded] = useState(false);
 
   const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
   const todayDate = new Date().toISOString().split("T")[0];
 
   const [startDate, setStartDate] = useState("2024-01-01");
@@ -85,39 +87,43 @@ const Dashboard = () => {
 
   //-----------filter button click--------------
   const filterButtonOnClick = () => {
-    const formatToISO = (dateString) => {
-      const date = new Date(dateString);
-      return new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate()
-      ).toISOString();
-    };
+    if (!startDate || !endDate || !includesPvtSchools) {
+      alert("Please select all the filters !");
+    } else {
+      const formatToISO = (dateString) => {
+        const date = new Date(dateString);
+        return new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate()
+        ).toISOString();
+      };
 
-    const formattedBody = {
-      start: formatToISO(startDate),
-      end: formatToISO(endDate),
-      pvtschls: includesPvtSchools,
-    };
+      const formattedBody = {
+        start: formatToISO(startDate),
+        end: formatToISO(endDate),
+        pvtschls: includesPvtSchools,
+      };
 
-    const { start, end, pvtschls } = formattedBody;
+      const { start, end, pvtschls } = formattedBody;
 
-    Api.get(`completedModulesByManager/${start}/${end}/${pvtschls}`)
-      .then((res) => {
-        if (res.status === 200) {
-          setFilteredData([res.data]);
-        } else {
-          console.log("res.status----------->", res.status);
+      Api.get(`completedModulesByManager/${start}/${end}/${pvtschls}`)
+        .then((res) => {
+          if (res.status === 200) {
+            setFilteredData([res.data]);
+          } else {
+            console.log("res.status----------->", res.status);
+            setFilteredData();
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "The error while getting module completion--------->",
+            error
+          );
           setFilteredData();
-        }
-      })
-      .catch((error) => {
-        console.error(
-          "The error while getting module completion--------->",
-          error
-        );
-        setFilteredData();
-      });
+        });
+    }
   };
 
   useEffect(() => {
@@ -125,6 +131,8 @@ const Dashboard = () => {
       filterButtonOnClick();
     }
   }, []);
+
+  console.log(`Start date-${startDate} and End date-${endDate}`);
 
   //-----------Download Functionalities----------
   const fileName = "Dashboard";
@@ -330,7 +338,7 @@ const Dashboard = () => {
                       name="endDate"
                       id="endDate"
                       value={endDate}
-                      min={startDate || `${currentYear}-01-01`} // Restrict end date to be after start date
+                      min={startDate || `${currentYear}-${currentMonth}-01`} // Restrict end date to be after start date
                       max={todayDate} // Restrict end date to today
                       onChange={endDateOnChange}
                       style={{
@@ -408,7 +416,7 @@ const Dashboard = () => {
                       >
                         <Card
                           name="Total training modules completed by teachers"
-                           number={filteredData[0]?.count}
+                          number={filteredData[0]?.count}
                           Icon={PeopleIcon}
                         />
                       </a>

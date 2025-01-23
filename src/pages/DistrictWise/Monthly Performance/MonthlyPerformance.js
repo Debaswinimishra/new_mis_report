@@ -35,308 +35,181 @@ const MonthlyPerformance = () => {
   const chartRefStack = useRef(null);
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
-  const [districts, setDistricts] = useState("");
   const [data, setData] = useState({});
-  const [districtArr, setDistrictArr] = useState([]);
   const [blocks, setBlocks] = useState("");
+  console.log("blocks------------------", blocks);
   const [blockArr, setBlockArr] = useState([]);
+  console.log("blockArr", blockArr);
   const [clusters, setCluseters] = useState("");
   const [clusterArr, setClusterArr] = useState([]);
   const [schools, setSchools] = useState("");
   const [schoolArr, setSchoolArr] = useState([]);
   const [filtered, setFiltered] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [tableData, setTableData] = useState([]);
-  const [modalTitle, setModalTitle] = useState("");
-  const [tableHeaders, setTableHeaders] = useState([
-    "student_name",
-    "Class",
-    "gender",
-    "parents_name",
-    "parents_phone_number",
-    "school_name",
-    "district",
-    "block",
-    "cluster",
-  ]);
+  const [overallDistrictBlock, setOverallDistrictBlock] = useState([]);
+  const [selectedBlock, setSelectedBlock] = useState("");
+  const [selectedCluster, setSelectedCluster] = useState("");
+  const [selectedSchool, setSelectedSchool] = useState("");
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
   const districtname = localStorage?.getItem("districtname");
   console.log("districtname-------------->", districtname);
 
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
-    setSelectedMonth("");
-  };
-
-  const currentMonth = new Date().getMonth();
-  const [selectedMonth, setSelectedMonth] = useState("");
-  const handleMonthChange = (e) => {
-    if (selectedYear === currentYear && e.target.value > currentMonth + 1) {
-      alert("You can't choose a month greater than the current month !");
-    } else {
-      setSelectedMonth(e.target.value);
-    }
-  };
-  const xlData = tableData;
-  const fileName = "SchoolwiseReport.csv";
+  const [selectedYear, setSelectedYear] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataDistrict = async () => {
       try {
-        const response = await Api.get("getAllDistricts");
-        if (
-          response &&
-          response?.data &&
-          response?.data?.length > 0 &&
-          response?.data
-        ) {
-          console.log("response?.data---------->", response?.data);
-          const districts =
-            response?.data.length > 0 &&
-            response?.data
-              .filter(
-                (item) =>
-                  item?.district.toLowerCase() === districtname.toLowerCase()
-              )
-              .map((item) => item?.district);
+        const response = await Api.post(`/getDistBlocks/static`);
+        if (response.status === 200) {
+          setOverallDistrictBlock(response?.data.data);
+          console.log("overallDistrictBlock---------->", response?.data.data);
 
-          setDistrictArr(districts);
+          const allBlocks = response?.data.data
+            ?.filter((item) => {
+              return item.district === districtname;
+            })
+            .map((i) => i.block);
+
+          console.log("allBlocks------------>", allBlocks);
+
+          const uniqueBlocks = new Set(allBlocks);
+          console.log("object");
+          setBlockArr([...uniqueBlocks]);
         } else {
           setDistrictArr([]);
+          // toast.warn("Sorry, No data found !");
         }
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching districts:", error);
+        // toast.error("Sorry, something went wrong! Please try again later!");
+      } finally {
         setLoading(false);
+        // setLoadingPerformance(false);
       }
     };
 
-    fetchData();
+    fetchDataDistrict();
 
     return () => {};
   }, []);
-
-  // const handleYearChange = (e) => {
-  //   setYear(e.target.value);
-  // };
-  console.log("district array---------->", districtArr);
-
-  const handleDistrictChange = (e) => {
-    setDistricts(e.target.value);
-    setBlocks("");
-    setCluseters("");
-    setSchools("");
-    // Other logic related to district change
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Api.get(`getAllBlocksByDistrict/${districts}`);
-        if (response?.data && response?.data?.length > 0) {
-          const blocks =
-            response?.data.length > 0 &&
-            response?.data?.map((item) => item?.block);
-          console.log("Blocks:", blocks);
-          setBlockArr(blocks);
-        } else {
-          console.log("No blocks found for the given district.");
-          setBlockArr([]);
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching Blocks:", error);
-        setLoading(false);
-      }
-    };
-
-    // Fetch data only if a district is selected
-    if (districts) {
-      fetchData();
-    }
-
-    return () => {};
-  }, [districts]);
 
   const handleBlockChange = (e) => {
-    setBlocks(e.target.value);
-    setCluseters("");
-    setSchools("");
+    setSelectedBlock(e.target.value);
+    setSelectedCluster("");
+    setSelectedSchool("");
+    setSelectedYear("");
+    // setSelectedMonth(currentMonth + 1);
+    // setSelectedWeek(1);
+    const allClusters = overallDistrictBlock
+      ?.filter((item) => {
+        return item.district === districtname && item.block === e.target.value;
+      })
+      .map((i) => i.cluster);
+    console.log("allClusters------------>", allClusters);
+    const uniqueClusters = new Set(allClusters);
+    setClusterArr([...uniqueClusters]);
   };
-  useEffect(() => {
-    const fetchClusters = async () => {
-      try {
-        if (blocks) {
-          setLoading(true);
-          const response = await Api.get(`getAllClustersByBlock/${blocks}`);
-          const clusters =
-            response?.data?.length > 0 &&
-            response?.data?.map((item) => item?.cluster);
-          setClusterArr(clusters);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching Clusters:", error);
-        setClusterArr([]);
-        setLoading(false);
-      }
-    };
-
-    // Fetch data only if a block is selected
-    fetchClusters();
-  }, [blocks]);
 
   const handleClusterChange = (e) => {
-    setCluseters(e.target.value);
-    setSchools("");
+    setSelectedCluster(e.target.value);
+    setSelectedSchool("");
+    setSelectedYear("");
+    // setSelectedMonth(currentMonth + 1);
+    // setSelectedWeek(1);
+    const allSchools = overallDistrictBlock?.filter((item) => {
+      return (
+        item.district === districtname &&
+        item.block === selectedBlock &&
+        item.cluster === e.target.value
+      );
+    });
+    setSchoolArr(allSchools);
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (clusters) {
-          const response = await Api.get(`getAllSchoolsByCluster/${clusters}`);
-          setSchoolArr(response?.data);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching Blocks:", error);
-        setLoading(false);
-      }
-    };
 
-    // Fetch data only if a district is selected
-    fetchData();
-  }, [clusters]);
+  console.log("block selected---------->", selectedBlock);
+  console.log("clusetr selected---------->", selectedCluster);
+  console.log("school selected---------->", selectedSchool);
 
   const handleSchoolName = (e) => {
-    setSchools(e.target.value);
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = () => {
-    setLoading(true);
-    const body = {
-      district: districts,
-      block: blocks,
-      cluster: clusters,
-      school_name: schools.school_name,
-      year: selectedYear,
-      month: selectedMonth,
-    };
-    if (districts) {
-      Api.post(`getSchoolWiseReport`, body)
-        .then((response) => {
-          setData(response.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log("err=================>", err);
-          // if (err.response.status === 406) {
-          //   alert("something went wrong", err.response.status);
-          // }
-          setLoading(false);
-        });
-    }
+    setSelectedSchool(e.target.value);
+    setSelectedYear("");
+    // setSelectedMonth(currentMonth + 1);
+    // setSelectedWeek(1);
   };
 
   const filterButtonClick = () => {
     setFiltered(true);
-    if (!districts) {
-      alert("Please select a district to proceed.");
-    } else {
-      setLoading(true);
-      fetchData();
-    }
-  };
 
-  const handleOpenModal = async (type, param) => {
-    setOpen(true);
     setLoading(true);
-    setTableData([]); // Reset table data before fetching new data
-    setTableHeaders([]);
-    setModalTitle("");
-    let body = {
-      ...(districts && { district: districts }),
-      ...(blocks && { block: blocks }),
-      ...(clusters && { cluster: clusters }),
-      ...(schools && { school_name: schools?.school_name }),
+
+    const body = {
+      district: districtname,
+      block: blocks,
+      cluster: clusters,
+      school_name: schools.school_name,
     };
 
-    if (type === "chatbotConvo") {
-      setModalTitle(param);
-      try {
-        const response = await Api.post("/getChatBotConvosReport", body);
-        const transformedData = response.data?.map((student) => ({
-          student_name: student.student_name,
-          class: student.class,
-          gender: student.gender,
-          parents_name: student.parents_name,
-          school_name: student.school_name,
-          district: student.district,
-          block: student.block,
-          cluster: student.cluster,
-          phone_number: student.phone_number || "-",
-          buttonClicked: student.buttonClicked || "-",
-          templateName: student.templateName || "-",
-          msgType: student.msgType || "-",
-          status: student.status,
-          createdAt: moment(student.createdAt).format("DD-MM-YYYY hh:mm"),
-        }));
-        setTableData(transformedData);
-        setTableHeaders([
-          "Student Name",
-          "Class",
-          "Gender",
-          "Parents Name",
-          "School Name",
-          "District",
-          "Block",
-          "Cluster",
-          "Phone Number",
-          "Button Clicked",
-          "Template Name",
-          "Msg Type",
-          "Status",
-          "Created on",
-        ]);
-      } catch (error) {
-        console.error("Error fetching chatbot conversations:", error);
-      }
-    } else if (type === "studentReport") {
-      const classNumber = param;
-      classNumber
-        ? setModalTitle(`Number Of Students in class ${classNumber}`)
-        : setModalTitle("Number Of Students");
-      body = {
-        ...body,
-        ...(classNumber && { class: classNumber }),
-      };
-      try {
-        const response = await Api.post("/getAllStudentsReport", body);
-        setTableData(response.data);
-        setTableHeaders([
-          "student_name",
-          "Class",
-          "gender",
-          "parents_name",
-          "parents_phone_number",
-          "school_name",
-          "district",
-          "block",
-          "cluster",
-        ]);
-      } catch (error) {
-        console.error("Error fetching student report:", error);
-      }
-    }
+    Api.post(`getMonthlyPerformance`, body)
+      .then((response) => {
+        setData(response.data.data[0]);
+      })
+      .catch((err) => {
+        console.error("Error fetching monthly performance:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
-    // setModalTitle(newModalTitle);
-    setLoading(false);
+  console.log("data---------->", data);
+
+  const yearOptions = Array.from(
+    { length: 2 },
+    (_, i) => new Date().getFullYear() - i
+  );
+
+  const handleYearChange = (e) => {
+    const selectedValue = e.target.value;
+    setSelectedYear(selectedValue);
+
+    const body2 = {
+      district: districtname,
+      block: blocks,
+      cluster: clusters,
+      school_name: schools.school_name,
+    };
+
+    Api.post(`getMonthlyPerformance`, body2)
+      .then((response) => {
+        setData(response.data.data[0]);
+      })
+      .catch((err) => {
+        console.error("Error fetching monthly performance:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+    const body = {
+      district: districtname,
+      block: selectedBlock,
+      cluster: selectedCluster,
+      school_name: selectedSchool.school_name,
+      year: selectedValue,
+    };
+
+    setLoading(true); // Show loading before making the API call
+
+    Api.post(`getMonthlyPerfTimespent`, body)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        console.error("Error fetching monthly performance:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const BarGraph = ({ blocks }) => {
@@ -359,7 +232,7 @@ const MonthlyPerformance = () => {
             datasets: [
               {
                 label: "Number",
-                data: [500, 200],
+                data: [data?.registeredStudents, data?.activeStudents],
                 backgroundColor: "rgba(54, 162, 235, 0.6)", // Adjust as needed
                 borderColor: "rgba(54, 162, 235, 1)", // Adjust as needed
                 borderWidth: 2,
@@ -392,11 +265,11 @@ const MonthlyPerformance = () => {
     return <canvas ref={chartRef} />;
   };
 
-  const StackedBarGraph = ({ blocks }) => {
+  const StackedBarGraph = ({ data }) => {
     const chartRefStack = useRef(null);
 
     useEffect(() => {
-      if (chartRefStack && chartRefStack.current) {
+      if (chartRefStack && chartRefStack.current && data) {
         const chartContext = chartRefStack.current.getContext("2d");
 
         // Destroy existing chart if it exists
@@ -404,129 +277,109 @@ const MonthlyPerformance = () => {
           window.myStackedChart.destroy();
         }
 
-        // Data for each dataset
-        const rawData = [
-          [20, 40, 30, 25, 15, 30, 20, 30, 25, 30], // "< 30 mins/month"
-          [30, 50, 40, 30, 20, 30, 25, 35, 30, 20], // "30min-1 hour/month"
-          [50, 90, 60, 70, 80, 90, 70, 60, 80, 75], // "1-2 hours/month"
-          [80, 120, 100, 140, 130, 110, 90, 100, 130, 120], // "2-3 hours/month"
-          [100, 200, 150, 175, 225, 150, 200, 180, 220, 190], // "> 3 hours/month"
+        // Define months for the x-axis (January to December)
+        const months = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
         ];
 
-        // Calculate percentages
-        const percentages = rawData.map((dataset) =>
-          dataset.map((value, index) => {
-            const columnTotal = rawData.reduce((sum, d) => sum + d[index], 0);
-            return ((value / columnTotal) * 100).toFixed(2); // Percentage
-          })
-        );
-
-        // Define datasets with both raw data and calculated percentages
-        const datasets = [
+        // Define categories and their colors
+        const categories = [
+          { key: "users_lt_30min", label: "< 30 mins/month", color: "#FFC107" },
           {
-            label: "< 30 mins/month",
-            data: rawData[0],
-            backgroundColor: "#353130",
-            borderColor: "#0a0310",
-            borderWidth: 1,
+            key: "users_30min_to_1hr",
+            label: "30min-1hr/month",
+            color: "#FF5722",
           },
-          {
-            label: "30min-1 hour/month",
-            data: rawData[1],
-            backgroundColor: "#002D62",
-            borderColor: "#0a0310",
-            borderWidth: 1,
-          },
-          {
-            label: "1-2 hours/month",
-            data: rawData[2],
-            backgroundColor: "#008c9e",
-            borderColor: "#0a0310",
-            borderWidth: 1,
-          },
-          {
-            label: "2-3 hours/month",
-            data: rawData[3],
-            backgroundColor: "#00b4cc",
-            borderColor: "#0a0310",
-            borderWidth: 1,
-          },
-          {
-            label: "> 3 hours/month",
-            data: rawData[4],
-            backgroundColor: "#9fd6d2",
-            borderColor: "#0a0310",
-            borderWidth: 1,
-          },
+          { key: "users_1to2hr", label: "1-2 hours/month", color: "#4CAF50" },
+          { key: "users_2to3hr", label: "2-3 hours/month", color: "#2196F3" },
+          { key: "users_gt_3hr", label: "> 3 hours/month", color: "#3F51B5" },
         ];
 
-        // Create new stacked bar chart instance
+        // Generate datasets for the stacked bar chart with December data
+        const datasets = categories.map((category) => ({
+          label: category.label,
+          data: [
+            data[category.key] || 0, // Use the data for December (fallback to 0 if not available)
+          ],
+          backgroundColor: category.color,
+          borderColor: "#000000",
+          borderWidth: 1,
+        }));
+
+        // Create the chart
         const chartInstance = new Chart(chartContext, {
           type: "bar",
           data: {
-            labels: [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ],
+            labels: months, // Full list of months
             datasets,
           },
           options: {
-            layout: {
-              padding: {
-                top: 20,
-                bottom: 20,
-                left: 20,
-                right: 20,
-              },
-            },
+            responsive: true,
             plugins: {
+              legend: {
+                display: true,
+                position: "top",
+                labels: {
+                  font: {
+                    size: 12,
+                  },
+                },
+              },
               tooltip: {
                 callbacks: {
                   label: function (context) {
-                    const datasetIndex = context.datasetIndex;
-                    const dataIndex = context.dataIndex;
-                    const value = context.raw;
-                    const percentage = percentages[datasetIndex][dataIndex];
-                    return `${context.dataset.label}: ${value} (${percentage}%)`;
+                    return `${context.dataset.label}: ${context.raw}`;
                   },
                 },
               },
             },
+            layout: {
+              padding: 20, // Add padding for a cleaner look
+            },
             scales: {
               x: {
-                stacked: true, // Enable stacked bars on x-axis
+                stacked: true, // Enable stacked bars for the x-axis
+                title: {
+                  display: true,
+                  // text: "Month",
+                  font: {
+                    size: 14,
+                  },
+                },
               },
               y: {
                 beginAtZero: true,
-                stacked: true, // Enable stacked bars on y-axis
+                stacked: true, // Enable stacking for the y-axis
                 title: {
                   display: true,
-                  text: "Value",
+                  text: "Number of Users",
+                  font: {
+                    size: 14,
+                  },
                 },
               },
             },
           },
         });
 
-        // Store chart instance in window object for Stacked Bar Graph
+        // Store chart instance
         window.myStackedChart = chartInstance;
       }
-    }, [blocks]);
+    }, [data]);
 
     return <canvas ref={chartRefStack} />;
   };
-
-  const handleClose = () => setOpen(false);
 
   return (
     <div>
@@ -538,48 +391,14 @@ const MonthlyPerformance = () => {
           flexWrap: "wrap",
         }}
       >
-        {/* <SelectYear Year={selectedYear} handleYearChange={handleYearChange} />
-        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="district-label">Month</InputLabel>
-          <Select
-            labelId="month-label"
-            id="month-select"
-            value={selectedMonth}
-            onChange={handleMonthChange}
-            label="Month"
-          >
-            {monthArr?.map((month, index) => (
-              <MenuItem key={index} value={month.value}>
-                {month.label}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
-          <InputLabel id="district-label">District</InputLabel>
-          <Select
-            labelId="district-label"
-            id="district-select"
-            value={districts}
-            onChange={(e) => handleDistrictChange(e)}
-            label="District"
-          >
-            {districtArr?.map((district, index) => (
-              <MenuItem key={index} value={district}>
-                {district}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl> */}
         <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
           <InputLabel id="block-label">Block</InputLabel>
           <Select
             labelId="block-label"
             id="block-select"
-            value={blocks}
+            value={selectedBlock}
             onChange={handleBlockChange}
             label="Block"
-            // disabled={loading || !districts}
           >
             <MenuItem value="">None</MenuItem>
             {blockArr &&
@@ -595,7 +414,7 @@ const MonthlyPerformance = () => {
           <Select
             labelId="cluster-label"
             id="cluster-select"
-            value={clusters}
+            value={selectedCluster}
             onChange={handleClusterChange}
             label="Cluster"
             // disabled={loading || !blocks}
@@ -615,7 +434,7 @@ const MonthlyPerformance = () => {
           <Select
             labelId="school-label"
             id="school-select"
-            value={schools}
+            value={selectedSchool}
             onChange={handleSchoolName}
             label="School"
             // disabled={!clusters}
@@ -628,13 +447,7 @@ const MonthlyPerformance = () => {
             ))}
           </Select>
         </FormControl>
-        {/* <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            width: "100%",
-          }}
-        > */}
+
         <Button
           variant="contained"
           sx={{
@@ -648,363 +461,376 @@ const MonthlyPerformance = () => {
         >
           Filter
         </Button>
-        {/* </Box> */}
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          width: "96%",
-          marginLeft: "3%",
-          marginBottom: "2%",
-          marginTop: "2%",
-        }}
-      >
-        <div
-          style={{
-            marginTop: "2%",
-            boxShadow: "2px 1px 5px grey",
-            padding: "3%",
-            width: "97%",
-          }}
-        >
-          <h1
-            style={{
-              // marginTop: "-2%",
-              color: "#333", // Dark grey color for the text
-              fontFamily: "Congenial SemiBold", // Font family for a clean look
-              fontWeight: "700", // Bolder font weight for emphasis
-              fontSize: "1.2rem", // Smaller font size for prominence
-              textAlign: "right", // Align the text to the right
-              padding: "10px 0", // Add some padding for spacing
-              borderBottom: "2px solid #000000", // Add a bottom border for separation
-              letterSpacing: "0.5px", // Slight letter spacing for readability
-              textTransform: "capitalize", // Capitalize each word
-              color: "red",
-            }}
-          >
-            Data Updated as on - 30/09/2024
-          </h1>
+      {Object.keys(data).length > 0 ? (
+        <>
           <div
             style={{
               display: "flex",
               flexWrap: "wrap",
-              alignContent: "center",
               justifyContent: "center",
-              width: "97%",
-              gap: "2%",
+              width: "96%",
+              marginLeft: "3%",
+              marginBottom: "2%",
+              marginTop: "2%",
             }}
           >
             <div
-              // onClick={() => handleOpenModal("studentReport")}
               style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-                cursor: "pointer", // Show hand cursor on hover
-                position: "relative", // Needed for positioning the "Click here" text
+                marginTop: "2%",
+                boxShadow: "2px 1px 5px grey",
+                padding: "3%",
+                width: "97%",
               }}
             >
-              <div
+              <h1
                 style={{
-                  height: "50%",
-                  color: "#CD5C5C",
-                  paddingTop: "13px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
+                  // marginTop: "-2%",
+                  color: "#333", // Dark grey color for the text
+                  fontFamily: "Congenial SemiBold", // Font family for a clean look
+                  fontWeight: "700", // Bolder font weight for emphasis
+                  fontSize: "1.2rem", // Smaller font size for prominence
+                  textAlign: "right", // Align the text to the right
+                  padding: "10px 0", // Add some padding for spacing
+                  borderBottom: "2px solid #000000", // Add a bottom border for separation
+                  letterSpacing: "0.5px", // Slight letter spacing for readability
+                  textTransform: "capitalize", // Capitalize each word
+                  color: "red",
                 }}
               >
-                <p> Registered students</p>
-              </div>
+                Data Updated as on - 30/09/2024
+              </h1>
               <div
                 style={{
-                  height: "50%",
-                  backgroundColor: "#CD5C5C",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignContent: "center",
+                  justifyContent: "center",
+                  width: "97%",
+                  gap: "2%",
                 }}
               >
-                <h1>1800</h1>
-              </div>
-            </div>
-            <div
-              // onClick={() => handleOpenModal("studentReport", 1)}
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-                cursor: "pointer", // Show hand cursor on hover
-                position: "relative", // Needed for positioning the "Click here" text
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "rgb(153 58 134)",
-                  paddingTop: "28px",
-                  fontSize: "1.2rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                Active students
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(153 58 134)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>1400</h1>
-              </div>
-            </div>
-            <div
-              // onClick={() => handleOpenModal("studentReport", 2)}
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-                cursor: "pointer", // Show hand cursor on hover
-                position: "relative", // Needed for positioning the "Click here" text
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "28px",
-                  fontSize: "1.1rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                % students spending &gt; 3 hours/month
-              </div>
+                <div
+                  // onClick={() => handleOpenModal("studentReport")}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#CD5C5C",
+                      paddingTop: "13px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    <p> Registered students</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#CD5C5C",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.registeredStudents}</h1>
+                  </div>
+                </div>
+                <div
+                  // onClick={() => handleOpenModal("studentReport", 1)}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "rgb(153 58 134)",
+                      paddingTop: "28px",
+                      fontSize: "1.2rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Active students
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "rgb(153 58 134)",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.activeStudents}</h1>
+                  </div>
+                </div>
+                <div
+                  // onClick={() => handleOpenModal("studentReport", 2)}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#2E8B57",
+                      paddingTop: "28px",
+                      fontSize: "1.1rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    % students spending &gt; 3 hours/month
+                  </div>
 
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>22%</h1>
-              </div>
-            </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#2E8B57",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.users_gt_3hr}%</h1>
+                  </div>
+                </div>
 
-            <div
-              // onClick={() => handleOpenModal("studentReport", 3)}
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-                cursor: "pointer", // Show hand cursor on hover
-                position: "relative", // Needed for positioning the "Click here" text
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "28px",
-                  fontSize: "1.1rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                % students spending 2-3 hours/month
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>24%</h1>
-              </div>
-            </div>
-            <div
-              // onClick={() => handleOpenModal("studentReport", 4)}
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-                cursor: "pointer", // Show hand cursor on hover
-                position: "relative", // Needed for positioning the "Click here" text
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#6A5ACD",
-                  paddingTop: "28px",
-                  fontSize: "1.1rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                % students spending 1-2 hours/month
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#6A5ACD",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>30%</h1>
-              </div>
-            </div>
-            <div
-              // onClick={() => handleOpenModal("studentReport", 5)}
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-                cursor: "pointer", // Show hand cursor on hover
-                position: "relative", // Needed for positioning the "Click here" text
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "28px",
-                  fontSize: "1.1rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                % students spending 30min-1 hour/month
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "#2E8B57",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>13%</h1>
-              </div>
-            </div>
+                <div
+                  // onClick={() => handleOpenModal("studentReport", 3)}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#2E8B57",
+                      paddingTop: "28px",
+                      fontSize: "1.1rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    % students spending 2-3 hours/month
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "rgb(214 148 16)",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.users_2to3hr}%</h1>
+                  </div>
+                </div>
+                <div
+                  // onClick={() => handleOpenModal("studentReport", 4)}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#6A5ACD",
+                      paddingTop: "28px",
+                      fontSize: "1.1rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    % students spending 1-2 hours/month
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#6A5ACD",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.users_1to2hr}%</h1>
+                  </div>
+                </div>
+                <div
+                  // onClick={() => handleOpenModal("studentReport", 5)}
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                    cursor: "pointer", // Show hand cursor on hover
+                    position: "relative", // Needed for positioning the "Click here" text
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#2E8B57",
+                      paddingTop: "28px",
+                      fontSize: "1.1rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    % students spending 30min-1 hour/month
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "#2E8B57",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.users_30min_to_1hr}%</h1>
+                  </div>
+                </div>
 
-            <div
-              style={{
-                width: "255px",
-                height: "180px",
-                marginTop: "1.5%",
-                backgroundColor: "white",
-                // // paddingTop: "2%",
-                // fontFamily: "Arial, sans-serif", // Default font family
-                borderRadius: "10px",
-                display: "flex",
-                flexDirection: "column",
-                boxShadow: "1px 1px 4px 3px lightGrey",
-              }}
-            >
-              <div
-                style={{
-                  height: "50%",
-                  color: "#2E8B57",
-                  paddingTop: "28px",
-                  fontSize: "1.1rem",
-                  fontFamily: "Congenial SemiBold",
-                  fontWeight: "600",
-                }}
-              >
-                % students spending &lt; 30 mins/month
-              </div>
-              <div
-                style={{
-                  height: "50%",
-                  backgroundColor: "rgb(214 148 16)",
-                  borderEndStartRadius: "10px",
-                  borderEndEndRadius: "10px",
-                  color: "white",
-                }}
-              >
-                <h1>11%</h1>
+                <div
+                  style={{
+                    width: "255px",
+                    height: "180px",
+                    marginTop: "1.5%",
+                    backgroundColor: "white",
+                    // // paddingTop: "2%",
+                    // fontFamily: "Arial, sans-serif", // Default font family
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "1px 1px 4px 3px lightGrey",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "50%",
+                      color: "#2E8B57",
+                      paddingTop: "28px",
+                      fontSize: "1.1rem",
+                      fontFamily: "Congenial SemiBold",
+                      fontWeight: "600",
+                    }}
+                  >
+                    % students spending &lt; 30 mins/month
+                  </div>
+                  <div
+                    style={{
+                      height: "50%",
+                      backgroundColor: "rgb(214 148 16)",
+                      borderEndStartRadius: "10px",
+                      borderEndEndRadius: "10px",
+                      color: "white",
+                    }}
+                  >
+                    <h1>{data.users_lt_30min}%</h1>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
+          <div style={{ width: "75%", marginLeft: "15%" }}>
+            <h2>Active Students</h2>
+            <BarGraph blocks={blocks} />
+          </div>
+        </>
+      ) : (
+        <h1>No Data</h1>
+      )}
       <div>
-        <div style={{ width: "75%", marginLeft: "15%" }}>
-          <h2>Active Students</h2>
-          <BarGraph blocks={blocks} />
-        </div>
-
-        <div>
-          {" "}
-          <h2>Time-spent</h2>
-          <StackedBarGraph blocks={blocks} />
-        </div>
+        {selectedBlock &&
+          selectedCluster &&
+          selectedSchool &&
+          filterButtonClick && (
+            <div>
+              {" "}
+              <h2>Time-spent</h2>
+              <FormControl
+                sx={{ m: 1 }}
+                size="small"
+                style={{ width: "150px", marginLeft: "80%" }}
+              >
+                <InputLabel id="year-label">Year</InputLabel>
+                <Select
+                  labelId="year-label"
+                  id="year-select"
+                  value={selectedYear}
+                  onChange={handleYearChange}
+                  label="Year"
+                >
+                  <MenuItem value="">None</MenuItem>
+                  {yearOptions.map((year) => (
+                    <MenuItem key={year} value={year}>
+                      {year}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {selectedYear && <StackedBarGraph data={data} />}
+            </div>
+          )}
       </div>
     </div>
   );
 };
 
 export default MonthlyPerformance;
-
-const monthArr = [
-  { value: 1, label: "January" },
-  { value: 2, label: "February" },
-  { value: 3, label: "March" },
-  { value: 4, label: "April" },
-  { value: 5, label: "May" },
-  { value: 6, label: "June" },
-  { value: 7, label: "July" },
-  { value: 8, label: "August" },
-  { value: 9, label: "September" },
-  { value: 10, label: "October" },
-  { value: 11, label: "November" },
-  { value: 12, label: "December" },
-];

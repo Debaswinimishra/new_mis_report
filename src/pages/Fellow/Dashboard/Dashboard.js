@@ -408,7 +408,7 @@ const Dashboard = () => {
                       >
                         <Card
                           name="Total training modules completed by teachers"
-                          number={filteredData[0]?.count}
+                           number={filteredData[0]?.count}
                           Icon={PeopleIcon}
                         />
                       </a>

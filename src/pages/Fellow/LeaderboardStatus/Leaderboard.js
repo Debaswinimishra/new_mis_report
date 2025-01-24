@@ -224,6 +224,9 @@ const Leaderboard = () => {
                       <Typography variant="body1" sx={{ mb: 1 }}>
                         <strong>Time Spent:</strong> {user.spent_time} min
                       </Typography>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        <strong>Contact Number:</strong> {user.contactnumber}{" "}
+                      </Typography>
                     </CardContent>
                   </Card>
                 </AccordionDetails>

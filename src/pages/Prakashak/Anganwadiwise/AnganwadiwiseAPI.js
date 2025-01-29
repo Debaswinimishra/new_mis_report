@@ -1,9 +1,9 @@
 import PrakashakAPI from "../../../Environment/PrakashakAPI";
 
-const getAllAnganwadiReports = async (data) => {
-  return await PrakashakAPI.get(`getAllAnganwadiData/static`);
+export const getAllAnganwadiReports = async (body) => {
+  return await PrakashakAPI.post(`getAnganwadiWise/static`, body);
 };
 
-const getAllAnganwadiPerformanceReports = async (data) => {
-  return await PrakashakAPI.get(`getAllAnganwadiPerformanceReports/static`);
+export const getAllAnganwadiPerformanceReports = async (body) => {
+  return await PrakashakAPI.post(`getAnganwadiWisePerformance/static`, body);
 };

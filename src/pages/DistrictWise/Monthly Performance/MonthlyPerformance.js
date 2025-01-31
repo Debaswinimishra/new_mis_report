@@ -266,6 +266,8 @@ const MonthlyPerformance = () => {
   };
 
   const StackedBarGraph = ({ data }) => {
+    console.log("data", data);
+
     const chartRefStack = useRef(null);
 
     useEffect(() => {
@@ -306,22 +308,18 @@ const MonthlyPerformance = () => {
           { key: "users_gt_3hr", label: "> 3 hours/month", color: "#3F51B5" },
         ];
 
-        // Generate datasets for the stacked bar chart with December data
         const datasets = categories.map((category) => ({
           label: category.label,
-          data: [
-            data[category.key] || 0, // Use the data for December (fallback to 0 if not available)
-          ],
+          data: Array(12).fill(data[category.key] || 0),
           backgroundColor: category.color,
           borderColor: "#000000",
           borderWidth: 1,
         }));
 
-        // Create the chart
         const chartInstance = new Chart(chartContext, {
           type: "bar",
           data: {
-            labels: months, // Full list of months
+            labels: months,
             datasets,
           },
           options: {
@@ -345,11 +343,11 @@ const MonthlyPerformance = () => {
               },
             },
             layout: {
-              padding: 20, // Add padding for a cleaner look
+              padding: 20,
             },
             scales: {
               x: {
-                stacked: true, // Enable stacked bars for the x-axis
+                stacked: true,
                 title: {
                   display: true,
                   // text: "Month",
@@ -360,7 +358,7 @@ const MonthlyPerformance = () => {
               },
               y: {
                 beginAtZero: true,
-                stacked: true, // Enable stacking for the y-axis
+                stacked: true,
                 title: {
                   display: true,
                   text: "Number of Users",
@@ -373,7 +371,6 @@ const MonthlyPerformance = () => {
           },
         });
 
-        // Store chart instance
         window.myStackedChart = chartInstance;
       }
     }, [data]);

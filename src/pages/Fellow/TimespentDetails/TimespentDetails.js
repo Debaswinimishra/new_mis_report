@@ -221,9 +221,22 @@ const TimespentDetails = () => {
     setDistrictName(e.target.value);
     console.log("Selected value:", e);
     // setLoaded(true);
-    const response = await getDistrictsWiseBlocks(e.target.value);
-    console.log("block response---->", response.data);
-    setAllBlocks(response.data);
+    if (e.target.value) {
+      try {
+        const response = await getDistrictsWiseBlocks(e.target.value);
+        if (response.status === 200) {
+          console.log("block response---->", response.data);
+          setAllBlocks(response.data);
+        } else {
+          alert("Sorry, couldn't fetch data at the moment!");
+        }
+      } catch (error) {
+        console.error("The error found is----->", error);
+        alert(
+          "Sorry, couldn't fetch data at the moment! Please try again later."
+        );
+      }
+    }
     // setLoaded(false);
   };
 
@@ -303,31 +316,33 @@ const TimespentDetails = () => {
       case "Serial No":
         return index + 1;
       case "User Name":
-        return row.username;
+        return row.username ? row.username : "NA";
       case "Registration Date":
-        return moment(row.createdon).format("DD/MM/YYYY");
+        return row.createdon
+          ? moment(row.createdon).format("DD/MM/YYYY")
+          : "NA";
       case "Pedagogy":
-        return row.training3;
+        return row.training3 ? row.training3 : "NA";
       case "21st Century":
-        return row.training1;
+        return row.training1 ? row.training1 : "NA";
       case "Technology":
-        return row.training2;
+        return row.training2 ? row.training2 : "NA";
       case "Commom Monthly Quiz":
-        return row.tchTtlQuiz;
+        return row.tchTtlQuiz ? row.tchTtlQuiz : "NA";
       case "PGE":
-        return row.pgeactivity;
+        return row.pgeactivity ? row.pgeactivity : "NA";
       case "ECE":
-        return row.eceactivity;
+        return row.eceactivity ? row.eceactivity : "NA";
       case "FLN":
-        return row.fln;
+        return row.fln ? row.fln : "NA";
       case "Community Engagement":
-        return row.communityActivity;
+        return row.communityActivity ? row.communityActivity : "NA";
       case "Student Assessment":
-        return row.studentAssessment;
+        return row.studentAssessment ? row.studentAssessment : "NA";
       case "Books":
-        return row.reading;
+        return row.reading ? row.reading : "NA";
       case "Survey":
-        return row.tchSurvey;
+        return row.tchSurvey ? row.tchSurvey : "NA";
       default:
         return "";
     }
@@ -387,8 +402,9 @@ const TimespentDetails = () => {
     setOpenModal(false);
   };
 
-  const disableDateRangeSelection = !!month;
-  const disableMonthSelection = !!selectedStartDate || !!selectedEndDate;
+  const disableDateRangeSelection = !!month || !selectedYear;
+  const disableMonthSelection =
+    !!selectedStartDate || !!selectedEndDate || !selectedYear;
 
   return (
     <Box>

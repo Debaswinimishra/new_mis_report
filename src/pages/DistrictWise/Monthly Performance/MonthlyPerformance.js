@@ -36,6 +36,7 @@ const MonthlyPerformance = () => {
   const [loading, setLoading] = useState(false);
   // const [year, setYear] = useState("2024");
   const [data, setData] = useState({});
+  const [graphData, setGraphData] = useState([]);
   const [blocks, setBlocks] = useState("");
   console.log("blocks------------------", blocks);
   const [blockArr, setBlockArr] = useState([]);
@@ -202,7 +203,7 @@ const MonthlyPerformance = () => {
 
     Api.post(`getMonthlyPerfTimespent`, body)
       .then((response) => {
-        setData(response.data);
+        setGraphData(response?.data?.data);
       })
       .catch((err) => {
         console.error("Error fetching monthly performance:", err);
@@ -266,7 +267,7 @@ const MonthlyPerformance = () => {
   };
 
   const StackedBarGraph = ({ data }) => {
-    console.log("data", data);
+    console.log("StackedBarGraph", data);
 
     const chartRefStack = useRef(null);
 
@@ -274,7 +275,6 @@ const MonthlyPerformance = () => {
       if (chartRefStack && chartRefStack.current && data) {
         const chartContext = chartRefStack.current.getContext("2d");
 
-        // Destroy existing chart if it exists
         if (window.myStackedChart instanceof Chart) {
           window.myStackedChart.destroy();
         }
@@ -308,14 +308,41 @@ const MonthlyPerformance = () => {
           { key: "users_gt_3hr", label: "> 3 hours/month", color: "#3F51B5" },
         ];
 
+        // Initialize an array of 12 elements (one for each month) and fill with 0s
+        const monthlyData = Array(12)
+          .fill(null)
+          .map(() => ({
+            users_lt_30min: 0,
+            users_30min_to_1hr: 0,
+            users_1to2hr: 0,
+            users_2to3hr: 0,
+            users_gt_3hr: 0,
+          }));
+
+        // Fill in the actual data based on the provided dataset
+        data.forEach((entry) => {
+          if (entry.month >= 1 && entry.month <= 12) {
+            const index = entry.month - 1; // Convert month to 0-based index
+            monthlyData[index] = {
+              users_lt_30min: entry.users_lt_30min || 0,
+              users_30min_to_1hr: entry.users_30min_to_1hr || 0,
+              users_1to2hr: entry.users_1to2hr || 0,
+              users_2to3hr: entry.users_2to3hr || 0,
+              users_gt_3hr: entry.users_gt_3hr || 0,
+            };
+          }
+        });
+
+        // Create datasets for the chart
         const datasets = categories.map((category) => ({
           label: category.label,
-          data: Array(12).fill(data[category.key] || 0),
+          data: monthlyData.map((month) => month[category.key]),
           backgroundColor: category.color,
           borderColor: "#000000",
           borderWidth: 1,
         }));
 
+        // Create the stacked bar chart
         const chartInstance = new Chart(chartContext, {
           type: "bar",
           data: {
@@ -329,9 +356,7 @@ const MonthlyPerformance = () => {
                 display: true,
                 position: "top",
                 labels: {
-                  font: {
-                    size: 12,
-                  },
+                  font: { size: 12 },
                 },
               },
               tooltip: {
@@ -350,10 +375,7 @@ const MonthlyPerformance = () => {
                 stacked: true,
                 title: {
                   display: true,
-                  // text: "Month",
-                  font: {
-                    size: 14,
-                  },
+                  font: { size: 14 },
                 },
               },
               y: {
@@ -362,9 +384,7 @@ const MonthlyPerformance = () => {
                 title: {
                   display: true,
                   text: "Number of Users",
-                  font: {
-                    size: 14,
-                  },
+                  font: { size: 14 },
                 },
               },
             },
@@ -822,7 +842,7 @@ const MonthlyPerformance = () => {
                   ))}
                 </Select>
               </FormControl>
-              {selectedYear && <StackedBarGraph data={data} />}
+              {selectedYear && <StackedBarGraph data={graphData} />}
             </div>
           )}
       </div>

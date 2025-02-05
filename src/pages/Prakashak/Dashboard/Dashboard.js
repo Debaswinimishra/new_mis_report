@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { TextField } from "@mui/material";
+import Chart from "chart.js/auto";
 import {
   FormControl,
   InputLabel,
@@ -24,6 +25,8 @@ import Box from "@mui/material/Box";
 import moment from "moment";
 import Nodata from "../../../Assets/Nodata.gif";
 import DynamicModal from "../../../Components/DynamicModal";
+import BarGraph from "../../../Components/BarGraph";
+// import BarGraph from "../../../Components/BarGraph";
 
 const Dashboard = () => {
   //?---------------Month array---------------------------
@@ -48,12 +51,16 @@ const Dashboard = () => {
     { value: 2, label: "2" },
     { value: 3, label: "3" },
     { value: 4, label: "4" },
-    { value: 5, label: "5" },
   ];
-
+  const fetchType = "static";
   const currentYear = new Date().getFullYear();
-  // if 2025 then increase the lengtjh it will show 2024 and 2025
-  const years = Array.from({ length: 1 }, (_, index) => currentYear - index);
+  // Adjust the length to show the current year and 1 prior years
+  const years = Array.from(
+    { length: 2 },
+    (_, index) => currentYear - (1 - index)
+  );
+
+  console.log(years); // [2025, 2024] if the current year is 2025
 
   const currentMonth = moment().format("MMMM");
   const currentMonthSelected = monthArr?.filter(
@@ -64,16 +71,47 @@ const Dashboard = () => {
   const [selectedYear, setSelectedYear] = useState(currentYear);
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedWeek, setSelectedWeek] = useState("");
-  const [dashboardData, setDashboardData] = useState({});
+  const [dashboardData, setDashboardData] = useState([]);
   const [loading, setLoading] = useState();
   const [tableData, setTableData] = useState([]);
   const [modalLoader, setModalLoader] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [smartphone, setSmartphone] = useState("overall");
+  const [uniqueUsers, setUniqueUsers] = useState({});
+  console.log("uniqueUsers=======>", uniqueUsers);
+
+  console.log("dashboardData", dashboardData);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
-    setSelectedMonth("");
-    setSelectedWeek("");
+  };
+
+  const handleUserChange = async (e) => {
+    setSmartphone(e.target.value);
+
+    // Define the request body
+    const body = {
+      year: parseInt(selectedYear),
+      userType: e.target.value,
+    };
+    console.log("Request body:", body);
+
+    try {
+      // Call the API and await the response
+      const response = await PrakashakAPI.post(
+        `getMonthlyUniqueUsers/${fetchType}`,
+        body
+      );
+      console.log("API response data:", response.data);
+      setUniqueUsers(response.data);
+    } catch (error) {
+      // Handle errors here
+      console.error("Error fetching dashboard report:", error);
+      // Optional: Display an error message to the user
+      alert(
+        "An error occurred while fetching the dashboard report. Please try again later."
+      );
+    }
   };
 
   const handleMonthChange = (e) => {
@@ -104,10 +142,10 @@ const Dashboard = () => {
         year: parseInt(selectedYear),
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
             setLoading(false);
           } else {
             setLoading(false);
@@ -124,10 +162,10 @@ const Dashboard = () => {
         month: parseInt(selectedMonth),
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
             setLoading(false);
           } else {
             setLoading(false);
@@ -145,10 +183,10 @@ const Dashboard = () => {
         week: selectedWeek,
       };
       console.log("body---------------->", body);
-      PrakashakAPI.post(`getDashboardReport`, body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
             setLoading(false);
           } else {
             setLoading(false);
@@ -163,33 +201,23 @@ const Dashboard = () => {
   };
   const [districsArray, setDistrictArr] = useState([]);
   const [blocksArr, setBlocksArr] = useState([]);
-
   const [clusterArr, setClusterArr] = useState([]);
   // console.log("clusterArr--->", clusterArr);
-
   const [schoolArr, setSchoolArr] = useState([]);
-
   const [studentsArr, setStudentsArr] = useState([]);
   // console.log("studentsArr---->", studentsArr);
-
   const [smsArr, setSmsArr] = useState([]);
   console.log("studentsArr---->", smsArr);
-
   const [callsArr, setCallsArr] = useState([]);
   console.log("callsArr---->", callsArr);
-
   const [receivedCallsArr, setReceivedCallsArr] = useState([]);
   console.log("receivedCallsArr---->", receivedCallsArr);
-
   const [callsReceivedIvrArr, setCallsReceivedIvrArr] = useState([]);
   console.log("callsReceivedIvrArr---->", callsReceivedIvrArr);
-
   const [uniqueCallsIvrArr, setUniqueCallsIvrArr] = useState([]);
   console.log("uniqueCallsArr---->", uniqueCallsIvrArr);
-
   const [activeUserChatbotArr, setActiveUserChatbotArr] = useState([]);
   console.log("activeUserChatbotArr---->", activeUserChatbotArr);
-
   const [video, setVideo] = useState([]);
   console.log("video---->", video);
 
@@ -199,10 +227,10 @@ const Dashboard = () => {
       const body = { year: parseInt(selectedYear) };
       console.log("body---------------->", body);
 
-      PrakashakAPI.post("getDashboardReport", body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
           } else {
             console.log("status code-----", res.status);
           }
@@ -241,10 +269,10 @@ const Dashboard = () => {
       };
       console.log("body---------------->", body);
 
-      PrakashakAPI.post("getDashboardReport", body)
+      PrakashakAPI.post(`getDashboardReport/${fetchType}`, body)
         .then((res) => {
           if (res.status === 200) {
-            setDashboardData(res.data);
+            setDashboardData(res.data[0]);
           } else {
             console.log("status code-----", res.status);
           }
@@ -261,10 +289,35 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const body = {
+        year: parseInt(selectedYear),
+        userType: smartphone,
+      };
+      console.log("Request body:", body);
+
+      try {
+        const response = await PrakashakAPI.post(
+          `getMonthlyUniqueUsers/${fetchType}`,
+          body
+        );
+        console.log("API response data:", response.data);
+        setUniqueUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching dashboard report:", error);
+        // alert(
+        //   "An error occurred while fetching the dashboard report. Please try again later."
+        // );
+      }
+    };
+
+    fetchData();
+  }, []); // Dependencies to re-fetch on change
+
   //todo----------------------Console logs---------------------------
   const [tableDatas, setTableDatas] = useState([]);
   console.log("tableHeaders----->", tableDatas);
-  let body;
   const [tableHeaders, setTableHeaders] = useState([]);
   const [modalTitle, setModalTitle] = useState("");
 
@@ -369,11 +422,20 @@ const Dashboard = () => {
         response = await PrakashakAPI.post("getAllSchools", body);
         if (response.status === 200) {
           transformedData = response.data.map((school) => ({
+            district: school.district,
+            block: school.block,
+            cluster: school.cluster,
             school_name: school.school_name,
             udise_code: school.udise_code,
           }));
           setModalLoader(false);
-          setTableHeaders(["School Name", "UDISE Code"]);
+          setTableHeaders([
+            "District",
+            "Block",
+            "Cluster Name",
+            "School Name",
+            "UDISE Code",
+          ]);
         }
       } else if (type === "students" || type === "girls" || type === "boys") {
         response = await PrakashakAPI.post("getAllStudentsReport", body);
@@ -674,6 +736,7 @@ const Dashboard = () => {
   const xlData = tableDatas;
   // console.log("tableDatas------------>", tableDatas);
   const fileName = "Dashboard.csv";
+
   return (
     <>
       {loading ? (
@@ -689,7 +752,7 @@ const Dashboard = () => {
             paddingBottom: "4%",
             marginLeft: "4%",
             alignContent: "flex-start",
-            height: "95vh",
+            // height: "95vh",
           }}
         >
           <div
@@ -700,22 +763,33 @@ const Dashboard = () => {
               height: "99%",
             }}
           >
-            <h1
+            <h2
               style={{
-                marginTop: "-2%",
-                color: "#333", // Dark grey color for the text
-                fontFamily: "Congenial SemiBold", // Font family for a clean look
-                fontWeight: "700", // Bolder font weight for emphasis
-                fontSize: "1.8rem", // Larger font size for prominence
-                textAlign: "center", // Center-align the text
-                padding: "10px 0", // Add some padding for spacing
-                borderBottom: "2px solid #000000", // Add a bottom border for separation
-                letterSpacing: "0.5px", // Slight letter spacing for readability
-                textTransform: "capitalize", // Capitalize each word
+                display: "flex",
+                justifyContent: "flex-end",
+                marginRight: "2%",
+                color: "red",
+                fontFamily: "Congenial SemiBold",
               }}
             >
-              Details Till Now: 1st Week
-            </h1>
+              <i>
+                {" "}
+                {/* <u> Data Updated as on - 30/09/2024</u> */}
+                <u>
+                  {" "}
+                  Data Updated as on -{" "}
+                  {dashboardData?.lastUpdated &&
+                    new Date(dashboardData.lastUpdated).toLocaleDateString(
+                      "en-GB",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )}{" "}
+                </u>
+              </i>
+            </h2>
             <div
               style={{
                 display: "flex",
@@ -858,7 +932,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -875,7 +949,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -886,7 +960,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of clusters</p>
+                  <p>Clusters</p>
                 </div>
                 <div
                   style={{
@@ -897,7 +971,66 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData?.total_clusters}</h1>
+                  {/* <h1>36</h1> */}
+                </div>
+              </div>
+              <div
+                onClick={() => handleOpen("schools")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
+                {/* <div
+                  style={{
+                    position: "absolute",
+                    top: "0px", // Adjust to position the text at the top
+                    right: "0px", // Adjust to position the text at the right
+                    color: "#2E8B57", // Text color
+                    backgroundColor: "white", // Background color to make it stand out
+                    padding: "5px 10px", // Padding to add some space inside the border
+                    fontSize: "0.7rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                    borderRadius: "5px", // Rounded corners for a smoother look
+                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
+                    zIndex: "10", // Ensure it stays on top of other elements
+                  }}
+                >
+                  Click Here 👆
+                </div> */}
+                <div
+                  style={{
+                    height: "50%",
+                    color: "#2E8B57",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
+                    fontFamily: "Congenial SemiBold",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p>Schools</p>
+                </div>
+                <div
+                  style={{
+                    height: "50%",
+                    backgroundColor: "#2E8B57",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  <h1>{dashboardData.total_schools}</h1>
+                  {/* <h1>358</h1> */}
                 </div>
               </div>
               <div
@@ -917,22 +1050,45 @@ const Dashboard = () => {
               >
                 <div
                   style={{
-                    position: "absolute",
-                    top: "0px", // Adjust to position the text at the top
-                    right: "0px", // Adjust to position the text at the right
-                    color: "#2E8B57", // Text color
-                    backgroundColor: "white", // Background color to make it stand out
-                    padding: "5px 10px", // Padding to add some space inside the border
-                    fontSize: "0.7rem",
+                    height: "50%",
+                    color: "rgb(153 58 134)",
+                    paddingTop: "13px",
+                    fontSize: "1.2rem",
                     fontFamily: "Congenial SemiBold",
                     fontWeight: "600",
-                    borderRadius: "5px", // Rounded corners for a smoother look
-                    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                    zIndex: "10", // Ensure it stays on top of other elements
                   }}
                 >
-                  Click Here 👆
+                  <p>Sectors</p>
                 </div>
+                <div
+                  style={{
+                    height: "50%",
+                    // backgroundColor: "#2E8B57",
+                    backgroundColor: "rgb(153 58 134)",
+                    borderEndStartRadius: "10px",
+                    borderEndEndRadius: "10px",
+                    color: "white",
+                  }}
+                >
+                  {/* <h1>{dashboardData.total_schools}</h1> */}
+                  <h1>{dashboardData.total_sectors}</h1>
+                </div>
+              </div>
+              <div
+                onClick={() => handleOpen("schools")}
+                style={{
+                  width: "255px",
+                  height: "180px",
+                  marginTop: "1.5%",
+                  backgroundColor: "white",
+                  borderRadius: "10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  boxShadow: "1px 1px 4px 3px lightGrey",
+                  cursor: "pointer", // Show hand cursor on hover
+                  position: "relative", // Needed for positioning the "Click here" text
+                }}
+              >
                 <div
                   style={{
                     height: "50%",
@@ -943,7 +1099,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of schools</p>
+                  <p>Anganwadis</p>
                 </div>
                 <div
                   style={{
@@ -954,7 +1110,8 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_schools}</h1>
+                  {/* <h1>{dashboardData.total_schools}</h1> */}
+                  <h1>{dashboardData.total_anganwadis}</h1>
                 </div>
               </div>
               <div
@@ -972,7 +1129,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -989,7 +1146,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -1000,7 +1157,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of students</p>
+                  <p>Registered Students</p>
                 </div>
                 <div
                   style={{
@@ -1011,7 +1168,9 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_students}</h1>
+                  <h1>{dashboardData.registered_students}</h1>
+                  {/* <h1>{dashboardData.total_students}</h1> */}
+                  {/* <h1>12855</h1> */}
                 </div>
               </div>
               <div
@@ -1029,7 +1188,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1046,7 +1205,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -1057,7 +1216,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of girls</p>
+                  <p>Registered Girls</p>
                 </div>
                 <div
                   style={{
@@ -1068,7 +1227,9 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_girl_students}</h1>
+                  <h1>{dashboardData.registered_girls}</h1>
+                  {/* <h1>{dashboardData.total_girl_students}</h1> */}
+                  {/* <h1>6418</h1> */}
                 </div>
               </div>
               <div
@@ -1086,7 +1247,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1103,7 +1264,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -1114,7 +1275,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of boys</p>
+                  <p>Registered Boys</p>
                 </div>
                 <div
                   style={{
@@ -1125,11 +1286,13 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_boy_students}</h1>
+                  <h1>{dashboardData.registered_boys}</h1>
+                  {/* <h1>{dashboardData.total_boy_students}</h1> */}
+                  {/* <h1>6437</h1> */}
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("clusters")}
+                // onClick={() => handleOpen("clusters")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1143,7 +1306,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1160,7 +1323,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -1171,7 +1334,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of activated student</p>
+                  <p>Activated Students</p>
                 </div>
                 <div
                   style={{
@@ -1182,11 +1345,13 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData.activated_students}</h1>
+                  {/* <h1>{dashboardData.total_activated_students}</h1> */}
+                  {/* <h1>11631</h1> */}
                 </div>
               </div>
               <div
-                onClick={() => handleOpen("clusters")}
+                // onClick={() => handleOpen("clusters")}
                 style={{
                   width: "255px",
                   height: "180px",
@@ -1200,7 +1365,7 @@ const Dashboard = () => {
                   position: "relative", // Needed for positioning the "Click here" text
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     top: "0px", // Adjust to position the text at the top
@@ -1217,7 +1382,7 @@ const Dashboard = () => {
                   }}
                 >
                   Click Here 👆
-                </div>
+                </div> */}
                 <div
                   style={{
                     height: "50%",
@@ -1228,7 +1393,7 @@ const Dashboard = () => {
                     fontWeight: "600",
                   }}
                 >
-                  <p>Total number of active student</p>
+                  <p>Total Active Students</p>
                 </div>
                 <div
                   style={{
@@ -1239,7 +1404,9 @@ const Dashboard = () => {
                     color: "white",
                   }}
                 >
-                  <h1>{dashboardData.total_clusters}</h1>
+                  <h1>{dashboardData.active_students}</h1>
+                  {/* <h1>{dashboardData.total_active_students}</h1> */}
+                  {/* <h1>9838</h1> */}
                 </div>
               </div>
 
@@ -2571,7 +2738,7 @@ const Dashboard = () => {
               </div>
             </div>
            </div>  */}
-          <DynamicModal
+          {/* <DynamicModal   //? Commented for now since don't have to show
             open={open}
             handleClose={handleClose}
             modalTitle={modalTitle}
@@ -2582,7 +2749,7 @@ const Dashboard = () => {
             xlData={xlData}
             fileName={fileName}
             loading={modalLoader}
-          />
+          /> */}
         </div>
       ) : dashboardData &&
         Object.keys(dashboardData).length === 0 &&
@@ -2607,6 +2774,127 @@ const Dashboard = () => {
           />
         </div>
       ) : null}
+      {loading ? null : (
+        <>
+          <div
+            style={{
+              boxShadow: "2px 1px 5px grey",
+              padding: "3%",
+              width: "93%",
+              height: "99%",
+              marginLeft: "4%",
+              borderBottom: "2px solid black`",
+            }}
+          >
+            <h1
+              style={{
+                marginTop: "2%",
+                color: "#333", // Dark grey color for the text
+                fontFamily: "Congenial SemiBold", // Font family for a clean look
+                fontWeight: "700", // Bolder font weight for emphasis
+                fontSize: "1.8rem", // Larger font size for prominence
+                textAlign: "center", // Center-align the text
+                padding: "10px 0", // Add some padding for spacing
+                borderBottom: "2px solid #000000", // Add a bottom border for separation
+                letterSpacing: "0.5px", // Slight letter spacing for readability
+                textTransform: "capitalize", // Capitalize each word
+              }}
+            >
+              Monthly Unique Users
+            </h1>
+
+            <h2
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                // marginRight: "2%",
+                color: "red",
+                fontFamily: "Congenial SemiBold",
+                marginTop: "2%",
+              }}
+            >
+              <i>
+                <u>
+                  {" "}
+                  Data Updated as on -{" "}
+                  {uniqueUsers &&
+                    uniqueUsers.length > 0 &&
+                    uniqueUsers[0].lastUpdated &&
+                    new Date(uniqueUsers[0].lastUpdated).toLocaleDateString(
+                      "en-GB",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )}{" "}
+                </u>
+              </i>
+            </h2>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                width: "100%",
+              }}
+            >
+              <FormControl
+                sx={{ m: 1 }}
+                style={{
+                  width: "150px",
+                  marginRight: "40px",
+                  marginTop: "30px",
+                }}
+              >
+                <InputLabel id="usertype-label">Year</InputLabel>
+                <Select
+                  labelId="usertype-label"
+                  id="usertype-select"
+                  value={selectedYear}
+                  onChange={handleYearChange}
+                  label="Year"
+                >
+                  {years.map((item, index) => (
+                    <MenuItem key={index} value={item}>
+                      {item}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl
+                sx={{ m: 1 }}
+                style={{
+                  width: "180px",
+                  marginRight: "40px",
+                  marginTop: "30px",
+                }}
+              >
+                <InputLabel id="usertype-label">Usertype</InputLabel>
+                <Select
+                  labelId="usertype-label"
+                  id="usertype-select"
+                  value={smartphone}
+                  onChange={handleUserChange}
+                  label="Usertype"
+                >
+                  <MenuItem key={1} value={"overall"}>
+                    Overall
+                  </MenuItem>
+                  <MenuItem key={2} value={"smartPhone"}>
+                    Smartphone
+                  </MenuItem>
+                  <MenuItem key={3} value={"nonSmartPhone"}>
+                    Non-Smartphone
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            <div>
+              <BarGraph uniqueUsers={uniqueUsers} smartphone={smartphone} />
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

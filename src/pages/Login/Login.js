@@ -17,12 +17,23 @@ const Login = () => {
     try {
       const response = await getAuthenticateUser(userId, password);
       console.log("response--->", response?.data, response?.status);
-      const { usertype, approvalStatus } = response?.data;
+      const { usertype, approvalStatus, districtname, districtid } =
+        response?.data;
 
-      if (response?.status === 200) {
+      console.log("usertype----------->", usertype);
+
+      console.log("response--------->", response.status);
+
+      if (response.status === 200) {
+        console.log("success block");
         if (approvalStatus === "approved") {
           localStorage.setItem("login", true);
           localStorage.setItem("usertype", usertype);
+          localStorage.setItem(
+            "districtname",
+            districtname ? districtname : ""
+          );
+          localStorage.setItem("districtid", districtid ? districtid : "");
           Swal.fire({
             icon: "success",
             title: "Login Successful",
@@ -30,16 +41,17 @@ const Login = () => {
             timer: 1000,
           });
 
-          if (
-            usertype === "admin" ||
-            usertype === "mis" ||
-            usertype === "prakashak"
-          ) {
+          if (usertype === "admin" || usertype === "mis") {
             navigate("/home");
+          } else if (usertype === "prakashak" && !districtname) {
+            navigate("/prakashak/dashboard"); // Here I have modified the path for the prakashak to directly move to dashboard
+          } else if (usertype === "prakashak" && districtname) {
+            navigate("/prakashak/overall_details"); // Here I have modified the path for the prakashak to directly move to dashboard
           } else {
             navigate("/");
           }
         } else {
+          //If my approval status is coming requested when coming from the API
           Swal.fire({
             icon: "info",
             title: "Approval Required",
@@ -47,6 +59,8 @@ const Login = () => {
           });
         }
       } else {
+        console.log("failure block");
+
         Swal.fire({
           icon: "error",
           title: "Invalid ID or Password",
@@ -55,6 +69,7 @@ const Login = () => {
       }
     } catch (err) {
       console.log("err--->", err.response);
+      console.log("error block");
       Swal.fire({
         icon: "error",
         title: "Error",

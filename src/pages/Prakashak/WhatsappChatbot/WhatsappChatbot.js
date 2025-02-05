@@ -25,6 +25,7 @@ import Chart from "chart.js/auto";
 import Graph from "../../../ReusableComponents/Graphs";
 import moment from "moment";
 import DynamicModal from "../../../Components/DynamicModal";
+import PrakashakAPI from "../../../Environment/PrakashakAPI";
 const WhatsappChatbot = () => {
   const chartRef = useRef(null);
   //?---------------Month array---------------------------
@@ -50,7 +51,6 @@ const WhatsappChatbot = () => {
     { value: 2, label: "2" },
     { value: 3, label: "3" },
     { value: 4, label: "4" },
-    { value: 5, label: "5" },
   ];
 
   //?----------------Class Array-----------------------
@@ -61,6 +61,7 @@ const WhatsappChatbot = () => {
     { value: 4, label: "4" },
   ];
 
+  const fetchType = "static";
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 2 }, (_, index) => currentYear - index);
 
@@ -72,22 +73,34 @@ const WhatsappChatbot = () => {
   //&-------------Filter states---------------
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const [selectedMonth, setSelectedMonth] = useState("");
-  const [selectedWeek, setSelectedWeek] = useState("");
+  const [selectedYear2, setSelectedYear2] = useState(currentYear);
+  const [selectedMonth, setSelectedMonth] = useState(
+    currentMonthSelected.value
+  );
+  const [selectedMonth2, setSelectedMonth2] = useState(
+    currentMonthSelected.value
+  );
+  const [selectedWeek, setSelectedWeek] = useState(4);
   const [loading, setLoading] = useState(false);
   const [modalLoader, setModalLoader] = useState(false);
   const [show, setShow] = useState(false);
+  const [isFiltered, setIsFiltered] = useState(true);
 
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
     setSelectedMonth("");
     setSelectedWeek("");
   };
+  const handleYearChange2 = (e) => {
+    setSelectedYear2(parseInt(e.target.value));
+    setSelectedMonth2("");
+  };
 
   // const handleMonthChange = (e) => {
   //   setSelectedWeek("");
   //   setSelectedMonth(e.target.value);
   // };
+
   const handleMonthChange = (e) => {
     if (
       e.target.value > currentMonthSelected.value &&
@@ -95,8 +108,19 @@ const WhatsappChatbot = () => {
     ) {
       alert("You can't select a month greater than the current month !");
     } else {
-      setSelectedWeek("");
+      setSelectedWeek(1);
       setSelectedMonth(e.target.value ? e.target.value : "");
+    }
+  };
+  const handleMonthChange2 = (e) => {
+    if (
+      e.target.value > currentMonthSelected.value &&
+      selectedYear2 === currentYear
+    ) {
+      alert("You can't select a month greater than the current month !");
+    } else {
+      // setSelectedWeek(1);
+      setSelectedMonth2(e.target.value ? e.target.value : "");
     }
   };
 
@@ -107,72 +131,123 @@ const WhatsappChatbot = () => {
       setSelectedWeek(e.target.value);
     }
   };
+
   // const handleClassChange = (e) => {
   //   setSelectedClass(e.target.value);
   // };
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
+
+  console.log("data--->", data);
 
   useEffect(() => {
-    fetchData();
+    fetchDataMonthly();
+    fetchDataWeekly();
   }, []);
 
-  const fetchData = () => {
+  const fetchDataMonthly = () => {
     setLoading(true);
     const body = {
-      year: selectedYear,
-      month: selectedMonth,
-      week: selectedWeek,
+      year: parseInt(selectedYear2),
+      month: parseInt(selectedMonth2),
     };
+    console.log("body---------------->", body);
+    PrakashakAPI.post(`getWhatsAppMonthly/${fetchType}`, body)
+      .then((res) => {
+        if (res.status === 200) {
+          setData2(res.data);
+        } else {
+          console.log("status code-----", res.status);
+          // console.log("No matching data found");
+          setData2([]);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(`The Error is-----> ${err}`);
+        setLoading(false);
+      });
 
-    console.log("check---------->", selectedYear, selectedMonth, selectedWeek);
+    // const filteredData2 = dataJson2.filter((item) => {
+    //   return item.month === selectedMonth2;
+    // });
 
-    if (selectedYear) {
-      Api.post(`getChatbotReport`, body)
-        .then((response) => {
-          console.log("set=================>", response.data);
-          setData(response.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log("err=================>", err);
-          setLoading(false);
-        });
-    } else {
-      Api.post(`getChatbotReport`)
-        .then((response) => {
-          console.log("set=================>", response.data);
-          setData(response.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log("err=================>", err);
-          setLoading(false);
-        });
-    }
+    // if (selectedYear2) {
+    //   if (filteredData2.length > 0) {
+    //     setData2(filteredData2);
+    //   } else {
+    //     console.log("No matching data found");
+    //     setData2([]);
+    //   }
+    //   setIsFiltered(true);
+    // } else {
+    //   setData2(dataJson2);
+    //   setIsFiltered(false);
+    // }
+    // setLoading(false);
   };
 
-  const filterButtonClick = () => {
-    // Assuming you have selectedMonth and selectedWeek as state variables or props
-    if (!selectedMonth) {
-      // Show error message
-      alert("Please select both a month .");
-      return; // Exit the function without proceeding further
-    }
+  const fetchDataWeekly = () => {
+    setLoading(true);
 
-    // If both are selected, proceed with loading and fetching data
+    const body = {
+      year: parseInt(selectedYear),
+      month: parseInt(selectedMonth),
+      week: parseInt(selectedWeek),
+    };
+
+    console.log("body---------------->", body);
+    PrakashakAPI.post(`getWhatsAppWeekly/${fetchType}`, body)
+      .then((res) => {
+        if (res?.status === 200) {
+          setData(res?.data);
+        } else {
+          console.log("status code-----", res.status);
+          // console.log("No matching data found");
+          setData([]);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(`The Error is-----> ${err}`);
+        setLoading(false);
+      });
+
+    // const filteredData = dataJson.filter((item) => {
+    //   return item.month === selectedMonth && item.week === selectedWeek;
+    // });
+
+    // if (selectedYear) {
+    //   if (filteredData.length > 0) {
+    //     setData(filteredData);
+    //   } else {
+    //     console.log("No matching data found");
+    //     setData([]);
+    //   }
+    //   setIsFiltered(true);
+    // } else {
+    //   setData(dataJson);
+    //   setIsFiltered(false);
+    // }
+    // setLoading(false);
+  };
+
+  const filterButtonClickMonthly = () => {
     setLoading(true);
     setShow(true);
-    fetchData();
+    fetchDataMonthly();
+  };
+
+  const filterButtonClickWeekly = () => {
+    setLoading(true);
+    setShow(true);
+    fetchDataWeekly();
   };
 
   const graphData = {
     labels: data.graphData?.classData,
     values1: data.graphData?.numberData,
-    //   labels: ["SMS", "Automated Calls", "IVRs"],
-    //   values1: [remoteInstData.total_sms_scheduled],
-    //   values2: [remoteInstData.total_calls_made],
-    //   values3: [remoteInstData.total_ivrs_calls_made],
   };
 
   const classData = data.graphData?.classData;
@@ -398,10 +473,286 @@ const WhatsappChatbot = () => {
       <div
         style={{
           display: "flex",
+          // marginTop: "4%",
+          marginLeft: "69%",
+          flexWrap: "wrap",
+        }}
+      >
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Year</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedYear2}
+            onChange={handleYearChange2}
+            label="Year"
+          >
+            {years.map((item, index) => (
+              <MenuItem key={index} value={item}>
+                {item}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1 }} size="small" style={{ width: "120px" }}>
+          <InputLabel id="usertype-label">Month</InputLabel>
+          <Select
+            labelId="usertype-label"
+            id="usertype-select"
+            value={selectedMonth2}
+            onChange={handleMonthChange2}
+            label="Month"
+          >
+            {/* <MenuItem value={null}>None</MenuItem> */}
+            {monthArr.map((item, index) => (
+              <MenuItem key={index} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Button
+          variant="contained"
+          sx={{
+            height: "40px",
+            width: "120px",
+            marginTop: "1.2%",
+          }}
+          onClick={filterButtonClickMonthly}
+        >
+          Filter
+        </Button>
+      </div>
+      <div
+        style={{
+          marginTop: "2%",
+          paddingBottom: "4%",
+          marginLeft: "4%",
+          alignContent: "flex-start",
+        }}
+      >
+        <div
+          style={{
+            marginTop: "2%",
+            boxShadow: "2px 1px 5px grey",
+            padding: "3%",
+            width: "95%",
+          }}
+        >
+          <div style={{ marginTop: "-2%" }}>
+            <h2
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginRight: "2%",
+                color: "red",
+                fontFamily: "Congenial SemiBold",
+              }}
+            >
+              <i>
+                <u>
+                  {" "}
+                  Data Updated as on -{" "}
+                  {data2[0]?.lastUpdated &&
+                    new Date(data2[0]?.lastUpdated).toLocaleDateString(
+                      "en-GB",
+                      {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }
+                    )}{" "}
+                </u>
+              </i>
+            </h2>
+          </div>
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "5%",
+              }}
+            >
+              <Box>
+                <CircularProgress />
+              </Box>
+            </div>
+          ) : !loading && data2?.length > 0 ? (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "center",
+                  width: "95%",
+                  marginLeft: "2.2%",
+                  marginBottom: "2%",
+                  marginTop: "2%",
+                }}
+              >
+                <div
+                  style={{
+                    marginTop: "2%",
+                    boxShadow: "2px 1px 5px grey",
+                    padding: "3%",
+                    width: "97%",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      alignContent: "center",
+                      justifyContent: "center",
+                      width: "97%",
+                      gap: "2%",
+                    }}
+                  >
+                    {data2?.map((data) => {
+                      return (
+                        <>
+                          {isFiltered ? (
+                            <div
+                              className="card"
+                              // onClick={() => handleOpen("Total No. of New Users")}
+                              style={{
+                                width: "255px",
+                                height: "180px",
+                                marginTop: "1.5%",
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                display: "flex",
+                                flexDirection: "column",
+                                boxShadow: "1px 1px 4px 3px lightGrey",
+                                cursor: "pointer", // Show hand cursor on hover
+                                position: "relative", // Needed for positioning the "Click here" text
+                              }}
+                            >
+                              <div
+                                style={{
+                                  height: "50%",
+                                  color: "#000080",
+                                  paddingTop: "20px",
+                                  fontSize: "1.2rem",
+                                  fontFamily: "Congenial SemiBold",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                <p>No of registered smartphone users</p>
+                              </div>
+                              <div
+                                style={{
+                                  height: "50%",
+                                  backgroundColor: "#000080",
+                                  borderEndStartRadius: "10px",
+                                  borderEndEndRadius: "10px",
+                                  color: "white",
+                                }}
+                              >
+                                <h1>{data?.smartphone_users}</h1>
+                              </div>
+                            </div>
+                          ) : null}
+                          <div
+                            className="card"
+                            // onClick={() => handleactiveOpen("Total No. of Active Users")}
+                            style={{
+                              width: "255px",
+                              height: "180px",
+                              marginTop: "1.5%",
+                              backgroundColor: "white",
+
+                              borderRadius: "10px",
+                              display: "flex",
+                              flexDirection: "column",
+                              boxShadow: "1px 1px 4px 3px lightGrey",
+                            }}
+                          >
+                            <div
+                              style={{
+                                height: "50%",
+                                color: "rgb(102 52 91)",
+                                paddingTop: "20px",
+                                fontSize: "1.2rem",
+                                fontFamily: "Congenial SemiBold",
+                                fontWeight: "600",
+                              }}
+                            >
+                              <p>No of registered smartphone users(males)</p>
+                            </div>
+                            <div
+                              style={{
+                                height: "50%",
+                                backgroundColor: "rgb(102 52 91)",
+                                borderEndStartRadius: "10px",
+                                borderEndEndRadius: "10px",
+                                color: "white",
+                              }}
+                            >
+                              <h1>{data?.smartphone_boys}</h1>
+                            </div>
+                          </div>
+                          {isFiltered ? (
+                            <div
+                              className="card"
+                              // onClick={() => handleactiveOpen("Total No. of Active Users")}
+                              style={{
+                                width: "255px",
+                                height: "180px",
+                                marginTop: "1.5%",
+                                backgroundColor: "white",
+
+                                borderRadius: "10px",
+                                display: "flex",
+                                flexDirection: "column",
+                                boxShadow: "1px 1px 4px 3px lightGrey",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  height: "50%",
+                                  color: "#708090",
+                                  paddingTop: "20px",
+                                  fontSize: "1.2rem",
+                                  fontFamily: "Congenial SemiBold",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                <p>No of registered smartphone users(female)</p>
+                              </div>
+                              <div
+                                style={{
+                                  height: "50%",
+                                  backgroundColor: "#708090",
+                                  borderEndStartRadius: "10px",
+                                  borderEndEndRadius: "10px",
+                                  color: "white",
+                                }}
+                              >
+                                <h1>{data?.smartphone__girls}</h1>
+                              </div>
+                            </div>
+                          ) : null}
+                        </>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : !loading && Object.keys(data2).length === 0 ? (
+            <img src={Nodata} />
+          ) : null}
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
           // justifyContent: "space-around",
           // width: "25%",
           marginTop: "4%",
-          marginLeft: "55%",
+          marginLeft: "60%",
           // width: "30%",
           flexWrap: "wrap",
         }}
@@ -432,7 +783,7 @@ const WhatsappChatbot = () => {
             onChange={handleMonthChange}
             label="Month"
           >
-            <MenuItem value={""}>None</MenuItem>
+            {/* <MenuItem value={""}>None</MenuItem> */}
             {monthArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -449,7 +800,7 @@ const WhatsappChatbot = () => {
             onChange={handleWeekChange}
             label="Month"
           >
-            <MenuItem value={null}>None</MenuItem>
+            {/* <MenuItem value={null}>None</MenuItem> */}
             {weekArr.map((item, index) => (
               <MenuItem key={index} value={item.value}>
                 {item.label}
@@ -466,7 +817,7 @@ const WhatsappChatbot = () => {
             marginTop: "1.2%",
             marginLeft: "9px",
           }}
-          onClick={filterButtonClick}
+          onClick={filterButtonClickWeekly}
         >
           Filter
         </Button>
@@ -481,15 +832,15 @@ const WhatsappChatbot = () => {
             <CircularProgress />
           </Box>
         </div>
-      ) : !loading && Object.keys(data).length > 0 ? (
+      ) : !loading && data?.length > 0 ? (
         <>
           <div
             style={{
               display: "flex",
               flexWrap: "wrap",
               justifyContent: "center",
-              width: "96%",
-              marginLeft: "3%",
+              width: "95%",
+              marginLeft: "2.2%",
               marginBottom: "2%",
               marginTop: "2%",
             }}
@@ -502,6 +853,33 @@ const WhatsappChatbot = () => {
                 width: "97%",
               }}
             >
+              <div style={{ marginTop: "-2%" }}>
+                <h2
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginRight: "2%",
+                    color: "red",
+                    fontFamily: "Congenial SemiBold",
+                  }}
+                >
+                  <i>
+                    <u>
+                      {" "}
+                      Data Updated as on -{" "}
+                      {data2[0]?.lastUpdated &&
+                        new Date(data2[0]?.lastUpdated).toLocaleDateString(
+                          "en-GB",
+                          {
+                            year: "numeric",
+                            month: "2-digit",
+                            day: "2-digit",
+                          }
+                        )}{" "}
+                    </u>
+                  </i>
+                </h2>
+              </div>
               <div
                 style={{
                   display: "flex",
@@ -512,321 +890,770 @@ const WhatsappChatbot = () => {
                   gap: "2%",
                 }}
               >
-                <div
-                  className="card"
-                  // onClick={() => handleUserOpen()}
-                  onClick={() => handleOpen("Total No. of Users")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                    cursor: "pointer", // Show hand cursor on hover
-                    position: "relative", // Needed for positioning the "Click here" text
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "0px", // Adjust to position the text at the top
-                      right: "0px", // Adjust to position the text at the right
-                      color: "#CD5C5C", // Text color
-                      backgroundColor: "white", // Background color to make it stand out
-                      padding: "5px 10px", // Padding to add some space inside the border
-                      fontSize: "0.7rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                      borderRadius: "5px", // Rounded corners for a smoother look
-                      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                      zIndex: "10", // Ensure it stays on top of other elements
-                    }}
-                  >
-                    Click Here 👆
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "#CD5C5C",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    <p> Total No. of Users</p>
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "#CD5C5C",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_users}</h1>
-                  </div>
-                </div>
-                {show ? (
-                  <div
-                    className="card"
-                    // onClick={handleOpen}
-                    onClick={() => handleOpen("Total No. of New Users")}
-                    style={{
-                      width: "255px",
-                      height: "180px",
-                      marginTop: "1.5%",
-                      backgroundColor: "white",
-                      borderRadius: "10px",
-                      display: "flex",
-                      flexDirection: "column",
-                      boxShadow: "1px 1px 4px 3px lightGrey",
-                      cursor: "pointer", // Show hand cursor on hover
-                      position: "relative", // Needed for positioning the "Click here" text
-                    }}
-                  >
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "0px", // Adjust to position the text at the top
-                        right: "0px", // Adjust to position the text at the right
-                        color: "rgb(214 148 16)", // Text color
-                        backgroundColor: "white", // Background color to make it stand out
-                        padding: "5px 10px", // Padding to add some space inside the border
-                        fontSize: "0.7rem",
-                        fontFamily: "Congenial SemiBold",
-                        fontWeight: "600",
-                        borderRadius: "5px", // Rounded corners for a smoother look
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Subtle shadow for a 3D effect
-                        zIndex: "10", // Ensure it stays on top of other elements
-                      }}
-                    >
-                      Click Here 👆
-                    </div>
-                    <div
-                      style={{
-                        height: "50%",
-                        color: "rgb(214 148 16)",
-                        paddingTop: "20px",
-                        fontSize: "1.2rem",
-                        fontFamily: "Congenial SemiBold",
-                        fontWeight: "600",
-                      }}
-                    >
-                      <p> Total No. of New Users</p>
-                    </div>
-                    <div
-                      style={{
-                        height: "50%",
-                        backgroundColor: "rgb(214 148 16)",
-                        borderEndStartRadius: "10px",
-                        borderEndEndRadius: "10px",
-                        color: "white",
-                      }}
-                    >
-                      <h1>{data.chatbot_new_users}</h1>
-                    </div>
-                  </div>
-                ) : null}
-                <div
-                  className="card"
-                  onClick={() => handleactiveOpen("Total No. of Active Users")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
+                {data?.map((data) => {
+                  return (
+                    <>
+                      {isFiltered ? (
+                        <div
+                          className="card"
+                          // onClick={() => handleOpen("Total No. of New Users")}
+                          style={{
+                            width: "255px",
+                            height: "180px",
+                            marginTop: "1.5%",
+                            backgroundColor: "white",
+                            borderRadius: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            boxShadow: "1px 1px 4px 3px lightGrey",
+                            cursor: "pointer", // Show hand cursor on hover
+                            position: "relative", // Needed for positioning the "Click here" text
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "50%",
+                              color: "#000080",
+                              paddingTop: "20px",
+                              fontSize: "1.2rem",
+                              fontFamily: "Congenial SemiBold",
+                              fontWeight: "600",
+                            }}
+                          >
+                            <p>No of new registered smartphone users</p>
+                          </div>
+                          <div
+                            style={{
+                              height: "50%",
+                              backgroundColor: "#000080",
+                              borderEndStartRadius: "10px",
+                              borderEndEndRadius: "10px",
+                              color: "white",
+                            }}
+                          >
+                            <h1>{data.new_smartphone_users}</h1>
+                          </div>
+                        </div>
+                      ) : null}
+                      <div
+                        className="card"
+                        // onClick={() => handleactiveOpen("Total No. of Active Users")}
+                        style={{
+                          width: "255px",
+                          height: "180px",
+                          marginTop: "1.5%",
+                          backgroundColor: "white",
 
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "rgb(102 52 91)",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    <p> Total No. of Active Users</p>
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "rgb(102 52 91)",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_active_users}</h1>
-                  </div>
-                </div>
-                {/* <div
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
-                  
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "#2E8B57",
-                      paddingTop: "20px",
-                      fontSize: "1.1rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Total No. of Parents completed at least one activity
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "#2E8B57",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_users_completed_one_act}</h1>
-                  </div>
-                </div> */}
-                {/* <div
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
-                  
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "rgb(153 58 134)",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Total No. of parents completed the full thread
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "rgb(153 58 134)",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_users_completed_full_thread}</h1>
-                  </div>
-                </div> */}
+                          borderRadius: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          boxShadow: "1px 1px 4px 3px lightGrey",
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "50%",
+                            color: "rgb(102 52 91)",
+                            paddingTop: "20px",
+                            fontSize: "1.2rem",
+                            fontFamily: "Congenial SemiBold",
+                            fontWeight: "600",
+                          }}
+                        >
+                          <p>No of Active Users</p>
+                        </div>
+                        <div
+                          style={{
+                            height: "50%",
+                            backgroundColor: "rgb(102 52 91)",
+                            borderEndStartRadius: "10px",
+                            borderEndEndRadius: "10px",
+                            color: "white",
+                          }}
+                        >
+                          <h1>{data.active_smartphone_users}</h1>
+                        </div>
+                      </div>
+                      {isFiltered ? (
+                        <div
+                          className="card"
+                          // onClick={() => handleactiveOpen("Total No. of Active Users")}
+                          style={{
+                            width: "255px",
+                            height: "180px",
+                            marginTop: "1.5%",
+                            backgroundColor: "white",
 
-                <div
-                  className="card"
-                  // onClick={() => handleOpen(" Total No. of Minutes Spent")}
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
+                            borderRadius: "10px",
+                            display: "flex",
+                            flexDirection: "column",
+                            boxShadow: "1px 1px 4px 3px lightGrey",
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "50%",
+                              color: "#708090",
+                              paddingTop: "20px",
+                              fontSize: "1.2rem",
+                              fontFamily: "Congenial SemiBold",
+                              fontWeight: "600",
+                            }}
+                          >
+                            <p>No of new Activated Users</p>
+                          </div>
+                          <div
+                            style={{
+                              height: "50%",
+                              backgroundColor: "#708090",
+                              borderEndStartRadius: "10px",
+                              borderEndEndRadius: "10px",
+                              color: "white",
+                            }}
+                          >
+                            <h1>{data.new_activated_smartphone_users}</h1>
+                          </div>
+                        </div>
+                      ) : null}
 
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "#6A5ACD",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Total No. of Minutes Spent
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "#6A5ACD",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.total_chatbot_mins}</h1>
-                  </div>
-                </div>
-                <div
-                  className="card"
-                  style={{
-                    width: "255px",
-                    height: "180px",
-                    marginTop: "1.5%",
-                    backgroundColor: "white",
+                      <div
+                      // style={{
+                      //   marginTop: "2%",
+                      //   boxShadow: "2px 1px 5px grey",
+                      //   padding: "5%",
+                      //   width: "97%",
+                      // }}
+                      >
+                        <h1
+                          style={{
+                            marginTop: "2%",
+                            color: "#333", // Dark grey color for the text
+                            fontFamily: "Congenial SemiBold", // Font family for a clean look
+                            fontWeight: "700", // Bolder font weight for emphasis
+                            fontSize: "1.8rem", // Larger font size for prominence
+                            textAlign: "center", // Center-align the text
+                            padding: "10px 0", // Add some padding for spacing
+                            borderBottom: "2px solid #000000", // Add a bottom border for separation
+                            letterSpacing: "0.5px", // Slight letter spacing for readability
+                            textTransform: "capitalize", // Capitalize each word
+                          }}
+                        >
+                          Time-Spent details
+                        </h1>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            alignContent: "center",
+                            justifyContent: "center",
+                            width: "97%",
+                            gap: "2%",
+                            // marginTop: "-2%",
+                          }}
+                        >
+                          <>
+                            <div
+                              style={{
+                                width: "255px",
+                                height: "240px", // Increased height to accommodate heading
+                                marginTop: "1.5%",
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                display: "flex",
+                                flexDirection: "column",
+                                boxShadow: "1px 1px 4px 3px lightGrey",
+                              }}
+                            >
+                              {/* Heading */}
+                              <div
+                                style={{
+                                  textAlign: "center",
+                                  padding: "10px",
+                                  color: "#00CED1",
+                                  marginTop: "10px",
+                                  fontSize: "1.3rem", // Heading font size
+                                  fontWeight: "bold",
+                                  fontFamily: "Congenial SemiBold",
+                                }}
+                              >
+                                Time Spent 0-1 mins
+                              </div>
 
-                    borderRadius: "10px",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: "1px 1px 4px 3px lightGrey",
-                  }}
-                >
-                  <div
-                    style={{
-                      height: "50%",
-                      color: "rgb(153 58 134)",
-                      paddingTop: "20px",
-                      fontSize: "1.2rem",
-                      fontFamily: "Congenial SemiBold",
-                      fontWeight: "600",
-                    }}
-                  >
-                    <p> Average Minutes Spent</p>
-                  </div>
-                  <div
-                    style={{
-                      height: "50%",
-                      backgroundColor: "rgb(153 58 134)",
-                      borderEndStartRadius: "10px",
-                      borderEndEndRadius: "10px",
-                      color: "white",
-                    }}
-                  >
-                    <h1>{data.chatbot_avg_mins}</h1>
-                  </div>
-                </div>
+                              {/* User and Avg. Time Spent Section */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                  padding: "10px",
+                                  height: "50%",
+                                  color: "#00CED1",
+                                  fontSize: "1rem", // Reduced font size
+                                  fontFamily: "Congenial SemiBold",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Users
+                                </div>
+                                {/* Line divider */}
+                                <div
+                                  style={{
+                                    height: "100%",
+                                    borderLeft: "1px solid #00CED1", // Line between elements
+                                    margin: "0 5px",
+                                  }}
+                                ></div>
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Avg. Time (in mins)
+                                </div>
+                              </div>
+
+                              {/* User count and Avg. Time Spent Values */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#00CED1",
+                                  borderEndStartRadius: "10px",
+                                  borderEndEndRadius: "10px",
+                                  color: "white",
+                                  padding: "10px",
+                                  height: "50%",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "1rem", // Reduced font size
+                                  }}
+                                >
+                                  <h2>{data.ts_0to1_users}</h2>
+                                </div>
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "0.7rem", // Reduced font size
+                                  }}
+                                >
+                                  <h1>{data.ts_0to1_avgTs}</h1>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div
+                              style={{
+                                width: "255px",
+                                height: "240px", // Increased height to accommodate heading
+                                marginTop: "1.5%",
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                display: "flex",
+                                flexDirection: "column",
+                                boxShadow: "1px 1px 4px 3px lightGrey",
+                              }}
+                            >
+                              {/* Heading */}
+                              <div
+                                style={{
+                                  textAlign: "center",
+                                  padding: "10px",
+                                  color: "#CD5C5C",
+                                  marginTop: "10px",
+                                  fontSize: "1.3rem", // Heading font size
+                                  fontWeight: "bold",
+                                  fontFamily: "Congenial SemiBold",
+                                }}
+                              >
+                                Time Spent 2-15 mins
+                              </div>
+
+                              {/* User and Avg. Time Spent Section */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                  padding: "10px",
+                                  height: "50%",
+                                  color: "#CD5C5C",
+                                  fontSize: "1rem", // Reduced font size
+                                  fontFamily: "Congenial SemiBold",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Users
+                                </div>
+                                {/* Line divider */}
+                                <div
+                                  style={{
+                                    height: "100%",
+                                    borderLeft: "1px solid #CD5C5C", // Line between elements
+                                    margin: "0 5px",
+                                  }}
+                                ></div>
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Avg. Time (in mins)
+                                </div>
+                              </div>
+
+                              {/* User count and Avg. Time Spent Values */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#CD5C5C",
+                                  borderEndStartRadius: "10px",
+                                  borderEndEndRadius: "10px",
+                                  color: "white",
+                                  padding: "10px",
+                                  height: "50%",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "1rem", // Reduced font size
+                                  }}
+                                >
+                                  <h2>{data.ts_2to15_users}</h2>
+                                </div>
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "0.7rem", // Reduced font size
+                                  }}
+                                >
+                                  <h1>{data.ts_2to15_avgTs}</h1>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div
+                              style={{
+                                width: "255px",
+                                height: "240px", // Increased height to accommodate heading
+                                marginTop: "1.5%",
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                display: "flex",
+                                flexDirection: "column",
+                                boxShadow: "1px 1px 4px 3px lightGrey",
+                              }}
+                            >
+                              {/* Heading */}
+                              <div
+                                style={{
+                                  textAlign: "center",
+                                  padding: "10px",
+                                  color: "#CD5C5C",
+                                  marginTop: "10px",
+                                  fontSize: "1.3rem", // Heading font size
+                                  fontWeight: "bold",
+                                  fontFamily: "Congenial SemiBold",
+                                }}
+                              >
+                                Time Spent 16-30 mins
+                              </div>
+
+                              {/* User and Avg. Time Spent Section */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                  padding: "10px",
+                                  height: "50%",
+                                  color: "#CD5C5C",
+                                  fontSize: "1rem", // Reduced font size
+                                  fontFamily: "Congenial SemiBold",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Users
+                                </div>
+                                {/* Line divider */}
+                                <div
+                                  style={{
+                                    height: "100%",
+                                    borderLeft: "1px solid #CD5C5C", // Line between elements
+                                    margin: "0 5px",
+                                  }}
+                                ></div>
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Avg. Time (in mins)
+                                </div>
+                              </div>
+
+                              {/* User count and Avg. Time Spent Values */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#CD5C5C",
+                                  borderEndStartRadius: "10px",
+                                  borderEndEndRadius: "10px",
+                                  color: "white",
+                                  padding: "10px",
+                                  height: "50%",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "1rem", // Reduced font size
+                                  }}
+                                >
+                                  <h2>{data.ts_16to30_users}</h2>
+                                </div>
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "0.7rem", // Reduced font size
+                                  }}
+                                >
+                                  <h1>{data.ts_16to30_avgTs}</h1>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div
+                              style={{
+                                width: "255px",
+                                height: "240px", // Increased height to accommodate heading
+                                marginTop: "1.5%",
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                display: "flex",
+                                flexDirection: "column",
+                                boxShadow: "1px 1px 4px 3px lightGrey",
+                              }}
+                            >
+                              {/* Heading */}
+                              <div
+                                style={{
+                                  textAlign: "center",
+                                  padding: "10px",
+                                  color: "#2E8B57",
+                                  marginTop: "10px",
+                                  fontSize: "1.3rem", // Heading font size
+                                  fontWeight: "bold",
+                                  fontFamily: "Congenial SemiBold",
+                                }}
+                              >
+                                Time Spent 31-45 mins
+                              </div>
+
+                              {/* User and Avg. Time Spent Section */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                  padding: "10px",
+                                  height: "50%",
+                                  color: "#2E8B57",
+                                  fontSize: "1rem", // Reduced font size
+                                  fontFamily: "Congenial SemiBold",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Users
+                                </div>
+                                {/* Line divider */}
+                                <div
+                                  style={{
+                                    height: "100%",
+                                    borderLeft: "1px solid #2E8B57", // Line between elements
+                                    margin: "0 5px",
+                                  }}
+                                ></div>
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Avg. Time (in mins)
+                                </div>
+                              </div>
+
+                              {/* User count and Avg. Time Spent Values */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#2E8B57",
+                                  borderEndStartRadius: "10px",
+                                  borderEndEndRadius: "10px",
+                                  color: "white",
+                                  padding: "10px",
+                                  height: "50%",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "1rem", // Reduced font size
+                                  }}
+                                >
+                                  <h2>{data.ts_31to45_users}</h2>
+                                </div>
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "0.7rem", // Reduced font size
+                                  }}
+                                >
+                                  <h1>{data.ts_31to45_avgTs}</h1>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div
+                              style={{
+                                width: "255px",
+                                height: "240px", // Increased height to accommodate heading
+                                marginTop: "1.5%",
+                                backgroundColor: "white",
+                                borderRadius: "10px",
+                                display: "flex",
+                                flexDirection: "column",
+                                boxShadow: "1px 1px 4px 3px lightGrey",
+                              }}
+                            >
+                              {/* Heading */}
+                              <div
+                                style={{
+                                  textAlign: "center",
+                                  padding: "10px",
+                                  color: "#000080",
+                                  marginTop: "10px",
+                                  fontSize: "1.3rem", // Heading font size
+                                  fontWeight: "bold",
+                                  fontFamily: "Congenial SemiBold",
+                                }}
+                              >
+                                Time Spent 45+ mins
+                              </div>
+
+                              {/* User and Avg. Time Spent Section */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                  padding: "10px",
+                                  height: "50%",
+                                  color: "#000080",
+                                  fontSize: "1rem", // Reduced font size
+                                  fontFamily: "Congenial SemiBold",
+                                  fontWeight: "600",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Users
+                                </div>
+                                {/* Line divider */}
+                                <div
+                                  style={{
+                                    height: "100%",
+                                    borderLeft: "1px solid #000080", // Line between elements
+                                    margin: "0 5px",
+                                  }}
+                                ></div>
+                                <div
+                                  style={{
+                                    width: "45%",
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Avg. Time (in mins)
+                                </div>
+                              </div>
+
+                              {/* User count and Avg. Time Spent Values */}
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "center",
+                                  textAlign: "center",
+                                  alignItems: "center",
+                                  backgroundColor: "#000080",
+                                  borderEndStartRadius: "10px",
+                                  borderEndEndRadius: "10px",
+                                  color: "white",
+                                  padding: "10px",
+                                  height: "50%",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "1rem", // Reduced font size
+                                  }}
+                                >
+                                  <h2>{data.ts_45plus_users}</h2>
+                                </div>
+                                <div
+                                  style={{
+                                    width: "50%",
+                                    fontSize: "0.7rem", // Reduced font size
+                                  }}
+                                >
+                                  <h1>{data.ts_45plus_avgTs}</h1>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        </div>
+                      </div>
+
+                      {/* <div
+                        className="card"
+                        // onClick={() => handleOpen(" Total No. of Minutes Spent")}
+                        style={{
+                          width: "255px",
+                          height: "180px",
+                          marginTop: "1.5%",
+                          backgroundColor: "white",
+
+                          borderRadius: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          boxShadow: "1px 1px 4px 3px lightGrey",
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "50%",
+                            color: "#6A5ACD",
+                            paddingTop: "30px",
+                            fontSize: "1.2rem",
+                            fontFamily: "Congenial SemiBold",
+                            fontWeight: "600",
+                          }}
+                        >
+                          Total mins of content consumed
+                        </div>
+                        <div
+                          style={{
+                            height: "50%",
+                            backgroundColor: "#6A5ACD",
+                            borderEndStartRadius: "10px",
+                            borderEndEndRadius: "10px",
+                            color: "white",
+                          }}
+                        >
+                          <h1>{data.total_chatbot_mins}</h1>
+                        </div>
+                      </div> */}
+                      {/* <div
+                        className="card"
+                        style={{
+                          width: "255px",
+                          height: "180px",
+                          marginTop: "1.5%",
+                          backgroundColor: "white",
+
+                          borderRadius: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          boxShadow: "1px 1px 4px 3px lightGrey",
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "50%",
+                            color: "rgb(153 58 134)",
+                            paddingTop: "20px",
+                            fontSize: "1.2rem",
+                            fontFamily: "Congenial SemiBold",
+                            fontWeight: "600",
+                          }}
+                        >
+                          <p> Average Minutes Spent</p>
+                        </div>
+                        <div
+                          style={{
+                            height: "50%",
+                            backgroundColor: "rgb(153 58 134)",
+                            borderEndStartRadius: "10px",
+                            borderEndEndRadius: "10px",
+                            color: "white",
+                          }}
+                        >
+                          <h1>{data.chatbot_avg_mins}</h1>
+                        </div>
+                      </div> */}
+                    </>
+                  );
+                })}
               </div>
             </div>
           </div>
-          <div
+          {/* <div
             style={{
               height: "500px",
               display: "flex",
@@ -836,8 +1663,8 @@ const WhatsappChatbot = () => {
             }}
           >
             <Graph data={graphData} />
-          </div>
-          <DynamicModal
+          </div> */}
+          {/* <DynamicModal  //? commented for now for emergency purpose
             open={open}
             loading={modalLoader}
             handleClose={handleClose}
@@ -847,7 +1674,7 @@ const WhatsappChatbot = () => {
             xlData={xlData}
             fileName={fileName}
           />
-          <DynamicModal
+          <DynamicModal //? commented for now for emergency purpose
             open={newuserModal}
             loading={modalLoader}
             handleClose={handlenewClose}
@@ -857,7 +1684,7 @@ const WhatsappChatbot = () => {
             xlData={xlDatas}
             fileName={fileNames}
           />
-          <DynamicModal
+          <DynamicModal //? commented for now for emergency purpose
             open={activeuserModal}
             loading={modalLoader}
             handleClose={handleactiveClose}
@@ -866,7 +1693,7 @@ const WhatsappChatbot = () => {
             tableData={activeusertableData}
             xlData={xlDatass}
             fileName={fileNamess}
-          />
+          /> */}
         </>
       ) : !loading && Object.keys(data).length === 0 ? (
         <img src={Nodata} />

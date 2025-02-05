@@ -23,6 +23,7 @@ function Home() {
   const location = useLocation();
   const userType = localStorage.getItem("usertype");
   console.log("userType", userType);
+  const districtname = localStorage.getItem("districtname");
 
   if (!userType) {
     // Handle the case when userType is not set
@@ -54,7 +55,9 @@ function Home() {
       type: "admin",
       name: "Prakashak",
       icon: <AccountBalanceIcon fontSize="large" />,
-      path: "/prakashak/dashboard",
+      path: !districtname
+        ? "/prakashak/dashboard"
+        : "/prakashak/overall_details",
     },
     {
       type: "mis",
@@ -75,10 +78,30 @@ function Home() {
       path: "/anganwadi/dashboard",
     },
     {
+      type: "passcode",
+      name: "Educators",
+      icon: <PeopleIcon fontSize="large" />,
+      path: "/fellow/dashboard",
+    },
+    {
+      type: "passcode",
+      name: "School",
+      icon: <SchoolIcon fontSize="large" />,
+      path: "/school/dashboard",
+    },
+    {
+      type: "passcode",
+      name: "Anganwadi",
+      icon: <GiteIcon fontSize="large" />,
+      path: "/anganwadi/dashboard",
+    },
+    {
       type: "prakashak",
       name: "Prakashak",
       icon: <AccountBalanceIcon fontSize="large" />,
-      path: "/prakashak/dashboard",
+      path: !districtname
+        ? "/prakashak/dashboard"
+        : "/prakashak/overall_details",
     },
   ];
 

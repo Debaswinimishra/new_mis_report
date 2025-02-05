@@ -21,6 +21,7 @@ const Leaderboard = () => {
   const [data, setData] = useState([]);
   const [year, setYear] = useState(new Date().getFullYear());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
+  console.log("Selected month:", month);
 
   const months = [
     "January",
@@ -40,24 +41,23 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const leaderboardData = await getLeaderboardReport();
-        console.log("leaderboardData", leaderboardData);
+        const leaderboardData = await getLeaderboardReport(year, month);
+        console.log("Leaderboard Data:", leaderboardData);
 
-        // Assuming leaderboardData contains an array of objects with a structure like:
-        // [{ year: "2024", month: "7", leaderboarddata: [...] }]
-        const formattedData = leaderboardData.map((item) => ({
-          ...item,
-          year: item.year.toString(),
-          month: item.month.toString(),
-        }));
-
-        setData(formattedData);
+        setData(
+          leaderboardData.map((item) => ({
+            ...item,
+            year: item.year.toString(),
+            month: item.month.toString(),
+          }))
+        );
       } catch (error) {
         console.error("Failed to fetch leaderboard data", error);
       }
     };
+
     fetchData();
-  }, [year, month]);
+  }, [year, month]); // Fetch data whenever year or month changes
 
   // Filter data based on selected year and month
   const filteredData = data.filter(
@@ -114,6 +114,7 @@ const Leaderboard = () => {
               labelId="month-label"
               value={month}
               onChange={(e) => setMonth(e.target.value)}
+              renderValue={(selected) => months[selected - 1]} // Display full month name
               sx={{
                 backgroundColor: "#e8f0fe",
                 borderRadius: "8px",
@@ -226,6 +227,14 @@ const Leaderboard = () => {
                       </Typography>
                       <Typography variant="body1" sx={{ mb: 1 }}>
                         <strong>Contact Number:</strong> {user.contactnumber}{" "}
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        <strong>Coin credited:</strong>{" "}
+                        {user.isCredited === true ? "Yes" : "No"}{" "}
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        <strong>Coin redeemed:</strong>{" "}
+                        {user.isDebited === true ? "Yes" : "No"}{" "}
                       </Typography>
                     </CardContent>
                   </Card>

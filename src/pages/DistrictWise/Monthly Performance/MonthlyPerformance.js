@@ -179,7 +179,7 @@ const MonthlyPerformance = () => {
       cluster: clusters,
       school_name: schools.school_name,
     };
-
+    setLoading(true);
     Api.post(`getMonthlyPerformance`, body2)
       .then((response) => {
         setData(response.data.data[0]);
@@ -199,8 +199,7 @@ const MonthlyPerformance = () => {
       year: selectedValue,
     };
 
-    setLoading(true); // Show loading before making the API call
-
+    setLoading(true);
     Api.post(`getMonthlyPerfTimespent`, body)
       .then((response) => {
         setGraphData(response?.data?.data);
@@ -297,15 +296,31 @@ const MonthlyPerformance = () => {
 
         // Define categories and their colors
         const categories = [
-          { key: "users_lt_30min", label: "< 30 mins/month", color: "#FFC107" },
+          {
+            key: "users_lt_30min",
+            label: "< 30 mins/month",
+            color: "#3F51B5",
+          },
           {
             key: "users_30min_to_1hr",
             label: "30min-1hr/month",
+            color: "#2196F3",
+          },
+          {
+            key: "users_1to2hr",
+            label: "1-2 hours/month",
+            color: "#4CAF50",
+          },
+          {
+            key: "users_2to3hr",
+            label: "2-3 hours/month",
             color: "#FF5722",
           },
-          { key: "users_1to2hr", label: "1-2 hours/month", color: "#4CAF50" },
-          { key: "users_2to3hr", label: "2-3 hours/month", color: "#2196F3" },
-          { key: "users_gt_3hr", label: "> 3 hours/month", color: "#3F51B5" },
+          {
+            key: "users_gt_3hr",
+            label: "> 3 hours/month",
+            color: "#FFC107",
+          },
         ];
 
         // Initialize an array of 12 elements (one for each month) and fill with 0s
@@ -339,7 +354,7 @@ const MonthlyPerformance = () => {
           data: monthlyData.map((month) => month[category.key]),
           backgroundColor: category.color,
           borderColor: "#000000",
-          borderWidth: 1,
+          // borderWidth: 1,
         }));
 
         // Create the stacked bar chart
@@ -623,7 +638,7 @@ const MonthlyPerformance = () => {
                   <div
                     style={{
                       height: "50%",
-                      color: "#2E8B57",
+                      color: "#00CED1",
                       paddingTop: "28px",
                       fontSize: "1.1rem",
                       fontFamily: "Congenial SemiBold",
@@ -636,7 +651,7 @@ const MonthlyPerformance = () => {
                   <div
                     style={{
                       height: "50%",
-                      backgroundColor: "#2E8B57",
+                      backgroundColor: "#00CED1",
                       borderEndStartRadius: "10px",
                       borderEndEndRadius: "10px",
                       color: "white",
@@ -664,7 +679,7 @@ const MonthlyPerformance = () => {
                   <div
                     style={{
                       height: "50%",
-                      color: "#2E8B57",
+                      color: "rgb(214 148 16)",
                       paddingTop: "28px",
                       fontSize: "1.1rem",
                       fontFamily: "Congenial SemiBold",
@@ -781,7 +796,7 @@ const MonthlyPerformance = () => {
                   <div
                     style={{
                       height: "50%",
-                      color: "#2E8B57",
+                      color: "#708090",
                       paddingTop: "28px",
                       fontSize: "1.1rem",
                       fontFamily: "Congenial SemiBold",
@@ -793,7 +808,7 @@ const MonthlyPerformance = () => {
                   <div
                     style={{
                       height: "50%",
-                      backgroundColor: "rgb(214 148 16)",
+                      backgroundColor: "#708090",
                       borderEndStartRadius: "10px",
                       borderEndEndRadius: "10px",
                       color: "white",
@@ -846,6 +861,7 @@ const MonthlyPerformance = () => {
             </div>
           )}
       </div>
+      {loading && <CircularProgress />}
     </div>
   );
 };

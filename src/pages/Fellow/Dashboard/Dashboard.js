@@ -142,8 +142,8 @@ const Dashboard = () => {
   );
 
   const xlData =
-    filteredData.length > 0 &&
-    filteredData.map((x) => {
+    filteredData?.length > 0 &&
+    filteredData?.map((x) => {
       const { ...exceptBoth } = x;
       return exceptBoth;
     });
@@ -400,14 +400,14 @@ const Dashboard = () => {
                       style={{
                         display: "grid",
                         gridTemplateColumns:
-                          "repeat(auto-fill, minmax(250px, 1fr))",
+                          "repeat(auto-fill, minmax(270px, 1fr))",
                         gap: "20px",
                         justifyContent: "center",
                         padding: "20px",
                         fontFamily: "fantasy",
-                        marginLeft: "33%",
                         height: "40vh",
                         fontSize: "19px",
+                        paddingBottom: "30%",
                       }}
                     >
                       <a
@@ -416,7 +416,29 @@ const Dashboard = () => {
                       >
                         <Card
                           name="Total training modules completed by teachers"
-                          number={filteredData[0]?.count}
+                          number={filteredData[0]?.data.count}
+                          Icon={PeopleIcon}
+                        />
+                      </a>
+                      <a
+                        style={{ textDecoration: "none" }}
+                        target="fellowdropout"
+                      >
+                        <Card
+                          name="Total Active Users"
+                          number={
+                            filteredData[0]?.data.activeUsersData.activeUsers
+                          }
+                          Icon={PeopleIcon}
+                        />
+                      </a>{" "}
+                      <a
+                        style={{ textDecoration: "none" }}
+                        target="fellowdropout"
+                      >
+                        <Card
+                          name="Average Time Spent"
+                          number={filteredData[0]?.data.activeUsersData.avgTs}
                           Icon={PeopleIcon}
                         />
                       </a>
